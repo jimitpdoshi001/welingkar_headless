@@ -1,0 +1,169 @@
+@use "./mixins" as *;
+
+// Flex Alignments
+.f {
+  display: flex;
+}
+.f1 {
+  flex: 1;
+}
+.d-center {
+  justify-content: center;
+  align-items: center;
+}
+
+// Grid Alignments
+.g {
+  display: grid;
+}
+.g2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.g3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.g4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.g5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+.g6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+.g7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+.g8 {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.gap1 {
+  gap: 1rem;
+}
+.gap2 {
+  gap: 2rem;
+}
+.gap3 {
+  gap: 3rem;
+}
+.gap4 {
+  gap: 4rem;
+}
+.gap5 {
+  gap: 5rem;
+}
+.gap6 {
+  gap: 6rem;
+}
+.gap7 {
+  gap: 7rem;
+}
+.gap8 {
+  gap: 8rem;
+}
+.gap9 {
+  gap: 9rem;
+}
+.gap10 {
+  gap: 10rem;
+}
+
+// Justify Content & Align Items
+.jc-c {
+  justify-content: center;
+}
+.jc-sb {
+  justify-content: space-between;
+}
+.jc-sa {
+  justify-content: space-around;
+}
+.jc-se {
+  justify-content: space-evenly;
+}
+.jc-fe {
+  justify-content: flex-end;
+}
+.jc-fs {
+  justify-content: flex-start;
+}
+
+// Align Items
+.ai-c {
+  align-items: center;
+}
+.ai-sb {
+  align-items: space-between;
+}
+.ai-sa {
+  align-items: space-around;
+}
+.ai-se {
+  align-items: space-evenly;
+}
+.ai-fe {
+  align-items: flex-end;
+}
+.ai-fs {
+  align-items: flex-start;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@include respond-to(mobile) {
+  .g2,
+  .g3,
+  .g4,
+  .g5,
+  .g6,
+  .g7,
+  .g8 {
+    grid-template-columns: 1fr;
+  }
+  .gm2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gm3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .gm4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .gm5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .gm6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .gm7 {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .gm8 {
+    grid-template-columns: repeat(8, 1fr);
+  }
+  .mgap1 {
+    gap: 1rem;
+  }
+  .mgap2 {
+    gap: 2rem;
+  }
+  .mgap3 {
+    gap: 3rem;
+  }
+  .mgap4 {
+    gap: 4rem;
+  }
+  .mgap5 {
+    gap: 5rem;
+  }
+  .mgap6 {
+    gap: 6rem;
+  }
+  .mgap7 {
+    gap: 7rem;
+  }
+}

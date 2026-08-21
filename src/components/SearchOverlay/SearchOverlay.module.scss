@@ -1,0 +1,182 @@
+@use "../../styles/base/var" as *;
+@use "../../styles/base/mixins" as *;
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.onBanner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+}
+
+.alwaysVisible {
+  top: 25%;
+  pointer-events: none;
+  z-index: 2000;
+
+  @include respond-to(mobile) {
+    top: -18%;
+  }
+
+  .panel,
+  .form,
+  .input,
+  .tags,
+  .tag,
+  .closeBtn,
+  .micIcon,
+  .rightArrowIcon,
+  .searchIcon {
+    pointer-events: auto;
+  }
+}
+
+.fullscreenSearchOverlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  background: rgba(4, 46, 123, 0.8);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  width: min(80rem, 100%);
+  pointer-events: auto;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 3rem;
+
+  @include respond-to(mobile) {
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    font-size: 1.6rem;
+    color: $black;
+    background-color: $white;
+    border-radius: 50vw;
+    padding: 1.5rem;
+
+    @include respond-to(mobile) {
+      font-size: 1.4rem;
+      padding: 1rem;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+  border-radius: 50vw;
+  background-color: $white;
+  width: min(100%, 66rem);
+  margin-inline: auto;
+
+  @include respond-to(mobile) {
+  }
+}
+
+.searchIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  opacity: 0.9;
+  color: black;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: $primary;
+  font-size: 2rem;
+  line-height: 1.3;
+
+  &::placeholder,
+  &:focus::placeholder {
+    color: $light-gray;
+    font-weight: 400;
+  }
+
+  &::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+}
+
+.closeBtn {
+  position: absolute;
+  top: -5rem;
+  right: 0;
+  width: 4rem;
+  height: 4rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.rightArrowIcon {
+  aspect-ratio: 1;
+  background-color: $primary;
+  display: grid;
+  place-items: center;
+  border-radius: 50vw;
+  width: 4rem;
+}
+
+@include respond-to(mobile) {
+  .overlay {
+    align-items: flex-start;
+    padding-top: 12rem;
+  }
+
+  .alwaysVisible {
+    align-items: flex-end;
+  }
+
+  .input {
+    font-size: 1.4rem;
+  }
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

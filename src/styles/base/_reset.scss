@@ -1,0 +1,28 @@
+@use "./var" as *;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-primary: #004ee0;
+  --color-primary-dark: #042e7b;
+  --color-primary-light: #3d7edb;
+  --color-gray: #787878;
+  --color-light-gray: #e9ebef;
+  --color-dark-gray: #151515;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

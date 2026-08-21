@@ -1,0 +1,61 @@
+@use "./var" as *;
+
+// Text Colors
+.text-black {
+  color: $black;
+}
+.text-white {
+  color: $white;
+}
+.text-primary {
+  color: $primary;
+}
+.text-primary-light {
+  color: $primary-light;
+}
+.text-primary-dark {
+  color: $primary-dark;
+}
+.text-gray {
+  color: $gray;
+}
+.text-dark-gray {
+  color: $dark-gray;
+}
+.text-light-gray {
+  color: $light-gray;
+}
+
+// Background Colors
+.bg-black {
+  background-color: $black;
+}
+.bg-white {
+  background-color: $white;
+}
+.bg-primary {
+  background-color: $primary;
+}
+.bg-primary-light {
+  background-color: $primary-light;
+}
+.bg-primary-dark {
+  background-color: $primary-dark;
+}
+.bg-gray {
+  background-color: $gray;
+}
+.bg-dark-gray {
+  background-color: $dark-gray;
+}
+.bg-light-gray {
+  background-color: $light-gray;
+}
+
+// Gradient Colors
+.bg-gradient-blue {
+  background: $primary-gradient;
+}
+.bg-gradient-white {
+  background: $white-gradient;
+}

@@ -1,0 +1,351 @@
+@use "../../styles/base/var" as *;
+@use "../../styles/base/mixins" as *;
+
+.footer {
+  position: relative;
+  color: $white;
+
+  .footer_container {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .footer_top {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 20rem;
+    padding: 12rem 0;
+
+    @include respond-to(mobile) {
+      display: block;
+      padding: 3rem 0;
+    }
+
+    .left_block {
+      .social_icons {
+        margin-top: 6rem;
+
+        @include respond-to(mobile) {
+          margin: 3rem 0rem;
+        }
+
+        ul {
+          display: flex;
+          gap: 1rem;
+
+          li {
+            width: 4rem;
+            height: 4rem;
+            background-color: $primary-extraLight;
+            border-radius: 1rem;
+
+            a {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    .right_block {
+      .subscription_block {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-bottom: 4rem;
+        border-bottom: 1px solid $white;
+        margin-bottom: 10rem;
+
+        @include respond-to(mobile) {
+          display: block;
+          margin-bottom: 4rem;
+          margin-top: 2rem;
+          border-bottom: unset;
+          padding-bottom: unset;
+        }
+
+        .text_block {
+          h5 {
+            font-size: 3rem;
+            color: $white;
+            font-weight: 400;
+
+            @include respond-to(mobile) {
+              font-size: 2.4rem;
+            }
+          }
+
+          p {
+            font-size: 2rem;
+
+            @include respond-to(mobile) {
+              font-size: 1.6rem;
+
+              br {
+                display: none;
+              }
+            }
+          }
+        }
+
+        .form_block {
+          @include respond-to(mobile) {
+            margin-top: 2rem;
+          }
+
+          form {
+            display: flex;
+
+            @include respond-to(mobile) {
+              position: relative;
+            }
+
+            input {
+              width: 30rem;
+              border-radius: 10rem;
+              border: unset;
+              padding: 1.5rem 8rem 1.5rem 3rem;
+              background: $primary-dark;
+              color: $primary-light;
+              position: relative;
+              right: -15%;
+              font-size: 1.8rem;
+
+              @include respond-to(mobile) {
+                width: 100%;
+                right: unset;
+              }
+
+              &:focus {
+                outline: none;
+              }
+
+              &::placeholder {
+                color: $primary-light;
+                font-size: 1.8rem;
+                font-weight: 500;
+                font-family: frontliner;
+              }
+            }
+
+            .subscribe_btn {
+              z-index: 1;
+
+              @include respond-to(mobile) {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+
+              span {
+                padding: 1.9rem 3rem;
+              }
+            }
+          }
+        }
+      }
+
+      .links_block {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4rem;
+
+        @include respond-to(mobile) {
+          display: block;
+          width: 100%;
+        }
+
+        .links_block_item {
+          @include respond-to(mobile) {
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+          }
+
+          ul {
+            li {
+              &.title {
+                @include respond-to(mobile) {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin: 0;
+                  padding: 1.8rem 0rem;
+                }
+
+                > a {
+                  font-size: 2rem;
+                  color: $white;
+                  font-weight: 500;
+                  padding-bottom: 3rem;
+                  border-bottom: 1px solid $white;
+                  display: inline-block;
+                  margin-bottom: 3rem;
+                  width: 100%;
+
+                  @include respond-to(mobile) {
+                    width: auto;
+                    flex: 1;
+                    padding: 0;
+                    margin: 0;
+                    border-bottom: 0;
+                    font-size: 1.8rem;
+                  }
+                }
+              }
+
+              > a {
+                color: $primary-extraLight;
+                font-size: 1.6rem;
+                font-weight: 400;
+                font-family: frontliner;
+                padding-bottom: 3rem;
+                display: inline-block;
+
+                @include respond-to(mobile) {
+                  padding-bottom: 1rem;
+                }
+              }
+            }
+
+            @include respond-to(mobile) {
+              .accordion_content {
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+
+                transition:
+                  max-height 0.35s ease,
+                  opacity 0.25s ease;
+              }
+
+              // Accordion content open
+              .accordion_content_open {
+                max-height: 500px;
+                opacity: 1;
+                padding-bottom: 1.5rem;
+              }
+
+              // Child links
+              .accordion_content li > a {
+                display: inline-block;
+                padding: 0.7rem 0;
+                font-size: 1.5rem;
+                color: $primary-light;
+              }
+
+              .accordion_button {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 4rem;
+                height: 4rem;
+                padding: 0;
+                border: 0;
+                background: transparent;
+                cursor: pointer;
+
+                span {
+                  position: absolute;
+                  width: 1.6rem;
+                  height: 2px;
+                  background: $white;
+                  transition: transform 0.3s ease;
+
+                  &:last-child {
+                    transform: rotate(90deg);
+                  }
+                }
+              }
+
+              .accordion_open {
+                .accordion_button {
+                  span:last-child {
+                    transform: rotate(0deg);
+                  }
+                }
+              }
+              
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer_bottom {
+    background: $primary;
+
+    .ft_container {
+      padding: 1.6rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @include respond-to(mobile) {
+        display: block;
+        text-align: center;
+      }
+
+      .left {
+        p {
+          @include respond-to(mobile) {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+          }
+        }
+      }
+
+      .right {
+        > ul {
+          display: flex;
+          gap: 2rem;
+
+          @include respond-to(mobile) {
+            align-items: center;
+            justify-content: center;
+          }
+
+          li {
+            a {
+              color: $white;
+              font-size: 1.2rem;
+              display: inline-block;
+              opacity: 0.6;
+              transition: all 0.3s ease;
+              position: relative;
+
+              &:hover {
+                opacity: 1;
+              }
+
+              &:after {
+                position: absolute;
+                content: "";
+                width: 1px;
+                height: 100%;
+                background: $white;
+                bottom: 0;
+                right: -10px;
+              }
+            }
+
+            &:last-child {
+              a {
+                &:after {
+                  display: none;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

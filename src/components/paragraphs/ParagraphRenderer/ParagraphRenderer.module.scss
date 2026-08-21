@@ -1,0 +1,29 @@
+@use "../../../styles/base/var" as *;
+
+.stack {
+  gap: 1rem;
+}
+
+.empty {
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px dashed $gray;
+  border-radius: 0.5rem;
+  line-height: 1.5;
+}
+
+.hint {
+  font-size: 0.9rem;
+  opacity: 0.75;
+
+  code {
+    font-size: 0.85em;
+  }
+}
+
+.fallback {
+  padding: 1rem;
+  border: 1px solid $gray;
+  border-radius: 0.4rem;
+  opacity: 0.8;
+}

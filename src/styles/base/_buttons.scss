@@ -1,0 +1,233 @@
+@use "./_var.scss" as *;
+@use "./_mixins.scss" as *;
+
+.btn {
+  display: inline-block;
+  background: unset;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    .text {
+      background-color: $primary-dark;
+    }
+    .arrow {
+      background-color: $primary-dark;
+      svg {
+        animation: arrowLoop 0.8s ease forwards;
+      }
+    }
+  }
+
+  &.noArrow {
+    .arrow {
+      display: none;
+    }
+  }
+
+  & + .btn {
+    margin-left: 3rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .text {
+    display: inline-block;
+    color: $white;
+    padding: 1.9rem 3rem;
+    border-radius: 50vw;
+    font-size: 2rem;
+    text-decoration: none;
+    font-weight: 500;
+    line-height: 1;
+    border: none;
+    cursor: pointer;
+    background-color: $primary;
+    transition: all 0.3s ease;
+
+    @include respond-to(mobile) {
+      font-size: 1.4rem;
+      padding: 1.2rem 1.6rem;
+    }
+  }
+  .arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50vw;
+    background-color: $primary;
+    width: 6.2rem;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    @include respond-to(mobile) {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    svg {
+      width: 1.9rem;
+      height: 1.9rem;
+      @include respond-to(mobile) {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+  }
+
+  &.secondary {
+    .text {
+      background-color: $white;
+      color: $primary;
+    }
+    .arrow {
+      background-color: $white;
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
+
+    &:hover {
+      .text {
+        color: $white;
+        background-color: $primary-dark;
+      }
+      .arrow {
+        background-color: $primary-dark;
+        svg {
+          path {
+            fill: $white;
+          }
+        }
+      }
+    }
+  }
+
+  &.primary-link {
+    .text {
+      background-color: unset;
+      color: $primary;
+      border-bottom: 0.2rem solid $primary;
+      border-radius: unset;
+      padding: unset;
+      font-weight: 400;
+      font-size: 2.4rem;
+    }
+    .arrow {
+      display: none;
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
+  }
+
+  &.secondary-link {
+    .text {
+      background-color: unset;
+      color: $white;
+      border-bottom: 0.2rem solid $white;
+      border-radius: unset;
+      padding: unset;
+      font-weight: 400;
+      font-size: 2.4rem;
+    }
+    .arrow {
+      display: none;
+      svg {
+        path {
+          fill: $primary;
+        }
+      }
+    }
+  }
+
+  &.primary-outline {
+    .text {
+      background-color: transparent;
+      color: $primary;
+      border: 0.2rem solid $primary;
+    }
+    .arrow {
+      background-color: transparent;
+      border: 0.2rem solid $primary;
+      svg path {
+        fill: $primary;
+      }
+    }
+
+    &:hover {
+      .text {
+        color: $white;
+        background-color: $primary-dark;
+        border-color: $primary-dark;
+      }
+      .arrow {
+        background-color: $primary-dark;
+        border-color: $primary-dark;
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+  }
+
+  &.secondary-outline {
+    .text {
+      background-color: transparent;
+      color: $white;
+      border: 0.2rem solid $white;
+    }
+    .arrow {
+      background-color: transparent;
+      border: 0.2rem solid $white;
+      svg path {
+        fill: $white;
+      }
+    }
+
+    &:hover {
+      .text {
+        color: $white;
+        background-color: $primary-dark;
+        border-color: $primary-dark;
+      }
+      .arrow {
+        background-color: $primary-dark;
+        border-color: $primary-dark;
+        svg path {
+          fill: $white;
+        }
+      }
+    }
+  }
+}
+
+@keyframes arrowLoop {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translate(150%, -150%);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translate(-150%, 150%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}

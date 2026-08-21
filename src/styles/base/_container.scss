@@ -1,0 +1,37 @@
+@use "./mixins" as *;
+
+.container {
+  max-width: 90%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-w80 {
+  max-width: 80%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-w70 {
+  max-width: 70%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-w60 {
+  max-width: 60%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-w50 {
+  max-width: 50%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-w960 {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
