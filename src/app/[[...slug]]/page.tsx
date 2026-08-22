@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DrupalDynamicPage({ params }: PageProps) {
   const { slug } = await params;
-  const [page, pages] = await Promise.all([getPageByPath(slug), getAllPages()]);
+  const [page] = await Promise.all([getPageByPath(slug), getAllPages()]);
 
   if (!page) {
     notFound();
@@ -41,13 +41,13 @@ export default async function DrupalDynamicPage({ params }: PageProps) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        {/* <Header /> */}
         <main>
           <DrupalPageView page={page} />
         </main>
         <SearchOverlay />
-        <ScrollToTop/>
-        <Footer />
+        <ScrollToTop />
+        {/* <Footer /> */}
       </div>
     </SearchProvider>
   );

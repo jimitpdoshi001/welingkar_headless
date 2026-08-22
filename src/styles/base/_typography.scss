@@ -82,45 +82,29 @@ h4 {
 }
 .h5,
 h5 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 .h6,
 h6 {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   line-height: 1.3;
 }
 
-// Paragraph Styles
 .p,
+a,
+li,
+ul,
+ol,
 p {
   font-size: 1.6rem;
   line-height: 1.5;
   font-weight: 300;
 }
-// .small {
-//   font-size: 1.6rem;
-// }
-// .date {
-//   font-size: 1.4rem;
-// }
 
-// .description,
-// .large {
-//   font-size: 2.2rem;
-//   font-weight: 400;
-//   text-wrap: pretty;
+.small {
+  font-size: 1.4rem;
+}
 
-//   @include respond-to(mobile) {
-//     font-size: 1.6rem;
-//   }
-// }
-
-// .big-title {
-//   font-size: 8rem;
-//   line-height: 1;
-//   font-weight: 500;
-
-//   @include respond-to(mobile) {
-//     font-size: 4.4rem;
-//   }
-// }
+.date {
+  font-size: 1.4rem;
+}

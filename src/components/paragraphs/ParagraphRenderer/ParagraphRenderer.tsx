@@ -1,6 +1,7 @@
 import { allNodeParagraphFields } from "@/lib/drupal/paragraph-registry";
 import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import clsx from "clsx";
+import { ImageBoxGroup } from "../ImageBox/ImageBoxGroup";
 import { paragraphComponents } from "../paragraph-components";
 import styles from "./ParagraphRenderer.module.scss";
 
@@ -30,7 +31,33 @@ export function ParagraphRenderer({ page }: ParagraphRendererProps) {
 
 function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.ReactNode[] {
   const renderChildren = (children: ParagraphItem[]) => renderParagraphItems(children, page);
-  return items.map((item) => renderParagraphItem(item, page, renderChildren));
+  const nodes: React.ReactNode[] = [];
+  let index = 0;
+
+  while (index < items.length) {
+    const item = items[index];
+
+    if (item.resource.type === "paragraph--image_box") {
+      const group: ParagraphItem[] = [];
+
+      while (index < items.length && items[index].resource.type === "paragraph--image_box") {
+        group.push(items[index]);
+        index += 1;
+      }
+
+      nodes.push(
+        <ImageBoxGroup key={group[0].resource.id}>
+          {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
+        </ImageBoxGroup>,
+      );
+      continue;
+    }
+
+    nodes.push(renderParagraphItem(item, page, renderChildren));
+    index += 1;
+  }
+
+  return nodes;
 }
 
 function renderParagraphItem(item: ParagraphItem, page: DrupalPage, renderChildren: (children: ParagraphItem[]) => React.ReactNode[]): React.ReactNode {

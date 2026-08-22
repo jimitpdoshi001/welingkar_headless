@@ -1,0 +1,49 @@
+.footerSubscribeForm {
+  display: flex;
+  place-items: center;
+  input {
+    background-color: var(--color-white);
+    padding: 2rem 3rem;
+    border-radius: 50vw;
+    width: clamp(30rem, 100%, 60rem);
+    height: auto;
+    font-size: 1.8rem;
+  }
+  button {
+    padding: 2rem 3rem;
+    border-radius: 50vw;
+    width: fit-content;
+    height: auto;
+    margin-left: -4rem;
+  }
+}
+
+.footerCopyright {
+  color: var(--color-gray);
+  border-top: 1px solid var(--color-light-gray);
+  padding-block: 2rem;
+}
+
+.footerLinksRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6rem;
+  margin-bottom: 4rem;
+
+  h6 {
+    margin-bottom: 1.2rem;
+  }
+
+  .footerAbout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .footerLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

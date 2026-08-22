@@ -12,16 +12,13 @@ import type { NodeBundle } from "./config";
  *
  *   allpage.field_components children may be:
  *     - paragraph--section
- *         ├─ field_section_label → herobanner | heading_and_description | home_products_tab | …
- *         │     ├─ field_button
- *         │     └─ field_background_media → responsive_image
- *         └─ field_background_media → responsive_image
- *     - paragraph--imagebox → field_background_media (responsive_image), field_link
- *     - paragraph--herobanner (top-level) → field_background_media, field_button
- *     - paragraph--heading_and_description → field_button
+ *         ├─ field_section_content → header_and_description | image_box | button | divider | …
+ *         │     ├─ field_cta
+ *         │     └─ field_responsive_media → responsive_media
+ *         └─ field_responsive_media → responsive_media
+ *     - paragraph--image_box → field_responsive_media, field_link
+ *     - paragraph--header_and_description → field_cta
  *     - paragraph--divider / button
- *
- *   Consecutive imagebox / herobanner siblings are grouped by ParagraphRenderer.
  *
  *   Site home = allpage whose title is "homepage" (served at `/`).
  */
@@ -88,10 +85,11 @@ export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] 
 
 /**
  * Parent types that pull responsive media from a nested
- * `field_background_media` → paragraph--responsive_image child.
+ * `field_responsive_media` → paragraph--responsive_media child.
  */
 export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = [
   "paragraph--section",
+  "paragraph--image_box",
 ] as const;
 
 /** Union of all node paragraph fields (for empty-state detection in the renderer). */

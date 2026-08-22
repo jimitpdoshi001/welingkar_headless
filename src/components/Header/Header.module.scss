@@ -1,0 +1,112 @@
+@use "@/styles/base/_mixins.scss" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  height: 0;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .leftContent {
+    display: flex;
+    align-items: center;
+    gap: 8rem;
+  }
+
+  .rightContent {
+    .searchButton {
+      display: grid;
+      place-content: center;
+      aspect-ratio: 1/1;
+      width: 5rem;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      @include glass-background;
+    }
+  }
+
+  .navItems {
+    display: flex;
+    gap: 1rem;
+    border-radius: 50vw;
+    padding: 0.5rem;
+    @include glass-background;
+
+    .navItem {
+      color: var(--color-white);
+      font-size: 1.6rem;
+      padding: 0.8rem 2rem;
+      border-radius: 50vw;
+      transition: all 0.3s ease;
+
+      &:hover,
+      &.active {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+    }
+  }
+}
+
+.headerRow1 {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+
+  .headerRow1Right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .navItem {
+      color: var(--color-white);
+      height: fit-content;
+      font-size: 1.4rem;
+      padding: 0.3rem 1.2rem;
+      border-radius: 50vw;
+      transition: all 0.3s ease;
+      &:hover,
+      &.active {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+    }
+  }
+
+  .headerRow1Left {
+    .modeButton {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      @include glass-background;
+      border-radius: 50vw;
+
+      span {
+        display: grid;
+        place-content: center;
+        aspect-ratio: 1/1;
+        width: 2rem;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+
+        &:hover,
+        &.active,
+        &:first-child {
+          background-color: var(--color-primary);
+        }
+      }
+    }
+  }
+}

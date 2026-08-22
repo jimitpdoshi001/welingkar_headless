@@ -94,15 +94,15 @@ export type ImageBoxAttributes = {
     uri: string;
     title: string;
   } | null;
-  /** Nested paragraph--responsive_image (same pattern as herobanner). */
-  field_background_media?: {
+  /** Nested paragraph--responsive_media (same pattern as section). */
+  field_responsive_media?: {
     type: string;
     id: string;
   } | null;
   [key: string]: unknown;
 };
 
-export type ImageBoxResource = JsonApiResource<"paragraph--imagebox", ImageBoxAttributes>;
+export type ImageBoxResource = JsonApiResource<"paragraph--image_box", ImageBoxAttributes>;
 
 export type IconBoxAttributes = {
   parent_id?: string | null;

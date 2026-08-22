@@ -2,6 +2,7 @@ import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import type { ReactNode } from "react";
 import { Button } from "./Button/Button";
 import { Divider } from "./Divider/Divider";
+import { ImageBox } from "./ImageBox/ImageBox";
 import { Section } from "./Section/Section";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
 import { ResponsiveMedia } from "./ResponsiveMedia/ResponsiveMedia";
@@ -37,6 +38,20 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
         key={item.resource.id}
         media={media}
       />
+    );
+  },
+
+  "paragraph--image_box": (item, { page, renderChildren }) => {
+    const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
+
+    return (
+      <ImageBox
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof ImageBox>[0]["paragraph"]}
+        image={page.paragraphImages[item.resource.id] ?? null}
+        responsiveMedia={page.paragraphResponsiveMedia[item.resource.id] ?? null}>
+        {renderChildren(contentChildren)}
+      </ImageBox>
     );
   },
 

@@ -1,4 +1,3 @@
-@use "./var" as *;
 * {
   padding: 0;
   margin: 0;
@@ -9,9 +8,9 @@ html {
   font-size: 10px;
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-primary: #3A9030;
+  --color-primary: #3a9030;
   --color-secondary: #493460;
-  --color-light: #FDF8F0;
+  --color-light: #fdf8f0;
   --color-gray: #787878;
   --color-light-gray: #e9ebef;
   --color-dark-gray: #151515;
