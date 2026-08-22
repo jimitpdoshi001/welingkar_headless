@@ -1,61 +1,42 @@
-@use "./var" as *;
-
 // Text Colors
 .text-black {
-  color: $black;
+  color: var(--color-black);
 }
 .text-white {
-  color: $white;
+  color: var(--color-white);
 }
 .text-primary {
-  color: $primary;
+  color: var(--color-primary);
 }
-.text-primary-light {
-  color: $primary-light;
+.text-secondary {
+  color: var(--color-secondary);
 }
-.text-primary-dark {
-  color: $primary-dark;
-}
-.text-gray {
-  color: $gray;
-}
-.text-dark-gray {
-  color: $dark-gray;
-}
-.text-light-gray {
-  color: $light-gray;
+.text-light {
+  color: var(--color-light);
 }
 
 // Background Colors
 .bg-black {
-  background-color: $black;
+  background-color: var(--color-black);
 }
 .bg-white {
-  background-color: $white;
+  background-color: var(--color-white);
 }
 .bg-primary {
-  background-color: $primary;
+  background-color: var(--color-primary);
 }
-.bg-primary-light {
-  background-color: $primary-light;
+.bg-secondary {
+  background-color: var(--color-secondary);
 }
-.bg-primary-dark {
-  background-color: $primary-dark;
+.bg-light {
+  background-color: var(--color-light);
 }
 .bg-gray {
-  background-color: $gray;
+  background-color: var(--color-gray);
 }
 .bg-dark-gray {
-  background-color: $dark-gray;
+  background-color: var(--color-dark-gray);
 }
 .bg-light-gray {
-  background-color: $light-gray;
-}
-
-// Gradient Colors
-.bg-gradient-blue {
-  background: $primary-gradient;
-}
-.bg-gradient-white {
-  background: $white-gradient;
+  background-color: var(--color-light-gray);
 }

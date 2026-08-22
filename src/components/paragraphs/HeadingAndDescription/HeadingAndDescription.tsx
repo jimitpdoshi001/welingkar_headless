@@ -3,17 +3,17 @@ import styles from "./HeadingAndDescription.module.scss";
 import clsx from "clsx";
 
 type HeadingAndDescriptionProps = {
-  paragraph: JsonApiResource<"paragraph--heading_and_description", HeadingAndDescriptionAttributes>;
+  paragraph: JsonApiResource<"paragraph--header_and_description", HeadingAndDescriptionAttributes>;
   children?: React.ReactNode;
 };
 
 export function HeadingAndDescription({ paragraph, children }: HeadingAndDescriptionProps) {
-  const pillText = paragraph.attributes.field_pill_text || null;
   const heading = paragraph.attributes.field_header || null;
   const description = paragraph.attributes.field_description?.processed || null;
 
   const textColorClasses = {
     primary: "text-primary",
+    secondary: "text-secondary",
     white: "text-white",
     black: "text-black",
   } as const;
@@ -39,7 +39,6 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
   return (
     <div className={clsx(colorClass, textAlignClass, textVerticalAlignClass, textVerticalAlignClass ? "g h-100" : "", textAlignClass === "text-center" ? "mx-auto max-w-50" : "")}>
       <div>
-        {pillText ? <span className={clsx("pill", colorClass === "text-black" ? "darkBorder" : "", "mb-3")}>{pillText}</span> : null}
         {heading ? <h2 className="h1 mb-2">{heading}</h2> : null}
         {description ? (
           <div

@@ -250,14 +250,3 @@
 .absolute {
   position: absolute;
 }
-
-.tata-curve {
-  -webkit-mask-image: url("../../assets/svg/Curv.svg");
-  mask-image: url("../../assets/svg/Curv.svg");
-  mask-size: 100% auto;
-  mask-repeat: no-repeat;
-  mask-position: top;
-  margin-top: -13rem;
-  position: relative;
-  z-index: 10;
-}

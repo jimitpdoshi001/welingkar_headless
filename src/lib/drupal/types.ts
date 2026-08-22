@@ -142,7 +142,7 @@ export type HeadingAndDescriptionAttributes = {
   [key: string]: unknown;
 };
 
-export type HeadingAndDescriptionResource = JsonApiResource<"paragraph--heading_and_description", HeadingAndDescriptionAttributes>;
+export type HeadingAndDescriptionResource = JsonApiResource<"paragraph--header_and_description", HeadingAndDescriptionAttributes>;
 
 export type SectionAttributes = {
   parent_id?: string | null;
@@ -153,18 +153,14 @@ export type SectionAttributes = {
   field_padding_x?: number | null;
   field_padding_y?: number | null;
   field_width?: string | number | null;
-  field_background_media?: {
+  field_responsive_media?: {
     type: string;
     id: string;
   } | null;
-  field_background_media_image?: {
+  field_section_content?: Array<{
     type: string;
     id: string;
-  } | null;
-  field_background_media_image_field_media_image?: {
-    type: string;
-    id: string;
-  } | null;
+  }> | null;
   [key: string]: unknown;
 };
 
@@ -177,7 +173,7 @@ export type ResponsiveMediaAttributes = {
   [key: string]: unknown;
 };
 
-export type ResponsiveMediaResource = JsonApiResource<"paragraph--responsive_image", ResponsiveMediaAttributes>;
+export type ResponsiveMediaResource = JsonApiResource<"paragraph--responsive_media", ResponsiveMediaAttributes>;
 
 export type DrupalImage = {
   url: string;

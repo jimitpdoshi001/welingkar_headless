@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { SearchPrimary, Mic, RightArrowWhite, CloseIconWhite } from "@/assets/svg/Icons";
+import { SearchPrimary} from "@/assets/svg/Icons";
 import { useSearch } from "./search-context";
 import styles from "./SearchOverlay.module.scss";
 import { useIsMobile } from "@/util/useMediaQuery";
@@ -22,7 +22,6 @@ function SearchForm({ inputId, inputRef, query, setQuery, onSubmit, showClose, o
             className={styles.closeBtn}
             aria-label="Close search"
             onClick={onClose}>
-            <CloseIconWhite />
           </button>
         ) : null}
         <div className={styles.tags}>
@@ -54,12 +53,6 @@ function SearchForm({ inputId, inputRef, query, setQuery, onSubmit, showClose, o
             placeholder="What are you looking for today?"
             autoComplete="off"
           />
-          <span className={styles.micIcon}>
-            <Mic />
-          </span>
-          <span className={styles.rightArrowIcon}>
-            <RightArrowWhite />
-          </span>
         </form>
       </div>
     </>
@@ -115,6 +108,7 @@ export function SearchOverlay() {
 
   useEffect(() => {
     if (!isOpen && !isHome) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setQuery("");
     }
   }, [isOpen, isHome]);

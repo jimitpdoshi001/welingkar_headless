@@ -15,6 +15,6 @@ export const drupalConfig = {
  * Site pages use `allpage`; the page titled "homepage" is served at `/`.
  * News articles use `newsroom` and are served at `/newsroom/[title-slug]`.
  */
-export const NODE_BUNDLES = ["allpage", "article", "page", "newsroom"] as const;
+export const NODE_BUNDLES = ["allpage", "blogs"] as const;
 
 export type NodeBundle = (typeof NODE_BUNDLES)[number];

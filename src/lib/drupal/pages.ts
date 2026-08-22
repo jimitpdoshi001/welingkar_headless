@@ -137,7 +137,7 @@ function collectResponsiveMedia(items: ParagraphItem[], document: JsonApiDocumen
     }
 
     if ((PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA as readonly string[]).includes(item.resource.type)) {
-      const backgroundMedia = item.children.find((child) => child.resource.type === "paragraph--responsive_image");
+      const backgroundMedia = item.children.find((child) => child.resource.type === "paragraph--responsive_media");
       if (backgroundMedia) {
         mediaByParagraph[item.resource.id] = resolveResponsiveMedia(backgroundMedia.resource, document);
       }

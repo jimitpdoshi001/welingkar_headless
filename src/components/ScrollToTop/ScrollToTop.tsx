@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import style from "./ScrollToTop.module.scss";
+import { ArrowUp } from "@/assets/svg/Icons";
 
 const ScrollToTop = () => {
   const [showButton, setShowButton] = useState(false);
@@ -34,7 +35,7 @@ const ScrollToTop = () => {
       onClick={scrollToTop}
       aria-label="Skip to top"
     >
-      <span className={style.arrow} />
+      <span className={style.arrow}><ArrowUp /></span>
     </button>
   );
 };

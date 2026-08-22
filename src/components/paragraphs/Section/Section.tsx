@@ -2,6 +2,8 @@
 import type { DrupalImage, DrupalResponsiveMedia, JsonApiResource, SectionAttributes } from "@/lib/drupal";
 import styles from "./Section.module.scss";
 import clsx from "clsx";
+import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
+import Image from "next/image";
 
 
 type SectionProps = {
@@ -69,21 +71,6 @@ const heightClasses = {
   0: "",
 } as const;
 
-const lineAnimationClasses = {
-  circle_to_bottom_left: "circle-to-bottom-left",
-  right_to_bottom: "right-to-bottom",
-  left_to_bottom: "left-to-bottom",
-  top_to_right: "top-to-right",
-  left_corner: "left-corner",
-  right_corner: "right-corner",
-  top_corner: "top-corner",
-} as const;
-
-const sectionStyleClasses = {
-  default: "",
-  tata_curve: "tata-curve",
-} as const;
-
 export function Section({ paragraph, image, responsiveMedia, children }: SectionProps) {
   const { attributes } = paragraph;
 
@@ -93,14 +80,29 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
   const paddingYClass = paddingYClasses[attributes.field_padding_y as keyof typeof paddingYClasses] ?? "";
   const backgroundColorClass = backgroundColorClasses[attributes.field_background_color as keyof typeof backgroundColorClasses] ?? "";
   const heightClass = heightClasses[attributes.field_height as keyof typeof heightClasses] ?? "";
-  const sectionStyleClass = sectionStyleClasses[attributes.field_section_style as keyof typeof sectionStyleClasses] ?? "";
-  const lineAnimationClass = lineAnimationClasses[attributes.field_line_animation as keyof typeof lineAnimationClasses] ?? "";
+  
   const hasBackground = Boolean(responsiveMedia?.desktop || responsiveMedia?.mobile || image);
 
 
   return (
     <section
-      className={clsx("relative", backgroundColorClass, heightClass, "overflow-hidden", styles[sectionStyleClass], lineAnimationClass)}>
+      className={clsx("relative", backgroundColorClass, heightClass, "overflow-hidden")}>
+      {responsiveMedia && (
+        <ResponsiveMedia
+          media={responsiveMedia}
+          className={styles.backgroundMedia}
+          fill
+        />
+      )}
+      {image && !responsiveMedia && (
+        <Image
+          src={image.url}
+          alt={image.alt}
+          className={styles.backgroundMedia}
+          fill
+          style={{ objectFit: "cover" }}
+        />
+      )}
       <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100")}>{children}</div>
     </section>
   );

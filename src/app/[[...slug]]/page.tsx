@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DrupalPageView } from "@/components/DrupalPageView";
-import { SiteHeader } from "@/components/SiteHeader";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { getAllPages, getAllRouteParams, getPageByPath } from "@/lib/drupal";
-import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>;
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: page.title,
-    description: `${page.title} — Tata Steel`,
+    description: `${page.title} — Welingkar`,
   };
 }
 
@@ -41,13 +41,13 @@ export default async function DrupalDynamicPage({ params }: PageProps) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        {/* <SiteHeader pages={pages} /> */}
+        <Header />
         <main>
           <DrupalPageView page={page} />
         </main>
-        {/* <Footer /> */}
         <SearchOverlay />
         <ScrollToTop/>
+        <Footer />
       </div>
     </SearchProvider>
   );

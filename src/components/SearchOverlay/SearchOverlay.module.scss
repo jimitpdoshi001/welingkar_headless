@@ -1,4 +1,3 @@
-@use "../../styles/base/var" as *;
 @use "../../styles/base/mixins" as *;
 
 .overlay {
@@ -78,8 +77,8 @@
 
   .tag {
     font-size: 1.6rem;
-    color: $black;
-    background-color: $white;
+    color: var(--color-black);
+    background-color: var(--color-white);
     border-radius: 50vw;
     padding: 1.5rem;
 
@@ -97,7 +96,7 @@
   padding: 0.5rem;
   padding-left: 1.5rem;
   border-radius: 50vw;
-  background-color: $white;
+  background-color: var(--color-white);
   width: min(100%, 66rem);
   margin-inline: auto;
 
@@ -109,7 +108,7 @@
   display: inline-flex;
   flex-shrink: 0;
   opacity: 0.9;
-  color: black;
+  color: var(--color-black);
 }
 
 .input {
@@ -118,13 +117,13 @@
   border: 0;
   outline: none;
   background: transparent;
-  color: $primary;
+  color: var(--color-primary);
   font-size: 2rem;
   line-height: 1.3;
 
   &::placeholder,
   &:focus::placeholder {
-    color: $light-gray;
+    color: var(--color-light-gray);
     font-weight: 400;
   }
 
@@ -147,7 +146,7 @@
 
 .rightArrowIcon {
   aspect-ratio: 1;
-  background-color: $primary;
+  background-color: var(--color-primary);
   display: grid;
   place-items: center;
   border-radius: 50vw;

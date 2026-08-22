@@ -1,18 +1,15 @@
-@use './var' as *;
 @use './mixins' as *;
 
 input {
-    font-family: var(--font-frontliner);
     &:focus {
         outline: none;
     }
     &::placeholder {
-        color: $gray;
+        color: var(--color-gray);
         font-size: 1.8rem;
         font-weight: 500;
-        font-family: frontliner;
     }
     &:focus::placeholder {
-        color: $black;
+        color: var(--color-black);
     }
 }

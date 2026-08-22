@@ -42,16 +42,18 @@ function withMediaChain(field: string, chain: readonly string[]): string[] {
  */
 export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string[]> = {
   allpage: ["field_components"],
-  article: ["field_section"],
-  page: ["field_section"],
-  newsroom: ["field_components"],
+  blogs: [],
 };
 
 /**
  * Every relationship field that can hold a *child paragraph*
  * (checked on every parent while building the ParagraphItem tree).
  */
-export const NESTED_PARAGRAPH_FIELDS = ["field_section_label", "field_background_media", "field_button"] as const;
+export const NESTED_PARAGRAPH_FIELDS = [
+  "field_responsive_media",
+  "field_section_content",
+  "field_cta",
+] as const;
 
 /**
  * Include path suffixes keyed by the *node* paragraph field.
@@ -60,36 +62,11 @@ export const NESTED_PARAGRAPH_FIELDS = ["field_section_label", "field_background
  * An invalid path → Drupal JSON:API 400 → every page for that bundle fails.
  */
 export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> = {
-  /**
-   * Shared nesting for page paragraph fields.
-   *
-   *   field_components / field_section
-   *     ├─ field_button
-   *     ├─ field_background_media → responsive_image (+ media)
-   *     ├─ field_icon → media--image                    ← home_section2 / iconbox (top-level)
-   *     └─ field_section_label → heading | herobanner | home_section2 | iconbox | …
-   *           ├─ field_button
-   *           ├─ field_background_media → responsive_image (+ media)
-   *           └─ field_icon → media--image
-   */
-  field_section: [
-    "field_button",
-    "field_section_label",
-    "field_section_label.field_button",
-    ...withMediaChain("field_background_media", RESPONSIVE_MEDIA_INCLUDE),
-    ...withMediaChain("field_section_label.field_background_media", RESPONSIVE_MEDIA_INCLUDE),
-    ...withMediaChain("field_section_label.field_icon", IMAGE_MEDIA_INCLUDE),
-    ...withMediaChain("field_section_label.field_desktop", IMAGE_MEDIA_INCLUDE),
-  ],
-
   field_components: [
-    "field_button",
-    "field_section_label",
-    "field_section_label.field_button",
-    ...withMediaChain("field_background_media", RESPONSIVE_MEDIA_INCLUDE),
-    ...withMediaChain("field_section_label.field_background_media", RESPONSIVE_MEDIA_INCLUDE),
-    ...withMediaChain("field_section_label.field_icon", IMAGE_MEDIA_INCLUDE),
-    ...withMediaChain("field_section_label.field_desktop", IMAGE_MEDIA_INCLUDE),
+    "field_section_content",
+    "field_section_content.field_cta",
+    ...withMediaChain("field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
+    ...withMediaChain("field_section_content.field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
   ],
 };
 
@@ -107,7 +84,7 @@ export const PARAGRAPH_IMAGE_FIELDS: Record<string, string> = {
 export const PARAGRAPH_TYPES_WITH_IMAGE = ["paragraph--herobanner", "paragraph--section"] as const;
 
 /** Paragraph types that are themselves a responsive_image entity. */
-export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_image"] as const;
+export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] as const;
 
 /**
  * Parent types that pull responsive media from a nested
@@ -115,11 +92,6 @@ export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_image"] 
  */
 export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = [
   "paragraph--section",
-  "paragraph--herobanner",
-  "paragraph--imagebox",
-  "paragraph--home_section2",
-  "paragraph--home_products_tab",
-  "paragraph--home_sustainability_sec",
 ] as const;
 
 /** Union of all node paragraph fields (for empty-state detection in the renderer). */

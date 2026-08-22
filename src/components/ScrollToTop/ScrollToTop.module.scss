@@ -14,26 +14,25 @@
   transition:
     background 0.3s ease,
     transform 0.3s ease;
-    background: linear-gradient(180deg, #0055b8 0%, #003f8f 100%);
+
+    background-color: var(--color-primary);
 
   &:hover {
-    background: #003f8f;
+    background: var(--color-secondary);
     transform: translateY(-3px);
   }
   &:focus-visible {
-    outline: 2px solid #0055b8;
+    outline: 2px solid var(--color-secondary);
     outline-offset: 3px;
+  }
+
+  .arrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-.arrow {
-  width: 7px;
-  height: 7px;
-  border-left: 2px solid #fff;
-  border-top: 2px solid #fff;
-  transform: rotate(45deg);
-  margin-top: 4px;
-}
 
 @media (max-width: 768px) {
   .scrollToTop {

@@ -9,9 +9,9 @@ html {
   font-size: 10px;
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-primary: #004ee0;
-  --color-primary-dark: #042e7b;
-  --color-primary-light: #3d7edb;
+  --color-primary: #3A9030;
+  --color-secondary: #493460;
+  --color-light: #FDF8F0;
   --color-gray: #787878;
   --color-light-gray: #e9ebef;
   --color-dark-gray: #151515;
@@ -25,4 +25,12 @@ ol {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+p {
+  margin-bottom: 1.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }

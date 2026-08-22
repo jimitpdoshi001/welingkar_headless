@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Scaffold a new Drupal paragraph component and print the registry checklist.
  *
