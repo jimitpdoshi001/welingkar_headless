@@ -41,13 +41,13 @@ export default async function DrupalDynamicPage({ params }: PageProps) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        {/* <Header /> */}
+        <Header />
         <main>
           <DrupalPageView page={page} />
         </main>
         <SearchOverlay />
         <ScrollToTop />
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </SearchProvider>
   );

@@ -1,9 +1,10 @@
 import { NODE_BUNDLES, drupalConfig, type NodeBundle } from "./config";
 import { fetchJsonApi } from "./jsonapi";
-import { resolveParagraphImage, resolveParagraphMediaImage, resolveResponsiveMedia } from "./media";
+import { resolveParagraphImage, resolveParagraphMediaImage, resolveParagraphMediaImages, resolveResponsiveMedia } from "./media";
 import {
   NESTED_PARAGRAPH_FIELDS,
   PARAGRAPH_IMAGE_FIELDS,
+  PARAGRAPH_MULTI_IMAGE_FIELDS,
   PARAGRAPH_TYPES_RESPONSIVE_MEDIA,
   PARAGRAPH_TYPES_WITH_IMAGE,
   PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA,
@@ -130,6 +131,18 @@ function collectImages(items: ParagraphItem[], document: JsonApiDocument, images
   return images;
 }
 
+function collectImageLists(items: ParagraphItem[], document: JsonApiDocument, images: Record<string, DrupalImage[]> = {}): Record<string, DrupalImage[]> {
+  for (const item of items) {
+    const field = PARAGRAPH_MULTI_IMAGE_FIELDS[item.resource.type];
+    if (field) {
+      const list = resolveParagraphMediaImages(item.resource, document, field);
+      if (list.length) images[item.resource.id] = list;
+    }
+    collectImageLists(item.children, document, images);
+  }
+  return images;
+}
+
 function collectResponsiveMedia(items: ParagraphItem[], document: JsonApiDocument, mediaByParagraph: Record<string, DrupalResponsiveMedia> = {}): Record<string, DrupalResponsiveMedia> {
   for (const item of items) {
     if ((PARAGRAPH_TYPES_RESPONSIVE_MEDIA as readonly string[]).includes(item.resource.type)) {
@@ -149,7 +162,13 @@ function collectResponsiveMedia(items: ParagraphItem[], document: JsonApiDocumen
   return mediaByParagraph;
 }
 
-function toDrupalPage(node: NodeResource, paragraphs: DrupalPage["paragraphs"] = [], paragraphImages: Record<string, DrupalImage> = {}, paragraphResponsiveMedia: Record<string, DrupalResponsiveMedia> = {}): DrupalPage {
+function toDrupalPage(
+  node: NodeResource,
+  paragraphs: DrupalPage["paragraphs"] = [],
+  paragraphImages: Record<string, DrupalImage> = {},
+  paragraphResponsiveMedia: Record<string, DrupalResponsiveMedia> = {},
+  paragraphImageLists: Record<string, DrupalImage[]> = {},
+): DrupalPage {
   const paths = pathsForNode(node);
   const primary = isSiteHomepage(node)
     ? "/"
@@ -170,6 +189,7 @@ function toDrupalPage(node: NodeResource, paragraphs: DrupalPage["paragraphs"] =
     node,
     paragraphs,
     paragraphImages,
+    paragraphImageLists,
     paragraphResponsiveMedia,
   };
 }
@@ -185,8 +205,9 @@ async function fetchBundleNodes(bundle: NodeBundle): Promise<DrupalPage[]> {
   return nodes.map((node) => {
     const paragraphs = collectParagraphs(node, document);
     const paragraphImages = collectImages(paragraphs, document);
+    const paragraphImageLists = collectImageLists(paragraphs, document);
     const paragraphResponsiveMedia = collectResponsiveMedia(paragraphs, document);
-    return toDrupalPage(node, paragraphs, paragraphImages, paragraphResponsiveMedia);
+    return toDrupalPage(node, paragraphs, paragraphImages, paragraphResponsiveMedia, paragraphImageLists);
   });
 }
 

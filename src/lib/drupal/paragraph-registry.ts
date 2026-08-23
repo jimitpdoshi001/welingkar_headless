@@ -12,11 +12,13 @@ import type { NodeBundle } from "./config";
  *
  *   allpage.field_components children may be:
  *     - paragraph--section
- *         ├─ field_section_content → header_and_description | image_box | button | divider | …
+ *         ├─ field_section_content → header_and_description | image_box | placement_partners | button | divider | …
  *         │     ├─ field_cta
- *         │     └─ field_responsive_media → responsive_media
+ *         │     ├─ field_responsive_media → responsive_media
+ *         │     └─ field_multiple_images → media--image
  *         └─ field_responsive_media → responsive_media
  *     - paragraph--image_box → field_responsive_media, field_link
+ *     - paragraph--placement_partners → field_multiple_images
  *     - paragraph--header_and_description → field_cta
  *     - paragraph--divider / button
  *
@@ -64,6 +66,7 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     "field_section_content.field_cta",
     ...withMediaChain("field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
     ...withMediaChain("field_section_content.field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
+    ...withMediaChain("field_section_content.field_multiple_images", IMAGE_MEDIA_INCLUDE),
   ],
 };
 
@@ -75,6 +78,11 @@ export const PARAGRAPH_IMAGE_FIELDS: Record<string, string> = {
   "paragraph--iconbox": "field_icon",
   "paragraph--home_section2": "field_icon",
   "paragraph--investor_section": "field_desktop",
+};
+
+/** Paragraph types → multi-value media image field (stored in DrupalPage.paragraphImageLists). */
+export const PARAGRAPH_MULTI_IMAGE_FIELDS: Record<string, string> = {
+  "paragraph--placement_partners": "field_multiple_images",
 };
 
 /** @deprecated Prefer PARAGRAPH_IMAGE_FIELDS — kept for any field_image consumers. */

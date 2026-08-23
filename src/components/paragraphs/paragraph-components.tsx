@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Button } from "./Button/Button";
 import { Divider } from "./Divider/Divider";
 import { ImageBox } from "./ImageBox/ImageBox";
+import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { Section } from "./Section/Section";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
 import { ResponsiveMedia } from "./ResponsiveMedia/ResponsiveMedia";
@@ -54,6 +55,15 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
       </ImageBox>
     );
   },
+
+  "paragraph--placement_partners": (item, { page, renderChildren }) => (
+    <PlacementPartners
+      key={item.resource.id}
+      paragraph={item.resource as Parameters<typeof PlacementPartners>[0]["paragraph"]}
+      images={page.paragraphImageLists[item.resource.id] ?? []}>
+      {renderChildren(item.children)}
+    </PlacementPartners>
+  ),
 
   "paragraph--header_and_description": (item, { renderChildren }) => (
     <HeadingAndDescription

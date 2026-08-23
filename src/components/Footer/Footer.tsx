@@ -1,22 +1,35 @@
+"use client";
+
+import { useState } from "react";
 import { Logo } from "@/assets/svg/Logos";
 import styles from "./Footer.module.scss";
 import { Facebook, Instagram, Twitter, LinkedIn, Youtube } from "@/assets/svg/Icons";
+import { useIsMobile } from "@/util/useMediaQuery";
 
 const Footer = () => {
+  const isMobile = useIsMobile();
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setOpenSection((prev) => (prev === section ? null : section));
+  };
+
   return (
     <footer className="bg-light pt-6">
       <div className="container">
         {/* Row 1 */}
-        <div className="f jc-sb ai-c mb-4">
+        <div className={styles.footerTop}>
           <Logo
-            width={300}
-            height={80}
+            width={isMobile ? 200 : 300}
+            height={isMobile ? 60 : 80}
           />
+
           <form className={styles.footerSubscribeForm}>
             <input
               type="email"
               placeholder="Enter your email"
             />
+
             <button
               className="btn primary"
               type="submit">
@@ -24,10 +37,13 @@ const Footer = () => {
             </button>
           </form>
         </div>
+
         {/* Row 2 */}
         <div className={styles.footerLinksRow}>
+          {/* About */}
           <div className={styles.footerAbout}>
-            <p className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+            <p className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+
             <div className="f gap2 ai-c">
               <a href="#">
                 <Facebook />
@@ -46,9 +62,20 @@ const Footer = () => {
               </a>
             </div>
           </div>
-          <div>
-            <h6 className="bold">Programmes</h6>
-            <div className={styles.footerLinks}>
+
+          {/* Programmes */}
+          <div className={styles.footerAccordion}>
+            <button
+              type="button"
+              className={styles.footerAccordionHeader}
+              onClick={() => toggleSection("programmes")}
+              aria-expanded={openSection === "programmes"}>
+              <h6 className="bold">Programmes</h6>
+
+              <span className={`${styles.accordionIcon} ${openSection === "programmes" ? styles.open : ""}`}>+</span>
+            </button>
+
+            <div className={`${styles.footerLinks} ${openSection === "programmes" ? styles.footerLinksOpen : ""}`}>
               <a href="#">Programme 1</a>
               <a href="#">Programme 2</a>
               <a href="#">Programme 3</a>
@@ -61,9 +88,20 @@ const Footer = () => {
               <a href="#">Programme 10</a>
             </div>
           </div>
-          <div>
-            <h6 className="bold">Quick Links</h6>
-            <div className={styles.footerLinks}>
+
+          {/* Quick Links */}
+          <div className={styles.footerAccordion}>
+            <button
+              type="button"
+              className={styles.footerAccordionHeader}
+              onClick={() => toggleSection("quickLinks")}
+              aria-expanded={openSection === "quickLinks"}>
+              <h6 className="bold">Quick Links</h6>
+
+              <span className={`${styles.accordionIcon} ${openSection === "quickLinks" ? styles.open : ""}`}>+</span>
+            </button>
+
+            <div className={`${styles.footerLinks} ${openSection === "quickLinks" ? styles.footerLinksOpen : ""}`}>
               <a href="#">Link 1</a>
               <a href="#">Link 2</a>
               <a href="#">Link 3</a>
@@ -76,9 +114,20 @@ const Footer = () => {
               <a href="#">Link 10</a>
             </div>
           </div>
-          <div>
-            <h6 className="bold">Miscellaneous</h6>
-            <div className={styles.footerLinks}>
+
+          {/* Miscellaneous */}
+          <div className={styles.footerAccordion}>
+            <button
+              type="button"
+              className={styles.footerAccordionHeader}
+              onClick={() => toggleSection("miscellaneous")}
+              aria-expanded={openSection === "miscellaneous"}>
+              <h6 className="bold">Miscellaneous</h6>
+
+              <span className={`${styles.accordionIcon} ${openSection === "miscellaneous" ? styles.open : ""}`}>+</span>
+            </button>
+
+            <div className={`${styles.footerLinks} ${openSection === "miscellaneous" ? styles.footerLinksOpen : ""}`}>
               <a href="#">Link 1</a>
               <a href="#">Link 2</a>
               <a href="#">Link 3</a>

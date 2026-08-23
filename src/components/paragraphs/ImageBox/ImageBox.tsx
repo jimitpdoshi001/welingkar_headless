@@ -15,6 +15,8 @@ export function ImageBox({ paragraph, image, responsiveMedia, children }: ImageB
   const description = paragraph.attributes.field_description?.processed || null;
   const hasMedia = Boolean(responsiveMedia || image);
 
+  const componentStyles = paragraph.attributes.field_components_style || null;
+
   return (
     <article className={styles.imageBox}>
       {hasMedia && (

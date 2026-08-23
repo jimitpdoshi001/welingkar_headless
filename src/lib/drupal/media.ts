@@ -12,6 +12,11 @@ function asSingle(data: RelData | RelData[] | null | undefined): RelData | null 
   return Array.isArray(data) ? (data[0] ?? null) : data;
 }
 
+function asMany(data: RelData | RelData[] | null | undefined): RelData[] {
+  if (!data) return [];
+  return Array.isArray(data) ? data : [data];
+}
+
 function findIncluded(included: JsonApiResource[], type: string, id: string): JsonApiResource | undefined {
   return included.find((item) => item.type === type && item.id === id);
 }
@@ -105,6 +110,25 @@ export function resolveParagraphMediaImage(paragraph: JsonApiResource, document:
     width: media.width,
     height: media.height,
   };
+}
+
+/** Resolve a multi-value media--image field (field_multiple_images, …). */
+export function resolveParagraphMediaImages(paragraph: JsonApiResource, document: JsonApiDocument, fieldName: string): DrupalImage[] {
+  const images: DrupalImage[] = [];
+
+  for (const imageRel of asMany(paragraph.relationships?.[fieldName]?.data)) {
+    const media = resolveMedia(imageRel, document);
+    if (!media || media.kind !== "image") continue;
+
+    images.push({
+      url: media.url,
+      alt: media.alt,
+      width: media.width,
+      height: media.height,
+    });
+  }
+
+  return images;
 }
 
 /** Resolve paragraph.field_image → media → file URL from a JSON:API include tree. */

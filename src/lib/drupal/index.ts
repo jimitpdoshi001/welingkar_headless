@@ -7,7 +7,7 @@ export {
   getIncludedResources,
   jsonApiUrl,
 } from "./jsonapi";
-export { resolveMedia, resolveParagraphImage, resolveParagraphMediaImage, resolveResponsiveMedia } from "./media";
+export { resolveMedia, resolveParagraphImage, resolveParagraphMediaImage, resolveParagraphMediaImages, resolveResponsiveMedia } from "./media";
 export {
   INCLUDE_SUFFIXES_BY_NODE_FIELD,
   NESTED_PARAGRAPH_FIELDS,

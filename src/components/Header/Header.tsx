@@ -1,6 +1,9 @@
+"use client";
+import { useState } from "react";
 import styles from "./Header.module.scss";
 import { Logo } from "@/assets/svg/Logos";
 import { Search } from "@/assets/svg/Icons";
+import Link from "next/link";
 
 const navItems = [
   {
@@ -57,10 +60,16 @@ const headerRow1Right = [
 ];
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className={styles.header}>
       <div className="container">
-        {/* Row 1 */}
+        {/* Desktop Row 1 */}
         <div className={styles.headerRow1}>
           <div className={styles.headerRow1Left}>
             <span className={styles.modeButton}>
@@ -72,6 +81,7 @@ const Header = () => {
               </span>
             </span>
           </div>
+
           <div className={styles.headerRow1Right}>
             {headerRow1Right.map((item) => (
               <a
@@ -83,15 +93,21 @@ const Header = () => {
             ))}
           </div>
         </div>
-        {/* Row 2 */}
+
+        {/* Main Header */}
         <div className={styles.headerContent}>
           <div className={styles.leftContent}>
-            <Logo
-              width={300}
-              height={90}
-            />
+            <Link
+              href="/"
+              className={styles.logo}>
+              <Logo
+                width={300}
+                height={90}
+              />
+            </Link>
 
-            <div className={styles.navItems}>
+            {/* Desktop Navigation */}
+            <nav className={styles.navItems}>
               {navItems.map((item) => (
                 <a
                   className={styles.navItem}
@@ -100,14 +116,55 @@ const Header = () => {
                   {item.label}
                 </a>
               ))}
-            </div>
+            </nav>
           </div>
+
+          {/* Desktop Search */}
           <div className={styles.rightContent}>
             <span className={styles.searchButton}>
               <Search />
             </span>
           </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            type="button"
+            className={`${styles.hamburger} ${isMenuOpen ? styles.open : ""}`}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}>
+            <span />
+            <span />
+            <span />
+          </button>
         </div>
+
+        {/* Mobile Menu */}
+        <nav className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ""}`}>
+          <div className={styles.mobileMenuInner}>
+            {navItems.map((item) => (
+              <a
+                className={styles.mobileNavItem}
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}>
+                {item.label}
+              </a>
+            ))}
+
+            <div className={styles.mobileDivider} />
+
+            {headerRow1Right.map((item) => (
+              <a
+                className={styles.mobileSecondaryItem}
+                key={item.href}
+                href={item.href}
+                onClick={closeMenu}>
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </nav>
       </div>
     </header>
   );

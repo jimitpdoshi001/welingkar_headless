@@ -104,6 +104,25 @@ export type ImageBoxAttributes = {
 
 export type ImageBoxResource = JsonApiResource<"paragraph--image_box", ImageBoxAttributes>;
 
+export type PlacementPartnersAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header?: string | null;
+  field_description?: {
+    value: string;
+    format: string;
+    processed: string;
+  } | null;
+  field_multiple_images?: Array<{
+    type: string;
+    id: string;
+  }> | null;
+  [key: string]: unknown;
+};
+
+export type PlacementPartnersResource = JsonApiResource<"paragraph--placement_partners", PlacementPartnersAttributes>;
+
 export type IconBoxAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -350,6 +369,8 @@ export type DrupalPage = {
   paragraphs: ParagraphItem[];
   /** Images keyed by paragraph UUID (from field_image → media → file). */
   paragraphImages: Record<string, DrupalImage>;
+  /** Multi-value images keyed by paragraph UUID (field_multiple_images → media → file). */
+  paragraphImageLists: Record<string, DrupalImage[]>;
   /** Responsive media keyed by paragraph UUID (responsive_image or section with background media). */
   paragraphResponsiveMedia: Record<string, DrupalResponsiveMedia>;
 };
