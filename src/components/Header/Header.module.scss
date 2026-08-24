@@ -87,7 +87,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.5rem;
+      padding: 0.2rem;
       cursor: pointer;
       transition: all 0.3s ease;
       @include glass-background;
@@ -97,11 +97,10 @@
         display: grid;
         place-content: center;
         aspect-ratio: 1/1;
-        width: 2rem;
+        width: 2.5rem;
         border-radius: 50%;
         transition: all 0.3s ease;
 
-        &:hover,
         &.active,
         &:first-child {
           background-color: var(--color-primary);

@@ -1,4 +1,4 @@
-@use "../../../styles/base/mixins" as *;
+@use "@/styles/base/mixins" as *;
 
 .group {
   width: 100%;
@@ -6,8 +6,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 3rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.4rem;
 
   @include respond-to(mobile) {
     display: none;
@@ -46,23 +46,41 @@
 }
 
 .imageBox {
-  position: relative;
-  color: var(--color-white);
-  text-align: center;
-}
-
-.media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1/1.1;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   border-radius: 2rem;
+  padding: 3rem;
+  @include glass-background;
 }
 
 .body {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex: 1;
+
+  h3 {
+    flex: 1;
+    margin-bottom: 4rem;
+    font-weight: bold;
+  }
+}
+
+.description {
+  p {
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 0.8rem;
+    }
+  }
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: auto;
+  font-weight: 600;
+  color: var(--color-primary);
 }

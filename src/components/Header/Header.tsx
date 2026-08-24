@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styles from "./Header.module.scss";
 import { Logo } from "@/assets/svg/Logos";
-import { Search } from "@/assets/svg/Icons";
+import { Search, LightMode, DarkMode } from "@/assets/svg/Icons";
 import Link from "next/link";
 
 const navItems = [
@@ -74,10 +74,10 @@ const Header = () => {
           <div className={styles.headerRow1Left}>
             <span className={styles.modeButton}>
               <span>
-                <Search />
+                <LightMode />
               </span>
               <span>
-                <Search />
+                <DarkMode />
               </span>
             </span>
           </div>

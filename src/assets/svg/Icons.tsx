@@ -237,3 +237,97 @@ export const ArrowUp = () => {
     </svg>
   );
 };
+
+export const LightMode = () => {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6.87414 9.90678C8.54906 9.90678 9.90685 8.54899 9.90685 6.87407C9.90685 5.19916 8.54906 3.84137 6.87414 3.84137C5.19922 3.84137 3.84143 5.19916 3.84143 6.87407C3.84143 8.54899 5.19922 9.90678 6.87414 9.90678Z"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.87402 0.5V2.04062"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.36682 2.36814L3.4562 3.45752"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.3813 2.36814L10.292 3.45752"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M0.5 6.87407H2.04062"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M6.87402 13.2485V11.7072"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.3814 11.3827L10.2915 10.2928"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.36694 11.3827L3.45679 10.2928"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M13.2481 6.8744H11.7075"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const DarkMode = () => {
+  return (
+    <svg
+      width="13"
+      height="15"
+      viewBox="0 0 13 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6.98614 13.5585C4.544 14.133 2.09971 13.3013 0.5 11.592C1.5939 11.9186 2.78515 11.9739 3.97676 11.6948C7.61087 10.8402 9.8644 7.20065 9.00976 3.56691C8.72955 2.3753 8.14901 1.33421 7.36909 0.500045C9.61221 1.17075 11.4458 2.98745 12.0202 5.43066C12.8741 9.06513 10.621 12.7039 6.98614 13.5585Z"
+        stroke="white"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

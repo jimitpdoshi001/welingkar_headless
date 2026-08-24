@@ -94,6 +94,12 @@ export type ImageBoxAttributes = {
     uri: string;
     title: string;
   } | null;
+  field_url?: {
+    uri: string;
+    title: string;
+  } | null;
+  /** Drupal list value, e.g. "wefactor". Empty/null uses the default ImageBox style. */
+  field_components_style?: string | null;
   /** Nested paragraph--responsive_media (same pattern as section). */
   field_responsive_media?: {
     type: string;

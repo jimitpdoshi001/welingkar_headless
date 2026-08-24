@@ -1,7 +1,7 @@
 import { allNodeParagraphFields } from "@/lib/drupal/paragraph-registry";
 import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import clsx from "clsx";
-import { ImageBoxGroup } from "../ImageBox/ImageBoxGroup";
+import { ImageBoxGroup } from "../ImageBox/ImageBox";
 import { paragraphComponents } from "../paragraph-components";
 import styles from "./ParagraphRenderer.module.scss";
 
@@ -38,15 +38,18 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
     const item = items[index];
 
     if (item.resource.type === "paragraph--image_box") {
+      const groupStyle = imageBoxStyleName(item);
       const group: ParagraphItem[] = [];
 
-      while (index < items.length && items[index].resource.type === "paragraph--image_box") {
+      while (index < items.length && items[index].resource.type === "paragraph--image_box" && imageBoxStyleName(items[index]) === groupStyle) {
         group.push(items[index]);
         index += 1;
       }
 
       nodes.push(
-        <ImageBoxGroup key={group[0].resource.id}>
+        <ImageBoxGroup
+          key={group[0].resource.id}
+          componentStyle={groupStyle}>
           {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
         </ImageBoxGroup>,
       );
@@ -58,6 +61,11 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
   }
 
   return nodes;
+}
+
+function imageBoxStyleName(item: ParagraphItem): string {
+  const style = item.resource.attributes.field_components_style;
+  return typeof style === "string" && style ? style : "default";
 }
 
 function renderParagraphItem(item: ParagraphItem, page: DrupalPage, renderChildren: (children: ParagraphItem[]) => React.ReactNode[]): React.ReactNode {
