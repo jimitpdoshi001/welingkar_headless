@@ -2,6 +2,7 @@ import { allNodeParagraphFields } from "@/lib/drupal/paragraph-registry";
 import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import clsx from "clsx";
 import { ImageBoxGroup } from "../ImageBox/ImageBox";
+import { MediaBoxWithPopupGroup } from "../MediaBoxWithPopup/MediaBoxWithPopup";
 import { paragraphComponents } from "../paragraph-components";
 import styles from "./ParagraphRenderer.module.scss";
 
@@ -52,6 +53,22 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
           componentStyle={groupStyle}>
           {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
         </ImageBoxGroup>,
+      );
+      continue;
+    }
+
+    if (item.resource.type === "paragraph--media_box_with_popup") {
+      const group: ParagraphItem[] = [];
+
+      while (index < items.length && items[index].resource.type === "paragraph--media_box_with_popup") {
+        group.push(items[index]);
+        index += 1;
+      }
+
+      nodes.push(
+        <MediaBoxWithPopupGroup key={group[0].resource.id}>
+          {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
+        </MediaBoxWithPopupGroup>,
       );
       continue;
     }

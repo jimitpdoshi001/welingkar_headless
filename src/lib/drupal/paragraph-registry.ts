@@ -20,6 +20,7 @@ import type { NodeBundle } from "./config";
  *     - paragraph--image_box → field_responsive_media, field_link
  *     - paragraph--placement_partners → field_multiple_images
  *     - paragraph--gallery_grid → field_multiple_images, field_cta
+ *     - paragraph--media_box_with_popup → field_single_image, field_responsive_media, field_cta
  *     - paragraph--header_and_description → field_cta
  *     - paragraph--divider / button
  *
@@ -64,6 +65,7 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     ...withMediaChain("field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
     ...withMediaChain("field_section_content.field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
     ...withMediaChain("field_section_content.field_multiple_images", IMAGE_MEDIA_INCLUDE),
+    ...withMediaChain("field_section_content.field_single_image", IMAGE_MEDIA_INCLUDE),
   ],
 };
 
@@ -75,6 +77,7 @@ export const PARAGRAPH_IMAGE_FIELDS: Record<string, string> = {
   "paragraph--iconbox": "field_icon",
   "paragraph--home_section2": "field_icon",
   "paragraph--investor_section": "field_desktop",
+  "paragraph--media_box_with_popup": "field_single_image",
 };
 
 /** Paragraph types → multi-value media image field (stored in DrupalPage.paragraphImageLists). */
@@ -93,7 +96,7 @@ export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] 
  * Parent types that pull responsive media from a nested
  * `field_responsive_media` → paragraph--responsive_media child.
  */
-export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--section", "paragraph--image_box"] as const;
+export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--section", "paragraph--image_box", "paragraph--media_box_with_popup"] as const;
 
 /** Union of all node paragraph fields (for empty-state detection in the renderer). */
 export function allNodeParagraphFields(): string[] {

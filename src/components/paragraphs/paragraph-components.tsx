@@ -4,6 +4,7 @@ import { Button } from "./Button/Button";
 import { Divider } from "./Divider/Divider";
 import { ImageBox } from "./ImageBox/ImageBox";
 import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
+import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { Section } from "./Section/Section";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
@@ -74,6 +75,20 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
       {renderChildren(item.children)}
     </GalleryGrid>
   ),
+
+  "paragraph--media_box_with_popup": (item, { page, renderChildren }) => {
+    const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
+
+    return (
+      <MediaBoxWithPopup
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof MediaBoxWithPopup>[0]["paragraph"]}
+        image={page.paragraphImages[item.resource.id] ?? null}
+        responsiveMedia={page.paragraphResponsiveMedia[item.resource.id] ?? null}>
+        {renderChildren(contentChildren)}
+      </MediaBoxWithPopup>
+    );
+  },
 
   "paragraph--header_and_description": (item, { renderChildren }) => (
     <HeadingAndDescription

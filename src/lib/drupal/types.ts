@@ -143,6 +143,24 @@ export type GalleryGridAttributes = {
 
 export type GalleryGridResource = JsonApiResource<"paragraph--gallery_grid", GalleryGridAttributes>;
 
+export type MediaBoxWithPopupAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header?: string | null;
+  field_single_image?: {
+    type: string;
+    id: string;
+  } | null;
+  field_responsive_media?: {
+    type: string;
+    id: string;
+  } | null;
+  [key: string]: unknown;
+};
+
+export type MediaBoxWithPopupResource = JsonApiResource<"paragraph--media_box_with_popup", MediaBoxWithPopupAttributes>;
+
 export type IconBoxAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
