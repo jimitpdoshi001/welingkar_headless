@@ -6,3 +6,81 @@
   height: 100%;
   z-index: -10;
 }
+
+.arrowTop,
+.arrowBottom,
+.arrowLeft,
+.arrowRight,
+.arrowCenter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.arrowDark,
+.arrowLight {
+  position: absolute;
+}
+
+.arrowTop {
+  .arrowLight {
+    top: 15%;
+    left: -2%;
+  }
+
+  .arrowDark {
+    top: 10%;
+    left: 80%;
+  }
+}
+
+.arrowBottom {
+  .arrowLight {
+    top: 15%;
+    left: -2%;
+  }
+
+  .arrowDark {
+    top: 10%;
+    left: 30%;
+  }
+}
+
+.arrowLeft {
+  .arrowLight {
+    top: 15%;
+    left: -2%;
+  }
+
+  .arrowDark {
+    top: 10%;
+    left: 30%;
+  }
+}
+
+.arrowRight {
+  .arrowLight {
+    top: 15%;
+    left: -2%;
+  }
+
+  .arrowDark {
+    top: 10%;
+    left: 30%;
+  }
+}
+
+.arrowCenter {
+  .arrowLight {
+    top: 15%;
+    left: 20%;
+  }
+
+  .arrowDark {
+    top: 10%;
+    left: 65%;
+  }
+}

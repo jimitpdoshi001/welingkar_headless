@@ -52,6 +52,13 @@
   border-radius: 2rem;
   padding: 3rem;
   @include glass-background;
+  transition: border 0.3s ease-in-out;
+
+  border: 2px solid transparent;
+
+  &:hover {
+    border: 2px solid var(--color-primary);
+  }
 }
 
 .body {
@@ -83,4 +90,68 @@
   margin-top: auto;
   font-weight: 600;
   color: var(--color-primary);
+}
+
+:global(.swiper) {
+  position: relative;
+  overflow-y: visible;
+  overflow-x: clip;
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-primary);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    transform: translateY(-50%);
+    font-size: 20px;
+
+    &:hover {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+  }
+  .prev {
+    top: -120;
+    right: 60;
+    transition: all 0.3s ease;
+
+    @include respond-to(mobile) {
+      top: unset;
+      bottom: -80;
+      right: 60;
+    }
+
+    &:hover svg {
+      path {
+        fill: var(--color-white);
+      }
+    }
+  }
+
+  .next {
+    top: -120;
+    right: 0;
+    transition: all 0.3s ease;
+
+    @include respond-to(mobile) {
+      top: unset;
+      bottom: -80;
+      right: 0;
+    }
+
+    &:hover svg {
+      path {
+        fill: var(--color-white);
+      }
+    }
+  }
 }

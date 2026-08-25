@@ -19,6 +19,7 @@ import type { NodeBundle } from "./config";
  *         └─ field_responsive_media → responsive_media
  *     - paragraph--image_box → field_responsive_media, field_link
  *     - paragraph--placement_partners → field_multiple_images
+ *     - paragraph--gallery_grid → field_multiple_images, field_cta
  *     - paragraph--header_and_description → field_cta
  *     - paragraph--divider / button
  *
@@ -48,11 +49,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
  * Every relationship field that can hold a *child paragraph*
  * (checked on every parent while building the ParagraphItem tree).
  */
-export const NESTED_PARAGRAPH_FIELDS = [
-  "field_responsive_media",
-  "field_section_content",
-  "field_cta",
-] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_responsive_media", "field_section_content", "field_cta"] as const;
 
 /**
  * Include path suffixes keyed by the *node* paragraph field.
@@ -83,6 +80,7 @@ export const PARAGRAPH_IMAGE_FIELDS: Record<string, string> = {
 /** Paragraph types → multi-value media image field (stored in DrupalPage.paragraphImageLists). */
 export const PARAGRAPH_MULTI_IMAGE_FIELDS: Record<string, string> = {
   "paragraph--placement_partners": "field_multiple_images",
+  "paragraph--gallery_grid": "field_multiple_images",
 };
 
 /** @deprecated Prefer PARAGRAPH_IMAGE_FIELDS — kept for any field_image consumers. */
@@ -95,10 +93,7 @@ export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] 
  * Parent types that pull responsive media from a nested
  * `field_responsive_media` → paragraph--responsive_media child.
  */
-export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = [
-  "paragraph--section",
-  "paragraph--image_box",
-] as const;
+export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--section", "paragraph--image_box"] as const;
 
 /** Union of all node paragraph fields (for empty-state detection in the renderer). */
 export function allNodeParagraphFields(): string[] {

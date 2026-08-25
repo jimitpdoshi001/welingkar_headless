@@ -4,7 +4,7 @@ import styles from "./Section.module.scss";
 import clsx from "clsx";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import Image from "next/image";
-
+import { ArrowDark, ArrowLight } from "@/assets/svg/Arrows";
 
 type SectionProps = {
   paragraph: JsonApiResource<"paragraph--section", SectionAttributes>;
@@ -71,6 +71,14 @@ const heightClasses = {
   0: "",
 } as const;
 
+const arrowStyleClasses = {
+  top: "arrow-top",
+  bottom: "arrow-bottom",
+  left: "arrow-left",
+  right: "arrow-right",
+  center: "arrow-center",
+} as const;
+
 export function Section({ paragraph, image, responsiveMedia, children }: SectionProps) {
   const { attributes } = paragraph;
 
@@ -80,13 +88,11 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
   const paddingYClass = paddingYClasses[attributes.field_padding_y as keyof typeof paddingYClasses] ?? "";
   const backgroundColorClass = backgroundColorClasses[attributes.field_background_color as keyof typeof backgroundColorClasses] ?? "";
   const heightClass = heightClasses[attributes.field_height as keyof typeof heightClasses] ?? "";
-  
+  const arrowStyleClass = arrowStyleClasses[attributes.field_arrow_style as keyof typeof arrowStyleClasses] ?? "";
   const hasBackground = Boolean(responsiveMedia?.desktop || responsiveMedia?.mobile || image);
 
-
   return (
-    <section
-      className={clsx("relative", backgroundColorClass, heightClass, "overflow-hidden")}>
+    <section className={clsx("relative", backgroundColorClass, heightClass, "overflow-hidden", arrowStyleClass)}>
       {responsiveMedia && (
         <ResponsiveMedia
           media={responsiveMedia}
@@ -102,6 +108,56 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
           fill
           style={{ objectFit: "cover" }}
         />
+      )}
+      {arrowStyleClass === "arrow-top" && (
+        <div className={styles.arrowTop}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+          <span className={styles.arrowDark}>
+            <ArrowDark />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-bottom" && (
+        <div className={styles.arrowDown}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+          <span className={styles.arrowDark}>
+            <ArrowDark />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-left" && (
+        <div className={styles.arrowLeft}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+          <span className={styles.arrowDark}>
+            <ArrowDark />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-right" && (
+        <div className={styles.arrowRight}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+          <span className={styles.arrowDark}>
+            <ArrowDark />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-center" && (
+        <div className={styles.arrowCenter}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+          <span className={styles.arrowDark}>
+            <ArrowDark />
+          </span>
+        </div>
       )}
       <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100")}>{children}</div>
     </section>

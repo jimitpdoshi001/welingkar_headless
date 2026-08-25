@@ -2,10 +2,6 @@
 
 import { Children } from "react";
 import Image from "next/image";
-import { A11y, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxDefault.module.scss";
@@ -26,6 +22,7 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
               className={styles.mediaFill}
             />
           )}
+
           {image && !responsiveMedia && (
             <Image
               src={image.url}
@@ -37,15 +34,18 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
           )}
         </div>
       )}
+
       {(heading || description || children) && (
         <div className={styles.body}>
           {heading ? <h1 className={styles.heading}>{heading}</h1> : null}
+
           {description ? (
             <div
               className={styles.description}
               dangerouslySetInnerHTML={{ __html: description }}
             />
           ) : null}
+
           {children}
         </div>
       )}
@@ -56,25 +56,5 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
 export function ImageBoxDefaultGroup({ children }: { children: React.ReactNode }) {
   const slides = Children.toArray(children);
 
-  if (slides.length < 2) {
-    return <div className={styles.group}>{slides}</div>;
-  }
-
-  return (
-    <div className={styles.group}>
-      <div className={styles.grid}>{slides}</div>
-      <div className={styles.slider}>
-        <Swiper
-          modules={[Pagination, A11y]}
-          slidesPerView={1.15}
-          spaceBetween={16}
-          pagination={{ clickable: true }}
-          watchOverflow>
-          {slides.map((slide, index) => (
-            <SwiperSlide key={index}>{slide}</SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
-  );
+  return <div className={styles.grid}>{slides}</div>;
 }

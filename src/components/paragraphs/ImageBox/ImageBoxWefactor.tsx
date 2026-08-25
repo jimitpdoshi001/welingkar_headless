@@ -1,13 +1,16 @@
 "use client";
 
 import { Children } from "react";
-import { A11y, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 import "swiper/css";
-import "swiper/css/pagination";
+import "swiper/css/navigation";
+
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxWefactor.module.scss";
 import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 
 export default function ImageBoxWefactor({ paragraph, children }: ImageBoxProps) {
   const heading = paragraph.attributes.field_header || null;
@@ -43,14 +46,38 @@ export function ImageBoxWefactorGroup({ children }: { children: React.ReactNode 
       <div className={styles.grid}>{slides}</div>
       <div className={styles.slider}>
         <Swiper
-          modules={[Pagination, A11y]}
+          modules={[Navigation]}
           slidesPerView={1.15}
           spaceBetween={16}
-          pagination={{ clickable: true }}
+          navigation={{
+            prevEl: `.${styles.prev}`,
+            nextEl: `.${styles.next}`,
+          }}
+          className={styles.swiper}
           watchOverflow>
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>{slide}</SwiperSlide>
           ))}
+
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.prev}`}
+            aria-label="Previous">
+            <ArrowLeft
+              height={7}
+              width={9}
+            />
+          </button>
+
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.next}`}
+            aria-label="Next">
+            <ArrowRight
+              height={7}
+              width={9}
+            />
+          </button>
         </Swiper>
       </div>
     </div>

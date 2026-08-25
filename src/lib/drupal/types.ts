@@ -129,6 +129,20 @@ export type PlacementPartnersAttributes = {
 
 export type PlacementPartnersResource = JsonApiResource<"paragraph--placement_partners", PlacementPartnersAttributes>;
 
+export type GalleryGridAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header?: string | null;
+  field_multiple_images?: Array<{
+    type: string;
+    id: string;
+  }> | null;
+  [key: string]: unknown;
+};
+
+export type GalleryGridResource = JsonApiResource<"paragraph--gallery_grid", GalleryGridAttributes>;
+
 export type IconBoxAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;

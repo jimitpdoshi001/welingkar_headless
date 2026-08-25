@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Button } from "./Button/Button";
 import { Divider } from "./Divider/Divider";
 import { ImageBox } from "./ImageBox/ImageBox";
+import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { Section } from "./Section/Section";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
@@ -63,6 +64,15 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
       images={page.paragraphImageLists[item.resource.id] ?? []}>
       {renderChildren(item.children)}
     </PlacementPartners>
+  ),
+
+  "paragraph--gallery_grid": (item, { page, renderChildren }) => (
+    <GalleryGrid
+      key={item.resource.id}
+      paragraph={item.resource as Parameters<typeof GalleryGrid>[0]["paragraph"]}
+      images={page.paragraphImageLists[item.resource.id] ?? []}>
+      {renderChildren(item.children)}
+    </GalleryGrid>
   ),
 
   "paragraph--header_and_description": (item, { renderChildren }) => (
