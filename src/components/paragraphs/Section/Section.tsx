@@ -51,11 +51,8 @@ const backgroundColorClasses = {
   black: "bg-black",
   primary: "bg-primary",
   secondary: "bg-secondary",
-  gradient_blue: "bg-gradient-blue",
-  gradient_white: "bg-gradient-white",
   gray: "bg-gray",
-  dark_gray: "bg-dark-gray",
-  light_gray: "bg-light-gray",
+  light_yellow: "bg-light-yellow",
 } as const;
 
 const heightClasses = {
