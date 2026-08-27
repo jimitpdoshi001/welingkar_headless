@@ -50,34 +50,18 @@ export type HeroBannerAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
   parent_field_name?: string | null;
-  field_header?: string | null;
-  field_title?: string | null;
-  field_pill_text?: string | null;
-  field_layout?: string | null;
-  field_text_color?: string | null;
-  field_alignment?: string | null;
-  field_vertical_alignment?: string | null;
-  field_description?: {
-    value: string;
-    format: string;
-    processed: string;
-  } | null;
-  field_background_media?: {
+  field_header_and_description?: {
     type: string;
     id: string;
   } | null;
-  field_background_media_image?: {
-    type: string;
-    id: string;
-  } | null;
-  field_background_media_image_field_media_image?: {
+  field_responsive_media?: {
     type: string;
     id: string;
   } | null;
   [key: string]: unknown;
 };
 
-export type HeroBannerResource = JsonApiResource<"paragraph--herobanner", HeroBannerAttributes>;
+export type HeroBannerResource = JsonApiResource<"paragraph--hero_banner", HeroBannerAttributes>;
 
 export type ImageBoxAttributes = {
   parent_id?: string | null;
@@ -160,6 +144,19 @@ export type MediaBoxWithPopupAttributes = {
 };
 
 export type MediaBoxWithPopupResource = JsonApiResource<"paragraph--media_box_with_popup", MediaBoxWithPopupAttributes>;
+
+export type HomeCommunitySectionAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header_and_description?: {
+    type: string;
+    id: string;
+  } | null;
+  [key: string]: unknown;
+};
+
+export type HomeCommunitySectionResource = JsonApiResource<"paragraph--home_community_section", HomeCommunitySectionAttributes>;
 
 export type IconBoxAttributes = {
   parent_id?: string | null;

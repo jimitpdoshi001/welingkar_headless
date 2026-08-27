@@ -21,6 +21,8 @@ import type { NodeBundle } from "./config";
  *     - paragraph--placement_partners → field_multiple_images
  *     - paragraph--gallery_grid → field_multiple_images, field_cta
  *     - paragraph--media_box_with_popup → field_single_image, field_responsive_media, field_cta
+ *     - paragraph--hero_banner → field_responsive_media, field_header_and_description → field_cta
+ *     - paragraph--home_community_section → field_header_and_description → field_cta
  *     - paragraph--header_and_description → field_cta
  *     - paragraph--divider / button
  *
@@ -50,7 +52,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
  * Every relationship field that can hold a *child paragraph*
  * (checked on every parent while building the ParagraphItem tree).
  */
-export const NESTED_PARAGRAPH_FIELDS = ["field_responsive_media", "field_section_content", "field_cta"] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_responsive_media", "field_section_content", "field_cta", "field_header_and_description"] as const;
 
 /**
  * Include path suffixes keyed by the *node* paragraph field.
@@ -62,6 +64,8 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
   field_components: [
     "field_section_content",
     "field_section_content.field_cta",
+    "field_section_content.field_header_and_description",
+    "field_section_content.field_header_and_description.field_cta",
     ...withMediaChain("field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
     ...withMediaChain("field_section_content.field_responsive_media", RESPONSIVE_MEDIA_INCLUDE),
     ...withMediaChain("field_section_content.field_multiple_images", IMAGE_MEDIA_INCLUDE),
@@ -96,7 +100,7 @@ export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] 
  * Parent types that pull responsive media from a nested
  * `field_responsive_media` → paragraph--responsive_media child.
  */
-export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--section", "paragraph--image_box", "paragraph--media_box_with_popup"] as const;
+export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--section", "paragraph--image_box", "paragraph--media_box_with_popup", "paragraph--hero_banner"] as const;
 
 /** Union of all node paragraph fields (for empty-state detection in the renderer). */
 export function allNodeParagraphFields(): string[] {

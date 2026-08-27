@@ -1,6 +1,7 @@
 import { allNodeParagraphFields } from "@/lib/drupal/paragraph-registry";
-import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
+import type { DrupalPage, DrupalResponsiveMedia, ParagraphItem } from "@/lib/drupal";
 import clsx from "clsx";
+import { HeroBannerGroup, type HeroBannerThumb } from "../HeroBanner/HeroBanner";
 import { ImageBoxGroup } from "../ImageBox/ImageBox";
 import { MediaBoxWithPopupGroup } from "../MediaBoxWithPopup/MediaBoxWithPopup";
 import { paragraphComponents } from "../paragraph-components";
@@ -73,11 +74,59 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
       continue;
     }
 
+    if (item.resource.type === "paragraph--hero_banner") {
+      const group: ParagraphItem[] = [];
+
+      while (index < items.length && items[index].resource.type === "paragraph--hero_banner") {
+        group.push(items[index]);
+        index += 1;
+      }
+
+      nodes.push(
+        <HeroBannerGroup
+          key={group[0].resource.id}
+          thumbs={heroBannerThumbs(group, page)}>
+          {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
+        </HeroBannerGroup>,
+      );
+      continue;
+    }
+
     nodes.push(renderParagraphItem(item, page, renderChildren));
     index += 1;
   }
 
   return nodes;
+}
+
+function heroBannerThumbs(items: ParagraphItem[], page: DrupalPage): HeroBannerThumb[] {
+  return items.map((item) => {
+    const headingChild = item.children.find((child) => child.resource.type === "paragraph--header_and_description");
+    const heading = headingChild?.resource.attributes.field_header;
+    const media = page.paragraphResponsiveMedia[item.resource.id];
+    const image = thumbImage(media);
+
+    return {
+      id: item.resource.id,
+      heading: typeof heading === "string" ? heading : "",
+      image,
+    };
+  });
+}
+
+function thumbImage(media: DrupalResponsiveMedia | null | undefined): HeroBannerThumb["image"] {
+  const desktop = media?.desktop ?? null;
+  const mobile = media?.mobile ?? null;
+  const image = desktop?.kind === "image" ? desktop : mobile?.kind === "image" ? mobile : null;
+
+  if (!image || image.kind !== "image") return null;
+
+  return {
+    url: image.url,
+    alt: image.alt,
+    width: image.width,
+    height: image.height,
+  };
 }
 
 function imageBoxStyleName(item: ParagraphItem): string {

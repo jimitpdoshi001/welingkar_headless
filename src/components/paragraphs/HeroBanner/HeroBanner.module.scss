@@ -1,0 +1,184 @@
+@use "../../../styles/base/mixins" as *;
+
+.slider {
+  position: relative;
+}
+
+.mainSwiper {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--color-white);
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 45%, transparent 70%);
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 5%;
+  z-index: 2;
+  width: min(70rem, 70%);
+}
+
+.thumbsWrap {
+  position: absolute;
+  left: 5%;
+  bottom: 5rem;
+  z-index: 3;
+  width: 62rem;
+
+  @include respond-to(mobile) {
+    left: 5%;
+    right: 5%;
+    width: 70%;
+    bottom: 2rem;
+  }
+}
+
+.thumbsSwiper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.thumbSlide {
+  width: 30rem;
+
+  @include respond-to(mobile) {
+    width: 35rem;
+  }
+}
+
+.thumb {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-white);
+  text-align: left;
+  cursor: pointer;
+}
+
+.thumbImage {
+  display: block;
+  width: 100%;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 1.2rem;
+  opacity: 0.3;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition:
+    opacity 0.2s ease,
+    outline-color 0.2s ease;
+
+  @include respond-to(mobile) {
+    height: 8rem;
+  }
+}
+
+.thumbTitle {
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+
+.thumbActive {
+  .thumbImage {
+    opacity: 1;
+  }
+}
+
+.thumbControls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.8rem;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  width: 0;
+  background: var(--color-primary);
+  transition: width 0.4s ease;
+}
+
+.nextButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+
+  padding: 0;
+  border-radius: 50%;
+  color: var(--color-white);
+
+  @include glass-background;
+
+  cursor: pointer;
+  position: absolute;
+  right: -8rem;
+  top: 10%;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+
+    svg {
+      path {
+        fill: var(--color-white);
+      }
+    }
+  }
+}
+
+@include respond-to(mobile) {
+  .thumbControls {
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+
+  .nextButton {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.8rem;
+  }
+}

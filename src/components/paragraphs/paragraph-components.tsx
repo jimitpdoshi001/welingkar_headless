@@ -4,6 +4,8 @@ import { Button } from "./Button/Button";
 import { Divider } from "./Divider/Divider";
 import { ImageBox } from "./ImageBox/ImageBox";
 import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
+import { HeroBanner } from "./HeroBanner/HeroBanner";
+import { HomeCommunitySection } from "./HomeCommunitySection/HomeCommunitySection";
 import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { Section } from "./Section/Section";
@@ -89,6 +91,27 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
       </MediaBoxWithPopup>
     );
   },
+
+  "paragraph--hero_banner": (item, { page, renderChildren }) => {
+    const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
+
+    return (
+      <HeroBanner
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof HeroBanner>[0]["paragraph"]}
+        responsiveMedia={page.paragraphResponsiveMedia[item.resource.id] ?? null}>
+        {renderChildren(contentChildren)}
+      </HeroBanner>
+    );
+  },
+
+  "paragraph--home_community_section": (item, { renderChildren }) => (
+    <HomeCommunitySection
+      key={item.resource.id}
+      paragraph={item.resource as Parameters<typeof HomeCommunitySection>[0]["paragraph"]}>
+      {renderChildren(item.children)}
+    </HomeCommunitySection>
+  ),
 
   "paragraph--header_and_description": (item, { renderChildren }) => (
     <HeadingAndDescription
