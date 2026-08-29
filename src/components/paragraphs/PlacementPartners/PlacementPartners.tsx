@@ -28,7 +28,7 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
     <div>
       {(heading || description) && (
         <div className={styles.intro}>
-          {heading ? <h1 className="mb-2">{heading}</h1> : null}
+          {heading ? <h3 className="mb-2">{heading}</h3> : null}
 
           {description ? (
             <div

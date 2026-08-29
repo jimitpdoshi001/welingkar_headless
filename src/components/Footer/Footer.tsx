@@ -1,14 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Logo } from "@/assets/svg/Logos";
 import styles from "./Footer.module.scss";
 import { Facebook, Instagram, Twitter, LinkedIn, Youtube } from "@/assets/svg/Icons";
 import { useIsMobile } from "@/util/useMediaQuery";
 
+interface FooterLink {
+  id: string;
+  title: string;
+  url: string;
+  weight: string;
+  menu: string;
+  children: FooterLink[];
+}
+
 const Footer = () => {
   const isMobile = useIsMobile();
+
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [footerMenu, setFooterMenu] = useState<FooterLink[]>([]);
+
+  useEffect(() => {
+    const fetchFooterMenu = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/api/footer-menu`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch footer menu");
+        }
+
+        const result = await response.json();
+
+        console.log("result", result);
+
+        if (result?.status && Array.isArray(result?.data)) {
+          setFooterMenu(result.data);
+        }
+      } catch (error) {
+        console.error("Error fetching footer menu:", error);
+      }
+    };
+
+    fetchFooterMenu();
+  }, []);
 
   const toggleSection = (section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
@@ -42,7 +77,7 @@ const Footer = () => {
         <div className={styles.footerLinksRow}>
           {/* About */}
           <div className={styles.footerAbout}>
-            <p className="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
+            <p className="mb-2">Prin. L. N. Welingkar Institute of Management Development and Research (WeSchool) is one of the torchbearers for progressive higher education today.</p>
 
             <div className="f gap2 ai-c">
               <a href="#">
@@ -63,83 +98,32 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Programmes */}
-          <div className={styles.footerAccordion}>
-            <button
-              type="button"
-              className={styles.footerAccordionHeader}
-              onClick={() => toggleSection("programmes")}
-              aria-expanded={openSection === "programmes"}>
-              <h6 className="bold">Programmes</h6>
+          {/* Dynamic Footer Menus */}
+          {footerMenu.map((section) => (
+            <div
+              className={styles.footerAccordion}
+              key={section.id}>
+              <button
+                type="button"
+                className={styles.footerAccordionHeader}
+                onClick={() => toggleSection(section.id)}
+                aria-expanded={openSection === section.id}>
+                <h6 className="bold">{section.title}</h6>
 
-              <span className={`${styles.accordionIcon} ${openSection === "programmes" ? styles.open : ""}`}>+</span>
-            </button>
+                <span className={`${styles.accordionIcon} ${openSection === section.id ? styles.open : ""}`}>+</span>
+              </button>
 
-            <div className={`${styles.footerLinks} ${openSection === "programmes" ? styles.footerLinksOpen : ""}`}>
-              <a href="#">Programme 1</a>
-              <a href="#">Programme 2</a>
-              <a href="#">Programme 3</a>
-              <a href="#">Programme 4</a>
-              <a href="#">Programme 5</a>
-              <a href="#">Programme 6</a>
-              <a href="#">Programme 7</a>
-              <a href="#">Programme 8</a>
-              <a href="#">Programme 9</a>
-              <a href="#">Programme 10</a>
+              <div className={`${styles.footerLinks} ${openSection === section.id ? styles.footerLinksOpen : ""}`}>
+                {section.children?.map((link) => (
+                  <a
+                    href={link.url || "#"}
+                    key={link.id}>
+                    {link.title}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className={styles.footerAccordion}>
-            <button
-              type="button"
-              className={styles.footerAccordionHeader}
-              onClick={() => toggleSection("quickLinks")}
-              aria-expanded={openSection === "quickLinks"}>
-              <h6 className="bold">Quick Links</h6>
-
-              <span className={`${styles.accordionIcon} ${openSection === "quickLinks" ? styles.open : ""}`}>+</span>
-            </button>
-
-            <div className={`${styles.footerLinks} ${openSection === "quickLinks" ? styles.footerLinksOpen : ""}`}>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-              <a href="#">Link 4</a>
-              <a href="#">Link 5</a>
-              <a href="#">Link 6</a>
-              <a href="#">Link 7</a>
-              <a href="#">Link 8</a>
-              <a href="#">Link 9</a>
-              <a href="#">Link 10</a>
-            </div>
-          </div>
-
-          {/* Miscellaneous */}
-          <div className={styles.footerAccordion}>
-            <button
-              type="button"
-              className={styles.footerAccordionHeader}
-              onClick={() => toggleSection("miscellaneous")}
-              aria-expanded={openSection === "miscellaneous"}>
-              <h6 className="bold">Miscellaneous</h6>
-
-              <span className={`${styles.accordionIcon} ${openSection === "miscellaneous" ? styles.open : ""}`}>+</span>
-            </button>
-
-            <div className={`${styles.footerLinks} ${openSection === "miscellaneous" ? styles.footerLinksOpen : ""}`}>
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-              <a href="#">Link 4</a>
-              <a href="#">Link 5</a>
-              <a href="#">Link 6</a>
-              <a href="#">Link 7</a>
-              <a href="#">Link 8</a>
-              <a href="#">Link 9</a>
-              <a href="#">Link 10</a>
-            </div>
-          </div>
+          ))}
         </div>
 
         {/* Row 3 */}

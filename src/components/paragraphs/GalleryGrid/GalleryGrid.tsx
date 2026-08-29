@@ -20,7 +20,7 @@ export function GalleryGrid({ paragraph, images = [], children }: GalleryGridPro
   return (
     <>
       <div className={clsx(styles.content, "mb-6")}>
-        {heading ? <h3 className="bold">{heading}</h3> : null}
+        {heading ? <h3>{heading}</h3> : null}
 
         {!isMobile && children && <div className={styles.secButton}>{children}</div>}
       </div>

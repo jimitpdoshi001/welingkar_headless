@@ -1,66 +1,53 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import { Logo } from "@/assets/svg/Logos";
 import { Search, LightMode, DarkMode } from "@/assets/svg/Icons";
 import Link from "next/link";
 
-const navItems = [
-  {
-    label: "Who We Are",
-    href: "/who-we-are",
-  },
-  {
-    label: "Campus",
-    href: "/campus",
-  },
-  {
-    label: "Programmes",
-    href: "/programmes",
-  },
-  {
-    label: "Corporate",
-    href: "/corporate",
-  },
-  {
-    label: "WeResearch",
-    href: "/weresearch",
-  },
-  {
-    label: "WeFactor",
-    href: "/wefactor",
-  },
-];
+interface MenuItem {
+  id: string;
+  title: string;
+  url: string;
+  weight: string;
+  menu: string;
+  children: MenuItem[];
+}
 
-const headerRow1Right = [
-  {
-    label: "WeGlobal",
-    href: "/",
-  },
-  {
-    label: "Blogs",
-    href: "/blogs",
-  },
-  {
-    label: "Events",
-    href: "/events",
-  },
-  {
-    label: "Media",
-    href: "/media",
-  },
-  {
-    label: "Careers",
-    href: "/careers",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
-];
+interface TopMenu {
+  primary: MenuItem[];
+  secondary: MenuItem[];
+}
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [topMenu, setTopMenu] = useState<TopMenu>({
+    primary: [],
+    secondary: [],
+  });
+
+  useEffect(() => {
+    const fetchTopMenu = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_DRUPAL_BASE_URL}/api/top-menu`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch top menu");
+        }
+
+        const result = await response.json();
+
+        if (result?.status && result?.data) {
+          setTopMenu(result.data);
+        }
+      } catch (error) {
+        console.error("Error fetching top menu:", error);
+      }
+    };
+
+    fetchTopMenu();
+  }, []);
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -76,6 +63,7 @@ const Header = () => {
               <span>
                 <LightMode />
               </span>
+
               <span>
                 <DarkMode />
               </span>
@@ -83,13 +71,13 @@ const Header = () => {
           </div>
 
           <div className={styles.headerRow1Right}>
-            {headerRow1Right.map((item) => (
-              <a
+            {topMenu.primary.map((item) => (
+              <Link
                 className={styles.navItem}
-                key={item.href}
-                href={item.href}>
-                {item.label}
-              </a>
+                key={item.id}
+                href={item.url || "#"}>
+                {item.title}
+              </Link>
             ))}
           </div>
         </div>
@@ -108,13 +96,13 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <nav className={styles.navItems}>
-              {navItems.map((item) => (
-                <a
+              {topMenu.secondary.map((item) => (
+                <Link
                   className={styles.navItem}
-                  key={item.href}
-                  href={item.href}>
-                  {item.label}
-                </a>
+                  key={item.id}
+                  href={item.url || "#"}>
+                  {item.title}
+                </Link>
               ))}
             </nav>
           </div>
@@ -142,26 +130,26 @@ const Header = () => {
         {/* Mobile Menu */}
         <nav className={`${styles.mobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ""}`}>
           <div className={styles.mobileMenuInner}>
-            {navItems.map((item) => (
-              <a
+            {topMenu.secondary.map((item) => (
+              <Link
                 className={styles.mobileNavItem}
-                key={item.href}
-                href={item.href}
+                key={item.id}
+                href={item.url || "#"}
                 onClick={closeMenu}>
-                {item.label}
-              </a>
+                {item.title}
+              </Link>
             ))}
 
             <div className={styles.mobileDivider} />
 
-            {headerRow1Right.map((item) => (
-              <a
+            {topMenu.primary.map((item) => (
+              <Link
                 className={styles.mobileSecondaryItem}
-                key={item.href}
-                href={item.href}
+                key={item.id}
+                href={item.url || "#"}
                 onClick={closeMenu}>
-                {item.label}
-              </a>
+                {item.title}
+              </Link>
             ))}
           </div>
         </nav>

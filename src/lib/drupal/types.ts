@@ -36,12 +36,21 @@ export type NodeAttributes = {
   created: string;
   changed: string;
   path: DrupalPath;
+  promote?: boolean;
+  sticky?: boolean;
   body?: {
     value: string;
     format: string;
     processed: string;
     summary?: string;
   } | null;
+  field_body?: {
+    value?: string;
+    format?: string;
+    processed?: string;
+    summary?: string;
+  } | null;
+  field_date?: string | null;
 };
 
 export type NodeResource = JsonApiResource<`node--${string}`, NodeAttributes>;

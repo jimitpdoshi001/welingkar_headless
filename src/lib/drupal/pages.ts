@@ -68,6 +68,14 @@ function pathsForNode(node: NodeResource): string[] {
     return [...paths];
   }
 
+  if (node.type === "node--blogs") {
+    const blogSlug = titleSlug || String(node.attributes.drupal_internal__nid);
+    if (alias) paths.add(normalizePath(alias));
+    else paths.add(normalizePath(`/blogs/${blogSlug}`));
+    paths.add(nidPath);
+    return [...paths];
+  }
+
   if (alias) {
     paths.add(normalizePath(alias));
   } else if (titleSlug && !isSiteHomepage(node)) {
@@ -176,7 +184,9 @@ function toDrupalPage(
       ? "/newsroom"
       : isNewsroomNode(node)
         ? (paths.find((path) => path.startsWith("/newsroom/") && path !== "/newsroom") ?? paths[0] ?? "/")
-        : (paths.find((path) => path !== "/" && !path.startsWith("/node/")) ?? paths[0] ?? "/");
+        : node.type === "node--blogs"
+          ? (paths.find((path) => path.startsWith("/blogs/") && path !== "/blogs") ?? paths[0] ?? "/")
+          : (paths.find((path) => path !== "/" && !path.startsWith("/node/")) ?? paths[0] ?? "/");
 
   return {
     id: node.id,

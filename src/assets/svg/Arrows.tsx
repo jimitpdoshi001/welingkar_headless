@@ -66,3 +66,19 @@ export const ArrowRight = ({ height, width }: { height: number; width: number })
     </svg>
   );
 };
+
+export const ArrowUp = () => {
+  return (
+    <svg
+      width="9"
+      height="7"
+      viewBox="0 0 9 7"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0 7L9 7L4.5 -3.93402e-07L0 7Z"
+        fill="var(--color-primary)"
+      />
+    </svg>
+  );
+};

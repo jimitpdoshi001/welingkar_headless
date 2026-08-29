@@ -6,7 +6,7 @@ type DrupalPageViewProps = {
 };
 
 export function DrupalPageView({ page }: DrupalPageViewProps) {
-  const body = page.node.attributes.body?.processed;
+  const body = page.node.attributes.body?.processed || page.node.attributes.field_body?.processed || page.node.attributes.field_body?.value;
   return (
     <>
       <ParagraphRenderer page={page} />

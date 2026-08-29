@@ -1,46 +1,156 @@
-@import "../../../styles/base/mixins";
+@use "../../../styles/base/mixins" as *;
+
+$card-height: 38rem;
+$card-width: 33rem;
+$gap: 3rem;
+
 .root {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: clip;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
 }
+
 .header {
-  position: absolute;
+  flex: 1;
   left: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
+  position: relative;
+  max-width: 30%;
 }
 
 .rightSide {
+  display: flex;
+  gap: $gap;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  right: -10%;
+}
+
+.columnContainer {
+  width: $card-width;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Moving Blank Card Tracks */
+.columnTrack {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
   position: absolute;
-  right: -5%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+.placeholderCard {
+  width: 100%;
+  height: $card-height;
+  border-radius: 3rem;
+  @include glass-background;
+  opacity: .2;
+}
+
+/* Fixed Overlay Positions */
+
+// Column 1: Exactly 1 card centered vertically
+.col1FixedOverlay {
+  position: absolute;
   top: 50%;
+  left: 0;
+  width: 100%;
   transform: translateY(-50%);
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 4rem;
+  z-index: 2;
+  pointer-events: auto;
+}
 
-  .column1 {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
+// Column 2: 2 cards stacked vertically (their gap aligns with the center of Col 1)
+.col2FixedOverlay {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  z-index: 2;
+  pointer-events: auto;
+}
 
-    .item {
-      @include glass-background;
-      border-radius: 2rem;
-      padding: 2rem;
-      min-height: 36rem;
-      min-width: 30rem;
-      opacity: 0.3;
+/* White Data Card Styling */
+.activeCard {
+  width: 100%;
+  height: $card-height;
+  background-color: var(--color-white);
+  border-radius: 2rem;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
 
-      .content {
-        display: flex;
-        flex-direction: column;
-        gap: 10rem;
-      }
-    }
+/* In-place directional animations matching the 0.7s step */
+.slideFromTop {
+  animation: slideTopIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.slideFromBottom {
+  animation: slideBottomIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes slideTopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
   }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideBottomIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.quote {
+  font-size: 1.6rem;
+  line-height: 1.45;
+  color: var(--color-black);
+  font-weight: 500;
+  margin: 0;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.role {
+  font-size: 1rem;
 }

@@ -16,6 +16,8 @@ export {
   includeForBundle,
   nodeParagraphFieldsForBundle,
 } from "./paragraph-registry";
+export { getBlogArticles, getBlogCategories, getBlogListing } from "./blogs";
+export type { BlogArticle, BlogCategory } from "./blogs";
 export { getAllPages, getAllRouteParams, getPageByPath, getNodePathMap, getNewsroomArticles, isNewsroomOverviewPage } from "./pages";
 export { resolveDrupalHref, toHref, isAppPath, isHashHref, drupalLinkTarget } from "./link";
 export type * from "./types";
