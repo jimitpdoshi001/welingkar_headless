@@ -52,7 +52,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
  * Every relationship field that can hold a *child paragraph*
  * (checked on every parent while building the ParagraphItem tree).
  */
-export const NESTED_PARAGRAPH_FIELDS = ["field_responsive_media", "field_section_content", "field_cta", "field_header_and_description"] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_responsive_media", "field_section_content", "field_cta", "field_header_and_description", "field_header_and_desc", "field_button", "field_header"] as const;
 
 /**
  * Include path suffixes keyed by the *node* paragraph field.

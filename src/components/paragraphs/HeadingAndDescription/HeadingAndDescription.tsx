@@ -1,6 +1,8 @@
+"use client";
 import type { HeadingAndDescriptionAttributes, JsonApiResource } from "@/lib/drupal";
 import styles from "./HeadingAndDescription.module.scss";
 import clsx from "clsx";
+import {useIsMobile} from "@/util/useMediaQuery";
 
 type HeadingAndDescriptionProps = {
   paragraph: JsonApiResource<"paragraph--header_and_description", HeadingAndDescriptionAttributes>;
@@ -10,6 +12,8 @@ type HeadingAndDescriptionProps = {
 export function HeadingAndDescription({ paragraph, children }: HeadingAndDescriptionProps) {
   const heading = paragraph.attributes.field_header || null;
   const description = paragraph.attributes.field_description?.processed || null;
+
+  const isMobile = useIsMobile();
 
   const textColorClasses = {
     primary: "text-primary",
@@ -41,7 +45,7 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
   } as const;
 
   const componentStylesClasses = {
-    button_right: "f jc-sb ai-fe gap3",
+    button_right: styles.button_right,
   } as const;
 
   const headerSizeClasses = {
@@ -66,29 +70,29 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
 
   const headerSizeClass = headerSizeClasses[paragraph.attributes.field_header_size as keyof typeof headerSizeClasses] || null;
 
-  const componentStylesClass = componentStylesClasses[paragraph.attributes.field_header_style as keyof typeof componentStylesClasses] || null;
+  const Component = headerSizeClass as React.ElementType || "h3";
 
-  // console.log("heading and description", paragraph.attributes);
+  const componentStylesClass = componentStylesClasses[paragraph.attributes.field_header_style as keyof typeof componentStylesClasses] || null;
 
   return (
     <div className={clsx(colorClass, textAlignClass, textVerticalAlignClass, textVerticalAlignClass ? "g h-100" : "")}>
-      {componentStylesClass !== "f jc-sb ai-fe gap3" ? (
-        <div className={clsx(maxWidthClass, maxWidthClass && textAlignClass === "text-center" && "mx-auto")}>
+      {componentStylesClass !== styles.button_right ? (
+        <div className={clsx(maxWidthClass, maxWidthClass && textAlignClass === "text-center" && "mx-auto", isMobile ? "text-left" : "")}>
           <div>
-            {heading ? <h2 className={headerSizeClass}>{heading}</h2> : null}
+            {heading ? <Component>{heading}</Component> : null}
             {description ? (
               <div
-                className={clsx(styles.descriptionContent)}
+                className={clsx(styles.descriptionContent, children ? "mb-4" : "")}
                 dangerouslySetInnerHTML={{ __html: description }}
               />
             ) : null}
           </div>
-          <div className="mt-4">{children}</div>
+          {children}
         </div>
       ) : (
         <div className={clsx(componentStylesClass)}>
           <div className={clsx(maxWidthClass, maxWidthClass && textAlignClass === "text-center" && "mx-auto")}>
-            {heading ? <h2 className={headerSizeClass}>{heading}</h2> : null}
+            {heading ? <Component>{heading}</Component> : null}
             {description ? (
               <div
                 className={clsx(styles.descriptionContent)}
@@ -96,7 +100,7 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
               />
             ) : null}
           </div>
-          <div className="mt-4">{children}</div>
+          {children}
         </div>
       )}
     </div>

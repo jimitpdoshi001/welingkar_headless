@@ -82,3 +82,18 @@ export const ArrowUp = () => {
     </svg>
   );
 };
+
+export const AccordionDown = ({ height, width }: { height: number; width: number }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 12 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6 4.6L10.6 -6.11959e-08L12 1.4L6 7.4L-6.11959e-08 1.4L1.4 -4.63341e-07L6 4.6Z"
+        fill="black" />
+    </svg>
+  );
+};

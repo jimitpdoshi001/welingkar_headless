@@ -5,6 +5,7 @@ import { Logo } from "@/assets/svg/Logos";
 import styles from "./Footer.module.scss";
 import { Facebook, Instagram, Twitter, LinkedIn, Youtube } from "@/assets/svg/Icons";
 import { useIsMobile } from "@/util/useMediaQuery";
+import { AccordionDown } from "@/assets/svg/Arrows";
 
 interface FooterLink {
   id: string;
@@ -31,8 +32,6 @@ const Footer = () => {
         }
 
         const result = await response.json();
-
-        console.log("result", result);
 
         if (result?.status && Array.isArray(result?.data)) {
           setFooterMenu(result.data);
@@ -110,7 +109,7 @@ const Footer = () => {
                 aria-expanded={openSection === section.id}>
                 <h6 className="bold">{section.title}</h6>
 
-                <span className={`${styles.accordionIcon} ${openSection === section.id ? styles.open : ""}`}>+</span>
+                <span className={`${styles.accordionIcon} ${openSection === section.id ? styles.open : ""}`}><AccordionDown width={12} height={8} /></span>
               </button>
 
               <div className={`${styles.footerLinks} ${openSection === section.id ? styles.footerLinksOpen : ""}`}>

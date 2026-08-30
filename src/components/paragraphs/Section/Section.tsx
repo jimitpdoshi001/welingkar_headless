@@ -88,8 +88,16 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
   const arrowStyleClass = arrowStyleClasses[attributes.field_arrow_style as keyof typeof arrowStyleClasses] ?? "";
   const hasBackground = Boolean(responsiveMedia?.desktop || responsiveMedia?.mobile || image);
 
+  if (attributes.field_hide_section === true) {
+    return null;
+  }
+
   return (
-    <section className={clsx("relative", backgroundColorClass, heightClass, "overflow-hidden", arrowStyleClass)}>
+    <section className={clsx("relative", heightClass, "overflow-hidden", arrowStyleClass)}>
+      <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100")}>{children}</div>
+
+      <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass)} />
+
       {responsiveMedia && (
         <ResponsiveMedia
           media={responsiveMedia}
@@ -156,7 +164,6 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
           </span>
         </div>
       )}
-      <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100")}>{children}</div>
     </section>
   );
 }

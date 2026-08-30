@@ -207,6 +207,34 @@ export type HeadingAndDescriptionAttributes = {
 
 export type HeadingAndDescriptionResource = JsonApiResource<"paragraph--header_and_description", HeadingAndDescriptionAttributes>;
 
+export type HeaderAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header?: string | null;
+  field_alignment?: string | null;
+  field_header_size?: string | null;
+  field_text_color?: string | null;
+  field_max_width?: string | number | null;
+  [key: string]: unknown;
+};
+
+export type HeaderResource = JsonApiResource<"paragraph--header", HeaderAttributes>;
+
+export type TestRawCompAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_raw_html?: {
+    value: string;
+    format: string;
+    processed: string;
+  } | null;
+  [key: string]: unknown;
+};
+
+export type TestRawCompResource = JsonApiResource<"paragraph--test_raw_comp", TestRawCompAttributes>;
+
 export type SectionAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;

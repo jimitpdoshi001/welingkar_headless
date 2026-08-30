@@ -10,6 +10,8 @@ import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { Section } from "./Section/Section";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
+import { Header } from "./Header/Header";
+import { TestRawComp } from "./TestRawComp/TestRawComp";
 import { ResponsiveMedia } from "./ResponsiveMedia/ResponsiveMedia";
 
 export type ParagraphRenderContext = {
@@ -21,6 +23,22 @@ export type ParagraphRenderContext = {
  * Map Drupal `paragraph--*` types → React components.
  */
 export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: ParagraphRenderContext) => ReactNode> = {
+  "paragraph--test_raw_comp": (item, { renderChildren }) => (
+    <TestRawComp
+      key={item.resource.id}
+      paragraph={item.resource as Parameters<typeof TestRawComp>[0]["paragraph"]}>
+      {renderChildren(item.children)}
+    </TestRawComp>
+  ),
+
+  "paragraph--header": (item, { renderChildren }) => (
+    <Header
+      key={item.resource.id}
+      paragraph={item.resource as Parameters<typeof Header>[0]["paragraph"]}>
+      {renderChildren(item.children)}
+    </Header>
+  ),
+
   "paragraph--section": (item, { page, renderChildren }) => {
     const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
 
