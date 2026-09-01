@@ -13,11 +13,13 @@ import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescrip
 import { HeroBanner } from "./HeroBanner/HeroBanner";
 import { HomeCommunitySection } from "./HomeCommunitySection/HomeCommunitySection";
 import { ImageBox } from "./ImageBox/ImageBox";
+import { ImageLeftRight } from "./ImageLeftRight/ImageLeftRight";
 import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { ResponsiveMedia } from "./ResponsiveMedia/ResponsiveMedia";
 import { Section } from "./Section/Section";
 import { TestRawComp } from "./TestRawComp/TestRawComp";
+import { TestimonialsData } from "./TestimonialsData/TestimonialsData";
 
 export type ParagraphRenderContext = {
   page: DrupalPage;
@@ -117,6 +119,20 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
     );
   },
 
+  "paragraph--image_left_right": (item, { page, renderChildren }) => {
+    const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
+
+    return (
+      <ImageLeftRight
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof ImageLeftRight>[0]["paragraph"]}
+        responsiveMedia={page.paragraphResponsiveMedia[item.resource.id] ?? null}
+      >
+        {renderChildren(contentChildren)}
+      </ImageLeftRight>
+    );
+  },
+
   "paragraph--media_box_with_popup": (item, { page, renderChildren }) => {
     const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
 
@@ -178,6 +194,18 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(item.children)}
       </TestRawComp>
+    );
+  },
+
+  "paragraph--testimonials_data": (item, { page, renderChildren }) => {
+    return (
+      <TestimonialsData
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof TestimonialsData>[0]["paragraph"]}
+        image={page.paragraphImages[item.resource.id] ?? null}
+      >
+        {renderChildren(item.children)}
+      </TestimonialsData>
     );
   },
 };

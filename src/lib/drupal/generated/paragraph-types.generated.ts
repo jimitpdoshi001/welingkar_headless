@@ -71,6 +71,7 @@ export type HeadingAndDescriptionAttributes = {
       processed: string;
     } | null;
   field_cta?: Array<{ type: string; id: string }> | null;
+  field_image_right?: boolean | null;
   [key: string]: unknown;
 };
 
@@ -92,6 +93,7 @@ export type HomeCommunitySectionAttributes = {
   parent_type?: string | null;
   parent_field_name?: string | null;
   field_header_and_description?: { type: string; id: string } | null;
+  field_testimonials_data?: Array<{ type: string; id: string }> | null;
   [key: string]: unknown;
 };
 
@@ -122,6 +124,26 @@ export type ImageBoxAttributes = {
 };
 
 export type ImageBoxResource = JsonApiResource<"paragraph--image_box", ImageBoxAttributes>;
+
+export type ImageLeftRightAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_description?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  field_subtitle?: string | null;
+  field_title?: string | null;
+  field_responsive_media?: { type: string; id: string } | null;
+  field_cta?: Array<{ type: string; id: string }> | null;
+  field_image_right?: boolean | null;
+  field_header_size?: string | null;
+  [key: string]: unknown;
+};
+
+export type ImageLeftRightResource = JsonApiResource<"paragraph--image_left_right", ImageLeftRightAttributes>;
 
 export type MediaBoxWithPopupAttributes = {
   parent_id?: string | null;
@@ -195,3 +217,20 @@ export type TestRawCompAttributes = {
 };
 
 export type TestRawCompResource = JsonApiResource<"paragraph--test_raw_comp", TestRawCompAttributes>;
+
+export type TestimonialsDataAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_name?: string | null;
+  field_designation?: string | null;
+  field_description?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  field_single_image?: { type: string; id: string } | null;
+  [key: string]: unknown;
+};
+
+export type TestimonialsDataResource = JsonApiResource<"paragraph--testimonials_data", TestimonialsDataAttributes>;

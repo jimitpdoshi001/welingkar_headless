@@ -1,0 +1,25 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    &.isRight {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 2rem;
+    }
+  }
+
+  .media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}

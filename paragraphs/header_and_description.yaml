@@ -16,3 +16,5 @@ fields:
     type: paragraph
     target: button
     cardinality: unlimited
+  field_image_right:
+    type: boolean

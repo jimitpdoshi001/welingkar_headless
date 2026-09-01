@@ -10,7 +10,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
   blogs: [],
 };
 
-export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_cta","field_header","field_header_and_desc","field_header_and_description","field_responsive_media","field_section_content"] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_cta","field_header","field_header_and_desc","field_header_and_description","field_responsive_media","field_section_content","field_testimonials_data"] as const;
 
 export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> = {
   field_components: [
@@ -40,11 +40,15 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     "field_section_content.field_responsive_media.field_mobile.thumbnail",
     "field_section_content.field_single_image",
     "field_section_content.field_single_image.field_media_image",
+    "field_section_content.field_testimonials_data",
+    "field_section_content.field_testimonials_data.field_single_image",
+    "field_section_content.field_testimonials_data.field_single_image.field_media_image",
   ],
 };
 
 export const PARAGRAPH_IMAGE_FIELDS: Record<string, string> = {
   "paragraph--media_box_with_popup": "field_single_image",
+  "paragraph--testimonials_data": "field_single_image",
   "paragraph--iconbox": "field_icon",
   "paragraph--home_section2": "field_icon",
   "paragraph--investor_section": "field_desktop",
@@ -59,7 +63,7 @@ export const PARAGRAPH_TYPES_WITH_IMAGE = ["paragraph--herobanner","paragraph--s
 
 export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] as const;
 
-export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--hero_banner","paragraph--image_box","paragraph--media_box_with_popup","paragraph--section"] as const;
+export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--hero_banner","paragraph--image_box","paragraph--image_left_right","paragraph--media_box_with_popup","paragraph--section"] as const;
 
 export function allNodeParagraphFields(): string[] {
   return [...new Set(Object.values(NODE_PARAGRAPH_FIELDS_BY_BUNDLE).flat())];

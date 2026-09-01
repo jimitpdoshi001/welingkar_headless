@@ -1,0 +1,43 @@
+.root {
+  width: 100%;
+  padding: 40px 20px;
+}
+
+.card {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px;
+  background: #f7f7f7;
+  border-radius: 12px;
+}
+
+.quote {
+  font-size: 48px;
+  line-height: 1;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.author {
+  border-top: 1px solid #ddd;
+  padding-top: 16px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+}
+
+.designation {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #777;
+}

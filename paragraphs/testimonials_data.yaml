@@ -1,0 +1,19 @@
+id: testimonials_data
+label: Testimonials Data
+component: TestimonialsData
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_name:
+    type: string
+  field_designation:
+    type: string
+  field_description:
+    type: text_long
+  field_single_image:
+    type: media
+    target: image
+    cardinality: 1
+    media: single

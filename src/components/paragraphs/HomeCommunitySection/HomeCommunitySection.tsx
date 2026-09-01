@@ -1,248 +1,260 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { HomeCommunitySectionAttributes, JsonApiResource } from "@/lib/drupal";
+
+import "swiper/css";
+import "swiper/css/navigation";
+
 import styles from "./HomeCommunitySection.module.scss";
+import clsx from "clsx";
+
+export type CommunityTestimonial = {
+  id: string;
+  quote: string;
+  name: string;
+  role: string;
+  avatar: string;
+  avatarAlt: string;
+};
 
 type HomeCommunitySectionProps = {
   paragraph?: JsonApiResource<"paragraph--home_community_section", HomeCommunitySectionAttributes>;
+  testimonials?: CommunityTestimonial[];
   children?: React.ReactNode;
 };
 
-const testimonials = [
-  {
-    id: 1,
-    quote: "1 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "BigBasket DC - Manager",
-    avatar: "https://i.pravatar.cc/150?u=1",
-  },
-  {
-    id: 2,
-    quote: "2 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "Student",
-    avatar: "https://i.pravatar.cc/150?u=2",
-  },
-  {
-    id: 3,
-    quote: "3 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "Alumni",
-    avatar: "https://i.pravatar.cc/150?u=3",
-  },
-  {
-    id: 4,
-    quote: "4 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "Researcher",
-    avatar: "https://i.pravatar.cc/150?u=4",
-  },
-  {
-    id: 5,
-    quote: "5 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "Graduate",
-    avatar: "https://i.pravatar.cc/150?u=5",
-  },
-  {
-    id: 6,
-    quote: "6 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "Graduate",
-    avatar: "https://i.pravatar.cc/150?u=6",
-  },
-  {
-    id: 7,
-    quote: "7 I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.",
-    name: "Rajesh ramineni",
-    role: "Graduate",
-    avatar: "https://i.pravatar.cc/150?u=5",
-  },
-];
-
 const CARD_HEIGHT = 380;
 const GAP = 30;
-const STEP_SIZE = CARD_HEIGHT + GAP; // 410px
-const HALF_STEP = STEP_SIZE / 2;     // 205px
-const N = testimonials.length;
-
-// Range of slot indices rendered in each column track (-5 to +5, where slot 0 is the center slot)
+const STEP_SIZE = CARD_HEIGHT + GAP;
+const HALF_STEP = STEP_SIZE / 2;
 const TRACK_SLOTS = Array.from({ length: 11 }, (_, i) => i - 5);
-const ZERO_SLOT_OFFSET = 5; // 5 slots before slot 0 inside the flex column track
+const ZERO_SLOT_OFFSET = 5;
+const COL1_BASE_Y = -(ZERO_SLOT_OFFSET * STEP_SIZE) - CARD_HEIGHT / 2;
+const COL2_BASE_Y = COL1_BASE_Y - HALF_STEP;
+const COL3_BASE_Y = COL1_BASE_Y;
 
-// Base translateY offsets to center slot 0 at top: 50%
-const COL1_BASE_Y = -(ZERO_SLOT_OFFSET * STEP_SIZE) - CARD_HEIGHT / 2; // -2240px
-const COL2_BASE_Y = COL1_BASE_Y - HALF_STEP;                           // -2445px
-const COL3_BASE_Y = COL1_BASE_Y;                                        // -2240px
+function TestimonialBody({ item }: { item: CommunityTestimonial }) {
+  return (
+    <>
+      <p className={styles.quote}>{item.quote}</p>
+      <div className={styles.author}>
+        {item.avatar ? (
+          <Image
+            src={item.avatar}
+            alt={item.avatarAlt || item.name}
+            width={50}
+            height={50}
+            className={styles.avatar}
+          />
+        ) : null}
+        <div>
+          {item.name ? <h4 className={styles.name}>{item.name}</h4> : null}
+          {item.role ? <span className={styles.role}>{item.role}</span> : null}
+        </div>
+      </div>
+    </>
+  );
+}
 
-export function HomeCommunitySection({ children }: HomeCommunitySectionProps) {
+function TestimonialCard({ item, opacity, transitioning }: { item: CommunityTestimonial; opacity: number; transitioning: boolean }) {
+  return (
+    <div
+      className={styles.activeCardOverlay}
+      style={{
+        opacity,
+        transition: transitioning ? "opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1)" : "none",
+      }}>
+      <TestimonialBody item={item} />
+    </div>
+  );
+}
+
+export function HomeCommunitySection({ testimonials = [], children }: HomeCommunitySectionProps) {
+  const count = testimonials.length;
   const [step, setStep] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Stepped cycle timer (~3.0s total: 0.75s slide transition + 2.25s rest phase)
   useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (count === 0 || isMobile) return;
     const interval = setInterval(() => {
       setIsTransitioning(true);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [count, isMobile]);
 
-  // Seamless silent step reset when transition finishes (0.75s)
   useEffect(() => {
-    if (isTransitioning) {
-      const resetTimer = setTimeout(() => {
-        setIsTransitioning(false);
-        setStep((prev) => (prev + 1) % N);
-      }, 750); // Match CSS transition duration (0.75s)
-      return () => clearTimeout(resetTimer);
-    }
-  }, [isTransitioning]);
+    if (!isTransitioning || count === 0 || isMobile) return;
 
-  const transitionStyle = isTransitioning
-    ? "transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)"
-    : "none";
+    const resetTimer = setTimeout(() => {
+      setIsTransitioning(false);
+      setStep((prev) => (prev + 1) % count);
+    }, 750);
 
-  // Column 1 (Top -> Bottom): translateY moves downward (+STEP_SIZE) during transition
+    return () => clearTimeout(resetTimer);
+  }, [isTransitioning, count, isMobile]);
+
+  const transitionStyle = isTransitioning ? "transform 0.75s cubic-bezier(0.25, 1, 0.5, 1)" : "none";
   const col1TranslateY = COL1_BASE_Y + (isTransitioning ? STEP_SIZE : 0);
-
-  // Column 2 (Bottom -> Top): translateY moves upward (-STEP_SIZE) during transition
   const col2TranslateY = COL2_BASE_Y - (isTransitioning ? STEP_SIZE : 0);
-
-  // Column 3 (Top -> Bottom): translateY moves downward (+STEP_SIZE) during transition in sync with Column 1
   const col3TranslateY = COL3_BASE_Y + (isTransitioning ? STEP_SIZE : 0);
 
+  const itemAt = (offset: number) => (count ? testimonials[(step + offset) % count] : null);
+
   return (
-    <div className={styles.root}>
-      {children && <div className={styles.header}>{children}</div>}
+    <div className={clsx(styles.root, isMobile ? styles.mobile : "")}>
+      {children ? <div className={styles.header}>{children}</div> : null}
 
       <div className={styles.rightSide}>
-        {/* ================= COLUMN 1 ================= */}
-        {/* Moves Top -> Bottom. Simultaneous cross-fade revealing blank placeholder underneath. */}
         <div className={styles.columnContainer}>
           <div
             className={styles.columnTrack}
             style={{
               transform: `translateY(${col1TranslateY}px)`,
               transition: transitionStyle,
-            }}
-          >
+            }}>
             {TRACK_SLOTS.map((idx) => {
               const isCurrentSlot = idx === 0;
               const isIncomingSlot = idx === -1;
-              const hasActiveOverlay = isCurrentSlot || isIncomingSlot;
-
-              const item = isCurrentSlot
-                ? testimonials[step % N]
-                : testimonials[(step + 1) % N];
-
-              const cardOpacity = isCurrentSlot
-                ? (isTransitioning ? 0 : 1)
-                : (isTransitioning ? 1 : 0);
+              const item = isCurrentSlot ? itemAt(0) : itemAt(1);
+              const cardOpacity = isCurrentSlot ? (isTransitioning ? 0 : 1) : isTransitioning ? 1 : 0;
 
               return (
-                <div key={`col1-slot-${idx}`} className={styles.placeholderCard}>
-                  {hasActiveOverlay && (
-                    <div
-                      className={styles.activeCardOverlay}
-                      style={{
-                        opacity: cardOpacity,
-                        transition: isTransitioning
-                          ? "opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1)"
-                          : "none",
-                      }}
-                    >
-                      <p className={styles.quote}>{item.quote}</p>
-                      <div className={styles.author}>
-                        <img src={item.avatar} alt={item.name} className={styles.avatar} />
-                        <div>
-                          <h4 className={styles.name}>{item.name}</h4>
-                          <span className={styles.role}>{item.role}</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <div
+                  key={`col1-slot-${idx}`}
+                  className={styles.placeholderCard}>
+                  {item && (isCurrentSlot || isIncomingSlot) ? (
+                    <TestimonialCard
+                      item={item}
+                      opacity={cardOpacity}
+                      transitioning={isTransitioning}
+                    />
+                  ) : null}
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* ================= COLUMN 2 ================= */}
-        {/* Moves Bottom -> Top. Simultaneous cross-fade revealing blank placeholders underneath. */}
         <div className={styles.columnContainer}>
           <div
             className={styles.columnTrack}
             style={{
               transform: `translateY(${col2TranslateY}px)`,
               transition: transitionStyle,
-            }}
-          >
+            }}>
             {TRACK_SLOTS.map((idx) => {
               const isTopSlot = idx === 0;
               const isBottomSlot = idx === 1;
               const isIncomingSlot = idx === 2;
-              const hasActiveOverlay = isTopSlot || isBottomSlot || isIncomingSlot;
-
-              let item = testimonials[(step + 1) % N];
+              let item = itemAt(1);
               let cardOpacity = 1;
 
               if (isTopSlot) {
-                item = testimonials[(step + 1) % N];
+                item = itemAt(1);
                 cardOpacity = isTransitioning ? 0 : 1;
               } else if (isBottomSlot) {
-                item = testimonials[(step + 2) % N];
+                item = itemAt(2);
                 cardOpacity = 1;
               } else if (isIncomingSlot) {
-                item = testimonials[(step + 3) % N];
+                item = itemAt(3);
                 cardOpacity = isTransitioning ? 1 : 0;
               }
 
               return (
-                <div key={`col2-slot-${idx}`} className={styles.placeholderCard}>
-                  {hasActiveOverlay && (
-                    <div
-                      className={styles.activeCardOverlay}
-                      style={{
-                        opacity: cardOpacity,
-                        transition: isTransitioning
-                          ? "opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1)"
-                          : "none",
-                      }}
-                    >
-                      <p className={styles.quote}>{item.quote}</p>
-                      <div className={styles.author}>
-                        <img src={item.avatar} alt={item.name} className={styles.avatar} />
-                        <div>
-                          <h4 className={styles.name}>{item.name}</h4>
-                          <span className={styles.role}>{item.role}</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <div
+                  key={`col2-slot-${idx}`}
+                  className={styles.placeholderCard}>
+                  {item && (isTopSlot || isBottomSlot || isIncomingSlot) ? (
+                    <TestimonialCard
+                      item={item}
+                      opacity={cardOpacity}
+                      transitioning={isTransitioning}
+                    />
+                  ) : null}
                 </div>
               );
             })}
           </div>
         </div>
 
-        {/* ================= COLUMN 3 ================= */}
-        {/* Moves Top -> Bottom in sync with Column 1. Dark blank placeholder cards only. */}
         <div className={styles.columnContainer}>
           <div
             className={styles.columnTrack}
             style={{
               transform: `translateY(${col3TranslateY}px)`,
               transition: transitionStyle,
-            }}
-          >
+            }}>
             {TRACK_SLOTS.map((idx) => (
-              <div key={`col3-slot-${idx}`} className={styles.placeholderCard} />
+              <div
+                key={`col3-slot-${idx}`}
+                className={styles.placeholderCard}
+              />
             ))}
           </div>
         </div>
       </div>
+
+      {count > 0 ? (
+        <div className={styles.slider}>
+          {count < 2 ? (
+            <div className={styles.slideCard}>
+              <TestimonialBody item={testimonials[0]} />
+            </div>
+          ) : (
+            <Swiper
+              modules={[Navigation]}
+              slidesPerView={1.15}
+              spaceBetween={20}
+              navigation={{
+                prevEl: `.${styles.prev}`,
+                nextEl: `.${styles.next}`,
+              }}
+              className={styles.swiper}
+              watchOverflow>
+              {testimonials.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <div className={styles.slideCard}>
+                    <TestimonialBody item={item} />
+                  </div>
+                </SwiperSlide>
+              ))}
+              <button
+                type="button"
+                className={`${styles.arrow} ${styles.prev}`}
+                aria-label="Previous">
+                <ArrowLeft
+                  height={7}
+                  width={9}
+                />
+              </button>
+              <button
+                type="button"
+                className={`${styles.arrow} ${styles.next}`}
+                aria-label="Next">
+                <ArrowRight
+                  height={7}
+                  width={9}
+                />
+              </button>
+            </Swiper>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -13,6 +13,10 @@ $gap: 3rem;
   position: relative;
 }
 
+.mobile {
+  padding: 12rem 0 12rem 5%;
+}
+
 .header {
   flex: 1;
   left: 5%;
@@ -29,20 +33,8 @@ $gap: 3rem;
   right: -10%;
 
   /* Vertical Alpha Gradient Masking */
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 15%,
-    black 85%,
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 15%,
-    black 85%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
 }
 
 .columnContainer {
@@ -131,4 +123,91 @@ $gap: 3rem;
 .role {
   font-size: 1.2rem;
   color: var(--color-gray);
+}
+
+.slider {
+  display: none;
+}
+
+.slideCard {
+  min-height: $card-height;
+  height: 100%;
+  background-color: var(--color-white, #ffffff);
+  border-radius: 2rem;
+  padding: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.swiper {
+  position: relative;
+  overflow-y: visible;
+  overflow-x: clip;
+
+  :global(.swiper-slide) {
+    height: auto;
+  }
+}
+
+.arrow {
+  position: absolute;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-primary);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-primary);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+
+    svg path {
+      fill: var(--color-white);
+    }
+  }
+}
+
+.prev,
+.next {
+  bottom: -80px;
+  top: unset;
+}
+
+.prev {
+  right: 60px;
+}
+
+.next {
+  right: 0;
+}
+
+@include respond-to(mobile) {
+  .root {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+  }
+
+  .header {
+    left: 0;
+    max-width: 100%;
+  }
+
+  .rightSide {
+    display: none;
+  }
+
+  .slider {
+    display: block;
+    width: 100%;
+    padding-bottom: 10rem;
+  }
 }

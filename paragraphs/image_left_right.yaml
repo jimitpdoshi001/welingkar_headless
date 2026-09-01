@@ -1,0 +1,28 @@
+id: image_left_right
+label: Image Left Right
+component: ImageLeftRight
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_description:
+    type: text_long
+  field_subtitle:
+    type: string
+  field_title:
+    type: string
+  field_responsive_media:
+    type: paragraph
+    target: responsive_media
+    cardinality: 1
+    media: nested_responsive
+  field_cta:
+    type: paragraph
+    target: button
+    cardinality: unlimited
+  field_image_right:
+    type: boolean
+    default: false
+  field_header_size:
+    type: list_string

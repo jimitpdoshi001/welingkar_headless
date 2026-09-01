@@ -10,3 +10,7 @@ fields:
     type: paragraph
     target: header_and_description
     cardinality: 1
+  field_testimonials_data:
+    type: paragraph
+    target: testimonials_data
+    cardinality: unlimited
