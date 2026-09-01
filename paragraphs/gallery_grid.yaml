@@ -1,0 +1,19 @@
+id: gallery_grid
+label: Gallery Grid
+component: GalleryGrid
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_header:
+    type: string
+  field_multiple_images:
+    type: media
+    target: image
+    cardinality: unlimited
+    media: multi
+  field_cta:
+    type: paragraph
+    target: button
+    cardinality: unlimited

@@ -1,0 +1,10 @@
+id: test_raw_comp
+label: Test Raw Comp
+component: TestRawComp
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_raw_html:
+    type: text_long

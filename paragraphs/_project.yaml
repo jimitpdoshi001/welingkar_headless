@@ -1,0 +1,39 @@
+# Node bundles and shared Drupal field names for this project.
+nodeBundles:
+  allpage:
+    paragraphFields:
+      - field_components
+  blogs:
+    paragraphFields: []
+
+# field.storage.paragraph.* already exists in Drupal — never emit a second storage YAML.
+sharedFields:
+  - field_header
+  - field_description
+  - field_cta
+  - field_url
+  - field_link
+  - field_responsive_media
+  - field_section_content
+  - field_multiple_images
+  - field_single_image
+  - field_header_and_description
+  - field_button
+  - field_icon
+
+# Nested paragraph relationship names that must stay in the tree builder
+# even if they are leftovers from older Drupal models.
+extraNestedFields:
+  - field_header_and_desc
+  - field_button
+  - field_header
+
+# Deprecated image consumers kept for pages.ts
+extraTypesWithImage:
+  - paragraph--herobanner
+  - paragraph--section
+
+extraImageFields:
+  paragraph--iconbox: field_icon
+  paragraph--home_section2: field_icon
+  paragraph--investor_section: field_desktop

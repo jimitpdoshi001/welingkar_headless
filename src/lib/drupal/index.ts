@@ -16,6 +16,7 @@ export {
   includeForBundle,
   nodeParagraphFieldsForBundle,
 } from "./paragraph-registry";
+export type * from "./generated/paragraph-types.generated";
 export { getBlogArticles, getBlogCategories, getBlogListing } from "./blogs";
 export type { BlogArticle, BlogCategory } from "./blogs";
 export { getAllPages, getAllRouteParams, getPageByPath, getNodePathMap, getNewsroomArticles, isNewsroomOverviewPage } from "./pages";

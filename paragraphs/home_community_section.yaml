@@ -1,0 +1,12 @@
+id: home_community_section
+label: Home Community Section
+component: HomeCommunitySection
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_header_and_description:
+    type: paragraph
+    target: header_and_description
+    cardinality: 1

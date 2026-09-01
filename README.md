@@ -318,79 +318,30 @@ npm run dev                   # Development server
 npm run build                 # Production build
 npm run start                 # Serve production build
 npm run lint                  # ESLint
-npm run scaffold:paragraph    # Stub a new paragraph component + checklist
+npm run paragraphs:generate  # Generate types, registry, mapping from paragraphs/*.yaml
+npm run paragraphs:watch      # Watch paragraphs/*.yaml and regenerate
+npm run paragraphs:check     # CI: fail if generated files are stale
 ```
 
 ---
 
 ## Adding a new paragraph type
 
-Every new Drupal paragraph needs wiring in **three places**. Skipping includes is
-what usually breaks the site (JSON:API returns 400 and no pages load).
+YAML in `/paragraphs` is the source of truth. Generated files must not be edited by hand.
 
 ```bash
-# Scaffolds component files + prints the checklist
-npm run scaffold:paragraph -- Card
-npm run scaffold:paragraph -- FeatureGrid --type feature_grid --nested field_items
+# 1. Add paragraphs/your_type.yaml (see existing files)
+# 2. Generate Next.js wiring + optional Drupal config artifacts
+npm run paragraphs:generate
 ```
 
-### Checklist
+Then implement the UI in the scaffolded component (existing component files are never overwritten).
 
-| # | File | What to do |
-| --- | --- | --- |
-| 1 | `src/components/paragraphs/YourType/YourType.tsx` | Build the UI (scaffold creates a stub) |
-| 2 | `src/lib/drupal/types.ts` | Add `*Attributes` + `*Resource` types |
-| 3 | `src/lib/drupal/paragraph-registry.ts` | **Data layer** — nested fields + JSON:API includes |
-| 4 | `src/components/paragraphs/paragraph-components.tsx` | **UI layer** — map `paragraph--your_type` → component |
+If the paragraph is new in Drupal, set `drupalConfig: true` in the YAML, copy `generated/drupal-config/<id>/` into the Drupal config sync directory, merge the type into the parent field’s allowed bundles, and run `drush cim`. This Next.js repo does not write to Drupal’s database.
 
-### What goes in `paragraph-registry.ts`
+Invalid JSON:API include paths still break every page fetch. The generator builds includes from YAML `parents` + relationship fields. Keep those accurate.
 
-1. **Nested under a parent?** Add the Drupal field machine name to `NESTED_PARAGRAPH_FIELDS`
-   (e.g. Section gets `field_cards` → add `"field_cards"`).
-2. **Needs to be fetched?** Add include path suffixes under the correct key in
-   `INCLUDE_SUFFIXES_BY_NODE_FIELD`:
-   - Homepage content → `field_section`
-   - Allpage content → `field_components`
-   - Nested two levels deep → `"field_section_label.field_button"` style paths
-   - Media → use `withMediaChain("field_…", RESPONSIVE_MEDIA_INCLUDE)`
-3. **New top-level node field?** Add it to `NODE_PARAGRAPH_FIELDS_BY_BUNDLE` **and**
-   add a matching entry in `INCLUDE_SUFFIXES_BY_NODE_FIELD`.
-
-Only include fields that exist on at least one allowed target type of that
-relationship. Invalid includes fail the entire bundle fetch.
-
-### Nested components (example)
-
-Drupal:
-
-```
-node--allpage
- └─ field_components[] → paragraph--section
-        ├─ field_section_label[] → paragraph--heading_and_description
-        │      └─ field_button[] → paragraph--button
-        └─ field_background_media → paragraph--responsive_image
-```
-
-Homepage `field_section` can also hold `herobanner` (with `field_background_media` + `field_button`) directly.
-
-Frontend updates:
-
-1. `NESTED_PARAGRAPH_FIELDS` already has `field_section_label`, `field_button`, `field_background_media`
-2. `INCLUDE_SUFFIXES_BY_NODE_FIELD.field_components` must list:
-   - `field_section_label`
-   - `field_section_label.field_button`
-   - `field_background_media` + media chain
-3. Each paragraph type registered in `paragraph-components.tsx`
-4. Parents that render children call `renderChildren(item.children)` (see Section / HeadingAndDescription)
-
-### Why it breaks
-
-| Symptom | Likely cause |
-| --- | --- |
-| All pages error / JSON:API 400 | Bad or unknown path in `INCLUDE_SUFFIXES_BY_NODE_FIELD` |
-| Empty section / missing children | Field missing from `NESTED_PARAGRAPH_FIELDS` or include too shallow |
-| "Unsupported paragraph type" | Missing entry in `paragraph-components.tsx` |
-| allpage has no content | Node field missing from `NODE_PARAGRAPH_FIELDS_BY_BUNDLE` |
+See `paragraphs/README.md` for the full workflow.
 
 ## Switching a feature to GraphQL later
 

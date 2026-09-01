@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "scaffold:paragraph": "node scripts/scaffold-paragraph.js"
+    "scaffold:paragraph": "node scripts/scaffold-paragraph.js",
+    "paragraphs:generate": "node scripts/paragraphs/generate.js",
+    "paragraphs:watch": "node scripts/paragraphs/watch.js",
+    "paragraphs:check": "node scripts/paragraphs/generate.js --check"
   },
   "dependencies": {
     "clsx": "^2.1.1",

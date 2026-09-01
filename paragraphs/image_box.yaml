@@ -1,0 +1,26 @@
+id: image_box
+label: Image Box
+component: ImageBox
+passImage: true
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_header:
+    type: string
+  field_description:
+    type: text_long
+  field_image_description:
+    type: string
+  field_link:
+    type: link
+  field_url:
+    type: link
+  field_components_style:
+    type: list_string
+  field_responsive_media:
+    type: paragraph
+    target: responsive_media
+    cardinality: 1
+    media: nested_responsive

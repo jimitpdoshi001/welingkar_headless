@@ -1,0 +1,18 @@
+id: header
+label: Header
+component: Header
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_header:
+    type: string
+  field_alignment:
+    type: list_string
+  field_header_size:
+    type: list_string
+  field_text_color:
+    type: list_string
+  field_max_width:
+    type: integer

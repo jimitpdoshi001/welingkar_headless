@@ -1,0 +1,13 @@
+id: responsive_media
+label: Responsive Media
+component: ResponsiveMedia
+mapping: responsive_media
+renderChildren: false
+drupalConfig: false
+fields:
+  field_desktop:
+    type: media
+    target: image
+  field_mobile:
+    type: media
+    target: image

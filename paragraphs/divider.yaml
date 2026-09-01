@@ -1,0 +1,11 @@
+id: divider
+label: Divider
+component: Divider
+renderChildren: false
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_divider:
+    type: integer

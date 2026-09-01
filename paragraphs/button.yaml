@@ -1,0 +1,16 @@
+id: button
+label: Button
+component: Button
+renderChildren: false
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_button_style:
+    type: list_string
+  field_target:
+    type: list_string
+  field_url:
+    type: link
+    cardinality: unlimited

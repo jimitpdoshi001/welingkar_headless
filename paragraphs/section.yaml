@@ -1,0 +1,34 @@
+id: section
+label: Section
+component: Section
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_components
+fields:
+  field_background_color:
+    type: list_string
+  field_padding:
+    type: integer
+  field_padding_x:
+    type: integer
+  field_padding_y:
+    type: integer
+  field_width:
+    type: list_string
+  field_height:
+    type: integer
+  field_arrow_style:
+    type: list_string
+  field_hide_section:
+    type: boolean
+  field_responsive_media:
+    type: paragraph
+    target: responsive_media
+    cardinality: 1
+    media: nested_responsive
+  field_section_content:
+    type: paragraph
+    target: "*"
+    cardinality: unlimited
+    recurse: false
