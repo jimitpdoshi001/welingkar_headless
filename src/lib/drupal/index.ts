@@ -17,8 +17,11 @@ export {
   nodeParagraphFieldsForBundle,
 } from "./paragraph-registry";
 export type * from "./generated/paragraph-types.generated";
-export { getBlogArticles, getBlogCategories, getBlogListing } from "./blogs";
-export type { BlogArticle, BlogCategory } from "./blogs";
+export { getBlogArticles, getBlogBySlug, getBlogCategories, getBlogListing, getBlogSlugs, BLOG_PAGE_SIZE } from "./blogs";
+export type { BlogArticle, BlogCategory, BlogListingQuery, BlogListingResult } from "./blogs";
 export { getAllPages, getAllRouteParams, getPageByPath, getNodePathMap, getNewsroomArticles, isNewsroomOverviewPage } from "./pages";
 export { resolveDrupalHref, toHref, isAppPath, isHashHref, drupalLinkTarget } from "./link";
+export { getTopMenu, getFooterMenu } from "./menus";
+export type { MenuItem, TopMenu, FooterLink } from "./menus";
 export type * from "./types";
+

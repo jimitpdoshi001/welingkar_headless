@@ -1,8 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
-import type { BlogArticle, BlogCategory } from "@/lib/drupal";
+import { useRouter } from "next/navigation";
+import type { BlogCategory, BlogListingResult } from "@/lib/drupal";
+import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import { BlogCard } from "./BlogCard";
 import { FeaturedBlog } from "./FeaturedBlog";
 import { ChevronDownIcon, HomeIcon, PlusIcon } from "./BlogIcons";
@@ -14,63 +16,47 @@ const TABS = [
   { id: "videos", label: "Videos" },
 ] as const;
 
-const PAGE_SIZE = 9;
-
 type BlogsListingProps = {
-  articles: BlogArticle[];
-  categories: BlogCategory[];
+  listing: BlogListingResult;
 };
 
-function pickFeatured(articles: BlogArticle[]): BlogArticle | null {
-  if (!articles.length) return null;
-  const sticky = articles.find((article) => article.featured);
-  return sticky ?? articles[0] ?? null;
+function parentOfSelected(categories: BlogCategory[], selectedKey: string | null): string | null {
+  if (!selectedKey) return null;
+  for (const category of categories) {
+    if (category.slug === selectedKey || category.id === selectedKey) return category.slug || category.id;
+    if (category.children.some((child) => child.slug === selectedKey || child.id === selectedKey)) return category.slug || category.id;
+  }
+  return null;
 }
 
-export function BlogsListing({ articles, categories }: BlogsListingProps) {
-  const [tab, setTab] = useState<(typeof TABS)[number]["id"]>("all");
-  const [month, setMonth] = useState("");
-  const [category, setCategory] = useState("");
-  const [page, setPage] = useState(1);
+export function BlogsListing({ listing }: BlogsListingProps) {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const { featured, articles, categories, page, hasNext, hasPrev, pageNumbers, selectedCategoryId, month, tab, monthOptions } = listing;
+  const [openCategoryId, setOpenCategoryId] = useState<string | null>(() => parentOfSelected(categories, selectedCategoryId));
 
-  const featured = useMemo(() => pickFeatured(articles), [articles]);
+  const hrefFor = useMemo(() => {
+    return (next: { page?: number; category?: string | null; month?: string; tab?: string }) => {
+      const params = new URLSearchParams();
+      const nextPage = next.page ?? 1;
+      const nextCategory = next.category === undefined ? selectedCategoryId : next.category;
+      const nextMonth = next.month === undefined ? month : next.month;
+      const nextTab = next.tab === undefined ? tab : next.tab;
 
-  const monthOptions = useMemo(() => {
-    const map = new Map<string, string>();
-    for (const article of articles) {
-      map.set(article.monthKey, article.monthLabel);
-    }
-    return [...map.entries()].sort((a, b) => b[0].localeCompare(a[0]));
-  }, [articles]);
+      if (nextPage > 1) params.set("page", String(nextPage));
+      if (nextCategory) params.set("category", nextCategory);
+      if (nextMonth) params.set("month", nextMonth);
+      if (nextTab && nextTab !== "all") params.set("tab", nextTab);
 
-  const filtered = useMemo(() => {
-    return articles.filter((article) => {
-      if (featured && article.id === featured.id) return false;
-      if (tab === "campus-corner" && !article.categories.includes("Campus Corner")) return false;
-      if (tab === "videos" && !article.isVideo) return false;
-      if (month && article.monthKey !== month) return false;
-      if (category && !article.categories.includes(category)) return false;
-      return true;
+      const query = params.toString();
+      return query ? `/blogs?${query}` : "/blogs";
+    };
+  }, [month, selectedCategoryId, tab]);
+
+  function navigate(next: { page?: number; category?: string | null; month?: string; tab?: string }) {
+    startTransition(() => {
+      router.push(hrefFor(next));
     });
-  }, [articles, category, featured, month, tab]);
-
-  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const currentPage = Math.min(page, pageCount);
-  const paged = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-  const pageNumbers = Array.from({ length: pageCount }, (_, index) => index + 1).slice(0, 3);
-
-  function setTabValue(next: (typeof TABS)[number]["id"]) {
-    setTab(next);
-    setPage(1);
-    if (next === "campus-corner") setCategory("Campus Corner");
-    if (next === "all") setCategory("");
-  }
-
-  function setCategoryValue(name: string) {
-    setCategory((current) => (current === name ? "" : name));
-    setPage(1);
-    if (name === "Campus Corner") setTab("campus-corner");
-    else setTab("all");
   }
 
   return (
@@ -96,7 +82,7 @@ export function BlogsListing({ articles, categories }: BlogsListingProps) {
               role="tab"
               aria-selected={tab === item.id}
               className={tab === item.id ? styles.tabActive : styles.tab}
-              onClick={() => setTabValue(item.id)}>
+              onClick={() => navigate({ page: 1, tab: item.id, category: null })}>
               {item.label}
             </button>
           ))}
@@ -109,15 +95,12 @@ export function BlogsListing({ articles, categories }: BlogsListingProps) {
               <select
                 className={styles.monthSelect}
                 value={month}
-                onChange={(event) => {
-                  setMonth(event.target.value);
-                  setPage(1);
-                }}
+                onChange={(event) => navigate({ page: 1, month: event.target.value })}
                 aria-label="Select month">
                 <option value="">Select Month</option>
-                {monthOptions.map(([key, label]) => (
-                  <option key={key} value={key}>
-                    {label}
+                {monthOptions.map((option) => (
+                  <option key={option.key} value={option.key}>
+                    {option.label}
                   </option>
                 ))}
               </select>
@@ -126,25 +109,70 @@ export function BlogsListing({ articles, categories }: BlogsListingProps) {
 
             <h2 className={styles.categoriesHeading}>Categories</h2>
             <ul className={styles.categories}>
-              {categories.map((item) => (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    className={category === item.name ? styles.categoryActive : styles.category}
-                    onClick={() => setCategoryValue(item.name)}
-                    aria-pressed={category === item.name}>
-                    <span>{item.name}</span>
-                    <PlusIcon />
-                  </button>
-                </li>
-              ))}
+              {categories.map((item) => {
+                const itemKey = item.slug || item.id;
+                const isOpen = openCategoryId === itemKey || openCategoryId === item.id;
+                const isActive = selectedCategoryId === itemKey || selectedCategoryId === item.id;
+                const subcategories =
+                  item.children.length > 0
+                    ? item.children
+                    : [{ id: item.id, name: "All", slug: item.slug, weight: "0", drupal_internal__tid: 0, children: [] }];
+
+                return (
+                  <li key={item.id}>
+                    <div className={styles.categoryRow}>
+                      <button
+                        type="button"
+                        className={isActive ? styles.categoryActive : styles.category}
+                        onClick={() => navigate({ page: 1, category: isActive ? null : itemKey, tab: "all" })}
+                        aria-pressed={isActive}>
+                        <span>{item.name}</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.categoryToggle} ${isOpen ? styles.categoryToggleOpen : ""}`}
+                        aria-expanded={isOpen}
+                        aria-label={`${isOpen ? "Collapse" : "Expand"} ${item.name}`}
+                        onClick={() => setOpenCategoryId(isOpen ? null : itemKey)}>
+                        <PlusIcon />
+                      </button>
+                    </div>
+
+                    {isOpen ? (
+                      <ul className={styles.subcategories}>
+                        {subcategories.map((child) => {
+                          const childKey = child.slug || child.id;
+                          const childActive = selectedCategoryId === childKey || selectedCategoryId === child.id;
+                          return (
+                            <li key={child.id}>
+                              <button
+                                type="button"
+                                className={childActive ? styles.categoryActive : styles.category}
+                                onClick={() => navigate({ page: 1, category: childActive ? null : childKey, tab: "all" })}
+                                aria-pressed={childActive}>
+                                <span>{child.name}</span>
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    ) : null}
+                  </li>
+                );
+              })}
             </ul>
           </aside>
 
-          <div className={styles.content}>
-            {paged.length ? (
+          <div className={`${styles.content} ${isPending ? styles.contentPending : ""}`}>
+            {isPending ? (
+              <div className={styles.loadingOverlay}>
+                <div className={styles.loadingSpinner} />
+                <span>Loading…</span>
+              </div>
+            ) : null}
+            {articles.length ? (
               <div className={styles.grid}>
-                {paged.map((article) => (
+                {articles.map((article) => (
                   <BlogCard key={article.id} article={article} />
                 ))}
               </div>
@@ -152,32 +180,37 @@ export function BlogsListing({ articles, categories }: BlogsListingProps) {
               <p className={styles.empty}>No articles match the selected filters.</p>
             )}
 
-            {filtered.length > 0 ? (
+            {articles.length > 0 || hasPrev ? (
               <nav className={styles.pagination} aria-label="Blog pagination">
-                <button
-                  type="button"
-                  className={styles.pageBtn}
-                  onClick={() => setPage((value) => Math.max(1, value - 1))}
-                  disabled={currentPage === 1}>
-                  Previous
-                </button>
-                {pageNumbers.map((number) => (
-                  <button
-                    key={number}
-                    type="button"
-                    className={number === currentPage ? styles.pageNumActive : styles.pageNum}
-                    onClick={() => setPage(number)}
-                    aria-current={number === currentPage ? "page" : undefined}>
-                    {number}
-                  </button>
-                ))}
-                <button
-                  type="button"
-                  className={styles.pageBtn}
-                  onClick={() => setPage((value) => Math.min(pageCount, value + 1))}
-                  disabled={currentPage === pageCount}>
-                  Next
-                </button>
+                {hasPrev ? (
+                  <Link href={hrefFor({ page: page - 1 })} prefetch={false} className={styles.pageArrow} aria-label="Previous page">
+                    <ArrowLeft height={9} width={7} />
+                  </Link>
+                ) : (
+                  <span className={styles.pageArrow} aria-disabled="true" aria-label="Previous page">
+                    <ArrowLeft height={9} width={7} />
+                  </span>
+                )}
+                {pageNumbers.map((number) =>
+                  number === page ? (
+                    <span key={number} className={styles.pageNumActive} aria-current="page">
+                      {number}
+                    </span>
+                  ) : (
+                    <Link key={number} href={hrefFor({ page: number })} prefetch={false} className={styles.pageNum}>
+                      {number}
+                    </Link>
+                  ),
+                )}
+                {hasNext ? (
+                  <Link href={hrefFor({ page: page + 1 })} prefetch={false} className={styles.pageArrow} aria-label="Next page">
+                    <ArrowRight height={9} width={7} />
+                  </Link>
+                ) : (
+                  <span className={styles.pageArrow} aria-disabled="true" aria-label="Next page">
+                    <ArrowRight height={9} width={7} />
+                  </span>
+                )}
               </nav>
             ) : null}
           </div>

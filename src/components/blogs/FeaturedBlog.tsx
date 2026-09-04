@@ -6,9 +6,13 @@ import styles from "./FeaturedBlog.module.scss";
 
 type FeaturedBlogProps = {
   article: BlogArticle;
+  linked?: boolean;
+  showExcerpt?: boolean;
 };
 
-export function FeaturedBlog({ article }: FeaturedBlogProps) {
+export function FeaturedBlog({ article, linked = true, showExcerpt = true }: FeaturedBlogProps) {
+  const TitleTag = linked ? "h2" : "h1";
+
   return (
     <article className={styles.featured}>
       <div className={styles.media}>
@@ -22,19 +26,21 @@ export function FeaturedBlog({ article }: FeaturedBlogProps) {
             className={styles.image}
           />
         ) : (
-          <div className={styles.placeholder} aria-hidden="true" />
+          <div
+            className={styles.placeholder}
+            aria-hidden="true"
+          />
         )}
       </div>
       <div className={styles.content}>
         <p className={styles.readTime}>{article.readTime}</p>
-        <h2 className={styles.title}>
-          <Link href={article.href}>{article.title}</Link>
-        </h2>
-        {article.excerpt ? <p className={styles.excerpt}>{article.excerpt}</p> : null}
+        <TitleTag className={styles.title}>{linked ? <Link href={article.href}>{article.title}</Link> : article.title}</TitleTag>
+        {showExcerpt && article.excerpt ? <p className={styles.excerpt}>{article.excerpt}</p> : null}
         <div className={styles.meta}>
           <time dateTime={article.date}>{article.dateLabel}</time>
           <span>
             <CommentIcon />
+            <span className="sr-only">Comments</span>
             {article.comments}
           </span>
           <span>

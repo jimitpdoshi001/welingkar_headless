@@ -16,6 +16,7 @@ export type BlogArticle = {
   comments: number;
   views: number;
   excerpt: string;
+  body: string;
   featured: boolean;
   isVideo: boolean;
 };
@@ -23,6 +24,32 @@ export type BlogArticle = {
 export type BlogCategory = {
   id: string;
   name: string;
+  slug: string;
+  children: BlogCategory[];
+};
+
+export const BLOG_PAGE_SIZE = 9;
+
+export type BlogListingQuery = {
+  page?: number;
+  categoryId?: string | null;
+  month?: string;
+  tab?: string;
+};
+
+export type BlogListingResult = {
+  featured: BlogArticle | null;
+  articles: BlogArticle[];
+  categories: BlogCategory[];
+  page: number;
+  pageSize: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+  pageNumbers: number[];
+  selectedCategoryId: string | null;
+  month: string;
+  tab: string;
+  monthOptions: Array<{ key: string; label: string }>;
 };
 
 function slugify(value: string): string {
@@ -101,6 +128,20 @@ function resolveThumbnail(node: NodeResource, document: JsonApiDocument): Drupal
   };
 }
 
+function blogSlugFromNode(node: NodeResource): string {
+  const alias = node.attributes.path?.alias;
+  if (alias) {
+    const last = alias.replace(/\/+$/, "").split("/").filter(Boolean).at(-1);
+    if (last) return last;
+  }
+
+  return slugify(node.attributes.title) || String(node.attributes.drupal_internal__nid);
+}
+
+function firstNodes(document: JsonApiDocument<NodeResource>): NodeResource[] {
+  return Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
+}
+
 function mapBlogNode(node: NodeResource, document: JsonApiDocument): BlogArticle {
   const included = document.included ?? [];
   const categoryRels = relationshipItems(node.relationships?.field_category?.data);
@@ -114,13 +155,11 @@ function mapBlogNode(node: NodeResource, document: JsonApiDocument): BlogArticle
   const bodyHtml = node.attributes.field_body?.processed || node.attributes.field_body?.value || node.attributes.body?.processed || node.attributes.body?.value || "";
   const date = node.attributes.field_date || node.attributes.created.slice(0, 10);
   const month = monthParts(date);
-  const alias = node.attributes.path?.alias;
-  const href = alias || `/blogs/${slugify(node.attributes.title) || node.attributes.drupal_internal__nid}`;
 
   return {
     id: node.id,
     title: node.attributes.title,
-    href,
+    href: `/blogs/${blogSlugFromNode(node)}`,
     image: resolveThumbnail(node, document),
     tags: categories,
     categories,
@@ -132,45 +171,374 @@ function mapBlogNode(node: NodeResource, document: JsonApiDocument): BlogArticle
     comments: 0,
     views: 0,
     excerpt: excerptFromHtml(bodyHtml),
+    body: bodyHtml,
     featured: Boolean(node.attributes.sticky || node.attributes.promote),
     isVideo: categories.some((name) => /video/i.test(name)),
   };
 }
 
-export async function getBlogCategories(): Promise<BlogCategory[]> {
-  const document = await fetchJsonApi<JsonApiResource>("/taxonomy_term/blog_category", {
-    "page[limit]": "50",
+function decodeName(value: string): string {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function termParentId(term: JsonApiResource): string | null {
+  const data = term.relationships?.parent?.data;
+  const items = Array.isArray(data) ? data : data ? [data] : [];
+  const parent = items[0];
+  if (!parent?.id || parent.id === "virtual") return null;
+  return parent.id;
+}
+
+function collectDescendantIds(node: BlogCategory): string[] {
+  return [node.id, ...node.children.flatMap((child) => collectDescendantIds(child))];
+}
+
+function findCategory(nodes: BlogCategory[], idOrSlug: string): BlogCategory | null {
+  const needle = idOrSlug.trim().toLowerCase();
+  for (const node of nodes) {
+    if (node.id === idOrSlug || node.slug === needle || slugify(node.name) === needle) return node;
+    const nested = findCategory(node.children, idOrSlug);
+    if (nested) return nested;
+  }
+  return null;
+}
+
+function findCategoryByName(nodes: BlogCategory[], name: string): BlogCategory | null {
+  const needle = name.trim().toLowerCase();
+  for (const node of nodes) {
+    if (node.name.trim().toLowerCase() === needle) return node;
+    const nested = findCategoryByName(node.children, name);
+    if (nested) return nested;
+  }
+  return null;
+}
+
+function monthOptionsFromNow(count = 24): Array<{ key: string; label: string }> {
+  const options: Array<{ key: string; label: string }> = [];
+  const now = new Date();
+  for (let index = 0; index < count; index += 1) {
+    const date = new Date(now.getFullYear(), now.getMonth() - index, 1);
+    const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+    options.push({
+      key,
+      label: new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric" }).format(date),
+    });
+  }
+  return options;
+}
+
+function applyMonthFilter(params: Record<string, string>, month: string) {
+  if (!/^\d{4}-\d{2}$/.test(month)) return;
+  const [year, monthNumber] = month.split("-").map(Number);
+  const start = `${month}-01`;
+  const endDate = new Date(year, monthNumber, 1);
+  const end = `${endDate.getFullYear()}-${String(endDate.getMonth() + 1).padStart(2, "0")}-01`;
+  params["filter[date_start][condition][path]"] = "field_date";
+  params["filter[date_start][condition][operator]"] = ">=";
+  params["filter[date_start][condition][value]"] = start;
+  params["filter[date_end][condition][path]"] = "field_date";
+  params["filter[date_end][condition][operator]"] = "<";
+  params["filter[date_end][condition][value]"] = end;
+}
+
+function applyCategoryFilter(params: Record<string, string>, categoryIds: string[]) {
+  if (!categoryIds.length) return;
+  if (categoryIds.length === 1) {
+    params["filter[field_category.id]"] = categoryIds[0];
+    return;
+  }
+
+  params["filter[cat][condition][path]"] = "field_category.id";
+  params["filter[cat][condition][operator]"] = "IN";
+  categoryIds.forEach((id, index) => {
+    params[`filter[cat][condition][value][${index}]`] = id;
+  });
+}
+
+function flattenCategories(nodes: BlogCategory[]): BlogCategory[] {
+  return nodes.flatMap((node) => [node, ...flattenCategories(node.children)]);
+}
+
+function termsFromDocument(document: JsonApiDocument<JsonApiResource>): JsonApiResource[] {
+  return Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
+}
+
+function buildCategoryTree(terms: JsonApiResource[]): BlogCategory[] {
+  const byId = new Map<string, BlogCategory>();
+
+  for (const term of terms) {
+    const name = decodeName(typeof term.attributes.name === "string" ? term.attributes.name : "");
+    if (!name) continue;
+    byId.set(term.id, { id: term.id, name, slug: slugify(name), children: [] });
+  }
+
+  const roots: BlogCategory[] = [];
+  for (const term of terms) {
+    const node = byId.get(term.id);
+    if (!node) continue;
+    const parentId = termParentId(term);
+    const parent = parentId ? byId.get(parentId) : null;
+    if (parent && parent.id !== node.id) {
+      parent.children.push(node);
+    } else {
+      roots.push(node);
+    }
+  }
+
+  return roots;
+}
+
+async function fetchTaxonomyTerms(vocab: string): Promise<JsonApiResource[]> {
+  const document = await fetchJsonApi<JsonApiResource>(`/taxonomy_term/${vocab}`, {
+    include: "parent",
+    "page[limit]": "80",
     "filter[status]": "1",
     sort: "name",
   });
+  return termsFromDocument(document);
+}
 
-  const terms = Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
-  const seen = new Set<string>();
-  const categories: BlogCategory[] = [];
+async function getFilterIdsByName(): Promise<Map<string, string[]>> {
+  try {
+    const terms = await fetchTaxonomyTerms("categories");
+    const byName = new Map<string, string[]>();
+    for (const term of terms) {
+      const name = decodeName(typeof term.attributes.name === "string" ? term.attributes.name : "")
+        .trim()
+        .toLowerCase();
+      if (!name) continue;
+      const ids = byName.get(name) ?? [];
+      ids.push(term.id);
+      byName.set(name, ids);
+    }
+    return byName;
+  } catch {
+    return new Map();
+  }
+}
 
-  for (const term of terms) {
-    const name = typeof term.attributes.name === "string" ? term.attributes.name : "";
-    if (!name || seen.has(name)) continue;
-    seen.add(name);
-    categories.push({ id: term.id, name });
+function resolveFilterIds(selected: BlogCategory, aliasByName: Map<string, string[]>): string[] {
+  const selectedIds = collectDescendantIds(selected);
+  const selectedTerms = flattenCategories([selected]);
+  const ids = new Set(selectedIds);
+
+  for (const term of selectedTerms) {
+    for (const mapped of aliasByName.get(term.name.trim().toLowerCase()) ?? []) {
+      ids.add(mapped);
+    }
   }
 
-  return categories;
+  return [...ids];
+}
+
+export async function getBlogCategories(): Promise<BlogCategory[]> {
+  const terms = await fetchTaxonomyTerms("blog_category");
+  return buildCategoryTree(terms);
+}
+
+async function fetchBlogPage(options: {
+  page: number;
+  categoryIds: string[];
+  month: string;
+  excludeId?: string | null;
+}): Promise<{ articles: BlogArticle[]; hasNext: boolean; hasPrev: boolean }> {
+  const page = Math.max(1, options.page);
+  const offset = (page - 1) * BLOG_PAGE_SIZE;
+  const params: Record<string, string> = {
+    include: "field_thumbnail,field_category",
+    "filter[status]": "1",
+    "page[limit]": String(BLOG_PAGE_SIZE),
+    "page[offset]": String(offset),
+    sort: "-field_date",
+  };
+
+  applyCategoryFilter(params, options.categoryIds);
+  applyMonthFilter(params, options.month);
+
+  if (options.excludeId) {
+    params["filter[notid][condition][path]"] = "id";
+    params["filter[notid][condition][operator]"] = "<>";
+    params["filter[notid][condition][value]"] = options.excludeId;
+  }
+
+  const document = await fetchJsonApi<NodeResource>("/node/blogs", params, { cache: "no-store" });
+  const nodes = firstNodes(document);
+
+  return {
+    articles: nodes.map((node) => mapBlogNode(node, document)),
+    hasNext: Boolean(document.links?.next?.href),
+    hasPrev: page > 1,
+  };
+}
+
+async function fetchFeaturedArticle(): Promise<BlogArticle | null> {
+  const document = await fetchJsonApi<NodeResource>(
+    "/node/blogs",
+    {
+      include: "field_thumbnail,field_category",
+      "filter[status]": "1",
+      "page[limit]": "1",
+      sort: "-field_date",
+    },
+    { cache: "no-store" },
+  );
+
+  const nodes = firstNodes(document);
+  return nodes[0] ? mapBlogNode(nodes[0], document) : null;
+}
+
+function nodeMatchesSlug(node: NodeResource, slug: string): boolean {
+  if (blogSlugFromNode(node) === slug) return true;
+  return slugify(node.attributes.title) === slug;
+}
+
+async function findBlogBySlug(slug: string): Promise<BlogArticle | null> {
+  const pageSize = 50;
+  let offset = 0;
+
+  while (true) {
+    const document = await fetchJsonApi<NodeResource>(
+      "/node/blogs",
+      {
+        include: "field_thumbnail,field_category",
+        "filter[status]": "1",
+        "page[limit]": String(pageSize),
+        "page[offset]": String(offset),
+        sort: "-field_date",
+      },
+      { cache: "no-store" },
+    );
+
+    const nodes = firstNodes(document);
+    const match = nodes.find((node) => nodeMatchesSlug(node, slug));
+    if (match) return mapBlogNode(match, document);
+    if (!nodes.length || !document.links?.next?.href) return null;
+    offset += pageSize;
+    if (offset > 1000) return null;
+  }
+}
+
+export async function getBlogBySlug(slug: string): Promise<BlogArticle | null> {
+  const decoded = decodeURIComponent(slug).replace(/^\/+|\/+$/g, "");
+  if (!decoded) return null;
+  return findBlogBySlug(decoded);
+}
+
+export async function getBlogSlugs(): Promise<string[]> {
+  const pageSize = 50;
+  let offset = 0;
+  const slugs: string[] = [];
+
+  while (true) {
+    const document = await fetchJsonApi<NodeResource>("/node/blogs", {
+      "filter[status]": "1",
+      "page[limit]": String(pageSize),
+      "page[offset]": String(offset),
+      sort: "-field_date",
+    });
+
+    const nodes = firstNodes(document);
+    slugs.push(...nodes.map((node) => blogSlugFromNode(node)));
+    if (!nodes.length || !document.links?.next?.href) break;
+    offset += pageSize;
+    if (offset > 1000) break;
+  }
+
+  return [...new Set(slugs)];
 }
 
 export async function getBlogArticles(): Promise<BlogArticle[]> {
-  const document = await fetchJsonApi<NodeResource>("/node/blogs", {
-    include: "field_thumbnail,field_category",
-    "filter[status]": "1",
-    "page[limit]": "50",
-    sort: "-field_date",
+  const { articles } = await fetchBlogPage({ page: 1, categoryIds: [], month: "" });
+  return articles;
+}
+
+export async function getBlogListing(query: BlogListingQuery = {}): Promise<BlogListingResult> {
+  const page = Math.max(1, Number(query.page) || 1);
+  const month = query.month && /^\d{4}-\d{2}$/.test(query.month) ? query.month : "";
+  const tab = query.tab === "campus-corner" || query.tab === "videos" ? query.tab : "all";
+  const selectedCategoryId = query.categoryId || null;
+
+  const [categories, featured, filterIdsByName] = await Promise.all([
+    getBlogCategories(),
+    fetchFeaturedArticle(),
+    getFilterIdsByName(),
+  ]);
+
+  let categoryIds: string[] = [];
+  let highlightId = selectedCategoryId;
+
+  if (selectedCategoryId) {
+    const selected = findCategory(categories, selectedCategoryId);
+    categoryIds = selected ? resolveFilterIds(selected, filterIdsByName) : [selectedCategoryId];
+    if (selected) {
+      highlightId = selected.slug;
+    }
+  } else if (tab === "campus-corner") {
+    const campus = findCategoryByName(categories, "Campus Corner");
+    if (campus) {
+      categoryIds = resolveFilterIds(campus, filterIdsByName);
+      highlightId = campus.slug;
+    }
+  } else if (tab === "videos") {
+    const videos = findCategoryByName(categories, "Videos");
+    if (videos) {
+      categoryIds = resolveFilterIds(videos, filterIdsByName);
+      highlightId = videos.slug;
+    }
+  }
+
+  const listing = await fetchBlogPage({
+    page,
+    categoryIds,
+    month,
+    excludeId: featured?.id,
   });
 
-  const nodes = Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
-  return nodes.map((node) => mapBlogNode(node, document));
+  let hasThirdPage = false;
+  if (page === 1 && listing.hasNext) {
+    try {
+      const third = await fetchBlogPage({
+        page: 3,
+        categoryIds,
+        month,
+        excludeId: featured?.id,
+      });
+      hasThirdPage = third.articles.length > 0;
+    } catch {
+      hasThirdPage = false;
+    }
+  }
+
+  const pageNumbers: number[] = [];
+  if (page === 1) {
+    pageNumbers.push(1);
+    if (listing.hasNext) pageNumbers.push(2);
+    if (hasThirdPage) pageNumbers.push(3);
+  } else {
+    if (listing.hasPrev) pageNumbers.push(page - 1);
+    pageNumbers.push(page);
+    if (listing.hasNext) pageNumbers.push(page + 1);
+  }
+
+  return {
+    featured,
+    articles: listing.articles,
+    categories,
+    page,
+    pageSize: BLOG_PAGE_SIZE,
+    hasNext: listing.hasNext,
+    hasPrev: listing.hasPrev,
+    pageNumbers,
+    selectedCategoryId: highlightId,
+    month,
+    tab,
+    monthOptions: monthOptionsFromNow(),
+  };
 }
 
-export async function getBlogListing(): Promise<{ articles: BlogArticle[]; categories: BlogCategory[] }> {
-  const [articles, categories] = await Promise.all([getBlogArticles(), getBlogCategories()]);
-  return { articles, categories };
-}

@@ -260,6 +260,10 @@ export async function getAllRouteParams(): Promise<Array<{ slug: string[] }>> {
   const params: Array<{ slug: string[] }> = [];
   for (const page of pages) {
     for (const path of page.paths) {
+      if (page.bundle === "blogs" || path === "/blogs" || path.startsWith("/blogs/")) {
+        continue;
+      }
+
       if (path === "/") {
         params.push({ slug: [] });
         continue;

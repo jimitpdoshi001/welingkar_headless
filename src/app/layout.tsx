@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   description: "Headless Welingkar website powered by Drupal and Next.js",
 };
 
+import { Suspense } from "react";
+import { NavigationLoader } from "@/components/Loader/NavigationLoader";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,9 +30,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      // className={`${sans.variable} ${serif.variable}`}
       className={`${sans.className}`}>
-      <body>{children}</body>
+      <body>
+        <Suspense fallback={null}>
+          <NavigationLoader />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

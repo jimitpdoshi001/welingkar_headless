@@ -12,8 +12,8 @@
 
 .media {
   position: relative;
-  aspect-ratio: 16 / 11;
-  border-radius: 1.6rem;
+  aspect-ratio: 16 / 10;
+  border-radius: 2.2rem;
   overflow: hidden;
   background: var(--color-light-gray);
 }
@@ -39,12 +39,12 @@
 }
 
 .tags li {
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--color-dark-gray);
-  font-size: 1.1rem;
+  background: var(--color-white);
+  color: var(--color-gray);
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1;
-  padding: 0.55rem 1rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 10rem;
 }
 

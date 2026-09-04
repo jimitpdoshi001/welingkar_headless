@@ -1,9 +1,22 @@
 import { useEffect, useState } from "react";
 
-export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
+export function useHasMounted() {
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  return hasMounted;
+}
+
+export function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  const hasMounted = useHasMounted();
+
+  useEffect(() => {
+    if (!hasMounted) return;
+
     const mediaQuery = window.matchMedia(query);
 
     const update = () => {
@@ -17,9 +30,9 @@ export function useMediaQuery(query: string) {
     return () => {
       mediaQuery.removeEventListener("change", update);
     };
-  }, [query]);
+  }, [query, hasMounted]);
 
-  return matches;
+  return hasMounted ? matches : false;
 }
 
 export function useIsMobile() {

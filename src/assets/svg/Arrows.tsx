@@ -83,6 +83,17 @@ export const ArrowUp = () => {
   );
 };
 
+export const ArrowDown = ({ height, width }: { height: number; width: number }) => {
+  return (
+    <svg width={width} height={height} viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M5.5968 2.44644e-07L0 0L2.7984 4.35307L5.5968 2.44644e-07Z"
+        fill="var(--color-primary)"
+      />
+    </svg>
+  );
+};
+
 export const AccordionDown = ({ height, width }: { height: number; width: number }) => {
   return (
     <svg

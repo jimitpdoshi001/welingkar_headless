@@ -1,0 +1,21 @@
+@use "../../styles/base/mixins" as *;
+
+.body {
+  // max-width: 120rem;
+  // margin: 0 auto;
+  color: var(--color-dark-gray);
+
+  :global(p) {
+    // margin-bottom: 2rem;
+  }
+
+  :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 2.2rem;
+  }
+
+  :global(a) {
+    color: var(--color-primary);
+  }
+}

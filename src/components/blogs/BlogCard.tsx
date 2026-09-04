@@ -9,9 +9,12 @@ type BlogCardProps = {
 };
 
 export function BlogCard({ article }: BlogCardProps) {
+  const decodeHtml = (text: string) => text.replace(/&amp;/g, "&");
   return (
     <article className={styles.card}>
-      <Link href={article.href} className={styles.mediaLink}>
+      <Link
+        href={article.href}
+        className={styles.mediaLink}>
         <div className={styles.media}>
           {article.image ? (
             <Image
@@ -22,12 +25,15 @@ export function BlogCard({ article }: BlogCardProps) {
               className={styles.image}
             />
           ) : (
-            <div className={styles.placeholder} aria-hidden="true" />
+            <div
+              className={styles.placeholder}
+              aria-hidden="true"
+            />
           )}
           {article.tags.length > 0 ? (
             <ul className={styles.tags}>
               {article.tags.slice(0, 2).map((tag) => (
-                <li key={tag}>{tag}</li>
+                <li key={tag}>{decodeHtml(tag)}</li>
               ))}
             </ul>
           ) : null}
@@ -41,6 +47,7 @@ export function BlogCard({ article }: BlogCardProps) {
           <time dateTime={article.date}>{article.dateLabel}</time>
           <span>
             <CommentIcon />
+            <span className="sr-only">Comments</span>
             {article.comments}
           </span>
           <span>
@@ -48,7 +55,9 @@ export function BlogCard({ article }: BlogCardProps) {
             {article.views}
           </span>
         </div>
-        <Link href={article.href} className={styles.readMore}>
+        <Link
+          href={article.href}
+          className={styles.readMore}>
           Read More
         </Link>
       </div>

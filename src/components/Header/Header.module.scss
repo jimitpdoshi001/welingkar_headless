@@ -7,12 +7,253 @@
   width: 100%;
   z-index: 999999;
   height: 0;
+
+  .headerContainer {
+    width: 95%;
+  }
+
+  .logo {
+    background-color: var(--color-white);
+    padding: 1.5rem 3rem 1rem 6rem;
+    border-radius: 0 50vw 50vw 0;
+  }
+}
+
+// ============================================
+// Sticky Header Variant (Site-wide & Scrolled)
+// ============================================
+
+.headerSticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 999999;
+  background-color: var(--color-white);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .stickyTopBar {
+    background-color: var(--color-primary);
+    padding: 0.6rem 0;
+    width: 100%;
+
+    .stickyTopBarContainer {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 2.5rem;
+      
+    }
+
+    .stickyPrimaryNav {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .stickyPrimaryNavItem {
+      color: var(--color-white);
+      font-size: 1.3rem;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+
+    .stickyTopRight {
+      display: flex;
+      align-items: center;
+    }
+
+    .stickyModeButton {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      span {
+        display: grid;
+        place-content: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        svg {
+          width: 1.4rem;
+          height: 1.4rem;
+          transition: all 0.3s ease;
+        }
+
+        &.activeMode,
+        &:first-child {
+          background-color: var(--color-white);
+          svg path {
+            stroke: var(--color-primary);
+          }
+        }
+
+        &:hover {
+          background-color: var(--color-white);
+          svg path {
+            stroke: var(--color-primary);
+          }
+        }
+      }
+    }
+  }
+
+  .stickyMainBar {
+    background-color: var(--color-white);
+    padding: 1.2rem 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    .stickyMainBarContainer {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stickyLeftContent {
+      display: flex;
+      align-items: center;
+    }
+
+    .stickyLogo {
+      display: flex;
+      align-items: center;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+
+      svg {
+        height: 4.5rem;
+        width: auto;
+      }
+    }
+
+    .stickySecondaryNav {
+      display: flex;
+      align-items: center;
+      gap: 2.8rem;
+    }
+
+    .stickySecondaryNavItem {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color-dark-gray);
+      font-size: 1.5rem;
+      transition: color 0.2s ease;
+
+      
+
+      &:hover,
+      &.stickyActiveItem {
+        color: var(--color-primary);
+      }
+    }
+
+    .stickyRightContent {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      @include respond-to(mobile) {
+        gap: 0.5rem;
+      }
+    }
+
+    .stickySearchButton {
+      display: grid;
+      place-content: center;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      border: unset;
+      background: unset;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      svg path {
+        stroke: var(--color-primary);
+      }
+
+      &:hover {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+
+        svg path {
+          stroke: var(--color-white);
+        }
+      }
+    }
+
+    .stickyHamburger {
+      display: flex !important;
+      border: 0;
+      background: transparent;
+      // width: 4.4rem;
+      // height: 4.4rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+
+      span {
+        display: block;
+        width: 2.2rem;
+        height: 0.2rem;
+        background-color: #2d3748 !important;
+        border-radius: 10px;
+        transition:
+          transform 0.3s ease,
+          opacity 0.3s ease;
+      }
+
+      &.open {
+        span {
+          &:nth-child(1) {
+            transform: translateY(0.7rem) rotate(45deg);
+          }
+
+          &:nth-child(2) {
+            opacity: 0;
+          }
+
+          &:nth-child(3) {
+            transform: translateY(-0.7rem) rotate(-45deg);
+          }
+        }
+      }
+    }
+  }
 }
 
 .headerContent {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  gap: 10%;
 
   .leftContent {
     display: flex;
@@ -21,12 +262,15 @@
   }
 
   .rightContent {
+    width: 100%;
     .searchButton {
       display: grid;
       place-content: center;
       aspect-ratio: 1/1;
       width: 5rem;
       border-radius: 50%;
+      border: 0;
+      background: transparent;
       cursor: pointer;
       transition: all 0.3s ease;
       @include glass-background;
@@ -60,7 +304,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  padding-top: 1rem;
+  margin-block: 1.5rem;
 
   .headerRow1Right {
     display: flex;
@@ -110,17 +354,22 @@
   }
 }
 
+.headerRow2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 // ============================================
 // Mobile Menu
 // ============================================
 
 .hamburger {
   display: none;
-  width: 4.8rem;
-  height: 4.8rem;
-  padding: 1.2rem;
+  padding: 1rem;
   border: 0;
-  border-radius: 50%;
+  // border-radius: 50%;
   cursor: pointer;
 
   @include glass-background;
@@ -166,9 +415,28 @@
 // Mobile
 // ============================================
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
     position: relative;
+  }
+
+  .headerSticky {
+    .stickyTopBar {
+      display: none;
+    }
+
+    .stickyMainBar {
+      padding: 0.8rem 0;
+
+      .stickyLogo svg {
+        height: 4.5rem;
+      }
+
+      .stickySearchButton {
+        width: 3.6rem;
+        height: 3.6rem;
+      }
+    }
   }
 
   // Hide desktop top row
@@ -233,25 +501,63 @@
   }
 
   .mobileMenuOpen {
-    max-height: calc(100vh - 7rem);
+    max-height: calc(100vh - 5rem);
     opacity: 1;
     visibility: visible;
     overflow-y: auto;
-    top: 7rem;
+    top: 100%;
   }
 
   .mobileMenuInner {
-    // margin-top: 0.5rem;
-    padding: 2rem;
-    border-radius: 2rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
     width: 90%;
-    margin: 0 auto;
-
-    @include glass-background;
+    margin: 0.5rem auto 0 auto;
 
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .stickyMobileMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    .mobileMenuInner {
+      background: var(--color-white);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .mobileNavItem {
+      color: #2d3748;
+
+      &:hover,
+      &:active {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+    }
+
+    .mobileSecondaryItem {
+      color: #555555;
+
+      &:hover,
+      &:active {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+    }
+
+    .mobileDivider {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .mobileModeText {
+      color: #2d3748;
+    }
   }
 
   .mobileNavItem {
@@ -295,4 +601,45 @@
       color: var(--color-white);
     }
   }
+
+  .mobileModeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .mobileModeText {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color-white);
+  }
+
+  .modeButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    @include glass-background;
+    border-radius: 50vw;
+
+    span {
+      display: grid;
+      place-content: center;
+      aspect-ratio: 1/1;
+      width: 2.5rem;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+
+      &.active,
+      &:first-child {
+        background-color: var(--color-primary);
+      }
+    }
+  }
 }
+
+
+

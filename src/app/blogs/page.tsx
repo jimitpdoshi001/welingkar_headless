@@ -12,15 +12,30 @@ export const metadata: Metadata = {
   description: "Blogs and articles from Welingkar Institute of Management.",
 };
 
-export default async function BlogsPage() {
-  const { articles, categories } = await getBlogListing();
+type PageProps = {
+  searchParams: Promise<{
+    page?: string;
+    category?: string;
+    month?: string;
+    tab?: string;
+  }>;
+};
+
+export default async function BlogsPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const listing = await getBlogListing({
+    page: Number(params.page) || 1,
+    categoryId: params.category || null,
+    month: params.month || "",
+    tab: params.tab,
+  });
 
   return (
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
         <main>
-          <BlogsListing articles={articles} categories={categories} />
+          <BlogsListing listing={listing} />
         </main>
         <SearchOverlay />
         <ScrollToTop />
