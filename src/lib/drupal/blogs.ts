@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
 import type { DrupalImage, JsonApiDocument, JsonApiResource, NodeResource } from "./types";
 
@@ -393,47 +394,12 @@ async function fetchFeaturedArticle(): Promise<BlogArticle | null> {
   return nodes[0] ? mapBlogNode(nodes[0], document) : null;
 }
 
-function nodeMatchesSlug(node: NodeResource, slug: string): boolean {
-  if (blogSlugFromNode(node) === slug) return true;
-  return slugify(node.attributes.title) === slug;
-}
+let slugIndexPromise: Promise<Map<string, string>> | null = null;
 
-async function findBlogBySlug(slug: string): Promise<BlogArticle | null> {
+async function buildSlugIndex(): Promise<Map<string, string>> {
+  const index = new Map<string, string>();
   const pageSize = 50;
   let offset = 0;
-
-  while (true) {
-    const document = await fetchJsonApi<NodeResource>(
-      "/node/blogs",
-      {
-        include: "field_thumbnail,field_category",
-        "filter[status]": "1",
-        "page[limit]": String(pageSize),
-        "page[offset]": String(offset),
-        sort: "-field_date",
-      },
-      { cache: "no-store" },
-    );
-
-    const nodes = firstNodes(document);
-    const match = nodes.find((node) => nodeMatchesSlug(node, slug));
-    if (match) return mapBlogNode(match, document);
-    if (!nodes.length || !document.links?.next?.href) return null;
-    offset += pageSize;
-    if (offset > 1000) return null;
-  }
-}
-
-export async function getBlogBySlug(slug: string): Promise<BlogArticle | null> {
-  const decoded = decodeURIComponent(slug).replace(/^\/+|\/+$/g, "");
-  if (!decoded) return null;
-  return findBlogBySlug(decoded);
-}
-
-export async function getBlogSlugs(): Promise<string[]> {
-  const pageSize = 50;
-  let offset = 0;
-  const slugs: string[] = [];
 
   while (true) {
     const document = await fetchJsonApi<NodeResource>("/node/blogs", {
@@ -444,13 +410,52 @@ export async function getBlogSlugs(): Promise<string[]> {
     });
 
     const nodes = firstNodes(document);
-    slugs.push(...nodes.map((node) => blogSlugFromNode(node)));
+    for (const node of nodes) {
+      index.set(blogSlugFromNode(node), node.id);
+      const titleSlug = slugify(node.attributes.title);
+      if (titleSlug) index.set(titleSlug, node.id);
+    }
+
     if (!nodes.length || !document.links?.next?.href) break;
     offset += pageSize;
     if (offset > 1000) break;
   }
 
-  return [...new Set(slugs)];
+  return index;
+}
+
+function getSlugIndex(): Promise<Map<string, string>> {
+  if (!slugIndexPromise) {
+    slugIndexPromise = buildSlugIndex().catch((error) => {
+      slugIndexPromise = null;
+      throw error;
+    });
+  }
+
+  return slugIndexPromise;
+}
+
+async function fetchBlogNode(id: string): Promise<BlogArticle | null> {
+  const document = await fetchJsonApi<NodeResource>(`/node/blogs/${id}`, {
+    include: "field_thumbnail,field_category",
+  });
+  const node = firstNodes(document)[0];
+  return node ? mapBlogNode(node, document) : null;
+}
+
+export const getBlogBySlug = cache(async (slug: string): Promise<BlogArticle | null> => {
+  const decoded = decodeURIComponent(slug).replace(/^\/+|\/+$/g, "");
+  if (!decoded) return null;
+
+  const index = await getSlugIndex();
+  const id = index.get(decoded);
+  if (!id) return null;
+
+  return fetchBlogNode(id);
+});
+
+export async function getBlogSlugs(): Promise<string[]> {
+  return [...new Set((await getSlugIndex()).keys())];
 }
 
 export async function getBlogArticles(): Promise<BlogArticle[]> {

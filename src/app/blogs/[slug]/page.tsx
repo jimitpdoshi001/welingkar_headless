@@ -6,16 +6,11 @@ import { BlogDetail } from "@/components/blogs/BlogDetail";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { getBlogBySlug, getBlogSlugs } from "@/lib/drupal";
+import { getBlogBySlug } from "@/lib/drupal";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
-
-export async function generateStaticParams() {
-  const slugs = await getBlogSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
