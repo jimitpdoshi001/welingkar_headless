@@ -1,0 +1,248 @@
+@use "../../../styles/base/mixins" as *;
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3rem;
+  width: 100%;
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 3rem;
+  background: var(--color-white);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  h6 {
+    font-weight: 700;
+  }
+}
+
+.featuredCard {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.featuredCard img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  display: block;
+  object-fit: cover;
+}
+
+.featuredContent {
+  position: absolute;
+  left: 2rem;
+  right: 2rem;
+  bottom: 2rem;
+  padding: 2rem 2.4rem;
+  border-radius: 2.4rem;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(5px);
+}
+
+.cardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    font-size: 1.2rem;
+    color: var(--color-gray);
+  }
+}
+
+.imageCard img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.textCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 0 3rem .5rem #ededed;
+  padding: 2.8rem 2.4rem;
+
+  .date {
+    display: block;
+    margin-top: 1.8rem;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    color: var(--color-gray);
+    flex: 1;
+  }
+}
+
+/* --- Flat Grid of 3 --- */
+.flatGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  width: 100%;
+
+  @include respond-to(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.flatGridCard {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 3rem 0.5rem #ededed;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.08);
+  }
+}
+
+.flatGridCardBody {
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem;
+  flex: 1;
+}
+
+/* --- Swiper Layout --- */
+.swiperWrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 5rem;
+}
+
+.swiperContainer {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+
+.swiperCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 0 3rem 0.5rem #ededed;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.08);
+  }
+}
+
+.swiperCardBody {
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem;
+  flex: 1;
+}
+
+/* --- Shared Card Elements --- */
+.cardImageContainer {
+  width: 100%;
+  height: 22rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+
+  .card:hover & {
+    transform: scale(1.04);
+  }
+}
+
+.cardTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-dark, #222);
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardExcerpt {
+  font-size: 1.3rem;
+  color: var(--color-gray, #666);
+  line-height: 1.5;
+  margin-bottom: 1.8rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 1.2rem;
+
+  .date {
+    font-size: 1.2rem;
+    color: var(--color-gray, #888);
+  }
+}
+
+/* --- Navigation Controls for Swiper --- */
+.navigationControls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.arrowBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--color-white, #fff);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-dark, #222);
+
+  &:hover {
+    background: var(--color-primary, #000);
+    color: #fff;
+    border-color: var(--color-primary, #000);
+    svg path {
+      fill: #fff;
+    }
+  }
+
+  &:disabled,
+  &[class*="swiper-button-disabled"] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

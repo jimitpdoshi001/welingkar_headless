@@ -15,6 +15,7 @@ import { HomeCommunitySection } from "./HomeCommunitySection/HomeCommunitySectio
 import { ImageBox } from "./ImageBox/ImageBox";
 import { ImageLeftRight } from "./ImageLeftRight/ImageLeftRight";
 import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
+import { NewsItems } from "./NewsItems/NewsItems";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { ResponsiveMedia } from "./ResponsiveMedia/ResponsiveMedia";
 import { Section } from "./Section/Section";
@@ -145,6 +146,15 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(contentChildren)}
       </MediaBoxWithPopup>
+    );
+  },
+
+  "paragraph--newsitems": (item, _ctx) => {
+    return (
+      <NewsItems
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof NewsItems>[0]["paragraph"]}
+      />
     );
   },
 

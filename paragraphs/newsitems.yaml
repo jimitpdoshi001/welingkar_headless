@@ -1,0 +1,11 @@
+id: newsitems
+label: NewsItems
+component: NewsItems
+renderChildren: false
+drupalConfig: false
+parents:
+    - through: field_components
+      field: field_section_content
+fields:
+    field_components_style_news:
+        type: list_string

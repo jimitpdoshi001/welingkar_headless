@@ -158,6 +158,16 @@ export type MediaBoxWithPopupAttributes = {
 
 export type MediaBoxWithPopupResource = JsonApiResource<"paragraph--media_box_with_popup", MediaBoxWithPopupAttributes>;
 
+export type NewsItemsAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_components_style_news?: string | null;
+  [key: string]: unknown;
+};
+
+export type NewsItemsResource = JsonApiResource<"paragraph--newsitems", NewsItemsAttributes>;
+
 export type PlacementPartnersAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
