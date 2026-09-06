@@ -13,7 +13,7 @@ export async function NewsItems({ paragraph, children }: NewsItemsProps) {
   const rawStyle = (paragraph.attributes.field_components_style_news || "").trim().toLowerCase();
   const items = await getNewsItems();
 
-  console.log(items, " items");
+  // console.log(items, " items");
 
   if (rawStyle === "slider") {
     return <NewsItemsSwiper items={items} />;

@@ -23,5 +23,7 @@ export { getAllPages, getAllRouteParams, getPageByPath, getNodePathMap, getNewsr
 export { resolveDrupalHref, toHref, isAppPath, isHashHref, drupalLinkTarget } from "./link";
 export { getTopMenu, getFooterMenu } from "./menus";
 export type { MenuItem, TopMenu, FooterLink } from "./menus";
+export { getWhatWeOfferTerms } from "./what-we-offer";
+export type { WhatWeOfferItem } from "./what-we-offer";
 export type * from "./types";
 

@@ -12,6 +12,7 @@ import { Header } from "./Header/Header";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
 import { HeroBanner } from "./HeroBanner/HeroBanner";
 import { HomeCommunitySection } from "./HomeCommunitySection/HomeCommunitySection";
+import { HomeWhatWeOffer } from "./HomeWhatWeOffer/HomeWhatWeOffer";
 import { ImageBox } from "./ImageBox/ImageBox";
 import { ImageLeftRight } from "./ImageLeftRight/ImageLeftRight";
 import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
@@ -102,6 +103,17 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(item.children)}
       </HomeCommunitySection>
+    );
+  },
+
+  "paragraph--home_what_we_offer": (item, { renderChildren }) => {
+    return (
+      <HomeWhatWeOffer
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof HomeWhatWeOffer>[0]["paragraph"]}
+      >
+        {renderChildren(item.children)}
+      </HomeWhatWeOffer>
     );
   },
 

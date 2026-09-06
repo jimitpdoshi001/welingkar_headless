@@ -1,0 +1,226 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  margin-top: -8.5rem;
+
+  @include respond-to(mobile) {
+    margin-top: unset;
+  }
+}
+
+.headerRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  gap: 24px;
+
+  @include respond-to(tablet) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+}
+
+
+.controlsRight {
+  display: flex;
+  align-items: center;
+  gap: 3.6rem;
+
+  @include respond-to(mobile) {
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.6rem;
+  }
+}
+
+.tabsList {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabItem {
+  position: relative;
+  color: #666666;
+  cursor: pointer;
+  padding-bottom: 0.6rem;
+  transition: color 0.25s ease;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 1.6rem;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &.active {
+    color: var(--color-primary);
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: var(--color-primary);
+      border-radius: 2px;
+    }
+  }
+}
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1.5px solid var(--color-primary);
+  background-color: transparent;
+
+  svg path {
+    fill: var(--color-primary);
+    transition: fill 0.25s ease;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    transform: scale(1.05);
+
+    svg path {
+      fill: var(--color-white);
+    }
+  }
+
+  &.navNext {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+
+    svg path {
+      fill: var(--color-white);
+    }
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      transform: scale(1.05);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: #a3c4a8;
+
+    svg path {
+      fill: #a3c4a8;
+    }
+
+    &:hover {
+      background-color: transparent;
+      transform: none;
+
+      &.navNext {
+        background-color: var(--color-primary);
+      }
+    }
+  }
+}
+
+.swiperWrapper {
+  overflow: visible;
+  margin-right: -24px;
+  padding-right: 24px;
+
+  @include respond-to(mobile) {
+    margin-right: -16px;
+    padding-right: 16px;
+  }
+}
+
+.card {
+  position: relative;
+  height: 450px;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+  background-color: #e5e5e5;
+
+  @include respond-to(mobile) {
+    height: 380px;
+    border-radius: 20px;
+  }
+
+  &:hover {
+    .cardImage {
+      transform: scale(1.06);
+    }
+  }
+}
+
+.cardImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cardImagePlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1b3823 0%, #28813b 100%);
+}
+
+.glassOverlay {
+  position: relative;
+  z-index: 2;
+  margin: 16px;
+  padding: 24px 20px;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(240, 245, 240, 0.78) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+
+  @include respond-to(mobile) {
+    margin: 12px;
+    padding: 18px 16px;
+    border-radius: 16px;
+    gap: 12px;
+  }
+}

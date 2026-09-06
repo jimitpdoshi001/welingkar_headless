@@ -1,0 +1,11 @@
+id: home_what_we_offer
+label: Home What We Offer
+component: HomeWhatWeOffer
+renderChildren: true
+drupalConfig: false
+parents:
+    - through: field_components
+      field: field_section_content
+fields:
+    field_show_tabs:
+        type: boolean

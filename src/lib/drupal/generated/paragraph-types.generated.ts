@@ -99,6 +99,16 @@ export type HomeCommunitySectionAttributes = {
 
 export type HomeCommunitySectionResource = JsonApiResource<"paragraph--home_community_section", HomeCommunitySectionAttributes>;
 
+export type HomeWhatWeOfferAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_show_tabs?: boolean | null;
+  [key: string]: unknown;
+};
+
+export type HomeWhatWeOfferResource = JsonApiResource<"paragraph--home_what_we_offer", HomeWhatWeOfferAttributes>;
+
 export type ImageBoxAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -153,6 +163,7 @@ export type MediaBoxWithPopupAttributes = {
   field_single_image?: { type: string; id: string } | null;
   field_responsive_media?: { type: string; id: string } | null;
   field_cta?: Array<{ type: string; id: string }> | null;
+  field_components_style_media_pop?: string | null;
   [key: string]: unknown;
 };
 

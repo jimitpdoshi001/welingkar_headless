@@ -3,22 +3,24 @@ label: Media Box With Popup
 component: MediaBoxWithPopup
 drupalConfig: false
 parents:
-  - through: field_components
-    field: field_section_content
+    - through: field_components
+      field: field_section_content
 fields:
-  field_header:
-    type: string
-  field_single_image:
-    type: media
-    target: image
-    cardinality: 1
-    media: single
-  field_responsive_media:
-    type: paragraph
-    target: responsive_media
-    cardinality: 1
-    media: nested_responsive
-  field_cta:
-    type: paragraph
-    target: button
-    cardinality: unlimited
+    field_header:
+        type: string
+    field_single_image:
+        type: media
+        target: image
+        cardinality: 1
+        media: single
+    field_responsive_media:
+        type: paragraph
+        target: responsive_media
+        cardinality: 1
+        media: nested_responsive
+    field_cta:
+        type: paragraph
+        target: button
+        cardinality: unlimited
+    field_components_style_media_pop:
+        type: list_string

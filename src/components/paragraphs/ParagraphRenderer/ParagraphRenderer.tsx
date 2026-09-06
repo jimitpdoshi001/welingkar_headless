@@ -59,15 +59,18 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
     }
 
     if (item.resource.type === "paragraph--media_box_with_popup") {
+      const groupStyle = mediaBoxWithPopupStyleName(item);
       const group: ParagraphItem[] = [];
 
-      while (index < items.length && items[index].resource.type === "paragraph--media_box_with_popup") {
+      while (index < items.length && items[index].resource.type === "paragraph--media_box_with_popup" && mediaBoxWithPopupStyleName(items[index]) === groupStyle) {
         group.push(items[index]);
         index += 1;
       }
 
       nodes.push(
-        <MediaBoxWithPopupGroup key={group[0].resource.id}>
+        <MediaBoxWithPopupGroup
+          key={group[0].resource.id}
+          componentStyle={groupStyle}>
           {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
         </MediaBoxWithPopupGroup>,
       );
@@ -131,6 +134,11 @@ function thumbImage(media: DrupalResponsiveMedia | null | undefined): HeroBanner
 
 function imageBoxStyleName(item: ParagraphItem): string {
   const style = item.resource.attributes.field_components_style;
+  return typeof style === "string" && style ? style : "default";
+}
+
+function mediaBoxWithPopupStyleName(item: ParagraphItem): string {
+  const style = item.resource.attributes.field_components_style_media_pop || item.resource.attributes.field_components_style;
   return typeof style === "string" && style ? style : "default";
 }
 
