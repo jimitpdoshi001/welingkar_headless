@@ -1,0 +1,16 @@
+id: campus_contact_us
+label: CampusContactUs
+component: CampusContactUs
+drupalConfig: false
+parents:
+    - through: field_components
+      field: field_section_content
+fields:
+    field_header_with_size:
+        type: paragraph
+        target: header
+        cardinality: 1
+    field_description:
+        type: text_long
+    field_html:
+        type: text_long

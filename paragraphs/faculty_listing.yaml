@@ -1,0 +1,11 @@
+id: faculty_listing
+label: FacultyListing
+component: FacultyListing
+renderChildren: false
+drupalConfig: false
+parents:
+    - through: field_components
+      field: field_section_content
+fields:
+    field_show_tabs:
+        type: boolean

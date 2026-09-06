@@ -23,6 +23,26 @@ export type ButtonAttributes = {
 
 export type ButtonResource = JsonApiResource<"paragraph--button", ButtonAttributes>;
 
+export type CampusContactUsAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header_with_size?: { type: string; id: string } | null;
+  field_description?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  field_html?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  [key: string]: unknown;
+};
+
+export type CampusContactUsResource = JsonApiResource<"paragraph--campus_contact_us", CampusContactUsAttributes>;
+
 export type DividerAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -32,6 +52,16 @@ export type DividerAttributes = {
 };
 
 export type DividerResource = JsonApiResource<"paragraph--divider", DividerAttributes>;
+
+export type FacultyListingAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_show_tabs?: boolean | null;
+  [key: string]: unknown;
+};
+
+export type FacultyListingResource = JsonApiResource<"paragraph--faculty_listing", FacultyListingAttributes>;
 
 export type GalleryGridAttributes = {
   parent_id?: string | null;

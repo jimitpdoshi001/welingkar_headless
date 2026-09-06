@@ -6,7 +6,9 @@
 import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import type { ReactNode } from "react";
 import { Button } from "./Button/Button";
+import { CampusContactUs } from "./CampusContactUs/CampusContactUs";
 import { Divider } from "./Divider/Divider";
+import { FacultyListing } from "./FacultyListing/FacultyListing";
 import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
 import { Header } from "./Header/Header";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
@@ -38,11 +40,31 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
     );
   },
 
+  "paragraph--campus_contact_us": (item, { renderChildren }) => {
+    return (
+      <CampusContactUs
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof CampusContactUs>[0]["paragraph"]}
+      >
+        {renderChildren(item.children)}
+      </CampusContactUs>
+    );
+  },
+
   "paragraph--divider": (item, _ctx) => {
     return (
       <Divider
         key={item.resource.id}
         paragraph={item.resource as Parameters<typeof Divider>[0]["paragraph"]}
+      />
+    );
+  },
+
+  "paragraph--faculty_listing": (item, _ctx) => {
+    return (
+      <FacultyListing
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof FacultyListing>[0]["paragraph"]}
       />
     );
   },

@@ -1,6 +1,9 @@
 import type { DrupalImage, DrupalResponsiveMedia, ImageBoxAttributes, JsonApiResource } from "@/lib/drupal";
 import ImageBoxDefault, { ImageBoxDefaultGroup } from "./ImageBoxDefault";
 import ImageBoxWefactor, { ImageBoxWefactorGroup } from "./ImageBoxWefactor";
+import ImageBoxTabsCampus, { ImageBoxTabsCampusGroup } from "./ImageBoxTabsCampus";
+import ImageBoxGlassBg, {ImageBoxGlassBgGroup} from "./ImageBoxGlassBg";
+import ImageBoxFlat, {ImageBoxFlatGroup} from "./ImageBoxFlat";
 
 export type ImageBoxProps = {
   paragraph: JsonApiResource<"paragraph--image_box", ImageBoxAttributes>;
@@ -16,6 +19,15 @@ export function ImageBox(props: ImageBoxProps) {
     case "wefactor":
       return <ImageBoxWefactor {...props} />;
 
+    case "tabs_campus":
+      return <ImageBoxTabsCampus {...props} />;
+    
+    case "glass_bg_text_slider_campus":
+      return <ImageBoxGlassBg {...props} />;
+
+    case "flat_slider":
+      return <ImageBoxFlat {...props} />;
+
     case "default":
     default:
       return <ImageBoxDefault {...props} />;
@@ -26,6 +38,16 @@ export function ImageBoxGroup({ componentStyle, children }: { componentStyle?: s
   switch (componentStyle) {
     case "wefactor":
       return <ImageBoxWefactorGroup>{children}</ImageBoxWefactorGroup>;
+
+    case "tabs_campus":
+      return <ImageBoxTabsCampusGroup>{children}</ImageBoxTabsCampusGroup>;
+
+
+    case "glass_bg_text_slider_campus":
+      return <ImageBoxGlassBgGroup>{children}</ImageBoxGlassBgGroup>;
+
+    case "flat_slider":
+      return <ImageBoxFlatGroup>{children}</ImageBoxFlatGroup>;
 
     case "default":
     default:
