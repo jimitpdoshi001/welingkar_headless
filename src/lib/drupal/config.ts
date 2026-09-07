@@ -1,7 +1,7 @@
 const trimSlash = (value: string) => value.replace(/\/+$/, "");
 
 export const drupalConfig = {
-  baseUrl: trimSlash(process.env.DRUPAL_BASE_URL ?? "https://tata.thebetaweb.site"),
+  baseUrl: trimSlash(process.env.DRUPAL_BASE_URL ?? "https://stage.welingkar.org"),
   jsonApiPrefix: process.env.DRUPAL_JSONAPI_PREFIX ?? "/jsonapi",
   graphqlPath: process.env.DRUPAL_GRAPHQL_PATH ?? "/graphql",
   /** Path alias also accepted for the site home (allpage titled "homepage"). */
