@@ -28,7 +28,6 @@ type HomeWhatWeOfferClientProps = {
 export function HomeWhatWeOfferClient({
   paragraph,
   items = [],
-  children,
 }: HomeWhatWeOfferClientProps) {
   const swiperRef = useRef<SwiperClass | null>(null);
 

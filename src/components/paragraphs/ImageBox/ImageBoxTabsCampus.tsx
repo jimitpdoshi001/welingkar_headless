@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
@@ -42,15 +42,21 @@ export function ImageBoxTabsCampusGroup({ children }: { children: React.ReactNod
   const [activeIndex, setActiveIndex] = useState(0);
   const [tabs, setTabs] = useState<TabData[]>([]);
 
-  const registerTab = (id: string, label: string) => {
+  const registerTab = useCallback((id: string, label: string) => {
     setTabs((prev) => {
-      if (prev.some((t) => t.id === id)) return prev;
-      return [...prev, { id, label }];
+      if (prev.some((t) => t.id === id && t.label === label)) return prev;
+      const filtered = prev.filter((t) => t.id !== id);
+      return [...filtered, { id, label }];
     });
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({ activeIndex, setActiveIndex, registerTab, tabs }),
+    [activeIndex, setActiveIndex, registerTab, tabs]
+  );
 
   return (
-    <ImageBoxTabsContext.Provider value={{ activeIndex, setActiveIndex, registerTab, tabs }}>
+    <ImageBoxTabsContext.Provider value={contextValue}>
       <div className={styles.groupWrapper}>{children}</div>
     </ImageBoxTabsContext.Provider>
   );
@@ -58,6 +64,7 @@ export function ImageBoxTabsCampusGroup({ children }: { children: React.ReactNod
 
 export default function ImageBoxTabsCampus({ paragraph, image, responsiveMedia, children }: ImageBoxProps) {
   const context = useContext(ImageBoxTabsContext);
+  const registerTab = context?.registerTab;
   const id = paragraph.id;
   const heading = paragraph.attributes.field_header || null;
   const description = paragraph.attributes.field_description?.processed || null;
@@ -69,10 +76,10 @@ export default function ImageBoxTabsCampus({ paragraph, image, responsiveMedia, 
   const hasMedia = Boolean(responsiveMedia || image);
 
   useEffect(() => {
-    if (context?.registerTab) {
-      context.registerTab(id, tabLabel);
+    if (registerTab) {
+      registerTab(id, tabLabel);
     }
-  }, [context, id, tabLabel]);
+  }, [registerTab, id, tabLabel]);
 
   const tabs = context?.tabs || [];
   const itemIndex = tabs.findIndex((t) => t.id === id);

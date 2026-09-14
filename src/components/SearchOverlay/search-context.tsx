@@ -38,3 +38,8 @@ export function useSearch() {
   }
   return context;
 }
+
+export function useOptionalSearch() {
+  return useContext(SearchContext);
+}
+

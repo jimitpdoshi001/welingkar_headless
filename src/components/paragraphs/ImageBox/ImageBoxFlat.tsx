@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxFlat.module.scss";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
+import clsx from "clsx";
 
 export default function ImageBoxFlat({ paragraph, image, responsiveMedia, children }: ImageBoxProps) {
   const heading = paragraph.attributes.field_header || null;
@@ -43,11 +44,11 @@ export default function ImageBoxFlat({ paragraph, image, responsiveMedia, childr
           )}
         </div>
       )}
-        {heading ? <h4 className="mb-2">{heading}</h4> : null}
+        {heading ? <h4 className={clsx("mb-2", "animate-fade-in-up")}>{heading}</h4> : null}
 
         {description ? (
           <div
-            className={styles.description}
+            className={clsx(styles.description, "animate-fade-in-up")}
             dangerouslySetInnerHTML={{ __html: description }}
           />
         ) : null}

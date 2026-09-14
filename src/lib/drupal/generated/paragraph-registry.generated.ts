@@ -6,7 +6,7 @@
 import type { NodeBundle } from "../config";
 
 export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string[]> = {
-  allpage: ["field_components"],
+  allpage: ["field_components","field_in_page_links"],
   blogs: [],
 };
 
@@ -44,6 +44,9 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     "field_section_content.field_testimonials_data",
     "field_section_content.field_testimonials_data.field_single_image",
     "field_section_content.field_testimonials_data.field_single_image.field_media_image",
+  ],
+  field_in_page_links: [
+
   ],
 };
 

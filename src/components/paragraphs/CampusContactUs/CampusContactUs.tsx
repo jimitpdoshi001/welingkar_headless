@@ -1,6 +1,6 @@
 "use client";
 
-import { Children, memo, useState } from "react";
+import { memo, useState } from "react";
 import type { CampusContactUsAttributes, JsonApiResource } from "@/lib/drupal";
 import clsx from "clsx";
 import styles from "./CampusContactUs.module.scss";
@@ -102,7 +102,7 @@ function ContactForm() {
   );
 }
 
-export function CampusContactUs({ paragraph, children }: CampusContactUsProps) {
+export function CampusContactUs({ paragraph }: CampusContactUsProps) {
   const { attributes } = paragraph;
 
   const descriptionHtml = attributes.field_description?.processed || attributes.field_description?.value || "";

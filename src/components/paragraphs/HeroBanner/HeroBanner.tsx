@@ -46,7 +46,7 @@ export function HeroBanner({ responsiveMedia, children }: HeroBannerProps) {
           className={styles.background}
         />
       )}
-      <div className={styles.content}>{children}</div>
+      <div className={`${styles.content} animate-fade-in-up`}>{children}</div>
     </article>
   );
 }

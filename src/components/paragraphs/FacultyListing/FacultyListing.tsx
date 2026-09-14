@@ -14,6 +14,7 @@ import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { FacultyCategory, FacultyMember } from "@/lib/drupal/faculty";
 import { DEFAULT_FACULTY_CATEGORIES, DEFAULT_FACULTY_MEMBERS } from "@/lib/drupal/faculty";
 import type { FacultyListingAttributes, JsonApiResource } from "@/lib/drupal";
+import { useHasMounted } from "@/util/useMediaQuery";
 import styles from "./FacultyListing.module.scss";
 
 type FacultyListingProps = {
@@ -28,14 +29,10 @@ export function FacultyListing({
   members = DEFAULT_FACULTY_MEMBERS,
 }: FacultyListingProps) {
   const [activeTab, setActiveTab] = useState<string>("faculty");
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHasMounted();
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (swiperInstance && swiperInstance.navigation) {

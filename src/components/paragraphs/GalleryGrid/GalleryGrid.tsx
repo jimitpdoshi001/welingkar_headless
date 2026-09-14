@@ -4,6 +4,8 @@ import Image from "next/image";
 import styles from "./GalleryGrid.module.scss";
 import clsx from "clsx";
 import { useIsMobile } from "@/util/useMediaQuery";
+import { getAnimationClass } from "@/components/animations/registry";
+
 
 type GalleryGridProps = {
   paragraph: JsonApiResource<"paragraph--gallery_grid", GalleryGridAttributes>;
@@ -17,6 +19,9 @@ export function GalleryGrid({ paragraph, images = [], children }: GalleryGridPro
 
   const isMobile = useIsMobile();
 
+  const animationClass = getAnimationClass(paragraph?.attributes?.field_animation || "");
+
+
   return (
     <>
       <div className={clsx(styles.content, "mb-6")}>
@@ -26,7 +31,7 @@ export function GalleryGrid({ paragraph, images = [], children }: GalleryGridPro
       </div>
 
       {galleryImages.length > 0 && !isMobile && (
-        <div className={styles.grid}>
+        <div className={clsx(styles.grid, animationClass)}>
           <div className={clsx(styles.item, styles.item1)}>
             <Image
               src={galleryImages[0].url ?? ""}

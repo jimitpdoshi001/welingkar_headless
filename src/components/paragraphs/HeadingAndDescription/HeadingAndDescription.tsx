@@ -3,6 +3,7 @@ import type { HeadingAndDescriptionAttributes, JsonApiResource } from "@/lib/dru
 import styles from "./HeadingAndDescription.module.scss";
 import clsx from "clsx";
 import {useIsMobile} from "@/util/useMediaQuery";
+import { getAnimationClass } from "@/components/animations/registry";
 
 type HeadingAndDescriptionProps = {
   paragraph: JsonApiResource<"paragraph--header_and_description", HeadingAndDescriptionAttributes>;
@@ -62,6 +63,7 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
     tiny: "tiny",
   } as const;
 
+
   const colorClass = textColorClasses[paragraph.attributes.field_text_color as keyof typeof textColorClasses] || null;
   const textAlignClass = textAlignClasses[paragraph.attributes.field_alignment as keyof typeof textAlignClasses] || null;
   const textVerticalAlignClass = textVerticalAlignClasses[paragraph.attributes.field_vertical_alignment as keyof typeof textVerticalAlignClasses] || null;
@@ -69,13 +71,15 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
   const maxWidthClass = maxWidthClasses[paragraph.attributes.field_max_width as keyof typeof maxWidthClasses] || null;
 
   const headerSizeClass = headerSizeClasses[paragraph.attributes.field_header_size as keyof typeof headerSizeClasses] || null;
-
   const Component = headerSizeClass as React.ElementType || "h3";
+
+  const animationClass = getAnimationClass(paragraph.attributes.field_animation);
+
 
   const componentStylesClass = componentStylesClasses[paragraph.attributes.field_header_style as keyof typeof componentStylesClasses] || null;
 
   return (
-    <div className={clsx(colorClass, textAlignClass, textVerticalAlignClass, textVerticalAlignClass ? "g h-100" : "")}>
+    <div className={clsx(colorClass, textAlignClass, textVerticalAlignClass, textVerticalAlignClass ? "g h-100" : "", animationClass)}>
       {componentStylesClass !== styles.button_right ? (
         <div className={clsx(maxWidthClass, maxWidthClass && textAlignClass === "text-center" && "mx-auto", isMobile ? "text-left" : "")}>
           <div>

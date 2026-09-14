@@ -12,7 +12,7 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
   const hasMedia = Boolean(responsiveMedia || image);
 
   return (
-    <article className={styles.imageBox}>
+    <article className={`${styles.imageBox}`}>
       {hasMedia && (
         <div className={styles.media}>
           {responsiveMedia && (
@@ -36,7 +36,7 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
       )}
 
       {(heading || description || children) && (
-        <div className={styles.body}>
+        <div className={`${styles.body}`}>
           {heading ? <h1 className={styles.heading}>{heading}</h1> : null}
 
           {description ? (
@@ -56,5 +56,5 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
 export function ImageBoxDefaultGroup({ children }: { children: React.ReactNode }) {
   const slides = Children.toArray(children);
 
-  return <div className={styles.grid}>{slides}</div>;
+  return <div className={`${styles.grid} animate-stagger`}>{slides}</div>;
 }

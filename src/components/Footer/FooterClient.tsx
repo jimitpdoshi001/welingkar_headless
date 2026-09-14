@@ -26,8 +26,8 @@ export function FooterClient({ footerMenu }: FooterClientProps) {
         {/* Row 1 */}
         <div className={styles.footerTop}>
           <Logo
-            width={isMobile ? 200 : 350}
-            height={isMobile ? 60 : 100}
+            width={isMobile ? 200 : 200}
+            height={isMobile ? 60 : 60}
           />
 
           <form className={styles.footerSubscribeForm}>

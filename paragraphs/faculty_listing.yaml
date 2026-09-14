@@ -9,3 +9,5 @@ parents:
 fields:
     field_show_tabs:
         type: boolean
+    field_animation:
+        type: list_string

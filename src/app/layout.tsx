@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 import { Suspense } from "react";
 import { NavigationLoader } from "@/components/Loader/NavigationLoader";
+import { ScrollAnimationProvider } from "@/components/animations";
 
 export default function RootLayout({
   children,
@@ -35,7 +36,9 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <NavigationLoader />
         </Suspense>
-        {children}
+        <ScrollAnimationProvider>
+          {children}
+        </ScrollAnimationProvider>
       </body>
     </html>
   );

@@ -38,6 +38,7 @@ export type CampusContactUsAttributes = {
       format: string;
       processed: string;
     } | null;
+  field_animation?: string | null;
   [key: string]: unknown;
 };
 
@@ -58,6 +59,7 @@ export type FacultyListingAttributes = {
   parent_type?: string | null;
   parent_field_name?: string | null;
   field_show_tabs?: boolean | null;
+  field_animation?: string | null;
   [key: string]: unknown;
 };
 
@@ -70,6 +72,7 @@ export type GalleryGridAttributes = {
   field_header?: string | null;
   field_multiple_images?: Array<{ type: string; id: string }> | null;
   field_cta?: Array<{ type: string; id: string }> | null;
+  field_animation?: string | null;
   [key: string]: unknown;
 };
 
@@ -84,6 +87,7 @@ export type HeaderAttributes = {
   field_header_size?: string | null;
   field_text_color?: string | null;
   field_max_width?: number | null;
+  field_animation?: string | null;
   [key: string]: unknown;
 };
 
@@ -102,6 +106,7 @@ export type HeadingAndDescriptionAttributes = {
     } | null;
   field_cta?: Array<{ type: string; id: string }> | null;
   field_image_right?: boolean | null;
+  field_animation?: string | null;
   [key: string]: unknown;
 };
 
@@ -180,10 +185,27 @@ export type ImageLeftRightAttributes = {
   field_cta?: Array<{ type: string; id: string }> | null;
   field_image_right?: boolean | null;
   field_header_size?: string | null;
+  field_components_style_crl?: string | null;
   [key: string]: unknown;
 };
 
 export type ImageLeftRightResource = JsonApiResource<"paragraph--image_left_right", ImageLeftRightAttributes>;
+
+export type InPageLinksAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_url?: {
+      uri: string;
+      title: string;
+    } | Array<{
+      uri: string;
+      title: string;
+    }> | null;
+  [key: string]: unknown;
+};
+
+export type InPageLinksResource = JsonApiResource<"paragraph--in_page_links", InPageLinksAttributes>;
 
 export type MediaBoxWithPopupAttributes = {
   parent_id?: string | null;
@@ -250,6 +272,8 @@ export type SectionAttributes = {
   field_hide_section?: boolean | null;
   field_responsive_media?: { type: string; id: string } | null;
   field_section_content?: Array<{ type: string; id: string }> | null;
+  field_section_id?: string | null;
+  field_animation?: string | null;
   [key: string]: unknown;
 };
 

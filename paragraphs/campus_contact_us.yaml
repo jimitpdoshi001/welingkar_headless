@@ -14,3 +14,5 @@ fields:
         type: text_long
     field_html:
         type: text_long
+    field_animation:
+        type: list_string

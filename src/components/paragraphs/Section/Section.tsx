@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import Image from "next/image";
 import { ArrowDark, ArrowLight } from "@/assets/svg/Arrows";
+import { getAnimationClass } from "@/components/animations/registry";
 
 type SectionProps = {
   paragraph: JsonApiResource<"paragraph--section", SectionAttributes>;
@@ -88,13 +89,15 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
   const arrowStyleClass = arrowStyleClasses[attributes.field_arrow_style as keyof typeof arrowStyleClasses] ?? "";
   const hasBackground = Boolean(responsiveMedia?.desktop || responsiveMedia?.mobile || image);
 
-  if (attributes.field_hide_section === true) {
-    return null;
-  }
+  const animationClass = getAnimationClass(paragraph.attributes.field_animation || "");
+
+  const hasStickyChild = Boolean(
+    attributes.field_section_content?.some((item: { type?: string }) => item.type === "paragraph--in_page_links")
+  );
 
   return (
-    <section className={clsx("relative", heightClass, "overflow-hidden", arrowStyleClass)}>
-      <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100")}>{children}</div>
+    <section id={attributes.field_section_id || undefined} className={clsx("relative", heightClass, hasStickyChild ? undefined : "overflow-hidden", arrowStyleClass)}>
+      <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100", animationClass)}>{children}</div>
 
       <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass)} />
 

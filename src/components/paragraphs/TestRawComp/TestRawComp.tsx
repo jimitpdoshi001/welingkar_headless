@@ -2,8 +2,6 @@ import type {
   JsonApiResource,
   TestRawCompAttributes,
 } from "@/lib/drupal";
-import styles from "./TestRawComp.module.scss";
-import Link from "next/link";
 
 type TestRawCompProps = {
   paragraph: JsonApiResource<

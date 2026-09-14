@@ -1,6 +1,5 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
 import style from "./ScrollToTop.module.scss";
 import { ArrowUp } from "@/assets/svg/Arrows";
 import { Whatsapp, Share } from "@/assets/svg/Icons";
@@ -8,21 +7,7 @@ import Link from "next/link";
 import { useIsMobile } from "@/util/useMediaQuery";
 
 const ScrollToTop = () => {
-  const [showButton, setShowButton] = useState(false);
-
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowButton(window.scrollY > 300);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({

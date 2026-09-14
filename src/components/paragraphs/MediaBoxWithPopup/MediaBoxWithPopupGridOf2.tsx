@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { DrupalMedia } from "@/lib/drupal";
 import type { MediaBoxWithPopupProps } from "./MediaBoxWithPopup";
 import styles from "./MediaBoxWithPopupGridOf2.module.scss";
+import clsx from "clsx";
 
 export function toPopupEmbedUrl(url: string): string {
   try {
@@ -120,7 +121,7 @@ export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveM
   }, [open]);
 
   return (
-    <article className={styles.card}>
+    <article className={clsx(styles.card)}>
       <button
         type="button"
         className={styles.thumb}
@@ -177,5 +178,5 @@ export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveM
 }
 
 export function MediaBoxWithPopupGridOf2Group({ children }: { children: React.ReactNode }) {
-  return <div className={styles.grid}>{children}</div>;
+  return <div className={clsx(styles.grid, "animate-stagger")} data-animation-stagger="0.02">{children}</div>;
 }

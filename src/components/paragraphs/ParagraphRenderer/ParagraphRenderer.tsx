@@ -3,6 +3,8 @@ import type { DrupalPage, DrupalResponsiveMedia, ParagraphItem } from "@/lib/dru
 import clsx from "clsx";
 import { HeroBannerGroup, type HeroBannerThumb } from "../HeroBanner/HeroBanner";
 import { ImageBoxGroup } from "../ImageBox/ImageBox";
+import { ImageLeftRightGroup } from "../ImageLeftRight/ImageLeftRight";
+import { InPageLinksGroup } from "../InPageLinks/InPageLinks";
 import { MediaBoxWithPopupGroup } from "../MediaBoxWithPopup/MediaBoxWithPopup";
 import { paragraphComponents } from "../paragraph-components";
 import styles from "./ParagraphRenderer.module.scss";
@@ -33,18 +35,53 @@ export function ParagraphRenderer({ page }: ParagraphRendererProps) {
 
 function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.ReactNode[] {
   const renderChildren = (children: ParagraphItem[]) => renderParagraphItems(children, page);
+
+  // If in_page_links exists in items, collect all of them and place right after the first top (100dvh) component
+  const inPageLinksItems = items.filter((item) => item.resource.type === "paragraph--in_page_links");
+  const nonInPageLinksItems = items.filter((item) => item.resource.type !== "paragraph--in_page_links");
+
+  let orderedItems = items;
+  if (inPageLinksItems.length > 0) {
+    if (nonInPageLinksItems.length > 0) {
+      orderedItems = [
+        nonInPageLinksItems[0],
+        ...inPageLinksItems,
+        ...nonInPageLinksItems.slice(1),
+      ];
+    } else {
+      orderedItems = inPageLinksItems;
+    }
+  }
+
   const nodes: React.ReactNode[] = [];
   let index = 0;
 
-  while (index < items.length) {
-    const item = items[index];
+  while (index < orderedItems.length) {
+    const item = orderedItems[index];
+
+    if (item.resource.type === "paragraph--in_page_links") {
+      const group: ParagraphItem[] = [];
+
+      while (index < orderedItems.length && orderedItems[index].resource.type === "paragraph--in_page_links") {
+        group.push(orderedItems[index]);
+        index += 1;
+      }
+
+      nodes.push(
+        <InPageLinksGroup key={group[0].resource.id}>
+          {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
+        </InPageLinksGroup>,
+      );
+      continue;
+    }
+
 
     if (item.resource.type === "paragraph--image_box") {
       const groupStyle = imageBoxStyleName(item);
       const group: ParagraphItem[] = [];
 
-      while (index < items.length && items[index].resource.type === "paragraph--image_box" && imageBoxStyleName(items[index]) === groupStyle) {
-        group.push(items[index]);
+      while (index < orderedItems.length && orderedItems[index].resource.type === "paragraph--image_box" && imageBoxStyleName(orderedItems[index]) === groupStyle) {
+        group.push(orderedItems[index]);
         index += 1;
       }
 
@@ -58,12 +95,31 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
       continue;
     }
 
+    if (item.resource.type === "paragraph--image_left_right") {
+      const groupStyle = imageLeftRightStyleName(item);
+      const group: ParagraphItem[] = [];
+
+      while (index < orderedItems.length && orderedItems[index].resource.type === "paragraph--image_left_right" && imageLeftRightStyleName(orderedItems[index]) === groupStyle) {
+        group.push(orderedItems[index]);
+        index += 1;
+      }
+
+      nodes.push(
+        <ImageLeftRightGroup
+          key={group[0].resource.id}
+          componentStyle={groupStyle}>
+          {group.map((groupedItem) => renderParagraphItem(groupedItem, page, renderChildren))}
+        </ImageLeftRightGroup>,
+      );
+      continue;
+    }
+
     if (item.resource.type === "paragraph--media_box_with_popup") {
       const groupStyle = mediaBoxWithPopupStyleName(item);
       const group: ParagraphItem[] = [];
 
-      while (index < items.length && items[index].resource.type === "paragraph--media_box_with_popup" && mediaBoxWithPopupStyleName(items[index]) === groupStyle) {
-        group.push(items[index]);
+      while (index < orderedItems.length && orderedItems[index].resource.type === "paragraph--media_box_with_popup" && mediaBoxWithPopupStyleName(orderedItems[index]) === groupStyle) {
+        group.push(orderedItems[index]);
         index += 1;
       }
 
@@ -80,8 +136,8 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
     if (item.resource.type === "paragraph--hero_banner") {
       const group: ParagraphItem[] = [];
 
-      while (index < items.length && items[index].resource.type === "paragraph--hero_banner") {
-        group.push(items[index]);
+      while (index < orderedItems.length && orderedItems[index].resource.type === "paragraph--hero_banner") {
+        group.push(orderedItems[index]);
         index += 1;
       }
 
@@ -94,6 +150,7 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
       );
       continue;
     }
+
 
     nodes.push(renderParagraphItem(item, page, renderChildren));
     index += 1;
@@ -133,6 +190,11 @@ function thumbImage(media: DrupalResponsiveMedia | null | undefined): HeroBanner
 }
 
 function imageBoxStyleName(item: ParagraphItem): string {
+  const style = item.resource.attributes.field_components_style;
+  return typeof style === "string" && style ? style : "default";
+}
+
+function imageLeftRightStyleName(item: ParagraphItem): string {
   const style = item.resource.attributes.field_components_style;
   return typeof style === "string" && style ? style : "default";
 }

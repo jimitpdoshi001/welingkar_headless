@@ -1,0 +1,9 @@
+/* Accessibility and zero-JS fallbacks for scroll animations */
+@media (prefers-reduced-motion: reduce) {
+  :global([class*="animate-"]) {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

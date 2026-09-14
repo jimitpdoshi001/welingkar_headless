@@ -1,6 +1,7 @@
 import type { HeaderAttributes, JsonApiResource } from "@/lib/drupal";
 import clsx from "clsx";
-import styles from "./Header.module.scss";
+import { getAnimationClass } from "@/components/animations/registry";
+
 
 type HeaderProps = {
   paragraph: JsonApiResource<"paragraph--header", HeaderAttributes>;
@@ -55,8 +56,10 @@ export function Header({ paragraph, children }: HeaderProps) {
 
   const Component = sizeClass as React.ElementType || "h3";
 
+  const animationClass = getAnimationClass(paragraph.attributes.field_animation || "");
+
   return (
-    <div className={clsx(alignClass, colorClass, maxWidthClass, maxWidthClass && alignClass === "text-center" && "mx-auto")}>
+    <div className={clsx(alignClass, colorClass, maxWidthClass, maxWidthClass && alignClass === "text-center" && "mx-auto", animationClass)}>
       <Component>{heading}</Component>
       {children}
     </div>

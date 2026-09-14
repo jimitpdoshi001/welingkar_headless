@@ -1,0 +1,12 @@
+id: in_page_links
+label: In page links
+component: InPageLinks
+renderChildren: false
+drupalConfig: false
+parents:
+    - through: field_components
+      field: field_section_content
+fields:
+    field_url:
+        type: link
+        cardinality: unlimited

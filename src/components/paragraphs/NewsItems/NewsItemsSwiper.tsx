@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 
 import type { NewsItem } from "@/lib/drupal/news";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
+import { useHasMounted } from "@/util/useMediaQuery";
 import styles from "./NewsItems.module.scss";
 
 type NewsItemsSwiperProps = {
@@ -18,14 +19,10 @@ type NewsItemsSwiperProps = {
 };
 
 export function NewsItemsSwiper({ items }: NewsItemsSwiperProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useHasMounted();
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (swiperInstance && swiperInstance.navigation) {

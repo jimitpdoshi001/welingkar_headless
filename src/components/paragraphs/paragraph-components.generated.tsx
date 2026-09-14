@@ -17,6 +17,7 @@ import { HomeCommunitySection } from "./HomeCommunitySection/HomeCommunitySectio
 import { HomeWhatWeOffer } from "./HomeWhatWeOffer/HomeWhatWeOffer";
 import { ImageBox } from "./ImageBox/ImageBox";
 import { ImageLeftRight } from "./ImageLeftRight/ImageLeftRight";
+import { InPageLinks } from "./InPageLinks/InPageLinks";
 import { MediaBoxWithPopup } from "./MediaBoxWithPopup/MediaBoxWithPopup";
 import { NewsItems } from "./NewsItems/NewsItems";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
@@ -165,6 +166,15 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(contentChildren)}
       </ImageLeftRight>
+    );
+  },
+
+  "paragraph--in_page_links": (item, _ctx) => {
+    return (
+      <InPageLinks
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof InPageLinks>[0]["paragraph"]}
+      />
     );
   },
 

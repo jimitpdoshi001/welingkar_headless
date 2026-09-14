@@ -21,8 +21,46 @@
     position: relative;
     width: 100%;
     height: 100%;
-    img {
+    overflow: hidden;
+    border-radius: 2.4rem;
+
+    img,
+    .mediaFill {
       border-radius: 2.4rem;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
+
+    &:hover {
+      img,
+      .mediaFill {
+        transform: scale(1.06);
+      }
+    }
+  }
+}
+
+.campusListing {
+  align-items: unset;
+
+  .content {
+    background-color: var(--color-light-yellow);
+    padding: 20% 10%;
+    border-radius: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include respond-to(mobile) {
+      padding: 4rem;
+    }
+  }
+}
+
+.isRight {
+  .content {
+    border: 1px solid var(--color-gray);
   }
 }

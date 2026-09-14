@@ -1,38 +1,31 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
 
 export function useHasMounted() {
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  return hasMounted;
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 }
 
 export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-  const hasMounted = useHasMounted();
-
-  useEffect(() => {
-    if (!hasMounted) return;
-
+  const subscribe = (onStoreChange: () => void) => {
+    if (typeof window === "undefined") return () => {};
     const mediaQuery = window.matchMedia(query);
+    mediaQuery.addEventListener("change", onStoreChange);
+    return () => mediaQuery.removeEventListener("change", onStoreChange);
+  };
 
-    const update = () => {
-      setMatches(mediaQuery.matches);
-    };
+  const getSnapshot = () => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(query).matches;
+  };
 
-    update();
+  const getServerSnapshot = () => false;
 
-    mediaQuery.addEventListener("change", update);
-
-    return () => {
-      mediaQuery.removeEventListener("change", update);
-    };
-  }, [query, hasMounted]);
-
-  return hasMounted ? matches : false;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 export function useIsMobile() {
@@ -46,3 +39,4 @@ export function useIsTablet() {
 export function useIsDesktop() {
   return useMediaQuery("(min-width: 1024px)");
 }
+

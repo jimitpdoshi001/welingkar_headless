@@ -3,18 +3,20 @@ label: Header and Description
 component: HeadingAndDescription
 drupalConfig: false
 parents:
-  - through: field_components
-    field: field_section_content
+    - through: field_components
+      field: field_section_content
 fields:
-  field_header:
-    type: string
-  field_pill_text:
-    type: string
-  field_description:
-    type: text_long
-  field_cta:
-    type: paragraph
-    target: button
-    cardinality: unlimited
-  field_image_right:
-    type: boolean
+    field_header:
+        type: string
+    field_pill_text:
+        type: string
+    field_description:
+        type: text_long
+    field_cta:
+        type: paragraph
+        target: button
+        cardinality: unlimited
+    field_image_right:
+        type: boolean
+    field_animation:
+        type: list_string

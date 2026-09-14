@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { DrupalPageView } from "@/components/DrupalPageView";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
-import { getAllPages, getAllRouteParams, getPageByPath } from "@/lib/drupal";
+import { getAllRouteParams, getPageByPath } from "@/lib/drupal";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DrupalDynamicPage({ params }: PageProps) {
   const { slug } = await params;
-  const [page] = await Promise.all([getPageByPath(slug), getAllPages()]);
+  const page = await getPageByPath(slug);
 
   if (!page) {
     notFound();

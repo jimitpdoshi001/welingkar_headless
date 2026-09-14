@@ -21,7 +21,6 @@ type MobileNavProps = {
 export function MobileNav({ items, onClose }: MobileNavProps) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
-  const [closing, setClosing] = useState(false);
 
   // Trigger the slide-in on mount (needs a frame so the browser registers
   // the initial "off-screen" position before animating to 0).
@@ -31,7 +30,6 @@ export function MobileNav({ items, onClose }: MobileNavProps) {
   }, []);
 
   const handleClose = () => {
-    setClosing(true);
     setVisible(false);
     // Waiting for the slide-out transition to finish before unmounting.
     window.setTimeout(onClose, 320);

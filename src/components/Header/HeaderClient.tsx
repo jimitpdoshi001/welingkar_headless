@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.scss";
 import { Logo } from "@/assets/svg/Logos";
-import { Search, SearchHeader, LightMode, DarkMode } from "@/assets/svg/Icons";
+import { Search, LightMode, DarkMode } from "@/assets/svg/Icons";
 import Link from "next/link";
 import { useIsDesktop } from "@/util/useMediaQuery";
 import type { TopMenu } from "@/lib/drupal";
-import { useSearch } from "@/components/SearchOverlay/search-context";
+import { useOptionalSearch } from "@/components/SearchOverlay/search-context";
 import { ArrowDown } from "@/assets/svg/Arrows";
 
 interface HeaderClientProps {
@@ -25,13 +25,7 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
   const isDesktop = useIsDesktop();
   const isMobile = !isDesktop;
 
-  let searchContext: ReturnType<typeof useSearch> | null = null;
-  try {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    searchContext = useSearch();
-  } catch {
-    searchContext = null;
-  }
+  const searchContext = useOptionalSearch();
 
   const handleSearchClick = () => {
     if (searchContext) {

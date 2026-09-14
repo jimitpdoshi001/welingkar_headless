@@ -3,8 +3,10 @@ nodeBundles:
   allpage:
     paragraphFields:
       - field_components
+      - field_in_page_links
   blogs:
     paragraphFields: []
+
 
 # field.storage.paragraph.* already exists in Drupal — never emit a second storage YAML.
 sharedFields:
