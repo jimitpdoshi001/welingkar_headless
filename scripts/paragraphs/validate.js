@@ -1,6 +1,7 @@
 "use strict";
 
 const { COMPONENT_PATTERN, FIELD_PATTERN, ID_PATTERN, SUPPORTED_FIELD_TYPES } = require("./constants");
+const { targetsOf } = require("./helpers");
 
 function fail(errors, message) {
   errors.push(message);
@@ -92,7 +93,7 @@ function validateParagraph(def, errors, ids) {
       fail(errors, `${where}: fields.${fieldName} has unsupported type "${field.type}". Supported: ${Object.keys(SUPPORTED_FIELD_TYPES).join(", ")}`);
       continue;
     }
-    if ((field.type === "paragraph" || field.type === "media") && !field.target) {
+    if ((field.type === "paragraph" || field.type === "media") && targetsOf(field).length === 0) {
       fail(errors, `${where}: fields.${fieldName} (${field.type}) requires target`);
     }
     if (field.cardinality && field.cardinality !== "unlimited" && field.cardinality !== 1 && typeof field.cardinality !== "number") {
@@ -109,8 +110,10 @@ function validateGraph(paragraphs, errors) {
 
   for (const def of paragraphs) {
     for (const [fieldName, field] of Object.entries(def.fields)) {
-      if (field.type === "paragraph" && field.target && field.target !== "*" && !byId.has(field.target)) {
-        fail(errors, `${def.fileName}: fields.${fieldName} targets unknown paragraph "${field.target}"`);
+      for (const target of targetsOf(field)) {
+        if (field.type === "paragraph" && target !== "*" && !byId.has(target)) {
+          fail(errors, `${def.fileName}: fields.${fieldName} targets unknown paragraph "${target}"`);
+        }
       }
     }
   }

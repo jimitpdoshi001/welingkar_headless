@@ -10,11 +10,13 @@ import { CampusContactUs } from "./CampusContactUs/CampusContactUs";
 import { Divider } from "./Divider/Divider";
 import { FacultyListing } from "./FacultyListing/FacultyListing";
 import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
+import { GroupItems } from "./GroupItems/GroupItems";
 import { Header } from "./Header/Header";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
 import { HeroBanner } from "./HeroBanner/HeroBanner";
 import { HomeCommunitySection } from "./HomeCommunitySection/HomeCommunitySection";
 import { HomeWhatWeOffer } from "./HomeWhatWeOffer/HomeWhatWeOffer";
+import { IconBox } from "./IconBox/IconBox";
 import { ImageBox } from "./ImageBox/ImageBox";
 import { ImageLeftRight } from "./ImageLeftRight/ImageLeftRight";
 import { InPageLinks } from "./InPageLinks/InPageLinks";
@@ -82,6 +84,17 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
     );
   },
 
+  "paragraph--group_items": (item, { renderChildren }) => {
+    return (
+      <GroupItems
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof GroupItems>[0]["paragraph"]}
+      >
+        {renderChildren(item.children)}
+      </GroupItems>
+    );
+  },
+
   "paragraph--header": (item, { renderChildren }) => {
     return (
       <Header
@@ -137,6 +150,16 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(item.children)}
       </HomeWhatWeOffer>
+    );
+  },
+
+  "paragraph--icon_box": (item, { page }) => {
+    return (
+      <IconBox
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof IconBox>[0]["paragraph"]}
+        image={page.paragraphImages[item.resource.id] ?? null}
+      />
     );
   },
 

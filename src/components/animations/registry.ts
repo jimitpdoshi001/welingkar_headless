@@ -159,6 +159,7 @@ export const animationClasses = {
   scale_up: "animate-scale-up",
   zoom_in: "animate-zoom-in",
   slide_up: "animate-slide-up",
+  slide_down: "animate-slide-down",
   slide_left: "animate-slide-left",
   slide_right: "animate-slide-right",
 } as const;

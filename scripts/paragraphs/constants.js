@@ -25,6 +25,7 @@ const SUPPORTED_FIELD_TYPES = {
   boolean: { kind: "attribute", ts: "boolean | null", drupal: "boolean" },
   integer: { kind: "attribute", ts: "number | null", drupal: "integer" },
   list_string: { kind: "attribute", ts: "string | null", drupal: "list_string" },
+  list_integer: { kind: "attribute", ts: "number | null", drupal: "list_integer" },
   link: {
     kind: "attribute",
     ts: "{\n    uri: string;\n    title: string;\n  } | null",

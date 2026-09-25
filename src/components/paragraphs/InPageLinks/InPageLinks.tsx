@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { InPageLinksAttributes, JsonApiResource } from "@/lib/drupal";
 import { toHref } from "@/lib/drupal/link";
+import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import clsx from "clsx";
 import styles from "./InPageLinks.module.scss";
 
@@ -210,35 +211,14 @@ export function InPageLinksGroup({ children }: { children: React.ReactNode }) {
   return (
     <InPageGroupContext.Provider value={contextValue}>
       <div style={{ display: "none" }}>{children}</div>
-
-      <div
-        ref={wrapperRef}
-        className={styles.wrapper}>
-        <div
-          className={clsx(
-            styles.root,
-            isSticky && styles.isSticky
-          )}
-          style={{ top: isSticky ? `${headerHeight}px` : undefined }}>
-          <nav
-            className={styles.nav}
-            aria-label="In-page navigation">
-            {items.map((item, index) => {
-              const isActive = item.targetId ? activeId === item.targetId : index === 0;
-
-              return (
-                <a
-                  key={`${item.href}-${index}`}
-                  href={item.href}
-                  onClick={(e) => handleLinkClick(e, item)}
-                  className={clsx(styles.link, isActive && styles.active)}>
-                  {item.title}
-                </a>
-              );
-            })}
-          </nav>
-        </div>
-      </div>
+      <InPageNavRender
+        wrapperRef={wrapperRef}
+        headerHeight={headerHeight}
+        isSticky={isSticky}
+        items={items}
+        activeId={activeId}
+        handleLinkClick={handleLinkClick}
+      />
     </InPageGroupContext.Provider>
   );
 }
@@ -369,32 +349,140 @@ function StandaloneInPageLinks({ items }: { items: LinkItem[] }) {
   if (items.length === 0) return null;
 
   return (
+    <InPageNavRender
+      wrapperRef={wrapperRef}
+      headerHeight={headerHeight}
+      isSticky={isSticky}
+      items={items}
+      activeId={activeId}
+      handleLinkClick={handleLinkClick}
+    />
+  );
+}
+
+type InPageNavRenderProps = {
+  wrapperRef: React.RefObject<HTMLDivElement | null>;
+  headerHeight: number;
+  isSticky: boolean;
+  items: LinkItem[];
+  activeId: string | null;
+  handleLinkClick: (e: React.MouseEvent<HTMLAnchorElement>, item: LinkItem) => void;
+};
+
+function InPageNavRender({
+  wrapperRef,
+  headerHeight,
+  isSticky,
+  items,
+  activeId,
+  handleLinkClick,
+}: InPageNavRenderProps) {
+  const navRef = useRef<HTMLElement | null>(null);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkOverflow = useCallback(() => {
+    const el = navRef.current;
+    if (!el) return;
+
+    const overflow = el.scrollWidth > el.clientWidth + 2;
+    setHasOverflow(overflow);
+
+    if (overflow) {
+      setCanScrollLeft(el.scrollLeft > 4);
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    } else {
+      setCanScrollLeft(false);
+      setCanScrollRight(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkOverflow();
+
+    const el = navRef.current;
+    if (!el) return;
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        checkOverflow();
+      });
+      resizeObserver.observe(el);
+    }
+
+    const handleScroll = () => {
+      checkOverflow();
+    };
+
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", checkOverflow, { passive: true });
+
+    return () => {
+      resizeObserver?.disconnect();
+      el.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkOverflow);
+    };
+  }, [checkOverflow, items]);
+
+  const scrollNav = (direction: "left" | "right") => {
+    const el = navRef.current;
+    if (!el) return;
+    const distance = 250;
+    el.scrollBy({
+      left: direction === "left" ? -distance : distance,
+      behavior: "smooth",
+    });
+  };
+
+  return (
     <div
       ref={wrapperRef}
       className={styles.wrapper}>
       <div
-        className={clsx(
-          styles.root,
-          isSticky && styles.isSticky
-        )}
+        className={clsx(styles.root, isSticky && styles.isSticky)}
         style={{ top: isSticky ? `${headerHeight}px` : undefined }}>
-        <nav
-          className={styles.nav}
-          aria-label="In-page navigation">
-          {items.map((item, index) => {
-            const isActive = item.targetId ? activeId === item.targetId : index === 0;
+        <div className={clsx(styles.navWrapper, "container")}>
+          {hasOverflow && canScrollLeft && (
+            <button
+              type="button"
+              className={clsx(styles.arrowButton, styles.arrowLeft)}
+              onClick={() => scrollNav("left")}
+              aria-label="Scroll left">
+              <ArrowLeft width={10} height={12} />
+            </button>
+          )}
 
-            return (
-              <a
-                key={`${item.href}-${index}`}
-                href={item.href}
-                onClick={(e) => handleLinkClick(e, item)}
-                className={clsx(styles.link, isActive && styles.active)}>
-                {item.title}
-              </a>
-            );
-          })}
-        </nav>
+          <nav
+            ref={navRef}
+            className={clsx(styles.nav, hasOverflow && styles.hasOverflow)}
+            aria-label="In-page navigation">
+            {items.map((item, index) => {
+              const isActive = item.targetId ? activeId === item.targetId : index === 0;
+
+              return (
+                <a
+                  key={`${item.href}-${index}`}
+                  href={item.href}
+                  onClick={(e) => handleLinkClick(e, item)}
+                  className={clsx(styles.link, isActive && styles.active)}>
+                  {item.title}
+                </a>
+              );
+            })}
+          </nav>
+
+          {hasOverflow && canScrollRight && (
+            <button
+              type="button"
+              className={clsx(styles.arrowButton, styles.arrowRight)}
+              onClick={() => scrollNav("right")}
+              aria-label="Scroll right">
+              <ArrowRight width={10} height={12} />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

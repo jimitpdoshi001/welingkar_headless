@@ -21,6 +21,12 @@ function toPascalCase(value) {
     .join("");
 }
 
+function targetsOf(field) {
+  const raw = field?.target;
+  const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
+  return list.map(String).filter(Boolean);
+}
+
 function isUnlimited(field) {
   return field.cardinality === "unlimited" || (typeof field.cardinality === "number" && field.cardinality > 1);
 }
@@ -44,6 +50,7 @@ function indentBlock(text, spaces) {
 module.exports = {
   uuidv5,
   toPascalCase,
+  targetsOf,
   isUnlimited,
   relationshipTs,
   indentBlock,

@@ -22,6 +22,12 @@ sharedFields:
   - field_header_and_description
   - field_button
   - field_icon
+  - field_display_type
+  - field_number_of_columns
+  - field_text_color
+  - field_component
+  - field_subtitle
+  - field_title
 
 # Nested paragraph relationship names that must stay in the tree builder
 # even if they are leftovers from older Drupal models.

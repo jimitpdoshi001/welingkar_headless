@@ -1,0 +1,15 @@
+id: icon_box
+label: Icon Box
+component: IconBox
+renderChildren: false
+drupalConfig: false
+fields:
+  field_title:
+    type: string
+  field_subtitle:
+    type: string
+  field_single_image:
+    type: media
+    target: image
+    cardinality: 1
+    media: single

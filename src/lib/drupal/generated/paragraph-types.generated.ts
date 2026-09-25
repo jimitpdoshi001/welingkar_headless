@@ -78,6 +78,20 @@ export type GalleryGridAttributes = {
 
 export type GalleryGridResource = JsonApiResource<"paragraph--gallery_grid", GalleryGridAttributes>;
 
+export type GroupItemsAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_display_type?: string | null;
+  field_number_of_columns?: number | null;
+  field_text_color?: string | null;
+  field_animation?: string | null;
+  field_component?: Array<{ type: string; id: string }> | null;
+  [key: string]: unknown;
+};
+
+export type GroupItemsResource = JsonApiResource<"paragraph--group_items", GroupItemsAttributes>;
+
 export type HeaderAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -143,6 +157,18 @@ export type HomeWhatWeOfferAttributes = {
 };
 
 export type HomeWhatWeOfferResource = JsonApiResource<"paragraph--home_what_we_offer", HomeWhatWeOfferAttributes>;
+
+export type IconBoxAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_title?: string | null;
+  field_subtitle?: string | null;
+  field_single_image?: { type: string; id: string } | null;
+  [key: string]: unknown;
+};
+
+export type IconBoxResource = JsonApiResource<"paragraph--icon_box", IconBoxAttributes>;
 
 export type ImageBoxAttributes = {
   parent_id?: string | null;

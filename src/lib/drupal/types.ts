@@ -55,8 +55,8 @@ export type NodeAttributes = {
 
 export type NodeResource = JsonApiResource<`node--${string}`, NodeAttributes>;
 
-/** @deprecated Prefer generated types from /paragraphs YAML. Kept for unused Drupal leftovers. */
-export type IconBoxAttributes = {
+/** @deprecated Old `paragraph--iconbox` leftover. The current type is generated `IconBoxAttributes` (`paragraph--icon_box`). */
+export type LegacyIconBoxAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
   parent_field_name?: string | null;
@@ -78,7 +78,7 @@ export type IconBoxAttributes = {
   [key: string]: unknown;
 };
 
-export type IconBoxResource = JsonApiResource<"paragraph--iconbox", IconBoxAttributes>;
+export type LegacyIconBoxResource = JsonApiResource<"paragraph--iconbox", LegacyIconBoxAttributes>;
 
 export type DrupalImage = {
   url: string;

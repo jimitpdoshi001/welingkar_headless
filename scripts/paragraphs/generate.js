@@ -9,7 +9,7 @@ const {
   SUPPORTED_FIELD_TYPES,
   withMediaChain,
 } = require("./constants");
-const { indentBlock, isUnlimited, relationshipTs, toPascalCase, uuidv5 } = require("./helpers");
+const { indentBlock, isUnlimited, relationshipTs, targetsOf, toPascalCase, uuidv5 } = require("./helpers");
 const { normalizeParagraph, validateAll } = require("./validate");
 
 const GENERATED_BANNER = `/**
@@ -111,9 +111,11 @@ function buildRegistryModel(project, paragraphs) {
       return withMediaChain(fieldName, RESPONSIVE_MEDIA_INCLUDE);
     }
     const paths = [fieldName];
-    if (field.type === "paragraph" && field.target && field.target !== "*" && field.recurse !== false && depth < 3) {
-      const target = byId.get(field.target);
-      if (target) {
+    if (field.type === "paragraph" && field.recurse !== false && depth < 3) {
+      for (const targetId of targetsOf(field)) {
+        if (targetId === "*") continue;
+        const target = byId.get(targetId);
+        if (!target) continue;
         for (const [childName, child] of Object.entries(target.fields)) {
           if (child.type !== "paragraph" && child.type !== "media") continue;
           for (const suffix of suffixesForField(childName, child, depth + 1)) {

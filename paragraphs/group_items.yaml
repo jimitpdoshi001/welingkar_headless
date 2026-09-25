@@ -1,0 +1,23 @@
+id: group_items
+label: Group Items
+component: GroupItems
+renderChildren: true
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_display_type:
+    type: list_string
+  field_number_of_columns:
+    type: list_integer
+  field_text_color:
+    type: list_string
+  field_animation:
+    type: list_string
+  field_component:
+    type: paragraph
+    target:
+      - icon_box
+      - image_box
+    cardinality: unlimited

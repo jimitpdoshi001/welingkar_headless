@@ -1,0 +1,55 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 3), minmax(0, 1fr));
+  gap: 3rem;
+
+  @include respond-to(tab) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.slider {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.prev {
+  left: -1.2rem;
+}
+
+.next {
+  right: -1.2rem;
+}

@@ -10,7 +10,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
   blogs: [],
 };
 
-export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_cta","field_header","field_header_and_desc","field_header_and_description","field_header_with_size","field_responsive_media","field_section_content","field_testimonials_data"] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_component","field_cta","field_header","field_header_and_desc","field_header_and_description","field_header_with_size","field_responsive_media","field_section_content","field_testimonials_data"] as const;
 
 export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> = {
   field_components: [
@@ -24,6 +24,18 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     "field_responsive_media.field_mobile.field_media_video_file",
     "field_responsive_media.field_mobile.thumbnail",
     "field_section_content",
+    "field_section_content.field_component",
+    "field_section_content.field_component.field_responsive_media",
+    "field_section_content.field_component.field_responsive_media.field_desktop",
+    "field_section_content.field_component.field_responsive_media.field_desktop.field_media_image",
+    "field_section_content.field_component.field_responsive_media.field_desktop.field_media_video_file",
+    "field_section_content.field_component.field_responsive_media.field_desktop.thumbnail",
+    "field_section_content.field_component.field_responsive_media.field_mobile",
+    "field_section_content.field_component.field_responsive_media.field_mobile.field_media_image",
+    "field_section_content.field_component.field_responsive_media.field_mobile.field_media_video_file",
+    "field_section_content.field_component.field_responsive_media.field_mobile.thumbnail",
+    "field_section_content.field_component.field_single_image",
+    "field_section_content.field_component.field_single_image.field_media_image",
     "field_section_content.field_cta",
     "field_section_content.field_header_and_description",
     "field_section_content.field_header_and_description.field_cta",
@@ -51,6 +63,7 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
 };
 
 export const PARAGRAPH_IMAGE_FIELDS: Record<string, string> = {
+  "paragraph--icon_box": "field_single_image",
   "paragraph--media_box_with_popup": "field_single_image",
   "paragraph--testimonials_data": "field_single_image",
   "paragraph--iconbox": "field_icon",
