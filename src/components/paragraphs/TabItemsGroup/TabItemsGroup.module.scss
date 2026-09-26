@@ -1,0 +1,134 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  width: 100%;
+}
+
+.tabList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.tab {
+  position: relative;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.6rem;
+  transition: all 0.3s ease-in-out;
+
+  // &:hover,
+  // &.active {
+  //   opacity: 1;
+  // }
+}
+
+.panel {
+  width: 100%;
+}
+
+.type1 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  transform: translateY(-9rem);
+
+  .tabList {
+    background-color: #f2f2f2;
+    display: inline-flex;
+    padding: 0.5rem;
+    border-radius: 50vw;
+  }
+
+  .tab {
+    padding: 1rem 2rem;
+    font-weight: 600;
+
+    &.active {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      border-radius: 50vw;
+    }
+  }
+}
+
+.type5 {
+  .tab.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: currentColor;
+  }
+}
+
+.type2 {
+  .tabList {
+    gap: 1.2rem;
+  }
+
+  .tab {
+    padding: 1rem 2rem;
+    border: 1px solid currentColor;
+    border-radius: 50vw;
+  }
+
+  .tab.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+.type3 {
+  .tabList {
+    gap: 4rem;
+  }
+
+  .tab {
+    font-size: 2.2rem;
+    font-weight: 600;
+    border-bottom: 3px solid transparent;
+    padding-bottom: 1rem;
+  }
+
+  .tab.active {
+    border-bottom-color: #b04535;
+  }
+}
+
+.type4 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+
+  .tabList {
+    gap: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50vw;
+    @include glass-background;
+  }
+
+  .tab {
+    padding: 1rem 2rem;
+    font-weight: 600;
+    border-radius: 50vw;
+  }
+
+  .tab.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+@include respond-to(mobile) {
+  .tabList {
+    gap: 1.6rem;
+    margin-bottom: 2.4rem;
+  }
+}

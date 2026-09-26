@@ -1,0 +1,10 @@
+id: tabs
+label: Tabs
+component: Tabs
+renderChildren: false
+drupalConfig: false
+fields:
+  field_tab_title:
+    type: string
+  field_raw_html:
+    type: text_long

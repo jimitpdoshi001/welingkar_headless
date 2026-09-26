@@ -25,6 +25,8 @@ import { NewsItems } from "./NewsItems/NewsItems";
 import { PlacementPartners } from "./PlacementPartners/PlacementPartners";
 import { ResponsiveMedia } from "./ResponsiveMedia/ResponsiveMedia";
 import { Section } from "./Section/Section";
+import { TabItemsGroup } from "./TabItemsGroup/TabItemsGroup";
+import { Tabs } from "./Tabs/Tabs";
 import { TestRawComp } from "./TestRawComp/TestRawComp";
 import { TestimonialsData } from "./TestimonialsData/TestimonialsData";
 
@@ -260,6 +262,26 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(contentChildren)}
       </Section>
+    );
+  },
+
+  "paragraph--tab_items_group": (item, { renderChildren }) => {
+    return (
+      <TabItemsGroup
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof TabItemsGroup>[0]["paragraph"]}
+      >
+        {renderChildren(item.children)}
+      </TabItemsGroup>
+    );
+  },
+
+  "paragraph--tabs": (item, _ctx) => {
+    return (
+      <Tabs
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof Tabs>[0]["paragraph"]}
+      />
     );
   },
 

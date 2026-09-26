@@ -10,7 +10,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
   blogs: [],
 };
 
-export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_component","field_cta","field_header","field_header_and_desc","field_header_and_description","field_header_with_size","field_responsive_media","field_section_content","field_testimonials_data"] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_component","field_cta","field_header","field_header_and_desc","field_header_and_description","field_header_with_size","field_responsive_media","field_section_content","field_tab_content","field_testimonials_data"] as const;
 
 export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> = {
   field_components: [
@@ -53,6 +53,7 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     "field_section_content.field_responsive_media.field_mobile.thumbnail",
     "field_section_content.field_single_image",
     "field_section_content.field_single_image.field_media_image",
+    "field_section_content.field_tab_content",
     "field_section_content.field_testimonials_data",
     "field_section_content.field_testimonials_data.field_single_image",
     "field_section_content.field_testimonials_data.field_single_image.field_media_image",

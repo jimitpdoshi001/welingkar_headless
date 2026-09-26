@@ -125,3 +125,33 @@ p {
     }
   }
 }
+
+.secondary-list {
+  li {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    list-style-type: disc;
+    &::marker {
+      color: var(--color-secondary);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.black-list {
+  li {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    list-style-type: disc;
+    &::marker {
+      color: var(--color-black);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

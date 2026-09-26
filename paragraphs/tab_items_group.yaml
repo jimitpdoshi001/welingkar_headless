@@ -1,0 +1,19 @@
+id: tab_items_group
+label: Tab items group
+component: TabItemsGroup
+renderChildren: true
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_tab_style:
+    type: list_string
+  field_text_color:
+    type: list_string
+  field_animation:
+    type: list_string
+  field_tab_content:
+    type: paragraph
+    target: tabs
+    cardinality: unlimited

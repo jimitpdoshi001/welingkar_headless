@@ -28,6 +28,10 @@ sharedFields:
   - field_component
   - field_subtitle
   - field_title
+  - field_tab_style
+  - field_tab_title
+  - field_raw_html
+  - field_tab_content
 
 # Nested paragraph relationship names that must stay in the tree builder
 # even if they are leftovers from older Drupal models.

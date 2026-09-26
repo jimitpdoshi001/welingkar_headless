@@ -12,6 +12,7 @@ import { useIsMobile } from "@/util/useMediaQuery";
 
 import styles from "./PlacementPartners.module.scss";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
+import clsx from "clsx";
 
 type PlacementPartnersProps = {
   paragraph: JsonApiResource<"paragraph--placement_partners", PlacementPartnersAttributes>;
@@ -23,7 +24,7 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
   const heading = paragraph.attributes.field_header || null;
   const description = paragraph.attributes.field_description?.processed || null;
   const isMobile = useIsMobile();
-
+  const showArrows = paragraph.attributes.field_show_arrows || false;
   return (
     <div>
       {(heading || description) && (
@@ -40,7 +41,7 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
       )}
 
       {images.length > 0 && !isMobile && (
-        <div className={styles.logos}>
+        <div className={clsx(styles.logos, "logos")}>
           <Swiper
             modules={[Navigation]}
             slidesPerView={6}
@@ -66,25 +67,29 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
               </SwiperSlide>
             ))}
 
-            <button
-              type="button"
-              className={`${styles.arrow} ${styles.prev}`}
-              aria-label="Previous">
-              <ArrowLeft
-                height={7}
-                width={9}
-              />
-            </button>
+            {showArrows && (
+              <>
+                <button
+                  type="button"
+                  className={`${styles.arrow} ${styles.prev}`}
+                  aria-label="Previous">
+                  <ArrowLeft
+                    height={7}
+                    width={9}
+                  />
+                </button>
 
-            <button
-              type="button"
-              className={`${styles.arrow} ${styles.next}`}
-              aria-label="Next">
-              <ArrowRight
-                height={7}
-                width={9}
-              />
-            </button>
+                <button
+                  type="button"
+                  className={`${styles.arrow} ${styles.next}`}
+                  aria-label="Next">
+                  <ArrowRight
+                    height={7}
+                    width={9}
+                  />
+                </button>
+              </>
+            )}
           </Swiper>
         </div>
       )}

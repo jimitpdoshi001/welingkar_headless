@@ -51,6 +51,16 @@ export type NodeAttributes = {
     summary?: string;
   } | null;
   field_date?: string | null;
+  field_page_css?: {
+    value?: string;
+    format?: string;
+    processed?: string;
+  } | null;
+  field_page_js?: {
+    value?: string;
+    format?: string;
+    processed?: string;
+  } | null;
 };
 
 export type NodeResource = JsonApiResource<`node--${string}`, NodeAttributes>;

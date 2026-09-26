@@ -268,6 +268,7 @@ export type PlacementPartnersAttributes = {
       processed: string;
     } | null;
   field_multiple_images?: Array<{ type: string; id: string }> | null;
+  field_show_arrows?: boolean | null;
   [key: string]: unknown;
 };
 
@@ -304,6 +305,34 @@ export type SectionAttributes = {
 };
 
 export type SectionResource = JsonApiResource<"paragraph--section", SectionAttributes>;
+
+export type TabItemsGroupAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_tab_style?: string | null;
+  field_text_color?: string | null;
+  field_animation?: string | null;
+  field_tab_content?: Array<{ type: string; id: string }> | null;
+  [key: string]: unknown;
+};
+
+export type TabItemsGroupResource = JsonApiResource<"paragraph--tab_items_group", TabItemsGroupAttributes>;
+
+export type TabsAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_tab_title?: string | null;
+  field_raw_html?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  [key: string]: unknown;
+};
+
+export type TabsResource = JsonApiResource<"paragraph--tabs", TabsAttributes>;
 
 export type TestRawCompAttributes = {
   parent_id?: string | null;
