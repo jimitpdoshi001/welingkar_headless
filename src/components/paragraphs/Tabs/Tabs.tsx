@@ -1,4 +1,5 @@
 import type { JsonApiResource, TabsAttributes } from "@/lib/drupal";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import styles from "./Tabs.module.scss";
 
 type TabsProps = {
@@ -30,5 +31,10 @@ export function Tabs({ paragraph }: TabsProps) {
   const html = processedHtml(paragraph.attributes.field_raw_html);
   if (!html) return null;
 
-  return <div className={styles.panel} dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <SafeHtml
+      className={styles.panel}
+      html={html}
+    />
+  );
 }

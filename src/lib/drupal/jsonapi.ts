@@ -50,14 +50,9 @@ export async function fetchJsonApi<T extends JsonApiResource>(path: string, para
   const response = await requestJsonApi(url, init);
 
   if (!response.ok) {
-    const body = await response.text();
+    console.error("JSON:API request failed", response.status);
 
-    console.error("JSON:API Error");
-    console.error("Status:", response.status);
-    console.error("URL:", url);
-    console.error("Body:", body);
-
-    throw new Error(`JSON:API request failed (${response.status}) for ${url}\n${body}`);
+    throw new Error(`JSON:API request failed (${response.status}).`);
   }
 
   return (await response.json()) as JsonApiDocument<T>;

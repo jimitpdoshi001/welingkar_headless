@@ -42,10 +42,8 @@ async function login(): Promise<DrupalSession | null> {
   );
 
   if (!response.ok) {
-    const details = await response.text();
-    throw new Error(
-      `Drupal login failed (${response.status}): ${details.slice(0, 200)}`,
-    );
+    console.error("Drupal login failed", response.status);
+    throw new Error("Drupal login failed.");
   }
 
   const payload = (await response.json()) as {

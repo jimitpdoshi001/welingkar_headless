@@ -1,6 +1,7 @@
 import type { DrupalPage } from "@/lib/drupal";
 import { PageCustomCode } from "@/components/PageCustomCode/PageCustomCode";
 import { ParagraphRenderer } from "@/components/paragraphs/ParagraphRenderer/ParagraphRenderer";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 
 type DrupalPageViewProps = {
   page: DrupalPage;
@@ -13,9 +14,9 @@ export function DrupalPageView({ page }: DrupalPageViewProps) {
       <PageCustomCode page={page} />
       <ParagraphRenderer page={page} />
       {body ? (
-        <div
+        <SafeHtml
           className="p"
-          dangerouslySetInnerHTML={{ __html: body }}
+          html={body}
         />
       ) : null}
     </>

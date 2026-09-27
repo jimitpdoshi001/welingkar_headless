@@ -9,6 +9,7 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxFlat.module.scss";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
@@ -47,9 +48,9 @@ export default function ImageBoxFlat({ paragraph, image, responsiveMedia, childr
         {heading ? <h4 className={clsx("mb-2", "animate-fade-in-up")}>{heading}</h4> : null}
 
         {description ? (
-          <div
+          <SafeHtml
             className={clsx(styles.description, "animate-fade-in-up")}
-            dangerouslySetInnerHTML={{ __html: description }}
+            html={description}
           />
         ) : null}
         {children}

@@ -1,4 +1,5 @@
 import type { DrupalImage, TestimonialsDataAttributes, JsonApiResource } from "@/lib/drupal";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import clsx from "clsx";
 import styles from "./TestimonialsData.module.scss";
 
@@ -16,11 +17,9 @@ export function TestimonialsData({ paragraph, children }: TestimonialsDataProps)
       <div className={styles.card}>
         <div className={styles.quote}>&ldquo;</div>
 
-        <div
+        <SafeHtml
           className={styles.description}
-          dangerouslySetInnerHTML={{
-            __html: attributes.field_description?.processed || "",
-          }}
+          html={attributes.field_description?.processed || ""}
         />
 
         <div className={styles.author}>

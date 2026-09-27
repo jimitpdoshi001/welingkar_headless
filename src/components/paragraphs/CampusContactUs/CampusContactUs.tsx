@@ -2,6 +2,7 @@
 
 import { memo, useState } from "react";
 import type { CampusContactUsAttributes, JsonApiResource } from "@/lib/drupal";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import clsx from "clsx";
 import styles from "./CampusContactUs.module.scss";
 
@@ -27,14 +28,14 @@ const MapSection = memo(function MapSection({ mapHtml }: { mapHtml?: string }) {
   return (
     <div className={styles.mapWrapper}>
       {mapHtml ? (
-        <div dangerouslySetInnerHTML={{ __html: mapHtml }} />
+        <SafeHtml html={mapHtml} />
       ) : (
         <iframe
           title="Campus Location Map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.967664654924!2d77.66258017596041!3d12.845371587458693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6ca5c39f1aa1%3A0x6b447aa6a928929e!2sWelingkar%20Institute%20of%20Management%20Development%20%26%20Research!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
           allowFullScreen
           loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
+          referrerPolicy="strict-origin-when-cross-origin"
         />
       )}
     </div>
@@ -63,7 +64,10 @@ function ContactForm() {
         <div className={styles.field}>
           <input
             type="text"
+            name="name"
             required
+            maxLength={120}
+            autoComplete="name"
             placeholder="Name*"
             className={styles.input}
             value={formData.name}
@@ -73,7 +77,10 @@ function ContactForm() {
         <div className={styles.field}>
           <input
             type="email"
+            name="email"
             required
+            maxLength={254}
+            autoComplete="email"
             placeholder="Email*"
             className={styles.input}
             value={formData.email}
@@ -85,7 +92,10 @@ function ContactForm() {
       <div className={styles.field}>
         <input
           type="text"
+          name="message"
           required
+          maxLength={2000}
+          autoComplete="off"
           placeholder="Message*"
           className={styles.textarea}
           value={formData.message}
@@ -118,9 +128,9 @@ export function CampusContactUs({ paragraph }: CampusContactUsProps) {
           <h2 className={styles.mainTitle}>Connect With Us</h2>
 
           {descriptionHtml ? (
-            <div
+            <SafeHtml
               className={styles.addressText}
-              dangerouslySetInnerHTML={{ __html: descriptionHtml }}
+              html={descriptionHtml}
             />
           ) : (
             <div className={styles.addressText}>{defaultAddress}</div>

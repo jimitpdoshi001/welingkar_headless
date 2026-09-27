@@ -1,4 +1,5 @@
 import { absoluteDrupalUrl } from "./jsonapi";
+import { drupalConfig } from "./config";
 import type { DrupalImage, DrupalMedia, DrupalResponsiveMedia, JsonApiDocument, JsonApiResource } from "./types";
 
 type RelData = {
@@ -21,6 +22,23 @@ function findIncluded(included: JsonApiResource[], type: string, id: string): Js
   return included.find((item) => item.type === type && item.id === id);
 }
 
+const EXTRA_ASSET_HOSTS = new Set(["welinkar.org", "www.welinkar.org", "welingkar.org", "www.welingkar.org", "stage.welingkar.org"]);
+
+function isTrustedAssetUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const drupalHost = new URL(drupalConfig.baseUrl).hostname;
+    const local = parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1";
+    if (parsed.protocol === "https:") {
+      return parsed.hostname === drupalHost || EXTRA_ASSET_HOSTS.has(parsed.hostname);
+    }
+    if (parsed.protocol === "http:" && local) return true;
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 function resolveFileMedia(
   included: JsonApiResource[],
   media: JsonApiResource,
@@ -31,7 +49,7 @@ function resolveFileMedia(
   const file = findIncluded(included, fileRel.type, fileRel.id);
   const uri = file?.attributes?.uri as { url?: string; value?: string } | undefined;
   const url = absoluteDrupalUrl(uri?.url);
-  if (!url) return null;
+  if (!url || !isTrustedAssetUrl(url)) return null;
 
   const meta = (fileRel.meta ?? {}) as {
     alt?: string | null;
@@ -86,9 +104,18 @@ export function resolveMedia(mediaRel: RelData | null, document: JsonApiDocument
     const url = media.attributes.field_media_oembed_video;
     if (typeof url !== "string" || !url.trim()) return null;
 
+    let remote: URL;
+    try {
+      remote = new URL(url.trim());
+    } catch {
+      return null;
+    }
+
+    if (remote.protocol !== "https:") return null;
+
     return {
       kind: "remote_video",
-      url: url.trim(),
+      url: remote.toString(),
       alt: altFallback || "Video",
     };
   }

@@ -21,7 +21,7 @@ type LinkItem = {
 
 function extractTargetId(uri?: string | null): string | null {
   if (!uri?.trim()) return null;
-  const href = toHref(uri) || uri.trim();
+  const href = toHref(uri) || "";
   const hashIndex = href.indexOf("#");
   if (hashIndex !== -1) {
     const id = href.slice(hashIndex + 1).trim();
@@ -52,7 +52,7 @@ function parseLinks(rawLinks: unknown): LinkItem[] {
     .filter((link) => Boolean(link && (link.uri || link.title)))
     .map((link) => {
       const uri = link.uri || "";
-      const href = toHref(uri) || uri || "#";
+      const href = toHref(uri) || "#";
       const targetId = extractTargetId(uri);
       return {
         uri,

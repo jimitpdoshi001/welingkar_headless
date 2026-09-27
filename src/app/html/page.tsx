@@ -1,8 +1,10 @@
 import HtmlTester from "@/components/HtmlTester/HtmlTester";
-import React from "react";
+import { notFound } from "next/navigation";
 
-const page = () => {
+export default function HtmlTesterPage() {
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
+
   return <HtmlTester />;
-};
-
-export default page;
+}

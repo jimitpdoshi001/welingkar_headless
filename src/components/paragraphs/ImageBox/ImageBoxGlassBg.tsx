@@ -9,6 +9,7 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxGlassBg.module.scss";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
@@ -47,9 +48,9 @@ export default function ImageBoxGlassBg({ paragraph, image, responsiveMedia, chi
         {heading ? <h4 className="mb-2">{heading}</h4> : null}
 
         {description ? (
-          <div
+          <SafeHtml
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: description }}
+            html={description}
           />
         ) : null}
         {children}

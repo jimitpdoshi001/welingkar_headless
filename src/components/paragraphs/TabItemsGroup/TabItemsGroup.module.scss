@@ -56,18 +56,6 @@
   }
 }
 
-.type5 {
-  .tab.active::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    background: currentColor;
-  }
-}
-
 .type2 {
   .tabList {
     gap: 1.2rem;
@@ -126,9 +114,125 @@
   }
 }
 
+.type5 {
+  .tab.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: currentColor;
+  }
+}
+
+.faqs {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.faqQuestion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  width: 100%;
+  padding: 0.4rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  border: 1px solid #d0d0d0;
+  border-radius: 50vw;
+  padding-left: 4rem;
+  transition: background-color 0.2s ease;
+}
+
+.faqItemOpen .faqQuestion {
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.faqQuestionText {
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.faqIcon {
+  position: relative;
+  width: 6rem;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.faqIcon svg path {
+  fill: var(--color-white);
+  stroke: var(--color-white);
+}
+
+.faqIconArrowOpen {
+  transform: rotate(180deg);
+  background-color: var(--color-white);
+
+  svg path {
+    fill: var(--color-primary);
+    stroke: var(--color-primary);
+  }
+}
+
+.faqAnswer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    grid-template-rows 0.4s ease,
+    opacity 0.28s ease;
+}
+
+.faqAnswerOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.faqAnswerInner {
+  overflow: hidden;
+  min-height: 0;
+  font-size: 1.6rem;
+  padding-left: 4rem;
+}
+
+.faqAnswerOpen .faqAnswerInner {
+  margin-block: 2.4rem;
+}
+
 @include respond-to(mobile) {
   .tabList {
     gap: 1.6rem;
     margin-bottom: 2.4rem;
+  }
+
+  .faqQuestion {
+    padding: 1.8rem 0;
+    gap: 1.6rem;
+  }
+
+  .faqQuestionText {
+    font-size: 1.7rem;
+  }
+
+  .faqAnswerOpen .faqAnswerInner {
+    margin-block: 1.8rem;
   }
 }

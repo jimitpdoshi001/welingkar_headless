@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { BlogArticle } from "@/lib/drupal";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import { FeaturedBlog } from "./FeaturedBlog";
 import { HomeIcon } from "./BlogIcons";
 import listingStyles from "./BlogsListing.module.scss";
@@ -34,9 +35,9 @@ export function BlogDetail({ article }: BlogDetailProps) {
         />
 
         {article.body ? (
-          <div
+          <SafeHtml
             className={`${styles.body} p`}
-            dangerouslySetInnerHTML={{ __html: article.body }}
+            html={article.body}
           />
         ) : null}
       </div>

@@ -9,6 +9,10 @@ import {
   getAnimationPreset,
   parseAnimationOptions,
 } from "./registry";
+import {
+  COUNTER_ANIMATION_CLASS,
+  initCounterAnimation,
+} from "@/util/counterAnimation";
 
 // Ensure ScrollTrigger is registered safely on the client side
 if (typeof window !== "undefined") {
@@ -47,6 +51,7 @@ export function ScrollAnimationProvider({
   const pathname = usePathname();
   const ctxRef = useRef<gsap.Context | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const counterCleanupRef = useRef<(() => void) | null>(null);
 
   const scopeRef = useRef(scope);
   useEffect(() => {
@@ -69,6 +74,10 @@ export function ScrollAnimationProvider({
 
     if (prefersReducedMotion) {
       // In reduced motion mode, show elements immediately without animation
+      counterCleanupRef.current?.();
+      counterCleanupRef.current = null;
+      initCounterAnimation(COUNTER_ANIMATION_CLASS, targetScope);
+
       const allAnimated = targetScope.querySelectorAll<HTMLElement>(
         "[class*='animate-']"
       );
@@ -82,6 +91,13 @@ export function ScrollAnimationProvider({
     if (ctxRef.current) {
       ctxRef.current.revert();
     }
+
+    const stopCounters = initCounterAnimation(COUNTER_ANIMATION_CLASS, targetScope);
+    const previousStop = counterCleanupRef.current;
+    counterCleanupRef.current = () => {
+      previousStop?.();
+      stopCounters();
+    };
 
     ctxRef.current = gsap.context(() => {
       // 1. Process Parent Containers (`.animate-stagger` or `[data-animation-stagger]`)
@@ -101,6 +117,14 @@ export function ScrollAnimationProvider({
         if (childrenElements.length === 0) {
           childrenElements = Array.from(container.children) as HTMLElement[];
         }
+
+        childrenElements = childrenElements.filter(
+          (child) =>
+            !(
+              child.classList.contains(COUNTER_ANIMATION_CLASS) &&
+              !getAnimationPreset(child)
+            )
+        );
 
         if (childrenElements.length === 0) return;
 
@@ -206,6 +230,8 @@ export function ScrollAnimationProvider({
       if (ctxRef.current) {
         ctxRef.current.revert();
       }
+      counterCleanupRef.current?.();
+      counterCleanupRef.current = null;
     };
   }, [pathname, initAnimations]);
 
@@ -272,6 +298,8 @@ export function ScrollAnimationProvider({
       const elements = targetScope.querySelectorAll<HTMLElement>("[data-animated]");
       elements.forEach((el) => el.removeAttribute("data-animated"));
     }
+    counterCleanupRef.current?.();
+    counterCleanupRef.current = null;
     initAnimations();
     ScrollTrigger.refresh();
   }, [initAnimations]);

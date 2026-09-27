@@ -1,3 +1,4 @@
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import type { ImageLeftRightProps } from "./ImageLeftRight";
 import clsx from "clsx";
 import styles from "./ImageLeftRight.module.scss";
@@ -41,13 +42,7 @@ export default function ImageLeftRightDefault({ paragraph, children, responsiveM
       <div className={styles.content}>
         {attributes.field_title && <Component className="mb-05 bold">{attributes.field_title}</Component>}
         {attributes.field_subtitle && <p className="h6">{attributes.field_subtitle}</p>}
-        {attributes.field_description?.processed && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: attributes.field_description.processed,
-            }}
-          />
-        )}
+        {attributes.field_description?.processed ? <SafeHtml html={attributes.field_description.processed} /> : null}
         <div className="mt-4">{children}</div>
       </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import type { DrupalImage, JsonApiResource, PlacementPartnersAttributes } from "@/lib/drupal";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -32,9 +33,9 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
           {heading ? <h3 className="mb-2">{heading}</h3> : null}
 
           {description ? (
-            <div
+            <SafeHtml
               className="mb-4"
-              dangerouslySetInnerHTML={{ __html: description }}
+              html={description}
             />
           ) : null}
         </div>

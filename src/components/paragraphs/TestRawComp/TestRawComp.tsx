@@ -1,6 +1,5 @@
 import type { JsonApiResource, TestRawCompAttributes } from "@/lib/drupal";
-import clsx from "clsx";
-import styles from "./TestRawComp.module.scss";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 
 type TestRawCompProps = {
   paragraph: JsonApiResource<"paragraph--test_raw_comp", TestRawCompAttributes>;
@@ -14,13 +13,7 @@ export function TestRawComp({ paragraph, children }: TestRawCompProps) {
 
   return (
     <div>
-      {rawHtml && (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: rawHtml,
-          }}
-        />
-      )}
+      {rawHtml ? <SafeHtml html={rawHtml} /> : null}
       {children}
     </div>
   );

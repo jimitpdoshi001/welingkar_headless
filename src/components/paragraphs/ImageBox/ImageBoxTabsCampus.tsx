@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxTabsCampus.module.scss";
@@ -118,9 +119,9 @@ export default function ImageBoxTabsCampus({ paragraph, image, responsiveMedia, 
         {heading ? <h2 className={styles.heading}>{heading}</h2> : null}
 
         {description ? (
-          <div
+          <SafeHtml
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: description }}
+            html={description}
           />
         ) : null}
 

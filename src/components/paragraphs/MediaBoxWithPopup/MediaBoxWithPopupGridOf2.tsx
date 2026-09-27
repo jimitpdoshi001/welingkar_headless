@@ -6,37 +6,7 @@ import type { DrupalMedia } from "@/lib/drupal";
 import type { MediaBoxWithPopupProps } from "./MediaBoxWithPopup";
 import styles from "./MediaBoxWithPopupGridOf2.module.scss";
 import clsx from "clsx";
-
-export function toPopupEmbedUrl(url: string): string {
-  try {
-    const parsed = new URL(url);
-
-    if (parsed.hostname.includes("youtube.com")) {
-      const videoId = parsed.searchParams.get("v");
-      if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
-      }
-    }
-
-    if (parsed.hostname === "youtu.be") {
-      const videoId = parsed.pathname.replace(/^\//, "");
-      if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`;
-      }
-    }
-
-    if (parsed.hostname.includes("vimeo.com")) {
-      const videoId = parsed.pathname.split("/").filter(Boolean).pop();
-      if (videoId) {
-        return `https://player.vimeo.com/video/${videoId}?autoplay=1&playsinline=1`;
-      }
-    }
-  } catch {
-    return url;
-  }
-
-  return url;
-}
+import { toSafeEmbedUrl } from "@/lib/security/embed-url";
 
 export function PopupPlayer({ media, title, playerClassName }: { media: DrupalMedia; title: string; playerClassName?: string }) {
   const className = playerClassName || styles.player;
@@ -55,13 +25,17 @@ export function PopupPlayer({ media, title, playerClassName }: { media: DrupalMe
   }
 
   if (media.kind === "remote_video") {
+    const src = toSafeEmbedUrl(media.url, { autoplay: true });
+    if (!src) return null;
+
     return (
       <iframe
         className={className}
-        src={toPopupEmbedUrl(media.url)}
+        src={src}
         title={media.alt || title}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
+        referrerPolicy="strict-origin-when-cross-origin"
       />
     );
   }

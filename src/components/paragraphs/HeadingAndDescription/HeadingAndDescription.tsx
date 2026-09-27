@@ -1,5 +1,6 @@
 "use client";
 import type { HeadingAndDescriptionAttributes, JsonApiResource } from "@/lib/drupal";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import styles from "./HeadingAndDescription.module.scss";
 import clsx from "clsx";
 import {useIsMobile} from "@/util/useMediaQuery";
@@ -85,9 +86,9 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
           <div>
             {heading ? <Component>{heading}</Component> : null}
             {description ? (
-              <div
+              <SafeHtml
                 className={clsx(styles.descriptionContent, children ? "mb-4" : "")}
-                dangerouslySetInnerHTML={{ __html: description }}
+                html={description}
               />
             ) : null}
           </div>
@@ -98,9 +99,9 @@ export function HeadingAndDescription({ paragraph, children }: HeadingAndDescrip
           <div className={clsx(maxWidthClass, maxWidthClass && textAlignClass === "text-center" && "mx-auto")}>
             {heading ? <Component>{heading}</Component> : null}
             {description ? (
-              <div
+              <SafeHtml
                 className={clsx(styles.descriptionContent)}
-                dangerouslySetInnerHTML={{ __html: description }}
+                html={description}
               />
             ) : null}
           </div>

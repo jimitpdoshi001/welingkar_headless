@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import Image from "next/image";
 import type { DrupalImage, DrupalMedia, DrupalResponsiveMedia } from "@/lib/drupal";
+import { toSafeEmbedUrl } from "@/lib/security/embed-url";
 import styles from "./ResponsiveMedia.module.scss";
 
 type ResponsiveMediaProps = {
@@ -8,40 +9,6 @@ type ResponsiveMediaProps = {
   className?: string;
   fill?: boolean;
 };
-
-function toEmbedUrl(url: string): string {
-  try {
-    const parsed = new URL(url);
-
-    if (parsed.hostname.includes("youtube.com")) {
-      const videoId = parsed.searchParams.get("v");
-
-      if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&playsinline=1`;
-      }
-    }
-
-    if (parsed.hostname === "youtu.be") {
-      const videoId = parsed.pathname.replace(/^\//, "");
-
-      if (videoId) {
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&playsinline=1`;
-      }
-    }
-
-    if (parsed.hostname.includes("vimeo.com")) {
-      const videoId = parsed.pathname.split("/").filter(Boolean).pop();
-
-      if (videoId) {
-        return `https://player.vimeo.com/video/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&playsinline=1`;
-      }
-    }
-  } catch {
-    return url;
-  }
-
-  return url;
-}
 
 function MediaSlot({ media, className }: { media: DrupalMedia; className?: string }) {
   if (media.kind === "image") {
@@ -71,13 +38,19 @@ function MediaSlot({ media, className }: { media: DrupalMedia; className?: strin
     );
   }
 
+  if (media.kind !== "remote_video") return null;
+
+  const src = toSafeEmbedUrl(media.url, { autoplay: true, muted: true, loop: true });
+  if (!src) return null;
+
   return (
     <iframe
       className={clsx(styles.embed, className)}
-      src={toEmbedUrl(media.url)}
+      src={src}
       title={media.alt}
-      allow="accelerometer; autoplay; muted; loop; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
+      referrerPolicy="strict-origin-when-cross-origin"
     />
   );
 }

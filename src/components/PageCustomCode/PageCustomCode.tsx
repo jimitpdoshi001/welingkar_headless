@@ -1,5 +1,5 @@
-import Script from "next/script";
 import type { DrupalPage } from "@/lib/drupal";
+import { sanitizeCss } from "@/lib/security/sanitize-html";
 
 type TextField = {
   value?: string;
@@ -14,31 +14,18 @@ function fieldText(field: TextField | undefined): string {
   return (field?.value || field?.processed || "").trim();
 }
 
-function extractTaggedContent(tag: "style" | "script", source: string): string {
+function extractStyle(source: string): string {
   if (!source) return "";
 
-  const matches = [...source.matchAll(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)</${tag}>`, "gi"))];
-  if (matches.length) {
-    return matches.map((match) => match[1].trim()).filter(Boolean).join("\n");
-  }
+  const matches = [...source.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)];
+  const css = matches.length ? matches.map((match) => match[1].trim()).filter(Boolean).join("\n") : source.replace(/<\/?style[^>]*>/gi, "").trim();
 
-  return source.replace(new RegExp(`</?${tag}[^>]*>`, "gi"), "").trim();
+  return sanitizeCss(css);
 }
 
 export function PageCustomCode({ page }: PageCustomCodeProps) {
-  const css = extractTaggedContent("style", fieldText(page.node.attributes.field_page_css));
-  const js = extractTaggedContent("script", fieldText(page.node.attributes.field_page_js));
+  const css = extractStyle(fieldText(page.node.attributes.field_page_css));
+  if (!css) return null;
 
-  if (!css && !js) return null;
-
-  return (
-    <>
-      {css ? <style dangerouslySetInnerHTML={{ __html: css }} /> : null}
-      {js ? (
-        <Script id={`page-js-${page.id}`} strategy="afterInteractive">
-          {js}
-        </Script>
-      ) : null}
-    </>
-  );
+  return <style dangerouslySetInnerHTML={{ __html: css }} />;
 }

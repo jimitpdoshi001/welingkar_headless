@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
+import { resolveDrupalHref } from "@/lib/drupal/link";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxWefactor.module.scss";
 import Link from "next/link";
@@ -18,14 +20,14 @@ export default function ImageBoxWefactor({ paragraph, children }: ImageBoxProps)
 
   return (
     <Link
-      href={paragraph.attributes.field_link?.uri || ""}
+      href={resolveDrupalHref(paragraph.attributes.field_link?.uri) || "#"}
       className={styles.imageBox}>
       <div className={styles.body}>
         {heading ? <h4 className="bold mb-6">{heading}</h4> : null}
         {description ? (
-          <div
+          <SafeHtml
             className={styles.description}
-            dangerouslySetInnerHTML={{ __html: description }}
+            html={description}
           />
         ) : null}
         {children}

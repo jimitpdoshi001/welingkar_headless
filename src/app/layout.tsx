@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     template: "%s | Welingkar",
   },
   description: "Headless Welingkar website powered by Drupal and Next.js",
+  referrer: "strict-origin-when-cross-origin",
 };
 
 import { Suspense } from "react";

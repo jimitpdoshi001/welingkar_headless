@@ -28,12 +28,14 @@ const buttonStyleClasses = {
   secondary_outline: "secondary-outline",
 } as const;
 
+const alignmentClasses = {
+  left: "left",
+  center: "text-center",
+  right: "right",
+} as const;
+
 function ButtonInner({ title }: { title?: string }) {
-  return (
-    <>
-      {title}
-    </>
-  );
+  return <>{title}</>;
 }
 
 export async function Button({ paragraph }: ButtonProps) {
@@ -46,6 +48,8 @@ export async function Button({ paragraph }: ButtonProps) {
   const buttonStyleClass = (styleKey && buttonStyleClasses[styleKey]) || "primary";
   const className = clsx("btn", buttonStyleClass);
 
+  const alignmentClass = alignmentClasses[attributes.field_alignment as keyof typeof alignmentClasses] || "";
+
   if (!link?.uri && !link?.title) return null;
 
   const inner = <ButtonInner title={link?.title} />;
@@ -54,7 +58,7 @@ export async function Button({ paragraph }: ButtonProps) {
     return (
       <a
         href={href}
-        className={className}
+        className={clsx(className)}
         target={target}
         rel={target === "_blank" ? "noopener noreferrer" : undefined}>
         {inner}
@@ -65,7 +69,7 @@ export async function Button({ paragraph }: ButtonProps) {
   return (
     <Link
       href={href}
-      className={className}
+      className={clsx(className, alignmentClass)}
       target={target}
       rel={target === "_blank" ? "noopener noreferrer" : undefined}>
       {inner}

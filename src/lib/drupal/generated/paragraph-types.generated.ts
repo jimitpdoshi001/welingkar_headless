@@ -18,6 +18,7 @@ export type ButtonAttributes = {
       uri: string;
       title: string;
     }> | null;
+  field_alignment?: string | null;
   [key: string]: unknown;
 };
 

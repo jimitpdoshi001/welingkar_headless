@@ -1,6 +1,7 @@
 "use client";
 
 import { Children } from "react";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import Image from "next/image";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import type { ImageBoxProps } from "./ImageBox";
@@ -40,9 +41,9 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
           {heading ? <h1 className={styles.heading}>{heading}</h1> : null}
 
           {description ? (
-            <div
+            <SafeHtml
               className={styles.description}
-              dangerouslySetInnerHTML={{ __html: description }}
+              html={description}
             />
           ) : null}
 
