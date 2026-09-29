@@ -91,12 +91,12 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
 
   const animationClass = getAnimationClass(paragraph.attributes.field_animation || "");
 
-  const hasStickyChild = Boolean(
-    attributes.field_section_content?.some((item: { type?: string }) => item.type === "paragraph--in_page_links")
-  );
+  const hasStickyChild = Boolean(attributes.field_section_content?.some((item: { type?: string }) => item.type === "paragraph--in_page_links"));
 
   return (
-    <section id={attributes.field_section_id || undefined} className={clsx("relative", heightClass, hasStickyChild ? undefined : "overflow-hidden", arrowStyleClass)}>
+    <section
+      id={attributes.field_section_id || undefined}
+      className={clsx("relative", heightClass, hasStickyChild ? undefined : "overflow-hidden", arrowStyleClass)}>
       <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100", animationClass)}>{children}</div>
 
       <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass)} />

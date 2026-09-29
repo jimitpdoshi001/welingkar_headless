@@ -5,7 +5,9 @@
  * Add overrides below if a type needs custom grouping props or should not use the generated mapper.
  */
 import type { ReactNode } from "react";
+import { GroupSlider } from "./GroupSlider/GroupSlider";
 import type { DrupalPage, ParagraphItem, TestimonialsDataAttributes } from "@/lib/drupal";
+import { toContentFieldItem } from "./ContentField/ContentField";
 import { generatedParagraphComponents, type ParagraphRenderContext } from "./paragraph-components.generated";
 import { HomeCommunitySection, type CommunityTestimonial } from "./HomeCommunitySection/HomeCommunitySection";
 import { TabItemsGroup } from "./TabItemsGroup/TabItemsGroup";
@@ -44,6 +46,25 @@ function testimonialsFromChildren(item: ParagraphItem, page: DrupalPage): Commun
 
 export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: ParagraphRenderContext) => ReactNode> = {
   ...generatedParagraphComponents,
+  "paragraph--group_slider": (item, { page }) => {
+    const items = item.children
+      .filter((child) => child.resource.type === "paragraph--content_field")
+      .map((child) =>
+        toContentFieldItem(
+          child.resource as Parameters<typeof toContentFieldItem>[0],
+          page.paragraphResponsiveMedia[child.resource.id] ?? null
+        )
+      );
+
+    return (
+      <GroupSlider
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof GroupSlider>[0]["paragraph"]}
+        items={items}
+      />
+    );
+  },
+
   "paragraph--tab_items_group": (item, { renderChildren }) => {
     const tabs = item.children.map((child) => {
       const attributes = child.resource.attributes as {

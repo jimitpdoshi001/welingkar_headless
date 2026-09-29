@@ -10,7 +10,7 @@ export const NODE_PARAGRAPH_FIELDS_BY_BUNDLE: Record<NodeBundle, readonly string
   blogs: [],
 };
 
-export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_component","field_cta","field_header","field_header_and_desc","field_header_and_description","field_header_with_size","field_responsive_media","field_section_content","field_tab_content","field_testimonials_data"] as const;
+export const NESTED_PARAGRAPH_FIELDS = ["field_button","field_component","field_content","field_cta","field_header","field_header_and_desc","field_header_and_description","field_header_with_size","field_responsive_media","field_section_content","field_tab_content","field_testimonials_data"] as const;
 
 export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> = {
   field_components: [
@@ -36,6 +36,16 @@ export const INCLUDE_SUFFIXES_BY_NODE_FIELD: Record<string, readonly string[]> =
     "field_section_content.field_component.field_responsive_media.field_mobile.thumbnail",
     "field_section_content.field_component.field_single_image",
     "field_section_content.field_component.field_single_image.field_media_image",
+    "field_section_content.field_content",
+    "field_section_content.field_content.field_responsive_media",
+    "field_section_content.field_content.field_responsive_media.field_desktop",
+    "field_section_content.field_content.field_responsive_media.field_desktop.field_media_image",
+    "field_section_content.field_content.field_responsive_media.field_desktop.field_media_video_file",
+    "field_section_content.field_content.field_responsive_media.field_desktop.thumbnail",
+    "field_section_content.field_content.field_responsive_media.field_mobile",
+    "field_section_content.field_content.field_responsive_media.field_mobile.field_media_image",
+    "field_section_content.field_content.field_responsive_media.field_mobile.field_media_video_file",
+    "field_section_content.field_content.field_responsive_media.field_mobile.thumbnail",
     "field_section_content.field_cta",
     "field_section_content.field_header_and_description",
     "field_section_content.field_header_and_description.field_cta",
@@ -81,7 +91,7 @@ export const PARAGRAPH_TYPES_WITH_IMAGE = ["paragraph--herobanner","paragraph--s
 
 export const PARAGRAPH_TYPES_RESPONSIVE_MEDIA = ["paragraph--responsive_media"] as const;
 
-export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--hero_banner","paragraph--image_box","paragraph--image_left_right","paragraph--media_box_with_popup","paragraph--section"] as const;
+export const PARAGRAPH_TYPES_WITH_NESTED_RESPONSIVE_MEDIA = ["paragraph--content_field","paragraph--hero_banner","paragraph--image_box","paragraph--image_left_right","paragraph--media_box_with_popup","paragraph--section"] as const;
 
 export function allNodeParagraphFields(): string[] {
   return [...new Set(Object.values(NODE_PARAGRAPH_FIELDS_BY_BUNDLE).flat())];

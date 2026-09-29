@@ -45,6 +45,25 @@ export type CampusContactUsAttributes = {
 
 export type CampusContactUsResource = JsonApiResource<"paragraph--campus_contact_us", CampusContactUsAttributes>;
 
+export type ContentFieldAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_title?: string | null;
+  field_subtitle?: string | null;
+  field_description?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  field_short_text_1?: string | null;
+  field_short_text_2?: string | null;
+  field_responsive_media?: { type: string; id: string } | null;
+  [key: string]: unknown;
+};
+
+export type ContentFieldResource = JsonApiResource<"paragraph--content_field", ContentFieldAttributes>;
+
 export type DividerAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -92,6 +111,21 @@ export type GroupItemsAttributes = {
 };
 
 export type GroupItemsResource = JsonApiResource<"paragraph--group_items", GroupItemsAttributes>;
+
+export type GroupSliderAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_slider_type?: string | null;
+  field_enable_autoplay?: boolean | null;
+  field_autoplay_speed?: number | null;
+  field_show_arrows?: boolean | null;
+  field_show_paginations?: boolean | null;
+  field_content?: Array<{ type: string; id: string }> | null;
+  [key: string]: unknown;
+};
+
+export type GroupSliderResource = JsonApiResource<"paragraph--group_slider", GroupSliderAttributes>;
 
 export type HeaderAttributes = {
   parent_id?: string | null;

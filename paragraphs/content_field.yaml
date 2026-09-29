@@ -1,0 +1,21 @@
+id: content_field
+label: Content Field
+component: ContentField
+renderChildren: true
+drupalConfig: false
+fields:
+  field_title:
+    type: string
+  field_subtitle:
+    type: string
+  field_description:
+    type: text_long
+  field_short_text_1:
+    type: string
+  field_short_text_2:
+    type: string
+  field_responsive_media:
+    type: paragraph
+    target: responsive_media
+    cardinality: 1
+    media: nested_responsive

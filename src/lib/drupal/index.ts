@@ -25,5 +25,7 @@ export { getTopMenu, getFooterMenu } from "./menus";
 export type { MenuItem, TopMenu, FooterLink } from "./menus";
 export { getWhatWeOfferTerms } from "./what-we-offer";
 export type { WhatWeOfferItem } from "./what-we-offer";
+export { searchDrupal, SEARCH_PAGE_SIZE, SEARCH_PREVIEW_LIMIT } from "./search";
+export type { DrupalSearchHit, DrupalSearchResult } from "./search";
 export type * from "./types";
 

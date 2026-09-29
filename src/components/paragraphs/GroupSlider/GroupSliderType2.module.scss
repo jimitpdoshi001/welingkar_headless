@@ -1,0 +1,85 @@
+@use "@/styles/base/mixins" as *;
+
+.root {
+  position: relative;
+}
+
+.swiper {
+  width: 100%;
+}
+
+.slide {
+  height: auto;
+
+  :global(.content-field) {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  :global(.content-field__media) {
+    grid-row: 1 / span 6;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 2.4rem;
+  }
+
+  :global(.content-field__title) {
+    margin: 0;
+    font-size: 3.2rem;
+    font-weight: 700;
+  }
+
+  :global(.content-field__subtitle),
+  :global(.content-field__description),
+  :global(.content-field__short-text-1),
+  :global(.content-field__short-text-2) {
+    margin: 0;
+  }
+
+  @include respond-to(mobile) {
+    :global(.content-field) {
+      grid-template-columns: 1fr;
+    }
+
+    :global(.content-field__media) {
+      grid-row: auto;
+      aspect-ratio: 16 / 9;
+    }
+
+    :global(.content-field__title) {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-white);
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.prev {
+  left: 1rem;
+}
+
+.next {
+  right: 1rem;
+}
+
+.pagination {
+  margin-top: 2rem;
+  text-align: center;
+}

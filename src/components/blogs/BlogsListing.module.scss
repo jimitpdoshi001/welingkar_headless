@@ -197,7 +197,9 @@
 .content {
   position: relative;
   min-height: 30rem;
-  transition: opacity 0.2s ease, filter 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    filter 0.2s ease;
 }
 
 .contentPending {

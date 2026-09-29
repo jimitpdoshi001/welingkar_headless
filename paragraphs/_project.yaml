@@ -32,6 +32,14 @@ sharedFields:
   - field_tab_title
   - field_raw_html
   - field_tab_content
+  - field_content
+  - field_slider_type
+  - field_short_text_1
+  - field_short_text_2
+  - field_enable_autoplay
+  - field_show_arrows
+  - field_show_paginations
+  - field_autoplay_speed
 
 # Nested paragraph relationship names that must stay in the tree builder
 # even if they are leftovers from older Drupal models.

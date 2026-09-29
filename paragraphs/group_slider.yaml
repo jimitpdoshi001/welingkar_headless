@@ -1,0 +1,23 @@
+id: group_slider
+label: Group Slider
+component: GroupSlider
+renderChildren: true
+drupalConfig: false
+parents:
+  - through: field_components
+    field: field_section_content
+fields:
+  field_slider_type:
+    type: list_string
+  field_enable_autoplay:
+    type: boolean
+  field_autoplay_speed:
+    type: list_integer
+  field_show_arrows:
+    type: boolean
+  field_show_paginations:
+    type: boolean
+  field_content:
+    type: paragraph
+    target: content_field
+    cardinality: unlimited

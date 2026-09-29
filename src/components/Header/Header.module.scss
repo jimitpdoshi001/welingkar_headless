@@ -55,7 +55,6 @@
       justify-content: flex-end;
       align-items: center;
       gap: 2.5rem;
-      
     }
 
     .stickyPrimaryNav {
@@ -162,8 +161,6 @@
       color: var(--color-dark-gray);
       font-size: 1.5rem;
       transition: color 0.2s ease;
-
-      
 
       &:hover,
       &.stickyActiveItem {
@@ -289,6 +286,7 @@
       font-size: 1.6rem;
       padding: 0.8rem 2rem;
       border-radius: 50vw;
+      white-space: nowrap;
       transition: all 0.3s ease;
 
       &:hover,
@@ -640,6 +638,3 @@
     }
   }
 }
-
-
-

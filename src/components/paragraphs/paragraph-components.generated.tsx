@@ -7,10 +7,12 @@ import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import type { ReactNode } from "react";
 import { Button } from "./Button/Button";
 import { CampusContactUs } from "./CampusContactUs/CampusContactUs";
+import { ContentField } from "./ContentField/ContentField";
 import { Divider } from "./Divider/Divider";
 import { FacultyListing } from "./FacultyListing/FacultyListing";
 import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
 import { GroupItems } from "./GroupItems/GroupItems";
+import { GroupSlider } from "./GroupSlider/GroupSlider";
 import { Header } from "./Header/Header";
 import { HeadingAndDescription } from "./HeadingAndDescription/HeadingAndDescription";
 import { HeroBanner } from "./HeroBanner/HeroBanner";
@@ -56,6 +58,20 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
     );
   },
 
+  "paragraph--content_field": (item, { page, renderChildren }) => {
+    const contentChildren = item.children.filter((child) => child.resource.type !== "paragraph--responsive_media");
+
+    return (
+      <ContentField
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof ContentField>[0]["paragraph"]}
+        responsiveMedia={page.paragraphResponsiveMedia[item.resource.id] ?? null}
+      >
+        {renderChildren(contentChildren)}
+      </ContentField>
+    );
+  },
+
   "paragraph--divider": (item, _ctx) => {
     return (
       <Divider
@@ -94,6 +110,17 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
       >
         {renderChildren(item.children)}
       </GroupItems>
+    );
+  },
+
+  "paragraph--group_slider": (item, { renderChildren }) => {
+    return (
+      <GroupSlider
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof GroupSlider>[0]["paragraph"]}
+      >
+        {renderChildren(item.children)}
+      </GroupSlider>
     );
   },
 
