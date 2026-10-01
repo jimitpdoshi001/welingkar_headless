@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
+import { absoluteDrupalUrl, fetchJsonApi, fetchPaginatedJsonApi } from "./jsonapi";
 import type { DrupalImage, JsonApiDocument, JsonApiResource, NodeResource } from "./types";
 
 export type BlogArticle = {
@@ -296,12 +296,11 @@ function buildCategoryTree(terms: JsonApiResource[]): BlogCategory[] {
 }
 
 async function fetchTaxonomyTerms(vocab: string): Promise<JsonApiResource[]> {
-  const document = await fetchJsonApi<JsonApiResource>(`/taxonomy_term/${vocab}`, {
+  const document = await fetchPaginatedJsonApi<JsonApiResource>(`/taxonomy_term/${vocab}`, {
     include: "parent",
-    "page[limit]": "80",
     "filter[status]": "1",
     sort: "name",
-  });
+  }, 50);
   return termsFromDocument(document);
 }
 
@@ -404,6 +403,7 @@ async function buildSlugIndex(): Promise<Map<string, string>> {
   while (true) {
     const document = await fetchJsonApi<NodeResource>("/node/blogs", {
       "filter[status]": "1",
+      "fields[node--blogs]": "title,path,drupal_internal__nid",
       "page[limit]": String(pageSize),
       "page[offset]": String(offset),
       sort: "-field_date",

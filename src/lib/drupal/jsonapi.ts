@@ -58,6 +58,50 @@ export async function fetchJsonApi<T extends JsonApiResource>(path: string, para
   return (await response.json()) as JsonApiDocument<T>;
 }
 
+export async function fetchPaginatedJsonApi<T extends JsonApiResource>(
+  path: string,
+  params?: Record<string, string>,
+  pageSize = 5,
+  maxPages = 50,
+  init?: FetchOptions,
+): Promise<JsonApiDocument<T>> {
+  let offset = 0;
+  let pageCount = 0;
+  const allData: T[] = [];
+  const includedMap = new Map<string, JsonApiResource>();
+
+  while (pageCount < maxPages) {
+    pageCount += 1;
+    const pageParams = {
+      ...params,
+      "page[offset]": String(offset),
+      "page[limit]": String(pageSize),
+    };
+
+    const doc = await fetchJsonApi<T>(path, pageParams, init);
+    const dataItems = Array.isArray(doc.data) ? doc.data : doc.data ? [doc.data] : [];
+
+    if (dataItems.length === 0) break;
+
+    allData.push(...dataItems);
+
+    if (doc.included) {
+      for (const item of doc.included) {
+        includedMap.set(item.id, item);
+      }
+    }
+
+    if (dataItems.length < pageSize) break;
+
+    offset += pageSize;
+  }
+
+  return {
+    data: allData as unknown as T,
+    included: Array.from(includedMap.values()),
+  };
+}
+
 export function getIncludedResources(document: JsonApiDocument, type?: string): JsonApiResource[] {
   const included = document.included ?? [];
   if (!type) return included;

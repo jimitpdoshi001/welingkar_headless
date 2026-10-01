@@ -102,6 +102,7 @@ async function searchBundle(bundle: string, keys: string): Promise<DrupalSearchH
       "filter[status]": "1",
       "filter[title][operator]": "CONTAINS",
       "filter[title][value]": keys,
+      [`fields[node--${bundle}]`]: "title,path,drupal_internal__nid,body,field_body,changed,created",
       "page[limit]": String(SEARCH_FETCH_LIMIT),
       sort: "-changed",
     }, { cache: "no-store", next: { revalidate: 0 } });

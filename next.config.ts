@@ -17,7 +17,7 @@ const cspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};
   style-src 'self' 'unsafe-inline';
-  img-src 'self' blob: data: https://${drupalHostname} https://welinkar.org https://www.welingkar.org https://i.ytimg.com https://img.youtube.com;
+  img-src 'self' blob: data: https://${drupalHostname} https://welinkar.org https://www.welingkar.org https://i.ytimg.com https://img.youtube.com https://images.unsplash.com;
   font-src 'self';
   connect-src 'self';
   media-src 'self' https://${drupalHostname};
@@ -73,6 +73,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "welinkar.org",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
   },

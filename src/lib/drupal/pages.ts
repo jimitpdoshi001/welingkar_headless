@@ -1,5 +1,6 @@
+import { cache } from "react";
 import { NODE_BUNDLES, drupalConfig, type NodeBundle } from "./config";
-import { fetchJsonApi } from "./jsonapi";
+import { fetchJsonApi, fetchPaginatedJsonApi } from "./jsonapi";
 import { resolveParagraphImage, resolveParagraphMediaImage, resolveParagraphMediaImages, resolveResponsiveMedia } from "./media";
 import {
   NESTED_PARAGRAPH_FIELDS,
@@ -205,10 +206,10 @@ function toDrupalPage(
 }
 
 async function fetchBundleNodes(bundle: NodeBundle): Promise<DrupalPage[]> {
-  const document = await fetchJsonApi<NodeResource>(`/node/${bundle}`, {
+  const document = await fetchPaginatedJsonApi<NodeResource>(`/node/${bundle}`, {
     include: includeForBundle(bundle),
     "filter[status]": "1",
-  });
+  }, 5);
 
   const nodes = Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
 
@@ -221,11 +222,11 @@ async function fetchBundleNodes(bundle: NodeBundle): Promise<DrupalPage[]> {
   });
 }
 
-export async function getAllPages(): Promise<DrupalPage[]> {
+export const getAllPages = cache(async (): Promise<DrupalPage[]> => {
   const pagesByBundle = await Promise.all(NODE_BUNDLES.map((bundle) => fetchBundleNodes(bundle)));
 
   return pagesByBundle.flat().filter((page) => page.status);
-}
+});
 
 export async function getPageByPath(slug: string[] | undefined): Promise<DrupalPage | null> {
   const requestPath = normalizePath(slug?.length ? `/${slug.join("/")}` : "/");

@@ -4,6 +4,7 @@ export { fetchGraphQL } from "./graphql";
 export {
   absoluteDrupalUrl,
   fetchJsonApi,
+  fetchPaginatedJsonApi,
   getIncludedResources,
   jsonApiUrl,
 } from "./jsonapi";
