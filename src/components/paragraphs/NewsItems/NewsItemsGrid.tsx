@@ -43,7 +43,7 @@ export function NewsItemsGrid({ items, children }: NewsItemsGridProps) {
       {/* Middle top image card */}
       <article className={`${styles.card} ${styles.imageCard}`}>
         <img
-          src={item2?.image || "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80"}
+          src={item2?.image as string}
           alt={item2?.imageAlt || item2?.title || "WeSchool event"}
         />
       </article>
@@ -63,7 +63,7 @@ export function NewsItemsGrid({ items, children }: NewsItemsGridProps) {
       {/* Middle bottom image card */}
       <article className={`${styles.card} ${styles.imageCard}`}>
         <img
-          src={item4?.image || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&auto=format&fit=crop&q=80"}
+          src={item4?.image as string}
           alt={item4?.imageAlt || item4?.title || "WeSchool event"}
         />
       </article>

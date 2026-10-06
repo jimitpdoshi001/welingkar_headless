@@ -51,6 +51,12 @@ export type NodeAttributes = {
     summary?: string;
   } | null;
   field_date?: string | null;
+  field_external_url?: {
+    uri?: string;
+    resolvable_uri?: string;
+    title?: string;
+  } | null;
+  field_news_and_press_release_aut?: string | null;
   field_page_css?: {
     value?: string;
     format?: string;
@@ -61,6 +67,7 @@ export type NodeAttributes = {
     format?: string;
     processed?: string;
   } | null;
+  [key: string]: unknown;
 };
 
 export type NodeResource = JsonApiResource<`node--${string}`, NodeAttributes>;
