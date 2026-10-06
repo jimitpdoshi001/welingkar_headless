@@ -26,6 +26,7 @@ const buttonStyleClasses = {
   secondary_link: "secondary-link",
   primary_outline: "primary-outline",
   secondary_outline: "secondary-outline",
+  white_primary: "white-outline",
 } as const;
 
 const alignmentClasses = {

@@ -30,13 +30,7 @@ function wrapAnimatedChildren(children: React.ReactNode, animationClass: string)
   return Children.map(children, (child) => <div className={animationClass}>{child}</div>);
 }
 
-function GroupSlider({
-  children,
-  columns,
-}: {
-  children: React.ReactNode;
-  columns: number;
-}) {
+function GroupSlider({ children, columns }: { children: React.ReactNode; columns: number }) {
   const slides = Children.toArray(children);
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
@@ -108,21 +102,12 @@ export function GroupItems({ paragraph, children }: GroupItemsProps) {
   const columns = Number(paragraph.attributes.field_number_of_columns) || 3;
   const colorClass = textColorClasses[paragraph.attributes.field_text_color as keyof typeof textColorClasses] || "";
   const animationValue = paragraph.attributes.field_animation;
-  const childAnimationClass =
-    animationValue === "stagger"
-      ? "animate-fade-in-up"
-      : getAnimationClass(animationValue);
+  const childAnimationClass = animationValue === "stagger" ? "animate-fade-in-up" : getAnimationClass(animationValue);
   const animatedChildren = childAnimationClass ? wrapAnimatedChildren(children, childAnimationClass) : children;
 
   return (
     <div
-      className={clsx(
-        styles.root,
-        colorClass,
-        displayType === "grid" && styles.grid,
-        displayType === "list" && styles.list,
-        childAnimationClass && "animate-stagger"
-      )}
+      className={clsx(styles.root, colorClass, displayType === "grid" && styles.grid, displayType === "list" && styles.list, childAnimationClass && "animate-stagger", paragraph.attributes.field_class_name)}
       style={{ "--columns": columns } as React.CSSProperties}>
       {displayType === "slider" ? <GroupSlider columns={columns}>{animatedChildren}</GroupSlider> : animatedChildren}
     </div>

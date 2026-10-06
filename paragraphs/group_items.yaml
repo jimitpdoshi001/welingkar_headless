@@ -11,6 +11,12 @@ fields:
     type: list_string
   field_number_of_columns:
     type: list_integer
+  field_number_of_columns_mobile:
+    type: list_integer
+  field_slider_on_mobile:
+    type: boolean
+  field_grid_gap:
+    type: list_integer
   field_text_color:
     type: list_string
   field_animation:
@@ -21,3 +27,5 @@ fields:
       - icon_box
       - image_box
     cardinality: unlimited
+  field_class_name:
+    type: string

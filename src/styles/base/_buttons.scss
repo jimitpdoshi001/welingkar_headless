@@ -76,6 +76,24 @@
       color: var(--color-white);
     }
   }
+
+  &.link {
+    background-color: unset;
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+    border-radius: unset;
+    padding: 0;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+      gap: 1rem;
+    }
+  }
 }
 
 .btn + .btn {

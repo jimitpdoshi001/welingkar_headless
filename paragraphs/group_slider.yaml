@@ -21,3 +21,5 @@ fields:
     type: paragraph
     target: content_field
     cardinality: unlimited
+  field_class_name:
+    type: string

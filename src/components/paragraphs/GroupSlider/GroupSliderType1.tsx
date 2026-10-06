@@ -23,7 +23,7 @@ export default function GroupSliderType1({ paragraph, items = [] }: GroupSliderP
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
         slidesPerView={1.3}
-        spaceBetween={16}
+        spaceBetween={40}
         watchOverflow
         autoplay={autoplay}
         loop={true}

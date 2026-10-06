@@ -58,6 +58,10 @@ export type ContentFieldAttributes = {
     } | null;
   field_short_text_1?: string | null;
   field_short_text_2?: string | null;
+  field_url?: {
+      uri: string;
+      title: string;
+    } | null;
   field_responsive_media?: { type: string; id: string } | null;
   [key: string]: unknown;
 };
@@ -104,9 +108,13 @@ export type GroupItemsAttributes = {
   parent_field_name?: string | null;
   field_display_type?: string | null;
   field_number_of_columns?: number | null;
+  field_number_of_columns_mobile?: number | null;
+  field_slider_on_mobile?: boolean | null;
+  field_grid_gap?: number | null;
   field_text_color?: string | null;
   field_animation?: string | null;
   field_component?: Array<{ type: string; id: string }> | null;
+  field_class_name?: string | null;
   [key: string]: unknown;
 };
 
@@ -122,6 +130,7 @@ export type GroupSliderAttributes = {
   field_show_arrows?: boolean | null;
   field_show_paginations?: boolean | null;
   field_content?: Array<{ type: string; id: string }> | null;
+  field_class_name?: string | null;
   [key: string]: unknown;
 };
 
@@ -336,6 +345,7 @@ export type SectionAttributes = {
   field_section_content?: Array<{ type: string; id: string }> | null;
   field_section_id?: string | null;
   field_animation?: string | null;
+  field_class_name?: string | null;
   [key: string]: unknown;
 };
 

@@ -15,6 +15,7 @@ export type ContentFieldItem = {
   description: string | null;
   shortText1: string | null;
   shortText2: string | null;
+  field_url: { uri: string; title: string } | null;
 };
 
 export type ContentFieldProps = {
@@ -23,10 +24,7 @@ export type ContentFieldProps = {
   children?: React.ReactNode;
 };
 
-export function toContentFieldItem(
-  paragraph: ContentFieldResource,
-  media?: DrupalResponsiveMedia | null
-): ContentFieldItem {
+export function toContentFieldItem(paragraph: ContentFieldResource, media?: DrupalResponsiveMedia | null): ContentFieldItem {
   const { attributes } = paragraph;
 
   return {
@@ -38,6 +36,7 @@ export function toContentFieldItem(
     description: attributes.field_description?.processed || attributes.field_description?.value || null,
     shortText1: attributes.field_short_text_1 || null,
     shortText2: attributes.field_short_text_2 || null,
+    field_url: { uri: attributes.field_url?.uri || "", title: attributes.field_url?.title || "" },
   };
 }
 
