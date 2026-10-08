@@ -76,6 +76,35 @@ export function CampusPage({ data }: { data: CampusData }) {
           </section>
 
           <section
+            id="faculty"
+            className="bg-light-yellow">
+            <div className={`container ${styles.block} ${styles.facultyGrid}`}>
+              <div
+                className={styles.facultyMedia}
+                style={{ backgroundImage: `url(${data.faculty.image})` }}>
+                <div className={styles.facultyTabs}>
+                  {data.faculty.categories.map((cat, i) => (
+                    <span
+                      key={cat}
+                      className={`${styles.facultyTab} ${i === 0 ? styles.facultyTabActive : ""}`}>
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className={styles.facultyText}>
+                <h2 className={styles.facultyHeading}>{data.faculty.heading}</h2>
+                <p className={styles.facultyBody}>{data.faculty.description}</p>
+                <Link
+                  href={data.faculty.cta.href}
+                  className="btn accent">
+                  {data.faculty.cta.label}
+                </Link>
+              </div>
+            </div>
+          </section>
+
+          <section
             id="programmes"
             className="bg-secondary">
             <div className={`container ${styles.block}`}>

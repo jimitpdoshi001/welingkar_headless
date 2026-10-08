@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { PageShell } from "./PageShell";
-import { ContentSection, LinkCardGrid } from "./ContentBlocks";
+import { ContentSection, LinkCardGrid, FilterBar } from "./ContentBlocks";
 import { SiteForm } from "./SiteForm";
 import { getSitePage } from "@/lib/pages/site-pages";
 
@@ -17,7 +17,13 @@ export function RegistryPage({ path }: { path: string }) {
       image={page.image}
       accent={page.accent}>
       {page.sections.map((section, i) =>
-        section.form ? (
+        section.filters ? (
+          <FilterBar
+            key={i}
+            search={section.filters.search}
+            selects={section.filters.selects}
+          />
+        ) : section.form ? (
           <SiteForm
             key={i}
             config={section.form}

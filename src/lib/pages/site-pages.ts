@@ -16,6 +16,7 @@ export type SiteSection = {
   cards?: LinkCard[];
   cardColumns?: 2 | 3 | 4;
   form?: FormConfig;
+  filters?: { search?: boolean; selects?: { label: string; options: string[] }[] };
 };
 
 export type SitePage = {
@@ -47,7 +48,7 @@ function simple(title: string, subtitle: string, parent: [string, string], extra
     image,
     accent,
     breadcrumbs: crumbs(["Home", "/"], [parent[0], parent[1]], [title]),
-    sections: [{ heading: `About ${title}`, paragraphs: [subtitle, lorem] }, ...(extra ?? [])],
+    sections: [{ heading: "Overview", paragraphs: [subtitle, lorem] }, ...(extra ?? [])],
   };
 }
 
@@ -330,6 +331,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.people,
     breadcrumbs: crumbs(["Home", "/"], ["Events"]),
     sections: [
+      { filters: { selects: [{ label: "Select Year", options: ["2025", "2024", "2023", "2006"] }, { label: "Select Campus", options: ["Mumbai", "Bengaluru"] }] } },
       {
         heading: "Upcoming & Recent Events",
         cardColumns: 3,
@@ -350,6 +352,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.people,
     breadcrumbs: crumbs(["Home", "/"], ["News & Media"]),
     sections: [
+      { filters: { search: true, selects: [{ label: "Select Year", options: ["2026", "2025", "2024"] }, { label: "Select Category", options: ["News", "Press Release", "Video"] }, { label: "Sort By", options: ["Newest First", "Oldest First"] }] } },
       {
         heading: "News & Press Releases",
         cardColumns: 3,
@@ -409,6 +412,15 @@ export const SITE_PAGES: Record<string, SitePage> = {
         heading: "Focus Areas",
         cardColumns: 4,
         cards: ["AI & Digital Transformation", "Sustainability, ESG & Responsible Business", "Innovation & Design Thinking", "Data Analytics & Decision Making", "Strategic Thinking & Judgement", "Finance Acumen", "Rural Management", "Leadership Development"].map((n) => ({ title: n, text: "Executive learning track.", href: "/mdc" })),
+      },
+      {
+        heading: "Meet the Team",
+        cardColumns: 3,
+        cards: [
+          { title: "Suresh Patil", text: "Director, Management Development Centre.", href: "/mdc" },
+          { title: "Priya Krishnamurthy", text: "Programme Lead, Executive Education.", href: "/mdc" },
+          { title: "Anil Gupta", text: "Corporate Partnerships & Custom Training.", href: "/mdc" },
+        ],
       },
       {
         form: {

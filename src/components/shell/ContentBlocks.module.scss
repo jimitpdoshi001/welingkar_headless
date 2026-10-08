@@ -107,3 +107,28 @@
   color: var(--faculty-accent, var(--color-primary));
   margin-top: auto;
 }
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  padding-top: 5rem;
+
+  @include respond-to(mobile) { padding-top: 3.5rem; }
+}
+
+.filterSearch,
+.filterSelect {
+  font-family: inherit;
+  font-size: 1.5rem;
+  padding: 1.1rem 1.6rem;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 1rem;
+  background: var(--color-white);
+  color: var(--color-black);
+
+  &:focus { outline: none; border-color: var(--faculty-accent, var(--color-primary)); }
+}
+
+.filterSearch { flex: 1; min-width: 22rem; }
+.filterSelect { cursor: pointer; min-width: 16rem; }

@@ -40,6 +40,40 @@ export function ContentSection({
   );
 }
 
+/** A presentational filter bar (search + selects) matching the Figma listings. */
+export function FilterBar({ search, selects }: { search?: boolean; selects?: { label: string; options: string[] }[] }) {
+  return (
+    <section>
+      <div className={clsx("container", styles.filterBar)}>
+        {search ? (
+          <input
+            type="search"
+            placeholder="Search…"
+            aria-label="Search"
+            className={styles.filterSearch}
+          />
+        ) : null}
+        {selects?.map((sel) => (
+          <select
+            key={sel.label}
+            aria-label={sel.label}
+            defaultValue=""
+            className={styles.filterSelect}>
+            <option value="">{sel.label}</option>
+            {sel.options.map((o) => (
+              <option
+                key={o}
+                value={o}>
+                {o}
+              </option>
+            ))}
+          </select>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export type LinkCard = { title: string; text?: string; href: string; image?: string; meta?: string };
 
 /** A responsive grid of link cards — used for listing / index pages. */

@@ -20,6 +20,7 @@ export type CampusData = {
   hero: { title: string; subtitle: string; cta: CampusCta; image: string };
   nav: { label: string; href: string }[];
   about: { heading: string; paragraphs: string[]; image: string; stats: { value: string; label: string }[] };
+  faculty: { heading: string; description: string; categories: string[]; image: string; cta: CampusCta };
   programmes: { heading: string; description: string; cards: CampusCard[]; cta: CampusCta };
   recruiters: { heading: string; description: string; logos: { name: string; image: string }[]; cta: CampusCta };
   life: { heading: string; body: string; image: string; cta: CampusCta };
@@ -78,6 +79,13 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
         { value: "3000", label: "students in campus" },
         { value: "50+", label: "faculty members" },
       ],
+    },
+    faculty: {
+      heading: "A Faculty Network Without Borders",
+      description: "Our academic strength is enriched by a distinguished network of visiting faculty members from across India and abroad, bringing diverse perspectives, industry insight, and global best practices into the classroom.",
+      categories: ["International Faculty", "Visiting Faculty", "Guest Lecturers"],
+      image: CIMG.board,
+      cta: { label: "Meet Our Faculty", href: "/about-us/faculty" },
     },
     programmes: {
       heading: "Programmes Built for Every Ambition",
