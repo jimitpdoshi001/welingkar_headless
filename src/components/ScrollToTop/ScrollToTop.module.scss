@@ -12,9 +12,16 @@
   gap: 2rem;
   z-index: 9999;
 
+  // Pin the rail flush to the viewport edge on smaller screens so the circular
+  // buttons sit in the gutter instead of covering page content.
+  @include respond-to(tab) {
+    right: 0.75rem;
+    gap: 1.4rem;
+  }
+
   @include respond-to(mobile) {
-    right: 5%;
-    gap: 1.5rem;
+    right: 0.5rem;
+    gap: 1.2rem;
   }
 }
 
@@ -29,6 +36,9 @@
   justify-content: center;
   height: 100%;
   border: 1px solid var(--color-primary);
+  @include respond-to(tab) {
+    width: 4.2rem;
+  }
   @include respond-to(mobile) {
     width: 3.5rem;
   }
@@ -61,6 +71,9 @@
   height: 100%;
   border: 1px solid var(--color-primary);
   background-color: var(--color-primary);
+  @include respond-to(tab) {
+    width: 4.2rem;
+  }
   @include respond-to(mobile) {
     width: 3.5rem;
 
@@ -83,6 +96,9 @@
   height: 100%;
   border: 1px solid var(--color-secondary);
   background-color: var(--color-secondary);
+  @include respond-to(tab) {
+    width: 4.2rem;
+  }
   @include respond-to(mobile) {
     width: 3.5rem;
 

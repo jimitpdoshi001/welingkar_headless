@@ -1,0 +1,202 @@
+@use "../../styles/base/mixins" as *;
+
+.block {
+  padding-block: 8rem;
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
+// Hero
+.hero {
+  position: relative;
+  min-height: 60rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  @include respond-to(mobile) { min-height: 44rem; }
+}
+
+.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 70%);
+}
+
+.heroInner { position: relative; z-index: 1; color: var(--color-white); padding-block: 6rem; }
+
+.eyebrow {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.6rem;
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-size: 4.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  max-width: 56rem;
+  margin-bottom: 1.2rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; }
+}
+
+.heroSubtitle {
+  font-size: 1.7rem;
+  max-width: 48rem;
+  margin-bottom: 2.4rem;
+  opacity: 0.95;
+}
+
+// In-page nav
+.inPageNav {
+  border-bottom: 1px solid var(--color-light-gray);
+  background: var(--color-white);
+}
+
+.inPageNavInner {
+  display: flex;
+  gap: 4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+
+  @include respond-to(mobile) { gap: 2.4rem; }
+}
+
+.inPageLink {
+  padding: 2rem 0;
+  font-size: 1.6rem;
+  color: var(--color-gray);
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease;
+
+  &:hover { color: var(--color-black); }
+}
+
+.inPageActive {
+  color: var(--faculty-accent, var(--color-primary));
+  border-bottom-color: var(--faculty-accent, var(--color-primary));
+}
+
+// About + stats
+.about { padding-block: 8rem; text-align: center; @include respond-to(mobile) { padding-block: 5rem; } }
+
+.aboutHeading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  color: var(--color-secondary);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+.aboutBody {
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: var(--color-dark-gray);
+  max-width: 82rem;
+  margin: 0 auto 1.6rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  margin-top: 4rem;
+  flex-wrap: wrap;
+
+  @include respond-to(mobile) { gap: 3rem; }
+}
+
+.stat { display: flex; flex-direction: column; }
+
+.statValue {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--color-secondary);
+  line-height: 1;
+
+  @include respond-to(mobile) { font-size: 3.6rem; }
+}
+
+.statLabel { font-size: 1.5rem; color: var(--color-gray); margin-top: 0.6rem; }
+
+// Recruiters
+.recruiters { text-align: center; }
+
+.recHeading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  margin-bottom: 1.6rem;
+  text-align: left;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+.recDescription {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--color-gray);
+  text-align: left;
+  margin-bottom: 3.2rem;
+}
+
+.logoStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @include respond-to(mobile) { justify-content: center; gap: 2.4rem; }
+}
+
+.logo { height: 4rem; width: auto; object-fit: contain; max-width: 16rem; }
+
+.recCta { margin-top: 3.2rem; }
+
+// Life @ WeSchool
+.life {
+  position: relative;
+  min-height: 54rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.lifeImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+.lifeOverlay { position: absolute; inset: 0; background: rgba(10, 6, 18, 0.45); }
+
+.lifeInner { position: relative; z-index: 1; color: var(--color-white); padding-block: 6rem; width: 100%; }
+
+.lifeHeading {
+  font-size: 4.4rem;
+  font-weight: 800;
+  margin-bottom: 2.4rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; }
+}
+
+.lifeCard {
+  background: rgba(240, 240, 240, 0.92);
+  color: var(--color-dark-gray);
+  border-radius: 2.4rem;
+  padding: 3.2rem;
+  max-width: 78rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @include respond-to(mobile) { padding: 2.4rem; }
+}
+
+.lifeBody { font-size: 1.5rem; line-height: 1.7; margin-bottom: 2rem; }

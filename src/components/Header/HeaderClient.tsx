@@ -1,23 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.scss";
 import { Logo } from "@/assets/svg/Logos";
 import { Search, LightMode, DarkMode } from "@/assets/svg/Icons";
 import Link from "next/link";
 import { useIsDesktop } from "@/util/useMediaQuery";
-import type { TopMenu } from "@/lib/drupal";
 import { useOptionalSearch } from "@/components/SearchOverlay/search-context";
 import { ArrowDown } from "@/assets/svg/Arrows";
+import { MAIN_NAV, UTILITY_NAV } from "@/lib/menu/menu-config";
+import { MegaMenu } from "./MegaMenu/MegaMenu";
 
-interface HeaderClientProps {
-  topMenu: TopMenu;
-}
-
-export function HeaderClient({ topMenu }: HeaderClientProps) {
+export function HeaderClient() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [openNav, setOpenNav] = useState<string | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pathname = usePathname();
   const isHomePage = pathname === "/";
@@ -28,28 +27,75 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
   const searchContext = useOptionalSearch();
 
   const handleSearchClick = () => {
-    if (searchContext) {
-      searchContext.openSearch();
-    }
+    searchContext?.openSearch();
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 700) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 700);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const openPanel = (id: string) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenNav(id);
   };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpenNav(null), 140);
+  };
+  const closeNow = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpenNav(null);
+  };
+
+  const activeItem = MAIN_NAV.find((item) => item.id === openNav);
+
+  const megaMenu =
+    isDesktop && activeItem?.panel ? (
+      <div
+        className={styles.megaMenuContainer}
+        onMouseEnter={() => openPanel(activeItem.id)}
+        onMouseLeave={scheduleClose}>
+        <div className="container">
+          <MegaMenu
+            panel={activeItem.panel}
+            onNavigate={closeNow}
+          />
+        </div>
+      </div>
+    ) : null;
+
+  const renderDesktopNav = (itemClass: string, withCaret: boolean) => (
+    <>
+      {MAIN_NAV.map((item) => {
+        const isActive = item.id === openNav || pathname.startsWith(item.href);
+        return (
+          <div
+            key={item.id}
+            className={styles.navItemWrap}
+            onMouseEnter={() => openPanel(item.id)}
+            onMouseLeave={scheduleClose}>
+            <Link
+              className={`${itemClass} ${isActive ? styles.navItemActive : ""}`}
+              href={item.href}
+              aria-expanded={item.panel ? item.id === openNav : undefined}>
+              <span>{item.label}</span>
+              {withCaret && item.panel ? (
+                <ArrowDown
+                  width={10}
+                  height={6}
+                />
+              ) : null}
+            </Link>
+          </div>
+        );
+      })}
+    </>
+  );
 
   // Mobile/Tablet ALWAYS uses full site header style (solid white bar)
   const isStickyMode = !isHomePage || isScrolled || isMobile;
@@ -57,16 +103,15 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
   if (isStickyMode) {
     return (
       <header className={`${styles.header} ${styles.headerSticky}`}>
-        {/* Sticky Header Top Green Bar (Desktop only) */}
         <div className={styles.stickyTopBar}>
           <div className={styles.stickyTopBarContainer}>
             <div className={styles.stickyPrimaryNav}>
-              {topMenu.primary.map((item) => (
+              {UTILITY_NAV.map((item) => (
                 <Link
                   className={styles.stickyPrimaryNavItem}
-                  key={item.id}
-                  href={item.url || "#"}>
-                  {item.title}
+                  key={item.href}
+                  href={item.href}>
+                  {item.label}
                 </Link>
               ))}
             </div>
@@ -84,7 +129,6 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
           </div>
         </div>
 
-        {/* Sticky Header Main White Bar */}
         <div className={styles.stickyMainBar}>
           <div className={styles.stickyMainBarContainer}>
             <div className={styles.stickyLeftContent}>
@@ -98,21 +142,7 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
               </Link>
             </div>
 
-            {isDesktop && (
-              <nav className={styles.stickySecondaryNav}>
-                {topMenu.secondary.map((item, index) => (
-                  <Link
-                    className={`${styles.stickySecondaryNavItem} ${
-                      index === 0 ? styles.stickyActiveItem : ""
-                    }`}
-                    key={item.id}
-                    href={item.url || "#"}>
-                    <span>{item.title}</span>
-                    <ArrowDown width={10} height={6} />
-                  </Link>
-                ))}
-              </nav>
-            )}
+            {isDesktop && <nav className={styles.stickySecondaryNav}>{renderDesktopNav(styles.stickySecondaryNavItem, true)}</nav>}
 
             <div className={styles.stickyRightContent}>
               <button
@@ -120,15 +150,13 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
                 className={styles.stickySearchButton}
                 onClick={handleSearchClick}
                 aria-label="Open search">
-                  <Search />
+                <Search />
               </button>
 
               {isMobile && (
                 <button
                   type="button"
-                  className={`${styles.hamburger} ${styles.stickyHamburger} ${
-                    isMenuOpen ? styles.open : ""
-                  }`}
+                  className={`${styles.hamburger} ${styles.stickyHamburger} ${isMenuOpen ? styles.open : ""}`}
                   onClick={() => setIsMenuOpen((prev) => !prev)}
                   aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                   aria-expanded={isMenuOpen}>
@@ -141,32 +169,30 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
           </div>
         </div>
 
-        {/* Mobile Menu Drawer */}
+        {megaMenu}
+
         {isMobile && (
-          <nav
-            className={`${styles.mobileMenu} ${styles.stickyMobileMenu} ${
-              isMenuOpen ? styles.mobileMenuOpen : ""
-            }`}>
+          <nav className={`${styles.mobileMenu} ${styles.stickyMobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ""}`}>
             <div className={styles.mobileMenuInner}>
-              {topMenu.secondary.map((item) => (
+              {MAIN_NAV.map((item) => (
                 <Link
                   className={styles.mobileNavItem}
                   key={item.id}
-                  href={item.url || "#"}
+                  href={item.href}
                   onClick={closeMenu}>
-                  {item.title}
+                  {item.label}
                 </Link>
               ))}
 
               <div className={styles.mobileDivider} />
 
-              {topMenu.primary.map((item) => (
+              {UTILITY_NAV.map((item) => (
                 <Link
                   className={styles.mobileSecondaryItem}
-                  key={item.id}
-                  href={item.url || "#"}
+                  key={item.href}
+                  href={item.href}
                   onClick={closeMenu}>
-                  {item.title}
+                  {item.label}
                 </Link>
               ))}
 
@@ -194,7 +220,6 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
-        {/* Main Header */}
         <div className={styles.headerContent}>
           <div className={styles.leftContent}>
             <Link
@@ -208,14 +233,12 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
           </div>
 
           <div className={styles.rightContent}>
-            {/* Desktop Row 1 */}
             <div className={styles.headerRow1}>
               <div className={styles.headerRow1Left}>
                 <span className={styles.modeButton}>
                   <span>
                     <LightMode />
                   </span>
-
                   <span>
                     <DarkMode />
                   </span>
@@ -223,31 +246,20 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
               </div>
 
               <div className={styles.headerRow1Right}>
-                {topMenu.primary.map((item) => (
+                {UTILITY_NAV.map((item) => (
                   <Link
                     className={styles.navItem}
-                    key={item.id}
-                    href={item.url || "#"}>
-                    {item.title}
+                    key={item.href}
+                    href={item.href}>
+                    {item.label}
                   </Link>
                 ))}
               </div>
             </div>
 
             <div className={styles.headerRow2}>
-              {/* Desktop Navigation */}
-              <nav className={styles.navItems}>
-                {topMenu.secondary.map((item) => (
-                  <Link
-                    className={styles.navItem}
-                    key={item.id}
-                    href={item.url || "#"}>
-                    {item.title}
-                  </Link>
-                ))}
-              </nav>
+              <nav className={styles.navItems}>{renderDesktopNav(styles.navItem, false)}</nav>
 
-              {/* Desktop Search */}
               <button
                 type="button"
                 className={styles.searchButton}
@@ -259,11 +271,10 @@ export function HeaderClient({ topMenu }: HeaderClientProps) {
           </div>
         </div>
       </div>
+
+      {megaMenu}
     </header>
   );
 }
 
 export default HeaderClient;
-
-
-

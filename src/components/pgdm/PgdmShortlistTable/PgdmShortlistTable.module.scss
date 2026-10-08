@@ -1,0 +1,64 @@
+@use "../../../styles/base/mixins" as *;
+
+.wrap {
+  border: 1px solid var(--color-light-gray);
+  border-radius: 2.4rem;
+  overflow: hidden;
+}
+
+.titleRow {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.7rem;
+  padding: 2rem 2.4rem;
+  color: var(--color-black);
+
+  @include respond-to(mobile) { font-size: 1.5rem; }
+}
+
+.campusRow {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.6rem;
+  padding: 1.4rem;
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    border: 1px solid var(--color-light-gray);
+    padding: 2rem 2.4rem;
+    text-align: center;
+    font-size: 1.5rem;
+    vertical-align: middle;
+
+    @include respond-to(mobile) { padding: 1.4rem; font-size: 1.3rem; }
+  }
+
+  thead th {
+    font-weight: 700;
+    color: var(--color-black);
+    line-height: 1.4;
+  }
+}
+
+.program {
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.4;
+}
+
+.span {
+  font-weight: 700;
+  color: var(--color-black);
+}

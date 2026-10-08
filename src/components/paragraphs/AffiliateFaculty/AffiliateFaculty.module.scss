@@ -1,0 +1,140 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  width: 100%;
+}
+
+.heading {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--color-black);
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+
+  @include respond-to(tab) {
+    font-size: 3.2rem;
+  }
+
+  @include respond-to(mobile) {
+    font-size: 2.6rem;
+  }
+}
+
+.description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-gray);
+  margin-bottom: 2.4rem;
+  max-width: 80%;
+
+  @include respond-to(mobile) {
+    max-width: 100%;
+  }
+}
+
+.tabsList {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 0.4rem;
+  margin-bottom: 3.2rem;
+  border-bottom: 1px solid var(--color-light-gray);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include respond-to(mobile) {
+    gap: 2.4rem;
+  }
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  padding-bottom: 1.2rem;
+  color: var(--color-gray);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.25s ease, border-color 0.25s ease;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+
+  &:hover {
+    color: var(--color-black);
+  }
+
+  @include respond-to(mobile) {
+    font-size: 1.6rem;
+  }
+}
+
+.activeTab {
+  color: var(--faculty-accent, var(--color-primary));
+  border-bottom-color: var(--faculty-accent, var(--color-primary));
+
+  &:hover {
+    color: var(--faculty-accent, var(--color-primary));
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4rem 2.4rem;
+
+  @include respond-to(tab) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.8rem 1.6rem;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.35;
+  margin-bottom: 0.4rem;
+}
+
+.designation {
+  font-size: 1.4rem;
+  color: var(--color-gray);
+  margin-bottom: 0.8rem;
+}
+
+.readMore {
+  color: var(--faculty-accent, var(--color-primary));
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    text-decoration: underline;
+    opacity: 0.85;
+  }
+}
+
+.loadMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+
+  @include respond-to(mobile) {
+    margin-top: 3rem;
+  }
+}

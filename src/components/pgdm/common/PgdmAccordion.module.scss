@@ -1,0 +1,72 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.item {
+  border: 1px solid var(--color-light-gray);
+  border-radius: 50vw;
+  background: var(--color-white);
+  transition: border-radius 0.2s ease, background 0.2s ease;
+}
+
+.itemOpen {
+  border-radius: 2.4rem;
+  background: var(--color-white);
+
+  .header {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border-radius: 2.4rem 2.4rem 0 0;
+  }
+
+  .toggle {
+    background: var(--color-white);
+    color: var(--color-secondary);
+    transform: rotate(180deg);
+  }
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem 2.4rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 50vw;
+  font-family: inherit;
+}
+
+.label {
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: left;
+
+  @include respond-to(mobile) { font-size: 1.5rem; }
+}
+
+.toggle {
+  flex-shrink: 0;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--faculty-accent, var(--color-primary));
+  color: var(--color-white);
+  transition: transform 0.25s ease;
+}
+
+.body {
+  padding: 2.4rem;
+
+  @include respond-to(mobile) { padding: 2rem 1.6rem; }
+}

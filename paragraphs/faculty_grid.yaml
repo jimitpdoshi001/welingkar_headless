@@ -1,0 +1,11 @@
+id: faculty_grid
+label: FacultyGrid
+component: FacultyGrid
+renderChildren: false
+drupalConfig: false
+parents:
+    - through: field_components
+      field: field_section_content
+fields:
+    field_show_tabs:
+        type: boolean

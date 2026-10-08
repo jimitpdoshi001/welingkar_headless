@@ -39,6 +39,11 @@ $small-mobile: 480px;
       @content;
     }
   }
+
+  // Fail loudly on an unknown breakpoint instead of silently dropping the styles.
+  @else {
+    @error "respond-to: unknown breakpoint '#{$media}'. Use one of: lg-desktop, md-desktop, sm-desktop, tab, mobile, small-mobile, xxl-desktop-up.";
+  }
 }
 
 @mixin glass-background {

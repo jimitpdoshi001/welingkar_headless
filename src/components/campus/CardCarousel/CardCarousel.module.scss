@@ -1,0 +1,116 @@
+@use "../../../styles/base/mixins" as *;
+
+.root { width: 100%; }
+
+.onDark {
+  color: var(--color-white);
+  .heading { color: var(--color-white); }
+  .description { color: rgba(255, 255, 255, 0.82); }
+  .title { color: var(--color-white); }
+  .meta { color: rgba(255, 255, 255, 0.75); }
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+}
+
+.headText { max-width: 70rem; }
+
+.heading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+.description {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-gray);
+  margin: 0;
+}
+
+.navBtns { display: flex; gap: 1.2rem; flex-shrink: 0; }
+
+.arrowBtn {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid var(--faculty-accent, var(--color-primary));
+}
+
+.outline {
+  background: transparent;
+  svg path { fill: var(--faculty-accent, var(--color-primary)); }
+}
+
+.filled {
+  background: var(--faculty-accent, var(--color-primary));
+  svg path { fill: var(--color-white); }
+}
+
+.card {
+  height: 100%;
+  border-radius: 2.4rem;
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+.imageWrap { aspect-ratio: 4 / 3; overflow: hidden; }
+
+.image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.overlayCard {
+  position: relative;
+
+  .imageWrap { aspect-ratio: 3 / 4; }
+
+  .body {
+    position: absolute;
+    left: 1.6rem;
+    right: 1.6rem;
+    bottom: 1.6rem;
+    background: rgba(240, 240, 240, 0.94);
+    border-radius: 1.6rem;
+    padding: 2rem;
+  }
+}
+
+.body {
+  padding: 2rem 0.4rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+}
+
+.meta {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: var(--color-gray);
+  margin-bottom: 1.4rem;
+}
+
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.6rem;
+}

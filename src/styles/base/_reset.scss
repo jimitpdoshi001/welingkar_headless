@@ -15,6 +15,13 @@ html {
   --color-light-gray: #e9ebef;
   --color-dark-gray: #151515;
   --color-light-yellow: #fdf8f0;
+  --color-orange: #f77100;
+}
+
+body {
+  // Safety net: stray full-bleed/overflowing content must never create a
+  // horizontal scrollbar. `clip` (not `hidden`) keeps the sticky header working.
+  overflow-x: clip;
 }
 
 ul,

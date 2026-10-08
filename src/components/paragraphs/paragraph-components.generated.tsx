@@ -5,10 +5,13 @@
 
 import type { DrupalPage, ParagraphItem } from "@/lib/drupal";
 import type { ReactNode } from "react";
+import { AffiliateFaculty } from "./AffiliateFaculty/AffiliateFaculty";
 import { Button } from "./Button/Button";
 import { CampusContactUs } from "./CampusContactUs/CampusContactUs";
 import { ContentField } from "./ContentField/ContentField";
+import { DirectorMessage } from "./DirectorMessage/DirectorMessage";
 import { Divider } from "./Divider/Divider";
+import { FacultyGrid } from "./FacultyGrid/FacultyGrid";
 import { FacultyListing } from "./FacultyListing/FacultyListing";
 import { GalleryGrid } from "./GalleryGrid/GalleryGrid";
 import { GroupItems } from "./GroupItems/GroupItems";
@@ -38,6 +41,15 @@ export type ParagraphRenderContext = {
 };
 
 export const generatedParagraphComponents: Record<string, (item: ParagraphItem, ctx: ParagraphRenderContext) => ReactNode> = {
+  "paragraph--affiliate_faculty": (item, _ctx) => {
+    return (
+      <AffiliateFaculty
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof AffiliateFaculty>[0]["paragraph"]}
+      />
+    );
+  },
+
   "paragraph--button": (item, _ctx) => {
     return (
       <Button
@@ -72,11 +84,29 @@ export const generatedParagraphComponents: Record<string, (item: ParagraphItem, 
     );
   },
 
+  "paragraph--director_message": (item, _ctx) => {
+    return (
+      <DirectorMessage
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof DirectorMessage>[0]["paragraph"]}
+      />
+    );
+  },
+
   "paragraph--divider": (item, _ctx) => {
     return (
       <Divider
         key={item.resource.id}
         paragraph={item.resource as Parameters<typeof Divider>[0]["paragraph"]}
+      />
+    );
+  },
+
+  "paragraph--faculty_grid": (item, _ctx) => {
+    return (
+      <FacultyGrid
+        key={item.resource.id}
+        paragraph={item.resource as Parameters<typeof FacultyGrid>[0]["paragraph"]}
       />
     );
   },

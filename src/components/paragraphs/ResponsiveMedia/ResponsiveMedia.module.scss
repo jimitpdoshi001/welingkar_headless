@@ -35,7 +35,7 @@
   display: none;
 }
 
-@include respond-to(mobile-horizontal) {
+@include respond-to(mobile) {
   .desktopOnly {
     display: none;
   }

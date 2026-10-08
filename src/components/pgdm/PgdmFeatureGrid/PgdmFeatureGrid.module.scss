@@ -1,0 +1,91 @@
+@use "../../../styles/base/mixins" as *;
+
+.root {
+  width: 100%;
+  color: var(--color-black);
+}
+
+.onDark {
+  color: var(--color-white);
+
+  .title {
+    color: var(--color-white);
+  }
+
+  .description {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .icon {
+    color: var(--color-white);
+  }
+}
+
+.heading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 4rem;
+
+  @include respond-to(tab) {
+    font-size: 2.8rem;
+    margin-bottom: 3rem;
+  }
+
+  @include respond-to(mobile) {
+    font-size: 2.4rem;
+    margin-bottom: 2.4rem;
+  }
+}
+
+.headingCenter {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  gap: 4rem 3.2rem;
+
+  @include respond-to(tab) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+}
+
+.cols3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cols4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  display: inline-flex;
+  color: var(--faculty-accent, var(--color-primary));
+  margin-bottom: 1.6rem;
+}
+
+.title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.3;
+  margin-bottom: 0.8rem;
+}
+
+.description {
+  font-size: 1.5rem;
+  line-height: 1.55;
+  color: var(--color-gray);
+  margin: 0;
+}

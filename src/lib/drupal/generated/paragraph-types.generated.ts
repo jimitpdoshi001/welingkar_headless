@@ -5,6 +5,22 @@
 
 import type { JsonApiResource } from "../types";
 
+export type AffiliateFacultyAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header?: string | null;
+  field_description?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  field_show_tabs?: boolean | null;
+  [key: string]: unknown;
+};
+
+export type AffiliateFacultyResource = JsonApiResource<"paragraph--affiliate_faculty", AffiliateFacultyAttributes>;
+
 export type ButtonAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -68,6 +84,23 @@ export type ContentFieldAttributes = {
 
 export type ContentFieldResource = JsonApiResource<"paragraph--content_field", ContentFieldAttributes>;
 
+export type DirectorMessageAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_header?: string | null;
+  field_name?: string | null;
+  field_designation?: string | null;
+  field_description?: {
+      value: string;
+      format: string;
+      processed: string;
+    } | null;
+  [key: string]: unknown;
+};
+
+export type DirectorMessageResource = JsonApiResource<"paragraph--director_message", DirectorMessageAttributes>;
+
 export type DividerAttributes = {
   parent_id?: string | null;
   parent_type?: string | null;
@@ -77,6 +110,16 @@ export type DividerAttributes = {
 };
 
 export type DividerResource = JsonApiResource<"paragraph--divider", DividerAttributes>;
+
+export type FacultyGridAttributes = {
+  parent_id?: string | null;
+  parent_type?: string | null;
+  parent_field_name?: string | null;
+  field_show_tabs?: boolean | null;
+  [key: string]: unknown;
+};
+
+export type FacultyGridResource = JsonApiResource<"paragraph--faculty_grid", FacultyGridAttributes>;
 
 export type FacultyListingAttributes = {
   parent_id?: string | null;

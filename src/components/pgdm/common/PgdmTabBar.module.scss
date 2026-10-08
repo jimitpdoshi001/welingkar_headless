@@ -1,0 +1,92 @@
+@use "../../../styles/base/mixins" as *;
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.22s ease;
+  font-family: inherit;
+}
+
+// Underline variant (Career, Curriculum header tabs)
+.underline {
+  gap: 4rem;
+  border-bottom: 1px solid var(--color-light-gray);
+
+  @include respond-to(mobile) {
+    gap: 2.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .tab {
+    font-size: 2rem;
+    color: var(--color-gray);
+    padding-bottom: 1.2rem;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+
+    @include respond-to(mobile) { font-size: 1.6rem; }
+
+    &:hover { color: var(--color-black); }
+
+    &.active {
+      color: var(--faculty-accent, var(--color-primary));
+      border-bottom-color: var(--faculty-accent, var(--color-primary));
+    }
+  }
+}
+
+// Pill variant (Trimester, Freshers/Work-Ex, year toggle)
+.pill {
+  gap: 1.2rem;
+
+  .tab {
+    font-size: 1.5rem;
+    color: var(--color-black);
+    padding: 1rem 2.2rem;
+    border-radius: 50vw;
+    border: 1px solid var(--color-light-gray);
+
+    &:hover { border-color: var(--faculty-accent, var(--color-primary)); }
+
+    &.active {
+      background-color: var(--faculty-accent, var(--color-primary));
+      border-color: var(--faculty-accent, var(--color-primary));
+      color: var(--color-white);
+    }
+  }
+}
+
+// On dark (purple / image) backgrounds
+.onDark {
+  &.underline { border-bottom-color: rgba(255, 255, 255, 0.2); }
+
+  .tab { color: rgba(255, 255, 255, 0.75); }
+
+  &.pill .tab {
+    color: var(--color-white);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .tab:hover { color: var(--color-white); }
+
+  .tab.active {
+    color: var(--color-white);
+    border-bottom-color: var(--faculty-accent, var(--color-primary));
+  }
+
+  &.pill .tab.active {
+    background-color: var(--faculty-accent, var(--color-primary));
+    border-color: var(--faculty-accent, var(--color-primary));
+  }
+}

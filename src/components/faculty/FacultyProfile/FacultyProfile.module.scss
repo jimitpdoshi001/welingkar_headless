@@ -1,0 +1,214 @@
+@use "../../../styles/base/mixins" as *;
+
+// Soft lavender banner background from the Figma design (no matching design token).
+$profile-bg: #f1eefb;
+
+.profileHeader {
+  background-color: $profile-bg;
+  padding: 2.4rem 0 6rem;
+
+  @include respond-to(mobile) {
+    padding: 2rem 0 4rem;
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.4rem;
+  color: var(--color-gray);
+  margin-bottom: 3.2rem;
+
+  a {
+    color: var(--color-gray);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-black);
+      text-decoration: underline;
+    }
+  }
+
+  @include respond-to(mobile) {
+    margin-bottom: 2rem;
+  }
+}
+
+.headerLayout {
+  display: grid;
+  grid-template-columns: 360fr 840fr;
+  gap: 4rem;
+  align-items: center;
+
+  @include respond-to(tab) {
+    gap: 3rem;
+  }
+
+  @include respond-to(mobile) {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 2.5rem;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+
+  :global(.btn) {
+    align-self: flex-start;
+  }
+}
+
+.name {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--color-black);
+  line-height: 1.25;
+  margin-bottom: 0.6rem;
+
+  @include respond-to(mobile) {
+    font-size: 2.2rem;
+  }
+}
+
+.designation {
+  font-size: 1.6rem;
+  color: var(--color-gray);
+  margin-bottom: 2rem;
+}
+
+.body {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--color-dark-gray);
+  margin-bottom: 2.8rem;
+}
+
+.detail {
+  padding-top: 5rem;
+  padding-bottom: 8rem;
+
+  @include respond-to(mobile) {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+.tabsList {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 0.4rem;
+  margin-bottom: 4rem;
+  border-bottom: 1px solid var(--color-light-gray);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include respond-to(mobile) {
+    gap: 2.4rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.tabBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  padding-bottom: 1.2rem;
+  color: var(--color-gray);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.25s ease, border-color 0.25s ease;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+
+  &:hover {
+    color: var(--color-black);
+  }
+
+  @include respond-to(mobile) {
+    font-size: 1.6rem;
+  }
+}
+
+.activeTab {
+  color: var(--faculty-accent, var(--color-primary));
+  border-bottom-color: var(--faculty-accent, var(--color-primary));
+
+  &:hover {
+    color: var(--faculty-accent, var(--color-primary));
+  }
+}
+
+.tabPanel {
+  max-width: 90rem;
+}
+
+.block {
+  margin-bottom: 3.6rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.blockHeading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-black);
+  margin-bottom: 1.2rem;
+
+  @include respond-to(mobile) {
+    font-size: 1.8rem;
+  }
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.8rem;
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: var(--color-dark-gray);
+    margin-bottom: 0.6rem;
+
+    &::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--color-dark-gray);
+    }
+  }
+}
+
+.text {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-dark-gray);
+  margin-bottom: 0.4rem;
+}

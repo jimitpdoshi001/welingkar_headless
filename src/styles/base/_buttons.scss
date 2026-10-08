@@ -77,6 +77,29 @@
     }
   }
 
+  // Themeable accent button — picks up `--faculty-accent` (set per page),
+  // falling back to the brand green. Used by the faculty page sections.
+  &.accent {
+    background-color: var(--faculty-accent, var(--color-primary));
+    color: var(--color-white);
+    border: 1px solid var(--faculty-accent, var(--color-primary));
+
+    &:hover {
+      filter: brightness(0.94);
+    }
+  }
+
+  &.accent-outline {
+    background-color: unset;
+    color: var(--faculty-accent, var(--color-primary));
+    border: 1px solid var(--faculty-accent, var(--color-primary));
+
+    &:hover {
+      background-color: var(--faculty-accent, var(--color-primary));
+      color: var(--color-white);
+    }
+  }
+
   &.link {
     background-color: unset;
     color: var(--color-primary);

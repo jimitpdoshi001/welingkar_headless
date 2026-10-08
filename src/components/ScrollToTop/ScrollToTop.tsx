@@ -4,10 +4,12 @@ import style from "./ScrollToTop.module.scss";
 import { ArrowUp } from "@/assets/svg/Arrows";
 import { Whatsapp, Share } from "@/assets/svg/Icons";
 import Link from "next/link";
-import { useIsMobile } from "@/util/useMediaQuery";
+import { useMediaQuery } from "@/util/useMediaQuery";
 
 const ScrollToTop = () => {
-  const isMobile = useIsMobile();
+  // Tablet and below use the full-width bottom "Enquire Now" bar instead of the
+  // vertical side button, so the floating rail stays clear of page content.
+  const isCompact = useMediaQuery("(max-width: 1023px)");
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -39,7 +41,7 @@ const ScrollToTop = () => {
       <div className={style.FloatingButtons}>
 
         {
-          !isMobile && <Link
+          !isCompact && <Link
           className={style.enquireNow}
           href="/enquire-now"
           aria-label="Enquire now">
@@ -69,7 +71,7 @@ const ScrollToTop = () => {
         </div>
       </div>
       {
-          isMobile && <Link
+          isCompact && <Link
           className={style.enquireNowMob}
           href="/enquire-now"
           aria-label="Enquire now">

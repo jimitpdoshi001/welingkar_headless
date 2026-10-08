@@ -80,7 +80,7 @@ export const DEFAULT_FACULTY_MEMBERS: FacultyMember[] = [
     id: "fac-6",
     name: "Prof. Sonia Mehrotra",
     designation: "Professor",
-    department: "Centre of Excellence for Case Development & Case Studies (Mumbai/Bangalore)",
+    department: "Centre of Excellence for Case Development & Case Studies (Mumbai/Bengaluru)",
     categorySlug: "faculty",
     image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&auto=format&fit=crop&q=80",
     imageAlt: "Prof. Sonia Mehrotra",
@@ -204,3 +204,204 @@ export async function getFacultyMembers(): Promise<FacultyMember[]> {
 
   return DEFAULT_FACULTY_MEMBERS;
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Faculty page (Mumbai) — Director's message, board/faculty grid, affiliate */
+/*  Mock data mirroring the Figma design; swap for Drupal fields later.       */
+/* -------------------------------------------------------------------------- */
+
+export type DirectorMessage = {
+  heading: string;
+  name: string;
+  designation: string;
+  body: string;
+  image: string;
+  imageAlt?: string;
+  link?: string;
+  linkLabel?: string;
+};
+
+export const DEFAULT_DIRECTOR_MESSAGE: DirectorMessage = {
+  heading: "Words from the Director’s Desk",
+  name: "Prof. Dr. Kaustubh Dhargalkar",
+  designation: "In-Charge Director",
+  body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
+  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&auto=format&fit=crop&q=80",
+  imageAlt: "Prof. Dr. Kaustubh Dhargalkar",
+  link: "/faculty/kaustubh-dhargalkar",
+  linkLabel: "Read More",
+};
+
+const BOARD_IMAGES = DEFAULT_FACULTY_MEMBERS.map((member) => member.image);
+
+const slugify = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const makeBoardMember = (name: string, designation: string, index: number): FacultyMember => ({
+  id: `board-${index + 1}`,
+  name,
+  designation,
+  categorySlug: "deans",
+  image: BOARD_IMAGES[index % BOARD_IMAGES.length],
+  imageAlt: name,
+  link: `/faculty/${slugify(name)}`,
+});
+
+/** Board of Governors shown under the "Dean" tab (names from the Figma design). */
+const BOARD_MEMBERS: FacultyMember[] = [
+  ["Shri. Sudhir Shankar Kalkar", "Chairman"],
+  ["Shri. Radhesham Bajranglal Agrawal", "Vice Chairman"],
+  ["Shri. Sunil Madhusudan Joshi", "Member & Chairman, CDC, WeSchool"],
+  ["Shri. Vivek V. Nayak", "Member"],
+  ["Shri. Navin Naidu Dasari", "Member"],
+  ["Shri. Raghav Pandit Ashtekar", "Member"],
+  ["Shri. Anil Purushottam Barve", "Member"],
+  ["Shri. Manoj Pandurang Bhalerao", "Member"],
+  ["Shri. Yashodhan Sunil Bhide", "Member"],
+  ["Shri. Tushar N Kulkarni", "Member"],
+].map(([name, designation], index) => makeBoardMember(name, designation, index));
+
+/** Tabs for the main faculty grid, matching the Figma order/labels. */
+export const DEFAULT_FACULTY_GRID_CATEGORIES: FacultyCategory[] = [
+  { id: "grid-cat-1", name: "Dean", slug: "deans" },
+  { id: "grid-cat-2", name: "Associate Dean & Heads", slug: "associate-deans" },
+  { id: "grid-cat-3", name: "Faculty", slug: "faculty" },
+  { id: "grid-cat-4", name: "Specialisation", slug: "specialization" },
+];
+
+/** Members for the main faculty grid, keyed to the tabs above. */
+export const DEFAULT_FACULTY_GRID_MEMBERS: FacultyMember[] = [
+  ...BOARD_MEMBERS,
+  ...DEFAULT_FACULTY_MEMBERS,
+];
+
+export type AffiliateMember = {
+  id: string;
+  name: string;
+  designation: string;
+  categorySlug: string;
+  link?: string;
+};
+
+export const AFFILIATE_FACULTY_CATEGORIES: FacultyCategory[] = [
+  { id: "aff-cat-1", name: "International", slug: "international" },
+  { id: "aff-cat-2", name: "Visiting", slug: "visiting" },
+  { id: "aff-cat-3", name: "Guests", slug: "guests" },
+];
+
+const AFFILIATE_NAMES = [
+  "Shri. Raghav Pandit Ashtekar",
+  "Shri. Anil Purushottam Barve",
+  "Shri. Manoj Pandurang Bhalerao",
+  "Shri. Yashodhan Sunil Bhide",
+  "Shri. Tushar N Kulkarni",
+];
+
+const makeAffiliateMembers = (categorySlug: string, count: number): AffiliateMember[] =>
+  Array.from({ length: count }, (_, index) => {
+    const name = AFFILIATE_NAMES[index % AFFILIATE_NAMES.length];
+    return {
+      id: `${categorySlug}-${index + 1}`,
+      name,
+      designation: "Member",
+      categorySlug,
+      link: `/faculty/${slugify(name)}`,
+    };
+  });
+
+export const DEFAULT_AFFILIATE_MEMBERS: AffiliateMember[] = [
+  ...makeAffiliateMembers("international", 15),
+  ...makeAffiliateMembers("visiting", 10),
+  ...makeAffiliateMembers("guests", 8),
+];
+
+/** Director's message for the Bengaluru campus faculty page. */
+export const DEFAULT_DIRECTOR_MESSAGE_BENGALURU: DirectorMessage = {
+  ...DEFAULT_DIRECTOR_MESSAGE,
+  name: "Dr. Madhavi Lokhande",
+  designation: "Bengaluru Campus Director",
+  image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&auto=format&fit=crop&q=80",
+  imageAlt: "Dr. Madhavi Lokhande",
+  link: "/faculty/madhavi-lokhande",
+};
+
+/* -------------------------------------------------------------------------- */
+/*  Faculty profile (inside / detail) page                                    */
+/* -------------------------------------------------------------------------- */
+
+export type FacultyProfileBlock = {
+  heading?: string;
+  layout: "list" | "text";
+  items: string[];
+};
+
+export type FacultyProfileTab = {
+  id: string;
+  title: string;
+  blocks: FacultyProfileBlock[];
+};
+
+export type FacultyProfile = {
+  name: string;
+  designation: string;
+  body: string;
+  image: string;
+  imageAlt?: string;
+  link?: string;
+  linkLabel?: string;
+  tabs: FacultyProfileTab[];
+};
+
+export const DEFAULT_FACULTY_PROFILE: FacultyProfile = {
+  name: "Prof. Dr. Kaustubh Dhargalkar",
+  designation: "In-Charge Director",
+  body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
+  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&auto=format&fit=crop&q=80",
+  imageAlt: "Prof. Dr. Kaustubh Dhargalkar",
+  link: "/faculty",
+  linkLabel: "Read More",
+  tabs: [
+    {
+      id: "about",
+      title: "About Faculty",
+      blocks: [
+        { heading: "Educational Qualification:", layout: "list", items: ["Ph.D", "B.Tech", "MMS"] },
+        { heading: "Teaching Experience–", layout: "text", items: ["15 years"] },
+        { heading: "Industry Exposure–", layout: "text", items: ["4 years"] },
+        {
+          heading: "Academic Affiliation–",
+          layout: "text",
+          items: [
+            "Research and Review Panel Member for Journal of Innovation and Entrepreneurship – Springer Publications",
+            "European Journal of Innovation Management – Emerald",
+          ],
+        },
+        { heading: "Professional Affiliation–", layout: "text", items: ["BMA", "AOTS"] },
+      ],
+    },
+    {
+      id: "teaching-research",
+      title: "Teaching & Research",
+      blocks: [
+        { heading: "Areas of Interest", layout: "list", items: ["Design Thinking", "Innovation Management", "Strategy"] },
+      ],
+    },
+    {
+      id: "publications",
+      title: "Publications",
+      blocks: [
+        { layout: "list", items: ["Innovation and the WeSchool Way, 2023", "Design Thinking for Managers, 2021"] },
+      ],
+    },
+    {
+      id: "awards-honors",
+      title: "Awards & Honors",
+      blocks: [
+        { layout: "list", items: ["Best Faculty Award, 2022", "Excellence in Management Education, 2019"] },
+      ],
+    },
+  ],
+};
