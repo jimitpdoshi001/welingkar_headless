@@ -2,6 +2,7 @@
  * Mock data for the Campus pages (Mumbai / Bengaluru), mirroring the Figma
  * design. Swap for Drupal fields later. Images are placeholders.
  */
+import { logoPlaceholder } from "@/util/placeholder";
 
 export type CampusCta = { label: string; href: string };
 
@@ -42,7 +43,7 @@ const CIMG = {
 
 const RECRUITERS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
   name,
-  image: `https://dummyimage.com/200x60/ffffff/333333&text=${encodeURIComponent(name)}`,
+  image: logoPlaceholder(name),
 }));
 
 function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {

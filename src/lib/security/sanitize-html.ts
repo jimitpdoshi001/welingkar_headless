@@ -1,4 +1,29 @@
 import sanitizeHtml from "sanitize-html";
+import { drupalConfig } from "@/lib/drupal/config";
+
+/** Prepend the Drupal base URL to a root-relative media/asset path. */
+function toAbsoluteAsset(url: string | undefined): string | undefined {
+  if (!url) return url;
+  // Only rewrite root-relative paths (keep absolute URLs, data:, and anchors as-is).
+  if (!url.startsWith("/") || url.startsWith("//")) return url;
+  return `${drupalConfig.baseUrl}${url}`;
+}
+
+/** Rewrite each candidate URL in a srcset ("url 1x, url 2x") to an absolute asset URL. */
+function absolutizeSrcset(srcset: string | undefined): string | undefined {
+  if (!srcset) return srcset;
+  return srcset
+    .split(",")
+    .map((part) => {
+      const trimmed = part.trim();
+      const [u, ...rest] = trimmed.split(/\s+/);
+      return [toAbsoluteAsset(u), ...rest].join(" ");
+    })
+    .join(", ");
+}
+
+// Root-relative hrefs that are Drupal assets (downloads) rather than site pages.
+const ASSET_HREF = /^\/(sites|system\/files|files|themes|modules|libraries|core)\//;
 
 const IFRAME_HOSTS = [
   "www.youtube.com",
@@ -59,11 +84,30 @@ export function sanitizeCmsHtml(html: string): string {
     transformTags: {
       a: (tagName, attribs) => {
         const next = { ...attribs };
+        if (next.href && ASSET_HREF.test(next.href)) next.href = toAbsoluteAsset(next.href) as string;
         if (next.target === "_blank") {
           next.rel = "noopener noreferrer";
         } else {
           delete next.target;
         }
+        return { tagName, attribs: next };
+      },
+      img: (tagName, attribs) => {
+        const next = { ...attribs };
+        if (next.src) next.src = toAbsoluteAsset(next.src) as string;
+        if (next.srcset) next.srcset = absolutizeSrcset(next.srcset) as string;
+        return { tagName, attribs: next };
+      },
+      source: (tagName, attribs) => {
+        const next = { ...attribs };
+        if (next.src) next.src = toAbsoluteAsset(next.src) as string;
+        if (next.srcset) next.srcset = absolutizeSrcset(next.srcset) as string;
+        return { tagName, attribs: next };
+      },
+      video: (tagName, attribs) => {
+        const next = { ...attribs };
+        if (next.src) next.src = toAbsoluteAsset(next.src) as string;
+        if (next.poster) next.poster = toAbsoluteAsset(next.poster) as string;
         return { tagName, attribs: next };
       },
     },

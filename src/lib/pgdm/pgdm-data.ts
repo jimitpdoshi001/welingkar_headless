@@ -2,6 +2,7 @@
  * Mock data for the PGDM programme pages (Mumbai / Bengaluru), mirroring the
  * Figma design. Swap for Drupal fields later. Images are placeholders.
  */
+import { logoPlaceholder } from "@/util/placeholder";
 
 export type PgdmCta = { label: string; href: string };
 
@@ -188,7 +189,7 @@ const SHARED_FAQS = [
 
 const RECRUITER_LOGOS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name, i) => ({
   name,
-  image: `https://dummyimage.com/200x60/ffffff/333333&text=${encodeURIComponent(name)}`,
+  image: logoPlaceholder(name),
   id: i,
 }));
 
