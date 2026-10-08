@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import { PageShell } from "./PageShell";
 import { ContentSection, LinkCardGrid } from "./ContentBlocks";
+import { SiteForm } from "./SiteForm";
 import { getSitePage } from "@/lib/pages/site-pages";
 
 export function RegistryPage({ path }: { path: string }) {
@@ -16,7 +17,12 @@ export function RegistryPage({ path }: { path: string }) {
       image={page.image}
       accent={page.accent}>
       {page.sections.map((section, i) =>
-        section.cards ? (
+        section.form ? (
+          <SiteForm
+            key={i}
+            config={section.form}
+          />
+        ) : section.cards ? (
           <LinkCardGrid
             key={i}
             heading={section.heading}

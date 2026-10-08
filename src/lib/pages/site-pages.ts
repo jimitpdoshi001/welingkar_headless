@@ -5,6 +5,7 @@
  */
 import type { LinkCard } from "@/components/shell/ContentBlocks";
 import type { Crumb } from "@/components/shell/PageShell";
+import type { FormConfig } from "@/components/shell/SiteForm";
 
 export type SiteSection = {
   heading?: string;
@@ -14,6 +15,7 @@ export type SiteSection = {
   align?: "left" | "center";
   cards?: LinkCard[];
   cardColumns?: 2 | 3 | 4;
+  form?: FormConfig;
 };
 
 export type SitePage = {
@@ -129,7 +131,25 @@ export const SITE_PAGES: Record<string, SitePage> = {
     subtitle: "Our transparent mechanism for raising and resolving grievances.",
     image: HERO.office,
     breadcrumbs: crumbs(["Home", "/"], ["Grievance Redressal"]),
-    sections: [{ heading: "Submit Your Grievance", paragraphs: ["WeSchool is committed to a fair, timely and transparent grievance redressal process for students, staff and stakeholders. Please reach out to the Grievance Redressal Committee, and we will ensure your concern is addressed appropriately."] }],
+    sections: [
+      { heading: "Submit Your Grievance", paragraphs: ["WeSchool is committed to a fair, timely and transparent grievance redressal process for students, staff and stakeholders. Please submit your grievance below and we will ensure your concern is addressed appropriately."] },
+      {
+        form: {
+          name: "grievance",
+          heading: "Submit Your Grievance",
+          tint: "cream",
+          submitLabel: "Submit Grievance",
+          fields: [
+            { name: "name", label: "Full Name", type: "text", required: true },
+            { name: "email", label: "Email", type: "email", required: true },
+            { name: "phone", label: "Phone", type: "tel" },
+            { name: "role", label: "I am a", type: "select", options: ["Student", "Staff", "Parent", "Other"], required: true },
+            { name: "category", label: "Category", type: "select", options: ["Academic", "Administrative", "Hostel", "Examination", "Other"], required: true },
+            { name: "grievance", label: "Describe Your Grievance", type: "textarea", required: true, full: true },
+          ],
+        },
+      },
+    ],
   },
 
   // ---- Admissions ----
@@ -286,6 +306,20 @@ export const SITE_PAGES: Record<string, SitePage> = {
           { title: "Jesal Thakkar", text: "Email: jesal.thakkar@welingkar.org · Contact: +91-22-2419-8300", href: "mailto:jesal.thakkar@welingkar.org" },
         ],
       },
+      {
+        form: {
+          name: "weglobal",
+          heading: "Get in Touch",
+          description: "Interested in our global programmes? Share your details and we'll reach out.",
+          fields: [
+            { name: "name", label: "Name", type: "text", required: true },
+            { name: "contact", label: "Contact Number", type: "tel", required: true },
+            { name: "email", label: "Email", type: "email", required: true },
+            { name: "course", label: "Course", type: "select", options: ["PGDM", "MMS", "Executive", "Other"], required: true },
+            { name: "campus", label: "Campus", type: "select", options: ["Mumbai", "Bengaluru"], required: true },
+          ],
+        },
+      },
     ],
   },
 
@@ -376,6 +410,23 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cardColumns: 4,
         cards: ["AI & Digital Transformation", "Sustainability, ESG & Responsible Business", "Innovation & Design Thinking", "Data Analytics & Decision Making", "Strategic Thinking & Judgement", "Finance Acumen", "Rural Management", "Leadership Development"].map((n) => ({ title: n, text: "Executive learning track.", href: "/mdc" })),
       },
+      {
+        form: {
+          name: "mdc-enquiry",
+          heading: "Talk to Our Executive Education Team",
+          description: "Reach out directly for programme details, custom training enquiries and more.",
+          tint: "cream",
+          submitLabel: "Send Enquiry",
+          fields: [
+            { name: "name", label: "Name", type: "text", required: true },
+            { name: "email", label: "Work Email", type: "email", required: true },
+            { name: "phone", label: "Phone", type: "tel", required: true },
+            { name: "organisation", label: "Organisation", type: "text", required: true },
+            { name: "interest", label: "Area of Interest", type: "select", options: ["Leadership Development", "AI & Digital Transformation", "Data Analytics", "Sustainability & ESG", "Custom / Other"] },
+            { name: "message", label: "Your Requirement", type: "textarea", full: true },
+          ],
+        },
+      },
     ],
   },
   "/careers": {
@@ -395,6 +446,23 @@ export const SITE_PAGES: Record<string, SitePage> = {
         ],
       },
       { heading: "Apply", paragraphs: ["Upload your profile and tell us how you'd like to contribute. Our team will get back to shortlisted candidates."] },
+      {
+        form: {
+          name: "careers",
+          heading: "Upload Your Profile",
+          description: "Tell us about yourself and attach your CV. We'll be in touch with shortlisted candidates.",
+          tint: "cream",
+          submitLabel: "Submit Application",
+          fields: [
+            { name: "name", label: "Full Name", type: "text", required: true },
+            { name: "email", label: "Email", type: "email", required: true },
+            { name: "phone", label: "Phone", type: "tel", required: true },
+            { name: "position", label: "Position", type: "select", options: ["Young Professional Program (YPP)", "Guest Relations Executive", "Other"], required: true },
+            { name: "message", label: "Cover Note", type: "textarea" },
+            { name: "cv", label: "Upload Profile / CV", type: "file", required: true, full: true },
+          ],
+        },
+      },
     ],
   },
   "/contact-us": {
@@ -410,6 +478,20 @@ export const SITE_PAGES: Record<string, SitePage> = {
           { title: "Bengaluru Campus", text: "WeSchool Bengaluru Campus.", href: "/campuses/bengaluru" },
           { title: "Enquiry Form", text: "Send us your query and we'll get back to you.", href: "/enquire-now" },
         ],
+      },
+      {
+        form: {
+          name: "contact",
+          heading: "Send Us a Message",
+          tint: "cream",
+          fields: [
+            { name: "name", label: "Full Name", type: "text", required: true },
+            { name: "email", label: "Email", type: "email", required: true },
+            { name: "phone", label: "Phone", type: "tel" },
+            { name: "subject", label: "Subject", type: "text" },
+            { name: "message", label: "Message", type: "textarea", required: true },
+          ],
+        },
       },
     ],
   },
@@ -481,7 +563,32 @@ export const SITE_PAGES: Record<string, SitePage> = {
   // ---- Forms / CTAs ----
   "/apply": simple("Apply to WeSchool", "Start your application to a WeSchool programme.", ["Home", "/"], [{ heading: "Ready to Apply?", tint: "cream", cards: [{ title: "Browse Programmes", text: "Find the right programme for you.", href: "/programmes" }, { title: "Check Eligibility", text: "Admissions criteria and process.", href: "/admissions" }] }], HERO.people, "orange"),
   "/brochure": simple("Download Brochure", "Get the latest WeSchool programme brochure.", ["Home", "/"], undefined, HERO.office, "orange"),
-  "/enquire-now": simple("Enquiry Form", "Send us your query — our team will get back to you shortly.", ["Home", "/"], undefined, HERO.office, "orange"),
+  "/enquire-now": {
+    title: "Enquiry Form",
+    subtitle: "Send us your query — our team will get back to you shortly.",
+    image: HERO.office,
+    accent: "orange",
+    breadcrumbs: crumbs(["Home", "/"], ["Enquiry Form"]),
+    sections: [
+      {
+        form: {
+          name: "enquiry",
+          heading: "Enquire Now",
+          description: "Fill in your details and the programme you're interested in.",
+          submitLabel: "Submit Enquiry",
+          fields: [
+            { name: "name", label: "Name", type: "text", required: true },
+            { name: "mobile", label: "Mobile Number", type: "tel", required: true },
+            { name: "email", label: "Email ID", type: "email", required: true },
+            { name: "organisation", label: "Organisation", type: "text" },
+            { name: "designation", label: "Designation", type: "text" },
+            { name: "qualification", label: "Qualification", type: "text" },
+            { name: "program", label: "Enquiring for which program?", type: "select", options: ["PGDM", "PGDM E-Business", "PGDM Business Design", "PGDM Healthcare", "PGDM Retail", "PGDM Rural", "PGDM Media & Entertainment", "PGDM Research & Business Analytics", "MMS", "Executive / MDP", "Other"], required: true, full: true },
+          ],
+        },
+      },
+    ],
+  },
 
   // ---- Life @ WeSchool campus variants ----
   "/life-at-weschool/bengaluru": {
@@ -547,6 +654,14 @@ export const SITE_PAGES: Record<string, SitePage> = {
     sections: [{ heading: "Services", cardColumns: 3, cards: [{ title: "Catalogue & Reservations", text: "Search the collection and reserve titles.", href: "/library" }, { title: "E-Journals & Databases", text: "Online access to leading journals and databases.", href: "/library" }, { title: "My Loft — Remote Access", text: "Access library resources remotely.", href: "/library" }] }],
   },
   "/tenders": simple("Tenders", "Current tenders and procurement notices from WeSchool.", ["Home", "/"], undefined, HERO.office),
+  "/form-success": {
+    title: "Thank You!",
+    subtitle: "Your submission has been received. Our team will get back to you shortly.",
+    image: HERO.office,
+    accent: "orange",
+    breadcrumbs: crumbs(["Home", "/"], ["Thank You"]),
+    sections: [{ heading: "What happens next?", align: "center", paragraphs: ["We've received your details and a member of our team will be in touch soon. In the meantime, feel free to explore our programmes and campuses."], cards: [{ title: "Explore Programmes", text: "Browse our full range of programmes.", href: "/programmes" }, { title: "Visit a Campus", text: "Mumbai & Bengaluru campuses.", href: "/campuses" }] }],
+  },
   "/site-map": {
     title: "Site Map",
     subtitle: "Every page on the WeSchool website, in one place.",
