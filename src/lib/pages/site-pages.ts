@@ -552,6 +552,36 @@ export const SITE_PAGES: Record<string, SitePage> = {
       { heading: "Visit Us", paragraphs: ["A campus is hard to judge from a website. Visit one. Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019 · 022-2419-8300."] },
     ],
   },
+  "/weexcel": {
+    title: "WeExcel",
+    subtitle: "The student excellence hub — cells, activities, logins and resources across our campuses.",
+    image: HERO.people,
+    breadcrumbs: crumbs(["Home", "/"], ["WeExcel"]),
+    sections: [
+      { heading: "Student Life & Services", paragraphs: ["WeExcel brings together student cells and activities, logins, examinations, galleries, events and blogs for each campus and programme."] },
+      {
+        heading: "By Campus / Programme",
+        tint: "cream",
+        cards: [
+          { title: "Mumbai", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campuses/mumbai" },
+          { title: "Bengaluru", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campuses/bengaluru" },
+          { title: "MMS", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/programmes/mms" },
+        ],
+      },
+      {
+        heading: "Student Resources",
+        cardColumns: 3,
+        cards: [
+          { title: "Attendance, Timetable & Fees", text: "Academic records and payments.", href: "/weexcel" },
+          { title: "Course Material", text: "Material and assignment submissions.", href: "/weexcel" },
+          { title: "Library Catalogue", text: "Catalogue, reservations, e-journals.", href: "/library" },
+          { title: "Examination", text: "Calendar, hall tickets, results and re-evaluation.", href: "/weexcel" },
+          { title: "Placements", text: "Company listings and application tracking.", href: "/corporate-interface" },
+          { title: "Gallery", text: "Photos from across campus life.", href: "/media/videos" },
+        ],
+      },
+    ],
+  },
   "/we-conference": {
     title: "We Conference",
     subtitle: "Our world is at a breaking point, facing massive changes — from politics and fast-moving technology to climate change. These are complex, interconnected challenges, and this conference brings minds together to respond.",

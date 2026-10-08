@@ -34,6 +34,8 @@ export const PROGRAMMES: ProgrammeMeta[] = [
   { slug: "mdp", title: "Management Development Programmes (MDP)", category: "Executive & Certificate", intake: "Corporates", duration: "Varies", summary: "Custom and open-enrolment programmes for corporate learning and leadership development." },
   { slug: "foreign-trade-management", title: "Foreign Trade Management", category: "Executive & Certificate", intake: "Open", duration: "1 Year", summary: "Specialised training in international trade, export-import operations and global business." },
   { slug: "jewellery-design-business-management", title: "Jewellery Design & Business Management", category: "Executive & Certificate", intake: "Open", duration: "1 Year", summary: "A unique programme blending jewellery design craft with business and brand management." },
+  { slug: "pgptm", title: "PGPTM (Post Graduate Programme in Technology Management)", category: "Post Graduate", intake: "Working Professionals", duration: "2 Years", summary: "A programme for technology professionals blending management with technology leadership." },
+  { slug: "dlp", title: "Distance Learning Programme (DLP)", category: "Executive & Certificate", intake: "Open", duration: "Flexible", summary: "Flexible distance-learning management programmes for learners anywhere." },
 ];
 
 export function getProgramme(slug: string): ProgrammeMeta | undefined {

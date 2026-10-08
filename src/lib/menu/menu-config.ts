@@ -103,6 +103,53 @@ export const MAIN_NAV: MainNavItem[] = [
       columns: [
         { heading: "Full-Time Programmes — Mumbai", headingHref: "/campuses/mumbai", links: FULL_TIME_PGDM },
         { heading: "Full-Time Programmes — Bengaluru", headingHref: "/campuses/bengaluru", links: FULL_TIME_PGDM_BLR },
+        {
+          heading: "Explore Campus",
+          links: [
+            { label: "Life @ WeSchool", href: "/life-at-weschool" },
+            { label: "WeExcel", href: "/weexcel" },
+            { label: "Faculty", href: "/about-us/faculty" },
+            { label: "Corporate Interface", href: "/corporate-interface" },
+            { label: "Infrastructure & Accommodation", href: "/life-at-weschool" },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    id: "admissions",
+    label: "Admissions",
+    href: "/admissions",
+    panel: {
+      columns: [
+        {
+          heading: "Apply",
+          headingHref: "/admissions",
+          links: [
+            { label: "How to Apply", href: "/admissions" },
+            { label: "Eligibility & Cut-offs", href: "/admissions" },
+            { label: "Apply Now", href: "/apply" },
+            { label: "Enquire Now", href: "/enquire-now" },
+          ],
+        },
+        {
+          heading: "Fees & Support",
+          links: [
+            { label: "Fees & EMI", href: "/programmes/pgdm" },
+            { label: "TFW Scheme", href: "/admissions" },
+            { label: "Scholarships", href: "/admissions" },
+            { label: "Financial Assistance", href: "/admissions" },
+          ],
+        },
+        {
+          heading: "Programmes",
+          links: [
+            { label: "PGDM", href: "/programmes/pgdm" },
+            { label: "MMS", href: "/programmes/mms" },
+            { label: "PhD", href: "/programmes/phd" },
+            { label: "Executive & MDP", href: "/programmes/mdp" },
+          ],
+        },
       ],
     },
   },
@@ -119,6 +166,7 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "MMS", href: "/programmes/mms" },
             { label: "PhD", href: "/programmes/phd" },
             { label: "PGDM Hybrid", href: "/programmes/pgdm-hybrid" },
+            { label: "PGPTM", href: "/programmes/pgptm" },
           ],
         },
         {
@@ -128,6 +176,7 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "PGP in Entrepreneurship & FMB (EFMB)", href: "/programmes/efmb" },
             { label: "PGP in Media & Entertainment", href: "/programmes/pgp-media" },
             { label: "6-month Certificate Program", href: "/programmes/certificate" },
+            { label: "Distance Learning Programme (DLP)", href: "/programmes/dlp" },
             { label: "MDP", href: "/programmes/mdp" },
             { label: "MDC — Executive Education", href: "/mdc" },
           ],
@@ -216,6 +265,7 @@ export const MAIN_NAV: MainNavItem[] = [
 export const UTILITY_NAV: MegaLink[] = [
   { label: "WeGlobal", href: "/weglobal" },
   { label: "Blogs", href: "/blogs" },
+  { label: "Alumni", href: "/alumni" },
   { label: "Events", href: "/events" },
   { label: "Media", href: "/media" },
   { label: "Careers", href: "/careers" },
