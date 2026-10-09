@@ -5,10 +5,11 @@ import styles from "./SiteForm.module.scss";
 export type FormField = {
   name: string;
   label: string;
-  type: "text" | "email" | "tel" | "textarea" | "select" | "file";
+  type: "text" | "email" | "tel" | "textarea" | "select" | "file" | "date" | "number" | "radio";
   options?: string[];
   required?: boolean;
   full?: boolean;
+  note?: string;
 };
 
 export type FormConfig = {
@@ -96,6 +97,22 @@ export function SiteForm({ config }: { config: FormConfig }) {
                       </option>
                     ))}
                   </select>
+                ) : field.type === "radio" ? (
+                  <div className={styles.radioRow}>
+                    {field.options?.map((opt, i) => (
+                      <label
+                        key={opt}
+                        className={styles.radioOption}>
+                        <input
+                          type="radio"
+                          name={field.name}
+                          value={opt}
+                          required={field.required && i === 0}
+                        />
+                        {opt}
+                      </label>
+                    ))}
+                  </div>
                 ) : (
                   <input
                     id={`f-${field.name}`}
@@ -105,6 +122,7 @@ export function SiteForm({ config }: { config: FormConfig }) {
                     className={clsx(styles.input, field.type === "file" && styles.fileInput)}
                   />
                 )}
+                {field.note ? <span className={styles.note}>{field.note}</span> : null}
               </div>
             ))}
           </div>
