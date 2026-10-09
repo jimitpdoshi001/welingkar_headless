@@ -1,0 +1,40 @@
+@use "../../styles/base/mixins" as *;
+
+.crumbWrap { padding-top: 2.4rem; }
+.breadcrumb { font-size: 1.4rem; display: flex; gap: 0.8rem; a { color: var(--color-gray); text-decoration: none; } span { color: var(--color-gray); } }
+
+.rowSection { padding-block: 4rem; @include respond-to(mobile) { padding-block: 2.4rem; } }
+.tinted { background: var(--color-light-yellow); }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.2rem;
+  align-items: stretch;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2rem; }
+}
+.reverse {
+  .image { order: 2; }
+  .card { order: 1; }
+  @include respond-to(mobile) { .image { order: 1; } .card { order: 2; } }
+}
+
+.image { width: 100%; height: 100%; min-height: 36rem; object-fit: cover; border-radius: 2.4rem; }
+
+.card {
+  background: var(--color-light-yellow);
+  border-radius: 2.4rem;
+  padding: 4.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  @include respond-to(mobile) { padding: 2.8rem; }
+}
+.rowSection.tinted .card { background: var(--color-white); }
+
+.title { font-size: 3.2rem; font-weight: 800; margin-bottom: 0.8rem; @include respond-to(mobile) { font-size: 2.4rem; } }
+.eyebrow { font-size: 1.5rem; color: var(--color-gray); margin-bottom: 2rem; }
+.body { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 3rem; }
