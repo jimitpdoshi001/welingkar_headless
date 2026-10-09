@@ -1,0 +1,138 @@
+@use "../../styles/base/mixins" as *;
+
+.block {
+  padding-block: 7rem;
+  @include respond-to(mobile) { padding-block: 4.5rem; }
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 60rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: var(--color-white);
+}
+.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.heroOverlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.1) 100%); }
+.heroInner { position: relative; z-index: 1; padding-block: 6rem; }
+.breadcrumb {
+  font-size: 1.4rem;
+  margin-bottom: 2.4rem;
+  display: flex;
+  gap: 0.8rem;
+  a { color: rgba(255, 255, 255, 0.85); text-decoration: none; }
+  span { color: rgba(255, 255, 255, 0.6); }
+}
+.heroTitle { font-size: 4.4rem; font-weight: 800; line-height: 1.15; max-width: 92rem; margin-bottom: 2rem; @include respond-to(mobile) { font-size: 2.8rem; } }
+.heroBody { font-size: 1.5rem; line-height: 1.7; max-width: 86rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2.8rem; }
+
+/* Headings */
+.heading { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
+.headingLight { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-white); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
+.sectionBody { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin-bottom: 3.6rem; }
+.sectionBodyLight { font-size: 1.5rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); max-width: 96rem; margin-bottom: 3.2rem; }
+
+/* Pills */
+.pills { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+.pill {
+  font-size: 1.4rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 3rem;
+  border: 1px solid var(--color-light-gray);
+  background: var(--color-white);
+  color: var(--color-dark-gray);
+  white-space: nowrap;
+}
+.pillActive { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
+
+/* Generic card bits */
+.cardTop { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
+.tag { font-size: 1.3rem; padding: 0.5rem 1.4rem; border-radius: 3rem; background: var(--color-light-yellow); color: var(--color-dark-gray); white-space: nowrap; }
+.tagOutline { display: inline-block; font-size: 1.3rem; padding: 0.4rem 1.4rem; border-radius: 3rem; border: 1px solid var(--color-light-gray); color: var(--color-gray); margin-bottom: 1.6rem; }
+.year { font-size: 1.4rem; font-weight: 700; color: var(--color-secondary); }
+.cardTitle { font-size: 1.9rem; font-weight: 700; line-height: 1.35; margin-bottom: 1.2rem; }
+.cardAuthors { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.4rem; }
+.cardMeta { font-size: 1.4rem; color: var(--color-gray); margin-bottom: 1.6rem; }
+.cardMetaItalic { font-size: 1.4rem; font-style: italic; color: var(--color-gray); margin-bottom: 1.6rem; }
+.abstract { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); margin-bottom: 1.8rem; }
+
+/* Awarded grid */
+.awardGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+.awardCard { border: 1px solid var(--color-light-gray); border-radius: 2rem; padding: 2.8rem; display: flex; flex-direction: column; align-items: flex-start; }
+.awardBadge {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 1.35rem; color: var(--color-dark-gray);
+  background: var(--color-light-yellow);
+  border-radius: 1.2rem; padding: 1.4rem 1.6rem; margin-bottom: 2rem; width: 100%;
+}
+
+/* All research papers (dark section + panel) */
+.papers { position: relative; overflow: hidden; }
+.papersBg { position: absolute; inset: 0; width: 100%; height: 44rem; object-fit: cover; }
+.papersOverlay { position: absolute; inset: 0; height: 44rem; background: rgba(0, 0, 0, 0.6); }
+.papersInner { position: relative; z-index: 1; padding-top: 6rem; padding-bottom: 7rem; color: var(--color-white); }
+.papersPanel { background: var(--color-white); border-radius: 2.4rem; padding: 3.2rem; box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.15); }
+.searchRow { display: flex; gap: 1.6rem; margin-bottom: 2rem; @include respond-to(mobile) { flex-wrap: wrap; } }
+.search { flex: 1; min-width: 0; border: 1px solid var(--color-light-gray); border-radius: 3rem; padding: 1.2rem 2rem; font-size: 1.4rem; &:focus { outline: none; border-color: var(--color-primary); } }
+.select { border: 1px solid var(--color-light-gray); border-radius: 3rem; padding: 1.2rem 2rem; font-size: 1.4rem; color: var(--color-dark-gray); white-space: nowrap; }
+.paperList { margin-top: 2.4rem; display: flex; flex-direction: column; }
+.paperItem { padding: 2.8rem 0; border-top: 1px solid var(--color-light-gray); display: flex; flex-direction: column; align-items: flex-start; &:first-child { border-top: 0; } }
+.paperTitle { font-size: 1.9rem; font-weight: 700; line-height: 1.35; margin-bottom: 1rem; }
+
+/* Horizontal scroll rows (books / cases) */
+.scrollRow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(32rem, 1fr);
+  gap: 2.4rem;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+  scroll-snap-type: x mandatory;
+  &::-webkit-scrollbar { height: 6px; }
+  &::-webkit-scrollbar-thumb { background: var(--color-light-gray); border-radius: 3px; }
+  @include respond-to(mobile) { grid-auto-columns: 86%; }
+}
+.bookCard { scroll-snap-align: start; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 2rem; padding: 2.4rem; color: var(--color-white); display: flex; flex-direction: column; .cardTitle { color: var(--color-white); } .cardAuthors { color: rgba(255, 255, 255, 0.9); } .cardMetaItalic { color: rgba(255, 255, 255, 0.7); } .year { color: var(--color-white); } .tagOutline { color: rgba(255, 255, 255, 0.85); border-color: rgba(255, 255, 255, 0.4); } }
+.bookFoot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 1.6rem; }
+.caseCard { scroll-snap-align: start; border: 1px solid var(--color-light-gray); border-radius: 2rem; padding: 2.4rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; .year { margin-bottom: 0.8rem; } .tag { margin-bottom: 1.2rem; } }
+
+/* Magazine (dark image bg) */
+.magazine { position: relative; overflow: hidden; color: var(--color-white); }
+.magazineBg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.magazineOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.55) 40%, rgba(0, 0, 0, 0.75) 100%); }
+.magazineInner { position: relative; z-index: 1; padding-block: 7rem; }
+.magazineGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+.magazineCard { background: var(--color-white); color: var(--color-black); border-radius: 1.6rem; padding: 2.4rem; .cardMetaItalic { margin-bottom: 1rem; } }
+.readLink { font-size: 1.4rem; font-weight: 600; color: var(--color-primary); text-decoration: none; &:hover { text-decoration: underline; } }
+
+/* Conference list */
+.confList { display: flex; flex-direction: column; }
+.confItem { display: flex; align-items: center; justify-content: space-between; gap: 2.4rem; padding: 2.6rem 0; border-top: 1px solid var(--color-light-gray); &:first-child { border-top: 0; } @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 1.6rem; } }
+.confTitle { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; }
+.confMeta { font-size: 1.4rem; margin-bottom: 0.4rem; strong { font-weight: 700; } em { color: var(--color-gray); margin-left: 0.8rem; } }
+
+/* Aweshkar journal */
+.journalTop { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: center; margin-bottom: 4rem; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
+.journalImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 10; object-fit: cover; background: var(--color-secondary); }
+.archiveHead { display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; margin-bottom: 2.4rem; }
+.archiveHeading { font-size: 2.2rem; font-weight: 700; }
+.readLinkDark { font-size: 1.4rem; font-weight: 600; color: var(--color-primary); text-decoration: underline; }
+.issueRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
+.issueCard {
+  position: relative;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 1.6rem;
+  padding: 2.4rem;
+  min-height: 11rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--color-black);
+}
+.issueActive { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
+.issueVol { font-size: 1.3rem; opacity: 0.85; }
+.issueLabel { font-size: 1.9rem; font-weight: 700; }
+.issueTag { font-size: 1.2rem; opacity: 0.9; }
