@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { RegistryPage } from "@/components/shell/RegistryPage";
+import { WeGlobalPage } from "@/components/weglobal/WeGlobalPage";
+import { WEGLOBAL } from "@/lib/weglobal/weglobal-data";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/weglobal");
 
 export default function Page() {
-  return <RegistryPage path="/weglobal" />;
+  return <WeGlobalPage data={WEGLOBAL} />;
 }

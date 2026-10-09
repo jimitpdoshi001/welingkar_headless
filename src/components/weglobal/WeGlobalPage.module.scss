@@ -1,0 +1,61 @@
+@use "../../styles/base/mixins" as *;
+
+.block { padding-block: 6rem; @include respond-to(mobile) { padding-block: 4rem; } }
+
+.heading { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
+.headingLight { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-white); margin-bottom: 2rem; @include respond-to(mobile) { font-size: 2.6rem; } }
+.body { font-size: 1.45rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 1.4rem; }
+.sectionBody { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 90rem; margin-bottom: 3.2rem; }
+
+/* Hero */
+.heroBlock { padding-top: 2.4rem; padding-bottom: 2rem; }
+.breadcrumb { font-size: 1.4rem; margin-bottom: 1.6rem; display: flex; gap: 0.8rem; color: var(--color-gray); a { color: var(--color-gray); text-decoration: none; } }
+.heroImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 7; object-fit: cover; margin-bottom: 3.2rem; }
+.intro { font-size: 3.4rem; font-weight: 800; line-height: 1.3; text-align: center; max-width: 108rem; margin: 2rem auto 3rem; @include respond-to(mobile) { font-size: 2.2rem; } }
+
+/* Alliances */
+.alliances { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: start; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
+.contacts { display: flex; flex-direction: column; gap: 2.4rem; }
+.contactCard {
+  border: 1px solid var(--color-light-gray);
+  border-radius: 2rem;
+  padding: 3.2rem;
+  h3 { font-size: 2rem; font-weight: 700; margin-bottom: 1.6rem; }
+  p { font-size: 1.5rem; margin-bottom: 0.8rem; color: var(--color-dark-gray); strong { color: var(--color-black); } }
+}
+
+/* Card rows */
+.scrollRow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(36rem, 1fr);
+  gap: 2.4rem;
+  overflow-x: auto;
+  padding-bottom: 1.5rem;
+  scroll-snap-type: x mandatory;
+  &::-webkit-scrollbar { height: 6px; }
+  &::-webkit-scrollbar-thumb { background: var(--color-light-gray); border-radius: 3px; }
+  @include respond-to(mobile) { grid-auto-columns: 86%; }
+}
+.card { scroll-snap-align: start; }
+.cardImg { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2rem; margin-bottom: 1.6rem; }
+.cardTitle { font-size: 2rem; font-weight: 700; margin-bottom: 0.8rem; }
+.cardText { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); }
+
+/* Student buddy */
+.buddy { color: var(--color-white); }
+.buddyInner { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; padding-block: 6.5rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; } }
+.buddyBody { font-size: 1.45rem; line-height: 1.7; color: rgba(255,255,255,0.85); }
+.buddyForm { display: flex; flex-direction: column; gap: 1.8rem; }
+.input {
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  border-radius: 1.4rem;
+  padding: 1.6rem 2rem;
+  font-size: 1.5rem;
+  color: var(--color-white);
+  &::placeholder { color: rgba(255,255,255,0.7); }
+  &:focus { outline: none; border-color: var(--color-primary); }
+}
+.checkRow { display: flex; gap: 3.2rem; margin: 0.6rem 0 0.4rem; }
+.check { display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.5rem; cursor: pointer; }
