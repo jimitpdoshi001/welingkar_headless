@@ -78,7 +78,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
         autoplay={{
-          delay: 5000,
+          delay: 8000,
           disableOnInteraction: false,
         }}
         loop={true}
@@ -97,7 +97,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
         <Swiper
           modules={[Thumbs, A11y, Autoplay]}
           autoplay={{
-            delay: 5000,
+            delay: 8000,
             disableOnInteraction: false,
           }}
           onSwiper={setThumbsSwiper}

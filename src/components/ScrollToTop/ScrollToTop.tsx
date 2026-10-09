@@ -1,7 +1,6 @@
 "use client";
 
 import style from "./ScrollToTop.module.scss";
-import { ArrowUp } from "@/assets/svg/Arrows";
 import { Whatsapp, Share } from "@/assets/svg/Icons";
 import Link from "next/link";
 import { useMediaQuery } from "@/util/useMediaQuery";
@@ -10,13 +9,6 @@ const ScrollToTop = () => {
   // Tablet and below use the full-width bottom "Enquire Now" bar instead of the
   // vertical side button, so the floating rail stays clear of page content.
   const isCompact = useMediaQuery("(max-width: 1023px)");
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   const contactWhatsapp = () => {
     window.location.href = "https://wa.me/919876543210";
@@ -54,13 +46,6 @@ const ScrollToTop = () => {
           onClick={sharePage}
           aria-label="Share page">
           <Share />
-        </div>
-
-        <div
-          className={style.scrollToTop}
-          onClick={scrollToTop}
-          aria-label="Skip to top">
-          <ArrowUp />
         </div>
 
         <div

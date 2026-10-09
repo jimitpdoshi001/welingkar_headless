@@ -41,9 +41,16 @@ const LENGTH = [/^(?:0|\d+(?:\.\d+)?)(?:px|%|em|rem)$/];
 
 const BOX = [/^(?:0|\d+(?:\.\d+)?(?:px|%|em|rem))(?:\s+(?:0|\d+(?:\.\d+)?(?:px|%|em|rem))){0,3}$/];
 
+/** Normalise the city name to the preferred "Bengaluru" spelling in CMS text. */
+function normalizeCityNames(html: string): string {
+  // Only replace the standalone word (not inside URLs/attributes like /bangalore-campus).
+  return html.replace(/\bBanga?lore\b/gi, "Bengaluru");
+}
+
 /** Strip scripts, event handlers, and unsafe URLs from CMS HTML. */
 export function sanitizeCmsHtml(html: string): string {
-  return sanitizeHtml(html, {
+  return normalizeCityNames(
+    sanitizeHtml(html, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "iframe", "picture", "video", "source", "figcaption", "figure"]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
@@ -111,7 +118,8 @@ export function sanitizeCmsHtml(html: string): string {
         return { tagName, attribs: next };
       },
     },
-  });
+    }),
+  );
 }
 
 /** Drop CSS constructs that can execute script or pull in remote stylesheets. */
