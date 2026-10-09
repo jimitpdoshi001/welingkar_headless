@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { RegistryPage } from "@/components/shell/RegistryPage";
+import { LifePage } from "@/components/life/LifePage";
+import { LIFE } from "@/lib/life/life-data";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/life-at-weschool");
 
 export default function Page() {
-  return <RegistryPage path="/life-at-weschool" />;
+  return <LifePage data={LIFE} />;
 }

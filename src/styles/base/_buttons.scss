@@ -100,6 +100,18 @@
     }
   }
 
+  // White outline for use on dark / image backgrounds.
+  &.accent-outline-light {
+    background-color: unset;
+    color: var(--color-white);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      background-color: var(--color-white);
+      color: var(--color-black);
+    }
+  }
+
   &.link {
     background-color: unset;
     color: var(--color-primary);
