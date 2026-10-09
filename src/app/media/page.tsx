@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { RegistryPage } from "@/components/shell/RegistryPage";
+import { MediaGridPage } from "@/components/medialist/MediaGridPage";
+import { MEDIA_PAGE } from "@/lib/medialist/media-data";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/media");
 
 export default function Page() {
-  return <RegistryPage path="/media" />;
+  return <MediaGridPage data={MEDIA_PAGE} />;
 }
