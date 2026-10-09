@@ -75,6 +75,88 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
+          <section className={`container ${styles.block} ${styles.accred}`}>
+            <h2 className={styles.sectionHeading}>{data.accreditations.heading}</h2>
+            <div className={styles.accredLogos}>
+              {data.accreditations.logos.map((l) => (
+                <img
+                  key={l.name}
+                  src={l.image}
+                  alt={l.name}
+                  className={styles.accredLogo}
+                />
+              ))}
+            </div>
+            <ul className={styles.accredPoints}>
+              {data.accreditations.points.map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="bg-light-yellow">
+            <div className={`container ${styles.block}`}>
+              <h2 className={styles.sectionHeading}>{data.director.heading}</h2>
+              <div className={styles.director}>
+                <img
+                  src={data.director.image}
+                  alt={data.director.name}
+                  className={styles.directorImage}
+                />
+                <div className={styles.directorText}>
+                  <h3 className={styles.directorName}>{data.director.name}</h3>
+                  <p className={styles.directorRole}>{data.director.title}</p>
+                  <p className={styles.directorBody}>{data.director.body}</p>
+                  <Link
+                    href={data.director.cta.href}
+                    className="btn accent">
+                    {data.director.cta.label}
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className={`container ${styles.block}`}>
+            <h2 className={styles.sectionHeading}>{data.mentors.heading}</h2>
+            <div className={styles.mentorsBar}>
+              <div className={styles.mentorTabs}>
+                {data.mentors.tabs.map((t, i) => (
+                  <span
+                    key={t}
+                    className={`${styles.mentorTab} ${i === 2 ? styles.mentorTabActive : ""}`}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <Link
+                href={data.mentors.cta.href}
+                className="btn accent">
+                {data.mentors.cta.label}
+              </Link>
+            </div>
+            <div className={styles.mentorGrid}>
+              {data.mentors.people.map((p) => (
+                <article
+                  key={p.id}
+                  className={styles.mentorCard}>
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className={styles.mentorImage}
+                  />
+                  <h4 className={styles.mentorName}>{p.name}</h4>
+                  <p className={styles.mentorRole}>{p.title}</p>
+                  <Link
+                    href={data.mentors.cta.href}
+                    className={styles.mentorLink}>
+                    Read More
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </section>
+
           <section
             id="faculty"
             className="bg-light-yellow">
@@ -143,6 +225,30 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
+          <section className={`container ${styles.block} ${styles.weresearch}`}>
+            <h2 className={styles.sectionHeadingCenter}>{data.weresearch.heading}</h2>
+            <p className={styles.weresearchBody}>{data.weresearch.description}</p>
+            <Link
+              href={data.weresearch.cta.href}
+              className="btn accent">
+              {data.weresearch.cta.label}
+            </Link>
+            <img
+              src={data.weresearch.image}
+              alt=""
+              className={styles.weresearchImage}
+            />
+          </section>
+
+          <section className={`container ${styles.block}`}>
+            <h2 className={styles.sectionHeading}>{data.world.heading}</h2>
+            <img
+              src={data.world.image}
+              alt=""
+              className={styles.worldImage}
+            />
+          </section>
+
           <section
             id="life"
             className={styles.life}>
@@ -174,6 +280,122 @@ export function CampusPage({ data }: { data: CampusData }) {
                 description={data.infrastructure.description}
                 cards={data.infrastructure.cards}
                 theme="onDark"
+              />
+            </div>
+          </section>
+
+          <section className={`container ${styles.block}`}>
+            <CardCarousel
+              heading={data.accommodation.heading}
+              description={data.accommodation.description}
+              cards={data.accommodation.cards}
+              theme="light"
+              overlayCaption
+            />
+          </section>
+
+          <section className={`container ${styles.block}`}>
+            <div className={styles.rowHead}>
+              <h2 className={styles.sectionHeading}>{data.moments.heading}</h2>
+              <Link
+                href={data.moments.cta.href}
+                className="btn accent">
+                {data.moments.cta.label}
+              </Link>
+            </div>
+            <div className={styles.momentsGrid}>
+              {data.moments.images.map((m, i) => (
+                <div
+                  key={m.id}
+                  className={`${styles.momentItem} ${styles[`moment${i + 1}`]}`}>
+                  <img
+                    src={m.image}
+                    alt=""
+                  />
+                  {m.video && <span className={styles.playBadge} />}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className={`container ${styles.block}`}>
+            <div className={styles.rowHead}>
+              <h2 className={styles.sectionHeading}>{data.news.heading}</h2>
+              <Link
+                href={data.news.cta.href}
+                className="btn accent">
+                {data.news.cta.label}
+              </Link>
+            </div>
+            <div className={styles.newsGrid}>
+              <article className={styles.newsFeature}>
+                <img
+                  src={data.news.items[0].image}
+                  alt=""
+                />
+                <div className={styles.newsFeatureCard}>
+                  <h3>{data.news.items[0].title}</h3>
+                  <p className={styles.newsDate}>{data.news.items[0].date}</p>
+                </div>
+              </article>
+              <div className={styles.newsSide}>
+                {data.news.items.slice(1).map((n) => (
+                  <article
+                    key={n.id}
+                    className={styles.newsSmall}>
+                    <img
+                      src={n.image}
+                      alt=""
+                    />
+                    <div className={styles.newsSmallBody}>
+                      <h4>{n.title}</h4>
+                      <p className={styles.newsDate}>{n.date}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className={`container ${styles.block}`}>
+            <div className={styles.connectGrid}>
+              <div>
+                <h2 className={styles.sectionHeading}>{data.connect.heading}</h2>
+                <p className={styles.connectAddr}>Address: {data.connect.address}</p>
+                <p className={styles.connectPhone}>{data.connect.phone}</p>
+                <h3 className={styles.connectFormHeading}>Contact form</h3>
+                <form className={styles.connectForm}>
+                  <div className={styles.formRow}>
+                    <input
+                      type="text"
+                      placeholder="Name*"
+                      className={styles.input}
+                      aria-label="Name"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email*"
+                      className={styles.input}
+                      aria-label="Email"
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Message*"
+                    className={styles.input}
+                    aria-label="Message"
+                  />
+                  <button
+                    type="submit"
+                    className="btn accent">
+                    Submit
+                  </button>
+                </form>
+              </div>
+              <img
+                src={data.connect.mapImage}
+                alt={`${data.campus} campus location map`}
+                className={styles.map}
               />
             </div>
           </section>

@@ -270,3 +270,198 @@
 }
 
 .lifeBody { font-size: 1.5rem; line-height: 1.7; margin-bottom: 2rem; }
+
+/* ---- Added sections (Figma match) ---- */
+
+.sectionHeading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-black);
+  margin-bottom: 3.2rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; margin-bottom: 2.4rem; }
+}
+
+.sectionHeadingCenter {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-black);
+  text-align: center;
+  margin-bottom: 1.6rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+.rowHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+
+  .sectionHeading { margin-bottom: 0; }
+
+  @include respond-to(mobile) { flex-wrap: wrap; gap: 1.6rem; }
+}
+
+/* Accreditations */
+.accredLogos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4rem;
+  margin-bottom: 3.2rem;
+}
+.accredLogo { height: 7rem; width: auto; object-fit: contain; }
+.accredPoints {
+  list-style: disc;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  li { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); &::marker { color: var(--color-primary); } }
+}
+
+/* Director's Desk */
+.director {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 4.8rem;
+  align-items: center;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
+}
+.directorImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 4 / 4.2; object-fit: cover; }
+.directorName { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+.directorRole { font-size: 1.6rem; color: var(--color-gray); margin-bottom: 2rem; }
+.directorBody { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 2.4rem; }
+
+/* Mentors grid */
+.mentorsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+  flex-wrap: wrap;
+}
+.mentorTabs { display: flex; flex-wrap: wrap; gap: 3.2rem; }
+.mentorTab { font-size: 1.8rem; color: var(--color-gray); cursor: pointer; position: relative; padding-bottom: 0.6rem; }
+.mentorTabActive {
+  color: var(--faculty-accent, var(--color-primary));
+  font-weight: 700;
+  &::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--faculty-accent, var(--color-primary)); }
+}
+.mentorGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2.4rem;
+
+  @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); }
+  @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+}
+.mentorCard { display: flex; flex-direction: column; }
+.mentorImage { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
+.mentorName { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
+.mentorRole { font-size: 1.3rem; color: var(--color-gray); line-height: 1.4; margin-bottom: 0.8rem; }
+.mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
+
+/* WeResearch commitment */
+.weresearch { text-align: center; }
+.weresearchBody { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 72rem; margin: 0 auto 2.4rem; }
+.weresearchImage { width: 100%; border-radius: 2.4rem; margin-top: 3.2rem; aspect-ratio: 16 / 7; object-fit: cover; }
+
+/* World of WeSchool */
+.worldImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 6; object-fit: cover; }
+
+/* Candid moments */
+.momentsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  aspect-ratio: 16 / 9;
+
+  @include respond-to(mobile) { display: flex; flex-direction: column; aspect-ratio: auto; }
+}
+.momentItem {
+  position: relative;
+  border-radius: 2.4rem;
+  overflow: hidden;
+  img { width: 100%; height: 100%; object-fit: cover; }
+
+  @include respond-to(mobile) { aspect-ratio: 16 / 10; }
+}
+.moment1 { grid-column: 1 / 2; grid-row: 1 / 3; }
+.moment2 { grid-column: 2 / 4; grid-row: 1 / 2; }
+.moment3 { grid-column: 2 / 3; grid-row: 2 / 3; }
+.moment4 { grid-column: 3 / 4; grid-row: 2 / 3; }
+.playBadge {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5.6rem; height: 5.6rem;
+  border-radius: 50%;
+  background: var(--faculty-accent, var(--color-primary));
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.9rem 0 0.9rem 1.4rem; border-color: transparent transparent transparent #fff; }
+}
+
+/* What's New */
+.newsGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2.4rem;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+.newsFeature { position: relative; border-radius: 2.4rem; overflow: hidden; min-height: 42rem; img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; } }
+.newsFeatureCard {
+  position: absolute;
+  left: 2rem; right: 2rem; bottom: 2rem;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  h3 { font-size: 1.9rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.8rem; }
+}
+.newsSide { display: flex; flex-direction: column; gap: 2.4rem; }
+.newsSmall {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 1.6rem;
+  background: var(--color-white);
+  border-radius: 1.6rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  img { width: 100%; height: 100%; object-fit: cover; min-height: 14rem; }
+}
+.newsSmallBody { padding: 1.6rem 1.6rem 1.6rem 0; h4 { font-size: 1.5rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.8rem; } }
+.newsDate { font-size: 1.3rem; color: var(--color-gray); }
+
+/* Connect */
+.connectGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4.8rem;
+  align-items: start;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; }
+}
+.connectAddr { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; margin-bottom: 1.2rem; }
+.connectPhone { font-size: 1.6rem; color: var(--color-dark-gray); margin-bottom: 3.2rem; }
+.connectFormHeading { font-size: 2rem; font-weight: 700; margin-bottom: 2.4rem; }
+.connectForm { display: flex; flex-direction: column; gap: 2.8rem; max-width: 56rem; button { align-self: flex-start; } }
+.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 2.8rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+.input {
+  border: 0;
+  border-bottom: 1px solid var(--color-gray);
+  padding: 0.8rem 0;
+  font-size: 1.5rem;
+  background: transparent;
+  width: 100%;
+  &:focus { outline: none; border-bottom-color: var(--faculty-accent, var(--color-primary)); }
+}
+.map { width: 100%; border-radius: 2.4rem; aspect-ratio: 1 / 0.82; object-fit: cover; }
