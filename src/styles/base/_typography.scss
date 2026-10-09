@@ -17,7 +17,7 @@
   font-weight: 700;
 }
 .extrabold {
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .italic {
@@ -60,7 +60,8 @@ h4,
 h5,
 h6 {
   line-height: 1.3;
-  font-weight: 700;
+  // Figma section headings are DM Sans ExtraBold (800).
+  font-weight: 800;
   text-wrap: pretty;
 }
 

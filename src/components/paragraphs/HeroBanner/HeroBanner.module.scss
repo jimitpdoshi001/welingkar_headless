@@ -34,12 +34,17 @@
 }
 
 .content {
+  // Figma: hero copy sits in the lower-left, just above the thumbnail rail.
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 18rem;
   left: 5%;
   z-index: 2;
   width: min(50rem, 50%);
+
+  @include respond-to(mobile) {
+    bottom: 13rem;
+    width: 90%;
+  }
 }
 
 .thumbsWrap {

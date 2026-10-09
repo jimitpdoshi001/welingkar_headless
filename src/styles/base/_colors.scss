@@ -43,3 +43,38 @@
 .bg-light-yellow {
   background-color: var(--color-light-yellow);
 }
+
+// Readability scrim for Section blocks that render text over a background image.
+// The direction/tone is inferred from the content's text colour so the overlay
+// matches the Figma design (dark scrim behind light text, light scrim behind
+// dark text). Sits above the background media/overlay but behind the content.
+section:has([class*="backgroundMedia"]) {
+  &:has(> div .text-white)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -5;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.5) 32%,
+      rgba(0, 0, 0, 0.12) 60%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  &:has(> div .text-black)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -5;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.55) 28%,
+      rgba(255, 255, 255, 0) 55%
+    );
+  }
+}

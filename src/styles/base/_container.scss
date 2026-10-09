@@ -1,9 +1,10 @@
 @use "./mixins" as *;
 
 .container {
-  max-width: 90%;
-  width: 100%;
-  margin: 0 auto;
+  // Figma content width is 1240px on the 1440 artboard (100px gutters).
+  // Cap at 124rem and keep a consistent gutter on smaller screens.
+  width: min(100% - 4rem, 124rem);
+  margin-inline: auto;
 }
 
 .container-w80 {

@@ -12,6 +12,9 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
   const description = paragraph.attributes.field_description?.processed || null;
   const hasMedia = Boolean(responsiveMedia || image);
 
+  // Stat-style headers (e.g. "47", "45,000", "358+", "98%") count up on scroll.
+  const isStat = heading ? /^[₹$€]?\d[\d.,\s]*[%+a-zA-Z]{0,4}\+?$/.test(heading.trim()) : false;
+
   return (
     <article className={`${styles.imageBox}`}>
       {hasMedia && (
@@ -38,7 +41,7 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
 
       {(heading || description || children) && (
         <div className={`${styles.body}`}>
-          {heading ? <h1 className={styles.heading}>{heading}</h1> : null}
+          {heading ? <h1 className={isStat ? `${styles.heading} animate-counter` : styles.heading}>{heading}</h1> : null}
 
           {description ? (
             <SafeHtml
