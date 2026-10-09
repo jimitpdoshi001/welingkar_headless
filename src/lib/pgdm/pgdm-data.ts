@@ -54,7 +54,7 @@ export type PgdmCurriculum = {
 
 export type PgdmVisionMission = {
   vision: { heading: string; body: string; images: string[] };
-  mission: { heading: string; lines: string[]; image: string };
+  mission: { heading: string; lines: string[]; images: string[] };
 };
 
 export type PgdmAccordionItem = {
@@ -314,7 +314,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
           "Promote global oriented, critical, innovative thinking and social entrepreneurship",
           "Forge meaningful partnerships with corporates and academia",
         ],
-        image: IMG.study,
+        images: [IMG.study, IMG.group],
       },
     },
     classProfile: {

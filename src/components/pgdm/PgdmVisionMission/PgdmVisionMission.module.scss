@@ -62,18 +62,38 @@
 }
 
 .media {
-  display: flex;
-  gap: 1.6rem;
+  // Figma: a main image with a smaller image overlapping its bottom-left,
+  // protruding toward the text column. Layered, not a flex row.
+  position: relative;
+  width: 100%;
 }
 
 .image {
+  display: block;
   width: 100%;
   border-radius: 2rem;
   object-fit: cover;
   aspect-ratio: 4 / 3;
 
   &:nth-child(2) {
-    width: 45%;
-    align-self: flex-end;
+    position: absolute;
+    left: -6rem;
+    bottom: -3rem;
+    width: 42%;
+    border: 5px solid var(--color-secondary);
+    border-radius: 1.6rem;
+    box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.28);
+  }
+
+  @include respond-to(mobile) {
+    &:nth-child(2) {
+      position: relative;
+      left: 0;
+      bottom: 0;
+      width: 55%;
+      margin-top: -3rem;
+      margin-left: auto;
+      border-width: 4px;
+    }
   }
 }

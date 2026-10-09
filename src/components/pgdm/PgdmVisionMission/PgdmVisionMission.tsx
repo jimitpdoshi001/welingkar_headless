@@ -31,11 +31,14 @@ export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
           </ul>
         </div>
         <div className={styles.media}>
-          <img
-            src={data.mission.image}
-            alt=""
-            className={styles.image}
-          />
+          {data.mission.images.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              className={styles.image}
+            />
+          ))}
         </div>
       </div>
     </div>
