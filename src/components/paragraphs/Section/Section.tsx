@@ -4,7 +4,6 @@ import styles from "./Section.module.scss";
 import clsx from "clsx";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import Image from "next/image";
-import { ArrowDark, ArrowLight } from "@/assets/svg/Arrows";
 import { getAnimationClass } from "@/components/animations/registry";
 
 type SectionProps = {
@@ -117,56 +116,7 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
           style={{ objectFit: "cover" }}
         />
       )}
-      {arrowStyleClass === "arrow-top" && (
-        <div className={styles.arrowTop}>
-          <span className={styles.arrowLight}>
-            <ArrowLight />
-          </span>
-          <span className={styles.arrowDark}>
-            <ArrowDark />
-          </span>
-        </div>
-      )}
-      {arrowStyleClass === "arrow-bottom" && (
-        <div className={styles.arrowDown}>
-          <span className={styles.arrowLight}>
-            <ArrowLight />
-          </span>
-          <span className={styles.arrowDark}>
-            <ArrowDark />
-          </span>
-        </div>
-      )}
-      {arrowStyleClass === "arrow-left" && (
-        <div className={styles.arrowLeft}>
-          <span className={styles.arrowLight}>
-            <ArrowLight />
-          </span>
-          <span className={styles.arrowDark}>
-            <ArrowDark />
-          </span>
-        </div>
-      )}
-      {arrowStyleClass === "arrow-right" && (
-        <div className={styles.arrowRight}>
-          <span className={styles.arrowLight}>
-            <ArrowLight />
-          </span>
-          <span className={styles.arrowDark}>
-            <ArrowDark />
-          </span>
-        </div>
-      )}
-      {arrowStyleClass === "arrow-center" && (
-        <div className={styles.arrowCenter}>
-          <span className={styles.arrowLight}>
-            <ArrowLight />
-          </span>
-          <span className={styles.arrowDark}>
-            <ArrowDark />
-          </span>
-        </div>
-      )}
+      {/* Decorative corner arrows removed — not part of the Figma design. */}
     </section>
   );
 }

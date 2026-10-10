@@ -11,6 +11,7 @@ import type {
   JsonApiResource,
 } from "@/lib/drupal";
 import type { WhatWeOfferItem } from "@/lib/drupal/what-we-offer";
+import { fixCity } from "@/util/city";
 
 import "swiper/css";
 import styles from "./HomeWhatWeOffer.module.scss";
@@ -72,7 +73,7 @@ export function HomeWhatWeOfferClient({
           {showTabs && locations.length > 1 ? (
             <ul className={styles.tabsList} role="tablist">
               {locations.map((loc) => {
-                const label = loc.charAt(0).toUpperCase() + loc.slice(1);
+                const label = fixCity(loc.charAt(0).toUpperCase() + loc.slice(1));
                 const isActive = activeLocation === loc;
 
                 return (
