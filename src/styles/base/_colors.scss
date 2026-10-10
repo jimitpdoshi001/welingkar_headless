@@ -49,6 +49,12 @@
 // matches the Figma design (dark scrim behind light text, light scrim behind
 // dark text). Sits above the background media/overlay but behind the content.
 section:has([class*="backgroundMedia"]) {
+  // Justify the body copy of light-text-over-image sections (e.g. "We are
+  // WeSchool"), per the requested design.
+  &:has(> div .text-white) [class*="descriptionContent"] p {
+    text-align: justify;
+  }
+
   &:has(> div .text-white)::before {
     content: "";
     position: absolute;
