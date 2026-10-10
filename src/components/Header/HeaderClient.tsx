@@ -16,6 +16,7 @@ export function HeaderClient() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openNav, setOpenNav] = useState<string | null>(null);
+  const [openMobileNav, setOpenMobileNav] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pathname = usePathname();
@@ -37,7 +38,10 @@ export function HeaderClient() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const closeMenu = () => setIsMenuOpen(false);
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    setOpenMobileNav(null);
+  };
 
   const openPanel = (id: string) => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -174,15 +178,71 @@ export function HeaderClient() {
         {isMobile && (
           <nav className={`${styles.mobileMenu} ${styles.stickyMobileMenu} ${isMenuOpen ? styles.mobileMenuOpen : ""}`}>
             <div className={styles.mobileMenuInner}>
-              {MAIN_NAV.map((item) => (
-                <Link
-                  className={styles.mobileNavItem}
-                  key={item.id}
-                  href={item.href}
-                  onClick={closeMenu}>
-                  {item.label}
-                </Link>
-              ))}
+              {MAIN_NAV.map((item) => {
+                const isOpen = openMobileNav === item.id;
+                if (!item.panel) {
+                  return (
+                    <Link
+                      className={styles.mobileNavItem}
+                      key={item.id}
+                      href={item.href}
+                      onClick={closeMenu}>
+                      {item.label}
+                    </Link>
+                  );
+                }
+                return (
+                  <div
+                    key={item.id}
+                    className={styles.mobileNavGroup}>
+                    <button
+                      type="button"
+                      className={styles.mobileNavItem}
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenMobileNav(isOpen ? null : item.id)}>
+                      {item.label}
+                      <span className={`${styles.mobileCaret} ${isOpen ? styles.mobileCaretOpen : ""}`} aria-hidden="true" />
+                    </button>
+                    {isOpen && (
+                      <div className={styles.mobileSubMenu}>
+                        <Link
+                          className={styles.mobileSubLink}
+                          href={item.href}
+                          onClick={closeMenu}>
+                          {item.label} — Overview
+                        </Link>
+                        {item.panel.intro?.map((intro) =>
+                          intro.href ? (
+                            <Link
+                              key={intro.title}
+                              className={styles.mobileSubLink}
+                              href={intro.href}
+                              onClick={closeMenu}>
+                              {intro.title}
+                            </Link>
+                          ) : null
+                        )}
+                        {item.panel.columns.map((col, ci) => (
+                          <div
+                            key={ci}
+                            className={styles.mobileSubGroup}>
+                            {col.heading ? <span className={styles.mobileSubHeading}>{col.heading}</span> : null}
+                            {col.links.map((link) => (
+                              <Link
+                                key={`${link.href}-${link.label}`}
+                                className={styles.mobileSubLink}
+                                href={link.href}
+                                onClick={closeMenu}>
+                                {link.label}
+                              </Link>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
 
               <div className={styles.mobileDivider} />
 

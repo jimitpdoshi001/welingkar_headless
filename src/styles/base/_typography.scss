@@ -95,6 +95,27 @@ h6 {
   font-weight: 400;
 }
 
+// Scale the large display headings down on mobile so Drupal/content headings
+// are not oversized on small screens.
+@include respond-to(mobile) {
+  .h1,
+  h1 {
+    font-size: 3rem;
+  }
+  .h2,
+  h2 {
+    font-size: 2.6rem;
+  }
+  .h3,
+  h3 {
+    font-size: 2.2rem;
+  }
+  .h4,
+  h4 {
+    font-size: 2rem;
+  }
+}
+
 .p,
 li,
 ul,

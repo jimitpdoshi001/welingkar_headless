@@ -607,9 +607,18 @@
   }
 
   .mobileNavItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
     color: var(--color-white);
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-size: 1.7rem;
+    font-weight: 600;
 
     padding: 1.2rem 1.5rem;
     border-radius: 1rem;
@@ -618,6 +627,58 @@
       background-color 0.3s ease,
       color 0.3s ease;
 
+    &:hover,
+    &:active {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+  }
+
+  .mobileNavGroup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobileCaret {
+    flex-shrink: 0;
+    width: 0;
+    height: 0;
+    margin-left: 1rem;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid currentColor;
+    transition: transform 0.2s ease;
+  }
+  .mobileCaretOpen {
+    transform: rotate(180deg);
+  }
+
+  .mobileSubMenu {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2rem 0 1rem 1.2rem;
+  }
+  .mobileSubGroup {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.6rem;
+  }
+  .mobileSubHeading {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    color: var(--color-gray);
+    padding: 0.6rem 1.5rem 0.2rem;
+  }
+  .mobileSubLink {
+    font-size: 1.45rem;
+    color: #555555;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.8rem;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
     &:hover,
     &:active {
       background-color: var(--color-primary);
