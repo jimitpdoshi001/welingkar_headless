@@ -5,6 +5,7 @@ import styles from "./HeadingAndDescription.module.scss";
 import clsx from "clsx";
 import {useIsMobile} from "@/util/useMediaQuery";
 import { getAnimationClass } from "@/components/animations/registry";
+import { overrideHeading, overrideCmsHtml } from "@/lib/content-overrides";
 
 type HeadingAndDescriptionProps = {
   paragraph: JsonApiResource<"paragraph--header_and_description", HeadingAndDescriptionAttributes>;
@@ -12,8 +13,8 @@ type HeadingAndDescriptionProps = {
 };
 
 export function HeadingAndDescription({ paragraph, children }: HeadingAndDescriptionProps) {
-  const heading = paragraph.attributes.field_header || null;
-  const description = paragraph.attributes.field_description?.processed || null;
+  const heading = overrideHeading(paragraph.attributes.field_header || null);
+  const description = overrideCmsHtml(paragraph.attributes.field_description?.processed || null);
 
   const isMobile = useIsMobile();
 

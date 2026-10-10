@@ -12,6 +12,7 @@ import type {
 } from "@/lib/drupal";
 import type { WhatWeOfferItem } from "@/lib/drupal/what-we-offer";
 import { fixCity } from "@/util/city";
+import { whatWeOfferHeadings } from "@/lib/content-overrides";
 
 import "swiper/css";
 import styles from "./HomeWhatWeOffer.module.scss";
@@ -52,11 +53,18 @@ export function HomeWhatWeOfferClient({
     locations[0] || ""
   );
 
-  const filteredItems = showTabs
+  const baseItems = showTabs
     ? displayItems.filter(
         (item) => !item.location || item.location === activeLocation
       )
     : displayItems;
+
+  // Force the requested card headings per campus until corrected in Drupal.
+  const desiredHeadings = whatWeOfferHeadings(activeLocation);
+  const filteredItems =
+    desiredHeadings && baseItems.length
+      ? desiredHeadings.map((name, i) => ({ ...baseItems[i % baseItems.length], name }))
+      : baseItems;
 
   const handlePrev = () => {
     swiperRef.current?.slidePrev();

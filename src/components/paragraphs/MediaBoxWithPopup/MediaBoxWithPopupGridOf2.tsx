@@ -7,6 +7,7 @@ import type { MediaBoxWithPopupProps } from "./MediaBoxWithPopup";
 import styles from "./MediaBoxWithPopupGridOf2.module.scss";
 import clsx from "clsx";
 import { toSafeEmbedUrl } from "@/lib/security/embed-url";
+import { campusVideoOverride } from "@/lib/content-overrides";
 
 export function PopupPlayer({ media, title, playerClassName }: { media: DrupalMedia; title: string; playerClassName?: string }) {
   const className = playerClassName || styles.player;
@@ -76,7 +77,12 @@ export function PlayIcon() {
 export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveMedia, children }: MediaBoxWithPopupProps) {
   const [open, setOpen] = useState(false);
   const heading = paragraph.attributes.field_header || null;
-  const video = responsiveMedia?.desktop ?? responsiveMedia?.mobile ?? null;
+  const rawVideo = responsiveMedia?.desktop ?? responsiveMedia?.mobile ?? null;
+  // Force the requested campus YouTube videos until they're corrected in Drupal.
+  const videoOverrideUrl = campusVideoOverride(heading);
+  const video: DrupalMedia | null = videoOverrideUrl
+    ? ({ ...(rawVideo ?? {}), kind: "remote_video", url: videoOverrideUrl, alt: rawVideo?.alt ?? heading ?? "" } as DrupalMedia)
+    : rawVideo;
 
   useEffect(() => {
     if (!open) return;
