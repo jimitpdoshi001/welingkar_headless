@@ -155,8 +155,8 @@ $gap: 3rem;
 .arrow {
   position: absolute;
   z-index: 10;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,5 +210,16 @@ $gap: 3rem;
     display: block;
     width: 100%;
     padding-bottom: 10rem;
+  }
+}
+
+// Figma: the "next" arrow is filled green; "previous" stays outlined.
+.arrow.next,
+.arrow.next:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  svg path {
+    fill: var(--color-white);
   }
 }
