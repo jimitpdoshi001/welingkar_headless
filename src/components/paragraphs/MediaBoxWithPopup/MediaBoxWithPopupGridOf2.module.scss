@@ -62,17 +62,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 4rem;
+  border-radius: 2.6rem;
   width: 94%;
   gap: 2rem;
   padding: 2rem;
   padding-left: 4rem;
 
-  // Figma glass bar reads as a bright frosted white (~rgb 180), not a dark tint.
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  // Figma glass bar is a silver/grey frosted gradient (~rgb 220 → 170).
+  background: linear-gradient(120deg, rgba(248, 248, 249, 0.82) 0%, rgba(202, 205, 209, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 
   @include respond-to(mobile) {
     padding: 0.5rem;

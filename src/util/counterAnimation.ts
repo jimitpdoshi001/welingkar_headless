@@ -4,7 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 /** Add this class to an element whose text contains a number. */
 export const COUNTER_ANIMATION_CLASS = "animate-counter";
 
-const DEFAULT_DURATION = 2.4;
+const DEFAULT_DURATION = 3.2;
+// Start the count-up partway to the target (not from 0/1) so the reel travels a
+// shorter distance and the animation reads as smooth rather than a fast spin.
+const START_FRACTION = 0.6;
 const DEFAULT_EASE = "power3.out";
 const DEFAULT_START = "top 85%";
 const REEL_EASE = "transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
@@ -396,14 +399,15 @@ export function initCounterAnimation(
     bound.push(textElement);
 
     const options = readOptions(host);
-    const state = { value: 0 };
+    const startValue = Math.round(parsed.value * START_FRACTION);
+    const state = { value: startValue };
     let reel: CounterReel | null = mountCounterReel(textElement, parsed);
-    let lastValue = 0;
-    paintReel(reel, maskValue(parsed, 0), false);
+    let lastValue = startValue;
+    paintReel(reel, maskValue(parsed, startValue), false);
 
     const tween = gsap.fromTo(
       state,
-      { value: 0 },
+      { value: startValue },
       {
         value: parsed.value,
         duration: options.duration,
@@ -422,8 +426,8 @@ export function initCounterAnimation(
           if (!reel) {
             reel = mountCounterReel(textElement, parsed);
           }
-          lastValue = 0;
-          paintReel(reel, maskValue(parsed, 0), false);
+          lastValue = startValue;
+          paintReel(reel, maskValue(parsed, startValue), false);
         },
         onUpdate: () => {
           if (!reel) return;

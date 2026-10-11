@@ -8,7 +8,6 @@ import { Search, LightMode, DarkMode } from "@/assets/svg/Icons";
 import Link from "next/link";
 import { useIsDesktop } from "@/util/useMediaQuery";
 import { useOptionalSearch } from "@/components/SearchOverlay/search-context";
-import { ArrowDown } from "@/assets/svg/Arrows";
 import { MAIN_NAV, UTILITY_NAV } from "@/lib/menu/menu-config";
 import { MegaMenu } from "./MegaMenu/MegaMenu";
 
@@ -89,10 +88,11 @@ export function HeaderClient() {
               aria-expanded={item.panel ? item.id === openNav : undefined}>
               <span>{item.label}</span>
               {withCaret && item.panel ? (
-                <ArrowDown
-                  width={10}
-                  height={6}
-                />
+                <span
+                  className={styles.navPlus}
+                  aria-hidden="true">
+                  +
+                </span>
               ) : null}
             </Link>
           </div>
@@ -318,7 +318,7 @@ export function HeaderClient() {
             </div>
 
             <div className={styles.headerRow2}>
-              <nav className={styles.navItems}>{renderDesktopNav(styles.navItem, false)}</nav>
+              <nav className={styles.navItems}>{renderDesktopNav(styles.navItem, true)}</nav>
 
               <button
                 type="button"

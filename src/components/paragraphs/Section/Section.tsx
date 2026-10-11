@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import Image from "next/image";
 import { getAnimationClass } from "@/components/animations/registry";
+import { ArrowLight } from "@/assets/svg/Arrows";
 
 type SectionProps = {
   paragraph: JsonApiResource<"paragraph--section", SectionAttributes>;
@@ -116,7 +117,43 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
           style={{ objectFit: "cover" }}
         />
       )}
-      {/* Decorative corner arrows removed — not part of the Figma design. */}
+      {/* Decorative pale-green triangle (Figma). Only the light/transparent
+          one is kept; the small solid arrow was removed per feedback. */}
+      {arrowStyleClass === "arrow-top" && (
+        <div className={styles.arrowTop}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-bottom" && (
+        <div className={styles.arrowDown}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-left" && (
+        <div className={styles.arrowLeft}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-right" && (
+        <div className={styles.arrowRight}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+        </div>
+      )}
+      {arrowStyleClass === "arrow-center" && (
+        <div className={styles.arrowCenter}>
+          <span className={styles.arrowLight}>
+            <ArrowLight />
+          </span>
+        </div>
+      )}
     </section>
   );
 }

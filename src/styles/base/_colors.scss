@@ -63,9 +63,10 @@ section:has([class*="backgroundMedia"]) {
     pointer-events: none;
     background: linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.5) 32%,
-      rgba(0, 0, 0, 0.12) 60%,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.72) 30%,
+      rgba(0, 0, 0, 0.42) 55%,
+      rgba(0, 0, 0, 0.1) 80%,
       rgba(0, 0, 0, 0) 100%
     );
   }

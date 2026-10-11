@@ -8,7 +8,7 @@
  */
 
 /** Section headings that should be hidden entirely. */
-const HIDDEN_HEADINGS = new Set(["we are weschool"]);
+const HIDDEN_HEADINGS = new Set<string>([]);
 
 /** CMS paragraphs containing any of these phrases are stripped. */
 const REMOVE_PARAGRAPH_SNIPPETS = ["Beyond our core management programmes"];
@@ -46,16 +46,16 @@ export function campusVideoOverride(heading: string | null | undefined): string 
 /** "What We Offer" card headings per campus (in order). */
 const WHAT_WE_OFFER_HEADINGS: Record<string, string[]> = {
   mumbai: [
-    "Full-time Programs",
+    "Full-Time Programmes",
     "Executive",
     "Post Graduate Program (Autonomous)",
     "PGDM Hybrid Program",
     "PGP & 6 months Certificate Programmes",
     "Post Graduate Program in Temple Management (PGPTM)",
   ],
-  bengaluru: ["Full-time Programs", "Executive"],
-  bangalore: ["Full-time Programs", "Executive"],
-  banglore: ["Full-time Programs", "Executive"],
+  bengaluru: ["Full-Time Programmes", "Executive"],
+  bangalore: ["Full-Time Programmes", "Executive"],
+  banglore: ["Full-Time Programmes", "Executive"],
 };
 
 export function whatWeOfferHeadings(location: string | null | undefined): string[] | null {

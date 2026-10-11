@@ -181,10 +181,10 @@
     .stickySearchButton {
       display: grid;
       place-content: center;
-      width: 4rem;
-      height: 4rem;
+      width: 4.4rem;
+      height: 4.4rem;
       border-radius: 50%;
-      border: unset;
+      border: 1px solid rgba(0, 0, 0, 0.18);
       background: unset;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -253,6 +253,14 @@
 .navItemWrap {
   display: flex;
   align-items: center;
+}
+
+// "+" indicator on nav items that open a dropdown (matches Figma).
+.navPlus {
+  margin-left: 0.6rem;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1;
 }
 
 .megaMenuContainer {
