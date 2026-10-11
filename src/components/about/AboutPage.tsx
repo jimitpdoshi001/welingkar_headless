@@ -159,6 +159,10 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                 src={data.director.image}
                 alt=""
               />
+              <span
+                className={styles.playBadge}
+                aria-hidden="true"
+              />
             </div>
           </section>
 

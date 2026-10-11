@@ -66,7 +66,7 @@ export const ABOUT: AboutData = {
       "\"We want that education by which character is formed, strength of mind is increased, intellect is expanded and by which one can stand on one's own feet. Education is the manifestation of the perfection already in man.\"",
     ],
     sign: "– Swami Vivekananda.",
-    image: A("director-video.png"),
+    image: A("director-video.webp"),
   },
   accreditations: [
     { logo: A("logo-acbsp.png"), title: "ACBSP Accredited:", body: "Accredited for 10 years by the Accreditation Council for Business Schools and Programs (ACBSP), a global business education accrediting body." },

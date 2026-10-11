@@ -47,7 +47,11 @@
 /* Director */
 .director { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
 .sign { font-size: 1.8rem; font-weight: 700; margin-top: 1rem; }
-.directorMedia { position: relative; border-radius: 2.4rem; overflow: hidden; aspect-ratio: 4/3; img { width: 100%; height: 100%; object-fit: cover; } }
+.directorMedia { position: relative; border-radius: 2.4rem; overflow: hidden; aspect-ratio: 610 / 437; img { width: 100%; height: 100%; object-fit: cover; } }
+// Figma 909:1273: 50px green play button centred on the image.
+.playBadge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 5rem; height: 5rem; border-radius: 50%; background: var(--color-primary); pointer-events: none;
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent var(--color-white); }
+}
 
 /* Accreditations */
 // Figma column widths: ACBSP 187, SAQS 183, NBA 456 (two paragraphs), MU 189.
