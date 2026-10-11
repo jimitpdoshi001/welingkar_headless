@@ -45,3 +45,17 @@
   margin-top: 1.2rem;
   opacity: 0.95;
 }
+
+// Figma 1610:771 statutory hero: 650px image, breadcrumb at the top, smaller title.
+.heroTall {
+  min-height: 65rem;
+
+  .heroInner { position: static; padding-top: 0; padding-bottom: 9rem; }
+  .title, .subtitle { position: relative; z-index: 1; }
+  .breadcrumb { position: absolute; z-index: 1; top: 12.6rem; font-size: 1.3rem; }
+  .title { font-size: 3.4rem; font-weight: 700; }
+  .subtitle { max-width: 108rem; font-size: 1.6rem; line-height: 1.4; }
+
+  @include respond-to(tab) { min-height: 48rem; .breadcrumb { top: 9rem; } .heroInner { padding-bottom: 5rem; } }
+  @include respond-to(mobile) { min-height: 42rem; .title { font-size: 2.8rem; } }
+}

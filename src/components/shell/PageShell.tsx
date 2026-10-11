@@ -16,12 +16,14 @@ type PageShellProps = {
   breadcrumbs?: Crumb[];
   image?: string;
   accent?: "orange" | "green" | "default";
+  /** "tall": Figma statutory-page hero (650px, breadcrumb pinned to top). */
+  variant?: "default" | "tall";
   children?: ReactNode;
 };
 
 const DEFAULT_HERO = "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&auto=format&fit=crop&q=80";
 
-export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, accent = "default", children }: PageShellProps) {
+export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, accent = "default", variant = "default", children }: PageShellProps) {
   const accentVar = accent === "orange" ? "var(--color-orange)" : accent === "green" ? "var(--color-primary)" : undefined;
 
   return (
@@ -30,7 +32,7 @@ export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, 
         <Header transparentHero />
 
         <main style={accentVar ? ({ ["--faculty-accent" as string]: accentVar } as React.CSSProperties) : undefined}>
-          <section className={styles.hero}>
+          <section className={variant === "tall" ? `${styles.hero} ${styles.heroTall}` : styles.hero}>
             <img
               src={image}
               alt=""
