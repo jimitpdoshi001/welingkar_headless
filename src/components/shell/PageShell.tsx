@@ -27,7 +27,7 @@ export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, 
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main style={accentVar ? ({ ["--faculty-accent" as string]: accentVar } as React.CSSProperties) : undefined}>
           <section className={styles.hero}>

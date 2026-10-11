@@ -30,7 +30,7 @@ export default function FacultyBengaluruPreviewPage() {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main style={{ ["--faculty-accent" as string]: "var(--color-primary)" }}>
           <section className={styles.hero}>
