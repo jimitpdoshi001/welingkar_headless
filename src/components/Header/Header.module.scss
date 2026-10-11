@@ -551,6 +551,26 @@
     }
   }
 
+  // Over a dark hero, before scroll (Figma 236:2108): transparent bar with
+  // a white logo and white hamburger lines.
+  .headerSticky.mobileGlass {
+    background-color: transparent;
+    box-shadow: none;
+
+    .stickyMainBar {
+      background-color: transparent;
+      border-bottom: 0;
+    }
+
+    .stickyLogo svg path {
+      fill: var(--color-white);
+    }
+
+    .stickyHamburger span {
+      background-color: var(--color-white) !important;
+    }
+  }
+
   .modeButton {
     display: flex;
     align-items: center;
