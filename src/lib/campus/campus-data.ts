@@ -30,7 +30,7 @@ export type CampusData = {
   programmes: { heading: string; description: string; cards: CampusCard[]; cta: CampusCta };
   recruiters: { heading: string; description: string; logos: { name: string; image: string }[]; cta: CampusCta };
   weresearch: { heading: string; description: string; image: string; cta: CampusCta };
-  world: { heading: string; image: string };
+  world: { heading: string; image: string; caption: string };
   life: { heading: string; body: string; image: string; cta: CampusCta };
   infrastructure: { heading: string; description: string; cards: CampusCard[] };
   accommodation: { heading: string; description: string; cards: CampusCard[] };
@@ -193,6 +193,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     world: {
       heading: `The World of WeSchool, ${campus}`,
       image: CIMG.world,
+      caption: `Welingkar ${campus} Campus Tour | A Quick Look at a PGDM College in India`,
     },
     life: {
       heading: "Life @ WeSchool",

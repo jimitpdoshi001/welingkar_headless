@@ -111,43 +111,26 @@
 
 .recCta { margin-top: 4.4rem; }
 
-// Life @ WeSchool
-.life {
-  position: relative;
-  min-height: 54rem;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+// Life @ WeSchool (Figma 1609:762): 1101px photo, white top fade, giant purple
+// heading on top, frosted full-width text bar at the bottom with the CTA on the right.
+.life { position: relative; min-height: 110rem; display: flex; overflow: hidden;
+  @include respond-to(tab) { min-height: 76rem; }
+  @include respond-to(mobile) { min-height: 64rem; }
 }
-
 .lifeImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-.lifeOverlay { position: absolute; inset: 0; background: rgba(10, 6, 18, 0.45); }
-
-.lifeInner { position: relative; z-index: 1; color: var(--color-white); padding-block: 6rem; width: 100%; }
-
-.lifeHeading {
-  font-size: 4.4rem;
-  font-weight: 800;
-  margin-bottom: 2.4rem;
-
-  @include respond-to(mobile) { font-size: 2.8rem; }
+.lifeOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 75%, #fff 100%); }
+.lifeInner { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding-block: 7.9rem 21.6rem;
+  @include respond-to(tab) { padding-block: 5rem 8rem; }
 }
-
-.lifeCard {
-  background: rgba(240, 240, 240, 0.92);
-  color: var(--color-dark-gray);
-  border-radius: 2.4rem;
-  padding: 3.2rem;
-  max-width: 78rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  @include respond-to(mobile) { padding: 2.4rem; }
+.lifeHeading { font-size: clamp(4.8rem, 1rem + 9.6vw, 15rem); font-weight: 800; line-height: 1; color: var(--color-secondary); letter-spacing: -0.02em; white-space: nowrap;
+  // Scale with the viewport so the one-line heading never overflows.
+  @include respond-to(mobile) { font-size: 10.6vw; }
 }
-
-.lifeBody { font-size: 1.5rem; line-height: 1.7; margin-bottom: 2rem; }
+.lifeCard { display: flex; align-items: center; justify-content: space-between; gap: 4rem; padding: 3.6rem 5.6rem; border-radius: 2.4rem; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255, 255, 255, 0.44); -webkit-backdrop-filter: blur(1.8rem); backdrop-filter: blur(1.8rem); box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
+  @include respond-to(tab) { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 2.8rem; }
+  :global(.btn) { flex-shrink: 0; }
+}
+.lifeBody { max-width: 86.9rem; font-size: 1.6rem; line-height: 1.35; color: var(--color-black); margin: 0; }
 
 /* ---- Added sections (Figma match) ---- */
 
@@ -258,13 +241,25 @@
 .mentorRole { font-size: 1.3rem; color: var(--color-gray); line-height: 1.4; margin-bottom: 0.8rem; }
 .mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
 
-/* WeResearch commitment */
-.weresearch { text-align: center; }
-.weresearchBody { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 72rem; margin: 0 auto 2.4rem; }
-.weresearchImage { width: 100%; border-radius: 2.4rem; margin-top: 3.2rem; aspect-ratio: 16 / 7; object-fit: cover; }
-
-/* World of WeSchool */
-.worldImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 6; object-fit: cover; }
+/* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
+.researchWorld { position: relative; background-size: cover; background-position: center; padding-block: 12rem 9rem;
+  &::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.55) 18%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%, #fff 82%); }
+  > * { position: relative; }
+  @include respond-to(mobile) { padding-block: 6rem 5rem; }
+}
+.weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
+.weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
+.weresearchBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); max-width: 88.2rem; margin: 0 auto 3.2rem; }
+.world .sectionHeading { margin-bottom: 4rem; }
+// Figma: 1240 x 570 video card, centred 50px play button, frosted caption bottom-left.
+.worldMedia { position: relative; border-radius: 2.4rem; overflow: hidden; }
+.worldImage { display: block; width: 100%; aspect-ratio: 1240 / 570; object-fit: cover; @include respond-to(mobile) { aspect-ratio: 4 / 3; } }
+.worldPlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 5rem; height: 5rem; border-radius: 50%; background: var(--color-secondary);
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent #fff; }
+}
+.worldCaption { position: absolute; left: 2.3rem; bottom: 2.1rem; max-width: 42.4rem; margin: 0; padding: 3.5rem 3.4rem; border-radius: 2rem; font-size: 1.6rem; font-weight: 500; line-height: 1.3; color: var(--color-black); background: rgba(255, 255, 255, 0.85); -webkit-backdrop-filter: blur(1.2rem); backdrop-filter: blur(1.2rem);
+  @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; font-size: 1.4rem; }
+}
 
 /* Candid moments */
 .momentsGrid {

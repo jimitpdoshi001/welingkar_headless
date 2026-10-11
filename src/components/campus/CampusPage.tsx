@@ -244,28 +244,35 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
-          <section className={`container ${styles.block} ${styles.weresearch}`}>
-            <h2 className={styles.sectionHeadingCenter}>{data.weresearch.heading}</h2>
-            <p className={styles.weresearchBody}>{data.weresearch.description}</p>
-            <Link
-              href={data.weresearch.cta.href}
-              className="btn accent">
-              {data.weresearch.cta.label}
-            </Link>
-            <img
-              src={data.weresearch.image}
-              alt=""
-              className={styles.weresearchImage}
-            />
-          </section>
-
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.sectionHeading}>{data.world.heading}</h2>
-            <img
-              src={data.world.image}
-              alt=""
-              className={styles.worldImage}
-            />
+          {/* Figma 1064:184: one campus photo behind WeResearch and The World of
+              WeSchool, fading to white at the top and bottom. */}
+          <section
+            className={styles.researchWorld}
+            style={{ backgroundImage: `url(${data.weresearch.image})` }}>
+            <div className={`container ${styles.weresearch}`}>
+              <h2 className={styles.weresearchHeading}>{data.weresearch.heading}</h2>
+              <p className={styles.weresearchBody}>{data.weresearch.description}</p>
+              <Link
+                href={data.weresearch.cta.href}
+                className="btn accent">
+                {data.weresearch.cta.label}
+              </Link>
+            </div>
+            <div className={`container ${styles.world}`}>
+              <h2 className={styles.sectionHeading}>{data.world.heading}</h2>
+              <div className={styles.worldMedia}>
+                <img
+                  src={data.world.image}
+                  alt=""
+                  className={styles.worldImage}
+                />
+                <span
+                  className={styles.worldPlay}
+                  aria-hidden="true"
+                />
+                <p className={styles.worldCaption}>{data.world.caption}</p>
+              </div>
+            </div>
           </section>
 
           <section

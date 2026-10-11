@@ -4,6 +4,10 @@
 
 .onDark {
   color: var(--color-white);
+  // Figma infrastructure cards: photo only, caption sits below on the purple band.
+  .card { background: transparent; border-radius: 0; }
+  .card:not(.overlayCard) .imageWrap { aspect-ratio: 400 / 442; border-radius: 2rem; }
+  .card:not(.overlayCard) .title { font-size: 2rem; font-weight: 600; margin-bottom: 1rem; }
   .heading { color: var(--color-white); }
   .description { color: rgba(255, 255, 255, 0.82); }
   .title { color: var(--color-white); }
