@@ -7,7 +7,7 @@
 .sectionBody { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin-bottom: 3.2rem; }
 
 /* Hero */
-.hero { position: relative; min-height: 42rem; display: flex; align-items: flex-end; overflow: hidden; color: var(--color-white); }
+.hero { position: relative; min-height: 65rem; @include respond-to(tab) { min-height: 48rem; } display: flex; align-items: flex-end; overflow: hidden; color: var(--color-white); }
 .heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .heroOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.3) 45%, rgba(0,0,0,0.78) 100%); }
 .heroInner { position: relative; z-index: 1; padding-block: 5rem; }
@@ -18,7 +18,8 @@
 
 /* About card (purple) */
 .aboutCard {
-  background: var(--color-secondary);
+  // Figma: event photo under a deep purple wash.
+  background: linear-gradient(rgba(74, 52, 96, 0.9), rgba(74, 52, 96, 0.9)), url("/conference/about-bg.webp") center / cover;
   color: var(--color-white);
   border-radius: 2.4rem;
   padding: 4rem;
@@ -70,3 +71,6 @@
 .contactAddr { font-size: 1.45rem; line-height: 1.6; color: rgba(255,255,255,0.85); }
 .reachPhone { font-size: 1.6rem; margin-bottom: 1.6rem; }
 .reachPerson { font-size: 1.45rem; color: rgba(255,255,255,0.9); margin-bottom: 0.8rem; }
+
+// Figma: faint library photo behind the guidelines band.
+.guidelinesBand { background: linear-gradient(rgba(74, 52, 96, 0.94), rgba(74, 52, 96, 0.94)), url("/conference/guidelines-bg.webp") center / cover; }

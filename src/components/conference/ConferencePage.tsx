@@ -78,7 +78,7 @@ export function ConferencePage({ data }: { data: ConferenceData }) {
           </section>
 
           {/* Submission guidelines */}
-          <section className="bg-secondary">
+          <section className={`bg-secondary ${styles.guidelinesBand}`}>
             <div className={`container ${styles.block} ${styles.guidelines}`}>
               <h2 className={styles.headingLight}>{data.guidelines.heading}</h2>
               <div className={styles.chipList}>

@@ -23,7 +23,7 @@ export const CONFERENCE: ConferenceData = {
     title: "Uncertainty to resilience.",
     subtitle: "Navigating transformation in business and society",
     meta: "23rd October, 2026  |  WeSchool Campus, Mumbai 400019",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&auto=format&fit=crop&q=80",
+    image: "/conference/hero.webp",
   },
   about: {
     heading: "About the Conference",
@@ -35,12 +35,12 @@ export const CONFERENCE: ConferenceData = {
   },
   info: [
     { title: "Who Should Attend the Conference", text: "This conference is appropriate for Academicians, Corporate Executives, Research Scholars, Students, Practitioners, Subject Experts, and Policy makers." },
-    { title: "Conference Fee Details", text: "Registration for the conference is compulsory for the first author of every accepted paper. In case the registered author is unable to attend or present the paper, a co-author may be nominated. The registration fee, once paid, is not refundable." },
+    { title: "Conference Fee Details", text: "Registration for the conference is compulsory for the first author of every accepted paper. In case the registered author is unable to attend or present the paper, a co-author may be nominated to present on their behalf. Any additional co-authors of the same paper intending to participate in the conference are also required to complete separate registrations. The registration fee for the conference, once paid, is not refundable." },
     { title: "Award", text: "The Best Paper Award will be presented under the Student and Faculty categories. To qualify for the best paper award, a full paper must be presented at the conference." },
   ],
   tracks: {
     heading: "Conference Tracks",
-    description: "The conference invites full research papers across the following thematic tracks. Contributors are encouraged to engage creatively with the overarching theme of resilience and transformation within their chosen domain.",
+    description: "The conference invites full research papers across the following thematic tracks. Contributors are encouraged to engage creatively with the overarching theme of resilience and transformation within their chosen domain. Papers drawing on interdisciplinary perspectives, emerging market contexts, and novel methodologies are especially welcome. Any topic relevant to the conference theme and not explicitly listed below is also welcome for submission.",
     items: [
       { id: "tr-1", title: "Innovation and Business Design", points: ["Design thinking for resilient organisations", "Business model innovation", "Sustainable product and service design"] },
       { id: "tr-2", title: "Media & Entertainment", points: ["AI-driven content creation and creative industries", "Streaming platforms, OTT ecosystems and digital monetization", "Influencer culture, creator branding and social media economies", "Digital consumer psychology and data-driven engagement", "Emerging media skills, analytics and future workforce readiness"] },
