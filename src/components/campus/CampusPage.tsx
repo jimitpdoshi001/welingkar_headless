@@ -353,6 +353,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                 {data.news.cta.label}
               </Link>
             </div>
+            {/* Figma: 610px feature card, then two rows of image + text card. */}
             <div className={styles.newsGrid}>
               <article className={styles.newsFeature}>
                 <img
@@ -360,26 +361,37 @@ export function CampusPage({ data }: { data: CampusData }) {
                   alt=""
                 />
                 <div className={styles.newsFeatureCard}>
-                  <h3>{data.news.items[0].title}</h3>
-                  <p className={styles.newsDate}>{data.news.items[0].date}</p>
+                  <div>
+                    <h3>{data.news.items[0].title}</h3>
+                    <p className={styles.newsDate}>{data.news.items[0].date}</p>
+                  </div>
+                  <Link
+                    href={data.news.items[0].href}
+                    className={styles.newsArrow}
+                    aria-label={`Read: ${data.news.items[0].title}`}
+                  />
                 </div>
               </article>
-              <div className={styles.newsSide}>
-                {data.news.items.slice(1).map((n) => (
-                  <article
-                    key={n.id}
-                    className={styles.newsSmall}>
-                    <img
-                      src={n.image}
-                      alt=""
+              {data.news.items.slice(1).map((n) => (
+                <div
+                  key={n.id}
+                  className={styles.newsRow}>
+                  <img
+                    src={n.image}
+                    alt=""
+                    className={styles.newsSmallImage}
+                  />
+                  <article className={styles.newsSmallBody}>
+                    <h4>{n.title}</h4>
+                    <p className={styles.newsDate}>{n.date}</p>
+                    <Link
+                      href={n.href}
+                      className={styles.newsArrow}
+                      aria-label={`Read: ${n.title}`}
                     />
-                    <div className={styles.newsSmallBody}>
-                      <h4>{n.title}</h4>
-                      <p className={styles.newsDate}>{n.date}</p>
-                    </div>
                   </article>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -388,7 +400,17 @@ export function CampusPage({ data }: { data: CampusData }) {
               <div>
                 <h2 className={styles.sectionHeading}>{data.connect.heading}</h2>
                 <p className={styles.connectAddr}>Address: {data.connect.address}</p>
-                <p className={styles.connectPhone}>{data.connect.phone}</p>
+                <p className={styles.connectPhone}>
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true">
+                    <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z" />
+                  </svg>
+                  <a href={`tel:${data.connect.phone.replace(/[^0-9+]/g, "")}`}>{data.connect.phone}</a>
+                </p>
                 <h3 className={styles.connectFormHeading}>Contact form</h3>
                 <form className={styles.connectForm}>
                   <div className={styles.formRow}>

@@ -261,70 +261,73 @@
   @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; font-size: 1.4rem; }
 }
 
-/* Candid moments */
+/* Candid moments (Figma 979:1616-1621): 3 columns x 3 rows of ~255px. */
 .momentsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 2rem;
-  aspect-ratio: 16 / 9;
+  grid-template-rows: repeat(3, clamp(14rem, 18vw, 25.5rem));
+  gap: 2rem 2rem;
 
-  @include respond-to(mobile) { display: flex; flex-direction: column; aspect-ratio: auto; }
+  @include respond-to(mobile) { grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 16rem; gap: 1.2rem; }
 }
-.momentItem {
-  position: relative;
-  border-radius: 2.4rem;
-  overflow: hidden;
-  img { width: 100%; height: 100%; object-fit: cover; }
-
-  @include respond-to(mobile) { aspect-ratio: 16 / 10; }
+.momentItem { position: relative; border-radius: 2rem; overflow: hidden; img { display: block; width: 100%; height: 100%; object-fit: cover; } }
+.moment1 { grid-column: 1; grid-row: 1 / 3; }
+.moment2 { grid-column: 2 / 4; grid-row: 1; }
+.moment3 { grid-column: 2; grid-row: 2; }
+.moment4 { grid-column: 3; grid-row: 2 / 4; }
+.moment5 { grid-column: 2; grid-row: 3; }
+.moment6 { grid-column: 1; grid-row: 3; }
+@include respond-to(mobile) {
+  .moment1 { grid-column: 1; grid-row: span 2; }
+  .moment2 { grid-column: 2; grid-row: auto; }
+  .moment3 { grid-column: 2; grid-row: auto; }
+  .moment4 { grid-column: 1; grid-row: span 2; }
+  .moment5 { grid-column: 2; grid-row: auto; }
+  .moment6 { grid-column: 2; grid-row: auto; }
 }
-.moment1 { grid-column: 1 / 2; grid-row: 1 / 3; }
-.moment2 { grid-column: 2 / 4; grid-row: 1 / 2; }
-.moment3 { grid-column: 2 / 3; grid-row: 2 / 3; }
-.moment4 { grid-column: 3 / 4; grid-row: 2 / 3; }
 .playBadge {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 5.6rem; height: 5.6rem;
-  border-radius: 50%;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 5rem; height: 5rem; border-radius: 50%;
   background: var(--faculty-accent, var(--color-primary));
-  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.9rem 0 0.9rem 1.4rem; border-color: transparent transparent transparent #fff; }
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent #fff; }
 }
 
-/* What's New */
+/* What's New (Figma 979:1634-1663): 610 feature + rows of 295 image | 295 text card. */
 .newsGrid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 2.4rem;
+  grid-template-columns: 61fr 29.5fr 29.5fr;
+  grid-template-rows: repeat(2, auto);
+  gap: 2rem;
 
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
   @include respond-to(mobile) { grid-template-columns: 1fr; }
 }
-.newsFeature { position: relative; border-radius: 2.4rem; overflow: hidden; min-height: 42rem; img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; } }
+.newsFeature { position: relative; grid-row: 1 / 3; aspect-ratio: 1; border-radius: 2rem; overflow: hidden;
+  > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @include respond-to(tab) { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; }
+}
 .newsFeatureCard {
-  position: absolute;
-  left: 2rem; right: 2rem; bottom: 2rem;
-  padding: 2.4rem;
-  border-radius: 1.6rem;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  h3 { font-size: 1.9rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.8rem; }
+  position: absolute; left: 3.2rem; right: 3.2rem; bottom: 4.6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  padding: 3.2rem 3.8rem; border-radius: 2.5rem;
+  background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.44);
+  -webkit-backdrop-filter: blur(1.8rem); backdrop-filter: blur(1.8rem);
+  h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.6rem; }
+  @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; }
 }
-.newsSide { display: flex; flex-direction: column; gap: 2.4rem; }
-.newsSmall {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 1.6rem;
-  background: var(--color-white);
-  border-radius: 1.6rem;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  img { width: 100%; height: 100%; object-fit: cover; min-height: 14rem; }
+.newsRow { display: contents; @include respond-to(tab) { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; grid-column: 1 / -1; } }
+@include respond-to(mobile) { .newsRow { grid-template-columns: 1fr; gap: 1.2rem; } }
+.newsSmallImage { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 2rem; @include respond-to(mobile) { aspect-ratio: 16 / 9; } }
+.newsSmallBody { position: relative; display: flex; flex-direction: column; aspect-ratio: 1; padding: 2.9rem 2.9rem 2.4rem; border-radius: 2rem; background: var(--color-white); box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
+  h4 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.4rem; }
+  .newsArrow { margin-top: auto; }
+  @include respond-to(mobile) { aspect-ratio: auto; padding: 1.6rem; }
 }
-.newsSmallBody { padding: 1.6rem 1.6rem 1.6rem 0; h4 { font-size: 1.5rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.8rem; } }
-.newsDate { font-size: 1.3rem; color: var(--color-gray); }
+.newsDate { font-size: 1.2rem; color: var(--color-gray); margin: 0; }
+// Figma "Up" icon: 50px accent circle with a white play arrow.
+.newsArrow { flex-shrink: 0; position: relative; display: block; width: 5rem; height: 5rem; border-radius: 50%; background: var(--faculty-accent, var(--color-primary));
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.45rem 0 0.45rem 0.7rem; border-color: transparent transparent transparent #fff; }
+}
 
 /* Connect */
 .connectGrid {
@@ -336,7 +339,7 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; }
 }
 .connectAddr { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; margin-bottom: 1.2rem; }
-.connectPhone { font-size: 1.6rem; color: var(--color-dark-gray); margin-bottom: 3.2rem; }
+.connectPhone { display: flex; align-items: center; gap: 1.2rem; font-size: 1.6rem; color: var(--color-dark-gray); margin-bottom: 4rem; svg { color: var(--faculty-accent, var(--color-primary)); } a { color: inherit; } }
 .connectFormHeading { font-size: 2rem; font-weight: 700; margin-bottom: 2.4rem; }
 .connectForm { display: flex; flex-direction: column; gap: 2.8rem; max-width: 56rem; button { align-self: flex-start; } }
 .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 2.8rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
@@ -349,4 +352,5 @@
   width: 100%;
   &:focus { outline: none; border-bottom-color: var(--faculty-accent, var(--color-primary)); }
 }
-.map { width: 100%; border-radius: 2.4rem; aspect-ratio: 1 / 0.82; object-fit: cover; }
+// Figma 979:1818: 524 x 472 map, right-aligned.
+.map { width: 100%; max-width: 52.4rem; justify-self: end; border-radius: 2.4rem; aspect-ratio: 524 / 472; object-fit: cover; @include respond-to(mobile) { justify-self: stretch; max-width: none; } }

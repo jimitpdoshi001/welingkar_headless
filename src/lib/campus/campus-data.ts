@@ -81,6 +81,8 @@ const campusImages = (slug: "mumbai" | "bengaluru") => {
     moment2: img("moment-2"),
     moment3: img("moment-3"),
     moment4: img("moment-4"),
+    moment5: img("moment-5"),
+    moment6: img("moment-6"),
     news1: img("news-1"),
     news2: img("news-2"),
     news3: img("news-3"),
@@ -228,6 +230,8 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
         { id: "mo-2", image: CIMG.moment2 },
         { id: "mo-3", image: CIMG.moment3 },
         { id: "mo-4", image: CIMG.moment4, video: true },
+        { id: "mo-5", image: CIMG.moment5 },
+        { id: "mo-6", image: CIMG.moment6 },
       ],
     },
     news: {
