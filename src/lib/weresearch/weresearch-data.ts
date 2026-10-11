@@ -81,10 +81,10 @@ export type WeResearchData = {
 };
 
 const WIMG = {
-  hero: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&auto=format&fit=crop&q=80",
-  papers: "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1600&auto=format&fit=crop&q=80",
-  magazine: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&auto=format&fit=crop&q=80",
-  journal: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&auto=format&fit=crop&q=80",
+  hero: "/weresearch/hero.webp",
+  papers: "/weresearch/papers.webp",
+  magazine: "/weresearch/magazine.webp",
+  journal: "",
 };
 
 const AREAS = [

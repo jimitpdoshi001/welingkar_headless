@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { WeResearchData } from "@/lib/weresearch/weresearch-data";
+import { ScrollArrows } from "@/components/campus/ScrollArrows/ScrollArrows";
 import styles from "./WeResearchPage.module.scss";
 
 export function WeResearchPage({ data }: { data: WeResearchData }) {
@@ -17,21 +18,16 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
         <main>
           {/* Hero */}
           <section className={styles.hero}>
-            <img
-              src={data.hero.image}
-              alt=""
-              className={styles.heroImage}
-            />
+            <img src={data.hero.image} alt="" className={styles.heroImage} />
             <div className={styles.heroOverlay} />
             <div className={`container ${styles.heroInner}`}>
               <nav className={styles.breadcrumb}>
-                <Link href="/">Home</Link> <span>›</span> <span>WeResearch</span>
+                <Link href="/">Home</Link> <span>›</span>{" "}
+                <span>WeResearch</span>
               </nav>
               <h1 className={styles.heroTitle}>{data.hero.title}</h1>
               <p className={styles.heroBody}>{data.hero.body}</p>
-              <Link
-                href={data.hero.cta.href}
-                className="btn accent">
+              <Link href={data.hero.cta.href} className="btn accent">
                 {data.hero.cta.label}
               </Link>
             </div>
@@ -45,7 +41,8 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                 {data.areas.items.map((a, i) => (
                   <span
                     key={a}
-                    className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}>
+                    className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}
+                  >
                     {a}
                   </span>
                 ))}
@@ -59,9 +56,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
             <p className={styles.sectionBody}>{data.awarded.description}</p>
             <div className={styles.awardGrid}>
               {data.awarded.papers.map((p) => (
-                <article
-                  key={p.id}
-                  className={styles.awardCard}>
+                <article key={p.id} className={styles.awardCard}>
                   <div className={styles.cardTop}>
                     <span className={styles.tag}>{p.area}</span>
                     <span className={styles.year}>{p.year}</span>
@@ -72,9 +67,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                   <div className={styles.awardBadge}>
                     <span aria-hidden="true">🏆</span> {p.award}
                   </div>
-                  <Link
-                    href={p.href}
-                    className="btn accent-outline">
+                  <Link href={p.href} className="btn accent-outline">
                     View Paper
                   </Link>
                 </article>
@@ -92,7 +85,9 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
             <div className={styles.papersOverlay} />
             <div className={`container ${styles.papersInner}`}>
               <h2 className={styles.headingLight}>{data.allPapers.heading}</h2>
-              <p className={styles.sectionBodyLight}>{data.allPapers.description}</p>
+              <p className={styles.sectionBodyLight}>
+                {data.allPapers.description}
+              </p>
               <div className={styles.papersPanel}>
                 <div className={styles.searchRow}>
                   <input
@@ -108,16 +103,15 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                   {data.areas.items.map((a, i) => (
                     <span
                       key={a}
-                      className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}>
+                      className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}
+                    >
                       {a}
                     </span>
                   ))}
                 </div>
                 <div className={styles.paperList}>
                   {data.allPapers.papers.map((p) => (
-                    <article
-                      key={p.id}
-                      className={styles.paperItem}>
+                    <article key={p.id} className={styles.paperItem}>
                       <div className={styles.cardTop}>
                         <span className={styles.tag}>{p.area}</span>
                         <span className={styles.year}>{p.year}</span>
@@ -126,9 +120,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                       <p className={styles.cardAuthors}>{p.authors}</p>
                       <p className={styles.cardMeta}>{p.journal}</p>
                       <p className={styles.abstract}>{p.abstract}</p>
-                      <Link
-                        href={p.href}
-                        className="btn accent-outline">
+                      <Link href={p.href} className="btn accent-outline">
                         Read Paper
                       </Link>
                     </article>
@@ -142,26 +134,27 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
           <section className="bg-secondary">
             <div className={`container ${styles.block}`}>
               <h2 className={styles.headingLight}>{data.books.heading}</h2>
-              <p className={styles.sectionBodyLight}>{data.books.description}</p>
-              <div className={styles.scrollRow}>
+              <p className={styles.sectionBodyLight}>
+                {data.books.description}
+              </p>
+              <div id="wr-books" className={styles.scrollRow}>
                 {data.books.items.map((b) => (
-                  <article
-                    key={b.id}
-                    className={styles.bookCard}>
+                  <article key={b.id} className={styles.bookCard}>
                     <span className={styles.tagOutline}>ISBN</span>
                     <h3 className={styles.cardTitle}>{b.title}</h3>
                     <p className={styles.cardAuthors}>{b.authors}</p>
                     <p className={styles.cardMetaItalic}>{b.publisher}</p>
                     <div className={styles.bookFoot}>
                       <span className={styles.year}>{b.year}</span>
-                      <Link
-                        href={b.href}
-                        className="btn accent-outline">
+                      <Link href={b.href} className="btn accent-outline">
                         View Paper
                       </Link>
                     </div>
                   </article>
                 ))}
+              </div>
+              <div className={styles.rowArrows}>
+                <ScrollArrows targetId="wr-books" />
               </div>
             </div>
           </section>
@@ -170,24 +163,23 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
           <section className={`container ${styles.block}`}>
             <h2 className={styles.heading}>{data.cases.heading}</h2>
             <p className={styles.sectionBody}>{data.cases.description}</p>
-            <div className={styles.scrollRow}>
+            <div id="wr-cases" className={styles.scrollRow}>
               {data.cases.items.map((c) => (
-                <article
-                  key={c.id}
-                  className={styles.caseCard}>
+                <article key={c.id} className={styles.caseCard}>
                   <span className={styles.year}>{c.year}</span>
                   <span className={styles.tag}>{c.publisher}</span>
                   <h3 className={styles.cardTitle}>{c.title}</h3>
                   <p className={styles.cardAuthors}>{c.authors}</p>
                   <p className={styles.cardMetaItalic}>{c.source}</p>
                   <p className={styles.abstract}>{c.abstract}</p>
-                  <Link
-                    href={c.href}
-                    className="btn accent-outline">
+                  <Link href={c.href} className="btn accent-outline">
                     View Case
                   </Link>
                 </article>
               ))}
+            </div>
+            <div className={styles.rowArrows}>
+              <ScrollArrows targetId="wr-cases" />
             </div>
           </section>
 
@@ -201,12 +193,12 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
             <div className={styles.magazineOverlay} />
             <div className={`container ${styles.magazineInner}`}>
               <h2 className={styles.headingLight}>{data.magazine.heading}</h2>
-              <p className={styles.sectionBodyLight}>{data.magazine.description}</p>
+              <p className={styles.sectionBodyLight}>
+                {data.magazine.description}
+              </p>
               <div className={styles.magazineGrid}>
                 {data.magazine.items.map((m) => (
-                  <article
-                    key={m.id}
-                    className={styles.magazineCard}>
+                  <article key={m.id} className={styles.magazineCard}>
                     <div className={styles.cardTop}>
                       <span className={styles.tag}>{m.area}</span>
                       <span className={styles.year}>{m.date}</span>
@@ -214,9 +206,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                     <h3 className={styles.cardTitle}>{m.title}</h3>
                     <p className={styles.cardAuthors}>{m.author}</p>
                     <p className={styles.cardMetaItalic}>{m.source}</p>
-                    <Link
-                      href={m.href}
-                      className={styles.readLink}>
+                    <Link href={m.href} className={styles.readLink}>
                       Read Article
                     </Link>
                   </article>
@@ -231,9 +221,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
             <p className={styles.sectionBody}>{data.conference.description}</p>
             <div className={styles.confList}>
               {data.conference.items.map((c) => (
-                <article
-                  key={c.id}
-                  className={styles.confItem}>
+                <article key={c.id} className={styles.confItem}>
                   <div className={styles.confText}>
                     <h3 className={styles.confTitle}>{c.title}</h3>
                     <p className={styles.confMeta}>
@@ -241,9 +229,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                     </p>
                     <p className={styles.cardMeta}>{c.proceedings}</p>
                   </div>
-                  <Link
-                    href={c.href}
-                    className="btn accent-outline">
+                  <Link href={c.href} className="btn accent-outline">
                     View Article
                   </Link>
                 </article>
@@ -259,17 +245,25 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                   <h2 className={styles.heading}>{data.journal.heading}</h2>
                   <p className={styles.sectionBody}>{data.journal.body}</p>
                 </div>
-                <img
-                  src={data.journal.image}
-                  alt=""
-                  className={styles.journalImage}
-                />
+                {/* Figma shows a plain purple panel until a journal cover is supplied. */}
+                {data.journal.image ? (
+                  <img
+                    src={data.journal.image}
+                    alt=""
+                    className={styles.journalImage}
+                  />
+                ) : (
+                  <div className={styles.journalImage} aria-hidden="true" />
+                )}
               </div>
               <div className={styles.archiveHead}>
-                <h3 className={styles.archiveHeading}>{data.journal.archiveHeading}</h3>
+                <h3 className={styles.archiveHeading}>
+                  {data.journal.archiveHeading}
+                </h3>
                 <Link
                   href={data.journal.cta.href}
-                  className={styles.readLinkDark}>
+                  className={styles.readLinkDark}
+                >
                   {data.journal.cta.label}
                 </Link>
               </div>
@@ -278,10 +272,13 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
                   <Link
                     key={iss.id}
                     href={iss.href}
-                    className={`${styles.issueCard} ${iss.latest ? styles.issueActive : ""}`}>
+                    className={`${styles.issueCard} ${iss.latest ? styles.issueActive : ""}`}
+                  >
                     <span className={styles.issueVol}>{iss.volume}</span>
                     <span className={styles.issueLabel}>{iss.label}</span>
-                    {iss.latest && <span className={styles.issueTag}>Latest</span>}
+                    {iss.latest && (
+                      <span className={styles.issueTag}>Latest</span>
+                    )}
                   </Link>
                 ))}
               </div>
