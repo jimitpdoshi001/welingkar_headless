@@ -64,6 +64,13 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+// Breakpoints must follow the column modifiers or those win and overflow on phones.
+.cols3,
+.cols4 {
+  @include respond-to(tab) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
 .item {
   display: flex;
   flex-direction: column;

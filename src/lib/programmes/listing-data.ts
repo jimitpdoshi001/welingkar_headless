@@ -64,7 +64,7 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { slug: "pgdm-media", title: "PGDM - Media & Entertainment", description: "This course trains students to become well-rounded media professionals, grounded in the best practices of the field." },
     { slug: "pgdm-research-analytics", title: "PGDM - Research and Business Analytics", description: "This course sharpens analytical minds in every keen student, shaping future business thinkers who lead with versatility." },
     { slug: "mms", title: "MMS", description: "This interdisciplinary programme equips students with integrated management knowledge and analytical skills, offering a competitive advantage on par with postgraduate programmes." },
-  ].map((p) => ({ ...p, intake: "Present Intake: 180", href: `/programmes/${p.slug}` })),
+  ].map((p) => ({ ...p, intake: "Present Intake: 180", href: p.slug === "pgdm" ? "/programmes/pgdm/mumbai" : `/programmes/${p.slug}` })),
 };
 
 /** Photo slot for a programme row on a campus listing. */
