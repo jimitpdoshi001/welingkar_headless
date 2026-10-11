@@ -13,9 +13,11 @@
     gap: 2rem;
   }
 
+  // Figma mobile: featured card full width, then image | text rows.
   @include respond-to(mobile) {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: auto;
+    gap: 2rem 1rem;
   }
 }
 
@@ -98,6 +100,58 @@
     font-size: 1.2rem;
     color: var(--color-gray);
     flex: 1;
+  }
+}
+
+// Figma mobile (246:3284) sizes for the featured + image/text grid.
+@include respond-to(mobile) {
+  .mainGrid {
+    .card {
+      border-radius: 1.9rem;
+    }
+
+    h6 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.6rem;
+    }
+
+    :global(.btn) {
+      padding: 1rem 1.8rem;
+      font-size: 1.4rem;
+    }
+  }
+
+  .featuredCard img {
+    aspect-ratio: 390 / 341;
+  }
+
+  .featuredContent {
+    left: 1.1rem;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    padding: 2rem 1.6rem 1.6rem 2rem;
+    border-radius: 2.5rem;
+  }
+
+  .cardBottom {
+    margin-top: 1.6rem;
+  }
+
+  .imageCard img {
+    aspect-ratio: 1 / 1;
+  }
+
+  .textCard {
+    min-width: 0;
+    padding: 1.6rem;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
+
+    .date {
+      margin: 1.2rem 0;
+    }
   }
 }
 
