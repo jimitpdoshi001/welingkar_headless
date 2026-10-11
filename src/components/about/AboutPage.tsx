@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 
 import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
@@ -30,7 +29,9 @@ function BoardList({ heading, people }: { heading: string; people: AboutPerson[]
   );
 }
 
-export function AboutPage({ data }: { data: AboutData }) {
+// `footer` is rendered on the server (it fetches the Drupal menu) and passed in,
+// because a client component cannot run an async server component itself.
+export function AboutPage({ data, footer }: { data: AboutData; footer?: React.ReactNode }) {
   const [activeYear, setActiveYear] = useState(data.honours.years[0]);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
@@ -276,7 +277,7 @@ export function AboutPage({ data }: { data: AboutData }) {
 
         <SearchOverlay />
         <ScrollToTop />
-        <Footer />
+        {footer}
       </div>
     </SearchProvider>
   );
