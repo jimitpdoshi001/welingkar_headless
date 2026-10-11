@@ -118,7 +118,8 @@ li,
 ul,
 ol,
 p {
-  font-size: 1.6rem;
+  // Fluid: 14px on mobile (Figma) up to 16px on desktop.
+  font-size: clamp(1.4rem, 1.2rem + 0.47vw, 1.6rem);
   line-height: 1.5;
   font-weight: 400;
   text-wrap: pretty;
