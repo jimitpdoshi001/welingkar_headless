@@ -25,23 +25,23 @@ export type LifeData = {
 };
 
 const LIMG = {
-  hero: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&auto=format&fit=crop&q=80",
-  collage1: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&auto=format&fit=crop&q=80",
-  collage2: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80",
-  collage3: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80",
-  c1: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=900&auto=format&fit=crop&q=80",
-  c2: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=900&auto=format&fit=crop&q=80",
-  c3: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900&auto=format&fit=crop&q=80",
-  c4: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=900&auto=format&fit=crop&q=80",
-  c5: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&auto=format&fit=crop&q=80",
-  c6: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=900&auto=format&fit=crop&q=80",
-  cells: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&auto=format&fit=crop&q=80",
-  story1: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-  story2: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
-  story3: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=80",
+  hero: "/life/mumbai/hero.webp",
+  collage1: "/life/mumbai/collage1.webp",
+  collage2: "/life/mumbai/collage2.webp",
+  collage3: "/life/mumbai/collage3.webp",
+  c1: "/life/mumbai/c1.webp",
+  c2: "/life/mumbai/c2.webp",
+  c3: "/life/mumbai/c3.webp",
+  c4: "/life/mumbai/c4.webp",
+  c5: "/life/mumbai/c5.webp",
+  c6: "/life/mumbai/c6.webp",
+  cells: "/life/mumbai/cells.webp",
+  story1: "/life/mumbai/story1.webp",
+  story2: "/life/mumbai/story2.webp",
+  story3: "/life/mumbai/story3.webp",
 };
 
-const g = (n: number) => `https://images.unsplash.com/photo-${["1523240795612-9a054b0db644", "1524178232363-1fb2b075b655", "1540575467063-178a50c2df87", "1522202176988-66273c2fd55f", "1531545514256-b1400bc00f31", "1517048676732-d65bc937f952", "1544717305-2782549b5136", "1600880292089-90a7e086ee0c", "1498243691581-b145c3f54a5a", "1427504494785-3a9ca7044f45"][n % 10]}?w=700&auto=format&fit=crop&q=80`;
+const g = (n: number) => `/life/mumbai/gallery-${n + 1}.webp`;
 
 export const LIFE: LifeData = {
   hero: {
