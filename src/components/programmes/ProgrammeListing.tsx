@@ -17,7 +17,14 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main
+          style={
+            {
+              "--listing-strip": data.theme.strip,
+              "--listing-tint": data.theme.tint,
+              "--listing-button": data.theme.button,
+            } as React.CSSProperties
+          }>
           <section className={styles.hero}>
             <img
               src={data.hero.image}

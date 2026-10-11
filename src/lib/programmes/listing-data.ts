@@ -14,6 +14,8 @@ export type ListingProgramme = {
 
 export type ProgrammeListingData = {
   campus: "mumbai" | "bengaluru";
+  /** Figma colours: strip behind the pills, row/card tint and primary button. */
+  theme: { strip: string; tint: string; button: string };
   hero: { title: string; subtitle: string; image: string };
   nav: { label: string; href: string }[];
   pills: { label: string; href: string }[];
@@ -26,6 +28,7 @@ const img = (campus: string, name: string) => `/programmes/${campus}/${name}.web
 
 export const LISTING_MUMBAI: ProgrammeListingData = {
   campus: "mumbai",
+  theme: { strip: "var(--color-secondary)", tint: "#f5eeff", button: "var(--color-orange)" },
   hero: {
     title: "Full-Time Programs in Mumbai",
     subtitle: "Designed to build managers who lead with clarity, courage, and vision",
@@ -65,6 +68,19 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { slug: "pgdm-research-analytics", title: "PGDM - Research and Business Analytics", description: "This course sharpens analytical minds in every keen student, shaping future business thinkers who lead with versatility." },
     { slug: "mms", title: "MMS", description: "This interdisciplinary programme equips students with integrated management knowledge and analytical skills, offering a competitive advantage on par with postgraduate programmes." },
   ].map((p) => ({ ...p, intake: "Present Intake: 180", href: p.slug === "pgdm" ? "/programmes/pgdm/mumbai" : `/programmes/${p.slug}` })),
+};
+
+// Figma 1815:2688: same programmes, terracotta strip, pink tint, green buttons,
+// and only the Full-Time / Executive categories.
+export const LISTING_BENGALURU: ProgrammeListingData = {
+  ...LISTING_MUMBAI,
+  campus: "bengaluru",
+  theme: { strip: "#b04535", tint: "#fff4f2", button: "var(--color-primary)" },
+  hero: { ...LISTING_MUMBAI.hero, title: "Full-Time Programmes in Bengaluru", image: img("bengaluru", "hero") },
+  nav: LISTING_MUMBAI.nav.map((n) => (n.label === "About Campus" ? { ...n, href: "/campuses/bengaluru" } : n)),
+  pills: LISTING_MUMBAI.pills.slice(0, 2),
+  intro: { ...LISTING_MUMBAI.intro, heading: "Full-time Programmes" },
+  programmes: LISTING_MUMBAI.programmes.map((p) => (p.slug === "pgdm" ? { ...p, href: "/programmes/pgdm/bengaluru" } : p)),
 };
 
 /** Photo slot for a programme row on a campus listing. */
