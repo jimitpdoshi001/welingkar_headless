@@ -11,7 +11,9 @@ export type LifeStory = { id: string; image: string; tag: string; title: string;
 export type LifeData = {
   hero: { title: string; subtitle: string; image: string };
   intro: { paragraphs: string[]; highlight: string; images: string[] };
-  tabs: string[];
+  /** Campus tabs link to each campus page; activeTab marks the current one. */
+  tabs: { label: string; href: string }[];
+  activeTab: number;
   campus: { heading: string; subtitle: string; cards: LifeCard[] };
   facilities: { heading: string; text: string };
   hostel: { heading: string; text: string };
@@ -58,7 +60,11 @@ export const LIFE: LifeData = {
     highlight: "Three campuses. One idea of what a business school should feel like.",
     images: [LIMG.collage1, LIMG.collage2, LIMG.collage3],
   },
-  tabs: ["Mumbai", "Bengaluru"],
+  tabs: [
+    { label: "Mumbai", href: "/life-at-weschool" },
+    { label: "Bengaluru", href: "/life-at-weschool/bengaluru" },
+  ],
+  activeTab: 0,
   campus: {
     heading: "Mumbai Campus",
     subtitle: "Our founding campus, in the middle of a city that never stops negotiating.",
@@ -138,4 +144,30 @@ export const LIFE: LifeData = {
     primary: { label: "Plan a campus visit", href: "/contact-us" },
     secondary: { label: "Talk to admissions", href: "/admissions" },
   },
+};
+
+// Figma 1445:129: same page, Bengaluru campus section and active tab.
+const BIMG = (n: number) => `/life/bengaluru/c${n}.webp`;
+
+export const LIFE_BENGALURU: LifeData = {
+  ...LIFE,
+  activeTab: 1,
+  campus: {
+    heading: "Electronic City, Bangalore",
+    subtitle: "Electronic City is not a neutral address. It is where India builds things.",
+    cards: [
+      { id: "bc-1", image: BIMG(1), title: "Learning the ropes", body: "A future-ready manager is one who can take a sustainable decision under real constraints. That starts in our Prototype Lab, where an idea stops being a slide and becomes an object you can hold, break and rebuild." },
+      { id: "bc-2", image: BIMG(2), title: "Forward-thinking is our motto", body: "Building for a better tomorrow sounds like a poster until you are the one doing it. Here, new ideas are led uninhibited. Students are not asked to wait their turn." },
+      { id: "bc-3", image: BIMG(3), title: "Self-discovery at the heart of it", body: "Two years is long enough to change your mind about who you are. A lot of that happens quietly in the library. Fresh perspectives on self, on society and on how organisations really work." },
+      { id: "bc-4", image: BIMG(4), title: "Hungry to know more", body: "The campus Athenaeum backs research and project work. Journals, case archives, references and the space to use them properly." },
+      LIFE.campus.cards[4],
+      LIFE.campus.cards[5],
+    ],
+  },
+  facilities: {
+    heading: "Campus Facilities",
+    text: "Discovery Rooms built for interactive learning · Proto Lab · IT Lab · Design Room with LCD and OHP · Audio Visual Room · Boardroom · Library · MDP Classroom · Canteen",
+  },
+  hostel: { heading: "Hostel", text: "Separate hostels for boys and girls, within 2 km of campus. 24×7 internet. A home away from home." },
+  address: { heading: "Address", text: "102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru 560100 · 080-42678300" },
 };

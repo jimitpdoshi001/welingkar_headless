@@ -63,11 +63,13 @@ export function LifePage({ data }: { data: LifeData }) {
           <div className={styles.tabsWrap}>
             <div className={`container ${styles.tabs}`}>
               {data.tabs.map((t, i) => (
-                <span
-                  key={t}
-                  className={`${styles.tab} ${i === 0 ? styles.tabActive : ""}`}>
-                  {t}
-                </span>
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  aria-current={i === data.activeTab ? "page" : undefined}
+                  className={`${styles.tab} ${i === data.activeTab ? styles.tabActive : ""}`}>
+                  {t.label}
+                </Link>
               ))}
             </div>
           </div>
