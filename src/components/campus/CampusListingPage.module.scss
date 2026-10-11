@@ -1,6 +1,6 @@
 @use "../../styles/base/mixins" as *;
 
-.crumbWrap { padding-top: 2.4rem; }
+.crumbWrap { padding-top: 13rem; @include respond-to(tab) { padding-top: 8.6rem; } }
 .breadcrumb { font-size: 1.4rem; display: flex; gap: 0.8rem; a { color: var(--color-gray); text-decoration: none; } span { color: var(--color-gray); } }
 
 .rowSection { padding-block: 4rem; @include respond-to(mobile) { padding-block: 2.4rem; } }
@@ -20,7 +20,10 @@
   @include respond-to(mobile) { .image { order: 1; } .card { order: 2; } }
 }
 
-.image { width: 100%; height: 100%; min-height: 36rem; object-fit: cover; border-radius: 2.4rem; }
+.image { width: 100%; height: 100%; min-height: 36rem; object-fit: cover; border-radius: 2.4rem;
+  // Stacked layout: keep the Figma 610 x 480 photo ratio.
+  @include respond-to(mobile) { height: auto; min-height: 0; aspect-ratio: 610 / 480; }
+}
 
 .card {
   background: var(--color-light-yellow);
@@ -31,10 +34,11 @@
   justify-content: center;
   align-items: flex-start;
 
-  @include respond-to(mobile) { padding: 2.8rem; }
+  @include respond-to(tab) { padding: 3.2rem; }
+  @include respond-to(mobile) { padding: 2.8rem 2.4rem; }
 }
-.rowSection.tinted .card { background: var(--color-white); }
+.rowSection.tinted .card { background: var(--color-white); border: 1px solid rgba(0, 0, 0, 0.2); }
 
-.title { font-size: 3.2rem; font-weight: 800; margin-bottom: 0.8rem; @include respond-to(mobile) { font-size: 2.4rem; } }
+.title { font-size: clamp(2.4rem, 1.8rem + 1vw, 3.2rem); font-weight: 800; margin-bottom: 0.8rem; @include respond-to(mobile) { font-size: 2.4rem; } }
 .eyebrow { font-size: 1.5rem; color: var(--color-gray); margin-bottom: 2rem; }
 .body { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 3rem; }
