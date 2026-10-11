@@ -30,7 +30,12 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 45%, transparent 70%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.15) 45%,
+    transparent 70%
+  );
 }
 
 .content {
@@ -86,6 +91,7 @@
   border: 0;
   background: transparent;
   color: var(--color-white);
+  font-family: inherit;
   text-align: left;
   cursor: pointer;
 }
@@ -185,5 +191,95 @@
     width: 4rem;
     height: 4rem;
     font-size: 1.8rem;
+  }
+}
+
+.dots {
+  display: none;
+}
+
+// Mobile (Figma 236:2108): copy sits near the top under a dark top gradient.
+@include respond-to(mobile) {
+  .hero::after {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.8) 2.3%, rgba(0, 0, 0, 0) 47.4%),
+      linear-gradient(0deg, rgba(37, 22, 6, 0.7) 0%, rgba(0, 0, 0, 0) 29.2%);
+  }
+
+  .content {
+    top: 16.6rem;
+    bottom: auto;
+    left: 2rem;
+    width: min(39rem, calc(100% - 4rem));
+
+    // 36px at Figma's 430px width, scaling down on narrower phones.
+    h3 {
+      font-size: clamp(3rem, 8.4vw, 3.6rem);
+      line-height: normal;
+      margin-bottom: 0;
+    }
+
+    h6 {
+      max-width: 29.4rem;
+      font-size: 2rem;
+      line-height: normal;
+    }
+
+    [class*="descriptionContent"] {
+      margin-top: 0.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    :global(.btn) {
+      display: inline-grid;
+      place-content: center;
+      min-width: 13.1rem;
+      height: 4.4rem;
+      padding: 0 2.4rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+  }
+}
+
+// Tablet and mobile: the floating Enquire bar covers the thumbnail rail, so
+// show pagination dots instead (Figma mobile).
+@include respond-to(tab) {
+  .thumbsWrap {
+    display: none;
+  }
+
+  .dots {
+    position: absolute;
+    left: 50%;
+    bottom: 13.2rem;
+    z-index: 3;
+    display: flex;
+    transform: translateX(-50%);
+  }
+
+  // 10px dot inside a 24px tap target.
+  .dot {
+    display: grid;
+    place-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      background: var(--color-dark-gray);
+      transition: background-color 0.2s ease;
+    }
+  }
+
+  .dotActive::before {
+    background: var(--color-primary);
   }
 }
