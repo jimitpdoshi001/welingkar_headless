@@ -158,7 +158,6 @@ export function AboutPage({ data }: { data: AboutData }) {
                 src={data.director.image}
                 alt=""
               />
-              <span className={styles.playBadge} />
             </div>
           </section>
 
