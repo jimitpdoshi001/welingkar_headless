@@ -107,10 +107,13 @@ export function HeaderClient({ transparentHero = false }: { transparentHero?: bo
   // state always use the solid white bar.
   const useGlassHero = isHomePage || transparentHero;
   const isStickyMode = !useGlassHero || isScrolled || isMobile;
+  // On mobile the solid bar is used, but over a dark hero it floats transparent
+  // with a white logo + white hamburger (Figma), until scrolled or menu opened.
+  const mobileGlass = isMobile && useGlassHero && !isScrolled && !isMenuOpen;
 
   if (isStickyMode) {
     return (
-      <header className={`${styles.header} ${styles.headerSticky}`}>
+      <header className={`${styles.header} ${styles.headerSticky} ${mobileGlass ? styles.mobileGlass : ""}`}>
         <div className={styles.stickyTopBar}>
           <div className={styles.stickyTopBarContainer}>
             <div className={styles.stickyPrimaryNav}>
