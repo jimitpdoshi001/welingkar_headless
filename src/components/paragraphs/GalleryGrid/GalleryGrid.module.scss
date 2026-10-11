@@ -13,7 +13,7 @@
   gap: 2rem;
 
   .item {
-    object-fit: cover;
+    min-height: 0;
     border-radius: 2rem;
     overflow: hidden;
   }
@@ -36,10 +36,12 @@
   }
 }
 
+// Fill each grid cell so every tile's bottom edge lines up (no clipped image).
 .item {
   img {
+    display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
   }
 }
