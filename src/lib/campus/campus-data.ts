@@ -105,8 +105,11 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     accent: isMumbai ? "orange" : "green",
     bannerTitle: `Prin. L. N. Welingkar Institute of Management Development & Research, ${campus}`,
     hero: {
-      title: "A Campus Built for Future Leaders",
-      subtitle: "Where industry, innovation and immersive learning come together.",
+      // Bengaluru copy from Figma 327:1577; Mumbai's Figma hero is still placeholder text.
+      title: isMumbai ? "A Campus Built for Future Leaders" : "A Campus in the Heart of India's Tech Capital",
+      subtitle: isMumbai
+        ? "Where industry, innovation and immersive learning come together."
+        : "Be Where Global Tech, Startups & Innovation Opportunities Are",
       cta: { label: "Explore All", href: `${base}/about` },
       image: CIMG.hero,
     },
@@ -143,8 +146,8 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     },
     director: {
       heading: "Words from the Director's Desk",
-      name: "Prof. Dr. Kaustubh Dhargalkar",
-      title: "In-Charge Director",
+      name: isMumbai ? "Prof. Dr. Kaustubh Dhargalkar" : "Dr. Madhavi Lokhande",
+      title: isMumbai ? "In-Charge Director" : "Bengaluru Campus Director",
       body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
       image: CIMG.director,
       cta: { label: "Read More", href: "/about-us/directors-message" },

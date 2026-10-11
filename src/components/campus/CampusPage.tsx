@@ -11,6 +11,7 @@ import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
 export function CampusPage({ data }: { data: CampusData }) {
+  const isMumbai = data.accent === "orange";
   const accentVar = data.accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
 
   return (
@@ -20,7 +21,14 @@ export function CampusPage({ data }: { data: CampusData }) {
 
         <main
           className={`${styles.page} ${data.accent === "orange" ? styles.orangeCtas : ""}`}
-          style={{ ["--faculty-accent" as string]: accentVar }}>
+          style={
+            {
+              "--faculty-accent": accentVar,
+              // Figma: Mumbai uses purple bands/banner; Bengaluru terracotta bands, green banner.
+              "--campus-band": isMumbai ? "var(--color-secondary)" : "#b04535",
+              "--campus-banner": isMumbai ? "var(--color-secondary)" : "var(--color-primary)",
+            } as React.CSSProperties
+          }>
           {/* Figma: institute banner strip (sits under the fixed site header). */}
           <p className={styles.banner}>{data.bannerTitle}</p>
           <section className={styles.hero}>
@@ -201,7 +209,7 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section
             id="programmes"
-            className="bg-secondary">
+            className={styles.band}>
             <div className={`container ${styles.block}`}>
               <CardCarousel
                 heading={data.programmes.heading}
@@ -299,7 +307,7 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section
             id="infrastructure"
-            className="bg-secondary">
+            className={styles.band}>
             <div className={`container ${styles.block}`}>
               <CardCarousel
                 heading={data.infrastructure.heading}
