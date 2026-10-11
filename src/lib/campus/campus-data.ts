@@ -40,7 +40,13 @@ export type CampusData = {
   connect: { heading: string; address: string; phone: string; mapImage: string };
 };
 
-const ACCRED = ["ACBSP", "SAQS", "NBA", "AICTE"].map((name) => ({ name, image: logoPlaceholder(name) }));
+// Shared with the About page; AICTE is a placeholder until the logo is uploaded.
+const ACCRED = [
+  { name: "ACBSP", image: "/about/logo-acbsp.png" },
+  { name: "SAQS", image: "/about/logo-saqs.png" },
+  { name: "NBA", image: "/about/logo-nba.png" },
+  { name: "AICTE", image: "/campus/logo-aicte.webp" },
+];
 
 // Local images per campus: /public/campus/<mumbai|bengaluru>/<name>.webp.
 // Each slot ships with a labelled placeholder; upload a photo with the same

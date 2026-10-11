@@ -15,9 +15,13 @@ export function CampusPage({ data }: { data: CampusData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header transparentHero />
+        <Header />
 
-        <main style={{ ["--faculty-accent" as string]: accentVar }}>
+        <main
+          className={`${styles.page} ${data.accent === "orange" ? styles.orangeCtas : ""}`}
+          style={{ ["--faculty-accent" as string]: accentVar }}>
+          {/* Figma: institute banner strip (sits under the fixed site header). */}
+          <p className={styles.banner}>{data.bannerTitle}</p>
           <section className={styles.hero}>
             <img
               src={data.hero.image}
@@ -26,7 +30,6 @@ export function CampusPage({ data }: { data: CampusData }) {
             />
             <div className={styles.heroOverlay} />
             <div className={`container ${styles.heroInner}`}>
-              <p className={styles.eyebrow}>{data.bannerTitle}</p>
               <h1 className={styles.heroTitle}>{data.hero.title}</h1>
               <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
               <Link
@@ -54,7 +57,8 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section
             id="about"
-            className={`container ${styles.about}`}>
+            className={styles.aboutBand}>
+            <div className={`container ${styles.about}`}>
             <h2 className={styles.aboutHeading}>{data.about.heading}</h2>
             {data.about.paragraphs.map((p, i) => (
               <p
@@ -73,7 +77,14 @@ export function CampusPage({ data }: { data: CampusData }) {
                 </div>
               ))}
             </div>
+            </div>
           </section>
+          {/* Figma: full-width campus photo fading up into the About band. */}
+          <img
+            src={data.about.image}
+            alt=""
+            className={styles.aboutPhoto}
+          />
 
           <section className={`container ${styles.block} ${styles.accred}`}>
             <h2 className={styles.sectionHeading}>{data.accreditations.heading}</h2>

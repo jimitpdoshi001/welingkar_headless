@@ -5,129 +5,64 @@
   @include respond-to(mobile) { padding-block: 5rem; }
 }
 
-// Hero
-.hero {
-  position: relative;
-  min-height: 60rem;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+// Page sits under the fixed solid header.
+.page { padding-top: 10.5rem; @include respond-to(tab) { padding-top: 6.2rem; } }
 
-  @include respond-to(mobile) { min-height: 44rem; }
-}
+// Mumbai design uses orange primary buttons (Figma #f77100).
+.orangeCtas :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }
 
-.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 70%);
-}
-
-.heroInner { position: relative; z-index: 1; color: var(--color-white); padding-block: 6rem; }
-
-.eyebrow {
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 1.6rem;
-  text-transform: uppercase;
-}
-
-.heroTitle {
-  font-size: 4.4rem;
-  font-weight: 800;
-  line-height: 1.1;
-  max-width: 56rem;
-  margin-bottom: 1.2rem;
-
-  @include respond-to(mobile) { font-size: 2.8rem; }
-}
-
-.heroSubtitle {
-  font-size: 1.7rem;
-  max-width: 48rem;
-  margin-bottom: 2.4rem;
-  opacity: 0.95;
-}
-
-// In-page nav
-.inPageNav {
-  border-bottom: 1px solid var(--color-light-gray);
-  background: var(--color-white);
-}
-
-.inPageNavInner {
-  display: flex;
-  gap: 4rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
-
-  @include respond-to(mobile) { gap: 2.4rem; }
-}
-
-.inPageLink {
-  padding: 2rem 0;
+.banner {
+  margin: 0;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  text-align: center;
   font-size: 1.6rem;
-  color: var(--color-gray);
-  white-space: nowrap;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -1px;
-  transition: color 0.2s ease;
-
-  &:hover { color: var(--color-black); }
+  font-weight: 500;
+  padding: 1.8rem 2rem;
+  @include respond-to(mobile) { font-size: 1.3rem; padding: 1.2rem 1.6rem; }
 }
 
-.inPageActive {
-  color: var(--faculty-accent, var(--color-primary));
-  border-bottom-color: var(--faculty-accent, var(--color-primary));
+// Hero (Figma 979:1819): 650px tall, title 48px, subtitle 22px.
+.hero { position: relative; min-height: 65rem; display: flex; align-items: flex-start; overflow: hidden;
+  @include respond-to(tab) { min-height: 52rem; }
+  @include respond-to(mobile) { min-height: 46rem; }
 }
-
-// About + stats
-.about { padding-block: 8rem; text-align: center; @include respond-to(mobile) { padding-block: 5rem; } }
-
-.aboutHeading {
-  font-size: 3.6rem;
-  font-weight: 800;
-  color: var(--color-secondary);
-  line-height: 1.2;
-  margin-bottom: 2rem;
-
-  @include respond-to(mobile) { font-size: 2.6rem; }
+.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.heroOverlay { position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 39.4%), linear-gradient(88deg, rgba(0, 0, 0, 0.8) 0.6%, rgba(0, 0, 0, 0) 47%);
 }
-
-.aboutBody {
-  font-size: 1.7rem;
-  line-height: 1.7;
-  color: var(--color-dark-gray);
-  max-width: 82rem;
-  margin: 0 auto 1.6rem;
+.heroInner { position: relative; z-index: 1; color: var(--color-white); padding-top: 22.6rem; padding-bottom: 14rem;
+  @include respond-to(tab) { padding-top: 14rem; }
+  @include respond-to(mobile) { padding-top: 10rem; padding-bottom: 12rem; }
 }
+.heroTitle { font-size: clamp(3rem, 2rem + 2.2vw, 4.8rem); font-weight: 800; line-height: 1.2; max-width: 52.6rem; margin-bottom: 1.6rem; }
+.heroSubtitle { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); max-width: 52rem; margin-bottom: 4.4rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }
 
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
-  margin-top: 4rem;
-  flex-wrap: wrap;
-
-  @include respond-to(mobile) { gap: 3rem; }
+// In-page nav (Figma 1517:171): white bar overlapping the hero bottom.
+.inPageNav { position: relative; z-index: 2; margin-top: -9.8rem; margin-bottom: 3.8rem; background: var(--color-white); box-shadow: 1.9rem 1.5rem 4.6rem rgba(0, 0, 0, 0.14); }
+.inPageNavInner { display: flex; justify-content: center; gap: 3.4rem; overflow-x: auto; scrollbar-width: none; &::-webkit-scrollbar { display: none; }
+  @include respond-to(tab) { justify-content: flex-start; gap: 2.4rem; }
 }
-
-.stat { display: flex; flex-direction: column; }
-
-.statValue {
-  font-size: 5rem;
-  font-weight: 800;
-  color: var(--color-secondary);
-  line-height: 1;
-
-  @include respond-to(mobile) { font-size: 3.6rem; }
+.inPageLink { display: block; padding: 2.1rem 0 1.6rem; font-size: 1.4rem; color: var(--color-black); white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s ease;
+  &:hover { color: var(--color-primary); }
 }
+.inPageActive { color: var(--color-primary); font-weight: 700; border-bottom-color: var(--color-primary); }
 
-.statLabel { font-size: 1.5rem; color: var(--color-gray); margin-top: 0.6rem; }
+// About (Figma 979:1508): cream band with decorative triangle.
+.aboutBand { position: relative; background: var(--color-light); overflow: hidden; margin-top: -3.8rem;
+  &::before { content: ""; position: absolute; left: 11.6%; top: 4.6rem; width: 29.7rem; height: 33.9rem; background: rgba(73, 52, 96, 0.06); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none;
+    @include respond-to(mobile) { left: -4rem; width: 18rem; height: 20rem; }
+  }
+}
+.about { position: relative; padding-block: 11rem 4rem; text-align: center; @include respond-to(mobile) { padding-block: 7rem 3rem; } }
+.aboutHeading { font-size: clamp(2.8rem, 2rem + 1.6vw, 3.75rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 32rem; margin: 0 auto 3.6rem; }
+.aboutBody { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; }
+.stats { display: flex; justify-content: center; gap: clamp(4rem, 14vw, 21rem); margin-top: 4rem; flex-wrap: wrap; @include respond-to(mobile) { gap: 2.4rem 3.6rem; } }
+.stat { display: flex; flex-direction: column; align-items: center; }
+.statValue { font-size: clamp(4rem, 2.6rem + 2.4vw, 6rem); font-weight: 700; color: var(--color-secondary); line-height: 1; }
+.statLabel { font-size: 1.6rem; font-weight: 500; color: var(--color-black); margin-top: 1.4rem; }
+// Full-width photo whose top fades into the cream band.
+.aboutPhoto { display: block; width: 100%; height: clamp(28rem, 40vw, 56rem); object-fit: cover; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%); background: var(--color-light); }
 
 // Faculty network
 .facultyGrid {
@@ -314,14 +249,18 @@
   gap: 4rem;
   margin-bottom: 3.2rem;
 }
-.accredLogo { height: 7rem; width: auto; object-fit: contain; }
+// Figma 979:1640: logos at their own heights on a shared centre line.
+.accredLogo { height: 9.5rem; width: auto; max-width: 14rem; object-fit: contain;
+  &:first-child { height: 16rem; } &:last-child { height: 14.7rem; }
+  @include respond-to(mobile) { height: 6rem; &:first-child, &:last-child { height: 8rem; } }
+}
 .accredPoints {
   list-style: disc;
   padding-left: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  li { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); &::marker { color: var(--color-primary); } }
+  gap: 0;
+  li { font-size: 1.6rem; font-weight: 500; line-height: 3rem; color: var(--color-black); &::marker { color: var(--color-black); } }
 }
 
 /* Director's Desk */
