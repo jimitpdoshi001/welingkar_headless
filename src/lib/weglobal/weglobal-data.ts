@@ -15,13 +15,13 @@ export type WeGlobalData = {
 };
 
 const WGI = {
-  hero: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&auto=format&fit=crop&q=80",
-  e1: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&auto=format&fit=crop&q=80",
-  e2: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=900&auto=format&fit=crop&q=80",
-  e3: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=900&auto=format&fit=crop&q=80",
-  l1: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&auto=format&fit=crop&q=80",
-  l2: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&auto=format&fit=crop&q=80",
-  l3: "https://images.unsplash.com/photo-1562774053-701939374585?w=900&auto=format&fit=crop&q=80",
+  hero: "/weglobal/hero.webp",
+  e1: "/weglobal/asean-round-table.webp",
+  e2: "/weglobal/acbsp-region-10.webp",
+  e3: "/weglobal/acbsp-region-10.webp",
+  l1: "/weglobal/global-learning-ruf.webp",
+  l2: "/weglobal/hdm-stuttgart.webp",
+  l3: "/weglobal/global-learning-ruf.webp",
 };
 
 export const WEGLOBAL: WeGlobalData = {
