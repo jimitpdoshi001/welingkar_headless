@@ -20,6 +20,10 @@ export type MdcData = {
   trusted: { heading: string; logos: { name: string; image: string }[] };
   testimonials: { heading: string; items: MdcTestimonial[] };
   team: { heading: string; subtitle: string; contacts: MdcContact[] };
+  /** Optional campus colours; Mumbai uses the default purple. */
+  theme?: { accent: string; tint: string };
+  /** Sub-folder of recoloured icons, e.g. "bengaluru/". */
+  iconSet?: string;
 };
 
 const DIMG = {
@@ -138,5 +142,21 @@ export const MDC: MdcData = {
       { id: "c-1", name: "Ms Ameeta Hampiholi", title: "Deputy General Manager, Executive Education", dept: "WeSchool Management Development Centre", office: "+91-22-24198300 (Extn: 8144)", mobile: "+91 9820979889", email: "ameeta.hampiholi@welingkar.org" },
       { id: "c-2", name: "Ms Tanaz Daruwalla", title: "Deputy General Manager, Executive Education", dept: "WeSchool Management Development Centre", office: "+91-22-24198300 (Extn: 8144)", mobile: "+91 9820979889", email: "tanaz.daruwalla@welingkar.org" },
     ],
+  },
+};
+
+// Figma 1561:153: Bengaluru variant, terracotta theme and campus photos.
+const BIMG = (n: string) => `/mdc/bengaluru/${n}.webp`;
+
+export const MDC_BENGALURU: MdcData = {
+  ...MDC,
+  theme: { accent: "#b04535", tint: "#fff4f2" },
+  iconSet: "bengaluru/",
+  hero: { ...MDC.hero, image: BIMG("hero") },
+  learning: { ...MDC.learning, images: [BIMG("learn1"), BIMG("learn2")] },
+  about: { ...MDC.about, image: BIMG("about") },
+  flagship: {
+    ...MDC.flagship,
+    cards: MDC.flagship.cards.map((c, i) => ({ ...c, image: BIMG(`f${i + 1}`) })),
   },
 };
