@@ -3,17 +3,17 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 60rem;
+  min-height: 64rem;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   overflow: hidden;
 
   @include respond-to(tab) {
-    min-height: 48rem;
+    min-height: 52rem;
   }
 
   @include respond-to(mobile) {
-    min-height: 44rem;
+    min-height: 46rem;
   }
 }
 
@@ -36,10 +36,15 @@
   position: relative;
   z-index: 1;
   color: var(--color-white);
-  padding-block: 6rem;
+  display: flex;
+  flex-direction: column;
+  // Top padding clears the floating glass header; content sits lower (Figma).
+  padding-top: 14rem;
+  padding-bottom: 6rem;
 
   @include respond-to(mobile) {
-    padding-block: 4rem;
+    padding-top: 10rem;
+    padding-bottom: 4rem;
   }
 }
 
@@ -65,6 +70,8 @@
   line-height: 1.1;
   max-width: 62rem;
   margin-bottom: 1.6rem;
+  // Push the main content block to the bottom; breadcrumb stays at the top.
+  margin-top: auto;
 
   @include respond-to(tab) {
     font-size: 3.6rem;

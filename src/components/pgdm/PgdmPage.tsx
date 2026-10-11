@@ -35,7 +35,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main style={{ ["--faculty-accent" as string]: accentVar }}>
           <PgdmHero data={data.hero} />

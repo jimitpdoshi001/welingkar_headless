@@ -11,7 +11,7 @@ import { useOptionalSearch } from "@/components/SearchOverlay/search-context";
 import { MAIN_NAV, UTILITY_NAV } from "@/lib/menu/menu-config";
 import { MegaMenu } from "./MegaMenu/MegaMenu";
 
-export function HeaderClient() {
+export function HeaderClient({ transparentHero = false }: { transparentHero?: boolean } = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openNav, setOpenNav] = useState<string | null>(null);
@@ -31,11 +31,12 @@ export function HeaderClient() {
   };
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 700);
+    const threshold = isHomePage ? 700 : 420;
+    const handleScroll = () => setIsScrolled(window.scrollY > threshold);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -101,8 +102,11 @@ export function HeaderClient() {
     </>
   );
 
-  // Mobile/Tablet ALWAYS uses full site header style (solid white bar)
-  const isStickyMode = !isHomePage || isScrolled || isMobile;
+  // The glass/transparent header is used over a dark hero (homepage, or any
+  // page that opts in via `transparentHero`). Mobile/Tablet and the scrolled
+  // state always use the solid white bar.
+  const useGlassHero = isHomePage || transparentHero;
+  const isStickyMode = !useGlassHero || isScrolled || isMobile;
 
   if (isStickyMode) {
     return (
