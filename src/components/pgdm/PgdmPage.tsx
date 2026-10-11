@@ -40,7 +40,13 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
 
         <main
           className={accent === "orange" ? styles.orangeCtas : undefined}
-          style={{ ["--faculty-accent" as string]: accentVar }}
+          style={
+            {
+              "--faculty-accent": accentVar,
+              // Figma: Mumbai bands are purple, Bengaluru bands terracotta.
+              "--pgdm-band": accent === "orange" ? "#4a3460" : "#b04535",
+            } as React.CSSProperties
+          }
         >
           <PgdmHero data={data.hero} />
 
@@ -78,7 +84,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <section className="bg-secondary">
+          <section className={styles.band}>
             <div className={`container ${styles.block}`}>
               <PgdmFeatureGrid
                 heading="Programme USPs"
@@ -99,13 +105,13 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             <PgdmShortlistTable data={data.shortlisting} />
           </section>
 
-          <section className="bg-secondary">
+          <section className={styles.band}>
             <div className={`container ${styles.block}`}>
               <PgdmCurriculum data={data.curriculum} />
             </div>
           </section>
 
-          <section className="bg-secondary">
+          <section className={styles.band}>
             <div className={`container ${styles.blockTop0}`}>
               <PgdmVisionMission data={data.visionMission} />
             </div>
@@ -151,7 +157,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <section className="bg-secondary">
+          <section className={styles.band}>
             <div className={`container ${styles.block}`}>
               <PgdmCommunity data={data.community} />
             </div>

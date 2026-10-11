@@ -87,7 +87,8 @@
 }
 
 // Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
-.placementBand { background-color: #4a3460; background-repeat: no-repeat; background-position: top center; background-size: 100% auto;
+.band { background-color: var(--pgdm-band, var(--color-secondary)); }
+.placementBand { background-color: var(--pgdm-band, #4a3460); background-repeat: no-repeat; background-position: top center; background-size: 100% auto;
   @include respond-to(mobile) { background-size: auto 60rem; }
 }
 

@@ -18,7 +18,7 @@
   background: var(--color-white);
 
   .header {
-    background-color: var(--color-secondary);
+    background-color: var(--pgdm-band, var(--color-secondary));
     color: var(--color-white);
     border-radius: 2.4rem 2.4rem 0 0;
   }
