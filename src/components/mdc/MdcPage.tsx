@@ -93,11 +93,11 @@ export function MdcPage({ data }: { data: MdcData }) {
 
           <section className={styles.featureBand}>
             <div className={`container ${styles.featureRow}`}>
-              {data.learning.features.map((f) => (
+              {data.learning.features.map((f, i) => (
                 <div
                   key={f.title}
                   className={styles.feature}>
-                  <span className={styles.featureIcon} />
+                  <img src={`/mdc/icons/feature-${i + 1}.svg`} alt="" className={styles.featureIcon} />
                   <h3>{f.title}</h3>
                 </div>
               ))}
@@ -138,11 +138,11 @@ export function MdcPage({ data }: { data: MdcData }) {
           <section className={`container ${styles.block}`}>
             <h2 className={styles.heading}>{data.why.heading}</h2>
             <div className={styles.whyGrid}>
-              {data.why.cards.map((c) => (
+              {data.why.cards.map((c, i) => (
                 <div
                   key={c.title}
                   className={styles.whyCard}>
-                  <span className={styles.whyIcon} />
+                  <img src={`/mdc/icons/why-${i + 1}.svg`} alt="" className={styles.whyIcon} />
                   <h3>{c.title}</h3>
                   <p>{c.text}</p>
                 </div>
@@ -155,11 +155,11 @@ export function MdcPage({ data }: { data: MdcData }) {
             <div className={`container ${styles.block}`}>
               <h2 className={styles.headingLight}>{data.expertise.heading}</h2>
               <div className={styles.expertiseGrid}>
-                {data.expertise.items.map((e) => (
+                {data.expertise.items.map((e, i) => (
                   <div
                     key={e}
                     className={styles.expertiseItem}>
-                    <span className={styles.expertiseIcon} />
+                    <img src={`/mdc/icons/expertise-${i + 1}.svg`} alt="" className={styles.expertiseIcon} />
                     <span>{e}</span>
                   </div>
                 ))}
