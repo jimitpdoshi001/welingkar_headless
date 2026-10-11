@@ -2,7 +2,6 @@
  * Mock data for the Campus pages (Mumbai / Bengaluru), mirroring the Figma
  * design. Swap for Drupal fields later. Images are placeholders.
  */
-import { logoPlaceholder } from "@/util/placeholder";
 
 export type CampusCta = { label: string; href: string };
 
@@ -89,9 +88,10 @@ const campusImages = (slug: "mumbai" | "bengaluru") => {
   };
 };
 
+// Recruiter logos: /public/campus/recruiters/<name-slug>.webp (placeholders until uploaded).
 const RECRUITERS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
   name,
-  image: logoPlaceholder(name),
+  image: `/campus/recruiters/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.webp`,
 }));
 
 function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
@@ -161,7 +161,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       ],
     },
     faculty: {
-      heading: "A Faculty Network Without Borders",
+      heading: "Our Extended Faculty Network",
       description: "Our academic strength is enriched by a distinguished network of visiting faculty members from across India and abroad, bringing diverse perspectives, industry insight, and global best practices into the classroom.",
       categories: ["International Faculty", "Visiting Faculty", "Guest Lecturers"],
       image: CIMG.facultyNetwork,

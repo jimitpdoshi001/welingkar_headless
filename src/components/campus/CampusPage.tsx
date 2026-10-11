@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
+import { ScrollArrows } from "./ScrollArrows/ScrollArrows";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
@@ -140,13 +141,18 @@ export function CampusPage({ data }: { data: CampusData }) {
                   </span>
                 ))}
               </div>
-              <Link
-                href={data.mentors.cta.href}
-                className="btn accent">
-                {data.mentors.cta.label}
-              </Link>
+              <div className={styles.barActions}>
+                <Link
+                  href={data.mentors.cta.href}
+                  className="btn accent">
+                  {data.mentors.cta.label}
+                </Link>
+                <ScrollArrows targetId="campus-mentors" />
+              </div>
             </div>
-            <div className={styles.mentorGrid}>
+            <div
+              id="campus-mentors"
+              className={styles.mentorGrid}>
               {data.mentors.people.map((p) => (
                 <article
                   key={p.id}
@@ -168,31 +174,27 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
+          {/* Figma 979:1564: full-width photo card with copy and category list on top. */}
           <section
             id="faculty"
             className="bg-light-yellow">
-            <div className={`container ${styles.block} ${styles.facultyGrid}`}>
+            <div className={`container ${styles.block}`}>
               <div
-                className={styles.facultyMedia}
+                className={styles.facultyCard}
                 style={{ backgroundImage: `url(${data.faculty.image})` }}>
-                <div className={styles.facultyTabs}>
+                <div className={styles.facultyText}>
+                  <h2 className={styles.facultyHeading}>{data.faculty.heading}</h2>
+                  <p className={styles.facultyBody}>{data.faculty.description}</p>
+                </div>
+                <ul className={styles.facultyTabs}>
                   {data.faculty.categories.map((cat, i) => (
-                    <span
+                    <li
                       key={cat}
                       className={`${styles.facultyTab} ${i === 0 ? styles.facultyTabActive : ""}`}>
                       {cat}
-                    </span>
+                    </li>
                   ))}
-                </div>
-              </div>
-              <div className={styles.facultyText}>
-                <h2 className={styles.facultyHeading}>{data.faculty.heading}</h2>
-                <p className={styles.facultyBody}>{data.faculty.description}</p>
-                <Link
-                  href={data.faculty.cta.href}
-                  className="btn accent">
-                  {data.faculty.cta.label}
-                </Link>
+                </ul>
               </div>
             </div>
           </section>
@@ -205,7 +207,6 @@ export function CampusPage({ data }: { data: CampusData }) {
                 heading={data.programmes.heading}
                 description={data.programmes.description}
                 cards={data.programmes.cards}
-                cta={data.programmes.cta}
                 theme="onDark"
                 overlayCaption
               />
@@ -214,9 +215,16 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section className={`container ${styles.block}`}>
             <div className={styles.recruiters}>
-              <h2 className={styles.recHeading}>{data.recruiters.heading}</h2>
-              <p className={styles.recDescription}>{data.recruiters.description}</p>
-              <div className={styles.logoStrip}>
+              <div className={styles.recHead}>
+                <div>
+                  <h2 className={styles.recHeading}>{data.recruiters.heading}</h2>
+                  <p className={styles.recDescription}>{data.recruiters.description}</p>
+                </div>
+                <ScrollArrows targetId="campus-recruiters" />
+              </div>
+              <div
+                id="campus-recruiters"
+                className={styles.logoStrip}>
                 {data.recruiters.logos.map((logo) => (
                   <img
                     key={logo.name}
