@@ -87,3 +87,14 @@
   color: var(--color-gray);
   margin-bottom: 2.8rem;
 }
+
+// Figma 1726:571: compact pill in the page accent (orange Mumbai, green Bengaluru).
+.root .content .cta {
+  min-height: 0;
+  height: 3.75rem;
+  padding: 0 2rem;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  background-color: var(--faculty-accent, var(--color-primary));
+  border-color: var(--faculty-accent, var(--color-primary));
+}

@@ -2,7 +2,6 @@
  * Mock data for the MDC (Management Development Centre) landing page,
  * mirroring the Figma design. Swap for Drupal fields later. Placeholders.
  */
-import { logoPlaceholder } from "@/util/placeholder";
 
 export type MdcFeature = { title: string; text: string };
 export type MdcCard = { id: string; image: string; title: string; text: string };
@@ -21,19 +20,23 @@ export type MdcData = {
   trusted: { heading: string; logos: { name: string; image: string }[] };
   testimonials: { heading: string; items: MdcTestimonial[] };
   team: { heading: string; subtitle: string; contacts: MdcContact[] };
+  /** Optional campus colours; Mumbai uses the default purple. */
+  theme?: { accent: string; tint: string };
+  /** Sub-folder of recoloured icons, e.g. "bengaluru/". */
+  iconSet?: string;
 };
 
 const DIMG = {
-  hero: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&auto=format&fit=crop&q=80",
-  learn1: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1000&auto=format&fit=crop&q=80",
-  learn2: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=700&auto=format&fit=crop&q=80",
-  about: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&auto=format&fit=crop&q=80",
-  f1: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=900&auto=format&fit=crop&q=80",
-  f2: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=900&auto=format&fit=crop&q=80",
-  f3: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900&auto=format&fit=crop&q=80",
+  hero: "/mdc/mumbai/hero.webp",
+  learn1: "/mdc/mumbai/learn1.webp",
+  learn2: "/mdc/mumbai/learn2.webp",
+  about: "/mdc/mumbai/about.webp",
+  f1: "/mdc/mumbai/f1.webp",
+  f2: "/mdc/mumbai/f2.webp",
+  f3: "/mdc/mumbai/f3.webp",
 };
 
-const TRUSTED = ["Mahindra", "Kalpataru", "Bayer", "Galaxy", "Aries", "McDonald's"].map((n) => ({ name: n, image: logoPlaceholder(n) }));
+const TRUSTED = ["Mahindra", "Kalpataru", "Bayer", "Galaxy", "Aries", "McDonald's"].map((n, i) => ({ name: n, image: `/mdc/mumbai/logo-${i + 1}.png` }));
 
 export const MDC: MdcData = {
   hero: {
@@ -139,5 +142,21 @@ export const MDC: MdcData = {
       { id: "c-1", name: "Ms Ameeta Hampiholi", title: "Deputy General Manager, Executive Education", dept: "WeSchool Management Development Centre", office: "+91-22-24198300 (Extn: 8144)", mobile: "+91 9820979889", email: "ameeta.hampiholi@welingkar.org" },
       { id: "c-2", name: "Ms Tanaz Daruwalla", title: "Deputy General Manager, Executive Education", dept: "WeSchool Management Development Centre", office: "+91-22-24198300 (Extn: 8144)", mobile: "+91 9820979889", email: "tanaz.daruwalla@welingkar.org" },
     ],
+  },
+};
+
+// Figma 1561:153: Bengaluru variant, terracotta theme and campus photos.
+const BIMG = (n: string) => `/mdc/bengaluru/${n}.webp`;
+
+export const MDC_BENGALURU: MdcData = {
+  ...MDC,
+  theme: { accent: "#b04535", tint: "#fff4f2" },
+  iconSet: "bengaluru/",
+  hero: { ...MDC.hero, image: BIMG("hero") },
+  learning: { ...MDC.learning, images: [BIMG("learn1"), BIMG("learn2")] },
+  about: { ...MDC.about, image: BIMG("about") },
+  flagship: {
+    ...MDC.flagship,
+    cards: MDC.flagship.cards.map((c, i) => ({ ...c, image: BIMG(`f${i + 1}`) })),
   },
 };

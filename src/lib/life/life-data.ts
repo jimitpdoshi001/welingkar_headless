@@ -11,7 +11,9 @@ export type LifeStory = { id: string; image: string; tag: string; title: string;
 export type LifeData = {
   hero: { title: string; subtitle: string; image: string };
   intro: { paragraphs: string[]; highlight: string; images: string[] };
-  tabs: string[];
+  /** Campus tabs link to each campus page; activeTab marks the current one. */
+  tabs: { label: string; href: string }[];
+  activeTab: number;
   campus: { heading: string; subtitle: string; cards: LifeCard[] };
   facilities: { heading: string; text: string };
   hostel: { heading: string; text: string };
@@ -25,23 +27,23 @@ export type LifeData = {
 };
 
 const LIMG = {
-  hero: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&auto=format&fit=crop&q=80",
-  collage1: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&auto=format&fit=crop&q=80",
-  collage2: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&auto=format&fit=crop&q=80",
-  collage3: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80",
-  c1: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=900&auto=format&fit=crop&q=80",
-  c2: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=900&auto=format&fit=crop&q=80",
-  c3: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=900&auto=format&fit=crop&q=80",
-  c4: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=900&auto=format&fit=crop&q=80",
-  c5: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&auto=format&fit=crop&q=80",
-  c6: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=900&auto=format&fit=crop&q=80",
-  cells: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&auto=format&fit=crop&q=80",
-  story1: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=80",
-  story2: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
-  story3: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=80",
+  hero: "/life/mumbai/hero.webp",
+  collage1: "/life/mumbai/collage1.webp",
+  collage2: "/life/mumbai/collage2.webp",
+  collage3: "/life/mumbai/collage3.webp",
+  c1: "/life/mumbai/c1.webp",
+  c2: "/life/mumbai/c2.webp",
+  c3: "/life/mumbai/c3.webp",
+  c4: "/life/mumbai/c4.webp",
+  c5: "/life/mumbai/c5.webp",
+  c6: "/life/mumbai/c6.webp",
+  cells: "/life/mumbai/cells.webp",
+  story1: "/life/mumbai/story1.webp",
+  story2: "/life/mumbai/story2.webp",
+  story3: "/life/mumbai/story3.webp",
 };
 
-const g = (n: number) => `https://images.unsplash.com/photo-${["1523240795612-9a054b0db644", "1524178232363-1fb2b075b655", "1540575467063-178a50c2df87", "1522202176988-66273c2fd55f", "1531545514256-b1400bc00f31", "1517048676732-d65bc937f952", "1544717305-2782549b5136", "1600880292089-90a7e086ee0c", "1498243691581-b145c3f54a5a", "1427504494785-3a9ca7044f45"][n % 10]}?w=700&auto=format&fit=crop&q=80`;
+const g = (n: number) => `/life/mumbai/gallery-${n + 1}.webp`;
 
 export const LIFE: LifeData = {
   hero: {
@@ -58,7 +60,11 @@ export const LIFE: LifeData = {
     highlight: "Three campuses. One idea of what a business school should feel like.",
     images: [LIMG.collage1, LIMG.collage2, LIMG.collage3],
   },
-  tabs: ["Mumbai", "Bengaluru"],
+  tabs: [
+    { label: "Mumbai", href: "/life-at-weschool" },
+    { label: "Bengaluru", href: "/life-at-weschool/bengaluru" },
+  ],
+  activeTab: 0,
   campus: {
     heading: "Mumbai Campus",
     subtitle: "Our founding campus, in the middle of a city that never stops negotiating.",
@@ -138,4 +144,30 @@ export const LIFE: LifeData = {
     primary: { label: "Plan a campus visit", href: "/contact-us" },
     secondary: { label: "Talk to admissions", href: "/admissions" },
   },
+};
+
+// Figma 1445:129: same page, Bengaluru campus section and active tab.
+const BIMG = (n: number) => `/life/bengaluru/c${n}.webp`;
+
+export const LIFE_BENGALURU: LifeData = {
+  ...LIFE,
+  activeTab: 1,
+  campus: {
+    heading: "Electronic City, Bangalore",
+    subtitle: "Electronic City is not a neutral address. It is where India builds things.",
+    cards: [
+      { id: "bc-1", image: BIMG(1), title: "Learning the ropes", body: "A future-ready manager is one who can take a sustainable decision under real constraints. That starts in our Prototype Lab, where an idea stops being a slide and becomes an object you can hold, break and rebuild." },
+      { id: "bc-2", image: BIMG(2), title: "Forward-thinking is our motto", body: "Building for a better tomorrow sounds like a poster until you are the one doing it. Here, new ideas are led uninhibited. Students are not asked to wait their turn." },
+      { id: "bc-3", image: BIMG(3), title: "Self-discovery at the heart of it", body: "Two years is long enough to change your mind about who you are. A lot of that happens quietly in the library. Fresh perspectives on self, on society and on how organisations really work." },
+      { id: "bc-4", image: BIMG(4), title: "Hungry to know more", body: "The campus Athenaeum backs research and project work. Journals, case archives, references and the space to use them properly." },
+      LIFE.campus.cards[4],
+      LIFE.campus.cards[5],
+    ],
+  },
+  facilities: {
+    heading: "Campus Facilities",
+    text: "Discovery Rooms built for interactive learning · Proto Lab · IT Lab · Design Room with LCD and OHP · Audio Visual Room · Boardroom · Library · MDP Classroom · Canteen",
+  },
+  hostel: { heading: "Hostel", text: "Separate hostels for boys and girls, within 2 km of campus. 24×7 internet. A home away from home." },
+  address: { heading: "Address", text: "102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru 560100 · 080-42678300" },
 };

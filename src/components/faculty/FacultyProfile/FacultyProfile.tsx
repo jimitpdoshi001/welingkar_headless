@@ -45,7 +45,7 @@ export function FacultyProfile({ data = DEFAULT_FACULTY_PROFILE }: FacultyProfil
               {data.link ? (
                 <Link
                   href={data.link}
-                  className="btn accent">
+                  className={`btn accent ${styles.cta}`}>
                   {data.linkLabel || "Read More"}
                 </Link>
               ) : null}

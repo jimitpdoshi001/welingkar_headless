@@ -5,10 +5,15 @@ $profile-bg: #f1eefb;
 
 .profileHeader {
   background-color: $profile-bg;
-  padding: 2.4rem 0 6rem;
+  // Clears the fixed header; Figma breadcrumb sits at 132px.
+  padding: 12.6rem 0 7.8rem;
+
+  @include respond-to(tab) {
+    padding-top: 9rem;
+  }
 
   @include respond-to(mobile) {
-    padding: 2rem 0 4rem;
+    padding: 8.6rem 0 4rem;
   }
 }
 
@@ -37,8 +42,9 @@ $profile-bg: #f1eefb;
 
 .headerLayout {
   display: grid;
-  grid-template-columns: 360fr 840fr;
-  gap: 4rem;
+  // Figma 1726:1254: 506px photo, 41px gap.
+  grid-template-columns: minmax(0, 50.6rem) minmax(0, 1fr);
+  gap: 4.1rem;
   align-items: center;
 
   @include respond-to(tab) {
@@ -54,7 +60,7 @@ $profile-bg: #f1eefb;
 .imageContainer {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 506 / 432;
   border-radius: 2.5rem;
   overflow: hidden;
 }
@@ -77,8 +83,8 @@ $profile-bg: #f1eefb;
 }
 
 .name {
-  font-size: 2.8rem;
-  font-weight: 700;
+  font-size: 2.2rem;
+  font-weight: 600;
   color: var(--color-black);
   line-height: 1.25;
   margin-bottom: 0.6rem;
@@ -89,16 +95,17 @@ $profile-bg: #f1eefb;
 }
 
 .designation {
-  font-size: 1.6rem;
-  color: var(--color-gray);
-  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: var(--color-black);
+  margin-bottom: 2.4rem;
 }
 
 .body {
-  font-size: 1.6rem;
-  line-height: 1.7;
-  color: var(--color-dark-gray);
-  margin-bottom: 2.8rem;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: var(--color-black);
+  max-width: 60.5rem;
+  margin-bottom: 3.2rem;
 }
 
 .detail {
@@ -211,4 +218,15 @@ $profile-bg: #f1eefb;
   line-height: 1.6;
   color: var(--color-dark-gray);
   margin-bottom: 0.4rem;
+}
+
+// Compact accent pill, same as the director block on the listing page.
+.headerContent .cta {
+  min-height: 0;
+  height: 3.75rem;
+  padding: 0 2rem;
+  border-radius: 2rem;
+  font-size: 1.2rem;
+  background-color: var(--faculty-accent, var(--color-primary));
+  border-color: var(--faculty-accent, var(--color-primary));
 }
