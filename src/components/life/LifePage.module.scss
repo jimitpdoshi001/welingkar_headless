@@ -12,7 +12,7 @@
 .hero { position: relative; min-height: 46rem; display: flex; align-items: flex-end; overflow: hidden; color: var(--color-white); }
 .heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .heroOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.75) 100%); }
-.heroInner { position: relative; z-index: 1; padding-block: 5rem; width: 100%; }
+.heroInner { position: relative; z-index: 1; padding-block: 5rem; }
 .breadcrumb { font-size: 1.4rem; margin-bottom: 2rem; display: flex; gap: 0.8rem; a { color: rgba(255,255,255,0.85); text-decoration: none; } span { color: rgba(255,255,255,0.6); } }
 .heroTitle { font-size: 4.4rem; font-weight: 800; margin-bottom: 1rem; @include respond-to(mobile) { font-size: 3rem; } }
 .heroSubtitle { font-size: 1.6rem; color: rgba(255,255,255,0.9); max-width: 60rem; }
