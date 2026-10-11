@@ -18,8 +18,7 @@ export const metadata: Metadata = {
   description: "Faculty — Welingkar Bengaluru",
 };
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1562774053-701939374585?w=1600&auto=format&fit=crop&q=80";
+const HERO_IMAGE = "/faculty/hero.webp";
 
 /**
  * Standalone preview of the Faculty (Bengaluru) page. Identical structure to the

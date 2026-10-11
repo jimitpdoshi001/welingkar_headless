@@ -226,13 +226,11 @@ export const DEFAULT_DIRECTOR_MESSAGE: DirectorMessage = {
   name: "Prof. Dr. Kaustubh Dhargalkar",
   designation: "In-Charge Director",
   body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
-  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&auto=format&fit=crop&q=80",
+  image: "/faculty/director.webp",
   imageAlt: "Prof. Dr. Kaustubh Dhargalkar",
   link: "/faculty/kaustubh-dhargalkar",
   linkLabel: "Read More",
 };
-
-const BOARD_IMAGES = DEFAULT_FACULTY_MEMBERS.map((member) => member.image);
 
 const slugify = (value: string) =>
   value
@@ -245,7 +243,8 @@ const makeBoardMember = (name: string, designation: string, index: number): Facu
   name,
   designation,
   categorySlug: "deans",
-  image: BOARD_IMAGES[index % BOARD_IMAGES.length],
+  // Figma portraits already exported for the About page.
+  image: `/about/faculty/${slugify(name.replace(/^Shri\.\s*/, ""))}.webp`,
   imageAlt: name,
   link: `/faculty/${slugify(name)}`,
 });
@@ -323,7 +322,7 @@ export const DEFAULT_DIRECTOR_MESSAGE_BENGALURU: DirectorMessage = {
   ...DEFAULT_DIRECTOR_MESSAGE,
   name: "Dr. Madhavi Lokhande",
   designation: "Bengaluru Campus Director",
-  image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&auto=format&fit=crop&q=80",
+  image: "/faculty/director-bengaluru.webp",
   imageAlt: "Dr. Madhavi Lokhande",
   link: "/faculty/madhavi-lokhande",
 };

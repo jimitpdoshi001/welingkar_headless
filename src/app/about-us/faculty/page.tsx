@@ -17,8 +17,7 @@ export const metadata: Metadata = {
   description: "Faculty — Welingkar",
 };
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&auto=format&fit=crop&q=80";
+const HERO_IMAGE = "/faculty/hero.webp";
 
 /**
  * Standalone preview of the Faculty (Mumbai) page built from the Figma design.

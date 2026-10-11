@@ -40,7 +40,7 @@ export function DirectorMessage({ paragraph, data = DEFAULT_DIRECTOR_MESSAGE }: 
           {data.link ? (
             <Link
               href={data.link}
-              className="btn accent">
+              className={`btn accent ${styles.cta}`}>
               {data.linkLabel || "Read More"}
             </Link>
           ) : null}

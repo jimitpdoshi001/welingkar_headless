@@ -53,6 +53,20 @@ export function FacultyGrid({
               onClick={() => handleTabChange(cat.slug)}
               className={clsx(styles.tabBtn, isActive && styles.activeTab)}>
               {cat.name}
+              {/* Figma 1726:669: accent caret marks the Specialisation dropdown tab. */}
+              {cat.slug === "specialization" ? (
+                <svg
+                  className={styles.caret}
+                  width="14"
+                  height="12"
+                  viewBox="0 0 14 12"
+                  aria-hidden="true">
+                  <path
+                    d="M7 12L0 0h14z"
+                    fill="currentColor"
+                  />
+                </svg>
+              ) : null}
             </button>
           );
         })}
