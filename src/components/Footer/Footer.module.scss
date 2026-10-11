@@ -10,6 +10,10 @@
 .footerSubscribeForm {
   display: flex;
   place-items: center;
+  input,
+  button {
+    font-family: inherit;
+  }
   input {
     background-color: var(--color-white);
     padding: 2rem 3rem;
@@ -61,26 +65,87 @@
   }
 }
 
+// Tablet: about text on its own row, three menu columns below.
+@media (min-width: 768px) and (max-width: 1024px) {
+  .footerLinksRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4rem 3rem;
+
+    .footerAbout {
+      grid-column: 1 / -1;
+      gap: 2rem;
+    }
+  }
+}
+
+// Mobile (Figma 246:3287): logo, about + social, full-width email pill, then
+// accordion menus. Rows are flattened so their children can be reordered.
 @include respond-to(mobile) {
-  .footerTop {
+  .footerBody {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
+  }
+  .footerTop,
+  .footerLinksRow {
+    display: contents;
+  }
+  .footerTop > svg {
+    order: 1;
+    margin-bottom: 3.2rem;
+  }
+  .footerLinksRow .footerAbout {
+    order: 2;
+    gap: 0;
+
+    p {
+      margin-bottom: 3.2rem;
+    }
+  }
+  .footerSocial {
+    gap: 2.4rem;
+
+    svg {
+      width: auto;
+      height: 2rem;
+    }
   }
   .footerSubscribeForm {
-    display: inline-flex;
+    order: 3;
+    position: relative;
+    width: 100%;
+    margin: 4rem 0 3.2rem;
+
     input {
-      padding: 1.5rem 2rem;
-      width: 90%;
+      width: 100%;
+      height: 4.4rem;
+      padding: 0 14rem 0 2.2rem;
+      font-size: 1.4rem;
     }
+    // Pill sits on top of the input's right edge (124 x 44 in Figma).
     button {
-      padding: 1.5rem 2rem;
-      margin-left: -3rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 12.4rem;
+      height: 4.4rem;
+      margin: 0;
+      padding: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      display: grid;
+      place-content: center;
     }
   }
-  .footerLinksRow {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .footerAccordion {
+    order: 4;
+  }
+  .footerCopyright {
+    margin-top: 4rem;
+
+    p {
+      font-size: 1.2rem;
+      color: var(--color-black);
+    }
   }
 }
 
@@ -93,6 +158,8 @@
   margin: 0;
   border: 0;
   background: transparent;
+  font-family: inherit; // buttons don't inherit the site font by default
+  color: inherit;
   text-align: left;
 }
 
@@ -105,10 +172,17 @@
 @media (max-width: 767px) {
   .footerAccordion {
     border-bottom: 1px solid #ddd;
-    padding: 15px 0;
+    padding: 2.4rem 0;
+
+    // Figma: no divider under the last menu; the copyright rule follows.
+    &:last-child {
+      border-bottom: 0;
+    }
 
     h6 {
       margin-bottom: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
     }
   }
 

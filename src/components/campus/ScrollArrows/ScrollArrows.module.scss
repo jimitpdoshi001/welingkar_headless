@@ -1,0 +1,27 @@
+// Figma: 50px circles, outlined "previous" and filled "next" in the page accent.
+.arrows { display: flex; gap: 1.5rem; flex-shrink: 0; }
+
+.prev,
+.next {
+  display: grid;
+  place-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px solid var(--faculty-accent, var(--color-primary));
+  cursor: pointer;
+  transition: filter 0.2s ease;
+
+  @media (max-width: 767px) { width: 4.4rem; height: 4.4rem; }
+}
+
+.prev {
+  background: transparent;
+  svg path { fill: var(--faculty-accent, var(--color-primary)); }
+}
+
+.next {
+  background: var(--faculty-accent, var(--color-primary));
+  svg path { fill: var(--color-white); }
+  &:hover { filter: brightness(0.94); }
+}

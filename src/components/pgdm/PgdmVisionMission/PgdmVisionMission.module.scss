@@ -32,7 +32,7 @@
 }
 
 .heading {
-  font-size: 4rem;
+  font-size: clamp(3rem, 2rem + 2vw, 4.8rem); // Figma 48px
   font-weight: 800;
   margin-bottom: 1.6rem;
 

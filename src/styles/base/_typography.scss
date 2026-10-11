@@ -75,7 +75,8 @@ h2 {
 }
 .h3,
 h3 {
-  font-size: 4rem;
+  // Fluid: 30px on mobile (Figma) up to 40px on desktop.
+  font-size: clamp(3rem, 2.4rem + 1.2vw, 4rem);
   line-height: 1.1;
 }
 .h4,
@@ -104,11 +105,8 @@ h6 {
   }
   .h2,
   h2 {
-    font-size: 2.6rem;
-  }
-  .h3,
-  h3 {
-    font-size: 2.2rem;
+    font-size: 3rem;
+    line-height: 1.4; // Figma: 30px / 42px
   }
   .h4,
   h4 {
@@ -121,7 +119,8 @@ li,
 ul,
 ol,
 p {
-  font-size: 1.6rem;
+  // Fluid: 14px on mobile (Figma) up to 16px on desktop.
+  font-size: clamp(1.4rem, 1.2rem + 0.47vw, 1.6rem);
   line-height: 1.5;
   font-weight: 400;
   text-wrap: pretty;

@@ -2,7 +2,6 @@
  * Mock data for the PGDM programme pages (Mumbai / Bengaluru), mirroring the
  * Figma design. Swap for Drupal fields later. Images are placeholders.
  */
-import { logoPlaceholder } from "@/util/placeholder";
 
 export type PgdmCta = { label: string; href: string };
 
@@ -17,7 +16,7 @@ export type PgdmHeroData = {
   imageAlt: string;
 };
 
-export type PgdmFeature = { id: string; title: string; description?: string };
+export type PgdmFeature = { id: string; title: string; description?: string; icon?: string };
 
 export type PgdmWhyProgram = { heading: string; body: string; videoThumb: string; videoHref?: string };
 
@@ -105,7 +104,7 @@ export type PgdmFees = {
 
 export type PgdmTestimonial = { id: string; quote: string; name: string; role: string; avatar: string };
 
-export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta; testimonials: PgdmTestimonial[] };
+export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta; testimonials: PgdmTestimonial[]; media?: string[] };
 
 export type PgdmFaqs = { heading: string; items: { id: string; q: string; a: string }[]; brochureCta: PgdmCta };
 
@@ -130,40 +129,51 @@ export type PgdmData = {
   faqs: PgdmFaqs;
 };
 
-const IMG = {
-  classroom: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&auto=format&fit=crop&q=80",
-  classroomBlr: "https://images.unsplash.com/photo-1562774053-701939374585?w=1600&auto=format&fit=crop&q=80",
-  lecture: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?w=1200&auto=format&fit=crop&q=80",
-  group: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80",
-  study: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&auto=format&fit=crop&q=80",
-  grad: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1200&auto=format&fit=crop&q=80",
-  mentor: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1200&auto=format&fit=crop&q=80",
-  library: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&auto=format&fit=crop&q=80",
-  hostel: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1200&auto=format&fit=crop&q=80",
-  placement: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&auto=format&fit=crop&q=80",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80",
+// Local image slots: /public/programmes/pgdm/<mumbai|bengaluru>/<name>.webp.
+// Each ships with a labelled placeholder; upload a file with the same name to replace it.
+const pgdmImages = (slug: "mumbai" | "bengaluru") => {
+  const img = (name: string) => `/programmes/pgdm/${slug}/${name}.webp`;
+  return {
+    hero: img("hero"),
+    why: img("why-this-program"),
+    glance: img("at-a-glance"),
+    vision1: img("vision-1"),
+    vision2: img("vision-2"),
+    mission1: img("mission-1"),
+    mission2: img("mission-2"),
+    achievement1: img("achievement-1"),
+    achievement2: img("achievement-2"),
+    placement: img("placement"),
+    feeTuition: img("fee-tuition"),
+    feeLibrary: img("fee-library"),
+    feeHostel: img("fee-hostel"),
+    community1: img("community-1"),
+    community2: img("community-2"),
+    avatar1: img("testimonial-1"),
+    avatar2: img("testimonial-2"),
+  };
 };
 
 const SHARED_QUICK_REASONS: PgdmFeature[] = [
-  { id: "qr-1", title: "Leadership", description: "Developing capable, visionary leaders ready to guide organizations." },
-  { id: "qr-2", title: "Innovation", description: "Fostering creative problem-solving and an innovative mindset." },
-  { id: "qr-3", title: "Critical Thinking", description: "Analytical abilities to navigate complex business scenarios." },
-  { id: "qr-4", title: "Communication Skills", description: "Effective and persuasive professional communication." },
-  { id: "qr-5", title: "Global Perspective", description: "Understanding international markets and diverse cultures." },
-  { id: "qr-6", title: "Role of Self", description: "Awareness of individual impact on the organization and broader society." },
+  { id: "qr-1", icon: "/programmes/pgdm/icons/leadership.png", title: "Leadership", description: "Developing capable, visionary leaders ready to guide organizations." },
+  { id: "qr-2", icon: "/programmes/pgdm/icons/innovation.png", title: "Innovation", description: "Fostering creative problem-solving and an innovative mindset." },
+  { id: "qr-3", icon: "/programmes/pgdm/icons/critical-thinking.png", title: "Critical Thinking", description: "Analytical abilities to navigate complex business scenarios." },
+  { id: "qr-4", icon: "/programmes/pgdm/icons/communication.png", title: "Communication Skills", description: "Effective and persuasive professional communication." },
+  { id: "qr-5", icon: "/programmes/pgdm/icons/global-perspective.png", title: "Global Perspective", description: "Understanding international markets and diverse cultures." },
+  { id: "qr-6", icon: "/programmes/pgdm/icons/role-of-self.png", title: "Role of Self", description: "Awareness of individual impact on the organization and broader society." },
 ];
 
 const SHARED_USPS: PgdmFeature[] = [
-  { id: "usp-1", title: "Benchmarking", description: "of syllabus as against top International and Indian business schools." },
-  { id: "usp-2", title: "Assessment centre", description: "for student development supported with structured domain and grooming sessions." },
-  { id: "usp-3", title: "Development centre", description: "through excel training, guest sessions, domain tests, aptitude tests, mock GD/PI." },
-  { id: "usp-4", title: "Finance GYM", description: "– online interactive game on equity, conducted by ‘The Learning Curve Academy’." },
-  { id: "usp-5", title: "Fit for Finance", description: "– workshops on strengthening finance concepts." },
-  { id: "usp-6", title: "Roundtable conferences", description: "– panellists from the industry and alumni." },
-  { id: "usp-7", title: "Focused mentoring" },
-  { id: "usp-8", title: "Continuous assessment", description: "evaluation of students." },
-  { id: "usp-9", title: "HR Lab", description: "– learning by doing experience on real-life business challenges." },
-  { id: "usp-10", title: "MarkQuest", description: "– student-driven marketing club of WeSchool, aimed to engage and enrich marketing students with domain knowledge and practical insights." },
+  { id: "usp-1", icon: "/programmes/pgdm/icons/benchmarking.png", title: "Benchmarking", description: "of syllabus as against top International and Indian business schools." },
+  { id: "usp-2", icon: "/programmes/pgdm/icons/assessment-centre.png", title: "Assessment centre", description: "for student development supported with structured domain and grooming sessions." },
+  { id: "usp-3", icon: "/programmes/pgdm/icons/development-centre.png", title: "Development centre", description: "through excel training, guest sessions, domain tests, aptitude tests, mock GD/PI." },
+  { id: "usp-4", icon: "/programmes/pgdm/icons/finance-gym.png", title: "Finance GYM", description: "– online interactive game on equity, conducted by ‘The Learning Curve Academy’." },
+  { id: "usp-5", icon: "/programmes/pgdm/icons/fit-for-finance.png", title: "Fit for Finance", description: "– workshops on strengthening finance concepts." },
+  { id: "usp-6", icon: "/programmes/pgdm/icons/roundtable.png", title: "Roundtable conferences", description: "– panellists from the industry and alumni." },
+  { id: "usp-7", icon: "/programmes/pgdm/icons/focused-mentoring.png", title: "Focused mentoring" },
+  { id: "usp-8", icon: "/programmes/pgdm/icons/continuous-assessment.png", title: "Continuous assessment", description: "evaluation of students." },
+  { id: "usp-9", icon: "/programmes/pgdm/icons/hr-lab.png", title: "HR Lab", description: "– learning by doing experience on real-life business challenges." },
+  { id: "usp-10", icon: "/programmes/pgdm/icons/markquest.png", title: "MarkQuest", description: "– student-driven marketing club of WeSchool, aimed to engage and enrich marketing students with domain knowledge and practical insights." },
 ];
 
 const CAREER_TABS = [
@@ -187,14 +197,15 @@ const SHARED_FAQS = [
   { id: "faq-7", q: "Career options after pursuing a PGDM?", a: "Graduates pursue roles across Finance, Marketing, Operations and HR with leading recruiters." },
 ];
 
-const RECRUITER_LOGOS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name, i) => ({
+// Shared with the campus pages: /public/campus/recruiters/<name-slug>.webp.
+const RECRUITER_LOGOS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
   name,
-  image: logoPlaceholder(name),
-  id: i,
+  image: `/campus/recruiters/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.webp`,
 }));
 
 function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
   const isMumbai = campus === "Mumbai";
+  const IMG = pgdmImages(isMumbai ? "mumbai" : "bengaluru");
   return {
     campus,
     hero: {
@@ -205,20 +216,20 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       stats: ["Present Intake: 180", "Intake 180 Seats", "Duration 2 Years", "Specialisations 4 Tracks"],
       primaryCta: { label: "Apply Now", href: "/apply" },
       secondaryCta: { label: "View Brochure", href: "/brochure" },
-      image: isMumbai ? IMG.classroom : IMG.classroomBlr,
+      image: IMG.hero,
       imageAlt: `PGDM students at WeSchool ${campus}`,
     },
     whyProgram: {
       heading: "Why this Program?",
       body: `WeSchool's flagship PGDM program in ${campus} takes a multidisciplinary approach, combining core management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to shape students into competent, future-ready leaders, equipped with strong managerial skills, an innovative mindset, and exposure to real-world business challenges.`,
-      videoThumb: IMG.lecture,
+      videoThumb: IMG.why,
       videoHref: "#",
     },
     quickReasons: SHARED_QUICK_REASONS,
     usps: SHARED_USPS,
     glance: {
       heading: "Programme at a Glance",
-      image: IMG.group,
+      image: IMG.glance,
       details: [
         { label: "Programme", value: "Post Graduate Diploma in Management" },
         { label: "Duration", value: "Two years, full-time" },
@@ -304,7 +315,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       vision: {
         heading: "Our Vision",
         body: "Provide industry and society, management graduates having excellence in leadership, entrepreneurial talent and research, through continuously innovative curriculum.",
-        images: [IMG.grad, IMG.group],
+        images: [IMG.vision1, IMG.vision2],
       },
       mission: {
         heading: "Our Mission",
@@ -314,7 +325,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
           "Promote global oriented, critical, innovative thinking and social entrepreneurship",
           "Forge meaningful partnerships with corporates and academia",
         ],
-        images: [IMG.study, IMG.group],
+        images: [IMG.mission1, IMG.mission2],
       },
     },
     classProfile: {
@@ -351,8 +362,8 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       heading: "Student Achievements",
       description: "Year on year, our students do us proud and edify our belief in creating the leaders of tomorrow. Here are the achievements of our latest batch.",
       items: [
-        { id: "ach-1", image: IMG.grad, title: 'The best manager" – bimtech noida 2023', position: "Position: 1st Prize", bullets: ["Clinch the title of \"The Best Manager\" by defeating 250+ participants of different B-Schools.", "Navigated 9 intense rounds over a span of two days in this challenging competition to win it.", "Received exclusive recognition as the sole standout participant in the competition.", "Rewarded with the title of \"The Best Manager\""], team: "Sanskar Jain — PGDM (23–25)" },
-        { id: "ach-2", image: IMG.group, title: "National Case Championship 2023", position: "Position: Runner-up", bullets: ["Competed against 180+ teams nationally.", "Presented an innovative go-to-market strategy.", "Recognised for analytical rigour and storytelling."], team: "Team WeSchool — PGDM (23–25)" },
+        { id: "ach-1", image: IMG.achievement1, title: 'The best manager" – bimtech noida 2023', position: "Position: 1st Prize", bullets: ["Clinch the title of \"The Best Manager\" by defeating 250+ participants of different B-Schools.", "Navigated 9 intense rounds over a span of two days in this challenging competition to win it.", "Received exclusive recognition as the sole standout participant in the competition.", "Rewarded with the title of \"The Best Manager\""], team: "Sanskar Jain — PGDM (23–25)" },
+        { id: "ach-2", image: IMG.achievement2, title: "National Case Championship 2023", position: "Position: Runner-up", bullets: ["Competed against 180+ teams nationally.", "Presented an innovative go-to-market strategy.", "Recognised for analytical rigour and storytelling."], team: "Team WeSchool — PGDM (23–25)" },
       ],
     },
     placement: {
@@ -388,9 +399,9 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       description:
         "WeSchool is committed to giving more than it takes, in order to offer a brighter future to our students. We aim to rise above the notion of assured ROI, which is just numbers, by adding real value and equipping our students to face the challenges of a dynamic business world with confidence.",
       cards: [
-        { image: IMG.mentor, label: "Tuition Fees & Other", value: "₹7,50,000/- p.a*", note: "*Subject to change" },
-        { image: IMG.library, label: "Library Deposit", value: "₹4,000/- (refundable)" },
-        { image: IMG.hostel, label: "Hostel Fees", value: "₹1,60,000/- p.a. to ₹2,20,000/- p.a.", note: "Plus a deposit of ₹10,000/- (refundable)" },
+        { image: IMG.feeTuition, label: "Tuition Fees & Other", value: "₹7,50,000/- p.a*", note: "*Subject to change" },
+        { image: IMG.feeLibrary, label: "Library Deposit", value: "₹4,000/- (refundable)" },
+        { image: IMG.feeHostel, label: "Hostel Fees", value: "₹1,60,000/- p.a. to ₹2,20,000/- p.a.", note: "Plus a deposit of ₹10,000/- (refundable)" },
       ],
       waiver: {
         heading: "Tuition Fee Waiver Scheme",
@@ -406,9 +417,11 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       description:
         "There's something special about watching our students, recruiters and faculty come together. It's a big part of what pushes us to keep raising the bar on academic excellence. Hear it from our alumni in their own words.",
       cta: { label: "View All", href: "/alumni" },
+      // Figma: two video tiles beside the quote card.
+      media: [IMG.community1, IMG.community2],
       testimonials: [
-        { id: "t-1", quote: "I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.", name: "Rajesh Ramineni", role: "BigBasket DC – Manager", avatar: IMG.avatar },
-        { id: "t-2", quote: "The industry exposure and mentoring at WeSchool shaped how I approach real business problems every day.", name: "Priya Nair", role: "Deloitte – Consultant", avatar: IMG.avatar },
+        { id: "t-1", quote: "I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.", name: "Rajesh Ramineni", role: "BigBasket DC – Manager", avatar: IMG.avatar1 },
+        { id: "t-2", quote: "The industry exposure and mentoring at WeSchool shaped how I approach real business problems every day.", name: "Priya Nair", role: "Deloitte – Consultant", avatar: IMG.avatar2 },
       ],
     },
     faqs: { heading: "FAQ's", items: SHARED_FAQS, brochureCta: { label: "Download Brochure", href: "/brochure" } },

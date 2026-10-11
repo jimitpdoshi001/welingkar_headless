@@ -6,18 +6,31 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
+import { ScrollArrows } from "./ScrollArrows/ScrollArrows";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
 export function CampusPage({ data }: { data: CampusData }) {
+  const isMumbai = data.accent === "orange";
   const accentVar = data.accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
 
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header transparentHero />
+        <Header />
 
-        <main style={{ ["--faculty-accent" as string]: accentVar }}>
+        <main
+          className={`${styles.page} ${data.accent === "orange" ? styles.orangeCtas : ""}`}
+          style={
+            {
+              "--faculty-accent": accentVar,
+              // Figma: Mumbai uses purple bands/banner; Bengaluru terracotta bands, green banner.
+              "--campus-band": isMumbai ? "var(--color-secondary)" : "#b04535",
+              "--campus-banner": isMumbai ? "var(--color-secondary)" : "var(--color-primary)",
+            } as React.CSSProperties
+          }>
+          {/* Figma: institute banner strip (sits under the fixed site header). */}
+          <p className={styles.banner}>{data.bannerTitle}</p>
           <section className={styles.hero}>
             <img
               src={data.hero.image}
@@ -26,7 +39,6 @@ export function CampusPage({ data }: { data: CampusData }) {
             />
             <div className={styles.heroOverlay} />
             <div className={`container ${styles.heroInner}`}>
-              <p className={styles.eyebrow}>{data.bannerTitle}</p>
               <h1 className={styles.heroTitle}>{data.hero.title}</h1>
               <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
               <Link
@@ -54,7 +66,8 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section
             id="about"
-            className={`container ${styles.about}`}>
+            className={styles.aboutBand}>
+            <div className={`container ${styles.about}`}>
             <h2 className={styles.aboutHeading}>{data.about.heading}</h2>
             {data.about.paragraphs.map((p, i) => (
               <p
@@ -73,7 +86,14 @@ export function CampusPage({ data }: { data: CampusData }) {
                 </div>
               ))}
             </div>
+            </div>
           </section>
+          {/* Figma: full-width campus photo fading up into the About band. */}
+          <img
+            src={data.about.image}
+            alt=""
+            className={styles.aboutPhoto}
+          />
 
           <section className={`container ${styles.block} ${styles.accred}`}>
             <h2 className={styles.sectionHeading}>{data.accreditations.heading}</h2>
@@ -129,13 +149,18 @@ export function CampusPage({ data }: { data: CampusData }) {
                   </span>
                 ))}
               </div>
-              <Link
-                href={data.mentors.cta.href}
-                className="btn accent">
-                {data.mentors.cta.label}
-              </Link>
+              <div className={styles.barActions}>
+                <Link
+                  href={data.mentors.cta.href}
+                  className="btn accent">
+                  {data.mentors.cta.label}
+                </Link>
+                <ScrollArrows targetId="campus-mentors" />
+              </div>
             </div>
-            <div className={styles.mentorGrid}>
+            <div
+              id="campus-mentors"
+              className={styles.mentorGrid}>
               {data.mentors.people.map((p) => (
                 <article
                   key={p.id}
@@ -157,44 +182,39 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
+          {/* Figma 979:1564: full-width photo card with copy and category list on top. */}
           <section
             id="faculty"
             className="bg-light-yellow">
-            <div className={`container ${styles.block} ${styles.facultyGrid}`}>
+            <div className={`container ${styles.block}`}>
               <div
-                className={styles.facultyMedia}
+                className={styles.facultyCard}
                 style={{ backgroundImage: `url(${data.faculty.image})` }}>
-                <div className={styles.facultyTabs}>
+                <div className={styles.facultyText}>
+                  <h2 className={styles.facultyHeading}>{data.faculty.heading}</h2>
+                  <p className={styles.facultyBody}>{data.faculty.description}</p>
+                </div>
+                <ul className={styles.facultyTabs}>
                   {data.faculty.categories.map((cat, i) => (
-                    <span
+                    <li
                       key={cat}
                       className={`${styles.facultyTab} ${i === 0 ? styles.facultyTabActive : ""}`}>
                       {cat}
-                    </span>
+                    </li>
                   ))}
-                </div>
-              </div>
-              <div className={styles.facultyText}>
-                <h2 className={styles.facultyHeading}>{data.faculty.heading}</h2>
-                <p className={styles.facultyBody}>{data.faculty.description}</p>
-                <Link
-                  href={data.faculty.cta.href}
-                  className="btn accent">
-                  {data.faculty.cta.label}
-                </Link>
+                </ul>
               </div>
             </div>
           </section>
 
           <section
             id="programmes"
-            className="bg-secondary">
+            className={styles.band}>
             <div className={`container ${styles.block}`}>
               <CardCarousel
                 heading={data.programmes.heading}
                 description={data.programmes.description}
                 cards={data.programmes.cards}
-                cta={data.programmes.cta}
                 theme="onDark"
                 overlayCaption
               />
@@ -203,9 +223,16 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section className={`container ${styles.block}`}>
             <div className={styles.recruiters}>
-              <h2 className={styles.recHeading}>{data.recruiters.heading}</h2>
-              <p className={styles.recDescription}>{data.recruiters.description}</p>
-              <div className={styles.logoStrip}>
+              <div className={styles.recHead}>
+                <div>
+                  <h2 className={styles.recHeading}>{data.recruiters.heading}</h2>
+                  <p className={styles.recDescription}>{data.recruiters.description}</p>
+                </div>
+                <ScrollArrows targetId="campus-recruiters" />
+              </div>
+              <div
+                id="campus-recruiters"
+                className={styles.logoStrip}>
                 {data.recruiters.logos.map((logo) => (
                   <img
                     key={logo.name}
@@ -225,28 +252,35 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
-          <section className={`container ${styles.block} ${styles.weresearch}`}>
-            <h2 className={styles.sectionHeadingCenter}>{data.weresearch.heading}</h2>
-            <p className={styles.weresearchBody}>{data.weresearch.description}</p>
-            <Link
-              href={data.weresearch.cta.href}
-              className="btn accent">
-              {data.weresearch.cta.label}
-            </Link>
-            <img
-              src={data.weresearch.image}
-              alt=""
-              className={styles.weresearchImage}
-            />
-          </section>
-
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.sectionHeading}>{data.world.heading}</h2>
-            <img
-              src={data.world.image}
-              alt=""
-              className={styles.worldImage}
-            />
+          {/* Figma 1064:184: one campus photo behind WeResearch and The World of
+              WeSchool, fading to white at the top and bottom. */}
+          <section
+            className={styles.researchWorld}
+            style={{ backgroundImage: `url(${data.weresearch.image})` }}>
+            <div className={`container ${styles.weresearch}`}>
+              <h2 className={styles.weresearchHeading}>{data.weresearch.heading}</h2>
+              <p className={styles.weresearchBody}>{data.weresearch.description}</p>
+              <Link
+                href={data.weresearch.cta.href}
+                className="btn accent">
+                {data.weresearch.cta.label}
+              </Link>
+            </div>
+            <div className={`container ${styles.world}`}>
+              <h2 className={styles.sectionHeading}>{data.world.heading}</h2>
+              <div className={styles.worldMedia}>
+                <img
+                  src={data.world.image}
+                  alt=""
+                  className={styles.worldImage}
+                />
+                <span
+                  className={styles.worldPlay}
+                  aria-hidden="true"
+                />
+                <p className={styles.worldCaption}>{data.world.caption}</p>
+              </div>
+            </div>
           </section>
 
           <section
@@ -273,7 +307,7 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section
             id="infrastructure"
-            className="bg-secondary">
+            className={styles.band}>
             <div className={`container ${styles.block}`}>
               <CardCarousel
                 heading={data.infrastructure.heading}
@@ -327,6 +361,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                 {data.news.cta.label}
               </Link>
             </div>
+            {/* Figma: 610px feature card, then two rows of image + text card. */}
             <div className={styles.newsGrid}>
               <article className={styles.newsFeature}>
                 <img
@@ -334,26 +369,37 @@ export function CampusPage({ data }: { data: CampusData }) {
                   alt=""
                 />
                 <div className={styles.newsFeatureCard}>
-                  <h3>{data.news.items[0].title}</h3>
-                  <p className={styles.newsDate}>{data.news.items[0].date}</p>
+                  <div>
+                    <h3>{data.news.items[0].title}</h3>
+                    <p className={styles.newsDate}>{data.news.items[0].date}</p>
+                  </div>
+                  <Link
+                    href={data.news.items[0].href}
+                    className={styles.newsArrow}
+                    aria-label={`Read: ${data.news.items[0].title}`}
+                  />
                 </div>
               </article>
-              <div className={styles.newsSide}>
-                {data.news.items.slice(1).map((n) => (
-                  <article
-                    key={n.id}
-                    className={styles.newsSmall}>
-                    <img
-                      src={n.image}
-                      alt=""
+              {data.news.items.slice(1).map((n) => (
+                <div
+                  key={n.id}
+                  className={styles.newsRow}>
+                  <img
+                    src={n.image}
+                    alt=""
+                    className={styles.newsSmallImage}
+                  />
+                  <article className={styles.newsSmallBody}>
+                    <h4>{n.title}</h4>
+                    <p className={styles.newsDate}>{n.date}</p>
+                    <Link
+                      href={n.href}
+                      className={styles.newsArrow}
+                      aria-label={`Read: ${n.title}`}
                     />
-                    <div className={styles.newsSmallBody}>
-                      <h4>{n.title}</h4>
-                      <p className={styles.newsDate}>{n.date}</p>
-                    </div>
                   </article>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -362,7 +408,17 @@ export function CampusPage({ data }: { data: CampusData }) {
               <div>
                 <h2 className={styles.sectionHeading}>{data.connect.heading}</h2>
                 <p className={styles.connectAddr}>Address: {data.connect.address}</p>
-                <p className={styles.connectPhone}>{data.connect.phone}</p>
+                <p className={styles.connectPhone}>
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true">
+                    <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z" />
+                  </svg>
+                  <a href={`tel:${data.connect.phone.replace(/[^0-9+]/g, "")}`}>{data.connect.phone}</a>
+                </p>
                 <h3 className={styles.connectFormHeading}>Contact form</h3>
                 <form className={styles.connectForm}>
                   <div className={styles.formRow}>

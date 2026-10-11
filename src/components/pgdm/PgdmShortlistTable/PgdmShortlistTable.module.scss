@@ -21,7 +21,7 @@
   font-weight: 700;
   font-size: 1.6rem;
   padding: 1.4rem;
-  background: var(--color-secondary);
+  background: var(--pgdm-band, var(--color-secondary));
   color: var(--color-white);
 }
 

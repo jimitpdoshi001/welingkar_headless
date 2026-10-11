@@ -4,6 +4,10 @@
 
 .onDark {
   color: var(--color-white);
+  // Figma infrastructure cards: photo only, caption sits below on the purple band.
+  .card { background: transparent; border-radius: 0; }
+  .card:not(.overlayCard) .imageWrap { aspect-ratio: 400 / 442; border-radius: 2rem; }
+  .card:not(.overlayCard) .title { font-size: 2rem; font-weight: 600; margin-bottom: 1rem; }
   .heading { color: var(--color-white); }
   .description { color: rgba(255, 255, 255, 0.82); }
   .title { color: var(--color-white); }
@@ -16,6 +20,9 @@
   justify-content: space-between;
   gap: 2rem;
   margin-bottom: 3.2rem;
+
+  // Narrow screens: heading uses the full width, arrows sit below it.
+  @include respond-to(mobile) { flex-direction: column; }
 }
 
 .headText { max-width: 70rem; }
@@ -74,17 +81,26 @@
 .overlayCard {
   position: relative;
 
-  .imageWrap { aspect-ratio: 3 / 4; }
+  // Figma 2025:168: 400 x 442 photo, frosted label 371 x 126 inset 14px.
+  .imageWrap { aspect-ratio: 400 / 442; }
 
   .body {
     position: absolute;
-    left: 1.6rem;
-    right: 1.6rem;
+    left: 1.4rem;
+    right: 1.4rem;
     bottom: 1.6rem;
-    background: rgba(240, 240, 240, 0.94);
-    border-radius: 1.6rem;
-    padding: 2rem;
+    min-height: 12.6rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 100%);
+    -webkit-backdrop-filter: blur(1.2rem);
+    backdrop-filter: blur(1.2rem);
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    border-radius: 2rem;
+    padding: 1.8rem 2.3rem;
+    justify-content: space-between;
   }
+  .title { font-size: 1.6rem; font-weight: 600; color: var(--color-black); }
+  .meta { display: none; }
+  :global(.btn) { padding: 0.9rem 1.8rem; font-size: 1.2rem; }
 }
 
 .body {

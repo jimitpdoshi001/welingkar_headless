@@ -1,3 +1,5 @@
+@use "./mixins" as *;
+
 // Text Colors
 .text-black {
   color: var(--color-black);
@@ -53,6 +55,11 @@ section:has([class*="backgroundMedia"]) {
   // WeSchool"), per the requested design.
   &:has(> div .text-white) [class*="descriptionContent"] p {
     text-align: justify;
+
+    // Narrow columns leave large word gaps when justified; Figma mobile is left-aligned.
+    @include respond-to(tab) {
+      text-align: left;
+    }
   }
 
   &:has(> div .text-white)::before {

@@ -8,7 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
 import "swiper/css";
 import "swiper/css/thumbs";
-import type { DrupalResponsiveMedia, HeroBannerAttributes, JsonApiResource } from "@/lib/drupal";
+import type {
+  DrupalResponsiveMedia,
+  HeroBannerAttributes,
+  JsonApiResource,
+} from "@/lib/drupal";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import styles from "./HeroBanner.module.scss";
 
@@ -87,7 +91,8 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
           setActiveIndex(swiper.realIndex);
         }}
         className={styles.mainSwiper}
-        allowTouchMove>
+        allowTouchMove
+      >
         {slides.map((slide, index) => (
           <SwiperSlide key={thumbs[index]?.id ?? index}>{slide}</SwiperSlide>
         ))}
@@ -105,17 +110,20 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
           slidesPerView="auto"
           loop={true}
           spaceBetween={16}
-          className={styles.thumbsSwiper}>
+          className={styles.thumbsSwiper}
+        >
           {thumbs.map((thumb, index) => (
-            <SwiperSlide
-              key={thumb.id}
-              className={styles.thumbSlide}>
+            <SwiperSlide key={thumb.id} className={styles.thumbSlide}>
               <button
                 type="button"
-                className={clsx(styles.thumb, index === activeIndex && styles.thumbActive)}
+                className={clsx(
+                  styles.thumb,
+                  index === activeIndex && styles.thumbActive,
+                )}
                 onClick={() => mainSwiper?.slideTo(index)}
                 aria-label={thumb.heading || `Go to slide ${index + 1}`}
-                aria-current={index === activeIndex ? "true" : undefined}>
+                aria-current={index === activeIndex ? "true" : undefined}
+              >
                 {thumb.image && (
                   <Image
                     src={thumb.image.url}
@@ -126,7 +134,9 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
                   />
                 )}
 
-                {thumb.heading ? <span className={styles.thumbTitle}>{thumb.heading}</span> : null}
+                {thumb.heading ? (
+                  <span className={styles.thumbTitle}>{thumb.heading}</span>
+                ) : null}
               </button>
             </SwiperSlide>
           ))}
@@ -146,15 +156,30 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
             type="button"
             className={styles.nextButton}
             onClick={handleNextSlide}
-            aria-label="Next thumbnail">
+            aria-label="Next thumbnail"
+          >
             <span aria-hidden="true">
-              <ArrowRight
-                height={10}
-                width={13}
-              />
+              <ArrowRight height={10} width={13} />
             </span>
           </button>
         </div>
+      </div>
+
+      {/* Mobile pagination dots (Figma); the thumbnail rail is hidden there. */}
+      <div className={styles.dots}>
+        {slides.map((_, index) => (
+          <button
+            key={thumbs[index]?.id ?? index}
+            type="button"
+            className={clsx(
+              styles.dot,
+              index === activeIndex && styles.dotActive,
+            )}
+            onClick={() => mainSwiper?.slideToLoop(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            aria-current={index === activeIndex ? "true" : undefined}
+          />
+        ))}
       </div>
     </div>
   );

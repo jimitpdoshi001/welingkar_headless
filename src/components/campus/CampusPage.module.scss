@@ -5,202 +5,89 @@
   @include respond-to(mobile) { padding-block: 5rem; }
 }
 
-// Hero
-.hero {
-  position: relative;
-  min-height: 60rem;
-  display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+// Page sits under the fixed solid header.
+.band { background: var(--campus-band, var(--color-secondary)); }
+.page { padding-top: 10.5rem; @include respond-to(tab) { padding-top: 6.2rem; } }
 
-  @include respond-to(mobile) { min-height: 44rem; }
-}
+// Mumbai design uses orange primary buttons (Figma #f77100).
+.orangeCtas :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }
 
-.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.35) 70%);
-}
-
-.heroInner { position: relative; z-index: 1; color: var(--color-white); padding-block: 6rem; }
-
-.eyebrow {
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 1.6rem;
-  text-transform: uppercase;
-}
-
-.heroTitle {
-  font-size: 4.4rem;
-  font-weight: 800;
-  line-height: 1.1;
-  max-width: 56rem;
-  margin-bottom: 1.2rem;
-
-  @include respond-to(mobile) { font-size: 2.8rem; }
-}
-
-.heroSubtitle {
-  font-size: 1.7rem;
-  max-width: 48rem;
-  margin-bottom: 2.4rem;
-  opacity: 0.95;
-}
-
-// In-page nav
-.inPageNav {
-  border-bottom: 1px solid var(--color-light-gray);
-  background: var(--color-white);
-}
-
-.inPageNavInner {
-  display: flex;
-  gap: 4rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
-
-  @include respond-to(mobile) { gap: 2.4rem; }
-}
-
-.inPageLink {
-  padding: 2rem 0;
-  font-size: 1.6rem;
-  color: var(--color-gray);
-  white-space: nowrap;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -1px;
-  transition: color 0.2s ease;
-
-  &:hover { color: var(--color-black); }
-}
-
-.inPageActive {
-  color: var(--faculty-accent, var(--color-primary));
-  border-bottom-color: var(--faculty-accent, var(--color-primary));
-}
-
-// About + stats
-.about { padding-block: 8rem; text-align: center; @include respond-to(mobile) { padding-block: 5rem; } }
-
-.aboutHeading {
-  font-size: 3.6rem;
-  font-weight: 800;
-  color: var(--color-secondary);
-  line-height: 1.2;
-  margin-bottom: 2rem;
-
-  @include respond-to(mobile) { font-size: 2.6rem; }
-}
-
-.aboutBody {
-  font-size: 1.7rem;
-  line-height: 1.7;
-  color: var(--color-dark-gray);
-  max-width: 82rem;
-  margin: 0 auto 1.6rem;
-}
-
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 6rem;
-  margin-top: 4rem;
-  flex-wrap: wrap;
-
-  @include respond-to(mobile) { gap: 3rem; }
-}
-
-.stat { display: flex; flex-direction: column; }
-
-.statValue {
-  font-size: 5rem;
-  font-weight: 800;
-  color: var(--color-secondary);
-  line-height: 1;
-
-  @include respond-to(mobile) { font-size: 3.6rem; }
-}
-
-.statLabel { font-size: 1.5rem; color: var(--color-gray); margin-top: 0.6rem; }
-
-// Faculty network
-.facultyGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 5rem;
-  align-items: center;
-
-  @include respond-to(tab) { gap: 3rem; }
-  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
-}
-
-.facultyMedia {
-  position: relative;
-  border-radius: 2.4rem;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: flex-end;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 55%);
-  }
-}
-
-.facultyTabs {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 2.8rem;
-}
-
-.facultyTab {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-
-  @include respond-to(mobile) { font-size: 1.5rem; }
-}
-
-.facultyTabActive {
+.banner {
+  margin: 0;
+  background: var(--campus-banner, var(--color-secondary));
   color: var(--color-white);
-  &::after {
-    content: " ▸";
-    color: var(--faculty-accent, var(--color-primary));
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 1.8rem 2rem;
+  @include respond-to(mobile) { font-size: 1.3rem; padding: 1.2rem 1.6rem; }
+}
+
+// Hero (Figma 979:1819): 650px tall, title 48px, subtitle 22px.
+.hero { position: relative; min-height: 65rem; display: flex; align-items: flex-start; overflow: hidden;
+  @include respond-to(tab) { min-height: 52rem; }
+  @include respond-to(mobile) { min-height: 46rem; }
+}
+.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.heroOverlay { position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 39.4%), linear-gradient(88deg, rgba(0, 0, 0, 0.8) 0.6%, rgba(0, 0, 0, 0) 47%);
+}
+.heroInner { position: relative; z-index: 1; color: var(--color-white); padding-top: 22.6rem; padding-bottom: 14rem;
+  @include respond-to(tab) { padding-top: 14rem; }
+  @include respond-to(mobile) { padding-top: 10rem; padding-bottom: 12rem; }
+}
+.heroTitle { font-size: clamp(3rem, 2rem + 2.2vw, 4.8rem); font-weight: 800; line-height: 1.2; max-width: 52.6rem; margin-bottom: 1.6rem; }
+.heroSubtitle { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); max-width: 52rem; margin-bottom: 4.4rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }
+
+// In-page nav (Figma 1517:171): white bar overlapping the hero bottom.
+.inPageNav { position: relative; z-index: 2; margin-top: -9.8rem; margin-bottom: 3.8rem; background: var(--color-white); box-shadow: 1.9rem 1.5rem 4.6rem rgba(0, 0, 0, 0.14); }
+.inPageNavInner { display: flex; justify-content: center; gap: 3.4rem; overflow-x: auto; scrollbar-width: none; &::-webkit-scrollbar { display: none; }
+  @include respond-to(tab) { justify-content: flex-start; gap: 2.4rem; }
+}
+.inPageLink { display: block; padding: 2.1rem 0 1.6rem; font-size: 1.4rem; color: var(--color-black); white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s ease;
+  &:hover { color: var(--color-primary); }
+}
+.inPageActive { color: var(--color-primary); font-weight: 700; border-bottom-color: var(--color-primary); }
+
+// About (Figma 979:1508): cream band with decorative triangle.
+.aboutBand { position: relative; background: var(--color-light); overflow: hidden; margin-top: -3.8rem;
+  &::before { content: ""; position: absolute; left: 11.6%; top: 4.6rem; width: 29.7rem; height: 33.9rem; background: rgba(73, 52, 96, 0.06); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none;
+    @include respond-to(mobile) { left: -4rem; width: 18rem; height: 20rem; }
   }
 }
+.about { position: relative; padding-block: 11rem 4rem; text-align: center; @include respond-to(mobile) { padding-block: 7rem 3rem; } }
+.aboutHeading { font-size: clamp(2.8rem, 2rem + 1.6vw, 3.75rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 32rem; margin: 0 auto 3.6rem; }
+.aboutBody { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; }
+.stats { display: flex; justify-content: center; gap: clamp(4rem, 14vw, 21rem); margin-top: 4rem; flex-wrap: wrap; @include respond-to(mobile) { gap: 2.4rem 3.6rem; } }
+.stat { display: flex; flex-direction: column; align-items: center; }
+.statValue { font-size: clamp(4rem, 2.6rem + 2.4vw, 6rem); font-weight: 700; color: var(--color-secondary); line-height: 1; }
+.statLabel { font-size: 1.6rem; font-weight: 500; color: var(--color-black); margin-top: 1.4rem; }
+// Full-width photo whose top fades into the cream band.
+.aboutPhoto { display: block; width: 100%; height: clamp(28rem, 40vw, 56rem); object-fit: cover; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%); background: var(--color-light); }
 
-.facultyHeading {
-  font-size: 3.2rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 1.6rem;
-
-  @include respond-to(mobile) { font-size: 2.4rem; }
+// Faculty network (Figma 979:1564): 1240 x 547 photo card, copy top-left,
+// category list bottom-left with dividers; active item has an accent arrow.
+.facultyCard { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 4rem; min-height: 54.7rem; padding: 7.9rem 7.5rem 6rem; border-radius: 2.4rem; overflow: hidden; background-size: cover; background-position: center; color: var(--color-white);
+  &::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 70%); }
+  > * { position: relative; }
+  @include respond-to(tab) { padding: 4.8rem 4rem; min-height: 48rem; }
+  @include respond-to(mobile) { padding: 3.2rem 2.4rem; min-height: 46rem; }
 }
-
-.facultyBody {
-  font-size: 1.6rem;
-  line-height: 1.7;
-  color: var(--color-gray);
-  margin-bottom: 2.4rem;
+.facultyText { max-width: 60.4rem; }
+.facultyHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.6rem; color: var(--color-white); }
+.facultyBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-white); }
+.facultyTabs { list-style: none; padding: 0; margin: 0; width: min(100%, 24.6rem); }
+.facultyTab { padding-block: 1.4rem; font-size: 2rem; color: rgba(255, 255, 255, 0.6); border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  &:last-child { border-bottom: 0; }
+  @include respond-to(mobile) { font-size: 1.6rem; }
+}
+.facultyTabActive { color: var(--color-white);
+  &::after { content: ""; display: inline-block; margin-left: 1.2rem; border-style: solid; border-width: 0.6rem 0 0.6rem 0.9rem; border-color: transparent transparent transparent var(--faculty-accent, var(--color-primary)); }
 }
 
 // Recruiters
 .recruiters { text-align: center; }
+.recHead { display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; margin-bottom: 3.2rem; text-align: left; > div { max-width: 97.8rem; } @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 2rem; } }
 
 .recHeading {
   font-size: 3.6rem;
@@ -216,60 +103,35 @@
   line-height: 1.7;
   color: var(--color-gray);
   text-align: left;
-  margin-bottom: 3.2rem;
+  margin: 0;
 }
 
-.logoStrip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
+// Figma 979:1604-1609: one row of logos (~150-170px wide, 30-64px tall).
+.logoStrip { display: flex; align-items: center; justify-content: space-between; gap: 4rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+.logo { flex: 0 0 auto; height: 5.4rem; width: 16.5rem; object-fit: contain; scroll-snap-align: start; @include respond-to(mobile) { height: 4.4rem; width: 13rem; } }
 
-  @include respond-to(mobile) { justify-content: center; gap: 2.4rem; }
+.recCta { margin-top: 4.4rem; }
+
+// Life @ WeSchool (Figma 1609:762): 1101px photo, white top fade, giant purple
+// heading on top, frosted full-width text bar at the bottom with the CTA on the right.
+.life { position: relative; min-height: 110rem; display: flex; overflow: hidden;
+  @include respond-to(tab) { min-height: 76rem; }
+  @include respond-to(mobile) { min-height: 64rem; }
 }
-
-.logo { height: 4rem; width: auto; object-fit: contain; max-width: 16rem; }
-
-.recCta { margin-top: 3.2rem; }
-
-// Life @ WeSchool
-.life {
-  position: relative;
-  min-height: 54rem;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
 .lifeImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-.lifeOverlay { position: absolute; inset: 0; background: rgba(10, 6, 18, 0.45); }
-
-.lifeInner { position: relative; z-index: 1; color: var(--color-white); padding-block: 6rem; width: 100%; }
-
-.lifeHeading {
-  font-size: 4.4rem;
-  font-weight: 800;
-  margin-bottom: 2.4rem;
-
-  @include respond-to(mobile) { font-size: 2.8rem; }
+.lifeOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 75%, #fff 100%); }
+.lifeInner { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding-block: 7.9rem 21.6rem;
+  @include respond-to(tab) { padding-block: 5rem 8rem; }
 }
-
-.lifeCard {
-  background: rgba(240, 240, 240, 0.92);
-  color: var(--color-dark-gray);
-  border-radius: 2.4rem;
-  padding: 3.2rem;
-  max-width: 78rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  @include respond-to(mobile) { padding: 2.4rem; }
+.lifeHeading { font-size: clamp(4.8rem, 1rem + 9.6vw, 15rem); font-weight: 800; line-height: 1; color: var(--campus-band, var(--color-secondary)); letter-spacing: -0.02em; white-space: nowrap;
+  // Scale with the viewport so the one-line heading never overflows.
+  @include respond-to(mobile) { font-size: 10.6vw; }
 }
-
-.lifeBody { font-size: 1.5rem; line-height: 1.7; margin-bottom: 2rem; }
+.lifeCard { display: flex; align-items: center; justify-content: space-between; gap: 4rem; padding: 3.6rem 5.6rem; border-radius: 2.4rem; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255, 255, 255, 0.44); -webkit-backdrop-filter: blur(1.8rem); backdrop-filter: blur(1.8rem); box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
+  @include respond-to(tab) { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 2.8rem; }
+  :global(.btn) { flex-shrink: 0; }
+}
+.lifeBody { max-width: 86.9rem; font-size: 1.6rem; line-height: 1.35; color: var(--color-black); margin: 0; }
 
 /* ---- Added sections (Figma match) ---- */
 
@@ -314,14 +176,18 @@
   gap: 4rem;
   margin-bottom: 3.2rem;
 }
-.accredLogo { height: 7rem; width: auto; object-fit: contain; }
+// Figma 979:1640: logos at their own heights on a shared centre line.
+.accredLogo { height: 9.5rem; width: auto; max-width: 14rem; object-fit: contain;
+  &:first-child { height: 16rem; } &:last-child { height: 14.7rem; }
+  @include respond-to(mobile) { height: 6rem; &:first-child, &:last-child { height: 8rem; } }
+}
 .accredPoints {
   list-style: disc;
   padding-left: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  li { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); &::marker { color: var(--color-primary); } }
+  gap: 0;
+  li { font-size: 1.6rem; font-weight: 500; line-height: 3rem; color: var(--color-black); &::marker { color: var(--color-black); } }
 }
 
 /* Director's Desk */
@@ -354,92 +220,115 @@
   font-weight: 700;
   &::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--faculty-accent, var(--color-primary)); }
 }
+.barActions { display: flex; align-items: center; gap: 2rem; }
 .mentorGrid {
+  --cols: 6;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 2.4rem;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (var(--cols) - 1) * 2rem) / var(--cols));
+  gap: 2rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  > * { scroll-snap-align: start; }
 
-  @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); }
-  @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); gap: 1.6rem; }
+  @include respond-to(tab) { --cols: 3.3; }
+  @include respond-to(mobile) { --cols: 2.2; gap: 1.6rem; }
 }
 .mentorCard { display: flex; flex-direction: column; }
-.mentorImage { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
+.mentorImage { width: 100%; aspect-ratio: 190 / 175; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
 .mentorName { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
 .mentorRole { font-size: 1.3rem; color: var(--color-gray); line-height: 1.4; margin-bottom: 0.8rem; }
 .mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
 
-/* WeResearch commitment */
-.weresearch { text-align: center; }
-.weresearchBody { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 72rem; margin: 0 auto 2.4rem; }
-.weresearchImage { width: 100%; border-radius: 2.4rem; margin-top: 3.2rem; aspect-ratio: 16 / 7; object-fit: cover; }
+/* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
+.researchWorld { position: relative; background-size: cover; background-position: center; padding-block: 12rem 9rem;
+  &::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.55) 18%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%, #fff 82%); }
+  > * { position: relative; }
+  @include respond-to(mobile) { padding-block: 6rem 5rem; }
+}
+.weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
+.weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
+.weresearchBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); max-width: 88.2rem; margin: 0 auto 3.2rem; }
+.world .sectionHeading { margin-bottom: 4rem; }
+// Figma: 1240 x 570 video card, centred 50px play button, frosted caption bottom-left.
+.worldMedia { position: relative; border-radius: 2.4rem; overflow: hidden; }
+.worldImage { display: block; width: 100%; aspect-ratio: 1240 / 570; object-fit: cover; @include respond-to(mobile) { aspect-ratio: 4 / 3; } }
+.worldPlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 5rem; height: 5rem; border-radius: 50%; background: var(--color-secondary);
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent #fff; }
+}
+.worldCaption { position: absolute; left: 2.3rem; bottom: 2.1rem; max-width: 42.4rem; margin: 0; padding: 3.5rem 3.4rem; border-radius: 2rem; font-size: 1.6rem; font-weight: 500; line-height: 1.3; color: var(--color-black); background: rgba(255, 255, 255, 0.85); -webkit-backdrop-filter: blur(1.2rem); backdrop-filter: blur(1.2rem);
+  @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; font-size: 1.4rem; }
+}
 
-/* World of WeSchool */
-.worldImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 6; object-fit: cover; }
-
-/* Candid moments */
+/* Candid moments (Figma 979:1616-1621): 3 columns x 3 rows of ~255px. */
 .momentsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 2rem;
-  aspect-ratio: 16 / 9;
+  grid-template-rows: repeat(3, clamp(14rem, 18vw, 25.5rem));
+  gap: 2rem 2rem;
 
-  @include respond-to(mobile) { display: flex; flex-direction: column; aspect-ratio: auto; }
+  @include respond-to(mobile) { grid-template-columns: 1fr 1fr; grid-template-rows: none; grid-auto-rows: 16rem; gap: 1.2rem; }
 }
-.momentItem {
-  position: relative;
-  border-radius: 2.4rem;
-  overflow: hidden;
-  img { width: 100%; height: 100%; object-fit: cover; }
-
-  @include respond-to(mobile) { aspect-ratio: 16 / 10; }
+.momentItem { position: relative; border-radius: 2rem; overflow: hidden; img { display: block; width: 100%; height: 100%; object-fit: cover; } }
+.moment1 { grid-column: 1; grid-row: 1 / 3; }
+.moment2 { grid-column: 2 / 4; grid-row: 1; }
+.moment3 { grid-column: 2; grid-row: 2; }
+.moment4 { grid-column: 3; grid-row: 2 / 4; }
+.moment5 { grid-column: 2; grid-row: 3; }
+.moment6 { grid-column: 1; grid-row: 3; }
+@include respond-to(mobile) {
+  .moment1 { grid-column: 1; grid-row: span 2; }
+  .moment2 { grid-column: 2; grid-row: auto; }
+  .moment3 { grid-column: 2; grid-row: auto; }
+  .moment4 { grid-column: 1; grid-row: span 2; }
+  .moment5 { grid-column: 2; grid-row: auto; }
+  .moment6 { grid-column: 2; grid-row: auto; }
 }
-.moment1 { grid-column: 1 / 2; grid-row: 1 / 3; }
-.moment2 { grid-column: 2 / 4; grid-row: 1 / 2; }
-.moment3 { grid-column: 2 / 3; grid-row: 2 / 3; }
-.moment4 { grid-column: 3 / 4; grid-row: 2 / 3; }
 .playBadge {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 5.6rem; height: 5.6rem;
-  border-radius: 50%;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 5rem; height: 5rem; border-radius: 50%;
   background: var(--faculty-accent, var(--color-primary));
-  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.9rem 0 0.9rem 1.4rem; border-color: transparent transparent transparent #fff; }
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent #fff; }
 }
 
-/* What's New */
+/* What's New (Figma 979:1634-1663): 610 feature + rows of 295 image | 295 text card. */
 .newsGrid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 2.4rem;
+  grid-template-columns: 61fr 29.5fr 29.5fr;
+  grid-template-rows: repeat(2, auto);
+  gap: 2rem;
 
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
   @include respond-to(mobile) { grid-template-columns: 1fr; }
 }
-.newsFeature { position: relative; border-radius: 2.4rem; overflow: hidden; min-height: 42rem; img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; } }
+.newsFeature { position: relative; grid-row: 1 / 3; aspect-ratio: 1; border-radius: 2rem; overflow: hidden;
+  > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  @include respond-to(tab) { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; }
+}
 .newsFeatureCard {
-  position: absolute;
-  left: 2rem; right: 2rem; bottom: 2rem;
-  padding: 2.4rem;
-  border-radius: 1.6rem;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  h3 { font-size: 1.9rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.8rem; }
+  position: absolute; left: 3.2rem; right: 3.2rem; bottom: 4.6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+  padding: 3.2rem 3.8rem; border-radius: 2.5rem;
+  background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.44);
+  -webkit-backdrop-filter: blur(1.8rem); backdrop-filter: blur(1.8rem);
+  h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.6rem; }
+  @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; }
 }
-.newsSide { display: flex; flex-direction: column; gap: 2.4rem; }
-.newsSmall {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 1.6rem;
-  background: var(--color-white);
-  border-radius: 1.6rem;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  img { width: 100%; height: 100%; object-fit: cover; min-height: 14rem; }
+.newsRow { display: contents; @include respond-to(tab) { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; grid-column: 1 / -1; } }
+@include respond-to(mobile) { .newsRow { grid-template-columns: 1fr; gap: 1.2rem; } }
+.newsSmallImage { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 2rem; @include respond-to(mobile) { aspect-ratio: 16 / 9; } }
+.newsSmallBody { position: relative; display: flex; flex-direction: column; aspect-ratio: 1; padding: 2.9rem 2.9rem 2.4rem; border-radius: 2rem; background: var(--color-white); box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
+  h4 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.4rem; }
+  .newsArrow { margin-top: auto; }
+  @include respond-to(mobile) { aspect-ratio: auto; padding: 1.6rem; }
 }
-.newsSmallBody { padding: 1.6rem 1.6rem 1.6rem 0; h4 { font-size: 1.5rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.8rem; } }
-.newsDate { font-size: 1.3rem; color: var(--color-gray); }
+.newsDate { font-size: 1.2rem; color: var(--color-gray); margin: 0; }
+// Figma "Up" icon: 50px accent circle with a white play arrow.
+.newsArrow { flex-shrink: 0; position: relative; display: block; width: 5rem; height: 5rem; border-radius: 50%; background: var(--faculty-accent, var(--color-primary));
+  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.45rem 0 0.45rem 0.7rem; border-color: transparent transparent transparent #fff; }
+}
 
 /* Connect */
 .connectGrid {
@@ -451,7 +340,7 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; }
 }
 .connectAddr { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; margin-bottom: 1.2rem; }
-.connectPhone { font-size: 1.6rem; color: var(--color-dark-gray); margin-bottom: 3.2rem; }
+.connectPhone { display: flex; align-items: center; gap: 1.2rem; font-size: 1.6rem; color: var(--color-dark-gray); margin-bottom: 4rem; svg { color: var(--faculty-accent, var(--color-primary)); } a { color: inherit; } }
 .connectFormHeading { font-size: 2rem; font-weight: 700; margin-bottom: 2.4rem; }
 .connectForm { display: flex; flex-direction: column; gap: 2.8rem; max-width: 56rem; button { align-self: flex-start; } }
 .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 2.8rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
@@ -464,4 +353,5 @@
   width: 100%;
   &:focus { outline: none; border-bottom-color: var(--faculty-accent, var(--color-primary)); }
 }
-.map { width: 100%; border-radius: 2.4rem; aspect-ratio: 1 / 0.82; object-fit: cover; }
+// Figma 979:1818: 524 x 472 map, right-aligned.
+.map { width: 100%; max-width: 52.4rem; justify-self: end; border-radius: 2.4rem; aspect-ratio: 524 / 472; object-fit: cover; @include respond-to(mobile) { justify-self: stretch; max-width: none; } }

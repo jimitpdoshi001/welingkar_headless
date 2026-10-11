@@ -2,7 +2,6 @@
  * Mock data for the Campus pages (Mumbai / Bengaluru), mirroring the Figma
  * design. Swap for Drupal fields later. Images are placeholders.
  */
-import { logoPlaceholder } from "@/util/placeholder";
 
 export type CampusCta = { label: string; href: string };
 
@@ -31,7 +30,7 @@ export type CampusData = {
   programmes: { heading: string; description: string; cards: CampusCard[]; cta: CampusCta };
   recruiters: { heading: string; description: string; logos: { name: string; image: string }[]; cta: CampusCta };
   weresearch: { heading: string; description: string; image: string; cta: CampusCta };
-  world: { heading: string; image: string };
+  world: { heading: string; image: string; caption: string };
   life: { heading: string; body: string; image: string; cta: CampusCta };
   infrastructure: { heading: string; description: string; cards: CampusCard[] };
   accommodation: { heading: string; description: string; cards: CampusCard[] };
@@ -40,58 +39,79 @@ export type CampusData = {
   connect: { heading: string; address: string; phone: string; mapImage: string };
 };
 
-const ACCRED = ["ACBSP", "SAQS", "NBA", "AICTE"].map((name) => ({ name, image: logoPlaceholder(name) }));
+// Shared with the About page; AICTE is a placeholder until the logo is uploaded.
+const ACCRED = [
+  { name: "ACBSP", image: "/about/logo-acbsp.png" },
+  { name: "SAQS", image: "/about/logo-saqs.png" },
+  { name: "NBA", image: "/about/logo-nba.png" },
+  { name: "AICTE", image: "/campus/logo-aicte.webp" },
+];
 
-const CIMG = {
-  mumbaiHero: "https://images.unsplash.com/photo-1562774053-701939374585?w=1600&auto=format&fit=crop&q=80",
-  blrHero: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&auto=format&fit=crop&q=80",
-  board: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80",
-  life: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&auto=format&fit=crop&q=80",
-  conf: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=1000&auto=format&fit=crop&q=80",
-  lab: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1000&auto=format&fit=crop&q=80",
-  library: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1000&auto=format&fit=crop&q=80",
-  p1: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000&auto=format&fit=crop&q=80",
-  p2: "https://images.unsplash.com/photo-1544531585-9847b68c8c86?w=1000&auto=format&fit=crop&q=80",
-  p3: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=1000&auto=format&fit=crop&q=80",
-  director: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&auto=format&fit=crop&q=80",
-  research: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1600&auto=format&fit=crop&q=80",
-  world: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&auto=format&fit=crop&q=80",
-  hostel1: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1000&auto=format&fit=crop&q=80",
-  hostel2: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1000&auto=format&fit=crop&q=80",
-  hostel3: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1000&auto=format&fit=crop&q=80",
-  face1: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&auto=format&fit=crop&q=80",
-  face2: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600&auto=format&fit=crop&q=80",
-  face3: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=80",
-  face4: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&auto=format&fit=crop&q=80",
-  face5: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=80",
-  face6: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&auto=format&fit=crop&q=80",
-  moment1: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&auto=format&fit=crop&q=80",
-  moment2: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80",
-  moment3: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1000&auto=format&fit=crop&q=80",
-  moment4: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1000&auto=format&fit=crop&q=80",
-  news1: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&auto=format&fit=crop&q=80",
-  news2: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800&auto=format&fit=crop&q=80",
-  news3: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?w=800&auto=format&fit=crop&q=80",
-  map: "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1200&auto=format&fit=crop&q=80",
+// Local images per campus: /public/campus/<mumbai|bengaluru>/<name>.webp.
+// Each slot ships with a labelled placeholder; upload a photo with the same
+// name to replace it (no code change needed).
+const campusImages = (slug: "mumbai" | "bengaluru") => {
+  const img = (name: string) => `/campus/${slug}/${name}.webp`;
+  return {
+    hero: img("hero"),
+    about: img("about"),
+    director: img("director"),
+    facultyNetwork: img("faculty-network"),
+    p1: img("programme-1"),
+    p2: img("programme-2"),
+    p3: img("programme-3"),
+    p4: img("programme-4"),
+    research: img("weresearch"),
+    world: img("world-of-weschool"),
+    life: img("life-at-weschool"),
+    conf: img("infra-conference-room"),
+    lab: img("infra-innowe"),
+    library: img("infra-library"),
+    hostel1: img("hostel-1"),
+    hostel2: img("hostel-2"),
+    hostel3: img("hostel-3"),
+    hostel4: img("hostel-4"),
+    face1: img("mentor-1"),
+    face2: img("mentor-2"),
+    face3: img("mentor-3"),
+    face4: img("mentor-4"),
+    face5: img("mentor-5"),
+    face6: img("mentor-6"),
+    moment1: img("moment-1"),
+    moment2: img("moment-2"),
+    moment3: img("moment-3"),
+    moment4: img("moment-4"),
+    moment5: img("moment-5"),
+    moment6: img("moment-6"),
+    news1: img("news-1"),
+    news2: img("news-2"),
+    news3: img("news-3"),
+    map: img("map"),
+  };
 };
 
+// Recruiter logos: /public/campus/recruiters/<name-slug>.webp (placeholders until uploaded).
 const RECRUITERS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
   name,
-  image: logoPlaceholder(name),
+  image: `/campus/recruiters/${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.webp`,
 }));
 
 function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
   const isMumbai = campus === "Mumbai";
+  const CIMG = campusImages(isMumbai ? "mumbai" : "bengaluru");
   const base = isMumbai ? "/campuses/mumbai" : "/campuses/bengaluru";
   return {
     campus,
     accent: isMumbai ? "orange" : "green",
     bannerTitle: `Prin. L. N. Welingkar Institute of Management Development & Research, ${campus}`,
     hero: {
-      title: "A Campus Built for Future Leaders",
-      subtitle: "Where industry, innovation and immersive learning come together.",
+      // Bengaluru copy from Figma 327:1577; Mumbai's Figma hero is still placeholder text.
+      title: isMumbai ? "A Campus Built for Future Leaders" : "A Campus in the Heart of India's Tech Capital",
+      subtitle: isMumbai
+        ? "Where industry, innovation and immersive learning come together."
+        : "Be Where Global Tech, Startups & Innovation Opportunities Are",
       cta: { label: "Explore All", href: `${base}/about` },
-      image: isMumbai ? CIMG.mumbaiHero : CIMG.blrHero,
+      image: CIMG.hero,
     },
     nav: [
       { label: "About Campus", href: "#about" },
@@ -108,7 +128,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
         `The ${campus} campus brings together a vibrant community of learners, mentors and industry partners in an environment designed for hands-on, future-ready management education.`,
         "Rooted in design thinking and experiential learning, the campus nurtures leaders who are ready to create meaningful impact from day one.",
       ],
-      image: CIMG.board,
+      image: CIMG.about,
       stats: [
         { value: "15+", label: "years of legacy" },
         { value: "3000", label: "students in campus" },
@@ -126,8 +146,8 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     },
     director: {
       heading: "Words from the Director's Desk",
-      name: "Prof. Dr. Kaustubh Dhargalkar",
-      title: "In-Charge Director",
+      name: isMumbai ? "Prof. Dr. Kaustubh Dhargalkar" : "Dr. Madhavi Lokhande",
+      title: isMumbai ? "In-Charge Director" : "Bengaluru Campus Director",
       body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
       image: CIMG.director,
       cta: { label: "Read More", href: "/about-us/directors-message" },
@@ -146,10 +166,10 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       ],
     },
     faculty: {
-      heading: "A Faculty Network Without Borders",
+      heading: "Our Extended Faculty Network",
       description: "Our academic strength is enriched by a distinguished network of visiting faculty members from across India and abroad, bringing diverse perspectives, industry insight, and global best practices into the classroom.",
       categories: ["International Faculty", "Visiting Faculty", "Guest Lecturers"],
-      image: CIMG.board,
+      image: CIMG.facultyNetwork,
       cta: { label: "Meet Our Faculty", href: "/about-us/faculty" },
     },
     programmes: {
@@ -159,8 +179,8 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       cards: [
         { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: "/programmes/pgdm" } },
         { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: "/programmes/pgdm-e-business" } },
-        { id: "pc-3", image: CIMG.board, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: "/programmes/pgdm-business-design" } },
-        { id: "pc-4", image: CIMG.p3, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: "/programmes/pgdm-research-analytics" } },
+        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: "/programmes/pgdm-business-design" } },
+        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: "/programmes/pgdm-research-analytics" } },
       ],
     },
     recruiters: {
@@ -178,6 +198,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     world: {
       heading: `The World of WeSchool, ${campus}`,
       image: CIMG.world,
+      caption: `Welingkar ${campus} Campus Tour | A Quick Look at a PGDM College in India`,
     },
     life: {
       heading: "Life @ WeSchool",
@@ -201,7 +222,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
         { id: "ac-1", image: CIMG.hostel1, title: "Lorem Ipsum is simply dummy text the printing and typesetting industry." },
         { id: "ac-2", image: CIMG.hostel2, title: "Lorem Ipsum is simply dummy text the printing and typesetting industry." },
         { id: "ac-3", image: CIMG.hostel3, title: "Lorem Ipsum is simply dummy text the printing and typesetting industry." },
-        { id: "ac-4", image: CIMG.hostel1, title: "Lorem Ipsum is simply dummy text the printing and typesetting industry." },
+        { id: "ac-4", image: CIMG.hostel4, title: "Lorem Ipsum is simply dummy text the printing and typesetting industry." },
       ],
     },
     moments: {
@@ -212,6 +233,8 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
         { id: "mo-2", image: CIMG.moment2 },
         { id: "mo-3", image: CIMG.moment3 },
         { id: "mo-4", image: CIMG.moment4, video: true },
+        { id: "mo-5", image: CIMG.moment5 },
+        { id: "mo-6", image: CIMG.moment6 },
       ],
     },
     news: {

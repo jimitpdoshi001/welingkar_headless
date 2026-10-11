@@ -15,7 +15,7 @@ const ROWS: Row[] = [
     title: "PGDM Mumbai",
     eyebrow: "(AICTE approved standalone institute)",
     body: "The WeSchool Mumbai Campus is a thriving ecosystem of new thoughts, ideas, and enterprise. Here's where cutting-edge global conversations begin.",
-    image: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1200&auto=format&fit=crop&q=80",
+    image: "/campus/listing-mumbai.webp",
     href: "/campuses/mumbai",
   },
   {
@@ -23,7 +23,7 @@ const ROWS: Row[] = [
     title: "MMS / PhD",
     eyebrow: "(Autonomous Institute affiliated to University of Mumbai)",
     body: "MMS (Master of Management Studies) is a 2-year full-time Master's Degree program introduced in 1984. It offers specializations in Marketing, Finance, Human Resource Management, and Operations.",
-    image: "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&auto=format&fit=crop&q=80",
+    image: "/campus/listing-mms.webp",
     href: "/programmes/mms",
     reverse: true,
   },
@@ -32,7 +32,7 @@ const ROWS: Row[] = [
     title: "PGDM Bengaluru",
     eyebrow: "(AICTE approved standalone institute)",
     body: "Situated in Bengaluru, the Silicon Valley of India, the WeSchool Bengaluru campus is designed to nurture Design Thinking and Innovation as well as the business pioneers of tomorrow.",
-    image: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?w=1200&auto=format&fit=crop&q=80",
+    image: "/campus/listing-bengaluru.webp",
     href: "/campuses/bengaluru",
   },
 ];
@@ -46,7 +46,25 @@ export function CampusListingPage() {
         <main>
           <div className={`container ${styles.crumbWrap}`}>
             <nav className={styles.breadcrumb}>
-              <Link href="/">Home</Link> <span>›</span> <span>Campus Listing</span>
+              {/* Figma: home icon, "-" separator, current page. */}
+              <Link
+                href="/"
+                aria-label="Home">
+                <svg
+                  width="13"
+                  height="11"
+                  viewBox="0 0 13 11"
+                  fill="none"
+                  aria-hidden="true">
+                  <path
+                    d="M1 5.5 6.5 1 12 5.5M2.5 4.3V10h3V7h2v3h3V4.3"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>{" "}
+              <span>-</span> <span>Campus Listing</span>
             </nav>
           </div>
 
