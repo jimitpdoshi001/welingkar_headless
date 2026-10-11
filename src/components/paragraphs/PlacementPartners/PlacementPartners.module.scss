@@ -1,5 +1,15 @@
 @use "../../../styles/base/mixins" as *;
 
+// Pull the placement section up to tighten the gap to the WeFactor section
+// above (which otherwise stacks two section paddings), per Figma.
+.root {
+  margin-top: -8rem;
+
+  @include respond-to(mobile) {
+    margin-top: 0;
+  }
+}
+
 .intro {
   max-width: 70%;
   margin-bottom: 10rem;

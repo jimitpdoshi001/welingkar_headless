@@ -62,3 +62,21 @@ export function whatWeOfferHeadings(location: string | null | undefined): string
   if (!location) return null;
   return WHAT_WE_OFFER_HEADINGS[location.trim().toLowerCase()] ?? null;
 }
+
+/**
+ * The placement-partners section currently carries the intro section's text
+ * ("We are WeSchool" / "There's a future…") in Drupal. Force the correct
+ * heading + description until the backend is corrected.
+ */
+const PLACEMENT_DESCRIPTION =
+  "Our network of over 358 recruiters across diverse industries, profiles, and continents ensure that our students are prepared to meet the evolving industry expectations. We believe that our partnership with the right recruiters create meaningful career opportunities and support our students at every step of the way.";
+
+export function overridePlacementHeading(heading: string | null | undefined): string {
+  if (heading && heading.trim().toLowerCase() !== "we are weschool") return heading;
+  return "Our Placement Partners";
+}
+
+export function overridePlacementDescription(html: string | null | undefined): string {
+  if (html && !/there'?s a future we believe in/i.test(html)) return html;
+  return `<p>${PLACEMENT_DESCRIPTION}</p>`;
+}

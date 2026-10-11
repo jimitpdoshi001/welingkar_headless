@@ -13,6 +13,7 @@ import { useIsMobile } from "@/util/useMediaQuery";
 
 import styles from "./PlacementPartners.module.scss";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
+import { overridePlacementHeading, overridePlacementDescription } from "@/lib/content-overrides";
 import clsx from "clsx";
 
 type PlacementPartnersProps = {
@@ -22,12 +23,12 @@ type PlacementPartnersProps = {
 };
 
 export function PlacementPartners({ paragraph, images = [], children }: PlacementPartnersProps) {
-  const heading = paragraph.attributes.field_header || null;
-  const description = paragraph.attributes.field_description?.processed || null;
+  const heading = overridePlacementHeading(paragraph.attributes.field_header);
+  const description = overridePlacementDescription(paragraph.attributes.field_description?.processed);
   const isMobile = useIsMobile();
   const showArrows = paragraph.attributes.field_show_arrows || false;
   return (
-    <div>
+    <div className={styles.root}>
       {(heading || description) && (
         <div className={styles.intro}>
           {heading ? <h3 className="mb-2">{heading}</h3> : null}
