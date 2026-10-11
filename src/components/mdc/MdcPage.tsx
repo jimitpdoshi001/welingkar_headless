@@ -12,7 +12,7 @@ export function MdcPage({ data }: { data: MdcData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main style={{ ["--faculty-accent" as string]: "var(--color-secondary)" }}>
           {/* Hero */}

@@ -12,7 +12,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main>
           {/* Hero */}

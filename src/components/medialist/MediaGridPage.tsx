@@ -12,7 +12,7 @@ export function MediaGridPage({ data }: { data: MediaGridData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main>
           <section className={styles.hero}>

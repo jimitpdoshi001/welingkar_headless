@@ -12,7 +12,7 @@ export function ConferencePage({ data }: { data: ConferenceData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main>
           {/* Hero */}

@@ -15,7 +15,7 @@ export function CampusPage({ data }: { data: CampusData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main style={{ ["--faculty-accent" as string]: accentVar }}>
           <section className={styles.hero}>

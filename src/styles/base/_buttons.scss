@@ -77,12 +77,13 @@
     }
   }
 
-  // Themeable accent button — picks up `--faculty-accent` (set per page),
-  // falling back to the brand green. Used by the faculty page sections.
+  // Primary CTA button. Figma uses the brand green for CTAs even on campus
+  // pages whose section accents are orange, so this stays green; the orange
+  // (`--faculty-accent`) is reserved for section highlights / tabs / badges.
   &.accent {
-    background-color: var(--faculty-accent, var(--color-primary));
+    background-color: var(--color-primary);
     color: var(--color-white);
-    border: 1px solid var(--faculty-accent, var(--color-primary));
+    border: 1px solid var(--color-primary);
 
     &:hover {
       filter: brightness(0.94);

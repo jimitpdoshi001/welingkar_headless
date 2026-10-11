@@ -12,7 +12,7 @@ export function LifePage({ data }: { data: LifeData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main>
           {/* Hero */}

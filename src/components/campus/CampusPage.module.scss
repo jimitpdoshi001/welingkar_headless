@@ -10,7 +10,7 @@
   position: relative;
   min-height: 60rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   overflow: hidden;
 
   @include respond-to(mobile) { min-height: 44rem; }
