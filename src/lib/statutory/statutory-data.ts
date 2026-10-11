@@ -60,3 +60,13 @@ export const GRIEVANCE_OPTIONS = {
   role: ["Student", "Parent", "Alumni", "Faculty", "Non-teaching Staff", "Other"],
   subject: ["Academic", "Administrative", "Hostel", "Examination", "Other"],
 };
+
+// Figma 1618:2123 (Careers). Select options are not in the design; these are
+// sensible defaults to confirm with HR.
+export const CAREER_OPENINGS = ["Guest Relations Executive", "Young Professional Program (YPP)"];
+
+export const CAREER_OPTIONS = {
+  source: ["WeSchool Website", "LinkedIn", "Job Portal", "Employee Referral", "Other"],
+  qualification: ["Graduate", "Post Graduate", "M.Phil", "Ph.D"],
+  classObtained: ["Distinction", "First Class", "Second Class", "Pass Class"],
+};
