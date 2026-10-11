@@ -21,7 +21,7 @@ export default function FacultyInsidePreviewPage() {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header transparentHero />
+        <Header />
 
         <main style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
           <FacultyProfile />

@@ -358,7 +358,7 @@ export const DEFAULT_FACULTY_PROFILE: FacultyProfile = {
   name: "Prof. Dr. Kaustubh Dhargalkar",
   designation: "In-Charge Director",
   body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
-  image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&auto=format&fit=crop&q=80",
+  image: "/faculty/director.webp",
   imageAlt: "Prof. Dr. Kaustubh Dhargalkar",
   link: "/faculty",
   linkLabel: "Read More",
