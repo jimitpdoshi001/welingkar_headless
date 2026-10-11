@@ -461,10 +461,6 @@
   }
 }
 
-.mobileMenu {
-  display: none;
-}
-
 // ============================================
 // Mobile
 // ============================================
@@ -533,201 +529,26 @@
     display: flex;
   }
 
-  // Mobile menu
-  .mobileMenu {
-    display: block;
+  // Figma mobile hamburger: three 30px lines, 1.8px thick, 9px apart.
+  .headerSticky .stickyHamburger {
+    width: 4.4rem;
+    height: 4.4rem;
+    gap: 0.72rem;
 
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-
-    max-height: 0;
-    overflow: hidden;
-
-    opacity: 0;
-    visibility: hidden;
-
-    transition:
-      max-height 0.4s ease,
-      opacity 0.3s ease,
-      visibility 0.3s ease;
-  }
-
-  .mobileMenuOpen {
-    max-height: calc(100vh - 5rem);
-    opacity: 1;
-    visibility: visible;
-    overflow-y: auto;
-    top: 100%;
-  }
-
-  .mobileMenuInner {
-    padding: 1rem;
-    border-radius: 1.5rem;
-    width: 90%;
-    margin: 0.5rem auto 0 auto;
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .stickyMobileMenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-
-    .mobileMenuInner {
-      background: var(--color-white);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+    span {
+      width: 3rem;
+      height: 0.18rem;
     }
 
-    .mobileNavItem {
-      color: #2d3748;
+    &.open span {
+      &:nth-child(1) {
+        transform: translateY(0.9rem) rotate(45deg);
+      }
 
-      &:hover,
-      &:active {
-        background-color: var(--color-primary);
-        color: var(--color-white);
+      &:nth-child(3) {
+        transform: translateY(-0.9rem) rotate(-45deg);
       }
     }
-
-    .mobileSecondaryItem {
-      color: #555555;
-
-      &:hover,
-      &:active {
-        background-color: var(--color-primary);
-        color: var(--color-white);
-      }
-    }
-
-    .mobileDivider {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
-
-    .mobileModeText {
-      color: #2d3748;
-    }
-  }
-
-  .mobileNavItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    text-align: left;
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    font-family: inherit;
-    color: var(--color-white);
-    font-size: 1.7rem;
-    font-weight: 600;
-
-    padding: 1.2rem 1.5rem;
-    border-radius: 1rem;
-
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-
-    &:hover,
-    &:active {
-      background-color: var(--color-primary);
-      color: var(--color-white);
-    }
-  }
-
-  .mobileNavGroup {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .mobileCaret {
-    flex-shrink: 0;
-    width: 0;
-    height: 0;
-    margin-left: 1rem;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 6px solid currentColor;
-    transition: transform 0.2s ease;
-  }
-  .mobileCaretOpen {
-    transform: rotate(180deg);
-  }
-
-  .mobileSubMenu {
-    display: flex;
-    flex-direction: column;
-    padding: 0.2rem 0 1rem 1.2rem;
-  }
-  .mobileSubGroup {
-    display: flex;
-    flex-direction: column;
-    padding-top: 0.6rem;
-  }
-  .mobileSubHeading {
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    font-weight: 700;
-    color: var(--color-gray);
-    padding: 0.6rem 1.5rem 0.2rem;
-  }
-  .mobileSubLink {
-    font-size: 1.45rem;
-    color: #555555;
-    padding: 0.7rem 1.5rem;
-    border-radius: 0.8rem;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-    &:hover,
-    &:active {
-      background-color: var(--color-primary);
-      color: var(--color-white);
-    }
-  }
-
-  .mobileDivider {
-    width: 100%;
-    height: 1px;
-    margin: 0.8rem 0;
-
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .mobileSecondaryItem {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.5rem;
-    padding: 0.9rem 1.5rem;
-    border-radius: 1rem;
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-    &:hover,
-    &:active {
-      background-color: var(--color-primary);
-      color: var(--color-white);
-    }
-  }
-
-  .mobileModeContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.8rem 1.5rem;
-  }
-
-  .mobileModeText {
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: var(--color-white);
   }
 
   .modeButton {
