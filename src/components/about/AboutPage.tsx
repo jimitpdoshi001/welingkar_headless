@@ -97,7 +97,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
               <img
                 src={data.mission.images[1]}
                 alt=""
-                className={styles.collageSmallR}
+                className={styles.collageSmall}
               />
             </div>
             <div className={styles.missionText}>
@@ -178,6 +178,11 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                     <p className={styles.accredText}>
                       <strong>{a.title}</strong> {a.body}
                     </p>
+                    {a.extra ? (
+                      <p className={styles.accredText}>
+                        <strong>{a.extra.title}</strong> {a.extra.body}
+                      </p>
+                    ) : null}
                   </div>
                 ))}
               </div>
