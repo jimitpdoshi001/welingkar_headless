@@ -53,7 +53,16 @@ export function PgdmFeatureGrid({ heading, headingAlign = "left", items, columns
             key={item.id}
             className={styles.item}>
             <span className={styles.icon}>
-              <FeatureIcon />
+              {/* Figma line icon when provided, otherwise the generic mark. */}
+              {item.icon ? (
+                <img
+                  src={item.icon}
+                  alt=""
+                  className={styles.iconImage}
+                />
+              ) : (
+                <FeatureIcon />
+              )}
             </span>
             <h3 className={styles.title}>{item.title}</h3>
             {item.description ? <p className={styles.description}>{item.description}</p> : null}

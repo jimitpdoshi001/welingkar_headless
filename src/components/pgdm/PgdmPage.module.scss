@@ -85,3 +85,11 @@
 
   .videoCard:hover & { transform: translate(-50%, -50%) scale(1.08); }
 }
+
+// Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
+.placementBand { background-color: #4a3460; background-repeat: no-repeat; background-position: top center; background-size: 100% auto;
+  @include respond-to(mobile) { background-size: auto 60rem; }
+}
+
+// Mumbai: section CTAs are orange in Figma; the hero keeps its green Apply Now.
+.orangeCtas > :not(:first-child) :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }

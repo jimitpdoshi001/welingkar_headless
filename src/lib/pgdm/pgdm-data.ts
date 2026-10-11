@@ -16,7 +16,7 @@ export type PgdmHeroData = {
   imageAlt: string;
 };
 
-export type PgdmFeature = { id: string; title: string; description?: string };
+export type PgdmFeature = { id: string; title: string; description?: string; icon?: string };
 
 export type PgdmWhyProgram = { heading: string; body: string; videoThumb: string; videoHref?: string };
 
@@ -104,7 +104,7 @@ export type PgdmFees = {
 
 export type PgdmTestimonial = { id: string; quote: string; name: string; role: string; avatar: string };
 
-export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta; testimonials: PgdmTestimonial[] };
+export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta; testimonials: PgdmTestimonial[]; media?: string[] };
 
 export type PgdmFaqs = { heading: string; items: { id: string; q: string; a: string }[]; brochureCta: PgdmCta };
 
@@ -147,31 +147,33 @@ const pgdmImages = (slug: "mumbai" | "bengaluru") => {
     feeTuition: img("fee-tuition"),
     feeLibrary: img("fee-library"),
     feeHostel: img("fee-hostel"),
+    community1: img("community-1"),
+    community2: img("community-2"),
     avatar1: img("testimonial-1"),
     avatar2: img("testimonial-2"),
   };
 };
 
 const SHARED_QUICK_REASONS: PgdmFeature[] = [
-  { id: "qr-1", title: "Leadership", description: "Developing capable, visionary leaders ready to guide organizations." },
-  { id: "qr-2", title: "Innovation", description: "Fostering creative problem-solving and an innovative mindset." },
-  { id: "qr-3", title: "Critical Thinking", description: "Analytical abilities to navigate complex business scenarios." },
-  { id: "qr-4", title: "Communication Skills", description: "Effective and persuasive professional communication." },
-  { id: "qr-5", title: "Global Perspective", description: "Understanding international markets and diverse cultures." },
-  { id: "qr-6", title: "Role of Self", description: "Awareness of individual impact on the organization and broader society." },
+  { id: "qr-1", icon: "/programmes/pgdm/icons/leadership.png", title: "Leadership", description: "Developing capable, visionary leaders ready to guide organizations." },
+  { id: "qr-2", icon: "/programmes/pgdm/icons/innovation.png", title: "Innovation", description: "Fostering creative problem-solving and an innovative mindset." },
+  { id: "qr-3", icon: "/programmes/pgdm/icons/critical-thinking.png", title: "Critical Thinking", description: "Analytical abilities to navigate complex business scenarios." },
+  { id: "qr-4", icon: "/programmes/pgdm/icons/communication.png", title: "Communication Skills", description: "Effective and persuasive professional communication." },
+  { id: "qr-5", icon: "/programmes/pgdm/icons/global-perspective.png", title: "Global Perspective", description: "Understanding international markets and diverse cultures." },
+  { id: "qr-6", icon: "/programmes/pgdm/icons/role-of-self.png", title: "Role of Self", description: "Awareness of individual impact on the organization and broader society." },
 ];
 
 const SHARED_USPS: PgdmFeature[] = [
-  { id: "usp-1", title: "Benchmarking", description: "of syllabus as against top International and Indian business schools." },
-  { id: "usp-2", title: "Assessment centre", description: "for student development supported with structured domain and grooming sessions." },
-  { id: "usp-3", title: "Development centre", description: "through excel training, guest sessions, domain tests, aptitude tests, mock GD/PI." },
-  { id: "usp-4", title: "Finance GYM", description: "– online interactive game on equity, conducted by ‘The Learning Curve Academy’." },
-  { id: "usp-5", title: "Fit for Finance", description: "– workshops on strengthening finance concepts." },
-  { id: "usp-6", title: "Roundtable conferences", description: "– panellists from the industry and alumni." },
-  { id: "usp-7", title: "Focused mentoring" },
-  { id: "usp-8", title: "Continuous assessment", description: "evaluation of students." },
-  { id: "usp-9", title: "HR Lab", description: "– learning by doing experience on real-life business challenges." },
-  { id: "usp-10", title: "MarkQuest", description: "– student-driven marketing club of WeSchool, aimed to engage and enrich marketing students with domain knowledge and practical insights." },
+  { id: "usp-1", icon: "/programmes/pgdm/icons/benchmarking.png", title: "Benchmarking", description: "of syllabus as against top International and Indian business schools." },
+  { id: "usp-2", icon: "/programmes/pgdm/icons/assessment-centre.png", title: "Assessment centre", description: "for student development supported with structured domain and grooming sessions." },
+  { id: "usp-3", icon: "/programmes/pgdm/icons/development-centre.png", title: "Development centre", description: "through excel training, guest sessions, domain tests, aptitude tests, mock GD/PI." },
+  { id: "usp-4", icon: "/programmes/pgdm/icons/finance-gym.png", title: "Finance GYM", description: "– online interactive game on equity, conducted by ‘The Learning Curve Academy’." },
+  { id: "usp-5", icon: "/programmes/pgdm/icons/fit-for-finance.png", title: "Fit for Finance", description: "– workshops on strengthening finance concepts." },
+  { id: "usp-6", icon: "/programmes/pgdm/icons/roundtable.png", title: "Roundtable conferences", description: "– panellists from the industry and alumni." },
+  { id: "usp-7", icon: "/programmes/pgdm/icons/focused-mentoring.png", title: "Focused mentoring" },
+  { id: "usp-8", icon: "/programmes/pgdm/icons/continuous-assessment.png", title: "Continuous assessment", description: "evaluation of students." },
+  { id: "usp-9", icon: "/programmes/pgdm/icons/hr-lab.png", title: "HR Lab", description: "– learning by doing experience on real-life business challenges." },
+  { id: "usp-10", icon: "/programmes/pgdm/icons/markquest.png", title: "MarkQuest", description: "– student-driven marketing club of WeSchool, aimed to engage and enrich marketing students with domain knowledge and practical insights." },
 ];
 
 const CAREER_TABS = [
@@ -415,6 +417,8 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       description:
         "There's something special about watching our students, recruiters and faculty come together. It's a big part of what pushes us to keep raising the bar on academic excellence. Hear it from our alumni in their own words.",
       cta: { label: "View All", href: "/alumni" },
+      // Figma: two video tiles beside the quote card.
+      media: [IMG.community1, IMG.community2],
       testimonials: [
         { id: "t-1", quote: "I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.", name: "Rajesh Ramineni", role: "BigBasket DC – Manager", avatar: IMG.avatar1 },
         { id: "t-2", quote: "The industry exposure and mentoring at WeSchool shaped how I approach real business problems every day.", name: "Priya Nair", role: "Deloitte – Consultant", avatar: IMG.avatar2 },

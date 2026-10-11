@@ -30,14 +30,18 @@ type PgdmPageProps = {
 };
 
 export function PgdmPage({ data, accent }: PgdmPageProps) {
-  const accentVar = accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
+  const accentVar =
+    accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
 
   return (
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main style={{ ["--faculty-accent" as string]: accentVar }}>
+        <main
+          className={accent === "orange" ? styles.orangeCtas : undefined}
+          style={{ ["--faculty-accent" as string]: accentVar }}
+        >
           <PgdmHero data={data.hero} />
 
           <section className={`container ${styles.block}`}>
@@ -49,15 +53,14 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
               <Link
                 href={data.whyProgram.videoHref || "#"}
                 className={styles.videoCard}
-                aria-label="Play programme video">
+                aria-label="Play programme video"
+              >
                 <img
                   src={data.whyProgram.videoThumb}
                   alt=""
                   className={styles.videoThumb}
                 />
-                <span
-                  className={styles.playButton}
-                  aria-hidden="true">
+                <span className={styles.playButton} aria-hidden="true">
                   ▶
                 </span>
               </Link>
@@ -122,19 +125,25 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             <PgdmAchievements data={data.achievements} />
           </section>
 
-          <PgdmPlacement data={data.placement} />
+          {/* Figma 669:344: one photo band behind placement stats, why-recruit and recruiters. */}
+          <div
+            className={styles.placementBand}
+            style={{ backgroundImage: `url(${data.placement.image})` }}
+          >
+            <PgdmPlacement data={data.placement} bare />
 
-          <section className="bg-secondary">
-            <div className={`container ${styles.block}`}>
-              <PgdmWhyRecruit
-                data={data.placement.whyRecruit}
-                steps={data.placement.steps}
-              />
-              <div className={styles.recruiters}>
-                <PgdmRecruiters data={data.recruiters} />
+            <section>
+              <div className={`container ${styles.block}`}>
+                <PgdmWhyRecruit
+                  data={data.placement.whyRecruit}
+                  steps={data.placement.steps}
+                />
+                <div className={styles.recruiters}>
+                  <PgdmRecruiters data={data.recruiters} />
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
 
           <section className="bg-light-yellow">
             <div className={`container ${styles.block}`}>
