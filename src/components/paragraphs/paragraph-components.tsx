@@ -6,10 +6,20 @@
  */
 import type { ReactNode } from "react";
 import { GroupSlider } from "./GroupSlider/GroupSlider";
-import type { DrupalPage, ParagraphItem, TestimonialsDataAttributes } from "@/lib/drupal";
+import type {
+  DrupalPage,
+  ParagraphItem,
+  TestimonialsDataAttributes,
+} from "@/lib/drupal";
 import { toContentFieldItem } from "./ContentField/ContentField";
-import { generatedParagraphComponents, type ParagraphRenderContext } from "./paragraph-components.generated";
-import { HomeCommunitySection, type CommunityTestimonial } from "./HomeCommunitySection/HomeCommunitySection";
+import {
+  generatedParagraphComponents,
+  type ParagraphRenderContext,
+} from "./paragraph-components.generated";
+import {
+  HomeCommunitySection,
+  type CommunityTestimonial,
+} from "./HomeCommunitySection/HomeCommunitySection";
 import { TabItemsGroup } from "./TabItemsGroup/TabItemsGroup";
 
 export type { ParagraphRenderContext };
@@ -25,13 +35,34 @@ function stripHtml(html: string): string {
     .trim();
 }
 
-function testimonialsFromChildren(item: ParagraphItem, page: DrupalPage): CommunityTestimonial[] {
+function videoUri(field: unknown): string | undefined {
+  const value = Array.isArray(field) ? field[0] : field;
+  if (typeof value === "string") return value || undefined;
+  if (
+    value &&
+    typeof value === "object" &&
+    "uri" in value &&
+    typeof value.uri === "string"
+  )
+    return value.uri || undefined;
+  return undefined;
+}
+
+function testimonialsFromChildren(
+  item: ParagraphItem,
+  page: DrupalPage,
+): CommunityTestimonial[] {
   return item.children
     .filter((child) => child.resource.type === "paragraph--testimonials_data")
     .map((child) => {
-      const attributes = child.resource.attributes as TestimonialsDataAttributes;
+      const attributes = child.resource
+        .attributes as TestimonialsDataAttributes;
       const image = page.paragraphImages[child.resource.id];
-      const quote = stripHtml(attributes.field_description?.processed || attributes.field_description?.value || "");
+      const quote = stripHtml(
+        attributes.field_description?.processed ||
+          attributes.field_description?.value ||
+          "",
+      );
 
       return {
         id: child.resource.id,
@@ -40,11 +71,18 @@ function testimonialsFromChildren(item: ParagraphItem, page: DrupalPage): Commun
         role: attributes.field_designation || "",
         avatar: image?.url || "",
         avatarAlt: image?.alt || attributes.field_name || "",
+        // Optional Drupal link field (`field_video_url`); plain string also accepted.
+        videoUrl: videoUri(
+          (attributes as { field_video_url?: unknown }).field_video_url,
+        ),
       };
     });
 }
 
-export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: ParagraphRenderContext) => ReactNode> = {
+export const paragraphComponents: Record<
+  string,
+  (item: ParagraphItem, ctx: ParagraphRenderContext) => ReactNode
+> = {
   ...generatedParagraphComponents,
   "paragraph--group_slider": (item, { page }) => {
     const items = item.children
@@ -52,14 +90,16 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
       .map((child) =>
         toContentFieldItem(
           child.resource as Parameters<typeof toContentFieldItem>[0],
-          page.paragraphResponsiveMedia[child.resource.id] ?? null
-        )
+          page.paragraphResponsiveMedia[child.resource.id] ?? null,
+        ),
       );
 
     return (
       <GroupSlider
         key={item.resource.id}
-        paragraph={item.resource as Parameters<typeof GroupSlider>[0]["paragraph"]}
+        paragraph={
+          item.resource as Parameters<typeof GroupSlider>[0]["paragraph"]
+        }
         items={items}
       />
     );
@@ -75,28 +115,42 @@ export const paragraphComponents: Record<string, (item: ParagraphItem, ctx: Para
 
       return {
         id: child.resource.id,
-        title: attributes.field_tab_title || attributes.field_title || attributes.field_header || "Tab",
+        title:
+          attributes.field_tab_title ||
+          attributes.field_title ||
+          attributes.field_header ||
+          "Tab",
       };
     });
 
     return (
       <TabItemsGroup
         key={item.resource.id}
-        paragraph={item.resource as Parameters<typeof TabItemsGroup>[0]["paragraph"]}
-        tabs={tabs}>
+        paragraph={
+          item.resource as Parameters<typeof TabItemsGroup>[0]["paragraph"]
+        }
+        tabs={tabs}
+      >
         {renderChildren(item.children)}
       </TabItemsGroup>
     );
   },
 
   "paragraph--home_community_section": (item, { page, renderChildren }) => {
-    const headerChildren = item.children.filter((child) => child.resource.type !== "paragraph--testimonials_data");
+    const headerChildren = item.children.filter(
+      (child) => child.resource.type !== "paragraph--testimonials_data",
+    );
 
     return (
       <HomeCommunitySection
         key={item.resource.id}
-        paragraph={item.resource as Parameters<typeof HomeCommunitySection>[0]["paragraph"]}
-        testimonials={testimonialsFromChildren(item, page)}>
+        paragraph={
+          item.resource as Parameters<
+            typeof HomeCommunitySection
+          >[0]["paragraph"]
+        }
+        testimonials={testimonialsFromChildren(item, page)}
+      >
         {renderChildren(headerChildren)}
       </HomeCommunitySection>
     );
