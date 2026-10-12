@@ -2,11 +2,13 @@
 
 .panel {
   width: 100%;
-  background: rgba(16, 10, 24, 0.9);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border-radius: 2.4rem;
-  box-shadow: 0 2.4rem 6rem rgba(0, 0, 0, 0.35);
+  // Style guide 1427:2045: black glass fading from 100% to 26% opacity,
+  // 25px background blur (CSS blur is half Figma's radius), 40px corners.
+  background: linear-gradient(112deg, rgb(0 0 0 / 100%) 0%, rgb(0 0 0 / 26%) 100%);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  border-radius: 4rem;
+  box-shadow: 1.9rem 1.5rem 4.6rem rgb(0 0 0 / 14%);
   overflow: hidden;
   animation: megaFade 0.2s ease;
 }
