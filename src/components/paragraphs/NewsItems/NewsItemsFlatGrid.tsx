@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { optimizedImgProps } from "@/util/optimized-img";
 import type { NewsItem } from "@/lib/drupal/news";
 import styles from "./NewsItems.module.scss";
 
@@ -12,12 +13,14 @@ export function NewsItemsFlatGrid({ items }: NewsItemsFlatGridProps) {
   return (
     <div className={styles.flatGrid}>
       {items.map((item) => (
-        <article key={item.id} className={`${styles.card} ${styles.flatGridCard}`}>
+        <article
+          key={item.id}
+          className={`${styles.card} ${styles.flatGridCard}`}
+        >
           {item.image && (
             <div className={styles.cardImageContainer}>
               <img
-                src={item.image}
-                alt={item.imageAlt || item.title}
+                {...optimizedImgProps(item.image, item.imageAlt || item.title)}
                 className={styles.cardImage}
               />
             </div>
