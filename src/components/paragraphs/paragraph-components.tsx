@@ -72,8 +72,15 @@ function testimonialsFromChildren(
         avatar: image?.url || "",
         avatarAlt: image?.alt || attributes.field_name || "",
         // Optional Drupal link field (`field_video_url`); plain string also accepted.
+        // Drupal link field; the UI created it as `field_field_video_url`.
         videoUrl: videoUri(
-          (attributes as { field_video_url?: unknown }).field_video_url,
+          (
+            attributes as {
+              field_video_url?: unknown;
+              field_field_video_url?: unknown;
+            }
+          ).field_field_video_url ??
+            (attributes as { field_video_url?: unknown }).field_video_url,
         ),
       };
     });
