@@ -10,7 +10,9 @@ type NewsItemsProps = {
 };
 
 export async function NewsItems({ paragraph, children }: NewsItemsProps) {
-  const rawStyle = (paragraph.attributes.field_components_style_news || "").trim().toLowerCase();
+  const rawStyle = (paragraph.attributes.field_components_style_news || "")
+    .trim()
+    .toLowerCase();
   const items = await getNewsItems();
 
   console.log(items, " items");
@@ -19,9 +21,7 @@ export async function NewsItems({ paragraph, children }: NewsItemsProps) {
     return <NewsItemsSwiper items={items} />;
   }
 
-  if (
-    rawStyle === "flat_grid_of_3"
-  ) {
+  if (rawStyle === "flat_grid_of_3") {
     return <NewsItemsFlatGrid items={items} />;
   }
 

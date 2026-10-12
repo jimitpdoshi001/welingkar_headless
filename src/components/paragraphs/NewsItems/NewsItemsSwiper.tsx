@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { optimizedImgProps } from "@/util/optimized-img";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
@@ -22,7 +23,9 @@ export function NewsItemsSwiper({ items }: NewsItemsSwiperProps) {
   const mounted = useHasMounted();
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
-  const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(null);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(
+    null,
+  );
 
   useEffect(() => {
     if (swiperInstance && swiperInstance.navigation) {
@@ -38,12 +41,17 @@ export function NewsItemsSwiper({ items }: NewsItemsSwiperProps) {
       <div className={styles.swiperWrapper}>
         <div className={styles.flatGrid}>
           {items.slice(0, 3).map((item) => (
-            <article key={item.id} className={`${styles.card} ${styles.swiperCard}`}>
+            <article
+              key={item.id}
+              className={`${styles.card} ${styles.swiperCard}`}
+            >
               {item.image && (
                 <div className={styles.cardImageContainer}>
                   <img
-                    src={item.image}
-                    alt={item.imageAlt || item.title}
+                    {...optimizedImgProps(
+                      item.image,
+                      item.imageAlt || item.title,
+                    )}
                     className={styles.cardImage}
                   />
                 </div>
@@ -77,7 +85,10 @@ export function NewsItemsSwiper({ items }: NewsItemsSwiperProps) {
         loop={items.length > 3}
         grabCursor={true}
         onBeforeInit={(swiper) => {
-          if (swiper.params.navigation && typeof swiper.params.navigation !== "boolean") {
+          if (
+            swiper.params.navigation &&
+            typeof swiper.params.navigation !== "boolean"
+          ) {
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
           }
@@ -110,8 +121,10 @@ export function NewsItemsSwiper({ items }: NewsItemsSwiperProps) {
               {item.image && (
                 <div className={styles.cardImageContainer}>
                   <img
-                    src={item.image}
-                    alt={item.imageAlt || item.title}
+                    {...optimizedImgProps(
+                      item.image,
+                      item.imageAlt || item.title,
+                    )}
                     className={styles.cardImage}
                   />
                 </div>

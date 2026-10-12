@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { optimizedImgProps } from "@/util/optimized-img";
 import type { NewsItem } from "@/lib/drupal/news";
 import styles from "./NewsItems.module.scss";
 
@@ -21,8 +22,10 @@ export function NewsItemsGrid({ items, children }: NewsItemsGridProps) {
         <article className={`${styles.card} ${styles.featuredCard}`}>
           {featured.image && (
             <img
-              src={featured.image}
-              alt={featured.imageAlt || featured.title}
+              {...optimizedImgProps(
+                featured.image,
+                featured.imageAlt || featured.title,
+              )}
             />
           )}
 
@@ -43,8 +46,10 @@ export function NewsItemsGrid({ items, children }: NewsItemsGridProps) {
       {/* Middle top image card */}
       <article className={`${styles.card} ${styles.imageCard}`}>
         <img
-          src={item2?.image as string}
-          alt={item2?.imageAlt || item2?.title || "WeSchool event"}
+          {...optimizedImgProps(
+            item2?.image as string,
+            item2?.imageAlt || item2?.title || "WeSchool event",
+          )}
         />
       </article>
 
@@ -63,8 +68,10 @@ export function NewsItemsGrid({ items, children }: NewsItemsGridProps) {
       {/* Middle bottom image card */}
       <article className={`${styles.card} ${styles.imageCard}`}>
         <img
-          src={item4?.image as string}
-          alt={item4?.imageAlt || item4?.title || "WeSchool event"}
+          {...optimizedImgProps(
+            item4?.image as string,
+            item4?.imageAlt || item4?.title || "WeSchool event",
+          )}
         />
       </article>
 
