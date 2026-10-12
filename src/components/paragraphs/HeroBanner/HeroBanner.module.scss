@@ -22,6 +22,12 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+
+  // Keep faces in frame: crop from the bottom, not the centre.
+  :global(img),
+  :global(video) {
+    object-position: center top;
+  }
 }
 
 .hero::after {
