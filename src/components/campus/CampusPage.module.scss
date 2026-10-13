@@ -220,28 +220,13 @@
   flex-wrap: wrap;
 }
 .mentorTabs { display: flex; flex-wrap: wrap; gap: 1.6rem 5.6rem; @include respond-to(tab) { gap: 1.2rem 3.2rem; } }
-.mentorTab { font-size: 1.58rem; font-weight: 300; color: gray; cursor: pointer; position: relative; padding-bottom: 0.8rem; }
+.mentorTab { appearance: none; background: none; border: 0; font-family: inherit; text-align: left; font-size: 1.58rem; font-weight: 300; color: gray; cursor: pointer; position: relative; padding-bottom: 0.8rem; }
 .mentorTabActive {
   color: var(--faculty-accent, var(--color-primary));
   font-weight: 600;
   &::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--faculty-accent, var(--color-primary)); }
 }
 .barActions { display: flex; align-items: center; gap: 2rem; }
-.mentorGrid {
-  --cols: 6;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: calc((100% - (var(--cols) - 1) * 2rem) / var(--cols));
-  gap: 2rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
-  > * { scroll-snap-align: start; }
-
-  @include respond-to(tab) { --cols: 3.3; }
-  @include respond-to(mobile) { --cols: 2.2; gap: 1.6rem; }
-}
 .mentorCard { display: flex; flex-direction: column; }
 .mentorImage { width: 100%; aspect-ratio: 190 / 175; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
 .mentorName { font-size: 1.41rem; font-weight: 700; margin-bottom: 0.4rem; }

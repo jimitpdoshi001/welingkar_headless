@@ -6,9 +6,9 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
-import { ScrollArrows } from "./ScrollArrows/ScrollArrows";
 import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
 import { RecruiterLogos } from "./RecruiterLogos/RecruiterLogos";
+import { MentorsCarousel } from "./MentorsCarousel/MentorsCarousel";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
@@ -146,47 +146,11 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section className={`container ${styles.block}`}>
             <h2 className={styles.sectionHeading}>{data.mentors.heading}</h2>
-            <div className={styles.mentorsBar}>
-              <div className={styles.mentorTabs}>
-                {data.mentors.tabs.map((t, i) => (
-                  <span
-                    key={t}
-                    className={`${styles.mentorTab} ${i === 2 ? styles.mentorTabActive : ""}`}>
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className={styles.barActions}>
-                <Link
-                  href={data.mentors.cta.href}
-                  className={`btn accent ${styles.smallBtn}`}>
-                  {data.mentors.cta.label}
-                </Link>
-                <ScrollArrows targetId="campus-mentors" />
-              </div>
-            </div>
-            <div
-              id="campus-mentors"
-              className={styles.mentorGrid}>
-              {data.mentors.people.map((p) => (
-                <article
-                  key={p.id}
-                  className={styles.mentorCard}>
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className={styles.mentorImage}
-                  />
-                  <h4 className={styles.mentorName}>{p.name}</h4>
-                  <p className={styles.mentorRole}>{p.title}</p>
-                  <Link
-                    href={data.mentors.cta.href}
-                    className={styles.mentorLink}>
-                    Read More
-                  </Link>
-                </article>
-              ))}
-            </div>
+            <MentorsCarousel
+              tabs={data.mentors.tabs}
+              cta={data.mentors.cta}
+              photos={Object.fromEntries(data.mentors.people.map((person) => [person.name, person.image]))}
+            />
           </section>
 
           {/* Figma 979:1564: full-width photo card with copy and category list on top. */}
