@@ -29,15 +29,15 @@
 }
 
 .heading {
-  font-size: 3.6rem;
+  font-size: 3.17rem;
   font-weight: 800;
   margin-bottom: 2rem;
 
-  @include respond-to(mobile) { font-size: 2.6rem; }
+  @include respond-to(mobile) { font-size: 2.29rem; }
 }
 
 .paragraph {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
   max-width: 78rem;
@@ -72,15 +72,15 @@
 }
 
 .statValue {
-  font-size: 3.4rem;
+  font-size: 2.99rem;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 0.6rem;
 
-  @include respond-to(mobile) { font-size: 2.8rem; }
+  @include respond-to(mobile) { font-size: 2.46rem; }
 }
 
 .statLabel {
-  font-size: 1.4rem;
+  font-size: 1.23rem;
   color: rgba(255, 255, 255, 0.8);
 }

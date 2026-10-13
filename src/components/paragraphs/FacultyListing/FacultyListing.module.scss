@@ -35,7 +35,7 @@
 .tabBtn {
   background: transparent;
   border: none;
-  font-size: 2.4rem;
+  font-size: 2.11rem;
   padding-bottom: 0.5rem;
   color: var(--color-gray);
   cursor: pointer;
@@ -48,7 +48,7 @@
   }
 
   @include respond-to(mobile) {
-    font-size: 1.8rem;
+    font-size: 1.58rem;
   }
 }
 
@@ -167,7 +167,7 @@
 }
 
 .name {
-  font-size: 1.8rem;
+  font-size: 1.58rem;
   font-weight: 700;
   color: var(--color-black);
   margin-bottom: 0.6rem;
@@ -175,7 +175,7 @@
 }
 
 .designation {
-  font-size: 1.4rem;
+  font-size: 1.23rem;
   line-height: 1.45;
   color: var(--color-gray);
   margin-bottom: 1.2rem;
@@ -183,7 +183,7 @@
 
 .readMore {
   color: var(--color-primary);
-  font-size: 1.4rem;
+  font-size: 1.23rem;
   font-weight: 600;
   text-decoration: none;
   margin-top: auto;

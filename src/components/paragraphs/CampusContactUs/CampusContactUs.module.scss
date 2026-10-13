@@ -17,19 +17,19 @@
 }
 
 .mainTitle {
-  font-size: 3.6rem;
+  font-size: 3.17rem;
   font-weight: 700;
   color: var(--color-black, #000);
   margin-bottom: 1.6rem;
   line-height: 1.2;
 
   @include respond-to(mobile) {
-    font-size: 2.8rem;
+    font-size: 2.46rem;
   }
 }
 
 .addressText {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   line-height: 1.6;
   color: var(--color-gray-text, #888888);
   margin-bottom: 1.6rem;
@@ -45,7 +45,7 @@
   align-items: center;
   gap: 1rem;
   color: var(--color-primary, #329638);
-  font-size: 1.8rem;
+  font-size: 1.58rem;
   font-weight: 600;
   text-decoration: none;
   margin-bottom: 4rem;
@@ -70,7 +70,7 @@
 }
 
 .formTitle {
-  font-size: 2.2rem;
+  font-size: 1.94rem;
   font-weight: 700;
   color: var(--color-black, #000);
   margin-bottom: 2.4rem;
@@ -106,7 +106,7 @@
   border: none;
   border-bottom: 1px solid #d0d0d0;
   padding: 1rem 0;
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   color: var(--color-black, #000);
   background: transparent;
   outline: none;
@@ -115,7 +115,7 @@
 
   &::placeholder {
     color: var(--color-gray-text, #999999);
-    font-size: 1.6rem;
+    font-size: 1.41rem;
   }
 
   &:focus {
@@ -133,7 +133,7 @@
   align-self: flex-start;
   background-color: var(--color-primary, #329638);
   color: #ffffff;
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   font-weight: 600;
   padding: 1.2rem 3.6rem;
   border-radius: 3rem;

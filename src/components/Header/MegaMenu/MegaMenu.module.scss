@@ -70,14 +70,14 @@ a.introLink:hover .introTitle {
 }
 
 .introTitle {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.3;
   transition: color 0.2s ease;
 }
 
 .introSubtitle {
-  font-size: 1.3rem;
+  font-size: 1.14rem;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -99,7 +99,7 @@ a.introLink:hover .introTitle {
 
 .columnHeading {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.32rem;
   font-weight: 700;
   color: var(--color-white);
   margin-bottom: 1.4rem;
@@ -120,7 +120,7 @@ a.columnHeading:hover {
 }
 
 .link {
-  font-size: 1.4rem;
+  font-size: 1.23rem;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.82);
   transition: color 0.18s ease, padding-left 0.18s ease;

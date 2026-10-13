@@ -93,7 +93,7 @@ $gap: 3rem;
 }
 
 .quote {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   line-height: 1.45;
   color: var(--color-black, #111111);
   font-weight: 500;
@@ -115,14 +115,14 @@ $gap: 3rem;
 }
 
 .name {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   font-weight: bold;
   color: var(--color-black, #111111);
   margin: 0;
 }
 
 .role {
-  font-size: 1.2rem;
+  font-size: 1.06rem;
   color: var(--color-gray);
 }
 
@@ -232,7 +232,7 @@ $gap: 3rem;
     background-color: var(--color-light);
 
     .quote {
-      font-size: 2.4rem;
+      font-size: 2.11rem;
       font-weight: 400;
       line-height: 2.6rem;
     }
@@ -243,14 +243,14 @@ $gap: 3rem;
     }
 
     .name {
-      font-size: 2.6rem;
+      font-size: 2.29rem;
       font-weight: 600;
       line-height: 1.2;
       margin-bottom: 0.4rem;
     }
 
     .role {
-      font-size: 1.6rem;
+      font-size: 1.41rem;
       font-weight: 500;
       color: #707070;
     }
@@ -281,4 +281,4 @@ $gap: 3rem;
 .videoOverlay { position: fixed; inset: 0; z-index: 1000001; display: grid; place-items: center; padding: 2rem; background: rgb(0 0 0 / 75%); }
 .videoDialog { position: relative; width: min(100%, 96rem); aspect-ratio: 16 / 9; }
 .videoPlayer { width: 100%; height: 100%; border: 0; border-radius: 1.2rem; }
-.videoClose { position: absolute; top: -4.4rem; right: 0; width: 4.4rem; height: 4.4rem; border: 0; background: transparent; color: var(--color-white); font-size: 3.2rem; line-height: 1; cursor: pointer; }
+.videoClose { position: absolute; top: -4.4rem; right: 0; width: 4.4rem; height: 4.4rem; border: 0; background: transparent; color: var(--color-white); font-size: 2.82rem; line-height: 1; cursor: pointer; }

@@ -37,12 +37,12 @@
 }
 
 .heading {
-  font-size: 3.6rem;
+  font-size: 3.17rem;
   font-weight: 800;
   color: var(--color-white);
   margin-bottom: 3.2rem;
 
-  @include respond-to(mobile) { font-size: 2.6rem; }
+  @include respond-to(mobile) { font-size: 2.29rem; }
 }
 
 .card {
@@ -68,7 +68,7 @@
 .detail { margin: 0; }
 
 .label {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   font-weight: 700;
   color: var(--color-black);
   margin-bottom: 0.4rem;
@@ -76,7 +76,7 @@
 
 .value {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.32rem;
   line-height: 1.5;
   color: var(--color-gray);
 }

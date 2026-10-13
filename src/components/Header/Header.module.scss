@@ -65,7 +65,7 @@
 
     .stickyPrimaryNavItem {
       color: var(--color-white);
-      font-size: 1.3rem;
+      font-size: 1.14rem;
       transition: opacity 0.2s ease;
 
       &:hover {
@@ -159,7 +159,7 @@
       align-items: center;
       gap: 0.5rem;
       color: var(--color-dark-gray);
-      font-size: 1.5rem;
+      font-size: 1.32rem;
       transition: color 0.2s ease;
 
       &:hover,
@@ -258,7 +258,7 @@
 // "+" indicator on nav items that open a dropdown (matches Figma).
 .navPlus {
   margin-left: 0.6rem;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 400;
   line-height: 1;
 }
@@ -327,7 +327,7 @@
 
     .navItem {
       color: var(--color-white);
-      font-size: 1.6rem;
+      font-size: 1.41rem;
       padding: 0.8rem 1.6rem;
       border-radius: 50vw;
       white-space: nowrap;
@@ -342,12 +342,12 @@
       // Scale the nav down on narrower desktops so a long menu still fits
       // within the viewport instead of forcing a horizontal scrollbar.
       @include respond-to(md-desktop) {
-        font-size: 1.5rem;
+        font-size: 1.32rem;
         padding: 0.7rem 1.2rem;
       }
 
       @include respond-to(sm-desktop) {
-        font-size: 1.4rem;
+        font-size: 1.23rem;
         padding: 0.6rem 1rem;
       }
     }
@@ -368,7 +368,7 @@
     .navItem {
       color: var(--color-white);
       height: fit-content;
-      font-size: 1.4rem;
+      font-size: 1.23rem;
       padding: 0.3rem 1.2rem;
       border-radius: 50vw;
       transition: all 0.3s ease;

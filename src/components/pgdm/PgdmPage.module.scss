@@ -35,16 +35,16 @@
 }
 
 .whyHeading {
-  font-size: 3.6rem;
+  font-size: 3.17rem;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 2rem;
 
-  @include respond-to(mobile) { font-size: 2.6rem; }
+  @include respond-to(mobile) { font-size: 2.29rem; }
 }
 
 .whyBody {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   line-height: 1.7;
   color: var(--color-gray);
   margin: 0;
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.76rem;
   padding-left: 0.4rem;
   transition: transform 0.2s ease;
 

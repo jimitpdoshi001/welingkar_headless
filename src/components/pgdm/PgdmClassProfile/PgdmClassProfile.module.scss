@@ -3,15 +3,15 @@
 .root { width: 100%; }
 
 .heading {
-  font-size: 3.6rem;
+  font-size: 3.17rem;
   font-weight: 800;
   margin-bottom: 1.2rem;
 
-  @include respond-to(mobile) { font-size: 2.6rem; }
+  @include respond-to(mobile) { font-size: 2.29rem; }
 }
 
 .description {
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   color: var(--color-gray);
   margin-bottom: 3.2rem;
 }
@@ -31,17 +31,17 @@
 }
 
 .value {
-  font-size: 3.6rem;
+  font-size: 3.17rem;
   font-weight: 800;
   color: var(--color-secondary);
   line-height: 1.1;
   margin-bottom: 0.6rem;
 
-  @include respond-to(mobile) { font-size: 2.8rem; }
+  @include respond-to(mobile) { font-size: 2.46rem; }
 }
 
 .label {
-  font-size: 1.4rem;
+  font-size: 1.23rem;
   line-height: 1.4;
   color: var(--color-dark-gray);
 }

@@ -9,17 +9,17 @@
 .titleRow {
   text-align: center;
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   padding: 2rem 2.4rem;
   color: var(--color-black);
 
-  @include respond-to(mobile) { font-size: 1.5rem; }
+  @include respond-to(mobile) { font-size: 1.32rem; }
 }
 
 .campusRow {
   text-align: center;
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.41rem;
   padding: 1.4rem;
   background: var(--pgdm-band, var(--color-secondary));
   color: var(--color-white);
@@ -39,10 +39,10 @@
     border: 1px solid var(--color-light-gray);
     padding: 2rem 2.4rem;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.32rem;
     vertical-align: middle;
 
-    @include respond-to(mobile) { padding: 1.4rem; font-size: 1.3rem; }
+    @include respond-to(mobile) { padding: 1.4rem; font-size: 1.14rem; }
   }
 
   thead th {
