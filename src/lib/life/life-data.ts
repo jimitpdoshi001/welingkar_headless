@@ -16,10 +16,12 @@ export type LifeData = {
   activeTab: number;
   campus: { heading: string; subtitle: string; cards: LifeCard[] };
   facilities: { heading: string; text: string };
-  hostel: { heading: string; text: string };
-  address: { heading: string; text: string };
+  /** Lines render on separate rows. */
+  hostel: { heading: string; lines: string[] };
+  /** `mapQuery` opens Google Maps; `tel` shows as "TEL : …". */
+  address: { heading: string; text: string; tel: string; mapQuery: string };
   cells: { heading: string; body: string; image: string; items: LifeCell[] };
-  gallery: { heading: string; subtitle: string; filters: string[]; cta: { label: string; href: string }; images: string[] };
+  gallery: { heading: string; subtitle: [string, string]; filters: string[]; cta: { label: string; href: string }; images: string[] };
   happening: { heading: string; subtitle: string; events: LifeEvent[]; cta: { label: string; href: string } };
   ideas: { heading: string; subtitle: string; note: string; stories: LifeStory[] };
   students: { heading: string; items: LifeCell[] };
@@ -81,11 +83,17 @@ export const LIFE: LifeData = {
     heading: "Campus Facilities",
     text: "Air-conditioned classrooms with LCD, OHP and video conferencing · innoWE · Maker's Lab · Agri Lab · Brainstorm Room · WeLearn + Corporate Library · Auditorium · Conference Room · Nirvana Hall · Campus-wide Wi-Fi",
   },
-  hostel: { heading: "Hostel", text: "Separate hostels for boys and girls, within 2 km of campus. 24×7 internet. First preference to non-local students." },
-  address: { heading: "Address", text: "Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019 · 022-24198300" },
+  hostel: { heading: "Hostel", lines: ["Separate hostels for boys and girls, within 2 km of campus. 24×7 internet.", "First preference to non-local students"] },
+  address: {
+    heading: "Address",
+    text: "Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019",
+    tel: "022-24198300",
+    mapQuery: "Prin. L. N. Welingkar Institute of Management, Lakhamsi Napoo Road, Matunga, Mumbai 400019",
+  },
   cells: {
     heading: "Run by students. Genuinely.",
-    body: "Every cell on our campuses is student-led and faculty-mentored. That means real budgets, real sponsors, real deadlines and real consequences when something slips. A cell head negotiating a sponsorship at nine in the evening is not doing an extracurricular. They are doing the job.",
+    // Figma 1406:1365: two paragraphs.
+    body: "Every cell on our campuses is student-led and faculty-mentored. That means real budgets, real sponsors, real deadlines and real consequences when something slips.\nA cell head negotiating a sponsorship at nine in the evening is not doing an extracurricular. They are doing the job. By the time our students sit in a placement interview, most have already led a team, missed a target, fixed it and delivered.",
     image: LIMG.cells,
     items: [
       { title: "Placement Committee", text: "The bridge between campus and corporate India." },
@@ -102,7 +110,7 @@ export const LIFE: LifeData = {
   },
   gallery: {
     heading: "Two years, in pictures",
-    subtitle: "Convocation gowns and cricket whites. Late-night rehearsals and early-morning village visits. This is what the brochure cannot tell you.",
+    subtitle: ["Convocation gowns and cricket whites. Late-night rehearsals and early-morning village visits.", "This is what the brochure cannot tell you."],
     filters: ["All", "Campus", "Festivals", "Sports", "Cultural", "Industry Visits", "Convocation"],
     cta: { label: "View all photos", href: "/media" },
     images: Array.from({ length: 10 }, (_, i) => g(i)),
@@ -153,7 +161,7 @@ export const LIFE_BENGALURU: LifeData = {
   ...LIFE,
   activeTab: 1,
   campus: {
-    heading: "Electronic City, Bangalore",
+    heading: "Electronic City, Bengaluru",
     subtitle: "Electronic City is not a neutral address. It is where India builds things.",
     cards: [
       { id: "bc-1", image: BIMG(1), title: "Learning the ropes", body: "A future-ready manager is one who can take a sustainable decision under real constraints. That starts in our Prototype Lab, where an idea stops being a slide and becomes an object you can hold, break and rebuild." },
@@ -168,6 +176,11 @@ export const LIFE_BENGALURU: LifeData = {
     heading: "Campus Facilities",
     text: "Discovery Rooms built for interactive learning · Proto Lab · IT Lab · Design Room with LCD and OHP · Audio Visual Room · Boardroom · Library · MDP Classroom · Canteen",
   },
-  hostel: { heading: "Hostel", text: "Separate hostels for boys and girls, within 2 km of campus. 24×7 internet. A home away from home." },
-  address: { heading: "Address", text: "102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru 560100 · 080-42678300" },
+  hostel: { heading: "Hostel", lines: ["Separate hostels for boys and girls, within 2 km of campus. 24×7 internet.", "A home away from home."] },
+  address: {
+    heading: "Address",
+    text: "102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru 560100",
+    tel: "080-42678300",
+    mapQuery: "Welingkar Institute of Management, Electronic City Phase 1, Hosur Road, Bengaluru 560100",
+  },
 };

@@ -6,6 +6,8 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { LifeData } from "@/lib/life/life-data";
+import { StickyInPageNav } from "@/components/campus/StickyInPageNav/StickyInPageNav";
+import { LifeCarousel } from "./LifeCarousel/LifeCarousel";
 import styles from "./LifePage.module.scss";
 
 export function LifePage({ data }: { data: LifeData }) {
@@ -14,8 +16,9 @@ export function LifePage({ data }: { data: LifeData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
-          {/* Hero */}
+        {/* data-auto-reveal: scroll fade-in for text, media and buttons. */}
+        <main data-auto-reveal="">
+          {/* Hero (Figma 1384:134): 650px, breadcrumb top-left, title bottom-left. */}
           <section className={styles.hero}>
             <img
               src={data.hero.image}
@@ -24,43 +27,51 @@ export function LifePage({ data }: { data: LifeData }) {
             />
             <div className={styles.heroOverlay} />
             <div className={`container ${styles.heroInner}`}>
-              <nav className={styles.breadcrumb}>
-                <Link href="/">Home</Link> <span>›</span> <span>Life @ WeSchool</span>
+              <nav
+                className={styles.breadcrumb}
+                aria-label="Breadcrumb">
+                <Link href="/">Home</Link> <span>-</span> <span>Life @ WeSchool</span>
               </nav>
-              <h1 className={styles.heroTitle}>{data.hero.title}</h1>
-              <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
+              <div>
+                <h1 className={styles.heroTitle}>{data.hero.title}</h1>
+                <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
+              </div>
             </div>
           </section>
 
-          {/* Intro + collage */}
-          <section className={`container ${styles.block} ${styles.intro}`}>
-            <div className={styles.introText}>
-              {data.intro.paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-              <p className={styles.introHighlight}>{data.intro.highlight}</p>
-            </div>
-            <div className={styles.collage}>
-              <img
-                src={data.intro.images[0]}
-                alt=""
-                className={styles.collageMain}
-              />
-              <img
-                src={data.intro.images[1]}
-                alt=""
-                className={styles.collageA}
-              />
-              <img
-                src={data.intro.images[2]}
-                alt=""
-                className={styles.collageB}
-              />
+          {/* Intro + collage (Figma 1384:359, 1392:137) */}
+          <section className={styles.introBand}>
+            <div className={`container ${styles.intro}`}>
+              <div className={styles.introText}>
+                {data.intro.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+                <p className={styles.introHighlight}>{data.intro.highlight}</p>
+              </div>
+              <div className={styles.collage}>
+                <img
+                  src={data.intro.images[0]}
+                  alt=""
+                  className={styles.collageMain}
+                />
+                <img
+                  src={data.intro.images[1]}
+                  alt=""
+                  className={styles.collageA}
+                />
+                <img
+                  src={data.intro.images[2]}
+                  alt=""
+                  className={styles.collageB}
+                />
+              </div>
             </div>
           </section>
 
-          {/* Tabs */}
-          <div className={styles.tabsWrap}>
+          {/* Campus tabs (Figma 1477:131): docks under the header once scrolled past. */}
+          <StickyInPageNav
+            className={styles.tabsBar}
+            label="Campus">
             <div className={`container ${styles.tabs}`}>
               {data.tabs.map((t, i) => (
                 <Link
@@ -72,10 +83,10 @@ export function LifePage({ data }: { data: LifeData }) {
                 </Link>
               ))}
             </div>
-          </div>
+          </StickyInPageNav>
 
-          {/* Campus feature cards */}
-          <section className={`container ${styles.block}`}>
+          {/* Campus feature cards: 400 x 500, glass caption; hover turns the card purple. */}
+          <section className={`container ${styles.campus}`}>
             <h2 className={styles.heading}>{data.campus.heading}</h2>
             <p className={styles.sub}>{data.campus.subtitle}</p>
             <div className={styles.cardGrid}>
@@ -94,10 +105,8 @@ export function LifePage({ data }: { data: LifeData }) {
                 </article>
               ))}
             </div>
-          </section>
 
-          {/* Facilities + Hostel/Address */}
-          <section className={`container ${styles.block}`}>
+            {/* Facilities + Hostel/Address: 20px below the cards (Figma 1397:257). */}
             <div className={styles.infoBar}>
               <h3>{data.facilities.heading}</h3>
               <p>{data.facilities.text}</p>
@@ -105,16 +114,40 @@ export function LifePage({ data }: { data: LifeData }) {
             <div className={styles.infoRow}>
               <div className={styles.infoBox}>
                 <h3>{data.hostel.heading}</h3>
-                <p>{data.hostel.text}</p>
+                <p>
+                  {data.hostel.lines.map((line, i) => (
+                    <span
+                      key={i}
+                      className={styles.line}>
+                      {line}
+                    </span>
+                  ))}
+                </p>
               </div>
               <div className={styles.infoBox}>
                 <h3>{data.address.heading}</h3>
-                <p>{data.address.text}</p>
+                <p>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address.mapQuery)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.mapLink}>
+                    {data.address.text}
+                  </a>
+                  <span className={styles.line}>
+                    TEL :{" "}
+                    <a
+                      href={`tel:${data.address.tel.replace(/[^\d+]/g, "")}`}
+                      className={styles.telLink}>
+                      {data.address.tel}
+                    </a>
+                  </span>
+                </p>
               </div>
             </div>
           </section>
 
-          {/* Run by students */}
+          {/* Run by students (Figma 1409:221): 872px photo band, copy top-left, cells bottom. */}
           <section className={styles.cells}>
             <img
               src={data.cells.image}
@@ -123,8 +156,16 @@ export function LifePage({ data }: { data: LifeData }) {
             />
             <div className={styles.cellsOverlay} />
             <div className={`container ${styles.cellsInner}`}>
-              <h2 className={styles.headingLight}>{data.cells.heading}</h2>
-              <p className={styles.cellsBody}>{data.cells.body}</p>
+              <div className={styles.cellsIntro}>
+                <h2 className={styles.headingLight}>{data.cells.heading}</h2>
+                {data.cells.body.split("\n").map((para, i) => (
+                  <p
+                    key={i}
+                    className={styles.cellsBody}>
+                    {para}
+                  </p>
+                ))}
+              </div>
               <div className={styles.cellGrid}>
                 {data.cells.items.map((c) => (
                   <div
@@ -138,31 +179,48 @@ export function LifePage({ data }: { data: LifeData }) {
             </div>
           </section>
 
-          {/* Two years in pictures */}
-          <section className="bg-secondary">
-            <div className={`container ${styles.block}`}>
-              <div className={styles.galleryHead}>
-                <div>
-                  <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
-                  <p className={styles.sectionBodyLight}>{data.gallery.subtitle}</p>
-                  <div className={styles.galleryFilters}>
-                    {data.gallery.filters.map((f, i) => (
-                      <span
-                        key={f}
-                        className={`${styles.galleryFilter} ${i === 0 ? styles.galleryFilterActive : ""}`}>
-                        {f}
-                      </span>
-                    ))}
-                  </div>
+          {/* Two years in pictures (Figma 1413:323): full-bleed rows of 295px squares;
+              the first row scrolls continuously left to right. */}
+          <section className={styles.gallery}>
+            <div className={`container ${styles.galleryHead}`}>
+              <div>
+                <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
+                <p className={styles.sectionBodyLight}>
+                  {data.gallery.subtitle[0]}
+                  <br />
+                  {data.gallery.subtitle[1]}
+                </p>
+                <div className={styles.galleryFilters}>
+                  {data.gallery.filters.map((f, i) => (
+                    <span
+                      key={f}
+                      className={`${styles.galleryFilter} ${i === 0 ? styles.galleryFilterActive : ""}`}>
+                      {f}
+                    </span>
+                  ))}
                 </div>
-                <Link
-                  href={data.gallery.cta.href}
-                  className="btn accent-outline-light">
-                  {data.gallery.cta.label}
-                </Link>
               </div>
-              <div className={styles.galleryGrid}>
-                {data.gallery.images.map((src, i) => (
+              <Link
+                href={data.gallery.cta.href}
+                className={styles.outlineBtn}>
+                {data.gallery.cta.label}
+              </Link>
+            </div>
+            <div className={styles.galleryRows}>
+              {/* Two copies so the -50% translate loops seamlessly. */}
+              <div
+                className={`${styles.galleryRow} ${styles.galleryMarquee}`}
+                aria-hidden="true">
+                {[...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5)].map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt=""
+                  />
+                ))}
+              </div>
+              <div className={`${styles.galleryRow} ${styles.galleryRowOffset}`}>
+                {[...data.gallery.images.slice(5), ...data.gallery.images.slice(5, 6)].map((src, i) => (
                   <img
                     key={i}
                     src={src}
@@ -173,50 +231,60 @@ export function LifePage({ data }: { data: LifeData }) {
             </div>
           </section>
 
-          {/* Happening now */}
-          <section className={`container ${styles.block}`}>
-            <div className={styles.rowHead}>
-              <div>
-                <h2 className={styles.heading}>{data.happening.heading}</h2>
-                <p className={styles.sub}>{data.happening.subtitle}</p>
+          {/* Happening now (Figma 1419:328): 505 x 280 outlined cards with arrows. */}
+          <section className={styles.happening}>
+            <div className="container">
+              <LifeCarousel
+                label="events"
+                slideClassName={styles.eventSlide}
+                header={
+                  <div>
+                    <h2 className={styles.heading}>{data.happening.heading}</h2>
+                    <p className={styles.subTight}>{data.happening.subtitle}</p>
+                  </div>
+                }>
+                {data.happening.events.map((e) => (
+                  <article
+                    key={e.id}
+                    className={styles.eventCard}>
+                    <h3>{e.title}</h3>
+                    <p className={styles.eventWhen}>{e.when}</p>
+                    <p className={styles.eventHost}>{e.host}</p>
+                    <p className={styles.eventDesc}>{e.desc}</p>
+                    <Link
+                      href={e.href}
+                      className={styles.readLink}>
+                      Details and registration →
+                    </Link>
+                  </article>
+                ))}
+              </LifeCarousel>
+              <div className={styles.rowCta}>
+                <Link
+                  href={data.happening.cta.href}
+                  className={styles.readLink}>
+                  {data.happening.cta.label} →
+                </Link>
               </div>
-            </div>
-            <div className={styles.eventRow}>
-              {data.happening.events.map((e) => (
-                <article
-                  key={e.id}
-                  className={styles.eventCard}>
-                  <h3>{e.title}</h3>
-                  <p className={styles.eventWhen}>{e.when}</p>
-                  <p className={styles.eventHost}>{e.host}</p>
-                  <p className={styles.eventDesc}>{e.desc}</p>
-                  <Link
-                    href={e.href}
-                    className={styles.readLink}>
-                    Details and registration →
-                  </Link>
-                </article>
-              ))}
-            </div>
-            <div className={styles.rowCta}>
-              <Link
-                href={data.happening.cta.href}
-                className={styles.readLink}>
-                {data.happening.cta.label}
-              </Link>
             </div>
           </section>
 
-          {/* Ideas */}
-          <section className="bg-light-yellow">
-            <div className={`container ${styles.block}`}>
-              <h2 className={styles.heading}>{data.ideas.heading}</h2>
-              <p className={styles.sub}>{data.ideas.subtitle}</p>
-              <div className={styles.cardGrid3}>
+          {/* Ideas (Figma 1419:326 band, 1419:425 cards) */}
+          <section className={styles.ideas}>
+            <div className="container">
+              <LifeCarousel
+                label="stories"
+                slideClassName={styles.storySlide}
+                header={
+                  <div>
+                    <h2 className={styles.heading}>{data.ideas.heading}</h2>
+                    <p className={styles.subTight}>{data.ideas.subtitle}</p>
+                  </div>
+                }>
                 {data.ideas.stories.map((s) => (
                   <article
                     key={s.id}
-                    className={styles.featureCard}>
+                    className={`${styles.featureCard} ${styles.storyCard}`}>
                     <img
                       src={s.image}
                       alt=""
@@ -228,13 +296,17 @@ export function LifePage({ data }: { data: LifeData }) {
                     </div>
                   </article>
                 ))}
-              </div>
-              <p className={styles.ideasNote}>{data.ideas.note}</p>
+              </LifeCarousel>
+              {/* The trailing email address in the note becomes a mailto link. */}
+              <p className={styles.ideasNote}>
+                {data.ideas.note.replace(/\S+@\S+$/, "")}
+                <a href={`mailto:${data.ideas.note.match(/\S+@\S+$/)?.[0] ?? ""}`}>{data.ideas.note.match(/\S+@\S+$/)?.[0]}</a>
+              </p>
             </div>
           </section>
 
-          {/* For current students */}
-          <section className={`container ${styles.block}`}>
+          {/* For current students (Figma 1419:447): 294 x 130 outlined cards. */}
+          <section className={`container ${styles.students}`}>
             <h2 className={styles.heading}>{data.students.heading}</h2>
             <div className={styles.studentGrid}>
               {data.students.items.map((s) => (
@@ -248,20 +320,20 @@ export function LifePage({ data }: { data: LifeData }) {
             </div>
           </section>
 
-          {/* Come see it for yourself */}
-          <section className={`bg-secondary ${styles.visit}`}>
-            <div className={`container ${styles.visitInner}`}>
+          {/* Come see it for yourself (Figma 1424:487): 350px purple band. */}
+          <section className={styles.visit}>
+            <div className="container">
               <h2 className={styles.headingLight}>{data.visit.heading}</h2>
               <p className={styles.visitSub}>{data.visit.subtitle}</p>
               <div className={styles.visitCtas}>
                 <Link
                   href={data.visit.primary.href}
-                  className="btn accent">
+                  className={styles.fillBtn}>
                   {data.visit.primary.label}
                 </Link>
                 <Link
                   href={data.visit.secondary.href}
-                  className="btn accent-outline-light">
+                  className={styles.outlineBtn}>
                   {data.visit.secondary.label}
                 </Link>
               </div>

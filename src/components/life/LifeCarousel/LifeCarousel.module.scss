@@ -1,0 +1,5 @@
+// Figma: arrows sit right, level with the subtitle; cards bleed past the container.
+.head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 2.7rem;
+  @media (max-width: 767px) { flex-direction: column; align-items: flex-start; }
+}
+.swiper { overflow: visible; }
