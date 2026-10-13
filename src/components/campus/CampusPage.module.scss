@@ -250,10 +250,20 @@
 .mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
-.researchWorld { position: relative; background-size: cover; background-position: center; padding-block: 12rem 9rem;
-  &::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.55) 18%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%, #fff 82%); }
-  > * { position: relative; }
+// Desktop: the photo (fade baked into the export) keeps its Figma box, scaled
+// from the 1440 frame with vw. Tablet/mobile: it covers the section instead,
+// with a white fade so text stays readable.
+.researchWorld { position: relative; overflow: hidden; padding-block: 12rem 9rem;
+  > :not(.researchPhoto) { position: relative; z-index: 2; }
   @include respond-to(mobile) { padding-block: 6rem 5rem; }
+  @include respond-to(tab) {
+    &::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.55) 18%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0) 60%, #fff 82%); }
+  }
+}
+.researchPhoto { position: absolute; max-width: none; pointer-events: none;
+  top: calc(var(--rw-top) / 1440 * 100vw); left: calc(var(--rw-left) / 1440 * 100vw);
+  width: calc(var(--rw-width) / 1440 * 100vw); height: calc(var(--rw-height) / 1440 * 100vw);
+  @include respond-to(tab) { inset: 0; width: 100%; height: 100%; object-fit: cover; }
 }
 .weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
 .weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }

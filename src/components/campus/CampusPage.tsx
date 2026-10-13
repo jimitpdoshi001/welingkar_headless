@@ -256,7 +256,19 @@ export function CampusPage({ data }: { data: CampusData }) {
               WeSchool, fading to white at the top and bottom. */}
           <section
             className={styles.researchWorld}
-            style={{ backgroundImage: `url(${data.weresearch.image})` }}>
+            style={
+              {
+                "--rw-top": data.weresearch.imageBox.top,
+                "--rw-left": data.weresearch.imageBox.left,
+                "--rw-width": data.weresearch.imageBox.width,
+                "--rw-height": data.weresearch.imageBox.height,
+              } as React.CSSProperties
+            }>
+            <img
+              src={data.weresearch.image}
+              alt=""
+              className={styles.researchPhoto}
+            />
             <div className={`container ${styles.weresearch}`}>
               <h2 className={styles.weresearchHeading}>{data.weresearch.heading}</h2>
               <p className={styles.weresearchBody}>{data.weresearch.description}</p>

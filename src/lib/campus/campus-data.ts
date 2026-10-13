@@ -29,7 +29,9 @@ export type CampusData = {
   faculty: { heading: string; description: string; categories: string[]; image: string; cta: CampusCta };
   programmes: { heading: string; description: string; cards: CampusCard[]; cta: CampusCta };
   recruiters: { heading: string; description: string; logos: { name: string; image: string }[]; cta: CampusCta };
-  weresearch: { heading: string; description: string; image: string; cta: CampusCta };
+  // imageBox: the photo's Figma box in px at the 1440 desktop frame, relative to
+  // the section top (120px above the heading).
+  weresearch: { heading: string; description: string; image: string; imageBox: { top: number; left: number; width: number; height: number }; cta: CampusCta };
   world: { heading: string; image: string; caption: string };
   life: { heading: string; body: string; image: string; cta: CampusCta };
   infrastructure: { heading: string; description: string; cards: CampusCard[] };
@@ -193,6 +195,10 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       heading: "WeResearch: Our Commitment to Discovery",
       description: "The WeSchool Center for Research reinforces our research commitment to corporate, society, faculty, and our student community. Its mission is to create and disseminate knowledge of management, social sciences, and technology.",
       image: CIMG.research,
+      // Figma 1064:184 (Mumbai) / 392:650 (Bengaluru).
+      imageBox: isMumbai
+        ? { top: -510, left: -2, width: 1441, height: 1823 }
+        : { top: -62, left: -282, width: 2136, height: 1363 },
       cta: { label: "Know More", href: "/weresearch" },
     },
     world: {
