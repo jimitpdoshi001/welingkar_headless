@@ -9,6 +9,8 @@
 .band { background: var(--campus-band, var(--color-secondary)); }
 .page { padding-top: 10.5rem; @include respond-to(tab) { padding-top: 6.2rem; } }
 
+// 10% smaller than the default .btn (1.5rem 3rem padding, 1.6rem text).
+.reducedBtn:global(.btn) { padding: 1.35rem 2.7rem; font-size: 1.44rem; }
 .smallBtn:global(.btn) { display: inline-flex; align-items: center; justify-content: center; min-width: 9.8rem; height: 3.75rem; padding: 0 2rem; font-size: 1.2rem; font-weight: 600; }
 
 // Mumbai design uses orange primary buttons (Figma #f77100).

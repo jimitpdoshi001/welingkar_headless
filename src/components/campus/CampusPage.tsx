@@ -320,7 +320,7 @@ export function CampusPage({ data }: { data: CampusData }) {
               <h2 className={styles.sectionHeading}>{data.moments.heading}</h2>
               <Link
                 href={data.moments.cta.href}
-                className="btn accent">
+                className={`btn accent ${styles.reducedBtn}`}>
                 {data.moments.cta.label}
               </Link>
             </div>
@@ -344,7 +344,7 @@ export function CampusPage({ data }: { data: CampusData }) {
               <h2 className={styles.sectionHeading}>{data.news.heading}</h2>
               <Link
                 href={data.news.cta.href}
-                className="btn accent">
+                className={`btn accent ${styles.reducedBtn}`}>
                 {data.news.cta.label}
               </Link>
             </div>
@@ -430,7 +430,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                   />
                   <button
                     type="submit"
-                    className="btn accent">
+                    className={`btn accent ${styles.reducedBtn}`}>
                     Submit
                   </button>
                 </form>
