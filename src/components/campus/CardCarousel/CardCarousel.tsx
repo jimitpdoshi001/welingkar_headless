@@ -22,9 +22,11 @@ type CardCarouselProps = {
   cta?: { label: string; href: string };
   theme?: "light" | "onDark";
   overlayCaption?: boolean;
+  /** Wrap the description to the heading's width (Figma Programs block). */
+  fitDescriptionToHeading?: boolean;
 };
 
-export function CardCarousel({ heading, description, cards, cta, theme = "light", overlayCaption = false }: CardCarouselProps) {
+export function CardCarousel({ heading, description, cards, cta, theme = "light", overlayCaption = false, fitDescriptionToHeading = false }: CardCarouselProps) {
   const mounted = useHasMounted();
   const prevRef = useRef<HTMLButtonElement | null>(null);
   const nextRef = useRef<HTMLButtonElement | null>(null);
@@ -40,7 +42,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
   return (
     <div className={clsx(styles.root, theme === "onDark" && styles.onDark)}>
       <div className={styles.head}>
-        <div className={styles.headText}>
+        <div className={clsx(styles.headText, fitDescriptionToHeading && styles.fitText)}>
           <h2 className={styles.heading}>{heading}</h2>
           {description ? <p className={styles.description}>{description}</p> : null}
         </div>

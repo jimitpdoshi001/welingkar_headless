@@ -20,17 +20,21 @@
 
 .head {
   display: flex;
-  align-items: flex-start;
+  // Figma 979:1558: arrows sit level with the description, just above the cards.
+  align-items: flex-end;
   justify-content: space-between;
   gap: 2rem;
   margin-bottom: 3.2rem;
 
   // Narrow screens: heading uses the full width, arrows sit below it.
-  @include respond-to(mobile) { flex-direction: column; }
+  @include respond-to(mobile) { flex-direction: column; align-items: flex-start; }
 }
 
 // Figma: headings run up to 1100px, descriptions ~965px.
 .headText { max-width: 110rem; }
+// Box shrinks to the heading; width:0 + min-width:100% stops the description
+// from widening it, so the copy wraps at the heading's width.
+.fitText { width: fit-content; .description { width: 0; min-width: 100%; max-width: none; } }
 
 .heading {
   font-size: 4rem;

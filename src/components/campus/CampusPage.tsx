@@ -193,6 +193,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                 cards={data.programmes.cards}
                 theme="onDark"
                 overlayCaption
+                fitDescriptionToHeading
               />
             </div>
           </section>
