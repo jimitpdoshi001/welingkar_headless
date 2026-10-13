@@ -251,7 +251,7 @@
 .weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
 .weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 4rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
 .weresearchBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); max-width: 88.2rem; margin: 0 auto 3.2rem; }
-.world .sectionHeading { margin-bottom: 4rem; font-size: 4.8rem; @include respond-to(mobile) { font-size: 3rem; } }
+.world .sectionHeading { margin-bottom: 4rem; font-size: 4.32rem; @include respond-to(mobile) { font-size: 2.7rem; } }
 // Figma: 1240 x 570 video card, centred 50px play button, frosted caption bottom-left.
 .worldMedia { position: relative; border-radius: 2.4rem; overflow: hidden; }
 .worldImage { display: block; width: 100%; aspect-ratio: 1240 / 570; object-fit: cover; @include respond-to(mobile) { aspect-ratio: 4 / 3; } }

@@ -1,0 +1,8 @@
+// Trigger keeps the card's own layout; it only resets button chrome.
+.trigger { display: block; width: 100%; padding: 0; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+
+// Same popup as the home page videos: above the fixed header (z 999999).
+.overlay { position: fixed; inset: 0; z-index: 1000001; display: grid; place-items: center; padding: 2rem; background: rgb(0 0 0 / 75%); }
+.dialog { position: relative; width: min(100%, 96rem); aspect-ratio: 16 / 9; }
+.player { width: 100%; height: 100%; border: 0; border-radius: 1.2rem; }
+.close { position: absolute; top: -4.4rem; right: 0; width: 4.4rem; height: 4.4rem; border: 0; background: transparent; color: var(--color-white); font-size: 3.2rem; line-height: 1; cursor: pointer; }

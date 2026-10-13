@@ -9,6 +9,7 @@ import { CardCarousel } from "./CardCarousel/CardCarousel";
 import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
 import { RecruiterLogos } from "./RecruiterLogos/RecruiterLogos";
 import { MentorsCarousel } from "./MentorsCarousel/MentorsCarousel";
+import { VideoPopup } from "./VideoPopup/VideoPopup";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
@@ -246,7 +247,10 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
             <div className={`container ${styles.world}`}>
               <h2 className={styles.sectionHeading}>{data.world.heading}</h2>
-              <div className={styles.worldMedia}>
+              <VideoPopup
+                videoUrl={data.world.videoUrl}
+                title={data.world.caption}
+                className={styles.worldMedia}>
                 <img
                   src={data.world.image}
                   alt=""
@@ -256,8 +260,8 @@ export function CampusPage({ data }: { data: CampusData }) {
                   className={styles.worldPlay}
                   aria-hidden="true"
                 />
-                <p className={styles.worldCaption}>{data.world.caption}</p>
-              </div>
+                <span className={styles.worldCaption}>{data.world.caption}</span>
+              </VideoPopup>
             </div>
           </section>
 

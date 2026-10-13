@@ -32,7 +32,7 @@ export type CampusData = {
   // imageBox: the photo's Figma box in px at the 1440 desktop frame, relative to
   // the section top (120px above the heading).
   weresearch: { heading: string; description: string; image: string; imageBox: { top: number; left: number; width: number; height: number }; cta: CampusCta };
-  world: { heading: string; image: string; caption: string };
+  world: { heading: string; image: string; caption: string; videoUrl: string };
   life: { heading: string; body: string; image: string; cta: CampusCta };
   infrastructure: { heading: string; description: string; cards: CampusCard[] };
   accommodation: { heading: string; description: string; cards: CampusCard[] };
@@ -210,6 +210,9 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       heading: `The World of WeSchool, ${campus}`,
       image: CIMG.world,
       caption: `Welingkar ${campus} Campus Tour | A Quick Look at a PGDM College in India`,
+      videoUrl: isMumbai
+        ? "https://www.youtube-nocookie.com/embed/rccOv-AUaxM?autoplay=1&rel=0&playsinline=1"
+        : "https://www.youtube-nocookie.com/embed/nFDbvqGkWSg?autoplay=1&rel=0&playsinline=1",
     },
     life: {
       heading: "Life @WeSchool",
