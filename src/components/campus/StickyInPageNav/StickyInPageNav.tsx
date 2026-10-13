@@ -11,8 +11,8 @@ type StickyInPageNavProps = {
 };
 
 /**
- * In-page nav that docks under the fixed site header while the user scrolls UP
- * past its original position, and returns to its place on scroll DOWN.
+ * In-page nav that docks under the fixed site header (like the menu) once it
+ * scrolls past its original position, and returns to its place back at the top.
  */
 export function StickyInPageNav({ className, label, children }: StickyInPageNavProps) {
   const navRef = useRef<HTMLElement>(null);
@@ -22,12 +22,10 @@ export function StickyInPageNav({ className, label, children }: StickyInPageNavP
   const [top, setTop] = useState(0);
 
   useEffect(() => {
-    let lastY = window.scrollY;
     let frame = 0;
 
     const update = () => {
       frame = 0;
-      const y = window.scrollY;
       const slot = slotRef.current;
       const nav = navRef.current;
       if (!slot || !nav) return;
@@ -35,18 +33,15 @@ export function StickyInPageNav({ className, label, children }: StickyInPageNavP
       const headerBottom = document.querySelector("header")?.getBoundingClientRect().bottom ?? 0;
       // The slot keeps the bar's original place; once it has scrolled under the header, the bar may dock.
       const pastOriginal = slot.getBoundingClientRect().top < headerBottom;
-      const scrollingUp = y < lastY;
 
-      if (scrollingUp && pastOriginal) {
+      if (pastOriginal) {
         setHeight(nav.offsetHeight);
         setTop(Math.max(headerBottom, 0));
-        setStuck(true);
-      } else if (!scrollingUp || !pastOriginal) {
-        setStuck(false);
       }
-      lastY = y;
+      setStuck(pastOriginal);
     };
 
+    update();
     // Throttle to one update per animation frame.
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);
