@@ -1,3 +1,5 @@
+@use "./mixins" as *;
+
 // Paddings
 .p-0 {
   padding: 0;
@@ -640,4 +642,26 @@
 .my-12 {
   margin-top: 12rem;
   margin-bottom: 12rem;
+}
+
+// Mobile: halve section spacing. Drupal spacing values apply to every screen size,
+// so section paddings (Section paragraph wrapper only) and screen-height spacers
+// are reduced here for phones only.
+@include respond-to(mobile) {
+  section > .py-4, section > .p-4 { padding-top: 2rem; padding-bottom: 2rem; }
+  section > .py-5, section > .p-5 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+  section > .py-6, section > .p-6 { padding-top: 3rem; padding-bottom: 3rem; }
+  section > .py-7, section > .p-7 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  section > .py-8, section > .p-8 { padding-top: 4rem; padding-bottom: 4rem; }
+  section > .py-9, section > .p-9 { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+  section > .py-10, section > .p-10 { padding-top: 5rem; padding-bottom: 5rem; }
+  section > .py-12, section > .p-12 { padding-top: 6rem; padding-bottom: 6rem; }
+  .mt-10dvh { margin-top: 5dvh; }
+  .mt-20dvh { margin-top: 10dvh; }
+  .mt-30dvh { margin-top: 15dvh; }
+  .mt-40dvh { margin-top: 20dvh; }
+  .mt-50dvh { margin-top: 25dvh; }
+  .mt-60dvh { margin-top: 30dvh; }
+  .mt-70dvh { margin-top: 35dvh; }
+  .mt-80dvh { margin-top: 40dvh; }
 }
