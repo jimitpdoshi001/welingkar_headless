@@ -54,7 +54,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
                   </svg>
                 </Link>
                 <span aria-hidden="true">-</span>
-                <span>Programmes</span>
+                <span>Programs</span>
               </nav>
               <div>
                 <h1 className={styles.heroTitle}>{data.hero.title}</h1>
@@ -80,7 +80,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
             </nav>
             <nav
               className={`container ${styles.pills}`}
-              aria-label="Programme categories">
+              aria-label="Program categories">
               {data.pills.map((pill, i) => (
                 <Link
                   key={pill.label}

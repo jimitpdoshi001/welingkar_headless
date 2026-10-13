@@ -46,7 +46,7 @@ export const WEGLOBAL: WeGlobalData = {
     items: [
       { id: "en-1", image: WGI.e1, title: "The ASEAN Round Table", text: "Diplomats, thought leaders and academicians explored ASEAN's evolving role in fostering regional peace, prosperity and multilateral cooperation — marking five decades of ASEAN, with particular focus on ASEAN–India collaboration." },
       { id: "en-2", image: WGI.e2, title: "ACBSP Region 10 Annual Conference 2025", text: "Under the leadership of Prof. Dr. Uday Salunkhe, Chair-Elect for Region 10, WeSchool hosted educators, business leaders and innovators from across South Asia — a platform for collaborative discussion." },
-      { id: "en-3", image: WGI.e3, title: "Global Deans' Forum", text: "Deans and directors from partner business schools convened to align on joint programmes, dual-degree pathways and shared research agendas." },
+      { id: "en-3", image: WGI.e3, title: "Global Deans' Forum", text: "Deans and directors from partner business schools convened to align on joint programs, dual-degree pathways and shared research agendas." },
     ],
   },
   learning: {
@@ -60,6 +60,6 @@ export const WEGLOBAL: WeGlobalData = {
   },
   buddy: {
     heading: "Become a Student Buddy",
-    body: "Engage in peer-to-peer knowledge sharing and assist international scholars as they navigate academic projects and integrate into our unique socio-cultural fabric by enrolling as a Student Buddy. By submitting this registration, you express your interest in joining the Student Buddy Programme dedicated to supporting our global cohort. Once your application is reviewed, our team will facilitate a connection with a compatible partner, who will reach out to you through electronic mail within the following weeks.",
+    body: "Engage in peer-to-peer knowledge sharing and assist international scholars as they navigate academic projects and integrate into our unique socio-cultural fabric by enrolling as a Student Buddy. By submitting this registration, you express your interest in joining the Student Buddy Program dedicated to supporting our global cohort. Once your application is reviewed, our team will facilitate a connection with a compatible partner, who will reach out to you through electronic mail within the following weeks.",
   },
 };

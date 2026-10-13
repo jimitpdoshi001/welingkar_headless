@@ -37,7 +37,7 @@ const ITEMS: Accreditation[] = [
     entries: [
       {
         title: "SAQS Accredited:",
-        text: "All PGDM programmes at WeSchool’s Mumbai and Bengaluru campuses are accredited by the South Asian Quality Assurance System (SAQS).",
+        text: "All PGDM programs at WeSchool’s Mumbai and Bengaluru campuses are accredited by the South Asian Quality Assurance System (SAQS).",
       },
     ],
   },
@@ -49,11 +49,11 @@ const ITEMS: Accreditation[] = [
     entries: [
       {
         title: "NBA Accredited & MBA Equivalent:",
-        text: "All full-time PGDM programmes across the Mumbai and Bengaluru campuses are accredited by the National Board of Accreditation (NBA) and have been granted MBA equivalence by the Association of Indian Universities (AIU).",
+        text: "All full-time PGDM programs across the Mumbai and Bengaluru campuses are accredited by the National Board of Accreditation (NBA) and have been granted MBA equivalence by the Association of Indian Universities (AIU).",
       },
       {
         title: "NBA Accredited – MMS:",
-        text: "The MMS programme at the Mumbai campus is accredited by the National Board of Accreditation (NBA).",
+        text: "The MMS program at the Mumbai campus is accredited by the National Board of Accreditation (NBA).",
       },
     ],
   },

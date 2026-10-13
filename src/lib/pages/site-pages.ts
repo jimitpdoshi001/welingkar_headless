@@ -59,7 +59,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
   "/about-us/chairman-message": simple("Chairman's Message", "A message from the Chairman of the Managing Council.", ["Who We Are", "/about-us"], undefined, HERO.people),
   "/about-us/directors-message": simple("Director's Message", "A message from the Director of WeSchool.", ["Who We Are", "/about-us"], undefined, HERO.people),
   "/about-us/academic-advisory-board": simple("Academic Advisory Board", "Eminent academicians shaping our curriculum and academic rigour.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/industry-advisory-board": simple("Industry Advisory Board", "Industry leaders keeping our programmes aligned to real-world needs.", ["Who We Are", "/about-us"], undefined, HERO.people),
+  "/about-us/industry-advisory-board": simple("Industry Advisory Board", "Industry leaders keeping our programs aligned to real-world needs.", ["Who We Are", "/about-us"], undefined, HERO.people),
   "/about-us/awards": simple("Awards & Accolades", "Recognition of WeSchool's excellence in management education and innovation.", ["Who We Are", "/about-us"], undefined, HERO.office),
   "/about-us/vision-mission": {
     title: "Vision & Mission",
@@ -93,11 +93,11 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cardColumns: 2,
         cards: [
           { title: "ACBSP Accredited", text: "Accredited for 10 years by the Accreditation Council for Business Schools and Programs (ACBSP), a global business education accrediting body.", href: "/accreditation" },
-          { title: "SAQS Accredited", text: "All PGDM programmes at WeSchool's Mumbai and Bengaluru campuses are accredited by the South Asian Quality Assurance System (SAQS).", href: "/accreditation" },
-          { title: "NBA Accredited & MBA Equivalent", text: "All full-time PGDM programmes across the Mumbai and Bengaluru campuses are accredited by the National Board of Accreditation (NBA) and have MBA equivalence.", href: "/accreditation" },
-          { title: "NBA Accredited – MMS", text: "The MMS programme at the Mumbai campus is accredited by the National Board of Accreditation (NBA).", href: "/accreditation" },
+          { title: "SAQS Accredited", text: "All PGDM programs at WeSchool's Mumbai and Bengaluru campuses are accredited by the South Asian Quality Assurance System (SAQS).", href: "/accreditation" },
+          { title: "NBA Accredited & MBA Equivalent", text: "All full-time PGDM programs across the Mumbai and Bengaluru campuses are accredited by the National Board of Accreditation (NBA) and have MBA equivalence.", href: "/accreditation" },
+          { title: "NBA Accredited – MMS", text: "The MMS program at the Mumbai campus is accredited by the National Board of Accreditation (NBA).", href: "/accreditation" },
           { title: "Autonomous Institute", text: "WeSchool is an autonomous institute affiliated with the University of Mumbai.", href: "/autonomy" },
-          { title: "AICTE Approved", text: "All full-time programmes are approved by the All India Council for Technical Education (AICTE).", href: "/accreditation" },
+          { title: "AICTE Approved", text: "All full-time programs are approved by the All India Council for Technical Education (AICTE).", href: "/accreditation" },
         ],
       },
     ],
@@ -114,7 +114,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cards: [
           { title: "Mandatory Disclosure — Mumbai Campus", text: "AICTE-mandated disclosures for the Mumbai campus.", href: "/mandatory-disclosure" },
           { title: "Mandatory Disclosure — Bengaluru Campus", text: "AICTE-mandated disclosures for the Bengaluru campus.", href: "/mandatory-disclosure" },
-          { title: "Mandatory Disclosure — MMS", text: "Disclosures for the MMS programme.", href: "/mandatory-disclosure" },
+          { title: "Mandatory Disclosure — MMS", text: "Disclosures for the MMS program.", href: "/mandatory-disclosure" },
           { title: "Approvals & Affiliations", text: "AICTE approvals and university affiliation details.", href: "/accreditation" },
         ],
       },
@@ -166,7 +166,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         heading: "Explore",
         tint: "cream",
         cards: [
-          { title: "Programmes", text: "Browse our full-time, executive and certificate programmes.", href: "/programmes" },
+          { title: "Programs", text: "Browse our full-time, executive and certificate programs.", href: "/programmes" },
           { title: "Fees & Scholarships", text: "Tuition, hostel fees, EMI options and the TFW scheme.", href: "/programmes/pgdm" },
           { title: "Apply Now", text: "Start your application today.", href: "/apply" },
         ],
@@ -286,7 +286,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     sections: [
       { heading: "International Alliances at WeSchool", paragraphs: ["The International Office at our institute spearheads the creation and execution of our global scholastic roadmap. We are committed to providing students with profound experiences through partnerships for exchange, joint research and study tours.", "Besides international partnerships with universities globally, WeSchool also collaborates with corporates and institutions to broaden every student's global outlook."] },
       {
-        heading: "Global Programmes & Immersions",
+        heading: "Global Programs & Immersions",
         tint: "cream",
         cards: [
           { title: "The ASEAN Round Table", text: "Diplomats, thought leaders and academicians explored ASEAN's evolving role in fostering regional peace, prosperity and multilateral cooperation.", href: "/weglobal" },
@@ -311,7 +311,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         form: {
           name: "weglobal",
           heading: "Get in Touch",
-          description: "Interested in our global programmes? Share your details and we'll reach out.",
+          description: "Interested in our global programs? Share your details and we'll reach out.",
           fields: [
             { name: "name", label: "Name", type: "text", required: true },
             { name: "contact", label: "Contact Number", type: "tel", required: true },
@@ -418,7 +418,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cardColumns: 3,
         cards: [
           { title: "Suresh Patil", text: "Director, Management Development Centre.", href: "/mdc" },
-          { title: "Priya Krishnamurthy", text: "Programme Lead, Executive Education.", href: "/mdc" },
+          { title: "Priya Krishnamurthy", text: "Program Lead, Executive Education.", href: "/mdc" },
           { title: "Anil Gupta", text: "Corporate Partnerships & Custom Training.", href: "/mdc" },
         ],
       },
@@ -426,7 +426,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         form: {
           name: "mdc-enquiry",
           heading: "Talk to Our Executive Education Team",
-          description: "Reach out directly for programme details, custom training enquiries and more.",
+          description: "Reach out directly for program details, custom training enquiries and more.",
           tint: "cream",
           submitLabel: "Send Enquiry",
           fields: [
@@ -570,9 +570,9 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.people,
     breadcrumbs: crumbs(["Home", "/"], ["WeExcel"]),
     sections: [
-      { heading: "Student Life & Services", paragraphs: ["WeExcel brings together student cells and activities, logins, examinations, galleries, events and blogs for each campus and programme."] },
+      { heading: "Student Life & Services", paragraphs: ["WeExcel brings together student cells and activities, logins, examinations, galleries, events and blogs for each campus and program."] },
       {
-        heading: "By Campus / Programme",
+        heading: "By Campus / Program",
         tint: "cream",
         cards: [
           { title: "Mumbai", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campuses/mumbai" },
@@ -615,8 +615,8 @@ export const SITE_PAGES: Record<string, SitePage> = {
   },
 
   // ---- Forms / CTAs ----
-  "/apply": simple("Apply to WeSchool", "Start your application to a WeSchool programme.", ["Home", "/"], [{ heading: "Ready to Apply?", tint: "cream", cards: [{ title: "Browse Programmes", text: "Find the right programme for you.", href: "/programmes" }, { title: "Check Eligibility", text: "Admissions criteria and process.", href: "/admissions" }] }], HERO.people, "orange"),
-  "/brochure": simple("Download Brochure", "Get the latest WeSchool programme brochure.", ["Home", "/"], undefined, HERO.office, "orange"),
+  "/apply": simple("Apply to WeSchool", "Start your application to a WeSchool program.", ["Home", "/"], [{ heading: "Ready to Apply?", tint: "cream", cards: [{ title: "Browse Programs", text: "Find the right program for you.", href: "/programmes" }, { title: "Check Eligibility", text: "Admissions criteria and process.", href: "/admissions" }] }], HERO.people, "orange"),
+  "/brochure": simple("Download Brochure", "Get the latest WeSchool program brochure.", ["Home", "/"], undefined, HERO.office, "orange"),
   "/enquire-now": {
     title: "Enquiry Form",
     subtitle: "Send us your query — our team will get back to you shortly.",
@@ -628,7 +628,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         form: {
           name: "enquiry",
           heading: "Enquire Now",
-          description: "Fill in your details and the programme you're interested in.",
+          description: "Fill in your details and the program you're interested in.",
           submitLabel: "Submit Enquiry",
           fields: [
             { name: "name", label: "Name", type: "text", required: true },
@@ -663,7 +663,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.people,
     breadcrumbs: crumbs(["Home", "/"], ["Life @ WeSchool", "/life-at-weschool"], ["MMS"]),
     sections: [
-      { heading: "The MMS Experience", paragraphs: ["Visiting faculty from industry keep the curriculum current. Outbound programmes build teamwork under conditions a classroom cannot recreate, and live projects put students in front of real business problems.", "MMS committees are student-led. The Placement Committee handles corporate interaction directly — an education in itself. Alumni consistently name these roles as the most formative part of the programme.", "WeSchool comes from Shikshana Prasaraka Mandali, a 137-year-old Pune-based trust. Approved by AICTE, permanently affiliated to the University of Mumbai, with autonomous status."] },
+      { heading: "The MMS Experience", paragraphs: ["Visiting faculty from industry keep the curriculum current. Outbound programs build teamwork under conditions a classroom cannot recreate, and live projects put students in front of real business problems.", "MMS committees are student-led. The Placement Committee handles corporate interaction directly — an education in itself. Alumni consistently name these roles as the most formative part of the program.", "WeSchool comes from Shikshana Prasaraka Mandali, a 137-year-old Pune-based trust. Approved by AICTE, permanently affiliated to the University of Mumbai, with autonomous status."] },
       {
         heading: "MMS Placements",
         tint: "cream",
@@ -714,7 +714,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.office,
     accent: "orange",
     breadcrumbs: crumbs(["Home", "/"], ["Thank You"]),
-    sections: [{ heading: "What happens next?", align: "center", paragraphs: ["We've received your details and a member of our team will be in touch soon. In the meantime, feel free to explore our programmes and campuses."], cards: [{ title: "Explore Programmes", text: "Browse our full range of programmes.", href: "/programmes" }, { title: "Visit a Campus", text: "Mumbai & Bengaluru campuses.", href: "/campuses" }] }],
+    sections: [{ heading: "What happens next?", align: "center", paragraphs: ["We've received your details and a member of our team will be in touch soon. In the meantime, feel free to explore our programs and campuses."], cards: [{ title: "Explore Programs", text: "Browse our full range of programs.", href: "/programmes" }, { title: "Visit a Campus", text: "Mumbai & Bengaluru campuses.", href: "/campuses" }] }],
   },
   "/site-map": {
     title: "Site Map",
@@ -724,7 +724,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     sections: [
       { heading: "Who We Are", cardColumns: 3, cards: [{ title: "About Us", text: "", href: "/about-us" }, { title: "Vision & Mission", text: "", href: "/about-us/vision-mission" }, { title: "Managing Council", text: "", href: "/about-us/managing-council" }, { title: "Chairman's Message", text: "", href: "/about-us/chairman-message" }, { title: "Director's Message", text: "", href: "/about-us/directors-message" }, { title: "Faculty", text: "", href: "/about-us/faculty" }, { title: "Accreditation", text: "", href: "/accreditation" }, { title: "Awards & Accolades", text: "", href: "/about-us/awards" }] },
       { heading: "Campuses", tint: "cream", cardColumns: 3, cards: [{ title: "Campuses", text: "", href: "/campuses" }, { title: "Mumbai Campus", text: "", href: "/campuses/mumbai" }, { title: "Bengaluru Campus", text: "", href: "/campuses/bengaluru" }, { title: "Life @ WeSchool", text: "", href: "/life-at-weschool" }, { title: "Life — Bengaluru", text: "", href: "/life-at-weschool/bengaluru" }, { title: "Life — MMS", text: "", href: "/life-at-weschool/mms" }] },
-      { heading: "Programmes", cardColumns: 3, cards: [{ title: "All Programmes", text: "", href: "/programmes" }, { title: "PGDM (Mumbai)", text: "", href: "/programmes/pgdm" }, { title: "PGDM (Bengaluru)", text: "", href: "/programmes/pgdm/bengaluru" }, { title: "MMS", text: "", href: "/programmes/mms" }, { title: "Admissions", text: "", href: "/admissions" }, { title: "MDC — Executive Education", text: "", href: "/mdc" }] },
+      { heading: "Programs", cardColumns: 3, cards: [{ title: "All Programs", text: "", href: "/programmes" }, { title: "PGDM (Mumbai)", text: "", href: "/programmes/pgdm" }, { title: "PGDM (Bengaluru)", text: "", href: "/programmes/pgdm/bengaluru" }, { title: "MMS", text: "", href: "/programmes/mms" }, { title: "Admissions", text: "", href: "/admissions" }, { title: "MDC — Executive Education", text: "", href: "/mdc" }] },
       { heading: "Research, Corporate & Global", tint: "cream", cardColumns: 3, cards: [{ title: "WeResearch", text: "", href: "/weresearch" }, { title: "aWEshkar Journal", text: "", href: "/weresearch/aweshkar" }, { title: "We Conference", text: "", href: "/we-conference" }, { title: "Corporate Interface", text: "", href: "/corporate-interface" }, { title: "WeFactor", text: "", href: "/wefactor" }, { title: "WeGlobal", text: "", href: "/weglobal" }] },
       { heading: "Engage & Statutory", cardColumns: 3, cards: [{ title: "Blogs", text: "", href: "/blogs" }, { title: "Events", text: "", href: "/events" }, { title: "News & Media", text: "", href: "/media" }, { title: "Careers", text: "", href: "/careers" }, { title: "Alumni", text: "", href: "/alumni" }, { title: "Contact Us", text: "", href: "/contact-us" }, { title: "Library (LRC)", text: "", href: "/library" }, { title: "Mandatory Disclosures", text: "", href: "/mandatory-disclosure" }, { title: "Autonomy", text: "", href: "/autonomy" }, { title: "Grievance Redressal", text: "", href: "/grievance-redressal" }, { title: "Privacy Policy", text: "", href: "/privacy-policy" }, { title: "NAD", text: "", href: "/nad" }] },
     ],

@@ -39,7 +39,7 @@ export const ABOUT: AboutData = {
   mission: {
     heading: "Our Mission",
     paragraphs: [
-      "Focus on inventive education by offering practical, innovative and technology driven programmes.",
+      "Focus on inventive education by offering practical, innovative and technology driven programs.",
       "Provide managerial talent with risk managing ability, passion for learning and creative thinking and values in rapidly evolving economic and social environment.",
       "Contribute significantly to the Indian corporate world by preparing management graduates with a global mindset.",
       "Build intellectual capital through faculty development, research, consultancy and publication.",
@@ -70,8 +70,8 @@ export const ABOUT: AboutData = {
   },
   accreditations: [
     { logo: A("ACBSP.png"), title: "ACBSP Accredited:", body: "Accredited for 10 years by the Accreditation Council for Business Schools and Programs (ACBSP), a global business education accrediting body." },
-    { logo: A("SAQS.png"), title: "SAQS Accredited:", body: "All PGDM programmes at WeSchool's Mumbai and Bengaluru campuses are accredited by the South Asian Quality Assurance System (SAQS)." },
-    { logo: A("NBA.png"), title: "NBA Accredited & MBA Equivalent:", body: "All full-time PGDM programmes across the Mumbai and Bengaluru campuses are accredited by the National Board of Accreditation (NBA) and have been granted MBA equivalence by the Association of Indian Universities (AIU).", extra: { title: "NBA Accredited – MMS:", body: "The MMS programme at the Mumbai campus is accredited by the National Board of Accreditation (NBA)." } },
+    { logo: A("SAQS.png"), title: "SAQS Accredited:", body: "All PGDM programs at WeSchool's Mumbai and Bengaluru campuses are accredited by the South Asian Quality Assurance System (SAQS)." },
+    { logo: A("NBA.png"), title: "NBA Accredited & MBA Equivalent:", body: "All full-time PGDM programs across the Mumbai and Bengaluru campuses are accredited by the National Board of Accreditation (NBA) and have been granted MBA equivalence by the Association of Indian Universities (AIU).", extra: { title: "NBA Accredited – MMS:", body: "The MMS program at the Mumbai campus is accredited by the National Board of Accreditation (NBA)." } },
     { logo: A("MU.png"), title: "Autonomous Institute:", body: "WeSchool is an autonomous institute affiliated with the University of Mumbai." },
   ],
   academicBoard: { heading: "Academic Advisory Board", people: Array.from({ length: 8 }, (_, i) => boardPerson(i + 1)) },

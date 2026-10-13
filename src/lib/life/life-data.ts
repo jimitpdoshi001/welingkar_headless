@@ -70,7 +70,7 @@ export const LIFE: LifeData = {
     subtitle: "Our founding campus, in the middle of a city that never stops negotiating.",
     cards: [
       { id: "cc-1", image: LIMG.c1, title: "The future is in good hands", body: "Industry stalwarts sit alongside our faculty to push every student one step further. Our faculty work as mentors first. They coach, they challenge, they help students find the career path that actually fits." },
-      { id: "cc-2", image: LIMG.c2, title: "One with knowledge and nature", body: "Sustainability is a habit here, not a module. Grassroot programmes take students into the hinterlands. Our Agri Lab brings that thinking back to campus, from seed treatment to harvest." },
+      { id: "cc-2", image: LIMG.c2, title: "One with knowledge and nature", body: "Sustainability is a habit here, not a module. Grassroot programs take students into the hinterlands. Our Agri Lab brings that thinking back to campus, from seed treatment to harvest." },
       { id: "cc-3", image: LIMG.c3, title: "Great ideas, right this way", body: "Someone is always arguing about something on this campus. That is by design. Ideas get torn apart, rebuilt, then taken to inter B-School competitions across the country." },
       { id: "cc-4", image: LIMG.c4, title: "No need to look far for peace", body: "Two demanding years. Nirvana Hall hosts regular yoga sessions, and the quiet corners of campus stay quiet." },
       { id: "cc-5", image: LIMG.c5, title: "Knowledge, and everything beyond it", body: "WeLearn Library holds over 40,000 management books plus a multimedia archive. innoWE runs as Mumbai's first innovation lab. Maker's Lab works as a co-innovation platform." },

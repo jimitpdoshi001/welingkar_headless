@@ -11,7 +11,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const meta = getProgramme(slug);
-  return meta ? { title: `${meta.title} — Welingkar`, description: meta.summary } : { title: "Programme not found" };
+  return meta ? { title: `${meta.title} — Welingkar`, description: meta.summary } : { title: "Program not found" };
 }
 
 export default async function ProgrammeDetailPage({ params }: { params: Promise<{ slug: string }> }) {
