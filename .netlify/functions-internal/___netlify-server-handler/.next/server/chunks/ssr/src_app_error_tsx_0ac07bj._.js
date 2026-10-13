@@ -1,0 +1,3 @@
+module.exports=[23953,a=>{"use strict";var b=a.i(87924),c=a.i(38246);a.s(["default",0,function({reset:a}){return(0,b.jsxs)("div",{className:"container my-4",children:[(0,b.jsx)("h1",{children:"Something went wrong"}),(0,b.jsx)("p",{children:"This page could not be loaded. Please try again."}),(0,b.jsx)("button",{type:"button",onClick:()=>a(),children:"Try again"}),(0,b.jsx)("p",{children:(0,b.jsx)(c.default,{href:"/",children:"Back to home"})})]})}])}];
+
+//# sourceMappingURL=src_app_error_tsx_0ac07bj._.js.map

@@ -1,0 +1,443 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data: https://stage.welingkar.org https://welinkar.org https://www.welingkar.org https://i.ytimg.com https://img.youtube.com https://images.unsplash.com; font-src 'self'; connect-src 'self'; media-src 'self' https://stage.welingkar.org; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests;"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "off"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "Cross-Origin-Resource-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        }
+      ],
+      "regex": "^(?:/(.*))(?:/)?$"
+    }
+  ],
+  "onMatchHeaders": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/about-us/[slug]",
+      "regex": "^/about\\-us/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/about\\-us/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/blogs/[slug]",
+      "regex": "^/blogs/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/blogs/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/corporate-interface/[slug]",
+      "regex": "^/corporate\\-interface/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/corporate\\-interface/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/events/[slug]",
+      "regex": "^/events/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/events/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/life-at-weschool/[slug]",
+      "regex": "^/life\\-at\\-weschool/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/life\\-at\\-weschool/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/mdc/[slug]",
+      "regex": "^/mdc/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/mdc/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/programmes/[slug]",
+      "regex": "^/programmes/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/programmes/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/wefactor/[slug]",
+      "regex": "^/wefactor/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/wefactor/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/weresearch/[slug]",
+      "regex": "^/weresearch/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/weresearch/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/[[...slug]]",
+      "regex": "^(?:/(.+?))?(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^(?:/(?<nxtPslug>.+?))?(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/about-us/faculty",
+      "regex": "^/about\\-us/faculty(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about\\-us/faculty(?:/)?$"
+    },
+    {
+      "page": "/about-us/faculty/bengaluru",
+      "regex": "^/about\\-us/faculty/bengaluru(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about\\-us/faculty/bengaluru(?:/)?$"
+    },
+    {
+      "page": "/about-us/faculty/inside",
+      "regex": "^/about\\-us/faculty/inside(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about\\-us/faculty/inside(?:/)?$"
+    },
+    {
+      "page": "/accreditation",
+      "regex": "^/accreditation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/accreditation(?:/)?$"
+    },
+    {
+      "page": "/admissions",
+      "regex": "^/admissions(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admissions(?:/)?$"
+    },
+    {
+      "page": "/alumni",
+      "regex": "^/alumni(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/alumni(?:/)?$"
+    },
+    {
+      "page": "/api/search",
+      "regex": "^/api/search(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/search(?:/)?$"
+    },
+    {
+      "page": "/apply",
+      "regex": "^/apply(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/apply(?:/)?$"
+    },
+    {
+      "page": "/autonomy",
+      "regex": "^/autonomy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/autonomy(?:/)?$"
+    },
+    {
+      "page": "/blogs",
+      "regex": "^/blogs(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blogs(?:/)?$"
+    },
+    {
+      "page": "/brochure",
+      "regex": "^/brochure(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/brochure(?:/)?$"
+    },
+    {
+      "page": "/campuses",
+      "regex": "^/campuses(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/campuses(?:/)?$"
+    },
+    {
+      "page": "/campuses/bengaluru",
+      "regex": "^/campuses/bengaluru(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/campuses/bengaluru(?:/)?$"
+    },
+    {
+      "page": "/campuses/mumbai",
+      "regex": "^/campuses/mumbai(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/campuses/mumbai(?:/)?$"
+    },
+    {
+      "page": "/careers",
+      "regex": "^/careers(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/careers(?:/)?$"
+    },
+    {
+      "page": "/contact-us",
+      "regex": "^/contact\\-us(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact\\-us(?:/)?$"
+    },
+    {
+      "page": "/corporate-interface",
+      "regex": "^/corporate\\-interface(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/corporate\\-interface(?:/)?$"
+    },
+    {
+      "page": "/enquire-now",
+      "regex": "^/enquire\\-now(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/enquire\\-now(?:/)?$"
+    },
+    {
+      "page": "/events",
+      "regex": "^/events(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/events(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/form-success",
+      "regex": "^/form\\-success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/form\\-success(?:/)?$"
+    },
+    {
+      "page": "/grievance-redressal",
+      "regex": "^/grievance\\-redressal(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/grievance\\-redressal(?:/)?$"
+    },
+    {
+      "page": "/html",
+      "regex": "^/html(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/html(?:/)?$"
+    },
+    {
+      "page": "/library",
+      "regex": "^/library(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/library(?:/)?$"
+    },
+    {
+      "page": "/life-at-weschool",
+      "regex": "^/life\\-at\\-weschool(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/life\\-at\\-weschool(?:/)?$"
+    },
+    {
+      "page": "/mandatory-disclosure",
+      "regex": "^/mandatory\\-disclosure(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/mandatory\\-disclosure(?:/)?$"
+    },
+    {
+      "page": "/mdc",
+      "regex": "^/mdc(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/mdc(?:/)?$"
+    },
+    {
+      "page": "/media",
+      "regex": "^/media(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/media(?:/)?$"
+    },
+    {
+      "page": "/media/videos",
+      "regex": "^/media/videos(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/media/videos(?:/)?$"
+    },
+    {
+      "page": "/nad",
+      "regex": "^/nad(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/nad(?:/)?$"
+    },
+    {
+      "page": "/privacy-policy",
+      "regex": "^/privacy\\-policy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy\\-policy(?:/)?$"
+    },
+    {
+      "page": "/programmes",
+      "regex": "^/programmes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/programmes(?:/)?$"
+    },
+    {
+      "page": "/programmes/pgdm",
+      "regex": "^/programmes/pgdm(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/programmes/pgdm(?:/)?$"
+    },
+    {
+      "page": "/programmes/pgdm/bengaluru",
+      "regex": "^/programmes/pgdm/bengaluru(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/programmes/pgdm/bengaluru(?:/)?$"
+    },
+    {
+      "page": "/search",
+      "regex": "^/search(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/search(?:/)?$"
+    },
+    {
+      "page": "/site-map",
+      "regex": "^/site\\-map(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/site\\-map(?:/)?$"
+    },
+    {
+      "page": "/tenders",
+      "regex": "^/tenders(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/tenders(?:/)?$"
+    },
+    {
+      "page": "/testimonials",
+      "regex": "^/testimonials(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/testimonials(?:/)?$"
+    },
+    {
+      "page": "/we-conference",
+      "regex": "^/we\\-conference(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/we\\-conference(?:/)?$"
+    },
+    {
+      "page": "/weexcel",
+      "regex": "^/weexcel(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/weexcel(?:/)?$"
+    },
+    {
+      "page": "/wefactor",
+      "regex": "^/wefactor(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/wefactor(?:/)?$"
+    },
+    {
+      "page": "/weglobal",
+      "regex": "^/weglobal(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/weglobal(?:/)?$"
+    },
+    {
+      "page": "/weresearch",
+      "regex": "^/weresearch(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/weresearch(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
