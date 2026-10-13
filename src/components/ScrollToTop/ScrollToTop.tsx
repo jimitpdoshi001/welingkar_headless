@@ -3,8 +3,13 @@
 import style from "./ScrollToTop.module.scss";
 import { Whatsapp, Share } from "@/assets/svg/Icons";
 import Link from "next/link";
+import { useMediaQuery } from "@/util/useMediaQuery";
 
 const ScrollToTop = () => {
+  // Tablet and below use the full-width bottom "Enquire Now" bar instead of the
+  // vertical side button, so the floating rail stays clear of page content.
+  const isCompact = useMediaQuery("(max-width: 1023px)");
+
   const contactWhatsapp = () => {
     window.location.href = "https://wa.me/919876543210";
   };
@@ -26,6 +31,16 @@ const ScrollToTop = () => {
   return (
     <>
       <div className={style.FloatingButtons}>
+        {!isCompact && (
+          <Link
+            className={style.enquireNow}
+            href="/enquire-now"
+            aria-label="Enquire now"
+          >
+            Enquire Now
+          </Link>
+        )}
+
         <div
           className={style.share}
           onClick={sharePage}
@@ -42,7 +57,7 @@ const ScrollToTop = () => {
           <Whatsapp />
         </div>
 
-        {/* Enquire Now as a compact icon below WhatsApp (replaces the pill/bottom bar). */}
+        {/* Mobile only: compact Enquire icon below WhatsApp (replaces the bottom bar). */}
         <Link
           className={style.enquire}
           href="/enquire-now"
@@ -54,7 +69,8 @@ const ScrollToTop = () => {
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            aria-hidden="true">
+            aria-hidden="true"
+          >
             {/* Paper-plane "send" icon (Instagram style). */}
             <path
               d="M21.5 2.5 10.5 13.5M21.5 2.5l-7 19-4-8-8-4 19-7Z"
@@ -66,6 +82,15 @@ const ScrollToTop = () => {
           </svg>
         </Link>
       </div>
+      {isCompact && (
+        <Link
+          className={style.enquireNowMob}
+          href="/enquire-now"
+          aria-label="Enquire now"
+        >
+          Enquire Now
+        </Link>
+      )}
     </>
   );
 };
