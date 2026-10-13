@@ -56,7 +56,7 @@
   }
 }
 .about { position: relative; padding-block: 11rem 4rem; text-align: center; @include respond-to(mobile) { padding-block: 7rem 3rem; } }
-.aboutHeading { font-size: clamp(2.8rem, 2rem + 1.6vw, 3.75rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 32rem; margin: 0 auto 3.6rem; }
+.aboutHeading { font-size: clamp(2.8rem, 2rem + 1.6vw, 3.75rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 36rem; margin: 0 auto 3.6rem; }
 .aboutBody { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; }
 .stats { display: flex; justify-content: center; gap: clamp(4rem, 14vw, 21rem); margin-top: 4rem; flex-wrap: wrap; @include respond-to(mobile) { gap: 2.4rem 3.6rem; } }
 .stat { display: flex; flex-direction: column; align-items: center; }
