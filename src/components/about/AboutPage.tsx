@@ -113,7 +113,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Who We Are */}
-          <section className={styles.whoWeAre}>
+          <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
             <div className="container">
               <span
                 className={styles.watermark}
@@ -125,7 +125,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Chairman */}
-          <section className="bg-light-yellow">
+          <section id="chairman" className={`bg-light-yellow ${styles.anchor}`}>
             <div className={`container ${styles.block} ${styles.chairman}`}>
               <img
                 src={data.chairman.image}
@@ -142,7 +142,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Director */}
-          <section className={`container ${styles.block} ${styles.director}`}>
+          <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
             <div className={styles.directorText}>
               <h2 className={styles.heading}>{data.director.heading}</h2>
               {data.director.paragraphs.map((p, i) => (
@@ -163,7 +163,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* S.P. Mandali (Figma 2128:185) reuses the watermark layout. */}
-          <section className={styles.whoWeAre}>
+          <section id="spm" className={`${styles.whoWeAre} ${styles.anchor}`}>
             <div className="container">
               <span
                 className={styles.watermark}

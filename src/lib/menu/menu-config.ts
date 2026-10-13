@@ -60,14 +60,15 @@ export const MAIN_NAV: MainNavItem[] = [
     panel: {
       columns: [
         {
-          heading: "About WeSchool",
-          headingHref: "/about-us",
+          heading: "Who We Are",
+          headingHref: "/about-us#weschool",
           links: [
-            { label: "About WeSchool", href: "/about-us" },
-            { label: "About SPM", href: "/about-us/spm" },
+            // Anchors scroll to the matching section on the About Us page.
+            { label: "About WeSchool", href: "/about-us#weschool" },
+            { label: "About SPM", href: "/about-us#spm" },
             { label: "Managing Council Members", href: "/about-us/managing-council" },
-            { label: "Chairman's Message", href: "/about-us/chairman-message" },
-            { label: "Director's Message", href: "/about-us/directors-message" },
+            { label: "Chairman's Message", href: "/about-us#chairman" },
+            { label: "Director's Message", href: "/about-us#director" },
           ],
         },
         {
