@@ -11,7 +11,11 @@ import { LifeCarousel } from "./LifeCarousel/LifeCarousel";
 import styles from "./LifePage.module.scss";
 
 export function LifePage({ data }: { data: LifeData }) {
+  const isMumbai = data.accent === "purple";
+  const accentVar = data.accent === "red" ? "var(--color-red)" : "var(--color-primary)";
+  
   return (
+    console.log('check mumbai',isMumbai),
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
@@ -93,7 +97,7 @@ export function LifePage({ data }: { data: LifeData }) {
               {data.campus.cards.map((c) => (
                 <article
                   key={c.id}
-                  className={styles.featureCard}>
+                  className={isMumbai ? `${styles.featureCard}` : `${styles.featureCard} ${styles.featureCardred}`}>
                   <img
                     src={c.image}
                     alt=""
@@ -181,7 +185,11 @@ export function LifePage({ data }: { data: LifeData }) {
 
           {/* Two years in pictures (Figma 1413:323): full-bleed rows of 295px squares;
               the first row scrolls continuously left to right. */}
-          <section className={styles.gallery}>
+          <section className={styles.gallery} style={
+            {
+              "background": isMumbai ? "var(--color-secondary)" : "#b04535",
+            } as React.CSSProperties
+          }>
             <div className={`container ${styles.galleryHead}`}>
               <div>
                 <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
@@ -321,7 +329,11 @@ export function LifePage({ data }: { data: LifeData }) {
           </section>
 
           {/* Come see it for yourself (Figma 1424:487): 350px purple band. */}
-          <section className={styles.visit}>
+          <section className={styles.visit} style={
+            {
+              "background": isMumbai ? "var(--color-secondary)" : "#b04535",
+            } as React.CSSProperties
+          }>
             <div className="container">
               <h2 className={styles.headingLight}>{data.visit.heading}</h2>
               <p className={styles.visitSub}>{data.visit.subtitle}</p>

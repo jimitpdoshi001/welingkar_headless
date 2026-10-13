@@ -9,6 +9,8 @@ export type LifeEvent = { id: string; title: string; when: string; host: string;
 export type LifeStory = { id: string; image: string; tag: string; title: string; meta: string };
 
 export type LifeData = {
+  life: "Mumbai" | "Bengaluru";
+  accent: "purple" | "red";
   hero: { title: string; subtitle: string; image: string };
   intro: { paragraphs: string[]; highlight: string; images: string[] };
   /** Campus tabs link to each campus page; activeTab marks the current one. */
@@ -48,6 +50,8 @@ const LIMG = {
 const g = (n: number) => `/life/mumbai/gallery-${n + 1}.webp`;
 
 export const LIFE: LifeData = {
+  life: "Mumbai",
+  accent: "purple",
   hero: {
     title: "Life @ WeSchool",
     subtitle: "The lessons that stay with you are rarely the ones on the syllabus.",
@@ -159,6 +163,7 @@ const BIMG = (n: number) => `/life/bengaluru/c${n}.webp`;
 
 export const LIFE_BENGALURU: LifeData = {
   ...LIFE,
+  accent: "red",
   activeTab: 1,
   campus: {
     heading: "Electronic City, Bengaluru",
