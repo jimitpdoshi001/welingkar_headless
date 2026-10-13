@@ -8,6 +8,7 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
 import { ScrollArrows } from "./ScrollArrows/ScrollArrows";
 import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
+import { RecruiterLogos } from "./RecruiterLogos/RecruiterLogos";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
@@ -231,25 +232,16 @@ export function CampusPage({ data }: { data: CampusData }) {
 
           <section className={`container ${styles.block}`}>
             <div className={styles.recruiters}>
-              <div className={styles.recHead}>
-                <div>
-                  <h2 className={styles.recHeading}>{data.recruiters.heading}</h2>
-                  <p className={styles.recDescription}>{data.recruiters.description}</p>
-                </div>
-                <ScrollArrows targetId="campus-recruiters" />
-              </div>
-              <div
-                id="campus-recruiters"
-                className={styles.logoStrip}>
-                {data.recruiters.logos.map((logo) => (
-                  <img
-                    key={logo.name}
-                    src={logo.image}
-                    alt={logo.name}
-                    className={styles.logo}
-                  />
-                ))}
-              </div>
+              <RecruiterLogos
+                logos={data.recruiters.logos}
+                headClassName={styles.recHead}
+                header={
+                  <div>
+                    <h2 className={styles.recHeading}>{data.recruiters.heading}</h2>
+                    <p className={styles.recDescription}>{data.recruiters.description}</p>
+                  </div>
+                }
+              />
               <div className={styles.recCta}>
                 <Link
                   href={data.recruiters.cta.href}

@@ -1,0 +1,6 @@
+// Figma 979:1604-1609: logos ~150-170px wide, 30-64px tall, centred in each slot.
+.swiper { width: 100%; }
+.slide { display: flex; align-items: center; justify-content: center; height: 6.4rem; }
+.logo { max-height: 5.4rem; width: 100%; max-width: 16.5rem; object-fit: contain;
+  @media (max-width: 767px) { max-height: 4.4rem; }
+}

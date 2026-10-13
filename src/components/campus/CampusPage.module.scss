@@ -115,9 +115,6 @@
   margin: 0;
 }
 
-// Figma 979:1604-1609: one row of logos (~150-170px wide, 30-64px tall).
-.logoStrip { display: flex; align-items: center; justify-content: space-between; gap: 4rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
-.logo { flex: 0 0 auto; height: 5.4rem; width: 16.5rem; object-fit: contain; scroll-snap-align: start; @include respond-to(mobile) { height: 4.4rem; width: 13rem; } }
 
 .recCta { margin-top: 4.4rem; }
 
