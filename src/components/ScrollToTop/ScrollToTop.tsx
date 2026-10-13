@@ -54,19 +54,14 @@ const ScrollToTop = () => {
             height="20"
             viewBox="0 0 24 24"
             fill="none"
-            aria-hidden="true"
-          >
+            aria-hidden="true">
+            {/* Paper-plane "send" icon (Instagram style). */}
             <path
-              d="M4 20h4L18.5 9.5a2.12 2.12 0 0 0-3-3L5 17v3Z"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M13.5 8.5l2 2"
+              d="M21.5 2.5 10.5 13.5M21.5 2.5l-7 19-4-8-8-4 19-7Z"
               stroke="currentColor"
               strokeWidth="1.8"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </Link>
