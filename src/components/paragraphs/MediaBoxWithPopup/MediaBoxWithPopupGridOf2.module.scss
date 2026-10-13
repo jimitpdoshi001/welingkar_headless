@@ -117,7 +117,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 1000001; // above the fixed header (999999), same as the community video popup
   display: flex;
   align-items: center;
   justify-content: center;

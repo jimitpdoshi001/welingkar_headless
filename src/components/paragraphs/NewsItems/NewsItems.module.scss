@@ -73,6 +73,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  // Keeps the featured title clear of the Know More button.
+  margin-top: 1.6rem;
 
   span {
     font-size: 1.2rem;

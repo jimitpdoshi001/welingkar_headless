@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import type { DrupalMedia } from "@/lib/drupal";
 import type { MediaBoxWithPopupProps } from "./MediaBoxWithPopup";
@@ -127,7 +128,8 @@ export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveM
         </div>
       </button>
 
-      {open && video && (
+      {/* Portal: the stagger animation transforms the card, which would trap a fixed overlay inside it. */}
+      {open && video && createPortal(
         <div
           className={styles.overlay}
           onClick={() => setOpen(false)}
@@ -151,7 +153,8 @@ export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveM
               playerClassName={styles.player}
             />
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </article>
   );

@@ -67,7 +67,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Our Vision */}
-          <section className={`container ${styles.block} ${styles.vision}`}>
+          <section id="vision-mission" className={`container ${styles.block} ${styles.vision} ${styles.anchor}`}>
             <div className={styles.visionText}>
               <h2 className={styles.bigHeading}>{data.vision.heading}</h2>
               <p className={styles.lead}>{data.vision.body}</p>

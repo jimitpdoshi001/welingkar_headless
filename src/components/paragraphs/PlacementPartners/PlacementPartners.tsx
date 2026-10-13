@@ -4,7 +4,7 @@ import type { DrupalImage, JsonApiResource, PlacementPartnersAttributes } from "
 import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -15,6 +15,9 @@ import styles from "./PlacementPartners.module.scss";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import { overridePlacementHeading, overridePlacementDescription } from "@/lib/content-overrides";
 import clsx from "clsx";
+
+// Logos scroll on their own in a loop; pause while hovered.
+const LOGO_AUTOPLAY = { delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true };
 
 type PlacementPartnersProps = {
   paragraph: JsonApiResource<"paragraph--placement_partners", PlacementPartnersAttributes>;
@@ -45,7 +48,8 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
       {images.length > 0 && !isMobile && (
         <div className={clsx(styles.logos, "logos")}>
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation, Autoplay]}
+            autoplay={LOGO_AUTOPLAY}
             slidesPerView={6}
             slidesPerGroup={1}
             spaceBetween={20}
@@ -99,7 +103,8 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
       {images.length > 0 && isMobile && (
         <div className={styles.logos}>
           <Swiper
-            modules={[Navigation]}
+            modules={[Navigation, Autoplay]}
+            autoplay={LOGO_AUTOPLAY}
             slidesPerView={1}
             slidesPerGroup={1}
             spaceBetween={20}

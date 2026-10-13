@@ -64,7 +64,7 @@ export const MAIN_NAV: MainNavItem[] = [
           headingHref: "/about-us#weschool",
           links: [
             // Anchors scroll to the matching section on the About Us page.
-            { label: "Vision & Mission", href: "/about-us/vision-mission" },
+            { label: "Vision & Mission", href: "/about-us#vision-mission" },
             { label: "About WeSchool", href: "/about-us#weschool" },
             { label: "About SPM", href: "/about-us#spm" },
             { label: "Managing Council Members", href: "/about-us#managing-council" },

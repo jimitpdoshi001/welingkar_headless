@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { drupalConfig } from "./config";
 import { isSafeHref } from "./link";
+import { fixProgramsSpelling } from "@/lib/content-overrides";
 
 export interface MenuItem {
   id: string;
@@ -50,7 +51,8 @@ export const getTopMenu = cache(async (): Promise<TopMenu> => {
       throw new Error(`Failed to fetch top menu: ${response.status}`);
     }
 
-    const result = await response.json();
+    // Display-text spelling fix (Programmes -> Programs); links are untouched.
+    const result = fixProgramsSpelling(await response.json());
 
     if (result?.status && result?.data) {
       return {
@@ -76,7 +78,8 @@ export const getFooterMenu = cache(async (): Promise<FooterLink[]> => {
       throw new Error(`Failed to fetch footer menu: ${response.status}`);
     }
 
-    const result = await response.json();
+    // Display-text spelling fix (Programmes -> Programs); links are untouched.
+    const result = fixProgramsSpelling(await response.json());
 
     if (result?.status && Array.isArray(result?.data)) {
       return sanitizeMenuItems(result.data);

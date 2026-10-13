@@ -1,6 +1,7 @@
 import { clearDrupalSession, getAuthHeaders } from "./auth";
 import { drupalConfig } from "./config";
 import type { JsonApiDocument, JsonApiResource } from "./types";
+import { fixProgramsSpelling } from "@/lib/content-overrides";
 
 export function jsonApiUrl(path: string, params?: Record<string, string>): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
@@ -55,7 +56,8 @@ export async function fetchJsonApi<T extends JsonApiResource>(path: string, para
     throw new Error(`JSON:API request failed (${response.status}).`);
   }
 
-  return (await response.json()) as JsonApiDocument<T>;
+  // Display-text spelling fix (Programmes -> Programs); links are untouched.
+  return fixProgramsSpelling((await response.json()) as JsonApiDocument<T>);
 }
 
 export async function fetchPaginatedJsonApi<T extends JsonApiResource>(

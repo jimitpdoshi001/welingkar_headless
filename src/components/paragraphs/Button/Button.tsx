@@ -2,6 +2,7 @@ import type { ButtonAttributes, JsonApiResource } from "@/lib/drupal";
 import { getNodePathMap } from "@/lib/drupal/pages";
 import { drupalLinkTarget, isAppPath, isHashHref, resolveDrupalHref } from "@/lib/drupal/link";
 import clsx from "clsx";
+import { overrideButtonLink } from "@/lib/content-overrides";
 import Link from "next/link";
 
 type ButtonProps = {
@@ -41,7 +42,7 @@ function ButtonInner({ title }: { title?: string }) {
 
 export async function Button({ paragraph }: ButtonProps) {
   const { attributes } = paragraph;
-  const link = firstLink(attributes.field_url);
+  const link = overrideButtonLink(paragraph.id, firstLink(attributes.field_url));
   const nodePaths = await getNodePathMap();
   const href = resolveDrupalHref(link?.uri, nodePaths) ?? "#";
   const target = drupalLinkTarget(attributes.field_target);
