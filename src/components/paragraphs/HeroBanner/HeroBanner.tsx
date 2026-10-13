@@ -111,6 +111,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
           loop={true}
           spaceBetween={16}
           className={styles.thumbsSwiper}
+          speed = {3000}
         >
           {thumbs.map((thumb, index) => (
             <SwiperSlide key={thumb.id} className={styles.thumbSlide}>
