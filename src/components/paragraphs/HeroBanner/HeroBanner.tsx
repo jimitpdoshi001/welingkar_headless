@@ -55,6 +55,9 @@ export function HeroBanner({ responsiveMedia, children }: HeroBannerProps) {
   );
 }
 
+// Home hero autoplay is paused for now; set to { delay: 8000, disableOnInteraction: false } to resume.
+const HERO_AUTOPLAY = false as const;
+
 export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
   const slides = Children.toArray(children);
 
@@ -81,10 +84,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
         thumbs={{
           swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
         }}
-        autoplay={{
-          delay: 8000,
-          disableOnInteraction: false,
-        }}
+        autoplay={HERO_AUTOPLAY}
         loop={true}
         onSwiper={setMainSwiper}
         onSlideChange={(swiper) => {
@@ -101,10 +101,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
       <div className={styles.thumbsWrap}>
         <Swiper
           modules={[Thumbs, A11y, Autoplay]}
-          autoplay={{
-            delay: 8000,
-            disableOnInteraction: false,
-          }}
+          autoplay={HERO_AUTOPLAY}
           onSwiper={setThumbsSwiper}
           watchSlidesProgress
           slidesPerView="auto"
