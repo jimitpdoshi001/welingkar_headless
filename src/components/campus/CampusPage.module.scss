@@ -222,8 +222,8 @@
   margin-bottom: 3.2rem;
   flex-wrap: wrap;
 }
-.mentorTabs { display: flex; flex-wrap: wrap; gap: 1.6rem 7.6rem; @include respond-to(tab) { gap: 1.2rem 3.2rem; } }
-.mentorTab { font-size: 2.4rem; font-weight: 300; color: #808080; cursor: pointer; position: relative; padding-bottom: 0.8rem; @include respond-to(mobile) { font-size: 1.8rem; } }
+.mentorTabs { display: flex; flex-wrap: wrap; gap: 1.6rem 5.6rem; @include respond-to(tab) { gap: 1.2rem 3.2rem; } }
+.mentorTab { font-size: 1.8rem; font-weight: 300; color: gray; cursor: pointer; position: relative; padding-bottom: 0.8rem; }
 .mentorTabActive {
   color: var(--faculty-accent, var(--color-primary));
   font-weight: 600;
