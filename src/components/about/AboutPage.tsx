@@ -163,7 +163,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* S.P. Mandali (Figma 2128:185) reuses the watermark layout. */}
-          <section id="spm" className={`${styles.whoWeAre} ${styles.anchor}`}>
+          <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
             <div className="container">
               <span
                 className={styles.watermark}
