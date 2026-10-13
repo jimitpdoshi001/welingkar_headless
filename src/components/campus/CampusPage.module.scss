@@ -129,10 +129,9 @@
 .lifeInner { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding-block: 7.9rem 21.6rem;
   @include respond-to(tab) { padding-block: 5rem 8rem; }
 }
-.lifeHeading { font-size: clamp(4.22rem, 0.88rem + 8.45vw, 13.2rem); font-weight: 800; line-height: 1; color: var(--campus-band, var(--color-secondary)); letter-spacing: -0.02em; white-space: nowrap;
-  // Scale with the viewport so the one-line heading never overflows.
-  @include respond-to(mobile) { font-size: 9.33vw; }
-}
+// Figma 1609:769: the heading spans the full content width (1241px at 1440).
+// Text width is ~7.66x the font size, so size it from the container width.
+.lifeHeading { font-size: calc(min(100vw - 4rem, 124rem) / 7.66); font-weight: 800; line-height: 1; color: var(--campus-band, var(--color-secondary)); letter-spacing: -0.02em; white-space: nowrap; }
 .lifeCard { display: flex; align-items: center; justify-content: space-between; gap: 4rem; padding: 3.6rem 5.6rem; border-radius: 2.4rem; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(255, 255, 255, 0.44); -webkit-backdrop-filter: blur(1.8rem); backdrop-filter: blur(1.8rem); box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
   @include respond-to(tab) { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 2.8rem; }
   :global(.btn) { flex-shrink: 0; }
