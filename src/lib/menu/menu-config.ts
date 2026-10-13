@@ -101,8 +101,8 @@ export const MAIN_NAV: MainNavItem[] = [
         { title: "PGDM Bengaluru", subtitle: "AICTE Approved Standalone Institute", href: "/campuses/bengaluru" },
       ],
       columns: [
-        { heading: "Full-Time Programmes — Mumbai", headingHref: "/campuses/mumbai", links: FULL_TIME_PGDM },
-        { heading: "Full-Time Programmes — Bengaluru", headingHref: "/campuses/bengaluru", links: FULL_TIME_PGDM_BLR },
+        { heading: "Full-Time Programs — Mumbai", headingHref: "/campuses/mumbai", links: FULL_TIME_PGDM },
+        { heading: "Full-Time Programs — Bengaluru", headingHref: "/campuses/bengaluru", links: FULL_TIME_PGDM_BLR },
         {
           heading: "Explore Campus",
           links: [
@@ -142,7 +142,7 @@ export const MAIN_NAV: MainNavItem[] = [
           ],
         },
         {
-          heading: "Programmes",
+          heading: "Programs",
           links: [
             { label: "PGDM", href: "/programmes/pgdm" },
             { label: "MMS", href: "/programmes/mms" },
@@ -154,8 +154,8 @@ export const MAIN_NAV: MainNavItem[] = [
     },
   },
   {
-    id: "programmes",
-    label: "Programmes",
+    id: "programs",
+    label: "Programs",
     href: "/programmes",
     panel: {
       columns: [
@@ -176,7 +176,7 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "PGP in Entrepreneurship & FMB (EFMB)", href: "/programmes/efmb" },
             { label: "PGP in Media & Entertainment", href: "/programmes/pgp-media" },
             { label: "6-month Certificate Program", href: "/programmes/certificate" },
-            { label: "Distance Learning Programme (DLP)", href: "/programmes/dlp" },
+            { label: "Distance Learning Program (DLP)", href: "/programmes/dlp" },
             { label: "MDP", href: "/programmes/mdp" },
             { label: "MDC — Executive Education", href: "/mdc" },
           ],

@@ -188,8 +188,8 @@ const CAREER_TABS = [
 ];
 
 const SHARED_FAQS = [
-  { id: "faq-1", q: "What is PGDM?", a: "PGDM (Post Graduate Diploma in Management) is a two-year, full-time, industry-oriented management programme offered by AICTE-approved autonomous institutes." },
-  { id: "faq-2", q: "What is the duration of the PGDM Program?", a: "The PGDM programme is a two-year, full-time course delivered across six trimesters." },
+  { id: "faq-1", q: "What is PGDM?", a: "PGDM (Post Graduate Diploma in Management) is a two-year, full-time, industry-oriented management program offered by AICTE-approved autonomous institutes." },
+  { id: "faq-2", q: "What is the duration of the PGDM Program?", a: "The PGDM program is a two-year, full-time course delivered across six trimesters." },
   { id: "faq-3", q: "What are PGDM course fees?", a: "PGDM is a very popular course for students who desire to pursue their careers in the management field, and at Welingkar it costs ₹7,00,000 per annum as tuition fees & other, library deposit ₹4000 (refundable), and hostel fees ₹1,60,000 p.a. to ₹2,20,000 p.a. along with a refundable deposit of ₹10,000." },
   { id: "faq-4", q: "What is PGDM Eligibility?", a: "A minimum of 50% in graduation is required, along with a valid CAT / XAT / ATMA / CMAT / GMAT score." },
   { id: "faq-5", q: "What is the PGDM admission process?", a: "Shortlisting is based on entrance test percentile/score followed by the online selection process (GE / PI)." },
@@ -209,7 +209,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
   return {
     campus,
     hero: {
-      breadcrumb: ["Home", "Programmes", "PGDM"],
+      breadcrumb: ["Home", "Programs", "PGDM"],
       title: "Post Graduate Diploma in Management",
       subtitle:
         "Introduced in 1994, this program has spent over three decades emphasising acquisition, application, and assimilation, building the confident managers of tomorrow.",
@@ -228,10 +228,10 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     quickReasons: SHARED_QUICK_REASONS,
     usps: SHARED_USPS,
     glance: {
-      heading: "Programme at a Glance",
+      heading: "Program at a Glance",
       image: IMG.glance,
       details: [
-        { label: "Programme", value: "Post Graduate Diploma in Management" },
+        { label: "Program", value: "Post Graduate Diploma in Management" },
         { label: "Duration", value: "Two years, full-time" },
         { label: "Intake", value: "180 students" },
         { label: "Specialisations", value: "Marketing · Finance · Human Resources · Operations" },
@@ -244,7 +244,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     whoApply: {
       heading: "Who Should Apply?",
-      subtitle: "Two paths, one programme.",
+      subtitle: "Two paths, one program.",
       tabs: [
         { id: "freshers", label: "Freshers" },
         { id: "workex", label: "Work-Ex" },
@@ -253,7 +253,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
         freshers: {
           intro: {
             heading: "For Freshers",
-            body: "The PGDM programme is designed for graduates looking to build a strong foundation in management, develop industry-relevant skills, and prepare for diverse career opportunities across business functions.",
+            body: "The PGDM program is designed for graduates looking to build a strong foundation in management, develop industry-relevant skills, and prepare for diverse career opportunities across business functions.",
             bullets: ["Build management fundamentals", "Explore specialisations", "Industry-relevant practical skills", "Strong placement network"],
           },
           side: {
@@ -379,9 +379,9 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
         { id: "2021-23", label: "2021-23", stats: [{ value: "₹10.6 LPA", label: "Average Salary" }, { value: "₹35K", label: "Highest Monthly Stipend" }, { value: "₹16.4L", label: "Highest International CTC" }, { value: "₹18.5L", label: "Top Domestic CTC" }] },
       ],
       whyRecruit: {
-        heading: "Why Recruit Graduates of This Programme?",
+        heading: "Why Recruit Graduates of This Program?",
         paragraphs: [
-          "WeSchool's PGDM programme develops graduates with knowledge across business domains, supported by practical learning, industry exposure, mentoring and continuous assessment.",
+          "WeSchool's PGDM program develops graduates with knowledge across business domains, supported by practical learning, industry exposure, mentoring and continuous assessment.",
           "Students are exposed to real-world business challenges through industry projects, simulation games, domain-focused development initiatives, roundtable conferences and learning experiences such as the HR Lab and Finance GYM.",
         ],
         cta: { label: "Hire from WeSchool", href: "/corporate-interface" },
@@ -395,7 +395,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     recruiters: { heading: "Our Recruiters", logos: RECRUITER_LOGOS },
     fees: {
-      heading: "Programme Fees, EMI Details & Scholarships",
+      heading: "Program Fees, EMI Details & Scholarships",
       description:
         "WeSchool is committed to giving more than it takes, in order to offer a brighter future to our students. We aim to rise above the notion of assured ROI, which is just numbers, by adding real value and equipping our students to face the challenges of a dynamic business world with confidence.",
       cards: [

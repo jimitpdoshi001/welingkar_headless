@@ -47,7 +47,7 @@ export const MDC: MdcData = {
   },
   nav: [
     { label: "About Campus", href: "#about" },
-    { label: "Programmes", href: "#offerings" },
+    { label: "Programs", href: "#offerings" },
     { label: "Faculty", href: "/about-us/faculty" },
     { label: "Corporate interface", href: "/corporate-interface" },
     { label: "We Research", href: "/weresearch" },

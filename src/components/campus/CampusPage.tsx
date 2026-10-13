@@ -208,7 +208,7 @@ export function CampusPage({ data }: { data: CampusData }) {
           </section>
 
           <section
-            id="programmes"
+            id="programs"
             className={styles.band}>
             <div className={`container ${styles.block}`}>
               <CardCarousel

@@ -49,12 +49,12 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { label: "Executive", href: "/programmes/executive" },
     { label: "11months Post Graduate Program", href: "/programmes/executive" },
     { label: "PGDM Hybrid Program", href: "/programmes/pgdm-hybrid" },
-    { label: "11 months PGP & 6 months Certificate Programmes", href: "/programmes/certificate" },
+    { label: "11 months PGP & 6 months Certificate Programs", href: "/programmes/certificate" },
     { label: "Post Graduate Program in Temple Management (PGPTM)", href: "/programmes/pgptm" },
   ],
   intro: {
     heading: "Full-time Programs",
-    body: "Our full-time programmes aim to shape students into world-class managers, empowering them with key analytical tools for future-ready business enterprises. Each full-time programme introduces the learner to various functions of a business. The full-time programme is open to students with educational background in arts, commerce and science. Interested applicants are required to check the eligibility criteria prior applying.",
+    body: "Our full-time programs aim to shape students into world-class managers, empowering them with key analytical tools for future-ready business enterprises. Each full-time program introduces the learner to various functions of a business. The full-time program is open to students with educational background in arts, commerce and science. Interested applicants are required to check the eligibility criteria prior applying.",
   },
   applyHref: "/apply",
   programmes: [
@@ -66,7 +66,7 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { slug: "pgdm-rural", title: "PGDM - Rural Management", description: "Innovative solutions come to those who think differently. This course empowers students to play an integral role in transforming rural India's landscape." },
     { slug: "pgdm-media", title: "PGDM - Media & Entertainment", description: "This course trains students to become well-rounded media professionals, grounded in the best practices of the field." },
     { slug: "pgdm-research-analytics", title: "PGDM - Research and Business Analytics", description: "This course sharpens analytical minds in every keen student, shaping future business thinkers who lead with versatility." },
-    { slug: "mms", title: "MMS", description: "This interdisciplinary programme equips students with integrated management knowledge and analytical skills, offering a competitive advantage on par with postgraduate programmes." },
+    { slug: "mms", title: "MMS", description: "This interdisciplinary program equips students with integrated management knowledge and analytical skills, offering a competitive advantage on par with postgraduate programs." },
   ].map((p) => ({ ...p, intake: "Present Intake: 180", href: p.slug === "pgdm" ? "/programmes/pgdm/mumbai" : `/programmes/${p.slug}` })),
 };
 
@@ -76,10 +76,10 @@ export const LISTING_BENGALURU: ProgrammeListingData = {
   ...LISTING_MUMBAI,
   campus: "bengaluru",
   theme: { strip: "#b04535", tint: "#fff4f2", button: "var(--color-primary)" },
-  hero: { ...LISTING_MUMBAI.hero, title: "Full-Time Programmes in Bengaluru", image: img("bengaluru", "hero") },
+  hero: { ...LISTING_MUMBAI.hero, title: "Full-Time Programs in Bengaluru", image: img("bengaluru", "hero") },
   nav: LISTING_MUMBAI.nav.map((n) => (n.label === "About Campus" ? { ...n, href: "/campuses/bengaluru" } : n)),
   pills: LISTING_MUMBAI.pills.slice(0, 2),
-  intro: { ...LISTING_MUMBAI.intro, heading: "Full-time Programmes" },
+  intro: { ...LISTING_MUMBAI.intro, heading: "Full-time Programs" },
   programmes: LISTING_MUMBAI.programmes.map((p) => (p.slug === "pgdm" ? { ...p, href: "/programmes/pgdm/bengaluru" } : p)),
 };
 

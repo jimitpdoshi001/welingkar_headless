@@ -5,10 +5,10 @@ import { LinkCardGrid, type LinkCard } from "@/components/shell/ContentBlocks";
 import { PROGRAMMES } from "@/lib/programmes/programmes";
 
 export const metadata: Metadata = {
-  // Previous "all programmes" grid, kept for later use; hidden from search engines.
-  title: "All Programmes — Welingkar",
+  // Previous "all programs" grid, kept for later use; hidden from search engines.
+  title: "All Programs — Welingkar",
   robots: { index: false, follow: true },
-  description: "Explore WeSchool's full-time PGDM, post-graduate, executive and certificate programmes.",
+  description: "Explore WeSchool's full-time PGDM, post-graduate, executive and certificate programs.",
 };
 
 const CATEGORIES = ["Full-Time PGDM", "Post Graduate", "Executive & Certificate"] as const;
@@ -22,9 +22,9 @@ const IMAGES = [
 export default function ProgrammesPage() {
   return (
     <PageShell
-      title="Programmes Built for Every Ambition"
-      subtitle="A wide range of curated programmes designed to challenge, engage and shape the business leaders of tomorrow."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Programmes", href: "/programmes" }, { label: "All Programmes" }]}
+      title="Programs Built for Every Ambition"
+      subtitle="A wide range of curated programs designed to challenge, engage and shape the business leaders of tomorrow."
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Programs", href: "/programmes" }, { label: "All Programs" }]}
       accent="orange">
       {CATEGORIES.map((category, ci) => {
         const cards: LinkCard[] = PROGRAMMES.filter((p) => p.category === category).map((p, i) => ({

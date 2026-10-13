@@ -59,7 +59,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
               <Link
                 href={data.whyProgram.videoHref || "#"}
                 className={styles.videoCard}
-                aria-label="Play programme video"
+                aria-label="Play program video"
               >
                 <img
                   src={data.whyProgram.videoThumb}
@@ -87,7 +87,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           <section className={styles.band}>
             <div className={`container ${styles.block}`}>
               <PgdmFeatureGrid
-                heading="Programme USPs"
+                heading="Program USPs"
                 items={data.usps}
                 columns={4}
                 theme="onDark"
