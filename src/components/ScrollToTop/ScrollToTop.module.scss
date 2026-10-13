@@ -19,10 +19,11 @@
     gap: 1.4rem;
   }
 
-  // Mobile: rail sits on the left edge.
+  // Mobile: rail on the right edge, near the top.
   @include respond-to(mobile) {
-    right: auto;
-    left: 0.3rem;
+    right: 0.3rem;
+    left: auto;
+    top: 15%;
     gap: 1.2rem;
   }
 }

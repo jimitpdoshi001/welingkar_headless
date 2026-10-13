@@ -213,10 +213,10 @@
   }
 
   .content {
-    top: 16.6rem;
-    bottom: auto;
+    top: auto;
+    bottom: 11.6rem !important;
     left: 2rem;
-    width: min(39rem, calc(100% - 4rem));
+    width: calc(100% - 4rem);
 
     // 36px at Figma's 430px width, scaling down on narrower phones.
     h3 {
