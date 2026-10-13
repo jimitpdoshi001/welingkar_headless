@@ -74,10 +74,10 @@ export const MAIN_NAV: MainNavItem[] = [
         {
           heading: "Governance",
           links: [
-            { label: "Academic Advisory Board", href: "/about-us/academic-advisory-board" },
-            { label: "Industry Advisory Board", href: "/about-us/industry-advisory-board" },
+            { label: "Academic Advisory Board", href: "/about-us#academic-advisory-board" },
+            { label: "Industry Advisory Board", href: "/about-us#industry-advisory-board" },
             { label: "Accreditations & Affiliations", href: "/accreditation" },
-            { label: "Awards & Accolades", href: "/about-us/awards" },
+            { label: "Awards & Accolades", href: "/about-us#awards" },
           ],
         },
         {

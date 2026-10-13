@@ -11,9 +11,9 @@ import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { AboutData, AboutPerson } from "@/lib/about/about-data";
 import styles from "./AboutPage.module.scss";
 
-function BoardList({ heading, people }: { heading: string; people: AboutPerson[] }) {
+function BoardList({ id, heading, people }: { id: string; heading: string; people: AboutPerson[] }) {
   return (
-    <section className={`container ${styles.block}`}>
+    <section id={id} className={`container ${styles.block} ${styles.anchor}`}>
       <h2 className={styles.heading}>{heading}</h2>
       <div className={styles.boardGrid}>
         {people.map((p) => (
@@ -209,16 +209,18 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
 
           {/* Advisory boards */}
           <BoardList
+            id="academic-advisory-board"
             heading={data.academicBoard.heading}
             people={data.academicBoard.people}
           />
           <BoardList
+            id="industry-advisory-board"
             heading={data.industryBoard.heading}
             people={data.industryBoard.people}
           />
 
           {/* Honours & Achievements */}
-          <section className="bg-light-yellow">
+          <section id="awards" className={`bg-light-yellow ${styles.anchor}`}>
             <div className={`container ${styles.block} ${styles.honours}`}>
               <div className={styles.yearNav}>
                 {data.honours.years.map((y) => (
