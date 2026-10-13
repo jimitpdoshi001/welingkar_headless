@@ -1,3 +1,6 @@
+// Placeholder while docked: must stack above later sections (some use z-index 2).
+div.slot { position: relative; z-index: 99; }
+
 // Docked state: pinned under the fixed site header (top set inline), full width.
 // `nav.` outranks the bar's own `position: relative` regardless of stylesheet order.
 nav.stuck {

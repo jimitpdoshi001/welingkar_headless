@@ -261,7 +261,11 @@ export function CampusPage({ data }: { data: CampusData }) {
                   className={styles.worldPlay}
                   aria-hidden="true"
                 />
-                <span className={styles.worldCaption}>{data.world.caption}</span>
+                {/* Figma: line break before "| A Quick Look…". */}
+                <span className={styles.worldCaption}>
+                  {data.world.caption.split(" | ")[0]}
+                  <br />| {data.world.caption.split(" | ")[1]}
+                </span>
               </VideoPopup>
             </div>
           </section>

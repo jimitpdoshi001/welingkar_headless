@@ -58,7 +58,9 @@ export function StickyInPageNav({ className, label, children }: StickyInPageNavP
       ref={slotRef}
       // Holds the bar's space while it is docked so the page does not jump.
       style={stuck ? { height } : undefined}
-      className={stuck ? className : undefined}>
+      // The slot borrows the bar's class for spacing; `slot` lifts its stacking level so
+      // the docked bar (z 99) is not capped by that class's z-index.
+      className={stuck ? `${className} ${styles.slot}` : undefined}>
       <nav
         ref={navRef}
         aria-label={label}
