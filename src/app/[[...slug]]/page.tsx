@@ -43,7 +43,8 @@ export default async function DrupalDynamicPage({ params }: PageProps) {
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
-        <main>
+        {/* Home page only: scroll reveal for text, media and buttons. */}
+        <main data-auto-reveal={!slug?.length ? "" : undefined}>
           <DrupalPageView page={page} />
         </main>
         <SearchOverlay />

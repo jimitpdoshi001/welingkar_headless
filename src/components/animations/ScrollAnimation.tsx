@@ -14,6 +14,27 @@ import {
   initCounterAnimation,
 } from "@/util/counterAnimation";
 
+// Auto-reveal: inside any `[data-auto-reveal]` root, text and buttons fade up
+// and media fades in, without tagging each element by hand.
+const AUTO_TEXT = "h1, h2, h3, h4, h5, h6, p, li, blockquote, a.btn, .btn, button";
+const AUTO_MEDIA = "img, video, picture";
+
+function tagAutoReveal(scope: HTMLElement) {
+  scope.querySelectorAll<HTMLElement>("[data-auto-reveal]").forEach((root) => {
+    const tag = (selector: string, cls: string) => {
+      root.querySelectorAll<HTMLElement>(selector).forEach((el) => {
+        // Skip anything already animated, or nested in an animated element,
+        // so an element is never moved by two tweens at once.
+        if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
+        el.classList.add(cls);
+      });
+    };
+    tag(AUTO_TEXT, "animate-fade-in-up");
+    // Opacity only: moving absolutely positioned media would expose gaps.
+    tag(AUTO_MEDIA, "animate-fade-in");
+  });
+}
+
 // Ensure ScrollTrigger is registered safely on the client side
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -71,6 +92,8 @@ export function ScrollAnimationProvider({
       currentScopeRef?.current || containerRef.current || document.body;
 
     if (!targetScope) return;
+
+    tagAutoReveal(targetScope);
 
     if (prefersReducedMotion) {
       // In reduced motion mode, show elements immediately without animation
