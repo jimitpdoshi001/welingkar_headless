@@ -91,7 +91,7 @@ export const MAIN_NAV: MainNavItem[] = [
     panel: {
       intro: [
         { title: "PGDM Mumbai Campus", subtitle: "AICTE Approved Standalone Institute", href: "/campuses/mumbai" },
-        { title: "MMS / PhD", subtitle: "Autonomous Institute Affiliated to University of Mumbai", href: "/programmes/mms" },
+        { title: "MMS / PhD", subtitle: "Autonomous Institute Affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
         { title: "PGDM Bengaluru", subtitle: "AICTE Approved Standalone Institute", href: "/campuses/bengaluru" },
       ],
       columns: [
