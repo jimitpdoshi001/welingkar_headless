@@ -35,6 +35,27 @@ a {
   font-size: inherit;
 }
 
+// iOS/Safari: stop system blue on form controls and on auto-detected
+// phone numbers, dates and addresses so text keeps its assigned colour.
+button,
+input,
+select,
+textarea {
+  color: inherit;
+}
+
+a[href^="tel:"],
+a[href^="mailto:"] {
+  color: inherit;
+  text-decoration: none;
+}
+
+a[x-apple-data-detectors] {
+  color: inherit !important;
+  font: inherit !important;
+  text-decoration: none !important;
+}
+
 p {
   margin-bottom: 1.5rem;
 

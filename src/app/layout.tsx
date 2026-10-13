@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   },
   description: "Headless Welingkar website powered by Drupal and Next.js",
   referrer: "strict-origin-when-cross-origin",
+  // Stop iOS Safari turning numbers/dates/addresses into blue links.
+  formatDetection: { telephone: false, date: false, address: false, email: false },
 };
 
 import { Suspense } from "react";
