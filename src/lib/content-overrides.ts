@@ -49,7 +49,7 @@ const WHAT_WE_OFFER_HEADINGS: Record<string, string[]> = {
   mumbai: [
     "Full-Time Programs",
     "Executive",
-    "Post Graduate Program (Autonomous)",
+    "Post Graduate Program",
     "PGDM Hybrid Program",
     "PGP & 6 months Certificate Programs",
     "Post Graduate Program in Temple Management (PGPTM)",
