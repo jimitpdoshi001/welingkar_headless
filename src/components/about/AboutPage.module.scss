@@ -35,7 +35,7 @@
 // Menu anchors (Who We Are links): keep the section clear of the fixed header.
 .anchor { scroll-margin-top: 12rem; @include respond-to(tab) { scroll-margin-top: 8rem; } }
 .whoWeAre { position: relative; padding-block: 5rem 7rem; overflow: hidden; :global(.container) { overflow: hidden; } text-align: center; }
-.watermark { display: block; font-size: 15rem; font-weight: 800; line-height: 1; color: rgba(112,163,68,0.12); white-space: nowrap; margin-bottom: -3rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; margin-bottom: -1rem; } }
+.watermark { display: block; font-size: 15rem; font-weight: 800; line-height: 1; color: rgba(112,163,68,0.12); white-space: nowrap; margin-bottom: 2.4rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; margin-bottom: 1.6rem; } }
 .whoBody { position: relative; font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin: 0 auto; }
 .whoBody + .whoBody { margin-top: 1.6rem; }
 // Figma 2128:185 / 2128:184: purple watermark, black 16/20 body.
