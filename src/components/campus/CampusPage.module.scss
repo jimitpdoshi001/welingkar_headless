@@ -9,6 +9,8 @@
 .band { background: var(--campus-band, var(--color-secondary)); }
 .page { padding-top: 10.5rem; @include respond-to(tab) { padding-top: 6.2rem; } }
 
+.smallBtn:global(.btn) { display: inline-flex; align-items: center; justify-content: center; min-width: 9.8rem; height: 3.75rem; padding: 0 2rem; font-size: 1.2rem; font-weight: 600; }
+
 // Mumbai design uses orange primary buttons (Figma #f77100).
 .orangeCtas :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }
 
@@ -97,7 +99,7 @@
 .recHead { display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; margin-bottom: 3.2rem; text-align: left; > div { max-width: 97.8rem; } @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 2rem; } }
 
 .recHeading {
-  font-size: 3.6rem;
+  font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1.6rem;
   text-align: left;
@@ -107,8 +109,8 @@
 
 .recDescription {
   font-size: 1.6rem;
-  line-height: 1.7;
-  color: var(--color-gray);
+  line-height: 1.3;
+  color: var(--color-black);
   text-align: left;
   margin: 0;
 }
@@ -143,7 +145,7 @@
 /* ---- Added sections (Figma match) ---- */
 
 .sectionHeading {
-  font-size: 3.6rem;
+  font-size: 4rem;
   font-weight: 800;
   line-height: 1.2;
   color: var(--color-black);
@@ -153,7 +155,7 @@
 }
 
 .sectionHeadingCenter {
-  font-size: 3.6rem;
+  font-size: 4rem;
   font-weight: 800;
   line-height: 1.2;
   color: var(--color-black);
@@ -200,16 +202,16 @@
 /* Director's Desk */
 .director {
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 4.8rem;
+  grid-template-columns: minmax(0, 53.6rem) minmax(0, 54.9rem);
+  gap: 4rem;
   align-items: center;
 
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
 }
-.directorImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 4 / 4.2; object-fit: cover; }
+.directorImage { width: 100%; border-radius: 2.5rem; aspect-ratio: 536 / 387; object-fit: cover; }
 .directorName { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
-.directorRole { font-size: 1.6rem; color: var(--color-gray); margin-bottom: 2rem; }
-.directorBody { font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 2.4rem; }
+.directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
+.directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
 
 /* Mentors grid */
 .mentorsBar {
@@ -220,11 +222,11 @@
   margin-bottom: 3.2rem;
   flex-wrap: wrap;
 }
-.mentorTabs { display: flex; flex-wrap: wrap; gap: 3.2rem; }
-.mentorTab { font-size: 1.8rem; color: var(--color-gray); cursor: pointer; position: relative; padding-bottom: 0.6rem; }
+.mentorTabs { display: flex; flex-wrap: wrap; gap: 1.6rem 7.6rem; @include respond-to(tab) { gap: 1.2rem 3.2rem; } }
+.mentorTab { font-size: 2.4rem; font-weight: 300; color: #808080; cursor: pointer; position: relative; padding-bottom: 0.8rem; @include respond-to(mobile) { font-size: 1.8rem; } }
 .mentorTabActive {
   color: var(--faculty-accent, var(--color-primary));
-  font-weight: 700;
+  font-weight: 600;
   &::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--faculty-accent, var(--color-primary)); }
 }
 .barActions { display: flex; align-items: center; gap: 2rem; }
@@ -246,7 +248,7 @@
 .mentorCard { display: flex; flex-direction: column; }
 .mentorImage { width: 100%; aspect-ratio: 190 / 175; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
 .mentorName { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
-.mentorRole { font-size: 1.3rem; color: var(--color-gray); line-height: 1.4; margin-bottom: 0.8rem; }
+.mentorRole { font-size: 1.3rem; color: var(--color-black); line-height: 1.4; margin-bottom: 0.8rem; }
 .mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
@@ -266,7 +268,7 @@
   @include respond-to(tab) { inset: 0; width: 100%; height: 100%; object-fit: cover; }
 }
 .weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
-.weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
+.weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 4rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
 .weresearchBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); max-width: 88.2rem; margin: 0 auto 3.2rem; }
 .world .sectionHeading { margin-bottom: 4rem; }
 // Figma: 1240 x 570 video card, centred 50px play button, frosted caption bottom-left.

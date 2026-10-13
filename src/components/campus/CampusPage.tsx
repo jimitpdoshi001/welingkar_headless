@@ -129,7 +129,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                   <p className={styles.directorBody}>{data.director.body}</p>
                   <Link
                     href={data.director.cta.href}
-                    className="btn accent">
+                    className={`btn accent ${styles.smallBtn}`}>
                     {data.director.cta.label}
                   </Link>
                 </div>
@@ -152,7 +152,7 @@ export function CampusPage({ data }: { data: CampusData }) {
               <div className={styles.barActions}>
                 <Link
                   href={data.mentors.cta.href}
-                  className="btn accent">
+                  className={`btn accent ${styles.smallBtn}`}>
                   {data.mentors.cta.label}
                 </Link>
                 <ScrollArrows targetId="campus-mentors" />
@@ -245,7 +245,7 @@ export function CampusPage({ data }: { data: CampusData }) {
               <div className={styles.recCta}>
                 <Link
                   href={data.recruiters.cta.href}
-                  className="btn accent">
+                  className={`btn accent ${styles.smallBtn}`}>
                   {data.recruiters.cta.label}
                 </Link>
               </div>
@@ -274,7 +274,7 @@ export function CampusPage({ data }: { data: CampusData }) {
               <p className={styles.weresearchBody}>{data.weresearch.description}</p>
               <Link
                 href={data.weresearch.cta.href}
-                className="btn accent">
+                className={`btn accent ${styles.smallBtn}`}>
                 {data.weresearch.cta.label}
               </Link>
             </div>
@@ -310,7 +310,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                 <p className={styles.lifeBody}>{data.life.body}</p>
                 <Link
                   href={data.life.cta.href}
-                  className="btn accent">
+                  className={`btn accent ${styles.smallBtn}`}>
                   {data.life.cta.label}
                 </Link>
               </div>

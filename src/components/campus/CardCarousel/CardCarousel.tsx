@@ -71,9 +71,9 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
       <Swiper
         modules={[Navigation]}
         slidesPerView={1.1}
-        spaceBetween={24}
+        spaceBetween={20}
         grabCursor
-        breakpoints={{ 576: { slidesPerView: 1.6 }, 768: { slidesPerView: 2.3 }, 1024: { slidesPerView: 3.2 } }}
+        breakpoints={{ 576: { slidesPerView: 1.6 }, 768: { slidesPerView: 2.3 }, 1024: { slidesPerView: 3.1 } }}
         onBeforeInit={(s) => {
           if (s.params.navigation && typeof s.params.navigation !== "boolean") {
             s.params.navigation.prevEl = prevRef.current;

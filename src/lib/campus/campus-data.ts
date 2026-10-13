@@ -207,7 +207,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       caption: `Welingkar ${campus} Campus Tour | A Quick Look at a PGDM College in India`,
     },
     life: {
-      heading: "Life @ WeSchool",
+      heading: "Life @WeSchool",
       body: "Bridging the gap between academia and industry, Prin. L. N. Welingkar Institute of Management Development and Research (WeSchool) has emerged as a torchbearer for progressive higher education. Established in 1977, WeSchool operates under the guidance of the S.P. Mandali Trust, one of the oldest educational trusts in India. With campuses in Mumbai and Bengaluru, WeSchool continues to foster an environment of innovation, industry relevance and experiential learning.",
       image: CIMG.life,
       cta: { label: "Know More", href: "#life" },
