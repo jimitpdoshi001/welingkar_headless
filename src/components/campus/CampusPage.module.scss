@@ -63,7 +63,14 @@
 .statValue { font-size: clamp(4rem, 2.6rem + 2.4vw, 6rem); font-weight: 700; color: var(--color-secondary); line-height: 1; }
 .statLabel { font-size: 1.6rem; font-weight: 500; color: var(--color-black); margin-top: 1.4rem; }
 // Full-width photo whose top fades into the cream band.
-.aboutPhoto { display: block; width: 100%; height: clamp(28rem, 40vw, 56rem); object-fit: cover; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%); background: var(--color-light); }
+// Desktop (Figma 979:1505): copy and photo share one grid cell; the photo starts
+// 178px below the band top at its native 1440 x 906 ratio and ends the band.
+// Tablet/mobile stack them so the photo never sits under the text.
+.aboutBand { display: grid; @include respond-to(tab) { display: block; } }
+.about { grid-area: 1 / 1; align-self: start; z-index: 1; }
+.aboutPhoto { grid-area: 1 / 1; display: block; width: 100%; height: auto; aspect-ratio: 1440 / 906; margin-top: 17.8rem; object-fit: cover;
+  @include respond-to(tab) { margin-top: 0; }
+}
 
 // Faculty network (Figma 979:1564): 1240 x 547 photo card, copy top-left,
 // category list bottom-left with dividers; active item has an accent arrow.

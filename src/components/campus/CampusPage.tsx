@@ -87,13 +87,13 @@ export function CampusPage({ data }: { data: CampusData }) {
               ))}
             </div>
             </div>
+            {/* Figma 979:1509: full-width photo (fade baked in) sitting behind the copy. */}
+            <img
+              src={data.about.image}
+              alt=""
+              className={styles.aboutPhoto}
+            />
           </section>
-          {/* Figma: full-width campus photo fading up into the About band. */}
-          <img
-            src={data.about.image}
-            alt=""
-            className={styles.aboutPhoto}
-          />
 
           <section className={`container ${styles.block} ${styles.accred}`}>
             <h2 className={styles.sectionHeading}>{data.accreditations.heading}</h2>
