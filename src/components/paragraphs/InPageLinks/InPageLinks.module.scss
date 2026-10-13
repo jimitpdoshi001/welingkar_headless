@@ -122,7 +122,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.6rem 0;
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   color: var(--color-black, #333333);
   text-decoration: none;
   white-space: nowrap;
@@ -137,7 +137,7 @@
 
   @include respond-to(mobile) {
     padding: 1.2rem 0;
-    font-size: 1.23rem;
+    font-size: 1.4rem;
   }
 }
 

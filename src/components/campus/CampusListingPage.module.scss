@@ -1,7 +1,7 @@
 @use "../../styles/base/mixins" as *;
 
 .crumbWrap { padding-top: 13rem; @include respond-to(tab) { padding-top: 8.6rem; } }
-.breadcrumb { font-size: 1.23rem; display: flex; align-items: center; gap: 0.8rem; margin-bottom: 3rem; svg { display: block; } a { color: var(--color-gray); text-decoration: none; } span { color: var(--color-gray); } }
+.breadcrumb { font-size: 1.4rem; display: flex; align-items: center; gap: 0.8rem; margin-bottom: 3rem; svg { display: block; } a { color: var(--color-gray); text-decoration: none; } span { color: var(--color-gray); } }
 
 // Figma: rows 97px apart; the tinted band has ~119px above/below its row.
 .rowSection { padding-block: 4rem 5.7rem; @include respond-to(mobile) { padding-block: 2.4rem; } }
@@ -43,6 +43,6 @@
 }
 .rowSection.tinted .card { background: transparent; border: 1px solid rgba(0, 0, 0, 0.2); }
 
-.title { font-size: clamp(2.11rem, 1.76rem + 0.53vw, 2.64rem); line-height: 1.2; font-weight: 800; margin-bottom: 0.8rem; @include respond-to(mobile) { font-size: 2.11rem; } }
-.eyebrow { font-size: 1.41rem; color: var(--color-black); margin-bottom: 2.4rem; }
-.body { font-size: 1.41rem; line-height: 1.35; color: var(--color-black); margin-bottom: 3rem; }
+.title { font-size: clamp(2.4rem, 2rem + 0.6vw, 3rem); line-height: 1.2; font-weight: 800; margin-bottom: 0.8rem; @include respond-to(mobile) { font-size: 2.4rem; } }
+.eyebrow { font-size: 1.6rem; color: var(--color-black); margin-bottom: 2.4rem; }
+.body { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); margin-bottom: 3rem; }

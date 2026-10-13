@@ -3,15 +3,15 @@
 .root { width: 100%; }
 
 .heading {
-  font-size: 3.17rem;
+  font-size: 3.6rem;
   font-weight: 800;
   margin-bottom: 1.2rem;
 
-  @include respond-to(mobile) { font-size: 2.29rem; }
+  @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
 .description {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   line-height: 1.7;
   color: var(--color-gray);
   max-width: 90rem;
@@ -35,7 +35,7 @@
   background: var(--color-light);
   border-radius: 1rem;
   padding: 1.6rem 2rem;
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   color: var(--color-dark-gray);
   min-height: 5.6rem;
 }

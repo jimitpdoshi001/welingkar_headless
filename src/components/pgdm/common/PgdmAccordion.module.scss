@@ -45,11 +45,11 @@
 }
 
 .label {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 700;
   text-align: left;
 
-  @include respond-to(mobile) { font-size: 1.32rem; }
+  @include respond-to(mobile) { font-size: 1.5rem; }
 }
 
 .toggle {

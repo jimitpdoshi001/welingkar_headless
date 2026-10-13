@@ -21,7 +21,7 @@ $profile-bg: #f1eefb;
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   color: var(--color-gray);
   margin-bottom: 3.2rem;
 
@@ -83,25 +83,25 @@ $profile-bg: #f1eefb;
 }
 
 .name {
-  font-size: 1.94rem;
+  font-size: 2.2rem;
   font-weight: 600;
   color: var(--color-black);
   line-height: 1.25;
   margin-bottom: 0.6rem;
 
   @include respond-to(mobile) {
-    font-size: 1.94rem;
+    font-size: 2.2rem;
   }
 }
 
 .designation {
-  font-size: 1.58rem;
+  font-size: 1.8rem;
   color: var(--color-black);
   margin-bottom: 2.4rem;
 }
 
 .body {
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   line-height: 1.4;
   color: var(--color-black);
   max-width: 60.5rem;
@@ -141,7 +141,7 @@ $profile-bg: #f1eefb;
 .tabBtn {
   background: transparent;
   border: none;
-  font-size: 1.58rem;
+  font-size: 1.8rem;
   padding-bottom: 1.2rem;
   color: var(--color-gray);
   cursor: pointer;
@@ -155,7 +155,7 @@ $profile-bg: #f1eefb;
   }
 
   @include respond-to(mobile) {
-    font-size: 1.41rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -181,13 +181,13 @@ $profile-bg: #f1eefb;
 }
 
 .blockHeading {
-  font-size: 1.76rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-black);
   margin-bottom: 1.2rem;
 
   @include respond-to(mobile) {
-    font-size: 1.58rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -199,7 +199,7 @@ $profile-bg: #f1eefb;
   li {
     position: relative;
     padding-left: 1.8rem;
-    font-size: 1.41rem;
+    font-size: 1.6rem;
     line-height: 1.6;
     color: var(--color-dark-gray);
     margin-bottom: 0.6rem;
@@ -214,7 +214,7 @@ $profile-bg: #f1eefb;
 }
 
 .text {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   color: var(--color-dark-gray);
   margin-bottom: 0.4rem;
@@ -226,7 +226,7 @@ $profile-bg: #f1eefb;
   height: 3.75rem;
   padding: 0 2rem;
   border-radius: 2rem;
-  font-size: 1.06rem;
+  font-size: 1.2rem;
   background-color: var(--faculty-accent, var(--color-primary));
   border-color: var(--faculty-accent, var(--color-primary));
 }

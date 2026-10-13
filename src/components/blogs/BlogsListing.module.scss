@@ -9,7 +9,7 @@
   align-items: center;
   gap: 0.8rem;
   color: var(--color-gray);
-  font-size: 1.14rem;
+  font-size: 1.3rem;
   margin-bottom: 2.4rem;
 
   a {
@@ -31,7 +31,7 @@
 }
 
 .heading {
-  font-size: 4.93rem;
+  font-size: 5.6rem;
   font-weight: 800;
   line-height: 1.05;
   color: var(--color-dark-gray);
@@ -54,7 +54,7 @@
   border: 0;
   border-bottom: 3px solid transparent;
   padding: 0 0 1.2rem;
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   font-weight: 500;
   color: var(--color-gray);
   white-space: nowrap;
@@ -101,7 +101,7 @@
   border-radius: 0.8rem;
   background: var(--color-white);
   color: var(--color-gray);
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   padding: 1.2rem 3.6rem 1.2rem 1.4rem;
   border-radius: 50vw;
 
@@ -112,7 +112,7 @@
 }
 
 .categoriesHeading {
-  font-size: 1.76rem;
+  font-size: 2rem;
   font-weight: 600;
   margin-bottom: 0.8rem;
 }
@@ -132,7 +132,7 @@
   border: 0;
   padding: 1.4rem 0;
   text-align: left;
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   color: var(--color-gray);
   cursor: pointer;
 
@@ -178,7 +178,7 @@
   .category,
   .categoryActive {
     padding: 1rem 0;
-    font-size: 1.23rem;
+    font-size: 1.4rem;
     border: 0;
   }
 }
@@ -224,7 +224,7 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 50vw;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: var(--color-dark-gray);
 }
@@ -246,7 +246,7 @@
 
 .empty {
   color: var(--color-gray);
-  font-size: 1.41rem;
+  font-size: 1.6rem;
 }
 
 .pagination {
@@ -295,7 +295,7 @@
   border: 0;
   background: none;
   cursor: pointer;
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   font-weight: 400;
   color: var(--color-primary);
   min-width: 3.2rem;
@@ -331,7 +331,7 @@
 
 @include respond-to(tab) {
   .heading {
-    font-size: 3.7rem;
+    font-size: 4.2rem;
     margin-bottom: 3.2rem;
   }
 
@@ -355,7 +355,7 @@
   }
 
   .heading {
-    font-size: 2.82rem;
+    font-size: 3.2rem;
   }
 
   .tabs {

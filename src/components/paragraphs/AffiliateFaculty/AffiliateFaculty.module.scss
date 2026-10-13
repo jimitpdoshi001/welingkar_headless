@@ -7,23 +7,23 @@
 }
 
 .heading {
-  font-size: 3.52rem;
+  font-size: 4rem;
   font-weight: 800;
   color: var(--color-black);
   line-height: 1.2;
   margin-bottom: 1.2rem;
 
   @include respond-to(tab) {
-    font-size: 2.82rem;
+    font-size: 3.2rem;
   }
 
   @include respond-to(mobile) {
-    font-size: 2.29rem;
+    font-size: 2.6rem;
   }
 }
 
 .description {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   color: var(--color-gray);
   margin-bottom: 2.4rem;
@@ -56,7 +56,7 @@
 .tabBtn {
   background: transparent;
   border: none;
-  font-size: 1.58rem;
+  font-size: 1.8rem;
   padding-bottom: 1.2rem;
   color: var(--color-gray);
   cursor: pointer;
@@ -70,7 +70,7 @@
   }
 
   @include respond-to(mobile) {
-    font-size: 1.41rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -104,7 +104,7 @@
 }
 
 .name {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--color-black);
   line-height: 1.35;
@@ -112,14 +112,14 @@
 }
 
 .designation {
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   color: var(--color-gray);
   margin-bottom: 0.8rem;
 }
 
 .readMore {
   color: var(--faculty-accent, var(--color-primary));
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   font-weight: 600;
   text-decoration: none;
   display: inline-block;

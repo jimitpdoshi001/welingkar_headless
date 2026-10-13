@@ -11,15 +11,15 @@
 }
 
 .heading {
-  font-size: 3.17rem;
+  font-size: 3.6rem;
   font-weight: 800;
   margin-bottom: 1rem;
 
-  @include respond-to(mobile) { font-size: 2.29rem; }
+  @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
 .description {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   color: var(--color-gray);
   max-width: 60rem;
@@ -76,15 +76,15 @@
 }
 
 .title {
-  font-size: 1.94rem;
+  font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.8rem;
 
-  @include respond-to(mobile) { font-size: 1.58rem; }
+  @include respond-to(mobile) { font-size: 1.8rem; }
 }
 
 .position {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 1.6rem;
 }
@@ -97,17 +97,17 @@
   flex-direction: column;
   gap: 0.8rem;
 
-  li { font-size: 1.32rem; line-height: 1.5; color: var(--color-dark-gray); }
+  li { font-size: 1.5rem; line-height: 1.5; color: var(--color-dark-gray); }
 }
 
 .teamLabel {
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 0.4rem;
 }
 
 .team {
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
 }

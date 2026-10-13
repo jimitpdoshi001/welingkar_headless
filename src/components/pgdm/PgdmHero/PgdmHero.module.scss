@@ -52,7 +52,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   opacity: 0.9;
   margin-bottom: 2.4rem;
 
@@ -65,7 +65,7 @@
 }
 
 .title {
-  font-size: 3.87rem;
+  font-size: 4.4rem;
   font-weight: 800;
   line-height: 1.1;
   max-width: 62rem;
@@ -74,16 +74,16 @@
   margin-top: auto;
 
   @include respond-to(tab) {
-    font-size: 3.17rem;
+    font-size: 3.6rem;
   }
 
   @include respond-to(mobile) {
-    font-size: 2.46rem;
+    font-size: 2.8rem;
   }
 }
 
 .subtitle {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   max-width: 60rem;
   margin-bottom: 2.4rem;
@@ -98,7 +98,7 @@
   list-style: none;
   padding: 0;
   margin: 0 0 3.2rem;
-  font-size: 1.32rem;
+  font-size: 1.5rem;
 }
 
 .stat {

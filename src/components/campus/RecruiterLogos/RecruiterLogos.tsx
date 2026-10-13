@@ -18,8 +18,10 @@ type RecruiterLogosProps = {
   headClassName: string;
 };
 
-// Logos scroll on their own in a loop; hover pauses, arrows step one logo.
-const AUTOPLAY = { delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true };
+// Continuous marquee: no pause between slides, long linear transition (see scss),
+// so the row glides instead of stepping. Hover pauses; arrows still step.
+const AUTOPLAY = { delay: 0, disableOnInteraction: false, pauseOnMouseEnter: true };
+const SPEED = 3000;
 
 export function RecruiterLogos({ logos, header, headClassName }: RecruiterLogosProps) {
   const swiperRef = useRef<SwiperClass | null>(null);
@@ -31,7 +33,7 @@ export function RecruiterLogos({ logos, header, headClassName }: RecruiterLogosP
       <button
         type="button"
         className={arrowStyles.prev}
-        onClick={() => swiperRef.current?.slidePrev()}
+        onClick={() => swiperRef.current?.slidePrev(500)}
         aria-label="Previous recruiter">
         <ArrowLeft
           height={10}
@@ -41,7 +43,7 @@ export function RecruiterLogos({ logos, header, headClassName }: RecruiterLogosP
       <button
         type="button"
         className={arrowStyles.next}
-        onClick={() => swiperRef.current?.slideNext()}
+        onClick={() => swiperRef.current?.slideNext(500)}
         aria-label="Next recruiter">
         <ArrowRight
           height={10}
@@ -63,7 +65,9 @@ export function RecruiterLogos({ logos, header, headClassName }: RecruiterLogosP
           swiperRef.current = swiper;
         }}
         autoplay={AUTOPLAY}
+        speed={SPEED}
         loop
+        allowTouchMove={false}
         slidesPerView={2.5}
         spaceBetween={24}
         breakpoints={{ 576: { slidesPerView: 3.5 }, 768: { slidesPerView: 4 }, 1024: { slidesPerView: 6, spaceBetween: 40 } }}

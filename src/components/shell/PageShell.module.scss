@@ -24,7 +24,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   opacity: 0.9;
   margin-bottom: 1.2rem;
 
@@ -32,15 +32,15 @@
 }
 
 .title {
-  font-size: 3.87rem;
+  font-size: 4.4rem;
   font-weight: 800;
   line-height: 1.1;
 
-  @include respond-to(mobile) { font-size: 2.64rem; }
+  @include respond-to(mobile) { font-size: 3rem; }
 }
 
 .subtitle {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   max-width: 60rem;
   margin-top: 1.2rem;
   opacity: 0.95;
@@ -52,10 +52,10 @@
 
   .heroInner { position: static; padding-top: 0; padding-bottom: 9rem; }
   .title, .subtitle { position: relative; z-index: 1; }
-  .breadcrumb { position: absolute; z-index: 1; top: 12.6rem; font-size: 1.14rem; }
-  .title { font-size: 2.99rem; font-weight: 700; }
-  .subtitle { max-width: 108rem; font-size: 1.41rem; line-height: 1.4; }
+  .breadcrumb { position: absolute; z-index: 1; top: 12.6rem; font-size: 1.3rem; }
+  .title { font-size: 3.4rem; font-weight: 700; }
+  .subtitle { max-width: 108rem; font-size: 1.6rem; line-height: 1.4; }
 
   @include respond-to(tab) { min-height: 48rem; .breadcrumb { top: 9rem; } .heroInner { padding-bottom: 5rem; } }
-  @include respond-to(mobile) { min-height: 42rem; .title { font-size: 2.46rem; } }
+  @include respond-to(mobile) { min-height: 42rem; .title { font-size: 2.8rem; } }
 }

@@ -9,7 +9,7 @@
 .band { background: var(--campus-band, var(--color-secondary)); }
 .page { padding-top: 10.5rem; @include respond-to(tab) { padding-top: 6.2rem; } }
 
-.smallBtn:global(.btn) { display: inline-flex; align-items: center; justify-content: center; min-width: 9.8rem; height: 3.75rem; padding: 0 2rem; font-size: 1.06rem; font-weight: 600; }
+.smallBtn:global(.btn) { display: inline-flex; align-items: center; justify-content: center; min-width: 9.8rem; height: 3.75rem; padding: 0 2rem; font-size: 1.2rem; font-weight: 600; }
 
 // Mumbai design uses orange primary buttons (Figma #f77100).
 .orangeCtas :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }
@@ -19,10 +19,10 @@
   background: var(--campus-banner, var(--color-secondary));
   color: var(--color-white);
   text-align: center;
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   font-weight: 500;
   padding: 1.8rem 2rem;
-  @include respond-to(mobile) { font-size: 1.14rem; padding: 1.2rem 1.6rem; }
+  @include respond-to(mobile) { font-size: 1.3rem; padding: 1.2rem 1.6rem; }
 }
 
 // Hero (Figma 979:1819): 650px tall, title 48px, subtitle 22px.
@@ -38,15 +38,15 @@
   @include respond-to(tab) { padding-top: 14rem; }
   @include respond-to(mobile) { padding-top: 10rem; padding-bottom: 12rem; }
 }
-.heroTitle { font-size: clamp(2.64rem, 1.76rem + 1.94vw, 4.22rem); font-weight: 800; line-height: 1.2; max-width: 52.6rem; margin-bottom: 1.6rem; }
-.heroSubtitle { font-size: clamp(1.41rem, 1.14rem + 0.53vw, 1.94rem); max-width: 52rem; margin-bottom: 4.4rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }
+.heroTitle { font-size: clamp(3rem, 2rem + 2.2vw, 4.8rem); font-weight: 800; line-height: 1.2; max-width: 52.6rem; margin-bottom: 1.6rem; }
+.heroSubtitle { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); max-width: 52rem; margin-bottom: 4.4rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }
 
 // In-page nav (Figma 1517:171): white bar overlapping the hero bottom.
 .inPageNav { position: relative; z-index: 2; margin-top: -9.8rem; margin-bottom: 3.8rem; background: var(--color-white); box-shadow: 1.9rem 1.5rem 4.6rem rgba(0, 0, 0, 0.14); }
 .inPageNavInner { display: flex; justify-content: center; gap: 3.4rem; overflow-x: auto; scrollbar-width: none; &::-webkit-scrollbar { display: none; }
   @include respond-to(tab) { justify-content: flex-start; gap: 2.4rem; }
 }
-.inPageLink { display: block; padding: 2.1rem 0 1.6rem; font-size: 1.23rem; color: var(--color-black); white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s ease;
+.inPageLink { display: block; padding: 2.1rem 0 1.6rem; font-size: 1.4rem; color: var(--color-black); white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s ease;
   &:hover { color: var(--color-primary); }
 }
 .inPageActive { color: var(--color-primary); font-weight: 700; border-bottom-color: var(--color-primary); }
@@ -58,12 +58,12 @@
   }
 }
 .about { position: relative; padding-block: 11rem 4rem; text-align: center; @include respond-to(mobile) { padding-block: 7rem 3rem; } }
-.aboutHeading { font-size: clamp(2.46rem, 1.76rem + 1.41vw, 3.3rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 36rem; margin: 0 auto 3.6rem; }
-.aboutBody { font-size: 1.85rem; font-weight: 300; line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; @include respond-to(mobile) { font-size: 1.58rem; } }
+.aboutHeading { font-size: clamp(2.8rem, 2rem + 1.6vw, 3.75rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 36rem; margin: 0 auto 3.6rem; }
+.aboutBody { font-size: 2.1rem; font-weight: 300; line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; @include respond-to(mobile) { font-size: 1.8rem; } }
 .stats { display: flex; justify-content: center; gap: clamp(4rem, 14vw, 21rem); margin-top: 4rem; flex-wrap: wrap; @include respond-to(mobile) { gap: 2.4rem 3.6rem; } }
 .stat { display: flex; flex-direction: column; align-items: center; }
-.statValue { font-size: clamp(3.52rem, 2.29rem + 2.11vw, 5.28rem); font-weight: 700; color: var(--color-secondary); line-height: 1; }
-.statLabel { font-size: 1.41rem; font-weight: 500; color: var(--color-black); margin-top: 1.4rem; }
+.statValue { font-size: clamp(4rem, 2.6rem + 2.4vw, 6rem); font-weight: 700; color: var(--color-secondary); line-height: 1; }
+.statLabel { font-size: 1.6rem; font-weight: 500; color: var(--color-black); margin-top: 1.4rem; }
 // Full-width photo whose top fades into the cream band.
 // Desktop (Figma 979:1505): copy and photo share one grid cell; the photo starts
 // 178px below the band top at its native 1440 x 906 ratio and ends the band.
@@ -83,13 +83,13 @@
   @include respond-to(mobile) { padding: 3.2rem 2.4rem; min-height: 46rem; }
 }
 .facultyText { max-width: 60.4rem; }
-.facultyHeading { font-size: clamp(2.29rem, 1.76rem + 1.06vw, 3.17rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.6rem; color: var(--color-white); }
-.facultyBody { font-size: 1.41rem; line-height: 1.35; color: var(--color-white); }
+.facultyHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.6rem; color: var(--color-white); }
+.facultyBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-white); }
 .facultyTabs { list-style: none; padding: 0; margin: 0; width: min(100%, 24.6rem); }
 // Dimmed by default; hover/focus brings full opacity and the accent arrow.
 .facultyTabs li { border-bottom: 1px solid rgba(255, 255, 255, 0.3); &:last-child { border-bottom: 0; } }
-.facultyTab { display: block; padding-block: 1.4rem; font-size: 1.76rem; color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.2s ease;
-  @include respond-to(mobile) { font-size: 1.41rem; }
+.facultyTab { display: block; padding-block: 1.4rem; font-size: 2rem; color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.2s ease;
+  @include respond-to(mobile) { font-size: 1.6rem; }
   &::after { content: ""; display: inline-block; margin-left: 1.2rem; border-style: solid; border-width: 0.6rem 0 0.6rem 0.9rem; border-color: transparent transparent transparent var(--faculty-accent, var(--color-primary)); opacity: 0; transition: opacity 0.2s ease; }
   &:hover, &:focus-visible { color: var(--color-white); &::after { opacity: 1; } }
 }
@@ -99,16 +99,16 @@
 .recHead { display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; margin-bottom: 3.2rem; text-align: left; > div { max-width: 97.8rem; } @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 2rem; } }
 
 .recHeading {
-  font-size: 3.52rem;
+  font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1.6rem;
   text-align: left;
 
-  @include respond-to(mobile) { font-size: 2.29rem; }
+  @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
 .recDescription {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   line-height: 1.3;
   color: var(--color-black);
   text-align: left;
@@ -136,29 +136,29 @@
   @include respond-to(tab) { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 2.8rem; }
   :global(.btn) { flex-shrink: 0; }
 }
-.lifeBody { max-width: 86.9rem; font-size: 1.41rem; line-height: 1.35; color: var(--color-black); margin: 0; }
+.lifeBody { max-width: 86.9rem; font-size: 1.6rem; line-height: 1.35; color: var(--color-black); margin: 0; }
 
 /* ---- Added sections (Figma match) ---- */
 
 .sectionHeading {
-  font-size: 3.52rem;
+  font-size: 4rem;
   font-weight: 800;
   line-height: 1.2;
   color: var(--color-black);
   margin-bottom: 3.2rem;
 
-  @include respond-to(mobile) { font-size: 2.29rem; margin-bottom: 2.4rem; }
+  @include respond-to(mobile) { font-size: 2.6rem; margin-bottom: 2.4rem; }
 }
 
 .sectionHeadingCenter {
-  font-size: 3.52rem;
+  font-size: 4rem;
   font-weight: 800;
   line-height: 1.2;
   color: var(--color-black);
   text-align: center;
   margin-bottom: 1.6rem;
 
-  @include respond-to(mobile) { font-size: 2.29rem; }
+  @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
 .rowHead {
@@ -192,7 +192,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
-  li { font-size: 1.41rem; font-weight: 500; line-height: 3rem; color: var(--color-black); &::marker { color: var(--color-black); } }
+  li { font-size: 1.6rem; font-weight: 500; line-height: 3rem; color: var(--color-black); &::marker { color: var(--color-primary); } }
 }
 
 /* Director's Desk */
@@ -205,9 +205,9 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 .directorImage { width: 100%; border-radius: 2.5rem; aspect-ratio: 536 / 387; object-fit: cover; }
-.directorName { font-size: 1.94rem; font-weight: 700; margin-bottom: 0.4rem; }
-.directorRole { font-size: 1.58rem; color: var(--color-black); margin-bottom: 2.4rem; }
-.directorBody { font-size: 1.41rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
+.directorName { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+.directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
+.directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
 
 /* Mentors grid */
 .mentorsBar {
@@ -219,7 +219,7 @@
   flex-wrap: wrap;
 }
 .mentorTabs { display: flex; flex-wrap: wrap; gap: 1.6rem 5.6rem; @include respond-to(tab) { gap: 1.2rem 3.2rem; } }
-.mentorTab { appearance: none; background: none; border: 0; font-family: inherit; text-align: left; font-size: 1.58rem; font-weight: 300; color: gray; cursor: pointer; position: relative; padding-bottom: 0.8rem; }
+.mentorTab { appearance: none; background: none; border: 0; font-family: inherit; text-align: left; font-size: 1.8rem; font-weight: 300; color: gray; cursor: pointer; position: relative; padding-bottom: 0.8rem; }
 .mentorTabActive {
   color: var(--faculty-accent, var(--color-primary));
   font-weight: 600;
@@ -228,9 +228,9 @@
 .barActions { display: flex; align-items: center; gap: 2rem; }
 .mentorCard { display: flex; flex-direction: column; }
 .mentorImage { width: 100%; aspect-ratio: 190 / 175; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
-.mentorName { font-size: 1.41rem; font-weight: 700; margin-bottom: 0.4rem; }
-.mentorRole { font-size: 1.14rem; color: var(--color-black); line-height: 1.4; margin-bottom: 0.8rem; }
-.mentorLink { font-size: 1.14rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
+.mentorName { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
+.mentorRole { font-size: 1.3rem; color: var(--color-black); line-height: 1.4; margin-bottom: 0.8rem; }
+.mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
 // Desktop: the photo (fade baked into the export) keeps its Figma box, scaled
@@ -249,17 +249,17 @@
   @include respond-to(tab) { inset: 0; width: 100%; height: 100%; object-fit: cover; }
 }
 .weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
-.weresearchHeading { font-size: clamp(2.29rem, 1.76rem + 1.06vw, 3.52rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
-.weresearchBody { font-size: 1.41rem; line-height: 1.35; color: var(--color-black); max-width: 88.2rem; margin: 0 auto 3.2rem; }
-.world .sectionHeading { margin-bottom: 4rem; }
+.weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 4rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
+.weresearchBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); max-width: 88.2rem; margin: 0 auto 3.2rem; }
+.world .sectionHeading { margin-bottom: 4rem; font-size: 4.8rem; @include respond-to(mobile) { font-size: 3rem; } }
 // Figma: 1240 x 570 video card, centred 50px play button, frosted caption bottom-left.
 .worldMedia { position: relative; border-radius: 2.4rem; overflow: hidden; }
 .worldImage { display: block; width: 100%; aspect-ratio: 1240 / 570; object-fit: cover; @include respond-to(mobile) { aspect-ratio: 4 / 3; } }
 .worldPlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 5rem; height: 5rem; border-radius: 50%; background: var(--color-secondary);
   &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent #fff; }
 }
-.worldCaption { position: absolute; left: 2.3rem; bottom: 2.1rem; max-width: 42.4rem; margin: 0; padding: 3.5rem 3.4rem; border-radius: 2rem; font-size: 1.41rem; font-weight: 500; line-height: 1.3; color: var(--color-black); background: rgba(255, 255, 255, 0.85); -webkit-backdrop-filter: blur(1.2rem); backdrop-filter: blur(1.2rem);
-  @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; font-size: 1.23rem; }
+.worldCaption { position: absolute; left: 2.3rem; bottom: 2.1rem; max-width: 42.4rem; margin: 0; padding: 3.5rem 3.4rem; border-radius: 2rem; font-size: 1.6rem; font-weight: 500; line-height: 1.3; color: var(--color-black); background: rgba(255, 255, 255, 0.85); -webkit-backdrop-filter: blur(1.2rem); backdrop-filter: blur(1.2rem);
+  @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; font-size: 1.4rem; }
 }
 
 /* Candid moments (Figma 979:1616-1621): 3 columns x 3 rows of ~255px. */
@@ -313,18 +313,18 @@
   padding: 3.2rem 3.8rem; border-radius: 2.5rem;
   background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.44);
   -webkit-backdrop-filter: blur(1.8rem); backdrop-filter: blur(1.8rem);
-  h3 { font-size: 1.41rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.6rem; }
+  h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.6rem; }
   @include respond-to(mobile) { left: 1.2rem; right: 1.2rem; bottom: 1.2rem; padding: 1.6rem; }
 }
 .newsRow { display: contents; @include respond-to(tab) { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; grid-column: 1 / -1; } }
 @include respond-to(mobile) { .newsRow { grid-template-columns: 1fr; gap: 1.2rem; } }
 .newsSmallImage { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 2rem; @include respond-to(mobile) { aspect-ratio: 16 / 9; } }
 .newsSmallBody { position: relative; display: flex; flex-direction: column; aspect-ratio: 1; padding: 2.9rem 2.9rem 2.4rem; border-radius: 2rem; background: var(--color-white); box-shadow: 1.2rem 0.9rem 2.9rem rgba(0, 0, 0, 0.14);
-  h4 { font-size: 1.41rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.4rem; }
+  h4 { font-size: 1.6rem; font-weight: 600; line-height: 1.3; margin-bottom: 1.4rem; }
   .newsArrow { margin-top: auto; }
   @include respond-to(mobile) { aspect-ratio: auto; padding: 1.6rem; }
 }
-.newsDate { font-size: 1.06rem; color: var(--color-gray); margin: 0; }
+.newsDate { font-size: 1.2rem; color: var(--color-gray); margin: 0; }
 // Figma "Up" icon: 50px accent circle with a white play arrow.
 .newsArrow { flex-shrink: 0; position: relative; display: block; width: 5rem; height: 5rem; border-radius: 50%; background: var(--faculty-accent, var(--color-primary));
   &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.45rem 0 0.45rem 0.7rem; border-color: transparent transparent transparent #fff; }
@@ -339,16 +339,16 @@
 
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; }
 }
-.connectAddr { font-size: 1.41rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; margin-bottom: 1.2rem; }
-.connectPhone { display: flex; align-items: center; gap: 1.2rem; font-size: 1.41rem; color: var(--color-dark-gray); margin-bottom: 4rem; svg { color: var(--faculty-accent, var(--color-primary)); } a { color: inherit; } }
-.connectFormHeading { font-size: 1.76rem; font-weight: 700; margin-bottom: 2.4rem; }
+.connectAddr { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; margin-bottom: 1.2rem; }
+.connectPhone { display: flex; align-items: center; gap: 1.2rem; font-size: 1.6rem; color: var(--color-dark-gray); margin-bottom: 4rem; svg { color: var(--faculty-accent, var(--color-primary)); } a { color: inherit; } }
+.connectFormHeading { font-size: 2rem; font-weight: 700; margin-bottom: 2.4rem; }
 .connectForm { display: flex; flex-direction: column; gap: 2.8rem; max-width: 56rem; button { align-self: flex-start; } }
 .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 2.8rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
 .input {
   border: 0;
   border-bottom: 1px solid var(--color-gray);
   padding: 0.8rem 0;
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   background: transparent;
   width: 100%;
   &:focus { outline: none; border-bottom-color: var(--faculty-accent, var(--color-primary)); }

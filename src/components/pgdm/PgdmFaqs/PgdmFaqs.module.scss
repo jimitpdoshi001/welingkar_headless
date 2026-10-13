@@ -3,15 +3,15 @@
 .root { width: 100%; }
 
 .heading {
-  font-size: 3.17rem;
+  font-size: 3.6rem;
   font-weight: 800;
   margin-bottom: 3.2rem;
 
-  @include respond-to(mobile) { font-size: 2.29rem; }
+  @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
 .answer {
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   line-height: 1.7;
   color: var(--color-dark-gray);
   margin: 0;

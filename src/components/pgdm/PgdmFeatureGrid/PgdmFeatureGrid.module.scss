@@ -22,18 +22,18 @@
 }
 
 .heading {
-  font-size: 3.17rem;
+  font-size: 3.6rem;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 4rem;
 
   @include respond-to(tab) {
-    font-size: 2.46rem;
+    font-size: 2.8rem;
     margin-bottom: 3rem;
   }
 
   @include respond-to(mobile) {
-    font-size: 2.11rem;
+    font-size: 2.4rem;
     margin-bottom: 2.4rem;
   }
 }
@@ -86,7 +86,7 @@
 
 // Figma: 20px title, 14px description.
 .title {
-  font-size: 1.76rem;
+  font-size: 2rem;
   font-weight: 500;
   color: var(--color-black);
   line-height: 1.3;
@@ -94,7 +94,7 @@
 }
 
 .description {
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   line-height: 1.55;
   color: var(--color-gray);
   margin: 0;
@@ -104,7 +104,7 @@
 .onDark {
   .item { display: block; }
   .icon { display: flex; }
-  .title { display: inline; font-size: 1.23rem; font-weight: 700; line-height: 1.55; }
-  .description { display: inline; font-size: 1.23rem; color: var(--color-white); &::before { content: " "; } }
+  .title { display: inline; font-size: 1.4rem; font-weight: 700; line-height: 1.55; }
+  .description { display: inline; font-size: 1.4rem; color: var(--color-white); &::before { content: " "; } }
   .iconImage { height: 5.2rem; margin-bottom: 0.8rem; }
 }

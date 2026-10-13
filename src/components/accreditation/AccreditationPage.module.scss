@@ -3,7 +3,7 @@
 // Figma 1172:499: breadcrumb, then a 3-column logo + text grid.
 .page { padding-top: 13rem; padding-bottom: 12rem; @include respond-to(tab) { padding-top: 8.6rem; padding-bottom: 6rem; } }
 
-.breadcrumb { display: flex; align-items: center; gap: 1rem; font-size: 1.14rem; color: var(--color-black); margin-bottom: 7rem; a { display: inline-flex; color: inherit; } @include respond-to(mobile) { margin-bottom: 4rem; } }
+.breadcrumb { display: flex; align-items: center; gap: 1rem; font-size: 1.3rem; color: var(--color-black); margin-bottom: 7rem; a { display: inline-flex; color: inherit; } @include respond-to(mobile) { margin-bottom: 4rem; } }
 
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 7.5rem; row-gap: 6rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); column-gap: 4rem; } @include respond-to(mobile) { grid-template-columns: 1fr; row-gap: 4.8rem; } }
 
@@ -11,5 +11,5 @@
 .logoBox { height: 18.2rem; display: flex; align-items: center; margin-bottom: 3.6rem; @include respond-to(mobile) { height: auto; margin-bottom: 2.4rem; } }
 .logo { max-width: 100%; height: auto; }
 
-.text { font-size: 1.41rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2rem; strong { font-weight: 600; } }
+.text { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2rem; strong { font-weight: 600; } }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

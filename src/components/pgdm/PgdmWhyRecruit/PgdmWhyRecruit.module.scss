@@ -22,15 +22,15 @@
 }
 
 .heading {
-  font-size: 2.11rem;
+  font-size: 2.4rem;
   font-weight: 700;
   margin-bottom: 1.6rem;
 
-  @include respond-to(mobile) { font-size: 1.76rem; }
+  @include respond-to(mobile) { font-size: 2rem; }
 }
 
 .body {
-  font-size: 1.32rem;
+  font-size: 1.5rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.82);
   margin-bottom: 1.6rem;
@@ -56,7 +56,7 @@
 }
 
 .num {
-  font-size: 1.41rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
@@ -69,12 +69,12 @@
 }
 
 .stepTitle {
-  font-size: 1.58rem;
+  font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 0.4rem;
 }
 
 .stepDesc {
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   color: rgba(255, 255, 255, 0.78);
 }

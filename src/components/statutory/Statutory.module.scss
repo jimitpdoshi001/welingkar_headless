@@ -10,18 +10,18 @@
 .sideNav {
   display: flex;
   flex-direction: column;
-  a { display: flex; align-items: center; min-height: 6rem; font-size: 1.58rem; color: var(--color-black); border-bottom: 1px solid rgba(0, 0, 0, 0.15); &:last-child { border-bottom: 0; } &:hover { color: var(--color-primary); } }
-  @include respond-to(tab) { flex-direction: row; overflow-x: auto; gap: 2.4rem; a { flex-shrink: 0; min-height: 4.4rem; border-bottom: 0; font-size: 1.41rem; } }
+  a { display: flex; align-items: center; min-height: 6rem; font-size: 1.8rem; color: var(--color-black); border-bottom: 1px solid rgba(0, 0, 0, 0.15); &:last-child { border-bottom: 0; } &:hover { color: var(--color-primary); } }
+  @include respond-to(tab) { flex-direction: row; overflow-x: auto; gap: 2.4rem; a { flex-shrink: 0; min-height: 4.4rem; border-bottom: 0; font-size: 1.6rem; } }
 }
 .sideActive { color: var(--color-primary) !important; font-weight: 600; }
 
 .group { border-bottom: 1px solid rgba(0, 0, 0, 0.15); padding-block: 1.4rem; &:first-child { padding-top: 0; } &:last-child { border-bottom: 0; } }
-.groupTitle { display: block; font-size: 1.41rem; font-weight: 600; line-height: 1.3; color: var(--color-black); cursor: default; list-style: none; &::-webkit-details-marker { display: none; } }
+.groupTitle { display: block; font-size: 1.6rem; font-weight: 600; line-height: 1.3; color: var(--color-black); cursor: default; list-style: none; &::-webkit-details-marker { display: none; } }
 summary.groupTitle { cursor: pointer; }
 
 .disclosureLinks {
   margin-top: 0.2rem;
-  a { font-size: 1.41rem; line-height: 1.2; color: var(--color-black); text-decoration: underline; &:hover { color: var(--color-primary); } }
+  a { font-size: 1.6rem; line-height: 1.2; color: var(--color-black); text-decoration: underline; &:hover { color: var(--color-primary); } }
 }
 
 /* Autonomy exhibit list */
@@ -30,11 +30,11 @@ summary.groupTitle { cursor: pointer; }
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  a { font-size: 1.41rem; font-weight: 500; line-height: 1.4; color: var(--color-black); &:hover { color: var(--color-primary); text-decoration: underline; } }
+  a { font-size: 1.6rem; font-weight: 500; line-height: 1.4; color: var(--color-black); &:hover { color: var(--color-primary); text-decoration: underline; } }
 }
 
 /* Grievance form: two 570px columns of cream pills. */
-.formHeading { font-size: 1.58rem; font-weight: 600; margin-bottom: 2.4rem; }
+.formHeading { font-size: 1.8rem; font-weight: 600; margin-bottom: 2.4rem; }
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 1.6rem; max-width: 116rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
 .field { display: block; }
 .full { grid-column: 1 / -1; }
@@ -46,36 +46,36 @@ summary.groupTitle { cursor: pointer; }
   border-radius: 2.5rem;
   background: #fdf8f0;
   font: inherit;
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   color: var(--color-black);
-  &::placeholder { color: var(--color-black); font-size: 1.23rem; font-weight: 400; }
+  &::placeholder { color: var(--color-black); font-size: 1.4rem; font-weight: 400; }
   &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 }
 // Green triangle caret from the design.
 .form .select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--color-primary) 50%), linear-gradient(135deg, var(--color-primary) 50%, transparent 50%); background-position: calc(100% - 3.6rem) 50%, calc(100% - 3rem) 50%; background-size: 0.6rem 0.6rem; background-repeat: no-repeat; padding-right: 5rem; }
 .form .textarea { height: 14.4rem; padding-block: 1.6rem; border-radius: 2rem; resize: vertical; }
-.captcha { margin-top: 1.6rem; h3 { font-size: 1.58rem; font-weight: 600; margin-bottom: 1.2rem; } }
-.submit { grid-column: 1 / -1; justify-self: center; min-width: 9.2rem; height: 3.4rem; padding: 0 2rem; border: 0; border-radius: 2rem; background: var(--color-primary); color: var(--color-white); font: inherit; font-size: 1.06rem; font-weight: 600; cursor: pointer; margin-top: 1.6rem; }
+.captcha { margin-top: 1.6rem; h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 1.2rem; } }
+.submit { grid-column: 1 / -1; justify-self: center; min-width: 9.2rem; height: 3.4rem; padding: 0 2rem; border: 0; border-radius: 2rem; background: var(--color-primary); color: var(--color-white); font: inherit; font-size: 1.2rem; font-weight: 600; cursor: pointer; margin-top: 1.6rem; }
 
 /* Careers openings */
 .opening {
   margin-bottom: 6rem;
-  p { font-size: 1.23rem; line-height: 1.45; margin-bottom: 1.6rem; max-width: 120rem; }
+  p { font-size: 1.4rem; line-height: 1.45; margin-bottom: 1.6rem; max-width: 120rem; }
 }
-.openingTitle { font-size: 1.76rem; font-weight: 600; text-decoration: underline; text-underline-offset: 0.3rem; margin-bottom: 2.4rem; }
+.openingTitle { font-size: 2rem; font-weight: 600; text-decoration: underline; text-underline-offset: 0.3rem; margin-bottom: 2.4rem; }
 .openingLead { font-weight: 600; }
-.apply { display: inline-grid; place-content: center; height: 3.4rem; padding: 0 1.6rem; border-radius: 2rem; background: var(--color-primary); color: var(--color-white); font-size: 1.06rem; font-weight: 600; margin-top: 0.8rem; }
+.apply { display: inline-grid; place-content: center; height: 3.4rem; padding: 0 1.6rem; border-radius: 2rem; background: var(--color-primary); color: var(--color-white); font-size: 1.2rem; font-weight: 600; margin-top: 0.8rem; }
 
 .radioField {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 1.6rem; border: 0; padding: 0 1.6rem; font-size: 1.23rem;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 1.6rem; border: 0; padding: 0 1.6rem; font-size: 1.4rem;
   legend { float: left; margin-right: 0.8rem; }
   label { display: inline-flex; align-items: center; gap: 0.8rem; cursor: pointer; }
   input { width: 1.6rem; height: 1.6rem; accent-color: var(--color-primary); }
 }
 .fileField {
-  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem 1.6rem; padding-left: 1.6rem; font-size: 1.23rem;
-  input[type="file"] { font-size: 1.14rem; max-width: 100%; }
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem 1.6rem; padding-left: 1.6rem; font-size: 1.4rem;
+  input[type="file"] { font-size: 1.3rem; max-width: 100%; }
   input[type="file"]::file-selector-button { height: 5rem; padding: 0 2.4rem; margin-right: 1.2rem; border: 0; border-radius: 2.5rem; background: #f1f1f1; font: inherit; cursor: pointer; }
-  small { grid-column: 1 / -1; font-size: 0.97rem; line-height: 1.3; color: var(--color-black); }
+  small { grid-column: 1 / -1; font-size: 1.1rem; line-height: 1.3; color: var(--color-black); }
   @include respond-to(mobile) { grid-template-columns: 1fr; padding-left: 0; }
 }

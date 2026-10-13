@@ -2,21 +2,21 @@
 
 .block { padding-block: 6.5rem; @include respond-to(mobile) { padding-block: 4rem; } }
 
-.heading { font-size: 3.17rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 2rem; @include respond-to(mobile) { font-size: 2.29rem; } }
-.bigHeading { font-size: clamp(3.17rem, 1.76rem + 2.82vw, 5.28rem); font-weight: 800; line-height: 1.05; color: var(--color-secondary); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 3.17rem; } }
-.body { font-size: 1.32rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 1.4rem; }
-.lead { font-size: 1.41rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; }
-.sub { font-size: 1.32rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 110rem; margin-bottom: 3.6rem; }
+.heading { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 2rem; @include respond-to(mobile) { font-size: 2.6rem; } }
+.bigHeading { font-size: clamp(3.6rem, 2rem + 3.2vw, 6rem); font-weight: 800; line-height: 1.05; color: var(--color-secondary); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 3.6rem; } }
+.body { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 1.4rem; }
+.lead { font-size: 1.6rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 42rem; }
+.sub { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 110rem; margin-bottom: 3.6rem; }
 
 /* Hero */
 .hero { position: relative; min-height: 64rem; display: flex; align-items: stretch; overflow: hidden; color: var(--color-white); }
 .heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .heroOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.15) 35%, rgba(0,0,0,0.55) 100%); }
 .heroInner { position: relative; z-index: 1; display: flex; flex-direction: column; padding-top: 13rem; padding-bottom: 5rem; }
-.breadcrumb { font-size: 1.23rem; display: flex; gap: 0.8rem; a { color: rgba(255,255,255,0.85); text-decoration: none; } span { color: rgba(255,255,255,0.6); } }
+.breadcrumb { font-size: 1.4rem; display: flex; gap: 0.8rem; a { color: rgba(255,255,255,0.85); text-decoration: none; } span { color: rgba(255,255,255,0.6); } }
 .heroBottom { margin-top: auto; }
-.heroTitle { font-size: 3.87rem; font-weight: 800; margin-bottom: 0.6rem; @include respond-to(mobile) { font-size: 2.64rem; } }
-.heroSubtitle { font-size: 1.41rem; color: rgba(255,255,255,0.9); }
+.heroTitle { font-size: 4.4rem; font-weight: 800; margin-bottom: 0.6rem; @include respond-to(mobile) { font-size: 3rem; } }
+.heroSubtitle { font-size: 1.6rem; color: rgba(255,255,255,0.9); }
 
 /* Vision / Mission collages */
 .vision { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; @include respond-to(tab) { grid-template-columns: 1fr; gap: 3rem; } }
@@ -35,23 +35,23 @@
 // Menu anchors (Who We Are links): keep the section clear of the fixed header.
 .anchor { scroll-margin-top: 12rem; @include respond-to(tab) { scroll-margin-top: 8rem; } }
 .whoWeAre { position: relative; padding-block: 5rem 7rem; overflow: hidden; :global(.container) { overflow: hidden; } text-align: center; }
-.watermark { display: block; font-size: 13.2rem; font-weight: 800; line-height: 1; color: rgba(112,163,68,0.12); white-space: nowrap; margin-bottom: 2.4rem; @include respond-to(tab) { font-size: 7.92rem; } @include respond-to(mobile) { font-size: 4.4rem; margin-bottom: 1.6rem; } }
-.whoBody { position: relative; font-size: 1.41rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin: 0 auto; }
+.watermark { display: block; font-size: 15rem; font-weight: 800; line-height: 1; color: rgba(112,163,68,0.12); white-space: nowrap; margin-bottom: 2.4rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; margin-bottom: 1.6rem; } }
+.whoBody { position: relative; font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin: 0 auto; }
 .whoBody + .whoBody { margin-top: 1.6rem; }
 // Figma 2128:185 / 2128:184: purple watermark, black 16/20 body.
-.spm { .watermark { color: rgba(107, 76, 134, 0.2); font-size: 17.6rem; @include respond-to(tab) { font-size: 7.92rem; } @include respond-to(mobile) { font-size: 4.4rem; } } .whoBody { max-width: 119.5rem; color: var(--color-black, #000); line-height: 2rem; } .whoBody + .whoBody { margin-top: 2rem; } }
+.spm { .watermark { color: rgba(107, 76, 134, 0.2); font-size: 20rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; } } .whoBody { max-width: 119.5rem; color: var(--color-black, #000); line-height: 2rem; } .whoBody + .whoBody { margin-top: 2rem; } }
 
 /* Chairman */
 .chairman { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
 // Desktop/tablet: photo stands on the band's bottom edge (Figma).
 @media (min-width: 768px) { .chairman { padding-bottom: 0; } .chairmanText { padding-bottom: 6.5rem; } }
 .chairmanImage { width: 100%; max-width: 52rem; object-fit: contain; align-self: end; @include respond-to(mobile) { max-width: 32rem; margin-inline: auto; } }
-.personName { font-size: 1.67rem; font-weight: 700; margin-top: 1.6rem; }
-.personRole { font-size: 1.32rem; color: var(--color-gray); }
+.personName { font-size: 1.9rem; font-weight: 700; margin-top: 1.6rem; }
+.personRole { font-size: 1.5rem; color: var(--color-gray); }
 
 /* Director */
 .director { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; .directorMedia { order: -1; } } }
-.sign { font-size: 1.58rem; font-weight: 700; margin-top: 1rem; }
+.sign { font-size: 1.8rem; font-weight: 700; margin-top: 1rem; }
 .directorMedia { position: relative; border-radius: 2.4rem; overflow: hidden; aspect-ratio: 610 / 437; img { width: 100%; height: 100%; object-fit: cover; } }
 
 /* Accreditations */
@@ -62,29 +62,29 @@
 .accredLogo { display: block; height: 7.7rem; width: auto; max-width: 100%; object-fit: contain; object-position: left bottom; margin-bottom: 2.2rem; }
 .accredItem:first-child .accredLogo { height: 7.9rem; }
 .accredItem:last-child .accredLogo { height: 4.9rem; margin-top: 3rem; }
-.accredText { font-size: 1.23rem; line-height: 1.6; color: var(--color-dark-gray); strong { color: var(--color-black); } }
+.accredText { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); strong { color: var(--color-black); } }
 
 /* Advisory boards */
 .boardGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.6rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); } @include respond-to(mobile) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4rem 1.6rem; } }
-.boardName { font-size: clamp(1.23rem, 1.06rem + 0.44vw, 1.5rem); font-weight: 700; line-height: 1.3; }
-.boardRole { font-size: 1.23rem; color: var(--color-gray); margin-top: 0.4rem; }
+.boardName { font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.7rem); font-weight: 700; line-height: 1.3; }
+.boardRole { font-size: 1.4rem; color: var(--color-gray); margin-top: 0.4rem; }
 
 /* Honours & Achievements */
 .honours { display: flex; gap: 3rem; @include respond-to(tab) { flex-direction: column; gap: 2rem; } }
 .yearNav { flex: 0 0 14rem; display: flex; flex-direction: column; gap: 1rem; @include respond-to(tab) { flex: none; flex-direction: row; gap: 2rem; overflow-x: auto; scrollbar-width: none; } }
-.year { flex-shrink: 0; font-family: inherit; background: none; border: 0; cursor: pointer; font-size: 1.94rem; font-weight: 700; color: var(--color-gray); opacity: 0.5; text-align: left; padding: 0; transition: all 0.2s ease; }
+.year { flex-shrink: 0; font-family: inherit; background: none; border: 0; cursor: pointer; font-size: 2.2rem; font-weight: 700; color: var(--color-gray); opacity: 0.5; text-align: left; padding: 0; transition: all 0.2s ease; }
 .yearActive { color: var(--color-primary); opacity: 1; display: inline-flex; align-items: center; gap: 1.6rem;
   // Figma: green play arrow marks the selected year.
   &::after { content: ""; border-style: solid; border-width: 0.45rem 0 0.45rem 0.7rem; border-color: transparent transparent transparent var(--color-primary); }
 }
 .honoursMain { position: relative; flex: 1 1 0; min-width: 0; }
-.bigYear { position: absolute; top: 2rem; left: 8rem; font-size: 14.08rem; font-weight: 800; line-height: 1; color: rgba(0,0,0,0.05); pointer-events: none; z-index: 0; @include respond-to(tab) { font-size: 8.8rem; left: auto; right: 0; top: 5rem; } @include respond-to(mobile) { font-size: 6.16rem; } }
+.bigYear { position: absolute; top: 2rem; left: 8rem; font-size: 16rem; font-weight: 800; line-height: 1; color: rgba(0,0,0,0.05); pointer-events: none; z-index: 0; @include respond-to(tab) { font-size: 10rem; left: auto; right: 0; top: 5rem; } @include respond-to(mobile) { font-size: 7rem; } }
 .hArrow { position: absolute; z-index: 3; top: 16rem; width: 4.5rem; height: 4.5rem; border-radius: 50%; border: 1px solid var(--color-primary); background: var(--color-white); display: flex; align-items: center; justify-content: center; cursor: pointer; svg path { fill: var(--color-primary); } }
 .hPrev { left: -9rem; @include respond-to(tab) { left: auto; right: 5.6rem; top: auto; bottom: 0; } }
 .hNext { right: 0; background: var(--color-primary); svg path { fill: #fff; } @include respond-to(tab) { top: auto; bottom: 0; } }
 .honoursTrack { position: relative; z-index: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(26rem, 1fr); gap: 3rem; overflow-x: auto; padding-top: 10rem; padding-bottom: 1rem; scroll-snap-type: x mandatory; &::-webkit-scrollbar { height: 5px; } &::-webkit-scrollbar-thumb { background: var(--color-light-gray); border-radius: 3px; } @include respond-to(tab) { grid-auto-columns: minmax(24rem, 40%); padding-top: 4rem; margin-bottom: 7rem; } @include respond-to(mobile) { grid-auto-columns: 80%; } }
-.honourCard { scroll-snap-align: start; img { width: 16rem; height: 16rem; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.4rem; } p { font-size: 1.23rem; line-height: 1.5; color: var(--color-dark-gray); } }
+.honourCard { scroll-snap-align: start; img { width: 16rem; height: 16rem; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.4rem; } p { font-size: 1.4rem; line-height: 1.5; color: var(--color-dark-gray); } }
 
 /* Faculty grid */
 .facultyGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.8rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); } @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); } }
-.facultyCard { img { width: 100%; aspect-ratio: 1 / 1.08; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; } h3 { font-size: 1.41rem; font-weight: 700; line-height: 1.3; } p { font-size: 1.19rem; color: var(--color-gray); margin-top: 0.3rem; } }
+.facultyCard { img { width: 100%; aspect-ratio: 1 / 1.08; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; } h3 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; } p { font-size: 1.35rem; color: var(--color-gray); margin-top: 0.3rem; } }

@@ -41,7 +41,7 @@
 .tags li {
   background: var(--color-white);
   color: var(--color-gray);
-  font-size: 1.06rem;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 1;
   padding: 0.6rem 1.2rem;
@@ -56,7 +56,7 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.35;
   color: var(--color-dark-gray);
@@ -73,7 +73,7 @@
   align-items: center;
   gap: 1.2rem;
   color: var(--color-gray);
-  font-size: 1.14rem;
+  font-size: 1.3rem;
   font-weight: 400;
 
   span {
@@ -85,7 +85,7 @@
 
 .readMore {
   color: var(--color-primary);
-  font-size: 1.23rem;
+  font-size: 1.4rem;
   font-weight: 600;
   width: fit-content;
 
@@ -102,6 +102,6 @@
 
 @include respond-to(mobile) {
   .title {
-    font-size: 1.41rem;
+    font-size: 1.6rem;
   }
 }

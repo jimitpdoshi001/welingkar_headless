@@ -10,9 +10,9 @@
 .heroInner { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding-block: 13.2rem 5rem;
   @include respond-to(tab) { padding-top: 9rem; }
 }
-.breadcrumb { display: flex; align-items: center; gap: 0.8rem; font-size: 1.23rem; a { color: inherit; display: flex; } }
-.heroTitle { font-size: clamp(2.46rem, 1.76rem + 1.23vw, 3.17rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.6rem; }
-.heroSubtitle { font-size: 1.41rem; margin: 0; }
+.breadcrumb { display: flex; align-items: center; gap: 0.8rem; font-size: 1.4rem; a { color: inherit; display: flex; } }
+.heroTitle { font-size: clamp(2.8rem, 2rem + 1.4vw, 3.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.6rem; }
+.heroSubtitle { font-size: 1.6rem; margin: 0; }
 
 // Purple strip (Figma 1815:3223) holding the section nav and category pills.
 .strip { background: var(--listing-strip, var(--color-secondary)); padding-bottom: 2.9rem; }
@@ -22,11 +22,11 @@
 .sectionNavInner { display: flex; justify-content: center; gap: 3rem; overflow-x: auto; scrollbar-width: none; &::-webkit-scrollbar { display: none; }
   @include respond-to(tab) { justify-content: flex-start; gap: 2.4rem; }
 }
-.sectionLink { display: block; padding: 2rem 0 1.6rem; font-size: 1.23rem; color: var(--color-black); white-space: nowrap; border-bottom: 2px solid transparent; &:hover { color: var(--color-primary); } }
+.sectionLink { display: block; padding: 2rem 0 1.6rem; font-size: 1.4rem; color: var(--color-black); white-space: nowrap; border-bottom: 2px solid transparent; &:hover { color: var(--color-primary); } }
 .sectionLinkActive { color: var(--color-primary); font-weight: 700; border-bottom-color: var(--color-primary); }
 // Figma pills: 30px, white outline; the current category is filled white.
 .pills { display: flex; gap: 3rem; overflow-x: auto; scrollbar-width: none; &::-webkit-scrollbar { display: none; } @include respond-to(mobile) { gap: 1.2rem; } }
-.pill { display: inline-flex; align-items: center; gap: 1.4rem; flex-shrink: 0; height: 3rem; padding: 0 1.4rem 0 1.7rem; border: 1px solid var(--color-white); border-radius: 2.5rem; font-size: 1.23rem; color: var(--color-white); white-space: nowrap; transition: background-color 0.2s ease;
+.pill { display: inline-flex; align-items: center; gap: 1.4rem; flex-shrink: 0; height: 3rem; padding: 0 1.4rem 0 1.7rem; border: 1px solid var(--color-white); border-radius: 2.5rem; font-size: 1.4rem; color: var(--color-white); white-space: nowrap; transition: background-color 0.2s ease;
   &:hover { background: rgba(255, 255, 255, 0.12); }
 }
 .pillActive { background: var(--color-white); color: var(--color-black); &:hover { background: var(--color-white); } }
@@ -34,8 +34,8 @@
 
 // Intro (Figma 1883:144): 36px heading, 16px body.
 .intro { padding-block: 7.3rem 7.4rem; @include respond-to(mobile) { padding-block: 4rem; } }
-.introHeading { font-size: clamp(2.29rem, 1.76rem + 1.06vw, 3.17rem); font-weight: 800; margin-bottom: 2.4rem; }
-.introBody { font-size: 1.41rem; line-height: 1.35; color: var(--color-black); margin: 0; }
+.introHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; margin-bottom: 2.4rem; }
+.introBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); margin: 0; }
 
 // Rows (Figma 996:2075..): 610 x 480 image + card, 20px apart; banded rows
 // sit on a 717px lavender band with the card first and a white outlined card.
@@ -49,14 +49,14 @@
   @include respond-to(mobile) { padding: 2.8rem 2.4rem; }
 }
 .banded .card { background: var(--color-white); border: 1px solid rgba(0, 0, 0, 0.2); }
-.title { font-size: clamp(2.11rem, 1.76rem + 0.53vw, 2.64rem); font-weight: 800; line-height: 1.2; max-width: 43.4rem; margin-bottom: 2.4rem; }
-.body { font-size: 1.41rem; line-height: 1.35; color: var(--color-black); max-width: 43.4rem; margin-bottom: 3.2rem; }
-.intake { font-size: 1.41rem; font-weight: 600; margin-bottom: 3.2rem; }
+.title { font-size: clamp(2.4rem, 2rem + 0.6vw, 3rem); font-weight: 800; line-height: 1.2; max-width: 43.4rem; margin-bottom: 2.4rem; }
+.body { font-size: 1.6rem; line-height: 1.35; color: var(--color-black); max-width: 43.4rem; margin-bottom: 3.2rem; }
+.intake { font-size: 1.6rem; font-weight: 600; margin-bottom: 3.2rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: auto;
   @include respond-to(mobile) { width: 100%; flex-wrap: nowrap; > * { flex: 1; min-width: 0; } }
 }
 // Figma buttons: 130 x 50, orange filled and black outline.
 .knowMore,
-.apply { min-width: 13rem; height: 5rem; display: inline-grid; place-content: center; padding: 0 2rem; border-radius: 2.5rem; font-size: 1.41rem; font-weight: 600; }
+.apply { min-width: 13rem; height: 5rem; display: inline-grid; place-content: center; padding: 0 2rem; border-radius: 2.5rem; font-size: 1.6rem; font-weight: 600; }
 .knowMore { background: var(--listing-button, var(--color-orange)); color: var(--color-white); border: 1px solid var(--listing-button, var(--color-orange)); &:hover { filter: brightness(0.94); } }
 .apply { background: transparent; color: var(--color-black); border: 1px solid var(--color-black); &:hover { background: var(--color-black); color: var(--color-white); } }
