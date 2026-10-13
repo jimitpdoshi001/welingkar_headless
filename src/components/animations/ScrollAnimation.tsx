@@ -32,6 +32,11 @@ function tagAutoReveal(scope: HTMLElement) {
         el.dataset.animationEase ??= "power2.out";
       });
     };
+    // Drupal-driven animations inside the root get the same smooth timing.
+    root.querySelectorAll<HTMLElement>("[class*='animate-'], [data-animation-stagger]").forEach((el) => {
+      el.dataset.animationDuration ??= "1.4";
+      el.dataset.animationEase ??= "power2.out";
+    });
     tag(AUTO_TEXT, "animate-fade-in-soft");
     // Opacity only: moving absolutely positioned media would expose gaps.
     tag(AUTO_MEDIA, "animate-fade-in");
@@ -82,7 +87,7 @@ export function ScrollAnimationProvider({
     scopeRef.current = scope;
   }, [scope]);
 
-  const initAnimations = useCallback(() => {
+  const initAnimations = useCallback((incremental = false) => {
     if (typeof window === "undefined") return;
 
     // Accessibility check for reduced motion
@@ -113,19 +118,10 @@ export function ScrollAnimationProvider({
       return;
     }
 
-    // Scoped GSAP Context handles clean setup & teardown
-    if (ctxRef.current) {
-      ctxRef.current.revert();
-    }
-
-    const stopCounters = initCounterAnimation(COUNTER_ANIMATION_CLASS, targetScope);
-    const previousStop = counterCleanupRef.current;
-    counterCleanupRef.current = () => {
-      previousStop?.();
-      stopCounters();
-    };
-
-    ctxRef.current = gsap.context(() => {
+    // Incremental rescans (new DOM nodes) add tweens for untouched elements only.
+    // Reverting here would restart every running tween on each DOM change,
+    // which kept the hero frozen mid-fade while the slider updated the DOM.
+    const scan = () => {
       // 1. Process Parent Containers (`.animate-stagger` or `[data-animation-stagger]`)
       const staggerContainers = targetScope.querySelectorAll<HTMLElement>(
         ".animate-stagger, [data-animation-stagger]"
@@ -242,7 +238,30 @@ export function ScrollAnimationProvider({
 
         element.setAttribute("data-animated", "true");
       });
-    }, targetScope);
+    };
+
+    if (incremental && ctxRef.current) {
+      ctxRef.current.add(scan);
+    } else {
+      // Full (re)init: clean setup and teardown via a scoped GSAP context.
+      if (ctxRef.current) {
+        ctxRef.current.revert();
+        // Revert removes the tweens but not our markers; clear them so the
+        // scan re-animates those elements instead of skipping them.
+        targetScope
+          .querySelectorAll<HTMLElement>("[data-animated]")
+          .forEach((el) => el.removeAttribute("data-animated"));
+      }
+
+      const stopCounters = initCounterAnimation(COUNTER_ANIMATION_CLASS, targetScope);
+      const previousStop = counterCleanupRef.current;
+      counterCleanupRef.current = () => {
+        previousStop?.();
+        stopCounters();
+      };
+
+      ctxRef.current = gsap.context(scan, targetScope);
+    }
   }, []);
 
   // Initial setup and route change refresh
@@ -287,7 +306,7 @@ export function ScrollAnimationProvider({
       if (hasNewAnimatedElements) {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
-          initAnimations();
+          initAnimations(true);
         }, 100);
       }
     });
