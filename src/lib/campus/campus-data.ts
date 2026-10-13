@@ -117,12 +117,13 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     },
     nav: [
       { label: "About Campus", href: "#about" },
-      { label: "Programs", href: "#programmes" },
+      // Mumbai links out to the programs listing and Life page; Bengaluru keeps in-page anchors.
+      { label: "Programs", href: isMumbai ? "/programmes" : "#programmes" },
       { label: "Faculty", href: "/about-us/faculty" },
       { label: "Corporate Interface", href: "/corporate-interface" },
       { label: "We Research", href: "/weresearch" },
       { label: "We Excel", href: "#infrastructure" },
-      { label: "Life @ WeSchool", href: "#life" },
+      { label: "Life @ WeSchool", href: isMumbai ? "/life-at-weschool" : "#life" },
     ],
     about: {
       heading: `About the ${campus} Campus`,
