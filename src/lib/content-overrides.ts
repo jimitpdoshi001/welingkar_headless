@@ -11,7 +11,8 @@
 const HIDDEN_HEADINGS = new Set<string>([]);
 
 /** CMS paragraphs containing any of these phrases are stripped. */
-const REMOVE_PARAGRAPH_SNIPPETS = ["Beyond our core management programmes"];
+// Prefix matches both "programmes" (Drupal) and "programs" (after fixProgramsSpelling).
+const REMOVE_PARAGRAPH_SNIPPETS = ["Beyond our core management program"];
 
 export function overrideHeading(heading: string | null | undefined): string | null {
   if (!heading) return heading ?? null;
