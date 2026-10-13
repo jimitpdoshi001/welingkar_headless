@@ -59,7 +59,7 @@
 }
 .about { position: relative; padding-block: 11rem 4rem; text-align: center; @include respond-to(mobile) { padding-block: 7rem 3rem; } }
 .aboutHeading { font-size: clamp(2.8rem, 2rem + 1.6vw, 3.75rem); font-weight: 800; color: var(--color-secondary); line-height: 1.2; max-width: 36rem; margin: 0 auto 3.6rem; }
-.aboutBody { font-size: clamp(1.6rem, 1.3rem + 0.6vw, 2.2rem); line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; }
+.aboutBody { font-size: 2.1rem; font-weight: 300; line-height: 1.35; color: var(--color-black); max-width: 90rem; margin: 0 auto 3.6rem; @include respond-to(mobile) { font-size: 1.8rem; } }
 .stats { display: flex; justify-content: center; gap: clamp(4rem, 14vw, 21rem); margin-top: 4rem; flex-wrap: wrap; @include respond-to(mobile) { gap: 2.4rem 3.6rem; } }
 .stat { display: flex; flex-direction: column; align-items: center; }
 .statValue { font-size: clamp(4rem, 2.6rem + 2.4vw, 6rem); font-weight: 700; color: var(--color-secondary); line-height: 1; }
@@ -86,12 +86,12 @@
 .facultyHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 3.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 1.6rem; color: var(--color-white); }
 .facultyBody { font-size: 1.6rem; line-height: 1.35; color: var(--color-white); }
 .facultyTabs { list-style: none; padding: 0; margin: 0; width: min(100%, 24.6rem); }
-.facultyTab { padding-block: 1.4rem; font-size: 2rem; color: rgba(255, 255, 255, 0.6); border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  &:last-child { border-bottom: 0; }
+// Dimmed by default; hover/focus brings full opacity and the accent arrow.
+.facultyTabs li { border-bottom: 1px solid rgba(255, 255, 255, 0.3); &:last-child { border-bottom: 0; } }
+.facultyTab { display: block; padding-block: 1.4rem; font-size: 2rem; color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.2s ease;
   @include respond-to(mobile) { font-size: 1.6rem; }
-}
-.facultyTabActive { color: var(--color-white);
-  &::after { content: ""; display: inline-block; margin-left: 1.2rem; border-style: solid; border-width: 0.6rem 0 0.6rem 0.9rem; border-color: transparent transparent transparent var(--faculty-accent, var(--color-primary)); }
+  &::after { content: ""; display: inline-block; margin-left: 1.2rem; border-style: solid; border-width: 0.6rem 0 0.6rem 0.9rem; border-color: transparent transparent transparent var(--faculty-accent, var(--color-primary)); opacity: 0; transition: opacity 0.2s ease; }
+  &:hover, &:focus-visible { color: var(--color-white); &::after { opacity: 1; } }
 }
 
 // Recruiters

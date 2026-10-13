@@ -1,6 +1,8 @@
 @use "../../../styles/base/mixins" as *;
 
 .root {
+  // Clears the fixed header when opened from a "#affiliate-…" link.
+  scroll-margin-top: 12rem;
   width: 100%;
 }
 

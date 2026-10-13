@@ -26,7 +26,7 @@ export type CampusData = {
   accreditations: { heading: string; logos: { name: string; image: string }[]; points: string[] };
   director: { heading: string; name: string; title: string; body: string; image: string; cta: CampusCta };
   mentors: { heading: string; tabs: string[]; people: CampusPerson[]; cta: CampusCta };
-  faculty: { heading: string; description: string; categories: string[]; image: string; cta: CampusCta };
+  faculty: { heading: string; description: string; categories: CampusCta[]; image: string; cta: CampusCta };
   programmes: { heading: string; description: string; cards: CampusCard[]; cta: CampusCta };
   recruiters: { heading: string; description: string; logos: { name: string; image: string }[]; cta: CampusCta };
   // imageBox: the photo's Figma box in px at the 1440 desktop frame, relative to
@@ -170,7 +170,12 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     faculty: {
       heading: "Our Extended Faculty Network",
       description: "Our academic strength is enriched by a distinguished network of visiting faculty members from across India and abroad, bringing diverse perspectives, industry insight, and global best practices into the classroom.",
-      categories: ["International Faculty", "Visiting Faculty", "Guest Lecturers"],
+      // Each opens the matching Affiliate Faculty tab on the Mumbai faculty page.
+      categories: [
+        { label: "International Faculty", href: "/about-us/faculty#affiliate-international" },
+        { label: "Visiting Faculty", href: "/about-us/faculty#affiliate-visiting" },
+        { label: "Guest Lecturers", href: "/about-us/faculty#affiliate-guests" },
+      ],
       image: CIMG.facultyNetwork,
       cta: { label: "Meet Our Faculty", href: "/about-us/faculty" },
     },

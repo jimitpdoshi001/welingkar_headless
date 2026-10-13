@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -49,8 +49,25 @@ export function AffiliateFaculty({
     setVisibleCount(baseCount);
   };
 
+  // Deep link: "#affiliate-<slug>" (e.g. from the campus pages) opens that tab and scrolls here.
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const openFromHash = () => {
+      const slug = window.location.hash.replace(/^#affiliate-/, "");
+      if (slug === window.location.hash || !categories.some((cat) => cat.slug === slug)) return;
+      setActiveTab(slug);
+      setVisibleCount(baseCount);
+      rootRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [categories, baseCount]);
+
   return (
-    <div className={styles.root}>
+    <div
+      ref={rootRef}
+      className={styles.root}>
       <h2 className={styles.heading}>{heading}</h2>
       <p className={styles.description}>{description}</p>
 

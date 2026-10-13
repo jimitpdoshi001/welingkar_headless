@@ -69,7 +69,12 @@ export function CampusPage({ data }: { data: CampusData }) {
             id="about"
             className={styles.aboutBand}>
             <div className={`container ${styles.about}`}>
-            <h2 className={styles.aboutHeading}>{data.about.heading}</h2>
+            {/* Two lines: "About the" / "<Campus> Campus". */}
+            <h2 className={styles.aboutHeading}>
+              About the
+              <br />
+              {data.about.heading.replace(/^About the\s+/, "")}
+            </h2>
             {data.about.paragraphs.map((p, i) => (
               <p
                 key={i}
@@ -82,7 +87,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                 <div
                   key={stat.label}
                   className={styles.stat}>
-                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={`${styles.statValue} animate-counter`}>{stat.value}</span>
                   <span className={styles.statLabel}>{stat.label}</span>
                 </div>
               ))}
@@ -196,11 +201,13 @@ export function CampusPage({ data }: { data: CampusData }) {
                   <p className={styles.facultyBody}>{data.faculty.description}</p>
                 </div>
                 <ul className={styles.facultyTabs}>
-                  {data.faculty.categories.map((cat, i) => (
-                    <li
-                      key={cat}
-                      className={`${styles.facultyTab} ${i === 0 ? styles.facultyTabActive : ""}`}>
-                      {cat}
+                  {data.faculty.categories.map((cat) => (
+                    <li key={cat.label}>
+                      <Link
+                        href={cat.href}
+                        className={styles.facultyTab}>
+                        {cat.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
