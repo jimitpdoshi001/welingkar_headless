@@ -7,6 +7,7 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
 import { ScrollArrows } from "./ScrollArrows/ScrollArrows";
+import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
@@ -49,9 +50,9 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
-          <nav
+          <StickyInPageNav
             className={styles.inPageNav}
-            aria-label="Campus sections">
+            label="Campus sections">
             <div className={`container ${styles.inPageNavInner}`}>
               {data.nav.map((item, i) => (
                 <Link
@@ -62,7 +63,7 @@ export function CampusPage({ data }: { data: CampusData }) {
                 </Link>
               ))}
             </div>
-          </nav>
+          </StickyInPageNav>
 
           <section
             id="about"

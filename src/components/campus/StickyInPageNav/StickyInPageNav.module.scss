@@ -1,0 +1,19 @@
+// Docked state: pinned under the fixed site header (top set inline), full width.
+// `nav.` outranks the bar's own `position: relative` regardless of stylesheet order.
+nav.stuck {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  margin: 0;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  nav.stuck { animation: none; }
+}
