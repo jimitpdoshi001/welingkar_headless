@@ -278,7 +278,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Faculty */}
-          <section className={`container ${styles.block}`}>
+          <section id="managing-council" className={`container ${styles.block} ${styles.anchor}`}>
             <h2 className={styles.heading}>{data.faculty.heading}</h2>
             <p className={styles.sub}>{data.faculty.body}</p>
             <div className={styles.facultyGrid}>

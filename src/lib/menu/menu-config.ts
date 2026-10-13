@@ -66,7 +66,7 @@ export const MAIN_NAV: MainNavItem[] = [
             // Anchors scroll to the matching section on the About Us page.
             { label: "About WeSchool", href: "/about-us#weschool" },
             { label: "About SPM", href: "/about-us#spm" },
-            { label: "Managing Council Members", href: "/about-us/managing-council" },
+            { label: "Managing Council Members", href: "/about-us#managing-council" },
             { label: "Chairman's Message", href: "/about-us#chairman" },
             { label: "Director's Message", href: "/about-us#director" },
           ],
