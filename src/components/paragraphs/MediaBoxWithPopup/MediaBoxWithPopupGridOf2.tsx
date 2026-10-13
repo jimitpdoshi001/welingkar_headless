@@ -122,7 +122,7 @@ export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveM
           </span>
         )}
         <div className={styles.body}>
-          {heading ? <h4 className="bold">{heading}</h4> : null}
+          {heading ? <h4 className={styles.heading}>{heading}</h4> : null}
           {children}
         </div>
       </button>
