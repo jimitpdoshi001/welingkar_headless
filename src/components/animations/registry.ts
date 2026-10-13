@@ -37,6 +37,11 @@ export const ANIMATION_REGISTRY: Record<string, AnimationPreset> = {
     from: { opacity: 0, y: 60 },
     to: { opacity: 1, y: 0 },
   },
+  // Gentle reveal used by auto-reveal pages: short travel so it reads as a fade.
+  "animate-fade-in-soft": {
+    from: { opacity: 0, y: 24 },
+    to: { opacity: 1, y: 0 },
+  },
   "animate-fade-in-down": {
     from: { opacity: 0, y: -60 },
     to: { opacity: 1, y: 0 },

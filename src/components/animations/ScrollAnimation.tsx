@@ -27,9 +27,12 @@ function tagAutoReveal(scope: HTMLElement) {
         // so an element is never moved by two tweens at once.
         if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
         el.classList.add(cls);
+        // Slower, softer easing than the default 0.8s power3 for a smooth reveal.
+        el.dataset.animationDuration ??= "1.4";
+        el.dataset.animationEase ??= "power2.out";
       });
     };
-    tag(AUTO_TEXT, "animate-fade-in-up");
+    tag(AUTO_TEXT, "animate-fade-in-soft");
     // Opacity only: moving absolutely positioned media would expose gaps.
     tag(AUTO_MEDIA, "animate-fade-in");
   });
