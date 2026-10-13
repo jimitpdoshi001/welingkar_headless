@@ -65,6 +65,7 @@ export const MAIN_NAV: MainNavItem[] = [
           links: [
             // Anchors scroll to the matching section on the About Us page.
             { label: "About WeSchool", href: "/about-us#weschool" },
+            { label: "Vision & Mission", href: "/about-us/vision-mission" },
             { label: "About SPM", href: "/about-us#spm" },
             { label: "Managing Council Members", href: "/about-us#managing-council" },
             { label: "Chairman's Message", href: "/about-us#chairman" },
@@ -78,14 +79,6 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "Industry Advisory Board", href: "/about-us#industry-advisory-board" },
             { label: "Accreditations & Affiliations", href: "/accreditation" },
             { label: "Awards & Accolades", href: "/about-us#awards" },
-          ],
-        },
-        {
-          heading: "People",
-          links: [
-            { label: "Faculty / Leadership Team", href: "/about-us/faculty" },
-            { label: "Vision & Mission", href: "/about-us/vision-mission" },
-            { label: "Mandatory Disclosure", href: "/mandatory-disclosure" },
           ],
         },
       ],
