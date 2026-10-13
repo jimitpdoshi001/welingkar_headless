@@ -159,10 +159,24 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                 src={data.director.image}
                 alt=""
               />
+            </div>
+          </section>
+
+          {/* S.P. Mandali (Figma 2128:185) reuses the watermark layout. */}
+          <section className={styles.whoWeAre}>
+            <div className="container">
               <span
-                className={styles.playBadge}
-                aria-hidden="true"
-              />
+                className={styles.watermark}
+                aria-hidden="true">
+                {data.spMandali.watermark}
+              </span>
+              {data.spMandali.paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className={styles.whoBody}>
+                  {p}
+                </p>
+              ))}
             </div>
           </section>
 

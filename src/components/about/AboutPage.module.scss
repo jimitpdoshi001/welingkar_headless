@@ -35,6 +35,7 @@
 .whoWeAre { position: relative; padding-block: 5rem 7rem; overflow: hidden; :global(.container) { overflow: hidden; } text-align: center; }
 .watermark { display: block; font-size: 15rem; font-weight: 800; line-height: 1; color: rgba(112,163,68,0.12); white-space: nowrap; margin-bottom: -3rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; margin-bottom: -1rem; } }
 .whoBody { position: relative; font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin: 0 auto; }
+.whoBody + .whoBody { margin-top: 1.6rem; }
 
 /* Chairman */
 .chairman { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
@@ -45,13 +46,9 @@
 .personRole { font-size: 1.5rem; color: var(--color-gray); }
 
 /* Director */
-.director { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
+.director { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; .directorMedia { order: -1; } } }
 .sign { font-size: 1.8rem; font-weight: 700; margin-top: 1rem; }
 .directorMedia { position: relative; border-radius: 2.4rem; overflow: hidden; aspect-ratio: 610 / 437; img { width: 100%; height: 100%; object-fit: cover; } }
-// Figma 909:1273: 50px green play button centred on the image.
-.playBadge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 5rem; height: 5rem; border-radius: 50%; background: var(--color-primary); pointer-events: none;
-  &::after { content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%); border-style: solid; border-width: 0.8rem 0 0.8rem 1.2rem; border-color: transparent transparent transparent var(--color-white); }
-}
 
 /* Accreditations */
 // Figma column widths: ACBSP 187, SAQS 183, NBA 456 (two paragraphs), MU 189.

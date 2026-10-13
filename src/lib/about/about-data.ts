@@ -12,6 +12,7 @@ export type AboutData = {
   vision: { heading: string; body: string; images: [string, string] };
   mission: { heading: string; paragraphs: string[]; images: [string, string] };
   whoWeAre: { watermark: string; body: string };
+  spMandali: { watermark: string; paragraphs: string[] };
   chairman: { heading: string; body: string; name: string; title: string; image: string };
   director: { heading: string; paragraphs: string[]; sign: string; image: string };
   accreditations: { logo: string; title: string; body: string; extra?: { title: string; body: string } }[];
@@ -48,8 +49,16 @@ export const ABOUT: AboutData = {
     images: [A("mission_1.webp"), A("mission_2.webp")],
   },
   whoWeAre: {
-    watermark: "Who We Are",
+    watermark: "WeSchool",
     body: "Bridging the gap between academia and industry, Prin. L. N. Welingkar Institute of Management Development and Research (WeSchool) has emerged as a torchbearer for progressive higher education. Established in 1977, WeSchool operates under the guidance of the S.P. Mandali Trust, one of the oldest educational trusts in India. With campuses in Mumbai and Bengaluru, WeSchool continues to foster an environment of innovation, industry relevance and experiential learning, preparing students to navigate a rapidly evolving world and create meaningful impact.",
+  },
+  spMandali: {
+    watermark: "S.P.Mandali",
+    paragraphs: [
+      "A name that claims 134 years of glorifying contribution towards the development of education in the state of Maharashtra. A name that boasts of 40 institutions put up across Pune, Mumbai, Solapur, Chiplun and Bengaluru. A name that believes in building not just an institution but a knowledge centre – Shikshana Prasaraka Mandali.",
+      "Founded in 1888, Shikshana Prasaraka Mandali is one of the pioneers of educational societies in our state. The institution since its inception is determined to building an environment that encourages the spirit of free thinking, thus imparting quality education to more than 45,000 students.",
+      "S. P. Mandali owns educational institutions including pre-primary, primary, secondary and higher secondary schools, colleges for Arts, Science and Commerce, a school for hearing impaired children, a therapeutic drug monitoring laboratory, an institute carrying out research in Ayurvedic and Herbal Medicine and management institutes.",
+    ],
   },
   chairman: {
     heading: "From the Chairman's Desk",
