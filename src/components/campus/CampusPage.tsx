@@ -21,7 +21,9 @@ export function CampusPage({ data }: { data: CampusData }) {
       <div className="GlobalLayout">
         <Header />
 
+        {/* data-auto-reveal: scroll fade-in for text, media and buttons (ScrollAnimationProvider). */}
         <main
+          data-auto-reveal=""
           className={`${styles.page} ${data.accent === "orange" ? styles.orangeCtas : ""}`}
           style={
             {

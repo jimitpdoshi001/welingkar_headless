@@ -324,6 +324,29 @@ export function ScrollAnimationProvider({
     };
   }, [initAnimations]);
 
+  // Trigger positions are measured when tweens are created. Images, carousels and
+  // fonts can change the page height afterwards, which leaves later sections with
+  // stale start points that are never reached. Re-measure when the height changes.
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof ResizeObserver === "undefined") return;
+
+    let timer: ReturnType<typeof setTimeout>;
+    let lastHeight = document.body.scrollHeight;
+    const observer = new ResizeObserver(() => {
+      const height = document.body.scrollHeight;
+      if (height === lastHeight) return;
+      lastHeight = height;
+      clearTimeout(timer);
+      timer = setTimeout(() => ScrollTrigger.refresh(), 150);
+    });
+    observer.observe(document.body);
+
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
+
   // Listen for prefers-reduced-motion toggle changes dynamically
   useEffect(() => {
     if (typeof window === "undefined") return;
