@@ -59,6 +59,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      // Keep faces in frame on mobile crops.
+      object-position: top;
     }
   }
 
