@@ -30,8 +30,9 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
 
+  // Figma: news titles are DM Sans SemiBold (600).
   h6 {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 
@@ -246,7 +247,7 @@
 
 .cardTitle {
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.35;
   color: var(--color-dark, #222);
   margin-bottom: 1rem;
