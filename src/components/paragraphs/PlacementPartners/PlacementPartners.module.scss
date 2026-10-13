@@ -7,6 +7,8 @@
 
   @include respond-to(mobile) {
     margin-top: 0;
+    // Keep the slider arrows off the footer.
+    padding-bottom: 4rem;
   }
 }
 

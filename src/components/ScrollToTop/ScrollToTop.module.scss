@@ -2,7 +2,7 @@
 
 .FloatingButtons {
   position: fixed;
-  right: 0.8rem;
+  left: 0.8rem;
   top: 70%;
   transform: translateY(-50%);
   display: flex;
@@ -15,12 +15,12 @@
   // Pin the rail flush to the viewport edge on smaller screens so the circular
   // buttons sit in the gutter instead of covering page content.
   @include respond-to(tab) {
-    right: 0.4rem;
+    left: 0.4rem;
     gap: 1.4rem;
   }
 
   @include respond-to(mobile) {
-    right: 0.3rem;
+    left: 0.3rem;
     gap: 1.2rem;
   }
 }
