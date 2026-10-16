@@ -87,7 +87,7 @@ export const LIFE: LifeData = {
     heading: "Campus Facilities",
     text: "Air-conditioned classrooms with LCD, OHP and video conferencing · innoWE · Maker's Lab · Agri Lab · Brainstorm Room · WeLearn + Corporate Library · Auditorium · Conference Room · Nirvana Hall · Campus-wide Wi-Fi",
   },
-  hostel: { heading: "Hostel", lines: ["Separate hostels for boys and girls, within 2 km of campus. 24×7 internet.", "First preference to non-local students"] },
+  hostel: { heading: "Hostel", lines: ["Separate hostels for boys and girls, within 2 km of campus.", "24×7 internet. First preference to non-local students"] },
   address: {
     heading: "Address",
     text: "Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019",
@@ -181,7 +181,7 @@ export const LIFE_BENGALURU: LifeData = {
     heading: "Campus Facilities",
     text: "Discovery Rooms built for interactive learning · Proto Lab · IT Lab · Design Room with LCD and OHP · Audio Visual Room · Boardroom · Library · MDP Classroom · Canteen",
   },
-  hostel: { heading: "Hostel", lines: ["Separate hostels for boys and girls, within 2 km of campus. 24×7 internet.", "A home away from home."] },
+  hostel: { heading: "Hostel", lines: ["Separate hostels for boys and girls, within 2 km of campus.", "24×7 internet. A home away from home."] },
   address: {
     heading: "Address",
     text: "102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru 560100",

@@ -227,8 +227,11 @@ export function LifePage({ data }: { data: LifeData }) {
                   />
                 ))}
               </div>
-              <div className={`${styles.galleryRow} ${styles.galleryRowOffset}`}>
-                {[...data.gallery.images.slice(5), ...data.gallery.images.slice(5, 6)].map((src, i) => (
+              {/* Row 2: same looping technique, reversed (four copies of the second set). */}
+              <div
+                className={`${styles.galleryRow} ${styles.galleryRowOffset}`}
+                aria-hidden="true">
+                {[...data.gallery.images.slice(5), ...data.gallery.images.slice(5), ...data.gallery.images.slice(5), ...data.gallery.images.slice(5)].map((src, i) => (
                   <img
                     key={i}
                     src={src}
