@@ -11,17 +11,19 @@ import { LifeCarousel } from "./LifeCarousel/LifeCarousel";
 import styles from "./LifePage.module.scss";
 
 export function LifePage({ data }: { data: LifeData }) {
-  const isMumbai = data.accent === "purple";
-  const accentVar = data.accent === "red" ? "var(--color-red)" : "var(--color-primary)";
-  
+  // Bengaluru uses a terracotta/red accent (Figma 1445:129); Mumbai is purple.
+  const isRed = data.accent === "red";
+
   return (
-    console.log('check mumbai',isMumbai),
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        {/* data-auto-reveal: scroll fade-in for text, media and buttons. */}
-        <main data-auto-reveal="">
+        {/* data-auto-reveal: scroll fade-in for text, media and buttons.
+            --life-band drives the gallery/visit band colour per campus. */}
+        <main
+          data-auto-reveal=""
+          style={{ ["--life-band" as string]: isRed ? "#b04535" : "var(--color-secondary)" }}>
           {/* Hero (Figma 1384:134): 650px, breadcrumb top-left, title bottom-left. */}
           <section className={styles.hero}>
             <img
@@ -97,7 +99,7 @@ export function LifePage({ data }: { data: LifeData }) {
               {data.campus.cards.map((c) => (
                 <article
                   key={c.id}
-                  className={isMumbai ? `${styles.featureCard}` : `${styles.featureCard} ${styles.featureCardred}`}>
+                  className={`${styles.featureCard} ${isRed ? styles.featureCardred : ""}`}>
                   <img
                     src={c.image}
                     alt=""
@@ -185,11 +187,7 @@ export function LifePage({ data }: { data: LifeData }) {
 
           {/* Two years in pictures (Figma 1413:323): full-bleed rows of 295px squares;
               the first row scrolls continuously left to right. */}
-          <section className={styles.gallery} style={
-            {
-              "background": isMumbai ? "var(--color-secondary)" : "#b04535",
-            } as React.CSSProperties
-          }>
+          <section className={styles.gallery}>
             <div className={`container ${styles.galleryHead}`}>
               <div>
                 <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
@@ -332,11 +330,7 @@ export function LifePage({ data }: { data: LifeData }) {
           </section>
 
           {/* Come see it for yourself (Figma 1424:487): 350px purple band. */}
-          <section className={styles.visit} style={
-            {
-              "background": isMumbai ? "var(--color-secondary)" : "#b04535",
-            } as React.CSSProperties
-          }>
+          <section className={styles.visit}>
             <div className="container">
               <h2 className={styles.headingLight}>{data.visit.heading}</h2>
               <p className={styles.visitSub}>{data.visit.subtitle}</p>
