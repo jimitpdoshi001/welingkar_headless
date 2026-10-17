@@ -50,7 +50,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
           <button
             ref={prevRef}
             type="button"
-            className={clsx(styles.arrowBtn, styles.outline)}
+            className={styles.arrowBtn}
             aria-label="Previous">
             <ArrowLeft
               height={10}
@@ -60,7 +60,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
           <button
             ref={nextRef}
             type="button"
-            className={clsx(styles.arrowBtn, styles.filled)}
+            className={styles.arrowBtn}
             aria-label="Next">
             <ArrowRight
               height={10}

@@ -16,6 +16,19 @@
   .description { color: var(--color-white); }
   .title { color: var(--color-white); }
   .meta { color: rgba(255, 255, 255, 0.75); }
+
+  // On the dark/accent band: white-bordered transparent circle with white arrow;
+  // hover fills white and the arrow takes the accent colour (red for Bengaluru).
+  .arrowBtn {
+    border-color: var(--color-white);
+    svg path { fill: var(--color-white); }
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-white);
+      svg path { fill: var(--faculty-accent, var(--color-primary)); }
+    }
+  }
 }
 
 .head {
@@ -65,16 +78,15 @@
   cursor: pointer;
   transition: all 0.25s ease;
   border: 1px solid var(--faculty-accent, var(--color-primary));
-}
-
-.outline {
+  // Normal: transparent circle, accent border + arrow. Solid fill only on hover.
   background: transparent;
-  svg path { fill: var(--faculty-accent, var(--color-primary)); }
-}
+  svg path { fill: var(--faculty-accent, var(--color-primary)); transition: fill 0.25s ease; }
 
-.filled {
-  background: var(--faculty-accent, var(--color-primary));
-  svg path { fill: var(--color-white); }
+  &:hover,
+  &:focus-visible {
+    background: var(--faculty-accent, var(--color-primary));
+    svg path { fill: var(--color-white); }
+  }
 }
 
 .card {
