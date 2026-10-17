@@ -16,29 +16,32 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <p className={styles.description}>{data.description}</p>
 
-      <div className={styles.navBtns}>
-        <button
-          type="button"
-          className={styles.arrowBtn}
-          onClick={() => swiperRef.current?.slidePrev()}
-          aria-label="Previous">
-          <ArrowLeft
-            height={10}
-            width={7}
-          />
-        </button>
-        <button
-          type="button"
-          className={styles.arrowBtn}
-          onClick={() => swiperRef.current?.slideNext()}
-          aria-label="Next">
-          <ArrowRight
-            height={10}
-            width={7}
-          />
-        </button>
+      {/* Sub heading and the carousel arrows share one row. */}
+      <div className={styles.subRow}>
+        <p className={styles.description}>{data.description}</p>
+        <div className={styles.navBtns}>
+          <button
+            type="button"
+            className={styles.arrowBtn}
+            onClick={() => swiperRef.current?.slidePrev()}
+            aria-label="Previous">
+            <ArrowLeft
+              height={10}
+              width={7}
+            />
+          </button>
+          <button
+            type="button"
+            className={styles.arrowBtn}
+            onClick={() => swiperRef.current?.slideNext()}
+            aria-label="Next">
+            <ArrowRight
+              height={10}
+              width={7}
+            />
+          </button>
+        </div>
       </div>
 
       <Swiper

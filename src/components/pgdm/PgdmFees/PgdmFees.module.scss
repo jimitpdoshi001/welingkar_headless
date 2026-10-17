@@ -10,21 +10,31 @@
   @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
+// Sub heading row: description on the left, carousel arrows on the right.
+.subRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-bottom: 3.2rem;
+
+  @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 1.6rem; }
+}
+
 .description {
   font-size: 1.6rem;
   line-height: 1.7;
   color: var(--color-gray);
-  // Use the full content width (requested).
+  // Fill the row width left of the arrows.
   max-width: none;
-  margin-bottom: 4rem;
+  margin: 0;
 }
 
-// Fee cards carousel: arrows sit above the track, right-aligned.
+// Fee cards carousel arrows: sit at the end of the sub heading row.
 .navBtns {
   display: flex;
-  justify-content: flex-end;
   gap: 1.2rem;
-  margin-bottom: 1.6rem;
+  flex-shrink: 0;
 }
 
 .arrowBtn {
