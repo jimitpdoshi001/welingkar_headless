@@ -9,7 +9,7 @@ type PgdmTabBarProps = {
   tabs: Tab[];
   active: string;
   onChange: (id: string) => void;
-  variant?: "underline" | "pill";
+  variant?: "underline" | "pill" | "segmented";
   theme?: "light" | "onDark";
 };
 

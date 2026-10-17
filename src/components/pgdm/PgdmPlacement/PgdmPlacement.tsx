@@ -39,8 +39,7 @@ export function PgdmPlacement({ data, bare = false }: { data: PgdmPlacementData;
             tabs={data.years.map((y) => ({ id: y.id, label: y.label }))}
             active={year}
             onChange={setYear}
-            variant="pill"
-            theme="onDark"
+            variant="segmented"
           />
         </div>
 

@@ -69,11 +69,44 @@
   }
 }
 
+// Segmented pill control (Placement year tabs): the group carries the rounded
+// outline; tabs are borderless and the active one fills with the accent.
+.segmented {
+  gap: 0.4rem;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50vw;
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+
+  .tab {
+    color: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 50vw;
+    padding: 0.9rem 2.4rem;
+    font-size: 1.5rem;
+
+    &:hover { color: var(--color-white); }
+
+    &.active {
+      background-color: var(--faculty-accent, var(--color-primary));
+      color: var(--color-white);
+    }
+  }
+}
+
 // On dark (purple / image) backgrounds
 .onDark {
   &.underline { border-bottom-color: rgba(255, 255, 255, 0.2); }
 
   .tab { color: rgba(255, 255, 255, 0.75); }
+
+  // Individual outlined pills, white text; active one fills with the accent.
+  &.pill .tab {
+    color: var(--color-white);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
 
   .tab:hover { color: var(--color-white); }
 
@@ -82,29 +115,8 @@
     border-bottom-color: var(--faculty-accent, var(--color-primary));
   }
 
-  // Placement year tabs (Figma): a segmented pill control. The group carries the
-  // rounded outline; tabs are borderless, the active one fills with the accent.
-  &.pill {
-    gap: 0.4rem;
-    padding: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50vw;
-    background: rgba(255, 255, 255, 0.06);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-
-    .tab {
-      color: rgba(255, 255, 255, 0.85);
-      border: none;
-      padding: 0.9rem 2.4rem;
-
-      &:hover { border: none; color: var(--color-white); }
-
-      &.active {
-        background-color: var(--faculty-accent, var(--color-primary));
-        border: none;
-        color: var(--color-white);
-      }
-    }
+  &.pill .tab.active {
+    background-color: var(--faculty-accent, var(--color-primary));
+    border-color: var(--faculty-accent, var(--color-primary));
   }
 }
