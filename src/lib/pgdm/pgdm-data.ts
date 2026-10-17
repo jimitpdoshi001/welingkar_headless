@@ -356,7 +356,8 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       heading: "Career Opportunities",
       description: "To nurture every budding student, we guide, mentor and stand by each one; helping them discover their innate hidden abilities and interests. Students of this program can look forward to career opportunities like:",
       tabs: CAREER_TABS,
-      initialCount: 20,
+      // Show two rows of 4, then reveal the rest via Show More.
+      initialCount: 8,
     },
     achievements: {
       heading: "Student Achievements",

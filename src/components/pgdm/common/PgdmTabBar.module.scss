@@ -29,13 +29,15 @@
   }
 
   .tab {
-    font-size: 2rem;
+    // Bold, -10% (2rem -> 1.8rem) per request.
+    font-size: 1.8rem;
+    font-weight: 700;
     color: var(--color-gray);
     padding-bottom: 1.2rem;
     border-bottom: 3px solid transparent;
     margin-bottom: -1px;
 
-    @include respond-to(mobile) { font-size: 1.6rem; }
+    @include respond-to(mobile) { font-size: 1.44rem; }
 
     &:hover { color: var(--color-black); }
 

@@ -32,6 +32,8 @@
   font-size: 3.6rem;
   font-weight: 800;
   margin-bottom: 2rem;
+  // Centre the section heading (requested).
+  text-align: center;
 
   @include respond-to(mobile) { font-size: 2.6rem; }
 }
@@ -52,7 +54,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  background: rgba(255, 255, 255, 0.1);
+  // Purple gradient begins at the vertical midpoint of the tab body (requested).
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 50%, var(--pgdm-band, var(--color-secondary)) 100%);
   border: 1px solid rgba(255, 255, 255, 0.18);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);

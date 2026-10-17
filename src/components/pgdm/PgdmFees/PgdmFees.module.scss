@@ -14,7 +14,8 @@
   font-size: 1.6rem;
   line-height: 1.7;
   color: var(--color-gray);
-  max-width: 90rem;
+  // Use the full content width (requested).
+  max-width: none;
   margin-bottom: 4rem;
 }
 
@@ -108,7 +109,7 @@
       width: 0.7rem;
       height: 0.7rem;
       border-radius: 50%;
-      background: var(--faculty-accent, var(--color-primary));
+      background: var(--color-black);
     }
   }
 }
