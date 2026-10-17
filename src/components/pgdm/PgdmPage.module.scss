@@ -9,6 +9,30 @@
 // Placement band: tighten the top padding of the why-recruit block only.
 .placementBand .block { padding-top: 40px; }
 
+// Vision/Mission band: faint right-pointing arrow watermark emerging from the
+// left edge, behind the "Our Vision" row (Figma). Clipped by the band.
+.visionBand {
+  position: relative;
+  overflow: hidden;
+
+  > * { position: relative; z-index: 1; }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -6rem;
+    top: 10rem;
+    width: 22rem;
+    height: 34rem;
+    background: rgba(255, 255, 255, 0.06);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    pointer-events: none;
+    z-index: 0;
+
+    @include respond-to(tab) { display: none; }
+  }
+}
+
 .blockTight {
   padding-block: 0 8rem;
 
