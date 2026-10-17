@@ -75,11 +75,6 @@
 
   .tab { color: rgba(255, 255, 255, 0.75); }
 
-  &.pill .tab {
-    color: var(--color-white);
-    border-color: rgba(255, 255, 255, 0.35);
-  }
-
   .tab:hover { color: var(--color-white); }
 
   .tab.active {
@@ -87,8 +82,29 @@
     border-bottom-color: var(--faculty-accent, var(--color-primary));
   }
 
-  &.pill .tab.active {
-    background-color: var(--faculty-accent, var(--color-primary));
-    border-color: var(--faculty-accent, var(--color-primary));
+  // Placement year tabs (Figma): a segmented pill control. The group carries the
+  // rounded outline; tabs are borderless, the active one fills with the accent.
+  &.pill {
+    gap: 0.4rem;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50vw;
+    background: rgba(255, 255, 255, 0.06);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+
+    .tab {
+      color: rgba(255, 255, 255, 0.85);
+      border: none;
+      padding: 0.9rem 2.4rem;
+
+      &:hover { border: none; color: var(--color-white); }
+
+      &.active {
+        background-color: var(--faculty-accent, var(--color-primary));
+        border: none;
+        color: var(--color-white);
+      }
+    }
   }
 }
