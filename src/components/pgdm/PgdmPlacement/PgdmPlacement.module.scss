@@ -3,6 +3,7 @@
 .root {
   position: relative;
   padding-block: 8rem;
+  padding-bottom: 0;
   overflow: hidden;
 
   @include respond-to(mobile) { padding-block: 5rem; }
@@ -46,6 +47,7 @@
 
 .yearTabs {
   margin: 3.2rem 0 2rem;
+  padding-top: 200px;
   // Centre the year tabs within the section (requested).
   display: flex;
   justify-content: center;
