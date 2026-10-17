@@ -33,7 +33,7 @@ async function requestJsonApi(url: string, init?: FetchOptions, retry = true): P
       ...init?.headers,
     },
     next: {
-      revalidate: 60,
+      revalidate: 3600,
       ...init?.next,
     },
   });

@@ -65,6 +65,13 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
+    // Cut Image Optimization metering: cache optimized images 31 days, limit the
+    // number of generated variants (sizes/formats/qualities). Verified keys for Next 16.
+    minimumCacheTTL: 2678400, // 31 days
+    formats: ["image/webp"],
+    qualities: [75],
+    deviceSizes: [640, 828, 1200, 1920],
+    imageSizes: [128, 256, 384],
     remotePatterns: [
       {
         protocol: "https",

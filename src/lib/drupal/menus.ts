@@ -44,7 +44,7 @@ function sanitizeMenuItems<T extends { url: string; children?: T[] }>(items: T[]
 export const getTopMenu = cache(async (): Promise<TopMenu> => {
   try {
     const response = await fetch(`${drupalConfig.baseUrl}/api/top-menu`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
@@ -71,7 +71,7 @@ export const getTopMenu = cache(async (): Promise<TopMenu> => {
 export const getFooterMenu = cache(async (): Promise<FooterLink[]> => {
   try {
     const response = await fetch(`${drupalConfig.baseUrl}/api/footer-menu`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
     });
 
     if (!response.ok) {
