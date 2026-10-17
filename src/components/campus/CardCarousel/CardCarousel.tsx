@@ -1,18 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
-import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
 import clsx from "clsx";
 
 import "swiper/css";
-import "swiper/css/navigation";
 
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { CampusCard } from "@/lib/campus/campus-data";
-import { useHasMounted } from "@/util/useMediaQuery";
 import styles from "./CardCarousel.module.scss";
 
 type CardCarouselProps = {
@@ -27,17 +24,9 @@ type CardCarouselProps = {
 };
 
 export function CardCarousel({ heading, description, cards, cta, theme = "light", overlayCaption = false, fitDescriptionToHeading = false }: CardCarouselProps) {
-  const mounted = useHasMounted();
-  const prevRef = useRef<HTMLButtonElement | null>(null);
-  const nextRef = useRef<HTMLButtonElement | null>(null);
-  const [swiper, setSwiper] = useState<SwiperClass | null>(null);
-
-  useEffect(() => {
-    if (swiper?.navigation) {
-      swiper.navigation.init();
-      swiper.navigation.update();
-    }
-  }, [swiper, mounted]);
+  // Direct Swiper handle: arrows call slidePrev/slideNext. Deterministic per
+  // instance, so every carousel on the page controls its own slides reliably.
+  const swiperRef = useRef<SwiperClass | null>(null);
 
   return (
     <div className={clsx(styles.root, theme === "onDark" && styles.onDark)}>
@@ -48,9 +37,9 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
         </div>
         <div className={styles.navBtns}>
           <button
-            ref={prevRef}
             type="button"
             className={styles.arrowBtn}
+            onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Previous">
             <ArrowLeft
               height={10}
@@ -58,9 +47,9 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
             />
           </button>
           <button
-            ref={nextRef}
             type="button"
             className={styles.arrowBtn}
+            onClick={() => swiperRef.current?.slideNext()}
             aria-label="Next">
             <ArrowRight
               height={10}
@@ -71,18 +60,13 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
       </div>
 
       <Swiper
-        modules={[Navigation]}
         slidesPerView={1.1}
         spaceBetween={20}
         grabCursor
         breakpoints={{ 576: { slidesPerView: 1.6 }, 768: { slidesPerView: 2.3 }, 1024: { slidesPerView: 3.1 } }}
-        onBeforeInit={(s) => {
-          if (s.params.navigation && typeof s.params.navigation !== "boolean") {
-            s.params.navigation.prevEl = prevRef.current;
-            s.params.navigation.nextEl = nextRef.current;
-          }
-        }}
-        onSwiper={setSwiper}>
+        onSwiper={(s) => {
+          swiperRef.current = s;
+        }}>
         {cards.map((card) => (
           <SwiperSlide key={card.id}>
             <article className={clsx(styles.card, overlayCaption && styles.overlayCard)}>
