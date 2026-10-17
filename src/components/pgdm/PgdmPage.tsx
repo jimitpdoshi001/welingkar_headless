@@ -111,7 +111,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <section className={styles.band}>
+          <section className={`${styles.band} ${styles.visionBand}`}>
             <div className={`container ${styles.blockTop0}`}>
               <PgdmVisionMission data={data.visionMission} />
             </div>
