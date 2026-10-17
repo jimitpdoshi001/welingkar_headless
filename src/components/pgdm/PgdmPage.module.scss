@@ -6,6 +6,9 @@
   @include respond-to(mobile) { padding-block: 5rem; }
 }
 
+// Placement band: tighten the top padding of the why-recruit block only.
+.placementBand .block { padding-top: 40px; }
+
 .blockTight {
   padding-block: 0 8rem;
 

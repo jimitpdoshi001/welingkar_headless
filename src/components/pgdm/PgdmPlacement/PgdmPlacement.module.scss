@@ -3,6 +3,7 @@
 .root {
   position: relative;
   padding-block: 8rem;
+  padding-bottom: 0;
   overflow: hidden;
 
   @include respond-to(mobile) { padding-block: 5rem; }
@@ -46,6 +47,7 @@
 
 .yearTabs {
   margin: 3.2rem 0 2rem;
+  padding-top: 200px;
   // Centre the year tabs within the section (requested).
   display: flex;
   justify-content: center;
@@ -55,15 +57,12 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  // Purple gradient begins at the vertical midpoint and reaches solid band colour
-  // at the bottom; the bottom edge is squared and borderless so it merges into the
-  // purple band below with no gap.
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 50%, var(--pgdm-band, var(--color-secondary)) 100%);
+  // Clean translucent glass card, fully rounded (Figma reference).
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-bottom: 0;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border-radius: 2.4rem 2.4rem 0 0;
+  border-radius: 2.4rem;
   padding: 3.2rem;
 
   @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); gap: 2.4rem; }
