@@ -143,7 +143,7 @@ export async function getFacultyCategories(): Promise<FacultyCategory[]> {
     const url = jsonApiUrl("/taxonomy_term/faculty_category", {
       sort: "weight,name",
     });
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const res = await fetch(url, { next: { revalidate: 3600 } });
     if (res.ok) {
       const document = (await res.json()) as JsonApiDocument<JsonApiResource>;
       const terms = Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
@@ -172,7 +172,7 @@ export async function getFacultyMembers(): Promise<FacultyMember[]> {
       "filter[status]": "1",
       sort: "title",
     });
-    const res = await fetch(url, { next: { revalidate: 60 } });
+    const res = await fetch(url, { next: { revalidate: 3600 } });
     if (res.ok) {
       const document = (await res.json()) as JsonApiDocument<JsonApiResource>;
       const nodes = Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];

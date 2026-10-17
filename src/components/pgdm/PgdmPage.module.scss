@@ -92,5 +92,29 @@
   @include respond-to(mobile) { background-size: auto 60rem; }
 }
 
+// Straight from Our Community: full-bleed purple band hosting the home page's
+// animated testimonial section (no .container; the component positions itself).
+.communitySection {
+  position: relative;
+  background-color: var(--pgdm-band, var(--color-secondary));
+  color: var(--color-white);
+  overflow: hidden;
+}
+.communityHeading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-white);
+  margin-bottom: 1.6rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+.communityDesc {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2.4rem;
+}
+
 // Mumbai: section CTAs are orange in Figma; the hero keeps its green Apply Now.
 .orangeCtas > :not(:first-child) :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }

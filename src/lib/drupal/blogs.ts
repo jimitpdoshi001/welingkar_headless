@@ -367,7 +367,7 @@ async function fetchBlogPage(options: {
     params["filter[notid][condition][value]"] = options.excludeId;
   }
 
-  const document = await fetchJsonApi<NodeResource>("/node/blogs", params, { cache: "no-store" });
+  const document = await fetchJsonApi<NodeResource>("/node/blogs", params, { next: { revalidate: 3600 } });
   const nodes = firstNodes(document);
 
   return {
@@ -386,7 +386,7 @@ async function fetchFeaturedArticle(): Promise<BlogArticle | null> {
       "page[limit]": "1",
       sort: "-field_date",
     },
-    { cache: "no-store" },
+    { next: { revalidate: 3600 } },
   );
 
   const nodes = firstNodes(document);

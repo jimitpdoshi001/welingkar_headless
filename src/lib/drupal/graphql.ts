@@ -27,7 +27,7 @@ export async function fetchGraphQL<T>(
       ...authHeaders,
     },
     body: JSON.stringify({ query, variables }),
-    next: { revalidate: 60 },
+    next: { revalidate: 3600 },
   });
 
   if (response.status === 401 || response.status === 403) {

@@ -20,7 +20,7 @@ import { PgdmPlacement } from "./PgdmPlacement/PgdmPlacement";
 import { PgdmWhyRecruit } from "./PgdmWhyRecruit/PgdmWhyRecruit";
 import { PgdmRecruiters } from "./PgdmRecruiters/PgdmRecruiters";
 import { PgdmFees } from "./PgdmFees/PgdmFees";
-import { PgdmCommunity } from "./PgdmCommunity/PgdmCommunity";
+import { HomeCommunitySection } from "@/components/paragraphs/HomeCommunitySection/HomeCommunitySection";
 import { PgdmFaqs } from "./PgdmFaqs/PgdmFaqs";
 import styles from "./PgdmPage.module.scss";
 
@@ -157,10 +157,25 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <section className={styles.band}>
-            <div className={`container ${styles.block}`}>
-              <PgdmCommunity data={data.community} />
-            </div>
+          {/* Straight from Our Community: reuse the home page's animated section. */}
+          <section className={styles.communitySection}>
+            <HomeCommunitySection
+              testimonials={data.community.testimonials.map((t) => ({
+                id: t.id,
+                quote: t.quote,
+                name: t.name,
+                role: t.role,
+                avatar: t.avatar,
+                avatarAlt: t.name,
+              }))}>
+              <h2 className={styles.communityHeading}>{data.community.heading}</h2>
+              <p className={styles.communityDesc}>{data.community.description}</p>
+              <Link
+                href={data.community.cta.href}
+                className="btn accent">
+                {data.community.cta.label}
+              </Link>
+            </HomeCommunitySection>
           </section>
 
           <section className={`container ${styles.block}`}>

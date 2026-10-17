@@ -14,7 +14,8 @@
   font-size: 1.6rem;
   line-height: 1.7;
   color: var(--color-gray);
-  max-width: 90rem;
+  // Use the full content width (requested).
+  max-width: none;
   margin-bottom: 2.4rem;
 }
 
