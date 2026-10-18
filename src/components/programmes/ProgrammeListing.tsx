@@ -115,7 +115,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
                     className={styles.image}
                   />
                   <div className={styles.card}>
-                    <h3 className={styles.title}>{p.title}</h3>
+                    <h3 className={`${styles.title} ${p.slug === "pgdm-media" ? styles.titleOneLine : ""}`}>{p.title}</h3>
                     <p className={styles.body}>{p.description}</p>
                     <p className={styles.intake}>{p.intake}</p>
                     <div className={styles.actions}>
