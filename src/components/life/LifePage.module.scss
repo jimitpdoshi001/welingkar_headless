@@ -105,6 +105,8 @@ $purple-hover: rgba(107, 76, 134, 0.9);
 /* Two years in pictures (Figma 1409:227): 957px purple band, full-bleed rows. */
 .gallery { padding-block: 8.3rem 8.9rem; background: var(--life-band, var(--color-secondary)); overflow: hidden; @include respond-to(mobile) { padding-block: 5rem; } }
 .galleryHead { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 5rem; @include respond-to(mobile) { flex-direction: column; align-items: flex-start; margin-bottom: 3rem; } }
+// Text block fills the width left of the button so the subtitle flows across it.
+.galleryHeadText { flex: 1; min-width: 0; }
 .galleryFilters { display: flex; flex-wrap: wrap; gap: 1.6rem 4.4rem; @include respond-to(mobile) { gap: 1.2rem 2.4rem; } }
 .galleryFilter { position: relative; font-size: 1.8rem; font-weight: 300; color: var(--color-white); cursor: pointer; }
 .galleryFilterActive { font-weight: 700; color: var(--color-primary);
