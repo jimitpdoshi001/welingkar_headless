@@ -189,12 +189,10 @@ export function LifePage({ data }: { data: LifeData }) {
               the first row scrolls continuously left to right. */}
           <section className={styles.gallery}>
             <div className={`container ${styles.galleryHead}`}>
-              <div>
+              <div className={styles.galleryHeadText}>
                 <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
                 <p className={styles.sectionBodyLight}>
-                  {data.gallery.subtitle[0]}
-                  <br />
-                  {data.gallery.subtitle[1]}
+                  {data.gallery.subtitle[0]} {data.gallery.subtitle[1]}
                 </p>
                 <div className={styles.galleryFilters}>
                   {data.gallery.filters.map((f, i) => (
@@ -293,7 +291,7 @@ export function LifePage({ data }: { data: LifeData }) {
                 {data.ideas.stories.map((s) => (
                   <article
                     key={s.id}
-                    className={`${styles.featureCard} ${styles.storyCard}`}>
+                    className={`${styles.featureCard} ${styles.storyCard} ${isRed ? styles.featureCardred : ""}`}>
                     <img
                       src={s.image}
                       alt=""
