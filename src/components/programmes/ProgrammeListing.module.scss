@@ -48,8 +48,8 @@
   @include respond-to(tab) { padding: 3.2rem; }
   @include respond-to(mobile) { padding: 2.8rem 2.4rem; }
 }
-// Banded rows: card blends into the lavender band (transparent, no outline).
-.banded .card { background: transparent; border: none; }
+// Banded rows: transparent card with a light grey outline.
+.banded .card { background: transparent; border: 1px solid #a4a4a4; border-radius: 40px; }
 .title { font-size: clamp(2.4rem, 2rem + 0.6vw, 3rem); font-weight: 800; line-height: 1.2; max-width: 43.4rem; margin-bottom: 2.4rem; }
 // Keep "PGDM - Media & Entertainment" on one line (wraps to normal on mobile).
 .titleOneLine { max-width: none; white-space: nowrap; @include respond-to(mobile) { white-space: normal; } }
