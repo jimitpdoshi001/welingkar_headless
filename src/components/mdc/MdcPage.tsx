@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { MdcData } from "@/lib/mdc/mdc-data";
+import { MdcTestimonials } from "./MdcTestimonials/MdcTestimonials";
 import styles from "./MdcPage.module.scss";
 
 export function MdcPage({ data }: { data: MdcData }) {
@@ -220,22 +221,13 @@ export function MdcPage({ data }: { data: MdcData }) {
             </div>
           </section>
 
-          {/* Testimonials */}
+          {/* Testimonials: heading left, carousel right (arrows below-right). */}
           <section className={`bg-secondary ${styles.band}`}>
-            <div className={`container ${styles.block} ${styles.testi}`}>
-              <h2 className={styles.headingLight}>{data.testimonials.heading}</h2>
-              <div className={styles.testiRow}>
-                {data.testimonials.items.map((t) => (
-                  <article
-                    key={t.id}
-                    className={styles.testiCard}>
-                    <div className={styles.stars}>★★★★★</div>
-                    <p className={styles.testiText}>{t.text}</p>
-                    <p className={styles.testiName}>{t.name}</p>
-                    <p className={styles.testiRole}>{t.role}</p>
-                  </article>
-                ))}
-              </div>
+            <div className={`container ${styles.block}`}>
+              <MdcTestimonials
+                heading={data.testimonials.heading}
+                items={data.testimonials.items}
+              />
             </div>
           </section>
 

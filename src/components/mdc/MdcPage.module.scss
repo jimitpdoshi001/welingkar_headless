@@ -1,13 +1,13 @@
 @use "../../styles/base/mixins" as *;
 
-.block { padding-block: 6rem; @include respond-to(mobile) { padding-block: 4rem; } }
+.block { padding-block: 8.5rem; @include respond-to(mobile) { padding-block: 5rem; } }
 
 .heading { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
 .headingCenter { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); text-align: center; margin-bottom: 3.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
 .headingLight { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-white); margin-bottom: 3.2rem; @include respond-to(mobile) { font-size: 2.6rem; } }
 .headingLightCenter { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-white); text-align: center; margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
 .body { font-size: 1.55rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 1.4rem; }
-.sub { font-size: 1.5rem; color: var(--color-dark-gray); max-width: 70rem; margin-bottom: 3.2rem; }
+.sub { font-size: 1.5rem; color: var(--color-dark-gray); max-width: none; margin-bottom: 3.2rem; }
 
 /* Hero */
 .hero { position: relative; min-height: 48rem; display: flex; align-items: flex-end; overflow: hidden; color: var(--color-white); }
@@ -31,7 +31,11 @@
 .statLabel { font-size: 1.5rem; color: var(--color-gray); margin-top: 0.8rem; }
 
 /* Learning + collage */
-.learning { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; } }
+.learning { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; }
+  // Faint purple arrow watermark emerging from the left edge (behind the copy).
+  &::before { content: ""; position: absolute; left: -6rem; top: 50%; transform: translateY(-50%); width: 18rem; height: 26rem; background: rgba(73, 52, 96, 0.08); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none; z-index: 0; @include respond-to(tab) { display: none; } }
+  > * { position: relative; z-index: 1; }
+}
 .collage { position: relative; min-height: 32rem; }
 .collageMain { width: 100%; border-radius: 2rem; aspect-ratio: 4/3; object-fit: cover; }
 .collageSmall { position: absolute; left: -2rem; bottom: -3rem; width: 40%; border-radius: 1.4rem; aspect-ratio: 4/3; object-fit: cover; border: 5px solid var(--color-white); box-shadow: 0 1rem 3rem rgba(0,0,0,0.2); }
@@ -50,13 +54,13 @@
 .aboutOverlay { position: absolute; inset: 0; background: var(--mdc-overlay, rgba(32, 20, 55, 0.25)); }
 .aboutInner { position: relative; z-index: 1; padding-block: 6.5rem; text-align: center; }
 .aboutBody { font-size: 1.5rem; line-height: 1.7; color: rgba(255,255,255,0.85); max-width: 82rem; margin: 0 auto 1.2rem; }
-.offerHeading { font-size: 2.2rem; font-weight: 700; text-align: center; margin: 3.6rem 0 2.4rem; }
+.offerHeading { font-size: 2.2rem; font-weight: 700; text-align: center; margin: 6.4rem 0 2.4rem; }
 .offerGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
 .offerCard { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 1.2rem; padding: 1.8rem; font-size: 1.45rem; }
 
 /* Why choose grid */
 .whyGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.whyCard { background: var(--mdc-tint2, #f6f2fc); border-radius: 1.6rem; padding: 2.6rem; h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; } p { font-size: 1.4rem; line-height: 1.55; color: var(--color-gray); } }
+.whyCard { background: var(--mdc-tint2, #f6f2fc); border-radius: 1.6rem; padding: 3.2rem 2.6rem; min-height: 28rem; h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; } p { font-size: 1.4rem; line-height: 1.55; color: var(--color-gray); } }
 
 /* Expertise (on purple) */
 .expertiseGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.2rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
@@ -65,20 +69,11 @@
 /* Flagship */
 .flagshipBand { background: var(--mdc-tint, #f3eefb); }
 .flagshipGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.flagshipCard { position: relative; border-radius: 2rem; overflow: hidden; min-height: 40rem; display: flex; img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } }
+.flagshipCard { position: relative; border-radius: 2rem; overflow: hidden; min-height: 50rem; display: flex; img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } }
 .flagshipBody { position: relative; z-index: 1; margin: auto 1.6rem 1.6rem; padding: 2rem; border-radius: 1.4rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); align-self: flex-end; width: calc(100% - 3.2rem); h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; } p { font-size: 1.35rem; line-height: 1.5; color: var(--color-dark-gray); margin-bottom: 1.6rem; } }
 
 /* Trusted logos */
-.logoStrip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3rem; img { height: 4.5rem; width: auto; object-fit: contain; max-width: 17rem; } }
-
-/* Testimonials */
-.testi { .headingLight { margin-bottom: 3.6rem; } }
-.testiRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.testiCard { background: var(--color-white); border-radius: 1.6rem; padding: 2.6rem; }
-.stars { color: var(--color-primary); font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 1.6rem; }
-.testiText { font-size: 1.35rem; line-height: 1.6; color: var(--color-dark-gray); margin-bottom: 2rem; }
-.testiName { font-size: 1.5rem; font-weight: 700; }
-.testiRole { font-size: 1.3rem; color: var(--color-gray); }
+.logoStrip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3.5rem; img { height: 7rem; width: auto; object-fit: contain; max-width: 22rem; } }
 
 /* Contact team */
 .contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
