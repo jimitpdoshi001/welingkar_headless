@@ -10,7 +10,7 @@
 .sub { font-size: 1.5rem; color: var(--color-dark-gray); max-width: none; margin-bottom: 3.2rem; }
 
 /* Hero */
-.hero { position: relative; min-height: 48rem; display: flex; align-items: flex-end; overflow: hidden; color: var(--color-white); }
+.hero { position: relative; min-height: 65rem; display: flex; align-items: flex-end; overflow: hidden; color: var(--color-white); }
 .heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .heroOverlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,6,18,0.82) 0%, rgba(10,6,18,0.55) 50%, rgba(10,6,18,0.2) 100%); }
 .heroInner { position: relative; z-index: 1; padding-top: 14rem; padding-bottom: 5rem; }
@@ -32,8 +32,8 @@
 
 /* Learning + collage */
 .learning { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; }
-  // Faint purple arrow watermark emerging from the left edge (behind the copy).
-  &::before { content: ""; position: absolute; left: -6rem; top: 50%; transform: translateY(-50%); width: 18rem; height: 26rem; background: rgba(73, 52, 96, 0.08); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none; z-index: 0; @include respond-to(tab) { display: none; } }
+  // Faint purple arrow watermark at the left edge (Figma 1540:133, 267 x 305).
+  &::before { content: ""; position: absolute; left: -2rem; top: 1rem; width: 26.7rem; height: 30.5rem; background: rgba(73, 52, 96, 0.08); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none; z-index: 0; @include respond-to(tab) { display: none; } }
   > * { position: relative; z-index: 1; }
 }
 .collage { position: relative; min-height: 32rem; }
@@ -55,12 +55,14 @@
 .aboutInner { position: relative; z-index: 1; padding-block: 6.5rem; text-align: center; }
 .aboutBody { font-size: 1.5rem; line-height: 1.7; color: rgba(255,255,255,0.85); max-width: 82rem; margin: 0 auto 1.2rem; }
 .offerHeading { font-size: 2.2rem; font-weight: 700; text-align: center; margin: 6.4rem 0 2.4rem; }
-.offerGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.offerCard { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 1.2rem; padding: 1.8rem; font-size: 1.45rem; }
+.offerGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
+// Figma 295 x 100.
+.offerCard { display: flex; align-items: center; min-height: 10rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 1.2rem; padding: 1.8rem 2.4rem; font-size: 1.45rem; }
 
 /* Why choose grid */
-.whyGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.whyCard { background: var(--mdc-tint2, #f6f2fc); border-radius: 1.6rem; padding: 3.2rem 2.6rem; min-height: 28rem; h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; } p { font-size: 1.4rem; line-height: 1.55; color: var(--color-gray); } }
+.whyGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
+// Figma 295 x 316.
+.whyCard { background: var(--mdc-tint2, #f6f2fc); border-radius: 1.6rem; padding: 3.2rem 2.6rem; min-height: 31.6rem; h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; } p { font-size: 1.4rem; line-height: 1.55; color: var(--color-gray); } }
 
 /* Expertise (on purple) */
 .expertiseGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.2rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
@@ -68,16 +70,18 @@
 
 /* Flagship */
 .flagshipBand { background: var(--mdc-tint, #f3eefb); }
-.flagshipGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.flagshipCard { position: relative; border-radius: 2rem; overflow: hidden; min-height: 50rem; display: flex; img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } }
+.flagshipGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+// Figma 400 x 518.
+.flagshipCard { position: relative; border-radius: 2rem; overflow: hidden; min-height: 51.8rem; display: flex; img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; } }
 .flagshipBody { position: relative; z-index: 1; margin: auto 1.6rem 1.6rem; padding: 2rem; border-radius: 1.4rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); align-self: flex-end; width: calc(100% - 3.2rem); h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; } p { font-size: 1.35rem; line-height: 1.5; color: var(--color-dark-gray); margin-bottom: 1.6rem; } }
 
 /* Trusted logos */
 .logoStrip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3.5rem; img { height: 7rem; width: auto; object-fit: contain; max-width: 22rem; } }
 
 /* Contact team */
-.contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.contactCard { border: 1px solid var(--color-light-gray); border-radius: 1.6rem; padding: 2.8rem; h3 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.4rem; } }
+.contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+// Figma 610 x 340.
+.contactCard { border: 1px solid var(--color-light-gray); border-radius: 1.6rem; padding: 3.2rem; min-height: 34rem; h3 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.4rem; } }
 .contactTitle { font-size: 1.5rem; color: var(--color-dark-gray); margin-bottom: 1.6rem; }
 .contactDept { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.6rem; }
 .contactLine { font-size: 1.5rem; margin-bottom: 1rem; a { color: var(--mdc-accent, var(--color-secondary)); } span { color: var(--color-gray); margin-left: 1rem; font-size: 1.3rem; } }

@@ -21,9 +21,9 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
       <div className={styles.right}>
         <Swiper
           slidesPerView={1.05}
-          spaceBetween={20}
+          spaceBetween={24}
           grabCursor
-          breakpoints={{ 768: { slidesPerView: 2 } }}
+          breakpoints={{ 768: { slidesPerView: 1.6 }, 1024: { slidesPerView: 2.4 } }}
           onSwiper={(s) => {
             swiperRef.current = s;
           }}>

@@ -21,10 +21,12 @@
 // min-width:0 lets the carousel shrink inside the grid cell.
 .right { min-width: 0; }
 
+// Figma 310 x 405.
 .card {
   background: var(--color-white);
   border-radius: 1.6rem;
-  padding: 2.6rem;
+  padding: 3rem 2.6rem;
+  min-height: 40.5rem;
   height: 100%;
 }
 
