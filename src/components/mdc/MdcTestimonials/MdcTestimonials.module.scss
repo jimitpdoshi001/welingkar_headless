@@ -12,8 +12,11 @@
 .heading {
   font-size: 3.6rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-white);
+  // Left aligned, vertically centred against the carousel.
+  align-self: center;
+  text-align: left;
 
   @include respond-to(mobile) { font-size: 2.6rem; }
 }
@@ -21,10 +24,12 @@
 // min-width:0 lets the carousel shrink inside the grid cell.
 .right { min-width: 0; }
 
+// Figma 310 x 405.
 .card {
   background: var(--color-white);
   border-radius: 1.6rem;
-  padding: 2.6rem;
+  padding: 3rem 2.6rem;
+  min-height: 40.5rem;
   height: 100%;
 }
 

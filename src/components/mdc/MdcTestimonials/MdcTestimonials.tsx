@@ -16,14 +16,22 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
 
   return (
     <div className={styles.layout}>
-      <h2 className={styles.heading}>{heading}</h2>
+      {/* Each word on its own line (Figma): "What / Participants / Say". */}
+      <h2 className={styles.heading}>
+        {heading.split(" ").map((word, i, arr) => (
+          <span key={i}>
+            {word}
+            {i < arr.length - 1 ? <br /> : null}
+          </span>
+        ))}
+      </h2>
 
       <div className={styles.right}>
         <Swiper
           slidesPerView={1.05}
-          spaceBetween={20}
+          spaceBetween={24}
           grabCursor
-          breakpoints={{ 768: { slidesPerView: 2 } }}
+          breakpoints={{ 768: { slidesPerView: 1.6 }, 1024: { slidesPerView: 2.4 } }}
           onSwiper={(s) => {
             swiperRef.current = s;
           }}>

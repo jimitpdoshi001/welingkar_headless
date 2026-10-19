@@ -43,7 +43,7 @@ export function MdcPage({ data }: { data: MdcData }) {
               <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
               <Link
                 href={data.hero.cta.href}
-                className="btn accent">
+                className="btn white-outline">
                 {data.hero.cta.label}
               </Link>
             </div>
@@ -78,28 +78,30 @@ export function MdcPage({ data }: { data: MdcData }) {
           </section>
 
           {/* Learning that keeps pace */}
-          <section className={`container ${styles.block} ${styles.learning}`}>
-            <div>
-              <h2 className={styles.heading}>{data.learning.heading}</h2>
-              {data.learning.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.body}>
-                  {p}
-                </p>
-              ))}
-            </div>
-            <div className={styles.collage}>
-              <img
-                src={data.learning.images[0]}
-                alt=""
-                className={styles.collageMain}
-              />
-              <img
-                src={data.learning.images[1]}
-                alt=""
-                className={styles.collageSmall}
-              />
+          <section className={styles["bg-purplearrow"]}>
+            <div className={`container ${styles.block} ${styles.learning}`}>
+              <div>
+                <h2 className={styles.heading}>{data.learning.heading}</h2>
+                {data.learning.paragraphs.map((p, i) => (
+                  <p
+                    key={i}
+                    className={styles.body}>
+                    {p}
+                  </p>
+                ))}
+              </div>
+              <div className={styles.collage}>
+                <img
+                  src={data.learning.images[0]}
+                  alt=""
+                  className={styles.collageMain}
+                />
+                <img
+                  src={data.learning.images[1]}
+                  alt=""
+                  className={styles.collageSmall}
+                />
+              </div>
             </div>
           </section>
 
