@@ -43,7 +43,7 @@ export function MdcPage({ data }: { data: MdcData }) {
               <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
               <Link
                 href={data.hero.cta.href}
-                className="btn accent">
+                className="btn white-outline">
                 {data.hero.cta.label}
               </Link>
             </div>

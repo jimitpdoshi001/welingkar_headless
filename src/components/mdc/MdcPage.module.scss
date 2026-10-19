@@ -31,19 +31,20 @@
 .statLabel { font-size: 1.5rem; color: var(--color-gray); margin-top: 0.8rem; }
 
 /* Learning + collage */
-.learning { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; }
-  // Faint purple arrow watermark at the left edge (Figma 1540:133, 267 x 305).
-  &::before { content: ""; position: absolute; left: -2rem; top: 1rem; width: 26.7rem; height: 30.5rem; background: rgba(73, 52, 96, 0.08); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none; z-index: 0; @include respond-to(tab) { display: none; } }
+.learning { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; padding-bottom: 12rem; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; padding-bottom: 8rem; }
+  // Faint purple arrow watermark behind the copy (Figma 1540:133). Anchored to
+  // the content, not glued to the screen edge.
+  &::before { content: ""; position: absolute; left: 0; top: 1rem; width: 24rem; height: 30.5rem; background: rgba(73, 52, 96, 0.08); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none; z-index: 0; @include respond-to(tab) { display: none; } }
   > * { position: relative; z-index: 1; }
 }
 .collage { position: relative; min-height: 32rem; }
 .collageMain { width: 100%; border-radius: 2rem; aspect-ratio: 4/3; object-fit: cover; }
-.collageSmall { position: absolute; left: -2rem; bottom: -3rem; width: 40%; border-radius: 1.4rem; aspect-ratio: 4/3; object-fit: cover; border: 5px solid var(--color-white); box-shadow: 0 1rem 3rem rgba(0,0,0,0.2); }
+.collageSmall { position: absolute; left: -2rem; bottom: -3rem; width: 40%; border-radius: 1.4rem; aspect-ratio: 4/3; object-fit: cover; box-shadow: 0 1rem 3rem rgba(0,0,0,0.2); }
 
 /* Feature band (light purple) */
 .featureBand { background: var(--mdc-tint, #f3eefb); }
 .featureRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-block: 5rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.feature { h3 { font-size: 1.9rem; font-weight: 700; } }
+.feature { h3 { font-size: 1.9rem; font-weight: 700; line-height: 1.4; max-width: 24rem; color: var(--color-black); } }
 // Figma line icons, ~60px tall with natural widths.
 .featureIcon, .whyIcon, .expertiseIcon { display: block; height: 6rem; width: auto; max-width: 9rem; margin-bottom: 1.4rem; }
 
@@ -54,7 +55,7 @@
 .aboutOverlay { position: absolute; inset: 0; background: var(--mdc-overlay, rgba(32, 20, 55, 0.25)); }
 .aboutInner { position: relative; z-index: 1; padding-block: 6.5rem; text-align: center; }
 .aboutBody { font-size: 1.5rem; line-height: 1.7; color: rgba(255,255,255,0.85); max-width: 82rem; margin: 0 auto 1.2rem; }
-.offerHeading { font-size: 2.2rem; font-weight: 700; text-align: center; margin: 6.4rem 0 2.4rem; }
+.offerHeading { font-size: 2.2rem; font-weight: 700; text-align: center; margin: 27.4rem 0 2.4rem; }
 .offerGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
 // Figma 295 x 100.
 .offerCard { display: flex; align-items: center; min-height: 10rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 1.2rem; padding: 1.8rem 2.4rem; font-size: 1.45rem; }
@@ -62,11 +63,11 @@
 /* Why choose grid */
 .whyGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
 // Figma 295 x 316.
-.whyCard { background: var(--mdc-tint2, #f6f2fc); border-radius: 1.6rem; padding: 3.2rem 2.6rem; min-height: 31.6rem; h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem; } p { font-size: 1.4rem; line-height: 1.55; color: var(--color-gray); } }
+.whyCard { background: var(--mdc-tint2, #f6f2fc); border-radius: 1.6rem; padding: 3.2rem 2.6rem; min-height: 31.6rem; h3 { font-size: 2.1rem; font-weight: 800; margin: 1.8rem 0 1.4rem; } p { font-size: 1.4rem; line-height: 1.55; color: var(--color-gray); } }
 
 /* Expertise (on purple) */
-.expertiseGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.2rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.expertiseItem { display: flex; flex-direction: column; gap: 1rem; color: var(--color-white); font-size: 1.7rem; font-weight: 600; }
+.expertiseGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); gap: 4rem 2.4rem; } @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; } }
+.expertiseItem { display: flex; flex-direction: column; gap: 1rem; color: var(--color-white); font-size: 1.7rem; font-weight: 400; }
 
 /* Flagship */
 .flagshipBand { background: var(--mdc-tint, #f3eefb); }
@@ -76,7 +77,7 @@
 .flagshipBody { position: relative; z-index: 1; margin: auto 1.6rem 1.6rem; padding: 2rem; border-radius: 1.4rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); align-self: flex-end; width: calc(100% - 3.2rem); h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; } p { font-size: 1.35rem; line-height: 1.5; color: var(--color-dark-gray); margin-bottom: 1.6rem; } }
 
 /* Trusted logos */
-.logoStrip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3.5rem; img { height: 7rem; width: auto; object-fit: contain; max-width: 22rem; } }
+.logoStrip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4rem; img { height: 9rem; width: auto; object-fit: contain; max-width: 26rem; } }
 
 /* Contact team */
 .contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }

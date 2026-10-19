@@ -12,8 +12,11 @@
 .heading {
   font-size: 3.6rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--color-white);
+  // Left aligned, vertically centred against the carousel.
+  align-self: center;
+  text-align: left;
 
   @include respond-to(mobile) { font-size: 2.6rem; }
 }

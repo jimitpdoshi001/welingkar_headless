@@ -16,7 +16,15 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
 
   return (
     <div className={styles.layout}>
-      <h2 className={styles.heading}>{heading}</h2>
+      {/* Each word on its own line (Figma): "What / Participants / Say". */}
+      <h2 className={styles.heading}>
+        {heading.split(" ").map((word, i, arr) => (
+          <span key={i}>
+            {word}
+            {i < arr.length - 1 ? <br /> : null}
+          </span>
+        ))}
+      </h2>
 
       <div className={styles.right}>
         <Swiper
