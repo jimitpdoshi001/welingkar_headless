@@ -101,7 +101,7 @@ const AREAS = [
 
 export const WERESEARCH: WeResearchData = {
   hero: {
-    title: "Exploring Ideas. Creating Knowledge. Shaping Management Thought.",
+    title: "Exploring Ideas. Creating Knowledge. Shaping Management Thoughts.",
     body: "Research is an integral part of the WeSchool academic ecosystem. Explore work that brings together management, social sciences and technology to examine contemporary business and societal questions. From research papers and case studies to books, conferences, funded projects and the aWEshkar journal, WeSchool's research engages with both academic inquiry and practical contexts.",
     cta: { label: "Explore Our Research", href: "/weresearch/papers" },
     image: WIMG.hero,
