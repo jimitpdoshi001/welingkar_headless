@@ -142,7 +142,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Director */}
-          <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
+            <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
             <div className={styles.directorText}>
               <h2 className={styles.heading}>{data.director.heading}</h2>
               {data.director.paragraphs.map((p, i) => (
@@ -180,8 +180,22 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             </div>
           </section>
 
-          {/* Accreditations */}
-          <section className="bg-light-yellow">
+        
+
+          {/* Advisory boards */}
+          <BoardList
+            id="academic-advisory-board"
+            heading={data.academicBoard.heading}
+            people={data.academicBoard.people}
+          />
+          <BoardList
+            id="industry-advisory-board"
+            heading={data.industryBoard.heading}
+            people={data.industryBoard.people}
+          />
+
+            {/* Accreditations */}
+          <section >
             <div className={`container ${styles.block}`}>
               <div className={styles.accredGrid}>
                 {data.accreditations.map((a) => (
@@ -196,28 +210,11 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                     <p className={styles.accredText}>
                       <strong>{a.title}</strong> {a.body}
                     </p>
-                    {a.extra ? (
-                      <p className={styles.accredText}>
-                        <strong>{a.extra.title}</strong> {a.extra.body}
-                      </p>
-                    ) : null}
                   </div>
                 ))}
               </div>
             </div>
           </section>
-
-          {/* Advisory boards */}
-          <BoardList
-            id="academic-advisory-board"
-            heading={data.academicBoard.heading}
-            people={data.academicBoard.people}
-          />
-          <BoardList
-            id="industry-advisory-board"
-            heading={data.industryBoard.heading}
-            people={data.industryBoard.people}
-          />
 
           {/* Honours & Achievements */}
           <section id="awards" className={`bg-light-yellow ${styles.anchor}`}>

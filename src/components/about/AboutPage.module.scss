@@ -39,7 +39,7 @@
 .whoBody { position: relative; font-size: 1.6rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin: 0 auto; }
 .whoBody + .whoBody { margin-top: 1.6rem; }
 // Figma 2128:185 / 2128:184: purple watermark, black 16/20 body.
-.spm { .watermark { color: rgba(107, 76, 134, 0.2); font-size: 20rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; } } .whoBody { max-width: 119.5rem; color: var(--color-black, #000); line-height: 2rem; } .whoBody + .whoBody { margin-top: 2rem; } }
+.spm { .watermark { color: rgba(107, 76, 134, 0.2); font-size: 15rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; } } .whoBody { max-width: 119.5rem; color: var(--color-black, #000); line-height: 2rem; } .whoBody + .whoBody { margin-top: 2rem; } }
 
 /* Chairman */
 .chairman { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
@@ -59,7 +59,7 @@
 .accredGrid { display: grid; grid-template-columns: 1fr 1fr 2.4fr 1fr; gap: 3.2rem 6rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
 // Logos sit on a common 7.9rem baseline at their Figma heights.
 .accredItem { display: flex; flex-direction: column; gap: 1.2rem; }
-.accredLogo { display: block; height: 7.7rem; width: auto; max-width: 100%; object-fit: contain; object-position: left bottom; margin-bottom: 2.2rem; }
+.accredLogo { display: block; height: 7.7rem; width: auto; max-width: 100%; object-fit: contain; object-position: center bottom; margin-bottom: 2.2rem; }
 .accredItem:first-child .accredLogo { height: 7.9rem; }
 .accredItem:last-child .accredLogo { height: 4.9rem; margin-top: 3rem; }
 .accredText { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); strong { color: var(--color-black); } }
