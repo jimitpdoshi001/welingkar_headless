@@ -15,7 +15,7 @@ export type WeGlobalData = {
 };
 
 const WGI = {
-  hero: "/weglobal/hero.webp",
+  hero: "/weglobal/weschool_banner.webp",
   e1: "/weglobal/asean-round-table.webp",
   e2: "/weglobal/acbsp-region-10.webp",
   e3: "/weglobal/acbsp-region-10.webp",
