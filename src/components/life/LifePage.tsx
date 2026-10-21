@@ -303,22 +303,24 @@ export function LifePage({ data }: { data: LifeData }) {
           </section>
 
           {/* For current students (Figma 1419:447): 294 x 130 outlined cards. */}
-          <section className={`container ${styles.students}`}>
-            <h2 className={styles.heading}>{data.students.heading}</h2>
-            <div className={styles.studentGrid}>
-              {data.students.items.map((s) => (
-                <div
-                  key={s.title}
-                  className={styles.studentCard}>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                </div>
-              ))}
+          <section className={`${styles.students}`}>
+            <div className="container">
+              <h2 className={styles.heading}>{data.students.heading}</h2>
+              <div className={styles.studentGrid}>
+                {data.students.items.map((s) => (
+                  <div
+                    key={s.title}
+                    className={styles.studentCard}>
+                    <h3>{s.title}</h3>
+                    <p>{s.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
           {/* Come see it for yourself (Figma 1424:487): 350px purple band. */}
-          <section className={styles.visit}>
+          {/* <section className={styles.visit}>
             <div className="container">
               <h2 className={styles.headingLight}>{data.visit.heading}</h2>
               <p className={styles.visitSub}>{data.visit.subtitle}</p>
@@ -335,7 +337,7 @@ export function LifePage({ data }: { data: LifeData }) {
                 </Link>
               </div>
             </div>
-          </section>
+          </section> */}
         </main>
 
         <SearchOverlay />

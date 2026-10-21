@@ -145,15 +145,15 @@ $purple-hover: rgba(107, 76, 134, 0.9);
 .ideasNote { margin-top: 6.3rem; text-align: center; font-size: 1.6rem; a { color: var(--color-secondary); } }
 
 /* For current students (Figma 1419:447): 294 x 130 outlined cards, 4 per row. */
-.students { padding-block: 7.9rem 8.9rem; @include respond-to(mobile) { padding-block: 5rem; } }
-.students .heading { margin-bottom: 4.2rem; }
-.studentGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem;
+.students { padding-block: 7.9rem 8.9rem; background: var(--color-secondary); @include respond-to(mobile) { padding-block: 5rem; } }
+.students .heading { margin-bottom: 4.2rem; color:#ffffff;}
+.studentGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem;color:#ffffff;
   @include respond-to(tab) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   @include respond-to(mobile) { grid-template-columns: 1fr; }
 }
 .studentCard { min-height: 13rem; padding: 3.5rem 3rem; border: 1px solid $outline; border-radius: 3rem;
   h3 { font-size: 1.8rem; font-weight: 600; line-height: 2.2rem; margin-bottom: 1.1rem; }
-  p { font-size: 1.4rem; line-height: 1.3; color: var(--color-black); }
+  p { font-size: 1.4rem; line-height: 1.3; color: var(--color-white); }
 }
 
 /* Visit CTA (Figma 1424:487): 350px purple band, centred. */
