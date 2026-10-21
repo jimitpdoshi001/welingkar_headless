@@ -116,9 +116,11 @@ $purple-hover: rgba(107, 76, 134, 0.9);
 }
 // Row 1: four copies of the set; moving -50% -> 0 is exactly two sets, so it loops.
 .galleryMarquee { animation: galleryLtr 45s linear infinite; &:hover { animation-play-state: paused; } }
-.galleryRowOffset { margin-left: -19.8rem; }
+.galleryRowOffset {  margin-left: -19.8rem;
+  animation: galleryLtr 45s linear infinite reverse;
+  &:hover { animation-play-state: paused; }}
 @keyframes galleryLtr { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-@media (prefers-reduced-motion: reduce) { .galleryMarquee { animation: none; transform: translateX(-11rem); } }
+@media (prefers-reduced-motion: reduce) { .galleryMarquee,.galleryRowOffset { animation: none; transform: translateX(-11rem); } }
 
 /* Happening now (Figma 1419:328): 505 x 280 outlined cards, 40px radius. */
 .happening { padding-block: 11.4rem 7.6rem; overflow: hidden; @include respond-to(mobile) { padding-block: 5rem; } }

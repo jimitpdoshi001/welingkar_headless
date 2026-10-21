@@ -117,20 +117,10 @@ export function LifePage({ data }: { data: LifeData }) {
               <h3>{data.facilities.heading}</h3>
               <p>{data.facilities.text}</p>
             </div>
-            <div className={styles.infoRow}>
-              <div className={styles.infoBox}>
+            <div className={styles.infoBar}>
                 <h3>{data.hostel.heading}</h3>
-                <p>
-                  {data.hostel.lines.map((line, i) => (
-                    <span
-                      key={i}
-                      className={styles.line}>
-                      {line}
-                    </span>
-                  ))}
-                </p>
-              </div>
-              <div className={styles.infoBox}>
+                <p>{data.hostel.lines}</p>
+              {/* <div className={styles.infoBox}>
                 <h3>{data.address.heading}</h3>
                 <p>
                   <a
@@ -149,7 +139,7 @@ export function LifePage({ data }: { data: LifeData }) {
                     </a>
                   </span>
                 </p>
-              </div>
+              </div> */}
             </div>
           </section>
 
