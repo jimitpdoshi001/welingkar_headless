@@ -8,6 +8,7 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { LifeData } from "@/lib/life/life-data";
 import { StickyInPageNav } from "@/components/campus/StickyInPageNav/StickyInPageNav";
 import { LifeCarousel } from "./LifeCarousel/LifeCarousel";
+import { LifeGallery } from "./LifeGallery";
 import styles from "./LifePage.module.scss";
 
 export function LifePage({ data }: { data: LifeData }) {
@@ -117,20 +118,10 @@ export function LifePage({ data }: { data: LifeData }) {
               <h3>{data.facilities.heading}</h3>
               <p>{data.facilities.text}</p>
             </div>
-            <div className={styles.infoRow}>
-              <div className={styles.infoBox}>
+            <div className={styles.infoBar}>
                 <h3>{data.hostel.heading}</h3>
-                <p>
-                  {data.hostel.lines.map((line, i) => (
-                    <span
-                      key={i}
-                      className={styles.line}>
-                      {line}
-                    </span>
-                  ))}
-                </p>
-              </div>
-              <div className={styles.infoBox}>
+                <p>{data.hostel.lines}</p>
+              {/* <div className={styles.infoBox}>
                 <h3>{data.address.heading}</h3>
                 <p>
                   <a
@@ -149,7 +140,7 @@ export function LifePage({ data }: { data: LifeData }) {
                     </a>
                   </span>
                 </p>
-              </div>
+              </div> */}
             </div>
           </section>
 
@@ -185,58 +176,9 @@ export function LifePage({ data }: { data: LifeData }) {
             </div>
           </section>
 
-          {/* Two years in pictures (Figma 1413:323): full-bleed rows of 295px squares;
-              the first row scrolls continuously left to right. */}
-          <section className={styles.gallery}>
-            <div className={`container ${styles.galleryHead}`}>
-              <div className={styles.galleryHeadText}>
-                <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
-                <p className={styles.sectionBodyLight}>
-                  {data.gallery.subtitle[0]} {data.gallery.subtitle[1]}
-                </p>
-                <div className={styles.galleryFilters}>
-                  {data.gallery.filters.map((f, i) => (
-                    <span
-                      key={f}
-                      className={`${styles.galleryFilter} ${i === 0 ? styles.galleryFilterActive : ""}`}>
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <Link
-                href={data.gallery.cta.href}
-                className={styles.outlineBtn}>
-                {data.gallery.cta.label}
-              </Link>
-            </div>
-            <div className={styles.galleryRows}>
-              {/* Two copies so the -50% translate loops seamlessly. */}
-              <div
-                className={`${styles.galleryRow} ${styles.galleryMarquee}`}
-                aria-hidden="true">
-                {[...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5)].map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                  />
-                ))}
-              </div>
-              {/* Row 2: same looping technique, reversed (four copies of the second set). */}
-              <div
-                className={`${styles.galleryRow} ${styles.galleryRowOffset}`}
-                aria-hidden="true">
-                {[...data.gallery.images.slice(5), ...data.gallery.images.slice(5), ...data.gallery.images.slice(5), ...data.gallery.images.slice(5)].map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* Two years in pictures (Figma 1413:323): filter tabs switch the
+              images; two full-bleed marquee rows (L->R and R->L). */}
+          <LifeGallery gallery={data.gallery} />
 
           {/* Happening now (Figma 1419:328): 505 x 280 outlined cards with arrows. */}
           <section className={styles.happening}>
@@ -313,22 +255,24 @@ export function LifePage({ data }: { data: LifeData }) {
           </section>
 
           {/* For current students (Figma 1419:447): 294 x 130 outlined cards. */}
-          <section className={`container ${styles.students}`}>
-            <h2 className={styles.heading}>{data.students.heading}</h2>
-            <div className={styles.studentGrid}>
-              {data.students.items.map((s) => (
-                <div
-                  key={s.title}
-                  className={styles.studentCard}>
-                  <h3>{s.title}</h3>
-                  <p>{s.text}</p>
-                </div>
-              ))}
+          <section className={`${styles.students}`}>
+            <div className="container">
+              <h2 className={styles.heading}>{data.students.heading}</h2>
+              <div className={styles.studentGrid}>
+                {data.students.items.map((s) => (
+                  <div
+                    key={s.title}
+                    className={styles.studentCard}>
+                    <h3>{s.title}</h3>
+                    <p>{s.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
 
           {/* Come see it for yourself (Figma 1424:487): 350px purple band. */}
-          <section className={styles.visit}>
+          {/* <section className={styles.visit}>
             <div className="container">
               <h2 className={styles.headingLight}>{data.visit.heading}</h2>
               <p className={styles.visitSub}>{data.visit.subtitle}</p>
@@ -345,7 +289,7 @@ export function LifePage({ data }: { data: LifeData }) {
                 </Link>
               </div>
             </div>
-          </section>
+          </section> */}
         </main>
 
         <SearchOverlay />
