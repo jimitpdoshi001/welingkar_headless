@@ -8,6 +8,7 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { LifeData } from "@/lib/life/life-data";
 import { StickyInPageNav } from "@/components/campus/StickyInPageNav/StickyInPageNav";
 import { LifeCarousel } from "./LifeCarousel/LifeCarousel";
+import { LifeGallery } from "./LifeGallery";
 import styles from "./LifePage.module.scss";
 
 export function LifePage({ data }: { data: LifeData }) {
@@ -175,58 +176,9 @@ export function LifePage({ data }: { data: LifeData }) {
             </div>
           </section>
 
-          {/* Two years in pictures (Figma 1413:323): full-bleed rows of 295px squares;
-              the first row scrolls continuously left to right. */}
-          <section className={styles.gallery}>
-            <div className={`container ${styles.galleryHead}`}>
-              <div className={styles.galleryHeadText}>
-                <h2 className={styles.headingLight}>{data.gallery.heading}</h2>
-                <p className={styles.sectionBodyLight}>
-                  {data.gallery.subtitle[0]} {data.gallery.subtitle[1]}
-                </p>
-                <div className={styles.galleryFilters}>
-                  {data.gallery.filters.map((f, i) => (
-                    <span
-                      key={f}
-                      className={`${styles.galleryFilter} ${i === 0 ? styles.galleryFilterActive : ""}`}>
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <Link
-                href={data.gallery.cta.href}
-                className={styles.outlineBtn}>
-                {data.gallery.cta.label}
-              </Link>
-            </div>
-            <div className={styles.galleryRows}>
-              {/* Two copies so the -50% translate loops seamlessly. */}
-              <div
-                className={`${styles.galleryRow} ${styles.galleryMarquee}`}
-                aria-hidden="true">
-                {[...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5), ...data.gallery.images.slice(0, 5)].map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                  />
-                ))}
-              </div>
-              {/* Row 2: same looping technique, reversed (four copies of the second set). */}
-              <div
-                className={`${styles.galleryRow} ${styles.galleryRowOffset}`}
-                aria-hidden="true">
-                {[...data.gallery.images.slice(5), ...data.gallery.images.slice(5), ...data.gallery.images.slice(5), ...data.gallery.images.slice(5)].map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* Two years in pictures (Figma 1413:323): filter tabs switch the
+              images; two full-bleed marquee rows (L->R and R->L). */}
+          <LifeGallery gallery={data.gallery} />
 
           {/* Happening now (Figma 1419:328): 505 x 280 outlined cards with arrows. */}
           <section className={styles.happening}>
