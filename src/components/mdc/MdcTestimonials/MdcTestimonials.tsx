@@ -18,7 +18,7 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
     <div className={styles.layout}>
       {/* Each word on its own line (Figma): "What / Participants / Say". */}
       <h2 className={styles.heading}>
-        {heading.split(" ").map((word, i, arr) => (
+        {heading.split("<br>").map((word, i, arr) => (
           <span key={i}>
             {word}
             {i < arr.length - 1 ? <br /> : null}
@@ -27,26 +27,6 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
       </h2>
 
       <div className={styles.right}>
-        <Swiper
-          slidesPerView={1.05}
-          spaceBetween={24}
-          grabCursor
-          breakpoints={{ 768: { slidesPerView: 1.6 }, 1024: { slidesPerView: 2.4 } }}
-          onSwiper={(s) => {
-            swiperRef.current = s;
-          }}>
-          {items.map((t) => (
-            <SwiperSlide key={t.id}>
-              <article className={styles.card}>
-                <div className={styles.stars}>★★★★★</div>
-                <p className={styles.text}>{t.text}</p>
-                <p className={styles.name}>{t.name}</p>
-                <p className={styles.role}>{t.role}</p>
-              </article>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-
         <div className={styles.nav}>
           <button
             type="button"
@@ -69,6 +49,27 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
             />
           </button>
         </div>
+        
+        <Swiper
+          slidesPerView={1.05}
+          spaceBetween={24}
+          grabCursor
+          breakpoints={{ 768: { slidesPerView: 1.6 }, 1024: { slidesPerView: 2.4 } }}
+          onSwiper={(s) => {
+            swiperRef.current = s;
+          }}>
+          {items.map((t) => (
+            <SwiperSlide key={t.id}>
+              <article className={styles.card}>
+                <div className={styles.stars}>★★★★★</div>
+                <p className={styles.text}>{t.text}</p>
+                <p className={styles.name}>{t.name}</p>
+                <p className={styles.role}>{t.role}</p>
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
       </div>
     </div>
   );

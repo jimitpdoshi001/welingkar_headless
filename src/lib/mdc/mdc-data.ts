@@ -128,7 +128,7 @@ export const MDC: MdcData = {
   },
   trusted: { heading: "Trusted by Leading Organizations", logos: TRUSTED },
   testimonials: {
-    heading: "What Participants Say",
+    heading: "Hear from <br> Our Participants",
     items: [
       { id: "t-1", text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers took a 1914 translation and scrambled it.", name: "Suresh Patil", role: "Director" },
       { id: "t-2", text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers took a 1914 translation and scrambled it.", name: "Priya Krishnamurthy", role: "Director" },
