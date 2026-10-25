@@ -121,6 +121,20 @@ export function ScrollAnimationProvider({
 
     tagAutoReveal(targetScope);
 
+    // TEMP diagnostic (remove after): confirms the reveal system is live.
+    if (process.env.NODE_ENV !== "production") {
+      // eslint-disable-next-line no-console
+      console.log("[scroll-anim]", {
+        reduceMotion: prefersReducedMotion,
+        gsap: typeof gsap !== "undefined",
+        scrollTrigger: typeof ScrollTrigger !== "undefined",
+        autoRevealRoots: targetScope.querySelectorAll("[data-auto-reveal]").length,
+        aboutMode: document.querySelector("main[data-auto-reveal]")?.getAttribute("data-auto-reveal") ?? null,
+        tagged: targetScope.querySelectorAll("[class*='animate-']").length,
+        coverflow: targetScope.querySelectorAll(".animate-coverflow-in").length,
+      });
+    }
+
     if (prefersReducedMotion) {
       // In reduced motion mode, show elements immediately without animation
       counterCleanupRef.current?.();
