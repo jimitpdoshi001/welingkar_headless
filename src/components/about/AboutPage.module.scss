@@ -41,6 +41,11 @@
 // Figma 2128:185 / 2128:184: purple watermark, black 16/20 body.
 .spm { .watermark { color: rgba(107, 76, 134, 0.2); font-size: 15rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; } } .whoBody { max-width: 119.5rem; color: var(--color-black, #000); line-height: 2rem; } .whoBody + .whoBody { margin-top: 2rem; } }
 
+/* Chairman band colours (Figma): lavender for Chairman, cream for Vice Chairman.
+   Full-section backgrounds so the two bands sit flush with no white gap. */
+.bandPurple { background: #f1ecfa; }
+.bandCream { background: #faf3ee; }
+
 /* Chairman */
 .chairman { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
 // Vice Chairman (Figma 2289:134): text left, photo right.
@@ -58,7 +63,7 @@
 
 /* Accreditations (Figma 2292:147..): 2 x 2 bordered cards, 610 x 299, 20px gap. */
 .accredGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.accredItem { display: flex; flex-direction: column; border: 1px solid var(--color-light-gray); border-radius: 4rem; padding: 5rem 4rem; min-height: 29.9rem; @include respond-to(mobile) { padding: 3.2rem 2.4rem; min-height: 0; border-radius: 2.4rem; } }
+.accredItem { display: flex; flex-direction: column; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 4rem; padding: 5rem 4rem; min-height: 29.9rem; @include respond-to(mobile) { padding: 3.2rem 2.4rem; min-height: 0; border-radius: 2.4rem; } }
 .accredLogo { display: block; height: 7.5rem; width: auto; max-width: 16rem; object-fit: contain; object-position: left center; margin-bottom: 2.4rem; }
 .accredText { font-size: 1.5rem; line-height: 1.6; color: var(--color-dark-gray); strong { color: var(--color-black); } }
 
