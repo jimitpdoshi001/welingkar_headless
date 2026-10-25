@@ -148,7 +148,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
           </section>
 
           {/* Vice Chairman (Figma 2289:134): text left, photo right. */}
-          <section id="vice-chairman" className={`${styles.bandCream} ${styles.anchor}`}>
+          <section id="vice-chairman" className={`mt-5 ${styles.bandCream} ${styles.anchor}`}>
             <div className={`container ${styles.block} ${styles.chairman} ${styles.chairmanReverse}`}>
               <div className={styles.chairmanText}>
                 <h2 className={styles.heading}>{data.viceChairman.heading}</h2>
