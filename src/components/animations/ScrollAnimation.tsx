@@ -121,20 +121,6 @@ export function ScrollAnimationProvider({
 
     tagAutoReveal(targetScope);
 
-    // TEMP diagnostic (remove after): confirms the reveal system is live.
-    if (process.env.NODE_ENV !== "production") {
-      // eslint-disable-next-line no-console
-      console.log("[scroll-anim]", {
-        reduceMotion: prefersReducedMotion,
-        gsap: typeof gsap !== "undefined",
-        scrollTrigger: typeof ScrollTrigger !== "undefined",
-        autoRevealRoots: targetScope.querySelectorAll("[data-auto-reveal]").length,
-        aboutMode: document.querySelector("main[data-auto-reveal]")?.getAttribute("data-auto-reveal") ?? null,
-        tagged: targetScope.querySelectorAll("[class*='animate-']").length,
-        coverflow: targetScope.querySelectorAll(".animate-coverflow-in").length,
-      });
-    }
-
     if (prefersReducedMotion) {
       // In reduced motion mode, show elements immediately without animation
       counterCleanupRef.current?.();
@@ -296,14 +282,30 @@ export function ScrollAnimationProvider({
     }
   }, []);
 
-  // Initial setup and route change refresh
+  // Initial setup and route change refresh.
+  // Defer past React hydration before mutating the DOM: tagging elements and
+  // setting GSAP's start styles mid-hydration makes React discard the animated
+  // nodes (hydration mismatch), so the animations never run. We wait for the
+  // document to finish loading, then a frame, before initialising.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      initAnimations();
-    }, 50);
+    let raf = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const start = () => {
+      raf = requestAnimationFrame(() => initAnimations());
+    };
+
+    if (document.readyState === "complete") {
+      // Already hydrated/loaded (e.g. client-side route change): a frame is enough.
+      timer = setTimeout(start, 60);
+    } else {
+      window.addEventListener("load", start, { once: true });
+    }
 
     return () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("load", start);
       if (ctxRef.current) {
         ctxRef.current.revert();
       }
