@@ -40,13 +40,13 @@ function tagAutoReveal(scope: HTMLElement) {
     tag(AUTO_TEXT, "animate-fade-in-soft");
     // Media reveal depends on the root's mode:
     //   "slide-right" -> in-flow images slide in from the right
-    //   "coverflow"   -> in-flow images turn in from a 3D angle (coverflow-style)
+    //   "reveal"      -> in-flow images open out from the centre + settle zoom
     //   (anything else) -> plain opacity fade
     // Absolutely/fixed-positioned media (hero/background, overlapping insets)
     // always keep the opacity-only fade so motion never exposes a gap.
     const mode = root.dataset.autoReveal;
     const inFlowMediaClass =
-      mode === "slide-right" ? "animate-fade-in-right" : mode === "coverflow" ? "animate-coverflow-in" : "animate-fade-in";
+      mode === "slide-right" ? "animate-fade-in-right" : mode === "reveal" ? "animate-reveal-clip" : "animate-fade-in";
     root.querySelectorAll<HTMLElement>(AUTO_MEDIA).forEach((el) => {
       if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
       let cls = "animate-fade-in";

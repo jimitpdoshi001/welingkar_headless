@@ -42,10 +42,11 @@ export const ANIMATION_REGISTRY: Record<string, AnimationPreset> = {
     from: { opacity: 0, y: 24 },
     to: { opacity: 1, y: 0 },
   },
-  // Coverflow-style entrance: image turns in from a 3D angle and settles flat.
-  "animate-coverflow-in": {
-    from: { opacity: 0, rotationY: 40, z: -180, scale: 0.9, transformPerspective: 900 },
-    to: { opacity: 1, rotationY: 0, z: 0, scale: 1 },
+  // Reveal: image opens out from the centre (clip-path) while settling from a
+  // slight zoom. Matches the fishermedia "Our Blog" card reveal.
+  "animate-reveal-clip": {
+    from: { clipPath: "inset(0% 50% 0% 50%)", scale: 1.12 },
+    to: { clipPath: "inset(0% 0% 0% 0%)", scale: 1 },
   },
   "animate-fade-in-down": {
     from: { opacity: 0, y: -60 },

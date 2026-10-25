@@ -46,7 +46,7 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main data-auto-reveal="coverflow">
+        <main data-auto-reveal="reveal">
           {/* Hero */}
           <section className={styles.hero}>
             <img
