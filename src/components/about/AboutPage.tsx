@@ -112,15 +112,21 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             </div>
           </section>
 
-          {/* Who We Are */}
-          <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
+          {/* S.P. Mandali (Figma 2128:185): watermark layout, right after Mission. */}
+          <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
             <div className="container">
               <span
                 className={styles.watermark}
                 aria-hidden="true">
-                {data.whoWeAre.watermark}
+                {data.spMandali.watermark}
               </span>
-              <p className={styles.whoBody}>{data.whoWeAre.body}</p>
+              {data.spMandali.paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className={styles.whoBody}>
+                  {p}
+                </p>
+              ))}
             </div>
           </section>
 
@@ -158,6 +164,18 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             </div>
           </section>
 
+          {/* Who We Are (WeSchool watermark): after the Vice Chairman. */}
+          <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
+            <div className="container">
+              <span
+                className={styles.watermark}
+                aria-hidden="true">
+                {data.whoWeAre.watermark}
+              </span>
+              <p className={styles.whoBody}>{data.whoWeAre.body}</p>
+            </div>
+          </section>
+
           {/* Director */}
             <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
             <div className={styles.directorText}>
@@ -178,26 +196,6 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
               />
             </div>
           </section>
-
-          {/* S.P. Mandali (Figma 2128:185) reuses the watermark layout. */}
-          <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
-            <div className="container">
-              <span
-                className={styles.watermark}
-                aria-hidden="true">
-                {data.spMandali.watermark}
-              </span>
-              {data.spMandali.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.whoBody}>
-                  {p}
-                </p>
-              ))}
-            </div>
-          </section>
-
-        
 
           {/* Advisory boards */}
           <BoardList
