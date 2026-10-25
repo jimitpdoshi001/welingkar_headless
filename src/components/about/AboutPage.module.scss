@@ -41,8 +41,15 @@
 // Figma 2128:185 / 2128:184: purple watermark, black 16/20 body.
 .spm { .watermark { color: rgba(107, 76, 134, 0.2); font-size: 15rem; @include respond-to(tab) { font-size: 9rem; } @include respond-to(mobile) { font-size: 5rem; } } .whoBody { max-width: 119.5rem; color: var(--color-black, #000); line-height: 2rem; } .whoBody + .whoBody { margin-top: 2rem; } }
 
+/* Chairman band colours (Figma): lavender for Chairman, cream for Vice Chairman.
+   Full-section backgrounds so the two bands sit flush with no white gap. */
+.bandPurple { background: #f1ecfa; }
+.bandCream { background: #faf3ee; }
+
 /* Chairman */
 .chairman { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
+// Vice Chairman (Figma 2289:134): text left, photo right.
+.chairmanReverse { grid-template-columns: 1.15fr 0.85fr; @include respond-to(mobile) { grid-template-columns: 1fr; .chairmanImage { order: -1; } } }
 // Desktop/tablet: photo stands on the band's bottom edge (Figma).
 @media (min-width: 768px) { .chairman { padding-bottom: 0; } .chairmanText { padding-bottom: 6.5rem; } }
 .chairmanImage { width: 100%; max-width: 52rem; object-fit: contain; align-self: end; @include respond-to(mobile) { max-width: 32rem; margin-inline: auto; } }
@@ -54,15 +61,11 @@
 .sign { font-size: 1.8rem; font-weight: 700; margin-top: 1rem; }
 .directorMedia { position: relative; border-radius: 2.4rem; overflow: hidden; aspect-ratio: 610 / 437; img { width: 100%; height: 100%; object-fit: cover; } }
 
-/* Accreditations */
-// Figma column widths: ACBSP 187, SAQS 183, NBA 456 (two paragraphs), MU 189.
-.accredGrid { display: grid; grid-template-columns: 1fr 1fr 2.4fr 1fr; gap: 3.2rem 6rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
-// Logos sit on a common 7.9rem baseline at their Figma heights.
-.accredItem { display: flex; flex-direction: column; gap: 1.2rem; }
-.accredLogo { display: block; height: 7.7rem; width: auto; max-width: 100%; object-fit: contain; object-position: center bottom; margin-bottom: 2.2rem; }
-.accredItem:first-child .accredLogo { height: 7.9rem; }
-.accredItem:last-child .accredLogo { height: 4.9rem; margin-top: 3rem; }
-.accredText { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); strong { color: var(--color-black); } }
+/* Accreditations (Figma 2292:147..): 2 x 2 bordered cards, 610 x 299, 20px gap. */
+.accredGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+.accredItem { display: flex; flex-direction: column; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 4rem; padding: 5rem 4rem; min-height: 29.9rem; @include respond-to(mobile) { padding: 3.2rem 2.4rem; min-height: 0; border-radius: 2.4rem; } }
+.accredLogo { display: block; height: 7.5rem; width: auto; max-width: 16rem; object-fit: contain; object-position: left center; margin-bottom: 2.4rem; }
+.accredText { font-size: 1.5rem; line-height: 1.6; color: var(--color-dark-gray); strong { color: var(--color-black); } }
 
 /* Advisory boards */
 .boardGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.6rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); } @include respond-to(mobile) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4rem 1.6rem; } }

@@ -112,20 +112,26 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             </div>
           </section>
 
-          {/* Who We Are */}
-          <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
+          {/* S.P. Mandali (Figma 2128:185): watermark layout, right after Mission. */}
+          <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
             <div className="container">
               <span
                 className={styles.watermark}
                 aria-hidden="true">
-                {data.whoWeAre.watermark}
+                {data.spMandali.watermark}
               </span>
-              <p className={styles.whoBody}>{data.whoWeAre.body}</p>
+              {data.spMandali.paragraphs.map((p, i) => (
+                <p
+                  key={i}
+                  className={styles.whoBody}>
+                  {p}
+                </p>
+              ))}
             </div>
           </section>
 
           {/* Chairman */}
-          <section id="chairman" className={`bg-light-yellow ${styles.anchor}`}>
+          <section id="chairman" className={`${styles.bandPurple} ${styles.anchor}`}>
             <div className={`container ${styles.block} ${styles.chairman}`}>
               <img
                 src={data.chairman.image}
@@ -138,6 +144,35 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                 <p className={styles.personName}>{data.chairman.name}</p>
                 <p className={styles.personRole}>{data.chairman.title}</p>
               </div>
+            </div>
+          </section>
+
+          {/* Vice Chairman (Figma 2289:134): text left, photo right. */}
+          <section id="vice-chairman" className={`mt-5 ${styles.bandCream} ${styles.anchor}`}>
+            <div className={`container ${styles.block} ${styles.chairman} ${styles.chairmanReverse}`}>
+              <div className={styles.chairmanText}>
+                <h2 className={styles.heading}>{data.viceChairman.heading}</h2>
+                <p className={styles.body}>{data.viceChairman.body}</p>
+                <p className={styles.personName}>{data.viceChairman.name}</p>
+                <p className={styles.personRole}>{data.viceChairman.title}</p>
+              </div>
+              <img
+                src={data.viceChairman.image}
+                alt={data.viceChairman.name}
+                className={styles.chairmanImage}
+              />
+            </div>
+          </section>
+
+          {/* Who We Are (WeSchool watermark): after the Vice Chairman. */}
+          <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
+            <div className="container">
+              <span
+                className={styles.watermark}
+                aria-hidden="true">
+                {data.whoWeAre.watermark}
+              </span>
+              <p className={styles.whoBody}>{data.whoWeAre.body}</p>
             </div>
           </section>
 
@@ -162,26 +197,6 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             </div>
           </section>
 
-          {/* S.P. Mandali (Figma 2128:185) reuses the watermark layout. */}
-          <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
-            <div className="container">
-              <span
-                className={styles.watermark}
-                aria-hidden="true">
-                {data.spMandali.watermark}
-              </span>
-              {data.spMandali.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.whoBody}>
-                  {p}
-                </p>
-              ))}
-            </div>
-          </section>
-
-        
-
           {/* Advisory boards */}
           <BoardList
             id="academic-advisory-board"
@@ -194,9 +209,10 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             people={data.industryBoard.people}
           />
 
-            {/* Accreditations */}
-          <section >
+            {/* Accreditations (Figma 2292:147..): heading + 2x2 bordered cards. */}
+          <section>
             <div className={`container ${styles.block}`}>
+              <h2 className={styles.heading}>Accreditations</h2>
               <div className={styles.accredGrid}>
                 {data.accreditations.map((a) => (
                   <div
