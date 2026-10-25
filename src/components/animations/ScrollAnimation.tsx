@@ -38,8 +38,22 @@ function tagAutoReveal(scope: HTMLElement) {
       el.dataset.animationEase ??= "power2.out";
     });
     tag(AUTO_TEXT, "animate-fade-in-soft");
-    // Opacity only: moving absolutely positioned media would expose gaps.
-    tag(AUTO_MEDIA, "animate-fade-in");
+    // Media: in a `data-auto-reveal="slide-right"` root, in-flow images slide in
+    // from the right; absolutely/fixed-positioned media (hero/background and
+    // overlapping insets) keep the opacity-only fade so the slide never exposes
+    // a gap. Other roots keep the plain fade everywhere.
+    const slideMedia = root.dataset.autoReveal === "slide-right";
+    root.querySelectorAll<HTMLElement>(AUTO_MEDIA).forEach((el) => {
+      if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
+      let cls = "animate-fade-in";
+      if (slideMedia) {
+        const pos = window.getComputedStyle(el).position;
+        if (pos !== "absolute" && pos !== "fixed") cls = "animate-fade-in-right";
+      }
+      el.classList.add(cls);
+      el.dataset.animationDuration ??= "1.4";
+      el.dataset.animationEase ??= "power2.out";
+    });
   });
 }
 
