@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 
 import Header from "@/components/Header/Header";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
-import { CoverflowCarousel } from "@/components/coverflow/CoverflowCarousel";
+import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { AboutData, AboutPerson } from "@/lib/about/about-data";
 import styles from "./AboutPage.module.scss";
 
@@ -33,6 +33,13 @@ function BoardList({ id, heading, people }: { id: string; heading: string; peopl
 // because a client component cannot run an async server component itself.
 export function AboutPage({ data, footer }: { data: AboutData; footer?: React.ReactNode }) {
   const [activeYear, setActiveYear] = useState(data.honours.years[0]);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollHonours = (dir: 1 | -1) => {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * (el.clientWidth * 0.8), behavior: "smooth" });
+  };
 
   return (
     <SearchProvider>
@@ -246,10 +253,41 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                   aria-hidden="true">
                   {activeYear}
                 </span>
-                {/* 3D coverflow of the award cards (fishermedia-style). */}
-                <CoverflowCarousel
-                  items={data.honours.cards.map((c) => ({ id: c.id, image: c.image, title: c.text }))}
-                />
+                <button
+                  type="button"
+                  className={`${styles.hArrow} ${styles.hPrev}`}
+                  onClick={() => scrollHonours(-1)}
+                  aria-label="Previous">
+                  <ArrowLeft
+                    width={7}
+                    height={10}
+                  />
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.hArrow} ${styles.hNext}`}
+                  onClick={() => scrollHonours(1)}
+                  aria-label="Next">
+                  <ArrowRight
+                    width={7}
+                    height={10}
+                  />
+                </button>
+                <div
+                  className={styles.honoursTrack}
+                  ref={trackRef}>
+                  {data.honours.cards.map((c) => (
+                    <article
+                      key={c.id}
+                      className={styles.honourCard}>
+                      <img
+                        src={c.image}
+                        alt=""
+                      />
+                      <p>{c.text}</p>
+                    </article>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
