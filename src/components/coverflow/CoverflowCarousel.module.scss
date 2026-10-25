@@ -1,0 +1,93 @@
+@use "../../styles/base/mixins" as *;
+
+.root { position: relative; }
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: clamp(32rem, 30vw, 44rem);
+  perspective: 1100px;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+  &:active { cursor: grabbing; }
+}
+
+// Coverflow positioning lives in the inline transform; animate changes to it.
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(24rem, 21vw, 33rem);
+  aspect-ratio: 4 / 3;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.6s ease;
+  will-change: transform, opacity;
+}
+
+// Float wrapper: only the active card bobs (keeps it off the positioning transform).
+.float { position: absolute; inset: 0; }
+.cardActive .float { animation: fmFloat 4.5s ease-in-out infinite; }
+
+.media {
+  position: absolute;
+  inset: 0;
+  border-radius: 2.8rem;
+  overflow: hidden;
+  background: #e9e4dc;
+  box-shadow: 0 2.6rem 7rem -2.4rem rgba(38, 35, 31, 0.55);
+  // Dim non-active cards; the pointer tilt rides on --rx / --ry.
+  filter: brightness(0.82) saturate(0.85);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: filter 0.6s ease, box-shadow 0.6s ease, transform 0.3s cubic-bezier(0.2, 0.75, 0.25, 1);
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+}
+.cardActive .media { filter: none; }
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3.2rem 2.2rem 1.8rem;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0) 100%);
+  color: var(--color-white);
+  h3 { font-size: 1.8rem; font-weight: 700; line-height: 1.25; }
+}
+.meta { display: block; margin-bottom: 0.4rem; font-size: 1.3rem; opacity: 0.85; }
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 3.2rem;
+
+  button {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-light-gray);
+    background: transparent;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+
+    &:hover,
+    &:focus-visible { background: var(--faculty-accent, var(--color-primary)); color: var(--color-white); border-color: transparent; }
+  }
+}
+
+@keyframes fmFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.2rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: opacity 0.3s ease; }
+  .cardActive .float { animation: none; }
+  .media { transition: filter 0.3s ease; }
+}
