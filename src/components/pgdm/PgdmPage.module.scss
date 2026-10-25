@@ -6,6 +6,43 @@
   @include respond-to(mobile) { padding-block: 5rem; }
 }
 
+// Sections targeted by the in-page nav clear the fixed header + docked nav bar.
+.anchor { scroll-margin-top: 16rem; @include respond-to(tab) { scroll-margin-top: 12rem; } }
+
+// In-page nav bar (Figma 2344:932): purple band, white tabs with divider lines.
+.pgdmNav { background: var(--pgdm-band, var(--color-secondary)); }
+.pgdmNavInner {
+  display: flex;
+  align-items: center;
+  height: 10rem;
+
+  @include respond-to(mobile) { height: auto; padding-block: 1.6rem; flex-wrap: wrap; gap: 1.2rem 2.4rem; }
+}
+.pgdmNavLink {
+  position: relative;
+  flex: 1;
+  text-align: center;
+  color: var(--color-white);
+  font-size: 1.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 3.5rem;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  &:hover { text-decoration: underline; }
+
+  @include respond-to(mobile) { flex: 0 0 auto; text-align: left; font-size: 1.5rem; &::after { display: none; } }
+}
+
 // Placement band: tighten the top padding of the why-recruit block only.
 .placementBand .block { padding-top: 40px; }
 

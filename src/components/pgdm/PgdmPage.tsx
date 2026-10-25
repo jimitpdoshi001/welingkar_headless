@@ -6,6 +6,7 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import Link from "next/link";
 
 import type { PgdmData } from "@/lib/pgdm/pgdm-data";
+import { StickyInPageNav } from "@/components/campus/StickyInPageNav/StickyInPageNav";
 import { PgdmHero } from "./PgdmHero/PgdmHero";
 import { PgdmFeatureGrid } from "./PgdmFeatureGrid/PgdmFeatureGrid";
 import { PgdmGlance } from "./PgdmGlance/PgdmGlance";
@@ -50,7 +51,37 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
         >
           <PgdmHero data={data.hero} />
 
-          <section className={`container ${styles.block}`}>
+          {/* In-page nav (Figma 2344:932): purple bar, docks under the header. */}
+          <StickyInPageNav
+            className={styles.pgdmNav}
+            label="Programme sections">
+            <div className={`container ${styles.pgdmNavInner}`}>
+              <a
+                href="#overview"
+                className={styles.pgdmNavLink}>
+                Overview
+              </a>
+              <a
+                href="#curriculum"
+                className={styles.pgdmNavLink}>
+                Curriculum
+              </a>
+              <a
+                href="#placements"
+                className={styles.pgdmNavLink}>
+                Placements
+              </a>
+              <a
+                href="#faqs"
+                className={styles.pgdmNavLink}>
+                FAQs
+              </a>
+            </div>
+          </StickyInPageNav>
+
+          <section
+            id="overview"
+            className={`container ${styles.block} ${styles.anchor}`}>
             <div className={styles.whyGrid}>
               <div>
                 <h2 className={styles.whyHeading}>{data.whyProgram.heading}</h2>
@@ -105,7 +136,9 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             <PgdmShortlistTable data={data.shortlisting} />
           </section>
 
-          <section className={styles.band}>
+          <section
+            id="curriculum"
+            className={`${styles.band} ${styles.anchor}`}>
             <div className={`container ${styles.block}`}>
               <PgdmCurriculum data={data.curriculum} />
             </div>
@@ -133,7 +166,8 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
 
           {/* Figma 669:344: one photo band behind placement stats, why-recruit and recruiters. */}
           <div
-            className={styles.placementBand}
+            id="placements"
+            className={`${styles.placementBand} ${styles.anchor}`}
             style={{ backgroundImage: `url(${data.placement.image})` }}
           >
             <PgdmPlacement data={data.placement} bare />
@@ -178,7 +212,9 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </HomeCommunitySection>
           </section>
 
-          <section className={`container ${styles.block}`}>
+          <section
+            id="faqs"
+            className={`container ${styles.block} ${styles.anchor}`}>
             <PgdmFaqs data={data.faqs} />
           </section>
         </main>
