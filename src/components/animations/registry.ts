@@ -42,6 +42,12 @@ export const ANIMATION_REGISTRY: Record<string, AnimationPreset> = {
     from: { opacity: 0, y: 24 },
     to: { opacity: 1, y: 0 },
   },
+  // Reveal: image opens out from the centre (clip-path) while settling from a
+  // slight zoom. Matches the fishermedia "Our Blog" card reveal.
+  "animate-reveal-clip": {
+    from: { clipPath: "inset(0% 50% 0% 50%)", scale: 1.12 },
+    to: { clipPath: "inset(0% 0% 0% 0%)", scale: 1 },
+  },
   "animate-fade-in-down": {
     from: { opacity: 0, y: -60 },
     to: { opacity: 1, y: 0 },

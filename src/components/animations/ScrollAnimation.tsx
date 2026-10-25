@@ -38,8 +38,26 @@ function tagAutoReveal(scope: HTMLElement) {
       el.dataset.animationEase ??= "power2.out";
     });
     tag(AUTO_TEXT, "animate-fade-in-soft");
-    // Opacity only: moving absolutely positioned media would expose gaps.
-    tag(AUTO_MEDIA, "animate-fade-in");
+    // Media reveal depends on the root's mode:
+    //   "slide-right" -> in-flow images slide in from the right
+    //   "reveal"      -> in-flow images open out from the centre + settle zoom
+    //   (anything else) -> plain opacity fade
+    // Absolutely/fixed-positioned media (hero/background, overlapping insets)
+    // always keep the opacity-only fade so motion never exposes a gap.
+    const mode = root.dataset.autoReveal;
+    const inFlowMediaClass =
+      mode === "slide-right" ? "animate-fade-in-right" : mode === "reveal" ? "animate-reveal-clip" : "animate-fade-in";
+    root.querySelectorAll<HTMLElement>(AUTO_MEDIA).forEach((el) => {
+      if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
+      let cls = "animate-fade-in";
+      if (inFlowMediaClass !== "animate-fade-in") {
+        const pos = window.getComputedStyle(el).position;
+        if (pos !== "absolute" && pos !== "fixed") cls = inFlowMediaClass;
+      }
+      el.classList.add(cls);
+      el.dataset.animationDuration ??= "1.4";
+      el.dataset.animationEase ??= "power2.out";
+    });
   });
 }
 
@@ -264,14 +282,30 @@ export function ScrollAnimationProvider({
     }
   }, []);
 
-  // Initial setup and route change refresh
+  // Initial setup and route change refresh.
+  // Defer past React hydration before mutating the DOM: tagging elements and
+  // setting GSAP's start styles mid-hydration makes React discard the animated
+  // nodes (hydration mismatch), so the animations never run. We wait for the
+  // document to finish loading, then a frame, before initialising.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      initAnimations();
-    }, 50);
+    let raf = 0;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const start = () => {
+      raf = requestAnimationFrame(() => initAnimations());
+    };
+
+    if (document.readyState === "complete") {
+      // Already hydrated/loaded (e.g. client-side route change): a frame is enough.
+      timer = setTimeout(start, 60);
+    } else {
+      window.addEventListener("load", start, { once: true });
+    }
 
     return () => {
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("load", start);
       if (ctxRef.current) {
         ctxRef.current.revert();
       }
