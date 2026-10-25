@@ -15,8 +15,6 @@ export async function NewsItems({ paragraph, children }: NewsItemsProps) {
     .toLowerCase();
   const items = await getNewsItems();
 
-  console.log(items, " items");
-
   if (rawStyle === "slider") {
     return <NewsItemsSwiper items={items} />;
   }
