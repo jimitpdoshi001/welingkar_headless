@@ -38,17 +38,21 @@ function tagAutoReveal(scope: HTMLElement) {
       el.dataset.animationEase ??= "power2.out";
     });
     tag(AUTO_TEXT, "animate-fade-in-soft");
-    // Media: in a `data-auto-reveal="slide-right"` root, in-flow images slide in
-    // from the right; absolutely/fixed-positioned media (hero/background and
-    // overlapping insets) keep the opacity-only fade so the slide never exposes
-    // a gap. Other roots keep the plain fade everywhere.
-    const slideMedia = root.dataset.autoReveal === "slide-right";
+    // Media reveal depends on the root's mode:
+    //   "slide-right" -> in-flow images slide in from the right
+    //   "coverflow"   -> in-flow images turn in from a 3D angle (coverflow-style)
+    //   (anything else) -> plain opacity fade
+    // Absolutely/fixed-positioned media (hero/background, overlapping insets)
+    // always keep the opacity-only fade so motion never exposes a gap.
+    const mode = root.dataset.autoReveal;
+    const inFlowMediaClass =
+      mode === "slide-right" ? "animate-fade-in-right" : mode === "coverflow" ? "animate-coverflow-in" : "animate-fade-in";
     root.querySelectorAll<HTMLElement>(AUTO_MEDIA).forEach((el) => {
       if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
       let cls = "animate-fade-in";
-      if (slideMedia) {
+      if (inFlowMediaClass !== "animate-fade-in") {
         const pos = window.getComputedStyle(el).position;
-        if (pos !== "absolute" && pos !== "fixed") cls = "animate-fade-in-right";
+        if (pos !== "absolute" && pos !== "fixed") cls = inFlowMediaClass;
       }
       el.classList.add(cls);
       el.dataset.animationDuration ??= "1.4";
