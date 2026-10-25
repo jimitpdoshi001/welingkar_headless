@@ -14,6 +14,7 @@ export type AboutData = {
   whoWeAre: { watermark: string; body: string };
   spMandali: { watermark: string; paragraphs: string[] };
   chairman: { heading: string; body: string; name: string; title: string; image: string };
+  viceChairman: { heading: string; body: string; name: string; title: string; image: string };
   director: { heading: string; paragraphs: string[]; sign: string; image: string };
   accreditations: { logo: string; title: string; body: string; extra?: { title: string; body: string } }[];
   academicBoard: { heading: string; people: AboutPerson[] };
@@ -66,6 +67,14 @@ export const ABOUT: AboutData = {
     name: "Shri. Sudhir Kalkar",
     title: "Chairman",
     image: A("chairman.webp"),
+  },
+  // Figma 2289:134: mirror of the Chairman band (text left, photo right).
+  viceChairman: {
+    heading: "From the Vice Chairman's Desk",
+    body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged.",
+    name: "Shri. Sudhir Shankar Kalkar",
+    title: "Vice Chairman",
+    image: A("vice-chairman.webp"),
   },
   director: {
     heading: "Words From Our Director",

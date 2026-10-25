@@ -141,6 +141,23 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             </div>
           </section>
 
+          {/* Vice Chairman (Figma 2289:134): text left, photo right. */}
+          <section id="vice-chairman" className={`bg-light-yellow ${styles.anchor}`}>
+            <div className={`container ${styles.block} ${styles.chairman} ${styles.chairmanReverse}`}>
+              <div className={styles.chairmanText}>
+                <h2 className={styles.heading}>{data.viceChairman.heading}</h2>
+                <p className={styles.body}>{data.viceChairman.body}</p>
+                <p className={styles.personName}>{data.viceChairman.name}</p>
+                <p className={styles.personRole}>{data.viceChairman.title}</p>
+              </div>
+              <img
+                src={data.viceChairman.image}
+                alt={data.viceChairman.name}
+                className={styles.chairmanImage}
+              />
+            </div>
+          </section>
+
           {/* Director */}
             <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
             <div className={styles.directorText}>
@@ -194,9 +211,10 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
             people={data.industryBoard.people}
           />
 
-            {/* Accreditations */}
-          <section >
+            {/* Accreditations (Figma 2292:147..): heading + 2x2 bordered cards. */}
+          <section>
             <div className={`container ${styles.block}`}>
+              <h2 className={styles.heading}>Accreditations</h2>
               <div className={styles.accredGrid}>
                 {data.accreditations.map((a) => (
                   <div
