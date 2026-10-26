@@ -26,16 +26,14 @@ export type PgdmGlance = {
   details: { label: string; value: string }[];
 };
 
-export type PgdmWhoApplyPanel = {
-  intro: { heading: string; body: string; bullets: string[] };
-  side: { heading: string; paragraphs: string[]; cta: PgdmCta };
-};
+// Figma 644:472: "Who Should Apply?" is a subtitle over two info cards
+// (eligibility + entrance exams), the second with a note and Apply CTA.
+export type PgdmWhoApplyCard = { heading: string; body: string; note?: string; cta?: PgdmCta };
 
 export type PgdmWhoApply = {
   heading: string;
   subtitle: string;
-  tabs: { id: string; label: string }[];
-  panels: Record<string, PgdmWhoApplyPanel>;
+  cards: PgdmWhoApplyCard[];
 };
 
 export type PgdmTable = {
@@ -255,7 +253,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     whyProgram: {
       heading: "Why this Program?",
-      body: `WeSchool's flagship PGDM program in ${campus} takes a multidisciplinary approach, combining core management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to shape students into competent, future-ready leaders, equipped with strong managerial skills, an innovative mindset, and exposure to real-world business challenges.`,
+      body: "WeSchool's flagship PGDM program offers a multidisciplinary approach that seamlessly combines general management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to develop students into competent future leaders, equipped with both managerial skills and an innovative mindset, while providing exposure to real-world business challenges. The program's transformative pedagogy includes a mix of lectures, industry projects, and simulation games that promote cross-functional leadership, all taught by distinguished academics and renowned industry experts from leading companies.",
       videoThumb: IMG.why,
       videoHref: "#",
     },
@@ -336,43 +334,19 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     whoApply: {
       heading: "Who Should Apply?",
-      subtitle: "Two paths, one program.",
-      tabs: [
-        { id: "freshers", label: "Freshers" },
-        { id: "workex", label: "Work-Ex" },
+      subtitle: "Two paths, one programme.",
+      cards: [
+        {
+          heading: "Eligibility",
+          body: "Candidates must have secured a minimum of 50% marks in their graduation from a recognised university. Candidates currently in their final year of graduation may also apply, provided they complete their degree by June 2027.",
+        },
+        {
+          heading: "Entrance Exams",
+          body: "Candidates must have appeared for any one of the following entrance examinations: CAT* 2026, XAT 2027, ATMA (February 2027), CMAT 2027, or GMAT (taken in 2024 or later).",
+          note: "*The IIMs and other entrance examination authorities have no role in WeSchool's admission process.",
+          cta: { label: "Apply Now", href: "/apply" },
+        },
       ],
-      panels: {
-        freshers: {
-          intro: {
-            heading: "For Freshers",
-            body: "The PGDM program is designed for graduates looking to build a strong foundation in management, develop industry-relevant skills, and prepare for diverse career opportunities across business functions.",
-            bullets: ["Build management fundamentals", "Explore specialisations", "Industry-relevant practical skills", "Strong placement network"],
-          },
-          side: {
-            heading: "Eligibility Criteria",
-            paragraphs: [
-              "A minimum of 50% in graduation is required, which must be completed by June 2026.",
-              "Candidates should have appeared for CAT (2025), XAT (2026), ATMA Feb (2026), CMAT (2026), or GMAT (2023 onwards).",
-            ],
-            cta: { label: "Check Eligibility and Apply", href: "/apply" },
-          },
-        },
-        workex: {
-          intro: {
-            heading: "For Work-Ex Candidates",
-            body: "Professionals with work experience bring real-world context to the classroom and accelerate into leadership and specialist tracks.",
-            bullets: ["Leverage prior experience", "Fast-track to leadership roles", "Specialised electives", "Strong alumni network"],
-          },
-          side: {
-            heading: "Eligibility Criteria",
-            paragraphs: [
-              "A minimum of 50% in graduation is required, which must be completed by June 2026.",
-              "Candidates should have appeared for CAT (2025), XAT (2026), ATMA Feb (2026), CMAT (2026), or GMAT (2023 onwards).",
-            ],
-            cta: { label: "Check Eligibility and Apply", href: "/apply" },
-          },
-        },
-      },
     },
     shortlisting: {
       title: "Shortlisting Criteria for Online Selection Process – General Merit List",
@@ -388,19 +362,26 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     curriculum: {
       heading: "Curriculum Description",
       description:
-        "Its transformative pedagogy blends lectures, industry projects, and simulation games to build cross-functional leadership skills, guided by distinguished academics and renowned industry experts.",
+        "A transformative pedagogy that blends lectures, industry projects and simulation games to build cross-functional leadership skills, guided by distinguished academics and renowned industry experts.",
       trimesters: [
         {
           id: "t1",
           label: "Trimester I",
-          subjects: ["Perspective Management", "Business Statistics", "Economics for Managers", "Financial Reporting & Analysis", "Effective Business Communication", "Organizational Behavior I", "Essentials of World Class Operations", "Marketing Management Basics", "Yoga"],
-          objectives: ["Demonstrate professionalism and value-based, socially responsible behaviour", "Espouse the culture and spirit of entrepreneurship", "Acquire relevant knowledge across business domains", "Champion social values and ethical behaviour", "Demonstrate critical thinking, creativity, and innovation"],
+          subjects: ["Perspective Management", "Business Statistics", "Economics for Business Decisions", "Financial Reporting & Analysis", "Business Communication - Foundations & Core Skills", "Organizational Behavior I - Individuals in Organizations", "Essentials of World Class Operations", "Marketing Management I", "Yoga"],
+          objectives: [],
         },
-        { id: "t2", label: "Trimester II", subjects: ["Marketing Management", "Financial Management", "Operations Research", "Organizational Behavior II", "Human Resource Management", "Business Research Methods"], objectives: ["Apply core functional concepts to business problems", "Develop analytical and decision-making ability"] },
-        { id: "t3", label: "Trimester III", subjects: ["Strategic Management", "Business Analytics", "Specialisation Electives I", "Legal Aspects of Business"], objectives: ["Integrate functions into strategy", "Begin specialisation depth"] },
-        { id: "t4", label: "Trimester IV", subjects: ["Specialisation Electives II", "International Business", "Simulation Games"], objectives: ["Deepen domain expertise", "Experience cross-functional decision making"] },
-        { id: "t5", label: "Trimester V", subjects: ["Specialisation Electives III", "Industry Projects", "Entrepreneurship"], objectives: ["Apply learning to live projects", "Build an entrepreneurial mindset"] },
-        { id: "t6", label: "Trimester VI", subjects: ["Capstone Project", "Advanced Electives", "Leadership Lab"], objectives: ["Demonstrate leadership readiness", "Prepare for corporate transition"] },
+        {
+          id: "t2",
+          label: "Trimester II",
+          subjects: ["Legal Aspects of Business", "Business Innovation and Application", "Global Citizen Leader - I", "Business Research Methods & Marketing Research", "Business Environment & Corporate Strategy", "Cost and Management Accounting", "Foreign Language", "Organizational Behavior II – Managing Group Dynamics", "Essentials of Supply Chain Management", "Marketing Management II", "Digital Marketing Basics", "Business Communication - Advanced Leadership Communication", "Yoga Sessions (Trim II)"],
+          objectives: [],
+        },
+        {
+          id: "t3",
+          label: "Trimester III",
+          subjects: ["Global Citizen Leader - II", "Business Analytics", "Basics of Banking, Financial Services and Insurance", "Business Taxation", "Fundamentals of Financial Management", "Consumer Behaviour", "Selling and Negotiation Skills", "Human Resource Development and Human Capital Management", "Project Management", "Yoga Sessions", "Universal Human Values"],
+          objectives: [],
+        },
       ],
     },
     visionMission: {
@@ -462,14 +443,13 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     placement: {
       heading: "Placement Opportunities",
       paragraphs: [
-        "WeSchool's placement season witnessed strong interest from companies, marked not just by the sheer number of job profiles on offer, but also by the variety of roles and the competitiveness of the packages. In total, 358 companies visited the campus, 227 of them for the first time.",
-        "With 358 companies on campus, spread across varied sectors, profiles, and continents, we ensure that our students are well-equipped to meet industry requirements the moment they step out of our gates. We partner with and support our students every step of the way, right from their selection to their final placements.",
+        "WeSchool's placement season witnesses strong interest from companies, marked not just by the sheer number of job profiles on offer, but also by the variety of roles and the competitiveness of the packages. Over 358 companies have visited the campus with more than 200+ of them being regular recruiters. With such companies spread across varied sectors, profiles, and continents, we ensure that our students are well-equipped to meet industry requirements the moment they graduate.",
       ],
       image: IMG.placement,
       years: [
-        { id: "2023-25", label: "2023-25", stats: [{ value: "₹11.7 LPA", label: "Average Salary" }, { value: "₹40K", label: "Highest Monthly Stipend" }, { value: "₹18.54L", label: "Highest International CTC" }, { value: "₹20.62L", label: "Top Domestic CTC" }] },
-        { id: "2022-24", label: "2022-24", stats: [{ value: "₹11.2 LPA", label: "Average Salary" }, { value: "₹38K", label: "Highest Monthly Stipend" }, { value: "₹17.8L", label: "Highest International CTC" }, { value: "₹19.9L", label: "Top Domestic CTC" }] },
-        { id: "2021-23", label: "2021-23", stats: [{ value: "₹10.6 LPA", label: "Average Salary" }, { value: "₹35K", label: "Highest Monthly Stipend" }, { value: "₹16.4L", label: "Highest International CTC" }, { value: "₹18.5L", label: "Top Domestic CTC" }] },
+        { id: "2023-25", label: "2023-25", stats: [{ value: "₹12.01L", label: "Average Salary" }, { value: "₹20.7L", label: "Highest Salary" }] },
+        { id: "2022-24", label: "2022-24", stats: [{ value: "₹11.4L", label: "Average Salary" }, { value: "₹19.9L", label: "Highest Salary" }] },
+        { id: "2021-23", label: "2021-23", stats: [{ value: "₹10.6L", label: "Average Salary" }, { value: "₹18.5L", label: "Highest Salary" }] },
       ],
       whyRecruit: {
         heading: "Why Recruit Graduates of This Program?",
@@ -490,7 +470,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     fees: {
       heading: "Admission and Course Fees",
       description:
-        "WeSchool is committed to giving more than it takes, in order to offer a brighter future to our students. We aim to rise above the notion of assured ROI, which is just numbers, by adding real value and equipping our students to face the challenges of a dynamic business world with confidence.",
+        "WeSchool intends to give more than what it takes, in order to offer a brighter future to our students. We try rising above the assured ROI which is just numbers, by adding value and making our students competitive enough to face real challenges, in the dynamic business world.",
       cards: [
         { image: IMG.feeTuition, label: "Tuition Fees & Other", value: "₹7,50,000/- p.a*", note: "*Subject to change" },
         { image: IMG.feeLibrary, label: "Library Deposit", value: "₹4,000/- (refundable)" },
