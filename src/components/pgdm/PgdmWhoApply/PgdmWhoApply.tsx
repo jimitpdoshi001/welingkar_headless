@@ -21,7 +21,7 @@ export function PgdmWhoApply({ data }: { data: PgdmWhoApplyData }) {
             {card.cta ? (
               <Link
                 href={card.cta.href}
-                className="btn accent">
+                className={`btn ${styles.applyBtn}`}>
                 {card.cta.label}
               </Link>
             ) : null}

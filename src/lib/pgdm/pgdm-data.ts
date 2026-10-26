@@ -38,7 +38,8 @@ export type PgdmWhoApply = {
 
 export type PgdmTable = {
   title: string;
-  campusLabel: string;
+  // Figma 644:472: one table per campus, each with its own header colour.
+  campuses: { label: string; color: string }[];
   columns: string[];
   rows: { program: string; values: string[]; span?: boolean }[];
 };
@@ -360,11 +361,11 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       subtitle: "Two paths, one programme.",
       cards: [
         {
-          heading: "Eligibility",
+          heading: "Who Should Apply?",
           body: "Candidates must have secured a minimum of 50% marks in their graduation from a recognised university. Candidates currently in their final year of graduation may also apply, provided they complete their degree by June 2027.",
         },
         {
-          heading: "Entrance Exams",
+          heading: "Eligibility Criteria",
           body: "Candidates must have appeared for any one of the following entrance examinations: CAT* 2026, XAT 2027, ATMA (February 2027), CMAT 2027, or GMAT (taken in 2024 or later).",
           note: "*The IIMs and other entrance examination authorities have no role in WeSchool's admission process.",
           cta: { label: "Apply Now", href: "/apply" },
@@ -372,9 +373,12 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       ],
     },
     shortlisting: {
-      title: "Shortlisting Criteria for Online Selection Process – General Merit List",
-      campusLabel: `${campus} Campus`,
-      columns: ["Program / Campus", "CAT 2025 / XAT 2026 / GMAT (2023 onwards) Percentile", "ATMA Feb 2026 / CMAT 2026 Score"],
+      title: "Shortlisting Criteria for Online Selection Process - General Merit List",
+      campuses: [
+        { label: "Mumbai Campus", color: "#4a3460" },
+        { label: "Bengaluru Campus", color: "#b04535" },
+      ],
+      columns: ["Program/ Campus", "CAT 2025 / XAT 2026 / GMAT (2023 onwards) Percentile", "ATMA Feb 2026 / CMAT 2026 Score"],
       rows: [
         { program: "PGDM, PGDM E-Business, PGDM Research & Business Analytics", values: ["80", "85"] },
         { program: "PGDM Retail, PGDM Media and Entertainment and PGDM Business Design", values: ["75", "80"] },

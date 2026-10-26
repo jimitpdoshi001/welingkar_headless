@@ -52,6 +52,13 @@
   margin: 0 0 1.6rem;
 }
 
+// Figma 1012:6172: green Apply Now (same green as the hero CTA).
+.applyBtn {
+  background-color: #3a9030;
+  border-color: #3a9030;
+  color: var(--color-white);
+}
+
 .note {
   font-size: 1.3rem;
   line-height: 1.6;
