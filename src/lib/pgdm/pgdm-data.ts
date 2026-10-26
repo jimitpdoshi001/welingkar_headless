@@ -116,6 +116,8 @@ export type PgdmInnovative = { heading: string; image: string; links: { label: s
 export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
 export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
 export type PgdmBandStat = { value: string; label: string };
+// Figma 644:472: Program USPs is a dark photo band with white cards at the base.
+export type PgdmUspBand = { heading: string; image: string; cards: string[] };
 
 export type PgdmData = {
   campus: "Mumbai" | "Bengaluru";
@@ -130,6 +132,7 @@ export type PgdmData = {
   programFaculty: PgdmProgramFaculty;
   quickReasons: PgdmFeature[];
   usps: PgdmFeature[];
+  uspBand: PgdmUspBand;
   glance: PgdmGlance;
   whoApply: PgdmWhoApply;
   shortlisting: PgdmTable;
@@ -267,6 +270,18 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     quickReasons: SHARED_QUICK_REASONS,
     usps: SHARED_USPS,
+    uspBand: {
+      heading: "Program USPs",
+      image: IMG.glance,
+      cards: [
+        "Flagship program – started in 1993",
+        "180 Intake with 4 specializations",
+        "Trimester system with 115.5 credits",
+        "Contemporary syllabus with innovative pedagogy",
+        "Agile, Adaptive Leaders with a sustainability approach",
+        "NBA, SAQS, ACBSP Accredited",
+      ],
+    },
     educationalObjectives: {
       heading: "Program Educational Objectives",
       items: [
@@ -300,7 +315,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       ],
     },
     studentPedagogy: {
-      heading: "Student - Centric Pedagogy",
+      heading: "Student-Centric Pedagogy",
       image: IMG.glance,
       bullets: [
         "SHL, an Internationally acclaimed brand - conducts virtual assessment sessions. This enables student-wise, Development Centre (DC) planning. DC actions are implemented/facilitated and steered by faculty mentors, on an ongoing & continuous basis, to enhance student grooming, and employability.",

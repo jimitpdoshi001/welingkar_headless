@@ -1,0 +1,57 @@
+@use "../../../styles/base/mixins" as *;
+
+.band {
+  position: relative;
+  background-color: #1a1420;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  color: var(--color-white);
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  min-height: 42rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include respond-to(mobile) { min-height: 0; padding-block: 4rem; gap: 3rem; }
+}
+
+.heading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+// White cards along the bottom edge.
+.cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.6rem;
+
+  @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); }
+  @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+}
+
+.card {
+  margin: 0;
+  padding: 1.8rem 1.6rem;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: var(--color-dark, #1a1a1a);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 1.2rem;
+}

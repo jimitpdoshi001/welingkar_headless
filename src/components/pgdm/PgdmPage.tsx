@@ -8,9 +8,9 @@ import Link from "next/link";
 import type { PgdmData } from "@/lib/pgdm/pgdm-data";
 import { PgdmHero } from "./PgdmHero/PgdmHero";
 import { PgdmStatBar } from "./PgdmStatBar/PgdmStatBar";
-import { PgdmFeatureGrid } from "./PgdmFeatureGrid/PgdmFeatureGrid";
 import { PgdmObjectives } from "./PgdmObjectives/PgdmObjectives";
 import { PgdmOutcomes } from "./PgdmOutcomes/PgdmOutcomes";
+import { PgdmUspBand } from "./PgdmUspBand/PgdmUspBand";
 import { PgdmStrengths } from "./PgdmStrengths/PgdmStrengths";
 import { PgdmPedagogy } from "./PgdmPedagogy/PgdmPedagogy";
 import { PgdmInnovative } from "./PgdmInnovative/PgdmInnovative";
@@ -115,16 +115,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           </section>
 
           {/* 9. Program USPs */}
-          <section className={styles.band}>
-            <div className={`container ${styles.block}`}>
-              <PgdmFeatureGrid
-                heading="Program USPs"
-                items={data.usps}
-                columns={4}
-                theme="onDark"
-              />
-            </div>
-          </section>
+          <PgdmUspBand data={data.uspBand} />
 
           {/* 10. Innovative Teaching and Learning Pedagogy */}
           <PgdmInnovative data={data.innovativePedagogy} />
