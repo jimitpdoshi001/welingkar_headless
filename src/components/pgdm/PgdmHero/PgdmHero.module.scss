@@ -65,29 +65,31 @@
 }
 
 .title {
-  // -10% from 4.4rem; no max-width + nowrap keeps the title on one line (desktop).
-  font-size: 3.96rem;
+  // Figma 644:476: DM Sans ExtraBold, 34px, one line (desktop).
+  font-size: 3.4rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.2;
   margin-bottom: 1.6rem;
   white-space: nowrap;
   // Push the main content block to the bottom; breadcrumb stays at the top.
   margin-top: auto;
 
   @include respond-to(tab) {
-    font-size: 3.24rem;
+    font-size: 3rem;
     white-space: normal;
   }
 
   @include respond-to(mobile) {
-    font-size: 2.52rem;
+    font-size: 2.4rem;
   }
 }
 
 .subtitle {
+  // Figma 644:477: DM Sans Regular, 16px, width 691px.
   font-size: 1.6rem;
-  line-height: 1.6;
-  max-width: 60rem;
+  font-weight: 400;
+  line-height: 1.45;
+  max-width: 69.1rem;
   margin-bottom: 2.4rem;
   opacity: 0.95;
 }

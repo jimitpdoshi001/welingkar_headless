@@ -210,9 +210,9 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     campus,
     hero: {
       breadcrumb: ["Home", "Programs", "PGDM"],
-      title: "Post Graduate Diploma in Management",
+      title: "Post Graduate Diploma in Management (PGDM)",
       subtitle:
-        "Introduced in 1994, this program has spent over three decades emphasising acquisition, application, and assimilation, building the confident managers of tomorrow.",
+        "With a strong emphasis on Acquisition, Application, and Assimilation of knowledge; this programme focuses on creating the confident managers of tomorrow.",
       stats: ["Present Intake: 180", "Intake 180 Seats", "Duration 2 Years", "Specialisations 4 Tracks"],
       primaryCta: { label: "Apply Now", href: "/apply" },
       secondaryCta: { label: "View Brochure", href: "/brochure" },
