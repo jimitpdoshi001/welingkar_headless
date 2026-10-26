@@ -3,7 +3,7 @@
 .root { width: 100%; }
 
 .heading {
-  font-size: 3.6rem;
+  font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1.2rem;
 
@@ -12,8 +12,8 @@
 
 .description {
   font-size: 1.6rem;
-  line-height: 1.7;
-  color: var(--color-gray);
+  line-height: 1.3;
+  color: var(--color-black);
   // Use the full content width (requested).
   max-width: none;
   margin-bottom: 2.4rem;
@@ -30,15 +30,16 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 1.2rem; }
 }
 
+// Figma: 60px rose-tint pills, 15px radius, 16px black text.
 .pill {
   display: flex;
   align-items: center;
-  background: var(--color-light);
-  border-radius: 1rem;
+  background: #f6e9e7;
+  border-radius: 1.5rem;
   padding: 1.6rem 2rem;
-  font-size: 1.5rem;
-  color: var(--color-dark-gray);
-  min-height: 5.6rem;
+  font-size: 1.6rem;
+  color: var(--color-black);
+  min-height: 6rem;
 }
 
 .moreWrap {

@@ -86,12 +86,13 @@ export type PgdmPlacement = {
   heading: string;
   paragraphs: string[];
   image: string;
-  years: { id: string; label: string; stats: { value: string; label: string }[] }[];
+  // caption: Figma's left label in the stats card; unit: small suffix after the value (e.g. LPA).
+  years: { id: string; label: string; caption?: string; stats: { value: string; label: string; unit?: string }[] }[];
   whyRecruit: { heading: string; paragraphs: string[]; cta: PgdmCta };
   steps: { num: string; title: string; desc: string }[];
 };
 
-export type PgdmRecruiters = { heading: string; logos: { name: string; image: string }[] };
+export type PgdmRecruiters = { heading: string; description?: string; logos: { name: string; image: string }[] };
 
 export type PgdmFees = {
   heading: string;
@@ -101,7 +102,7 @@ export type PgdmFees = {
   eligibility: { heading: string; bullets: string[] };
 };
 
-export type PgdmTestimonial = { id: string; quote: string; name: string; role: string; avatar: string };
+export type PgdmTestimonial = { id: string; quote: string; name: string; role: string; avatar: string; videoUrl?: string };
 
 export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta; testimonials: PgdmTestimonial[]; media?: string[] };
 
@@ -171,6 +172,9 @@ const pgdmImages = (slug: "mumbai" | "bengaluru") => {
     studentCentric: img("student-centric"),
     usps: img("program-usps"),
     innovative: img("innovative-pedagogy"),
+    whyPhoto: img("why-program"),
+    communityVideo1: img("community-video-1"),
+    communityVideo2: img("community-video-2"),
     community1: img("community-1"),
     community2: img("community-2"),
     avatar1: img("testimonial-1"),
@@ -223,21 +227,25 @@ const SHARED_FAQS = [
 
 // Program Faculty (Figma 644:472): reuses the Managing Council portraits that
 // already ship at /public/about/faculty/<slug>.webp.
-const SHARED_FACULTY: PgdmFacultyPerson[] = [
-  "Shri. Sudhir Shankar Kalkar",
-  "Shri. Sunil Madhusudan Joshi",
-  "Shri. Radhesham Bajranglal Agrawal",
-  "Shri. Vivek V. Nayak",
-  "Shri. Navin Naidu Dasari",
-  "Shri. Raghav Pandit Ashtekar",
-  "Shri. Anil Purushottam Barve",
-  "Shri. Manoj Pandurang Bhalerao",
-  "Shri. Yashodhan Sunil Bhide",
-  "Shri. Tushar N Kulkarni",
-].map((name) => {
+const SHARED_FACULTY: PgdmFacultyPerson[] = (
+  [
+    ["Shri. Sudhir Shankar Kalkar", "Chairman"],
+    ["Shri. Radhesham Bajranglal Agrawal", "Vice Chairman"],
+    ["Shri. Sunil Madhusudan Joshi", "Member & Chairman, CDC, WeSchool"],
+    ["Shri. Vivek V. Nayak", "Member"],
+    ["Shri. Navin Naidu Dasari", "Member"],
+    ["Shri. Raghav Pandit Ashtekar", "Member"],
+    ["Shri. Anil Purushottam Barve", "Member"],
+    ["Shri. Manoj Pandurang Bhalerao", "Member"],
+    ["Shri. Yashodhan Sunil Bhide", "Member"],
+    ["Shri. Tushar N Kulkarni", "Member"],
+  ] as const
+).map(([name, title]) => {
   const slug = name.replace(/^Shri\.\s*/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-  return { id: slug, name, title: "Faculty", image: `/about/faculty/${slug}.webp` };
+  return { id: slug, name, title, image: `/about/faculty/${slug}.webp` };
 });
+
+const CAMPUS_TOUR_VIDEO = "https://www.youtube-nocookie.com/embed/rccOv-AUaxM?autoplay=1&rel=0&playsinline=1";
 
 // Shared with the campus pages: /public/campus/recruiters/<name-slug>.webp.
 const RECRUITER_LOGOS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
@@ -269,8 +277,8 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     ],
     whyProgram: {
       heading: "Why this Program?",
-      body: "WeSchool's flagship PGDM program offers a multidisciplinary approach that seamlessly combines general management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to develop students into competent future leaders, equipped with both managerial skills and an innovative mindset, while providing exposure to real-world business challenges. The program's transformative pedagogy includes a mix of lectures, industry projects, and simulation games that promote cross-functional leadership, all taught by distinguished academics and renowned industry experts from leading companies.",
-      videoThumb: IMG.why,
+      body: "WeSchool's flagship PGDM program offers a multidisciplinary approach that seamlessly combines general management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to develop students into competent future leaders, equipped with both managerial skills and an innovative mindset, while providing exposure to real-world business challenges.\nThe program's transformative pedagogy includes a mix of lectures, industry projects, and simulation games that promote cross-functional leadership, all taught by distinguished academics and renowned industry experts from leading companies.",
+      videoThumb: IMG.whyPhoto,
       videoHref: "#",
     },
     quickReasons: SHARED_QUICK_REASONS,
@@ -411,6 +419,10 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
           subjects: ["Global Citizen Leader - II", "Business Analytics", "Basics of Banking, Financial Services and Insurance", "Business Taxation", "Fundamentals of Financial Management", "Consumer Behaviour", "Selling and Negotiation Skills", "Human Resource Development and Human Capital Management", "Project Management", "Yoga Sessions", "Universal Human Values"],
           objectives: [],
         },
+        // Year II: not shown in Figma; carried over from the previous page content — confirm with the programme office.
+        { id: "t4", label: "Trimester IV", subjects: ["Specialisation Electives II", "International Business", "Simulation Games"], objectives: [] },
+        { id: "t5", label: "Trimester V", subjects: ["Specialisation Electives III", "Industry Projects", "Entrepreneurship"], objectives: [] },
+        { id: "t6", label: "Trimester VI", subjects: ["Capstone Project", "Advanced Electives", "Leadership Lab"], objectives: [] },
       ],
     },
     visionMission: {
@@ -459,33 +471,36 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       heading: "Career Opportunities",
       description: "To nurture every budding student, we guide, mentor and stand by each one; helping them discover their innate hidden abilities and interests. Students of this program can look forward to career opportunities like:",
       tabs: CAREER_TABS,
-      // Show two rows of 4, then reveal the rest via Show More.
-      initialCount: 8,
+      // Figma shows five rows of 4 before Show More.
+      initialCount: 20,
     },
     achievements: {
       heading: "Student Achievements",
       description: "Year on year, our students do us proud and edify our belief in creating the leaders of tomorrow. Here are the achievements of our latest batch.",
       items: [
-        { id: "ach-1", image: IMG.achievement1, title: 'The best manager" – bimtech noida 2023', position: "Position: 1st Prize", bullets: ["Clinch the title of \"The Best Manager\" by defeating 250+ participants of different B-Schools.", "Navigated 9 intense rounds over a span of two days in this challenging competition to win it.", "Received exclusive recognition as the sole standout participant in the competition.", "Rewarded with the title of \"The Best Manager\""], team: "Sanskar Jain — PGDM (23–25)" },
-        { id: "ach-2", image: IMG.achievement2, title: "National Case Championship 2023", position: "Position: Runner-up", bullets: ["Competed against 180+ teams nationally.", "Presented an innovative go-to-market strategy.", "Recognised for analytical rigour and storytelling."], team: "Team WeSchool — PGDM (23–25)" },
+        { id: "ach-1", image: IMG.achievement1, title: 'The best manager" – bimtech noida 2023', position: "Position: 1st Prize", bullets: ["Description: Clinch the title of \"The Best Manager\" by defeating 250+ participants of different B-Schools.", "Navigated 9 intense rounds over a span of two days in this challenging competition to win it.", "Received exclusive recognition as the sole standout participant in the competition.", "Rewarded with the title of \"The Best Manager\""], team: "Sanskar Jain — PGDM (23–25)" },
+        { id: "ach-2", image: IMG.achievement1, // own photo pending; reuses ach-1 until uploaded
+           title: "National Case Championship 2023", position: "Position: Runner-up", bullets: ["Competed against 180+ teams nationally.", "Presented an innovative go-to-market strategy.", "Recognised for analytical rigour and storytelling."], team: "Team WeSchool — PGDM (23–25)" },
       ],
     },
     placement: {
       heading: "Placement Opportunities",
       paragraphs: [
-        "WeSchool's placement season witnesses strong interest from companies, marked not just by the sheer number of job profiles on offer, but also by the variety of roles and the competitiveness of the packages. Over 358 companies have visited the campus with more than 200+ of them being regular recruiters. With such companies spread across varied sectors, profiles, and continents, we ensure that our students are well-equipped to meet industry requirements the moment they graduate.",
+        "WeSchool's placement season witnesses strong interest from companies, marked not just by the sheer number of job profiles on offer, but also by the variety of roles and the competitiveness of the packages. Over 358 companies have visited the campus with more than 200+ of them being regular recruiters.",
+        "With such companies spread across varied sectors, profiles, and continents, we ensure that our students are well-equipped to meet industry requirements the moment they graduate.",
       ],
       image: IMG.placement,
       years: [
-        { id: "2023-25", label: "2023-25", stats: [{ value: "₹12.01L", label: "Average Salary" }, { value: "₹20.7L", label: "Highest Salary" }] },
-        { id: "2022-24", label: "2022-24", stats: [{ value: "₹11.4L", label: "Average Salary" }, { value: "₹19.9L", label: "Highest Salary" }] },
-        { id: "2021-23", label: "2021-23", stats: [{ value: "₹10.6L", label: "Average Salary" }, { value: "₹18.5L", label: "Highest Salary" }] },
+        { id: "2023-25", label: "2023-25", caption: "Year 2024-26\nDomestic", stats: [{ value: "₹12.01L", unit: "LPA", label: "Average Salary" }, { value: "₹20.7L", unit: "LPA", label: "Highest Salary" }] },
+        { id: "2022-24", label: "2022-24", caption: "Year 2022-24\nDomestic", stats: [{ value: "₹11.4L", unit: "LPA", label: "Average Salary" }, { value: "₹19.9L", unit: "LPA", label: "Highest Salary" }] },
+        { id: "2021-23", label: "2021-23", caption: "Year 2021-23\nDomestic", stats: [{ value: "₹10.6L", unit: "LPA", label: "Average Salary" }, { value: "₹18.5L", unit: "LPA", label: "Highest Salary" }] },
       ],
+      // Figma 1020:6264: "Recruiters" card beside the four engagement steps.
       whyRecruit: {
-        heading: "Why Recruit Graduates of This Program?",
+        heading: "Recruiters",
         paragraphs: [
-          "WeSchool's PGDM program develops graduates with knowledge across business domains, supported by practical learning, industry exposure, mentoring and continuous assessment.",
-          "Students are exposed to real-world business challenges through industry projects, simulation games, domain-focused development initiatives, roundtable conferences and learning experiences such as the HR Lab and Finance GYM.",
+          "With 358 companies on campus spread across varied sectors, profiles and continents, we ensure that our students are well equipped to meet industry requirements the moment they step out of our gates.",
+          "We partner with and support our students every step of the way; right from their selection to their final placements.",
         ],
         cta: { label: "Hire from WeSchool", href: "/corporate-interface" },
       },
@@ -496,7 +511,11 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
         { num: "04", title: "Select the Right Talent", desc: "Make offers through our structured placement process." },
       ],
     },
-    recruiters: { heading: "Our Recruiters", logos: RECRUITER_LOGOS },
+    recruiters: {
+      heading: "Our Recruiters",
+      description: "With 358 companies on campus spread across varied sectors, profiles and continents, we ensure that our students are well equipped to meet industry requirements the moment they step out of our gates. We partner with and support our students every step of the way; right from their selection to their final placements.",
+      logos: RECRUITER_LOGOS,
+    },
     fees: {
       heading: "Admission and Course Fees",
       description:
@@ -506,13 +525,26 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
         { image: IMG.feeLibrary, label: "Library Deposit", value: "₹4,000/- (refundable)" },
         { image: IMG.feeHostel, label: "Hostel Fees", value: "₹1,60,000/- p.a. to ₹2,20,000/- p.a.", note: "Plus a deposit of ₹10,000/- (refundable)" },
       ],
+      // Figma 701:1129: both columns carry the same five points.
       waiver: {
         heading: "Tuition Fee Waiver Scheme",
-        bullets: ["Seats, up to Maximum 5 percent of sanctioned intake per course are available under TFW Scheme.", "Candidate's parent's annual income from all sources should not exceed Rs. 8.00 Lakh. This should be supported by the Income Certificate issued by the Tehsildar office and valid till March 2026.", "The Waiver is limited to the Tuition Fee only."],
+        bullets: [
+          "Seats, up to Maximum 5 percent of sanctioned intake per course are available under TFW Scheme.",
+          "Candidate's parent's annual income from all sources should not exceed Rs. 8.00 Lakh. This should be supported by the Income Certificate issued by the Tehsildar office and valid till March 2026.",
+          "The Waiver is limited to the Tuition Fee only",
+          "All other fees except tuition fee shall be paid by the beneficiary.",
+          "The Candidates admitted under this scheme shall not be allowed to change the course/campus at any stage under any circumstances.",
+        ],
       },
       eligibility: {
         heading: "Eligibility Criteria",
-        bullets: ["Seats, up to Maximum 5 percent of sanctioned intake per course are available under TFW Scheme.", "All other fees except tuition fee shall be paid by the beneficiary.", "The Candidates admitted under this scheme shall not be allowed to change the course/campus at any stage under any circumstances."],
+        bullets: [
+          "Seats, up to Maximum 5 percent of sanctioned intake per course are available under TFW Scheme.",
+          "Candidate's parent's annual income from all sources should not exceed Rs. 8.00 Lakh. This should be supported by the Income Certificate issued by the Tehsildar office and valid till March 2026.",
+          "The Waiver is limited to the Tuition Fee only",
+          "All other fees except tuition fee shall be paid by the beneficiary.",
+          "The Candidates admitted under this scheme shall not be allowed to change the course/campus at any stage under any circumstances.",
+        ],
       },
     },
     community: {
@@ -523,7 +555,10 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       // Figma: two video tiles beside the quote card.
       media: [IMG.community1, IMG.community2],
       testimonials: [
-        { id: "t-1", quote: "I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.", name: "Rajesh Ramineni", role: "BigBasket DC – Manager", avatar: IMG.avatar1 },
+        // Figma video tiles; the campus tour video stands in until per-alumni videos exist.
+        { id: "v-1", quote: "", name: "Alumni story", role: "", avatar: IMG.communityVideo1, videoUrl: CAMPUS_TOUR_VIDEO },
+        { id: "v-2", quote: "", name: "Campus life", role: "", avatar: IMG.communityVideo2, videoUrl: CAMPUS_TOUR_VIDEO },
+        { id: "t-1", quote: "I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.", name: "Rajesh Ramineni", role: "BigBasket DC - Manager", avatar: IMG.avatar1 },
         { id: "t-2", quote: "The industry exposure and mentoring at WeSchool shaped how I approach real business problems every day.", name: "Priya Nair", role: "Deloitte – Consultant", avatar: IMG.avatar2 },
       ],
     },

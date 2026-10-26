@@ -59,29 +59,21 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {/* Figma 2344:932: purple stats strip directly under the hero. */}
           <PgdmStatBar stats={data.bandStats} />
 
-          {/* 3. Why this Program */}
+          {/* 3. Why this Program (Figma 2424:386 + 2344:945): text left, photo right,
+              pale green arrow watermark on the left edge. */}
           <section
             id="overview"
-            className={`container ${styles.block} ${styles.anchor}`}>
-            <div className={styles.whyGrid}>
-              <div>
+            className={`${styles.whySection} ${styles.anchor}`}>
+            <div className={`container ${styles.whyGrid}`}>
+              <div className={styles.whyText}>
                 <h2 className={styles.whyHeading}>{data.whyProgram.heading}</h2>
                 <p className={styles.whyBody}>{data.whyProgram.body}</p>
               </div>
-              <Link
-                href={data.whyProgram.videoHref || "#"}
-                className={styles.videoCard}
-                aria-label="Play program video"
-              >
-                <img
-                  src={data.whyProgram.videoThumb}
-                  alt=""
-                  className={styles.videoThumb}
-                />
-                <span className={styles.playButton} aria-hidden="true">
-                  ▶
-                </span>
-              </Link>
+              <img
+                src={data.whyProgram.videoThumb}
+                alt=""
+                className={styles.whyPhoto}
+              />
             </div>
           </section>
 
@@ -183,8 +175,10 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           </section>
 
           {/* 19. Student Achievements */}
-          <section className={`container ${styles.block}`}>
-            <PgdmAchievements data={data.achievements} />
+          <section className={`bg-light-yellow ${styles.achievementsBand}`}>
+            <div className={`container ${styles.block}`}>
+              <PgdmAchievements data={data.achievements} />
+            </div>
           </section>
 
           {/* 20. Straight from Our Community: reuse the home page's animated section. */}
@@ -197,6 +191,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                 role: t.role,
                 avatar: t.avatar,
                 avatarAlt: t.name,
+                videoUrl: t.videoUrl,
               }))}>
               <h2 className={styles.communityHeading}>{data.community.heading}</h2>
               <p className={styles.communityDesc}>{data.community.description}</p>

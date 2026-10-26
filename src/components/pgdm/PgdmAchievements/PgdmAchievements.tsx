@@ -62,6 +62,8 @@ export function PgdmAchievements({ data }: { data: PgdmAchievementsData }) {
         modules={[Navigation]}
         slidesPerView={1}
         spaceBetween={24}
+        // Figma: the next achievement peeks in from the right on desktop.
+        breakpoints={{ 1024: { slidesPerView: 1.12, spaceBetween: 50 } }}
         grabCursor
         onBeforeInit={(swiper) => {
           if (swiper.params.navigation && typeof swiper.params.navigation !== "boolean") {

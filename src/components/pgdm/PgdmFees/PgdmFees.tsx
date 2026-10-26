@@ -72,12 +72,13 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
       </Swiper>
 
       <div className={styles.lists}>
-        {[data.waiver, data.eligibility].map((block) => (
+        {[data.waiver, data.eligibility].map((block, bi) => (
           <div
             key={block.heading}
             className={styles.listBlock}>
             <h3 className={styles.listHeading}>{block.heading}</h3>
-            <ul className={styles.bullets}>
+            {/* Figma: the waiver list has no bullet markers. */}
+            <ul className={`${styles.bullets} ${bi === 0 ? styles.plain : ""}`}>
               {block.bullets.map((bullet, i) => (
                 <li key={i}>{bullet}</li>
               ))}

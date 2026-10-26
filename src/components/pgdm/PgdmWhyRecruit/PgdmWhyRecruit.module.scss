@@ -12,8 +12,8 @@
 .card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 2.4rem;
-  padding: 3.2rem;
+  border-radius: 3rem;
+  padding: 5.6rem 5.8rem 4.8rem; // Figma
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -22,7 +22,7 @@
 }
 
 .heading {
-  font-size: 2.4rem;
+  font-size: 2.2rem; // Figma 22px Bold
   font-weight: 700;
   margin-bottom: 1.6rem;
 
@@ -30,10 +30,14 @@
 }
 
 .body {
-  font-size: 1.5rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.82);
-  margin-bottom: 1.6rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0;
+  max-width: 48rem;
+
+  & + & { margin-top: 0; }
+  &:last-of-type { margin-bottom: 7.2rem; }
 }
 
 .steps {
@@ -51,16 +55,16 @@
   gap: 2rem;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 2rem;
-  padding: 2rem 2.4rem;
+  border-radius: 1.5rem;
+  padding: 1.8rem 3rem;
 }
 
 .num {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-white);
   flex-shrink: 0;
-  width: 2.4rem;
+  width: 6.4rem;
 }
 
 .stepContent {
@@ -69,12 +73,12 @@
 }
 
 .stepTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
+  font-size: 2.2rem; // Figma 22px SemiBold
+  font-weight: 600;
+  line-height: 1.1;
 }
 
 .stepDesc {
-  font-size: 1.4rem;
-  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.85);
 }

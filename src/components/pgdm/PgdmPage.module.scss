@@ -95,66 +95,66 @@
   @include respond-to(mobile) { margin-top: 4rem; }
 }
 
+// Figma: 145px above the photo, 137px below; arrow watermark at the left edge.
+.whySection {
+  position: relative;
+  overflow: hidden;
+  padding-block: 14.5rem 13.7rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8.4rem;
+    width: 20.1rem;
+    height: 22.9rem;
+    background: #eef4ea;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    pointer-events: none;
+
+    @include respond-to(tab) { display: none; }
+  }
+
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
 .whyGrid {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 61rem;
   gap: 5rem;
   align-items: center;
 
-  @include respond-to(tab) { gap: 3rem; }
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; gap: 3rem; }
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 
+.whyText { max-width: 45.5rem; }
+
 .whyHeading {
-  font-size: 3.6rem;
+  font-size: 4rem; // Figma 40px ExtraBold
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 2rem;
 
-  @include respond-to(mobile) { font-size: 2.6rem; }
+  @include respond-to(mobile) { font-size: 2.8rem; }
 }
 
 .whyBody {
   font-size: 1.6rem;
-  line-height: 1.7;
-  color: var(--color-gray);
+  line-height: 1.3;
+  color: var(--color-black);
+  white-space: pre-line; // Figma: two paragraphs
   margin: 0;
 }
 
-.videoCard {
-  position: relative;
+// Figma: 610x437 photo, 30px radius.
+.whyPhoto {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 11;
-  border-radius: 2.4rem;
-  overflow: hidden;
-}
-
-.videoThumb {
-  width: 100%;
-  height: 100%;
+  aspect-ratio: 610 / 437;
   object-fit: cover;
-  display: block;
-}
-
-.playButton {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 6.4rem;
-  height: 6.4rem;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: var(--color-white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  padding-left: 0.4rem;
-  transition: transform 0.2s ease;
-
-  .videoCard:hover & { transform: translate(-50%, -50%) scale(1.08); }
+  border-radius: 3rem;
 }
 
 // Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
@@ -167,6 +167,23 @@
 // animated testimonial section (no .container; the component positions itself).
 .communitySection {
   position: relative;
+
+  // Figma 701:1293: faint arrow watermark on the left edge.
+  &::before {
+    content: "";
+    position: absolute;
+    left: -2rem;
+    top: 9rem;
+    width: 31.2rem;
+    height: 35.6rem;
+    background: rgba(176, 69, 53, 0.18);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    pointer-events: none;
+    z-index: 0;
+
+    @include respond-to(tab) { display: none; }
+  }
+
   background-color: var(--pgdm-band, var(--color-secondary));
   color: var(--color-white);
   overflow: hidden;
@@ -189,3 +206,7 @@
 
 // Mumbai: section CTAs are orange in Figma; the hero keeps its green Apply Now.
 .orangeCtas > :not(:first-child) :global(.btn.accent) { background-color: var(--color-orange); border-color: var(--color-orange); }
+
+// Figma: cream band; the peeking slide may run past the container edge.
+.achievementsBand { overflow: hidden; }
+.achievementsBand :global(.swiper) { overflow: visible; }

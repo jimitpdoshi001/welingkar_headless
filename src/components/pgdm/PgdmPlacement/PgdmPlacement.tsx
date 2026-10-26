@@ -43,12 +43,17 @@ export function PgdmPlacement({ data, bare = false }: { data: PgdmPlacementData;
           />
         </div>
 
+        {/* Figma: caption on the left, then large values with a small unit. */}
         <div className={styles.statsCard}>
+          {current?.caption ? <p className={styles.caption}>{current.caption}</p> : null}
           {current?.stats.map((stat) => (
             <div
               key={stat.label}
               className={styles.stat}>
-              <span className={styles.statValue}>{stat.value}</span>
+              <span className={styles.statValue}>
+                {stat.value}
+                {stat.unit ? <small className={styles.statUnit}>{stat.unit}</small> : null}
+              </span>
               <span className={styles.statLabel}>{stat.label}</span>
             </div>
           ))}

@@ -1,21 +1,21 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 
 import type { PgdmCurriculum as PgdmCurriculumData } from "@/lib/pgdm/pgdm-data";
-import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import styles from "./PgdmCurriculum.module.scss";
 
-// Figma 644:472: heading + description with scroll arrows top-right, then a row
-// of trimester subject cards (the middle card tinted lavender).
-export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
-  const trackRef = useRef<HTMLDivElement | null>(null);
+const YEAR_LABELS = ["Year I", "Year II"];
 
-  const scroll = (dir: 1 | -1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * (el.clientWidth * 0.6), behavior: "smooth" });
-  };
+// Figma 1012:6177: heading + description with Year I / Year II pills top-right,
+// then the three trimester cards of the selected year (middle card tinted).
+export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
+  // Three trimesters per academic year.
+  const years = YEAR_LABELS.map((label, i) => ({
+    label,
+    trimesters: data.trimesters.slice(i * 3, i * 3 + 3),
+  })).filter((y) => y.trimesters.length > 0);
+  const [active, setActive] = useState(0);
 
   return (
     <div className={styles.root}>
@@ -24,31 +24,29 @@ export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
           <h2 className={styles.heading}>{data.heading}</h2>
           <p className={styles.description}>{data.description}</p>
         </div>
-        <div className={styles.arrows}>
-          <button
-            type="button"
-            className={styles.prev}
-            onClick={() => scroll(-1)}
-            aria-label="Previous">
-            <ArrowLeft width={8} height={12} />
-          </button>
-          <button
-            type="button"
-            className={styles.next}
-            onClick={() => scroll(1)}
-            aria-label="Next">
-            <ArrowRight width={8} height={12} />
-          </button>
+        <div
+          className={styles.years}
+          role="tablist"
+          aria-label="Academic year">
+          {years.map((y, i) => (
+            <button
+              key={y.label}
+              type="button"
+              role="tab"
+              aria-selected={i === active}
+              className={`${styles.year} ${i === active ? styles.yearActive : ""}`}
+              onClick={() => setActive(i)}>
+              {y.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div
-        className={styles.track}
-        ref={trackRef}>
-        {data.trimesters.map((t, i) => (
+      <div className={styles.track}>
+        {years[active]?.trimesters.map((t, i) => (
           <article
             key={t.id}
-            className={`${styles.card} ${i % 2 === 1 ? styles.cardAlt : ""}`}>
+            className={`${styles.card} ${i === 1 ? styles.cardAlt : ""}`}>
             <h3 className={styles.cardHeading}>{t.label}</h3>
             <ul className={styles.list}>
               {t.subjects.map((subject) => (

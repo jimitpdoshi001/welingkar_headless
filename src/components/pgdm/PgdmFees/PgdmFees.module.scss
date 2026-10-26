@@ -3,7 +3,7 @@
 .root { width: 100%; }
 
 .heading {
-  font-size: 3.6rem;
+  font-size: 4rem; // Figma 40px
   font-weight: 800;
   margin-bottom: 1.6rem;
 
@@ -23,8 +23,8 @@
 
 .description {
   font-size: 1.6rem;
-  line-height: 1.7;
-  color: var(--color-gray);
+  line-height: 1.3;
+  color: var(--color-black);
   // Fill the row width left of the arrows.
   max-width: none;
   margin: 0;
@@ -61,11 +61,14 @@
   margin-bottom: 4rem;
 }
 
+// Figma: 390x430 photo card, 30px radius, frosted label panel inset at the base.
 .card {
   position: relative;
-  border-radius: 2.4rem;
+  border-radius: 3rem;
   overflow: hidden;
-  min-height: 34rem;
+  min-height: 43rem;
+  padding: 1.2rem;
+  box-shadow: 0 1.2rem 3rem rgba(0, 0, 0, 0.18);
   height: 100%;
   display: flex;
 }
@@ -82,27 +85,32 @@
   position: relative;
   margin-top: auto;
   width: 100%;
-  padding: 2.4rem;
-  background: linear-gradient(0deg, rgba(240, 240, 240, 0.96) 60%, rgba(240, 240, 240, 0) 100%);
+  min-height: 12.8rem;
+  padding: 2rem 2.4rem;
+  border-radius: 2rem;
+  background: linear-gradient(123deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.55) 100%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .cardLabel {
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--color-black);
   margin-bottom: 0.6rem;
 }
 
 .cardValue {
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--color-black);
   margin: 0;
 }
 
 .cardNote {
-  font-size: 1.3rem;
-  color: var(--color-gray);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-black);
   margin: 0.6rem 0 0;
 }
 
@@ -131,9 +139,9 @@
   li {
     position: relative;
     padding-left: 2rem;
-    font-size: 1.5rem;
-    line-height: 1.6;
-    color: var(--color-dark-gray);
+    font-size: 1.6rem;
+    line-height: 1.3;
+    color: var(--color-black);
 
     &::before {
       content: "";
@@ -146,4 +154,10 @@
       background: var(--color-black);
     }
   }
+}
+
+.plain li {
+  padding-left: 1.2rem;
+
+  &::before { display: none; }
 }
