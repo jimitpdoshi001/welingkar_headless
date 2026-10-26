@@ -9,7 +9,11 @@ import type { PgdmData } from "@/lib/pgdm/pgdm-data";
 import { StickyInPageNav } from "@/components/campus/StickyInPageNav/StickyInPageNav";
 import { PgdmHero } from "./PgdmHero/PgdmHero";
 import { PgdmFeatureGrid } from "./PgdmFeatureGrid/PgdmFeatureGrid";
-import { PgdmGlance } from "./PgdmGlance/PgdmGlance";
+import { PgdmObjectives } from "./PgdmObjectives/PgdmObjectives";
+import { PgdmStrengths } from "./PgdmStrengths/PgdmStrengths";
+import { PgdmPedagogy } from "./PgdmPedagogy/PgdmPedagogy";
+import { PgdmInnovative } from "./PgdmInnovative/PgdmInnovative";
+import { PgdmFaculty } from "./PgdmFaculty/PgdmFaculty";
 import { PgdmWhoApply } from "./PgdmWhoApply/PgdmWhoApply";
 import { PgdmShortlistTable } from "./PgdmShortlistTable/PgdmShortlistTable";
 import { PgdmCurriculum } from "./PgdmCurriculum/PgdmCurriculum";
@@ -56,29 +60,14 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             className={styles.pgdmNav}
             label="Programme sections">
             <div className={`container ${styles.pgdmNavInner}`}>
-              <a
-                href="#overview"
-                className={styles.pgdmNavLink}>
-                Overview
-              </a>
-              <a
-                href="#curriculum"
-                className={styles.pgdmNavLink}>
-                Curriculum
-              </a>
-              <a
-                href="#placements"
-                className={styles.pgdmNavLink}>
-                Placements
-              </a>
-              <a
-                href="#faqs"
-                className={styles.pgdmNavLink}>
-                FAQs
-              </a>
+              <a href="#overview" className={styles.pgdmNavLink}>Overview</a>
+              <a href="#curriculum" className={styles.pgdmNavLink}>Curriculum</a>
+              <a href="#placements" className={styles.pgdmNavLink}>Placements</a>
+              <a href="#faqs" className={styles.pgdmNavLink}>FAQs</a>
             </div>
           </StickyInPageNav>
 
+          {/* 3. Why this Program */}
           <section
             id="overview"
             className={`container ${styles.block} ${styles.anchor}`}>
@@ -104,17 +93,41 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <section className="bg-light-yellow">
+          {/* 4. Our Vision / Our Mission */}
+          <section className={`${styles.band} ${styles.visionBand}`}>
+            <div className={`container ${styles.block}`}>
+              <PgdmVisionMission data={data.visionMission} />
+            </div>
+          </section>
+
+          {/* 5. Program Educational Objectives */}
+          <section className={`container ${styles.block}`}>
+            <PgdmObjectives data={data.educationalObjectives} />
+          </section>
+
+          {/* 6. Program Outcomes */}
+          <section className={styles.band}>
             <div className={`container ${styles.block}`}>
               <PgdmFeatureGrid
-                heading="Quick Reasons"
-                headingAlign="center"
-                items={data.quickReasons}
+                heading={data.outcomes.heading}
+                items={data.outcomes.items}
                 columns={3}
+                theme="onDark"
               />
             </div>
           </section>
 
+          {/* 7. Program Strengths */}
+          <section className={`container ${styles.block}`}>
+            <PgdmStrengths data={data.strengths} />
+          </section>
+
+          {/* 8. Student-Centric Pedagogy */}
+          <section className={`container ${styles.block}`}>
+            <PgdmPedagogy data={data.studentPedagogy} />
+          </section>
+
+          {/* 9. Program USPs */}
           <section className={styles.band}>
             <div className={`container ${styles.block}`}>
               <PgdmFeatureGrid
@@ -126,16 +139,15 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <PgdmGlance data={data.glance} />
+          {/* 10. Innovative Teaching and Learning Pedagogy */}
+          <PgdmInnovative data={data.innovativePedagogy} />
 
+          {/* 11. Program Faculty */}
           <section className={`container ${styles.block}`}>
-            <PgdmWhoApply data={data.whoApply} />
+            <PgdmFaculty data={data.programFaculty} />
           </section>
 
-          <section className={`container ${styles.blockTight}`}>
-            <PgdmShortlistTable data={data.shortlisting} />
-          </section>
-
+          {/* 12. Curriculum Description */}
           <section
             id="curriculum"
             className={`${styles.band} ${styles.anchor}`}>
@@ -144,27 +156,19 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </div>
           </section>
 
-          <section className={`${styles.band} ${styles.visionBand}`}>
-            <div className={`container ${styles.blockTop0}`}>
-              <PgdmVisionMission data={data.visionMission} />
-            </div>
-          </section>
-
+          {/* 13. Class profile */}
           <section className="bg-light-yellow">
             <div className={`container ${styles.block}`}>
               <PgdmClassProfile data={data.classProfile} />
             </div>
           </section>
 
+          {/* 14. Career Opportunities */}
           <section className={`container ${styles.block}`}>
             <PgdmCareer data={data.career} />
           </section>
 
-          <section className={`container ${styles.block}`}>
-            <PgdmAchievements data={data.achievements} />
-          </section>
-
-          {/* Figma 669:344: one photo band behind placement stats, why-recruit and recruiters. */}
+          {/* 15. Placement Opportunities (Figma 669:344: one photo band). */}
           <div
             id="placements"
             className={`${styles.placementBand} ${styles.anchor}`}
@@ -185,13 +189,29 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </section>
           </div>
 
+          {/* 16. Admission and Course Fees */}
           <section className="bg-light-yellow">
             <div className={`container ${styles.block}`}>
               <PgdmFees data={data.fees} />
             </div>
           </section>
 
-          {/* Straight from Our Community: reuse the home page's animated section. */}
+          {/* 17. Who Should Apply */}
+          <section className={`container ${styles.block}`}>
+            <PgdmWhoApply data={data.whoApply} />
+          </section>
+
+          {/* 18. Shortlisting Criteria */}
+          <section className={`container ${styles.blockTight}`}>
+            <PgdmShortlistTable data={data.shortlisting} />
+          </section>
+
+          {/* 19. Student Achievements */}
+          <section className={`container ${styles.block}`}>
+            <PgdmAchievements data={data.achievements} />
+          </section>
+
+          {/* 20. Straight from Our Community: reuse the home page's animated section. */}
           <section className={styles.communitySection}>
             <HomeCommunitySection
               testimonials={data.community.testimonials.map((t) => ({
@@ -212,6 +232,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </HomeCommunitySection>
           </section>
 
+          {/* 21. FAQs */}
           <section
             id="faqs"
             className={`container ${styles.block} ${styles.anchor}`}>

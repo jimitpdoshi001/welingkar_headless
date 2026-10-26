@@ -1,0 +1,74 @@
+@use "../../../styles/base/mixins" as *;
+
+.heading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 0.8rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+.subheading {
+  font-size: 1.8rem;
+  text-align: center;
+  color: var(--color-gray);
+  margin: 0 0 4rem;
+}
+
+.stage {
+  position: relative;
+  border-radius: 2.4rem;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: 54rem;
+  object-fit: cover;
+  display: block;
+
+  @include respond-to(tab) { height: 44rem; }
+  @include respond-to(mobile) { height: auto; aspect-ratio: 3 / 4; }
+}
+
+// Translucent cards sitting over the lower edge of the photo.
+.cards {
+  position: absolute;
+  left: 3rem;
+  right: 3rem;
+  bottom: 3rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to(mobile) {
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+    padding: 2rem;
+    background: var(--pgdm-band, #4a3460);
+  }
+}
+
+.card {
+  margin: 0;
+  padding: 2.4rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--color-dark, #1a1a1a);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.6rem;
+
+  @include respond-to(mobile) {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-dark, #1a1a1a);
+  }
+}

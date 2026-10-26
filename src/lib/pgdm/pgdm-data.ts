@@ -108,10 +108,26 @@ export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta
 
 export type PgdmFaqs = { heading: string; items: { id: string; q: string; a: string }[]; brochureCta: PgdmCta };
 
+// Figma 644:472 sections added in the revamp.
+export type PgdmObjective = { id: string; icon?: string; text: string };
+export type PgdmObjectives = { heading: string; items: PgdmObjective[] };
+export type PgdmOutcomes = { heading: string; items: PgdmFeature[] };
+export type PgdmStrengths = { heading: string; subheading: string; image: string; cards: string[] };
+export type PgdmPedagogy = { heading: string; image: string; bullets: string[] };
+export type PgdmInnovative = { heading: string; image: string; links: { label: string; sub?: string }[] };
+export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
+export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
+
 export type PgdmData = {
   campus: "Mumbai" | "Bengaluru";
   hero: PgdmHeroData;
   whyProgram: PgdmWhyProgram;
+  educationalObjectives: PgdmObjectives;
+  outcomes: PgdmOutcomes;
+  strengths: PgdmStrengths;
+  studentPedagogy: PgdmPedagogy;
+  innovativePedagogy: PgdmInnovative;
+  programFaculty: PgdmProgramFaculty;
   quickReasons: PgdmFeature[];
   usps: PgdmFeature[];
   glance: PgdmGlance;
@@ -197,6 +213,24 @@ const SHARED_FAQS = [
   { id: "faq-7", q: "Career options after pursuing a PGDM?", a: "Graduates pursue roles across Finance, Marketing, Operations and HR with leading recruiters." },
 ];
 
+// Program Faculty (Figma 644:472): reuses the Managing Council portraits that
+// already ship at /public/about/faculty/<slug>.webp.
+const SHARED_FACULTY: PgdmFacultyPerson[] = [
+  "Shri. Sudhir Shankar Kalkar",
+  "Shri. Sunil Madhusudan Joshi",
+  "Shri. Radhesham Bajranglal Agrawal",
+  "Shri. Vivek V. Nayak",
+  "Shri. Navin Naidu Dasari",
+  "Shri. Raghav Pandit Ashtekar",
+  "Shri. Anil Purushottam Barve",
+  "Shri. Manoj Pandurang Bhalerao",
+  "Shri. Yashodhan Sunil Bhide",
+  "Shri. Tushar N Kulkarni",
+].map((name) => {
+  const slug = name.replace(/^Shri\.\s*/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return { id: slug, name, title: "Faculty", image: `/about/faculty/${slug}.webp` };
+});
+
 // Shared with the campus pages: /public/campus/recruiters/<name-slug>.webp.
 const RECRUITER_LOGOS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
   name,
@@ -227,6 +261,64 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     quickReasons: SHARED_QUICK_REASONS,
     usps: SHARED_USPS,
+    educationalObjectives: {
+      heading: "Program Educational Objectives",
+      items: [
+        { id: "peo-1", icon: "/programmes/pgdm/icons/leadership.png", text: "Management graduates will be able to demonstrate professionalism in their performance of tasks, exhibit value-based and socially responsible behavior in their pursuits and career." },
+        { id: "peo-2", icon: "/programmes/pgdm/icons/innovation.png", text: "Management graduates will espouse the culture and spirit of entrepreneurship in organizations they choose to serve as well as in society." },
+        { id: "peo-3", icon: "/programmes/pgdm/icons/critical-thinking.png", text: "Management graduates will be equipped with relevant knowledge in the business domain." },
+        { id: "peo-4", icon: "/programmes/pgdm/icons/role-of-self.png", text: "Management graduates will champion social values and ethical behavior in pursuit of sustainable development." },
+        { id: "peo-5", icon: "/programmes/pgdm/icons/global-perspective.png", text: "Management graduates will demonstrate critical thinking, creativity and innovation to emerge as business leaders and entrepreneurs." },
+      ],
+    },
+    outcomes: {
+      heading: "Program Outcomes",
+      items: [
+        { id: "po-1", title: "Leadership", description: "Students will proactively demonstrate the ability to take initiative. They will be able to generate agreement, fairly and objectively, by working through different, even conflicting, points of view. They will be result oriented and have the ability to take calculated risks." },
+        { id: "po-2", title: "Innovation", description: "Students will demonstrate the ability to visualize innovative solutions and gather user needs holistically." },
+        { id: "po-3", title: "Critical & Analytical Thinking", description: "Students will be able to analyze a situation to its root cause, using tangible and intangible information." },
+        { id: "po-4", title: "Communication", description: "Students will able to make a good personal impact, and articulate good written and spoken skills." },
+        { id: "po-5", title: "Global Perspective", description: "Students will be aware of contemporary globally accepted practices, tools and techniques. They will demonstrate ability to view problems and solutions from a global perspective – organizational, locational and cultural." },
+        { id: "po-6", title: "Role of Self in the organization & in the society", description: "Students will demonstrate clarity on their personal goals, while being aware of the social context. They will be sensitive to ethical issues and believe in working out solutions based on sustainability principles." },
+      ],
+    },
+    strengths: {
+      heading: "Program Strengths",
+      subheading: "Contemporary Curriculum",
+      image: IMG.why,
+      cards: [
+        "Outcome based approach with AAA framework (Acquisition, Application & Assimilation).",
+        "Robust syllabus to stay contemporary, through periodic revision & introducing new courses across specializations.",
+        "Innovative pedagogy – embedding blended teaching-learning processes.",
+        "Access to academic and strategic inputs from Academic & Advisory Boards.",
+      ],
+    },
+    studentPedagogy: {
+      heading: "Student - Centric Pedagogy",
+      image: IMG.glance,
+      bullets: [
+        "SHL, an Internationally acclaimed brand - conducts virtual assessment sessions. This enables student-wise, Development Centre (DC) planning. DC actions are implemented/facilitated and steered by faculty mentors, on an ongoing & continuous basis, to enhance student grooming, and employability.",
+        "Guest Sessions by International faculty, Industry experts and Alumni.",
+        "Industry Specific Round-Table Conferences.",
+        "Alumni mentoring and interaction.",
+        "Mock GDPI and CV enhancement sessions.",
+        "Participation in Smart India Hackathons.",
+        "Skill Development – hands-on training on Excel, Bloomberg Terminal and other Data Analytics software.",
+        "Bloomberg Market Concepts Certification and Harvard Manage Mentor and KPMG sustainability certificate.",
+      ],
+    },
+    innovativePedagogy: {
+      heading: "Innovative Teaching and Learning Pedagogy",
+      image: IMG.placement,
+      links: [
+        { label: "Faculty Initiatives", sub: "Feedback on faculty teaching & learning initiative" },
+        { label: "Institutional Initiatives" },
+      ],
+    },
+    programFaculty: {
+      heading: "Program Faculty",
+      people: SHARED_FACULTY,
+    },
     glance: {
       heading: "Program at a Glance",
       image: IMG.glance,
@@ -294,7 +386,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       ],
     },
     curriculum: {
-      heading: "Curriculum & Learning Experience",
+      heading: "Curriculum Description",
       description:
         "Its transformative pedagogy blends lectures, industry projects, and simulation games to build cross-functional leadership skills, guided by distinguished academics and renowned industry experts.",
       trimesters: [
@@ -396,7 +488,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     recruiters: { heading: "Our Recruiters", logos: RECRUITER_LOGOS },
     fees: {
-      heading: "Program Fees, EMI Details & Scholarships",
+      heading: "Admission and Course Fees",
       description:
         "WeSchool is committed to giving more than it takes, in order to offer a brighter future to our students. We aim to rise above the notion of assured ROI, which is just numbers, by adding real value and equipping our students to face the challenges of a dynamic business world with confidence.",
       cards: [

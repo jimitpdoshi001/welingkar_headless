@@ -1,0 +1,66 @@
+@use "../../../styles/base/mixins" as *;
+
+.card {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  background: var(--pgdm-band, #4a3460);
+  border-radius: 2.4rem;
+  overflow: hidden;
+  color: var(--color-white);
+
+  @include respond-to(tab) { grid-template-columns: 1fr; }
+}
+
+.text {
+  padding: 5rem;
+
+  @include respond-to(mobile) { padding: 3.2rem 2.4rem; }
+}
+
+.heading {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2.8rem;
+  color: var(--color-white);
+
+  @include respond-to(mobile) { font-size: 2.4rem; }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.bullet {
+  position: relative;
+  padding-left: 2.4rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.8rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--color-orange, #f28c28);
+  }
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  @include respond-to(tab) { height: 36rem; }
+  @include respond-to(mobile) { height: 24rem; }
+}
