@@ -115,10 +115,12 @@ export type PgdmPedagogy = { heading: string; image: string; bullets: string[] }
 export type PgdmInnovative = { heading: string; image: string; links: { label: string; sub?: string }[] };
 export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
 export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
+export type PgdmBandStat = { value: string; label: string };
 
 export type PgdmData = {
   campus: "Mumbai" | "Bengaluru";
   hero: PgdmHeroData;
+  bandStats: PgdmBandStat[];
   whyProgram: PgdmWhyProgram;
   educationalObjectives: PgdmObjectives;
   outcomes: PgdmOutcomes;
@@ -251,6 +253,12 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       image: IMG.hero,
       imageAlt: `PGDM students at WeSchool ${campus}`,
     },
+    bandStats: [
+      { value: "2 years", label: "Full-time programme" },
+      { value: "180", label: "Present intake" },
+      { value: "115.5", label: "Total credits" },
+      { value: "Since 1994", label: "Flagship PGDM" },
+    ],
     whyProgram: {
       heading: "Why this Program?",
       body: "WeSchool's flagship PGDM program offers a multidisciplinary approach that seamlessly combines general management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to develop students into competent future leaders, equipped with both managerial skills and an innovative mindset, while providing exposure to real-world business challenges. The program's transformative pedagogy includes a mix of lectures, industry projects, and simulation games that promote cross-functional leadership, all taught by distinguished academics and renowned industry experts from leading companies.",
@@ -263,10 +271,10 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       heading: "Program Educational Objectives",
       items: [
         { id: "peo-1", icon: "/programmes/pgdm/icons/leadership.png", text: "Management graduates will be able to demonstrate professionalism in their performance of tasks, exhibit value-based and socially responsible behavior in their pursuits and career." },
-        { id: "peo-2", icon: "/programmes/pgdm/icons/innovation.png", text: "Management graduates will espouse the culture and spirit of entrepreneurship in organizations they choose to serve as well as in society." },
-        { id: "peo-3", icon: "/programmes/pgdm/icons/critical-thinking.png", text: "Management graduates will be equipped with relevant knowledge in the business domain." },
-        { id: "peo-4", icon: "/programmes/pgdm/icons/role-of-self.png", text: "Management graduates will champion social values and ethical behavior in pursuit of sustainable development." },
-        { id: "peo-5", icon: "/programmes/pgdm/icons/global-perspective.png", text: "Management graduates will demonstrate critical thinking, creativity and innovation to emerge as business leaders and entrepreneurs." },
+        { id: "peo-2", icon: "/programmes/pgdm/icons/global-perspective.png", text: "Management graduates will espouse the culture and spirit of entrepreneurship in organizations they choose to serve as well as in society." },
+        { id: "peo-3", icon: "/programmes/pgdm/icons/innovation.png", text: "Management graduates will be equipped with relevant knowledge in the business domain." },
+        { id: "peo-4", icon: "/programmes/pgdm/icons/communication.png", text: "Management graduates will champion social values and ethical behavior in pursuit of sustainable development." },
+        { id: "peo-5", icon: "/programmes/pgdm/icons/critical-thinking.png", text: "Management graduates will demonstrate critical thinking, creativity and innovation to emerge as business leaders and entrepreneurs." },
       ],
     },
     outcomes: {
@@ -387,16 +395,17 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     visionMission: {
       vision: {
         heading: "Our Vision",
-        body: "Provide industry and society, management graduates having excellence in leadership, entrepreneurial talent and research, through continuously innovative curriculum.",
+        body: "Provide Industry and Society, Management Graduates having excellence in leadership, entrepreneurial talent and research, through continuously innovative curriculum.",
         images: [IMG.vision1, IMG.vision2],
       },
       mission: {
         heading: "Our Mission",
         lines: [
-          "Contribute to management knowledge through application oriented technology",
-          "Develop responsible management graduates through ethic-based education",
-          "Promote global oriented, critical, innovative thinking and social entrepreneurship",
-          "Forge meaningful partnerships with corporates and academia",
+          "Contribute to Management knowledge through application oriented, technology embedded education & research.",
+          "Develop responsible management graduates, with risk managing abilities, through ethics-based education.",
+          "Promote the culture of global oriented, critical, innovative thinking, and social entrepreneurship.",
+          "Forge meaningful partnerships with Corporates, academia, regulatory bodies, & social sectors, based on consultancy and collaborative research.",
+          "Promote a culture of academic excellence benchmarked against the best institutions, domestically & internationally, through continuous interaction with Alumni.",
         ],
         images: [IMG.mission1, IMG.mission2],
       },

@@ -6,10 +6,11 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import Link from "next/link";
 
 import type { PgdmData } from "@/lib/pgdm/pgdm-data";
-import { StickyInPageNav } from "@/components/campus/StickyInPageNav/StickyInPageNav";
 import { PgdmHero } from "./PgdmHero/PgdmHero";
+import { PgdmStatBar } from "./PgdmStatBar/PgdmStatBar";
 import { PgdmFeatureGrid } from "./PgdmFeatureGrid/PgdmFeatureGrid";
 import { PgdmObjectives } from "./PgdmObjectives/PgdmObjectives";
+import { PgdmOutcomes } from "./PgdmOutcomes/PgdmOutcomes";
 import { PgdmStrengths } from "./PgdmStrengths/PgdmStrengths";
 import { PgdmPedagogy } from "./PgdmPedagogy/PgdmPedagogy";
 import { PgdmInnovative } from "./PgdmInnovative/PgdmInnovative";
@@ -55,17 +56,8 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
         >
           <PgdmHero data={data.hero} />
 
-          {/* In-page nav (Figma 2344:932): purple bar, docks under the header. */}
-          <StickyInPageNav
-            className={styles.pgdmNav}
-            label="Programme sections">
-            <div className={`container ${styles.pgdmNavInner}`}>
-              <a href="#overview" className={styles.pgdmNavLink}>Overview</a>
-              <a href="#curriculum" className={styles.pgdmNavLink}>Curriculum</a>
-              <a href="#placements" className={styles.pgdmNavLink}>Placements</a>
-              <a href="#faqs" className={styles.pgdmNavLink}>FAQs</a>
-            </div>
-          </StickyInPageNav>
+          {/* Figma 2344:932: purple stats strip directly under the hero. */}
+          <PgdmStatBar stats={data.bandStats} />
 
           {/* 3. Why this Program */}
           <section
@@ -108,12 +100,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {/* 6. Program Outcomes */}
           <section className={styles.band}>
             <div className={`container ${styles.block}`}>
-              <PgdmFeatureGrid
-                heading={data.outcomes.heading}
-                items={data.outcomes.items}
-                columns={3}
-                theme="onDark"
-              />
+              <PgdmOutcomes data={data.outcomes} />
             </div>
           </section>
 
