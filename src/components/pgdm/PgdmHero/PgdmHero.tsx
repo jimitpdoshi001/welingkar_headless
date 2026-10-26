@@ -34,16 +34,7 @@ export function PgdmHero({ data }: PgdmHeroProps) {
         <h1 className={styles.title}>{data.title}</h1>
         <p className={styles.subtitle}>{data.subtitle}</p>
 
-        <ul className={styles.stats}>
-          {data.stats.map((stat) => (
-            <li
-              key={stat}
-              className={styles.stat}>
-              {stat}
-            </li>
-          ))}
-        </ul>
-
+        {/* Figma 644:472 hero: green Apply Now + white-outline View Brochure, no stats row. */}
         <div className={styles.ctaRow}>
           <Link
             href={data.primaryCta.href}

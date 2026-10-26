@@ -1,0 +1,49 @@
+@use "../../../styles/base/mixins" as *;
+
+.band { background: var(--pgdm-band, #4a3460); }
+
+.inner {
+  display: flex;
+  align-items: center;
+  min-height: 10rem;
+
+  @include respond-to(mobile) {
+    flex-wrap: wrap;
+    min-height: 0;
+    padding-block: 2.4rem;
+    gap: 2rem 0;
+  }
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0 4rem;
+  color: var(--color-white);
+
+  // Vertical hairline divider between stats (Figma).
+  &:not(:last-child) { border-right: 1px solid rgba(255, 255, 255, 0.28); }
+  &:first-child { padding-left: 0; }
+
+  @include respond-to(mobile) {
+    flex: 0 0 50%;
+    padding: 0 2rem;
+    &:nth-child(odd) { padding-left: 0; }
+    &:nth-child(2n) { border-right: none; }
+  }
+}
+
+.value {
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1.1;
+
+  @include respond-to(mobile) { font-size: 2.2rem; }
+}
+
+.label {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.78);
+}

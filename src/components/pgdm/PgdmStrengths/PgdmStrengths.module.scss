@@ -1,0 +1,99 @@
+@use "../../../styles/base/mixins" as *;
+
+// Figma: section runs ~1090px; cards start ~790px from the top.
+.section {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-white);
+}
+
+// Figma 2356:1160: the 1440x1439 photo starts 233px above the section and
+// runs 120px past it; the section clips it.
+.bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -23.3rem;
+  height: 143.9rem;
+  z-index: 0;
+
+  @include respond-to(tab) { top: 0; height: 100%; }
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+// Figma gradients (on the 1439px photo box): white to 26% fading out by 40%,
+// and white for the last 11% fading in from 68%.
+.fade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #fff 26.16%, rgba(255, 255, 255, 0) 39.6%),
+    linear-gradient(0deg, #fff 11.25%, rgba(255, 255, 255, 0) 31.64%);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 10rem;
+  padding-bottom: 11.5rem;
+  text-align: center;
+
+  @include respond-to(mobile) { padding-top: 6rem; padding-bottom: 6rem; }
+}
+
+.heading {
+  font-size: 4rem; // Figma 40px ExtraBold
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1.6rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; }
+}
+
+.subheading {
+  font-size: 2rem; // Figma 20px SemiBold
+  font-weight: 600;
+  color: #564242;
+  margin: 0;
+
+  @include respond-to(mobile) { font-size: 1.6rem; }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  // Leaves the photo visible between the heading and the cards (Figma).
+  margin-top: 60rem;
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); margin-top: 40rem; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; margin-top: 28rem; gap: 1.6rem; }
+}
+
+// Figma 2356:1179: glass card.
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 17.9rem;
+  margin: 0;
+  padding: 2.4rem 3rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  color: var(--color-black);
+  background: linear-gradient(123deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.208) 100%);
+  backdrop-filter: blur(7.5px);
+  border-radius: 3rem;
+  box-shadow: 19px 15px 46px rgba(0, 0, 0, 0.14);
+
+  @include respond-to(mobile) { min-height: 0; }
+}

@@ -1,0 +1,87 @@
+@use "../../../styles/base/mixins" as *;
+
+.section {
+  padding-block: 8rem;
+
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
+.card {
+  position: relative;
+  border-radius: 3rem;
+  overflow: hidden;
+  background-color: #1a1420;
+  background-size: cover;
+  background-position: center;
+  min-height: 60.7rem;
+  display: flex;
+
+  @include respond-to(tab) { min-height: 48rem; }
+  @include respond-to(mobile) { min-height: 42rem; }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  // Figma 2319:292 overlay: dark base and dark left edge.
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  color: var(--color-white);
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include respond-to(mobile) { padding: 3rem 2.4rem; }
+}
+
+.heading {
+  font-size: 3.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  max-width: 48rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; }
+}
+
+// Figma: 547px list, 22px rows, hairlines only between rows.
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 54.7rem;
+
+  @include respond-to(mobile) { max-width: none; }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.6rem 0;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: #b1b1b1;
+
+  & + & { border-top: 1px solid rgba(255, 255, 255, 0.3); }
+
+  @include respond-to(mobile) { font-size: 1.7rem; }
+}
+
+.rowActive {
+  font-weight: 500;
+  color: var(--color-white);
+}
+
+.play {
+  font-size: 1.2rem;
+  color: var(--color-white);
+}

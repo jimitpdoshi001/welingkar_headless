@@ -26,21 +26,20 @@ export type PgdmGlance = {
   details: { label: string; value: string }[];
 };
 
-export type PgdmWhoApplyPanel = {
-  intro: { heading: string; body: string; bullets: string[] };
-  side: { heading: string; paragraphs: string[]; cta: PgdmCta };
-};
+// Figma 644:472: "Who Should Apply?" is a subtitle over two info cards
+// (eligibility + entrance exams), the second with a note and Apply CTA.
+export type PgdmWhoApplyCard = { heading: string; body: string; note?: string; cta?: PgdmCta };
 
 export type PgdmWhoApply = {
   heading: string;
   subtitle: string;
-  tabs: { id: string; label: string }[];
-  panels: Record<string, PgdmWhoApplyPanel>;
+  cards: PgdmWhoApplyCard[];
 };
 
 export type PgdmTable = {
   title: string;
-  campusLabel: string;
+  // Figma 644:472: one table per campus, each with its own header colour.
+  campuses: { label: string; color: string }[];
   columns: string[];
   rows: { program: string; values: string[]; span?: boolean }[];
 };
@@ -108,12 +107,33 @@ export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta
 
 export type PgdmFaqs = { heading: string; items: { id: string; q: string; a: string }[]; brochureCta: PgdmCta };
 
+// Figma 644:472 sections added in the revamp.
+export type PgdmObjective = { id: string; icon?: string; text: string };
+export type PgdmObjectives = { heading: string; items: PgdmObjective[] };
+export type PgdmOutcomes = { heading: string; items: PgdmFeature[] };
+export type PgdmStrengths = { heading: string; subheading: string; image: string; cards: string[] };
+export type PgdmPedagogy = { heading: string; intro: string; image: string; bullets: string[] };
+export type PgdmInnovative = { heading: string; image: string; links: string[] };
+export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
+export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
+export type PgdmBandStat = { value: string; label: string };
+// Figma 644:472: Program USPs is a dark photo band with white cards at the base.
+export type PgdmUspBand = { heading: string; image: string; cards: string[] };
+
 export type PgdmData = {
   campus: "Mumbai" | "Bengaluru";
   hero: PgdmHeroData;
+  bandStats: PgdmBandStat[];
   whyProgram: PgdmWhyProgram;
+  educationalObjectives: PgdmObjectives;
+  outcomes: PgdmOutcomes;
+  strengths: PgdmStrengths;
+  studentPedagogy: PgdmPedagogy;
+  innovativePedagogy: PgdmInnovative;
+  programFaculty: PgdmProgramFaculty;
   quickReasons: PgdmFeature[];
   usps: PgdmFeature[];
+  uspBand: PgdmUspBand;
   glance: PgdmGlance;
   whoApply: PgdmWhoApply;
   shortlisting: PgdmTable;
@@ -147,6 +167,10 @@ const pgdmImages = (slug: "mumbai" | "bengaluru") => {
     feeTuition: img("fee-tuition"),
     feeLibrary: img("fee-library"),
     feeHostel: img("fee-hostel"),
+    strengths: img("program-strengths"),
+    studentCentric: img("student-centric"),
+    usps: img("program-usps"),
+    innovative: img("innovative-pedagogy"),
     community1: img("community-1"),
     community2: img("community-2"),
     avatar1: img("testimonial-1"),
@@ -197,6 +221,24 @@ const SHARED_FAQS = [
   { id: "faq-7", q: "Career options after pursuing a PGDM?", a: "Graduates pursue roles across Finance, Marketing, Operations and HR with leading recruiters." },
 ];
 
+// Program Faculty (Figma 644:472): reuses the Managing Council portraits that
+// already ship at /public/about/faculty/<slug>.webp.
+const SHARED_FACULTY: PgdmFacultyPerson[] = [
+  "Shri. Sudhir Shankar Kalkar",
+  "Shri. Sunil Madhusudan Joshi",
+  "Shri. Radhesham Bajranglal Agrawal",
+  "Shri. Vivek V. Nayak",
+  "Shri. Navin Naidu Dasari",
+  "Shri. Raghav Pandit Ashtekar",
+  "Shri. Anil Purushottam Barve",
+  "Shri. Manoj Pandurang Bhalerao",
+  "Shri. Yashodhan Sunil Bhide",
+  "Shri. Tushar N Kulkarni",
+].map((name) => {
+  const slug = name.replace(/^Shri\.\s*/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  return { id: slug, name, title: "Faculty", image: `/about/faculty/${slug}.webp` };
+});
+
 // Shared with the campus pages: /public/campus/recruiters/<name-slug>.webp.
 const RECRUITER_LOGOS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra Bank", "HDFC Bank"].map((name) => ({
   name,
@@ -210,23 +252,97 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     campus,
     hero: {
       breadcrumb: ["Home", "Programs", "PGDM"],
-      title: "Post Graduate Diploma in Management",
+      title: "Post Graduate Diploma in Management (PGDM)",
       subtitle:
-        "Introduced in 1994, this program has spent over three decades emphasising acquisition, application, and assimilation, building the confident managers of tomorrow.",
+        "With a strong emphasis on Acquisition, Application, and Assimilation of knowledge; this programme focuses on creating the confident managers of tomorrow.",
       stats: ["Present Intake: 180", "Intake 180 Seats", "Duration 2 Years", "Specialisations 4 Tracks"],
       primaryCta: { label: "Apply Now", href: "/apply" },
       secondaryCta: { label: "View Brochure", href: "/brochure" },
       image: IMG.hero,
       imageAlt: `PGDM students at WeSchool ${campus}`,
     },
+    bandStats: [
+      { value: "2 years", label: "Full-time programme" },
+      { value: "180", label: "Present intake" },
+      { value: "115.5", label: "Total credits" },
+      { value: "Since 1994", label: "Flagship PGDM" },
+    ],
     whyProgram: {
       heading: "Why this Program?",
-      body: `WeSchool's flagship PGDM program in ${campus} takes a multidisciplinary approach, combining core management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to shape students into competent, future-ready leaders, equipped with strong managerial skills, an innovative mindset, and exposure to real-world business challenges.`,
+      body: "WeSchool's flagship PGDM program offers a multidisciplinary approach that seamlessly combines general management principles with specialized expertise in Marketing, Finance, Human Resources, and Operations. The program is designed to develop students into competent future leaders, equipped with both managerial skills and an innovative mindset, while providing exposure to real-world business challenges. The program's transformative pedagogy includes a mix of lectures, industry projects, and simulation games that promote cross-functional leadership, all taught by distinguished academics and renowned industry experts from leading companies.",
       videoThumb: IMG.why,
       videoHref: "#",
     },
     quickReasons: SHARED_QUICK_REASONS,
     usps: SHARED_USPS,
+    uspBand: {
+      heading: "Program USPs",
+      image: IMG.usps,
+      cards: [
+        "Flagship program – started in 1993",
+        "180 Intake with 4 specializations",
+        "Trimester system with 115.5 credits",
+        "Contemporary syllabus with innovative pedagogy",
+        "Agile, Adaptive Leaders with a sustainability approach",
+        "NBA, SAQS, ACBSP Accredited",
+      ],
+    },
+    educationalObjectives: {
+      heading: "Program Educational Objectives",
+      items: [
+        { id: "peo-1", icon: "/programmes/pgdm/icons/leadership.png", text: "Management graduates will be able to demonstrate professionalism in their performance of tasks, exhibit value-based and socially responsible behavior in their pursuits and career." },
+        { id: "peo-2", icon: "/programmes/pgdm/icons/global-perspective.png", text: "Management graduates will espouse the culture and spirit of entrepreneurship in organizations they choose to serve as well as in society." },
+        { id: "peo-3", icon: "/programmes/pgdm/icons/innovation.png", text: "Management graduates will be equipped with relevant knowledge in the business domain." },
+        { id: "peo-4", icon: "/programmes/pgdm/icons/communication.png", text: "Management graduates will champion social values and ethical behavior in pursuit of sustainable development." },
+        { id: "peo-5", icon: "/programmes/pgdm/icons/critical-thinking.png", text: "Management graduates will demonstrate critical thinking, creativity and innovation to emerge as business leaders and entrepreneurs." },
+      ],
+    },
+    outcomes: {
+      heading: "Program Outcomes",
+      items: [
+        { id: "po-1", title: "Leadership", description: "Students will proactively demonstrate the ability to take initiative. They will be able to generate agreement, fairly and objectively, by working through different, even conflicting, points of view. They will be result oriented and have the ability to take calculated risks." },
+        { id: "po-2", title: "Innovation", description: "Students will demonstrate the ability to visualize innovative solutions and gather user needs holistically." },
+        { id: "po-3", title: "Critical & Analytical Thinking", description: "Students will be able to analyze a situation to its root cause, using tangible and intangible information." },
+        { id: "po-4", title: "Communication", description: "Students will able to make a good personal impact, and articulate good written and spoken skills." },
+        { id: "po-5", title: "Global Perspective", description: "Students will be aware of contemporary globally accepted practices, tools and techniques. They will demonstrate ability to view problems and solutions from a global perspective – organizational, locational and cultural." },
+        { id: "po-6", title: "Role of Self in the organization & in the society", description: "Students will demonstrate clarity on their personal goals, while being aware of the social context. They will be sensitive to ethical issues and believe in working out solutions based on sustainability principles." },
+      ],
+    },
+    strengths: {
+      heading: "Program Strengths",
+      subheading: "Contemporary Curriculum",
+      image: IMG.strengths,
+      cards: [
+        "Outcome based approach with AAA framework (Acquisition, Application & Assimilation).",
+        "Robust syllabus to stay contemporary, through periodic revision & introducing new courses across specializations.",
+        "Innovative pedagogy – embedding blended teaching-learning processes.",
+        "Access to academic and strategic inputs from Academic & Advisory Boards.",
+      ],
+    },
+    studentPedagogy: {
+      heading: "Student-Centric Pedagogy",
+      image: IMG.studentCentric,
+      intro: "SHL, an Internationally acclaimed brand - conducts virtual assessment sessions. This enables student-wise, Development Centre (DC) planning. DC actions are implemented/facilitated and steered by faculty mentors, on an ongoing & continuous basis, to enhance student grooming, and employability.",
+      bullets: [
+        "Guest Sessions by International faculty, Industry experts and Alumni.",
+        "Industry Specific Round-Table Conferences.",
+        "Alumni mentoring and interaction.",
+        "Mock GDPI and CV enhancement sessions",
+        "Participation in Smart India Hackathons.",
+        "Skill Development – hands-on training on Excel, Bloomberg Terminal and other Data Analytics software.",
+        "Bloomberg Market Concepts Certification and Harvard Manage Mentor and KPMG sustainability certificate.",
+      ],
+    },
+    innovativePedagogy: {
+      heading: "Innovative Teaching and Learning Pedagogy",
+      image: IMG.innovative,
+      // Figma 2344:967: first row is the active one (white + play arrow).
+      links: ["Faculty Initiatives", "Feedback on faculty teaching & learning initiative", "Institutional Initiatives"],
+    },
+    programFaculty: {
+      heading: "Program Faculty",
+      people: SHARED_FACULTY,
+    },
     glance: {
       heading: "Program at a Glance",
       image: IMG.glance,
@@ -244,48 +360,27 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     whoApply: {
       heading: "Who Should Apply?",
-      subtitle: "Two paths, one program.",
-      tabs: [
-        { id: "freshers", label: "Freshers" },
-        { id: "workex", label: "Work-Ex" },
+      subtitle: "Two paths, one programme.",
+      cards: [
+        {
+          heading: "Who Should Apply?",
+          body: "Candidates must have secured a minimum of 50% marks in their graduation from a recognised university. Candidates currently in their final year of graduation may also apply, provided they complete their degree by June 2027.",
+        },
+        {
+          heading: "Eligibility Criteria",
+          body: "Candidates must have appeared for any one of the following entrance examinations: CAT* 2026, XAT 2027, ATMA (February 2027), CMAT 2027, or GMAT (taken in 2024 or later).",
+          note: "*The IIMs and other entrance examination authorities have no role in WeSchool's admission process.",
+          cta: { label: "Apply Now", href: "/apply" },
+        },
       ],
-      panels: {
-        freshers: {
-          intro: {
-            heading: "For Freshers",
-            body: "The PGDM program is designed for graduates looking to build a strong foundation in management, develop industry-relevant skills, and prepare for diverse career opportunities across business functions.",
-            bullets: ["Build management fundamentals", "Explore specialisations", "Industry-relevant practical skills", "Strong placement network"],
-          },
-          side: {
-            heading: "Eligibility Criteria",
-            paragraphs: [
-              "A minimum of 50% in graduation is required, which must be completed by June 2026.",
-              "Candidates should have appeared for CAT (2025), XAT (2026), ATMA Feb (2026), CMAT (2026), or GMAT (2023 onwards).",
-            ],
-            cta: { label: "Check Eligibility and Apply", href: "/apply" },
-          },
-        },
-        workex: {
-          intro: {
-            heading: "For Work-Ex Candidates",
-            body: "Professionals with work experience bring real-world context to the classroom and accelerate into leadership and specialist tracks.",
-            bullets: ["Leverage prior experience", "Fast-track to leadership roles", "Specialised electives", "Strong alumni network"],
-          },
-          side: {
-            heading: "Eligibility Criteria",
-            paragraphs: [
-              "A minimum of 50% in graduation is required, which must be completed by June 2026.",
-              "Candidates should have appeared for CAT (2025), XAT (2026), ATMA Feb (2026), CMAT (2026), or GMAT (2023 onwards).",
-            ],
-            cta: { label: "Check Eligibility and Apply", href: "/apply" },
-          },
-        },
-      },
     },
     shortlisting: {
-      title: "Shortlisting Criteria for Online Selection Process – General Merit List",
-      campusLabel: `${campus} Campus`,
-      columns: ["Program / Campus", "CAT 2025 / XAT 2026 / GMAT (2023 onwards) Percentile", "ATMA Feb 2026 / CMAT 2026 Score"],
+      title: "Shortlisting Criteria for Online Selection Process - General Merit List",
+      campuses: [
+        { label: "Mumbai Campus", color: "#4a3460" },
+        { label: "Bengaluru Campus", color: "#b04535" },
+      ],
+      columns: ["Program/ Campus", "CAT 2025 / XAT 2026 / GMAT (2023 onwards) Percentile", "ATMA Feb 2026 / CMAT 2026 Score"],
       rows: [
         { program: "PGDM, PGDM E-Business, PGDM Research & Business Analytics", values: ["80", "85"] },
         { program: "PGDM Retail, PGDM Media and Entertainment and PGDM Business Design", values: ["75", "80"] },
@@ -294,36 +389,44 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       ],
     },
     curriculum: {
-      heading: "Curriculum & Learning Experience",
+      heading: "Curriculum Description",
       description:
-        "Its transformative pedagogy blends lectures, industry projects, and simulation games to build cross-functional leadership skills, guided by distinguished academics and renowned industry experts.",
+        "A transformative pedagogy that blends lectures, industry projects and simulation games to build cross-functional leadership skills, guided by distinguished academics and renowned industry experts.",
       trimesters: [
         {
           id: "t1",
           label: "Trimester I",
-          subjects: ["Perspective Management", "Business Statistics", "Economics for Managers", "Financial Reporting & Analysis", "Effective Business Communication", "Organizational Behavior I", "Essentials of World Class Operations", "Marketing Management Basics", "Yoga"],
-          objectives: ["Demonstrate professionalism and value-based, socially responsible behaviour", "Espouse the culture and spirit of entrepreneurship", "Acquire relevant knowledge across business domains", "Champion social values and ethical behaviour", "Demonstrate critical thinking, creativity, and innovation"],
+          subjects: ["Perspective Management", "Business Statistics", "Economics for Business Decisions", "Financial Reporting & Analysis", "Business Communication - Foundations & Core Skills", "Organizational Behavior I - Individuals in Organizations", "Essentials of World Class Operations", "Marketing Management I", "Yoga"],
+          objectives: [],
         },
-        { id: "t2", label: "Trimester II", subjects: ["Marketing Management", "Financial Management", "Operations Research", "Organizational Behavior II", "Human Resource Management", "Business Research Methods"], objectives: ["Apply core functional concepts to business problems", "Develop analytical and decision-making ability"] },
-        { id: "t3", label: "Trimester III", subjects: ["Strategic Management", "Business Analytics", "Specialisation Electives I", "Legal Aspects of Business"], objectives: ["Integrate functions into strategy", "Begin specialisation depth"] },
-        { id: "t4", label: "Trimester IV", subjects: ["Specialisation Electives II", "International Business", "Simulation Games"], objectives: ["Deepen domain expertise", "Experience cross-functional decision making"] },
-        { id: "t5", label: "Trimester V", subjects: ["Specialisation Electives III", "Industry Projects", "Entrepreneurship"], objectives: ["Apply learning to live projects", "Build an entrepreneurial mindset"] },
-        { id: "t6", label: "Trimester VI", subjects: ["Capstone Project", "Advanced Electives", "Leadership Lab"], objectives: ["Demonstrate leadership readiness", "Prepare for corporate transition"] },
+        {
+          id: "t2",
+          label: "Trimester II",
+          subjects: ["Legal Aspects of Business", "Business Innovation and Application", "Global Citizen Leader - I", "Business Research Methods & Marketing Research", "Business Environment & Corporate Strategy", "Cost and Management Accounting", "Foreign Language", "Organizational Behavior II – Managing Group Dynamics", "Essentials of Supply Chain Management", "Marketing Management II", "Digital Marketing Basics", "Business Communication - Advanced Leadership Communication", "Yoga Sessions (Trim II)"],
+          objectives: [],
+        },
+        {
+          id: "t3",
+          label: "Trimester III",
+          subjects: ["Global Citizen Leader - II", "Business Analytics", "Basics of Banking, Financial Services and Insurance", "Business Taxation", "Fundamentals of Financial Management", "Consumer Behaviour", "Selling and Negotiation Skills", "Human Resource Development and Human Capital Management", "Project Management", "Yoga Sessions", "Universal Human Values"],
+          objectives: [],
+        },
       ],
     },
     visionMission: {
       vision: {
         heading: "Our Vision",
-        body: "Provide industry and society, management graduates having excellence in leadership, entrepreneurial talent and research, through continuously innovative curriculum.",
+        body: "Provide Industry and Society, Management Graduates having excellence in leadership, entrepreneurial talent and research, through continuously innovative curriculum.",
         images: [IMG.vision1, IMG.vision2],
       },
       mission: {
         heading: "Our Mission",
         lines: [
-          "Contribute to management knowledge through application oriented technology",
-          "Develop responsible management graduates through ethic-based education",
-          "Promote global oriented, critical, innovative thinking and social entrepreneurship",
-          "Forge meaningful partnerships with corporates and academia",
+          "Contribute to Management knowledge through application oriented, technology embedded education & research.",
+          "Develop responsible management graduates, with risk managing abilities, through ethics-based education.",
+          "Promote the culture of global oriented, critical, innovative thinking, and social entrepreneurship.",
+          "Forge meaningful partnerships with Corporates, academia, regulatory bodies, & social sectors, based on consultancy and collaborative research.",
+          "Promote a culture of academic excellence benchmarked against the best institutions, domestically & internationally, through continuous interaction with Alumni.",
         ],
         images: [IMG.mission1, IMG.mission2],
       },
@@ -370,14 +473,13 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     placement: {
       heading: "Placement Opportunities",
       paragraphs: [
-        "WeSchool's placement season witnessed strong interest from companies, marked not just by the sheer number of job profiles on offer, but also by the variety of roles and the competitiveness of the packages. In total, 358 companies visited the campus, 227 of them for the first time.",
-        "With 358 companies on campus, spread across varied sectors, profiles, and continents, we ensure that our students are well-equipped to meet industry requirements the moment they step out of our gates. We partner with and support our students every step of the way, right from their selection to their final placements.",
+        "WeSchool's placement season witnesses strong interest from companies, marked not just by the sheer number of job profiles on offer, but also by the variety of roles and the competitiveness of the packages. Over 358 companies have visited the campus with more than 200+ of them being regular recruiters. With such companies spread across varied sectors, profiles, and continents, we ensure that our students are well-equipped to meet industry requirements the moment they graduate.",
       ],
       image: IMG.placement,
       years: [
-        { id: "2023-25", label: "2023-25", stats: [{ value: "₹11.7 LPA", label: "Average Salary" }, { value: "₹40K", label: "Highest Monthly Stipend" }, { value: "₹18.54L", label: "Highest International CTC" }, { value: "₹20.62L", label: "Top Domestic CTC" }] },
-        { id: "2022-24", label: "2022-24", stats: [{ value: "₹11.2 LPA", label: "Average Salary" }, { value: "₹38K", label: "Highest Monthly Stipend" }, { value: "₹17.8L", label: "Highest International CTC" }, { value: "₹19.9L", label: "Top Domestic CTC" }] },
-        { id: "2021-23", label: "2021-23", stats: [{ value: "₹10.6 LPA", label: "Average Salary" }, { value: "₹35K", label: "Highest Monthly Stipend" }, { value: "₹16.4L", label: "Highest International CTC" }, { value: "₹18.5L", label: "Top Domestic CTC" }] },
+        { id: "2023-25", label: "2023-25", stats: [{ value: "₹12.01L", label: "Average Salary" }, { value: "₹20.7L", label: "Highest Salary" }] },
+        { id: "2022-24", label: "2022-24", stats: [{ value: "₹11.4L", label: "Average Salary" }, { value: "₹19.9L", label: "Highest Salary" }] },
+        { id: "2021-23", label: "2021-23", stats: [{ value: "₹10.6L", label: "Average Salary" }, { value: "₹18.5L", label: "Highest Salary" }] },
       ],
       whyRecruit: {
         heading: "Why Recruit Graduates of This Program?",
@@ -396,9 +498,9 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     recruiters: { heading: "Our Recruiters", logos: RECRUITER_LOGOS },
     fees: {
-      heading: "Program Fees, EMI Details & Scholarships",
+      heading: "Admission and Course Fees",
       description:
-        "WeSchool is committed to giving more than it takes, in order to offer a brighter future to our students. We aim to rise above the notion of assured ROI, which is just numbers, by adding real value and equipping our students to face the challenges of a dynamic business world with confidence.",
+        "WeSchool intends to give more than what it takes, in order to offer a brighter future to our students. We try rising above the assured ROI which is just numbers, by adding value and making our students competitive enough to face real challenges, in the dynamic business world.",
       cards: [
         { image: IMG.feeTuition, label: "Tuition Fees & Other", value: "₹7,50,000/- p.a*", note: "*Subject to change" },
         { image: IMG.feeLibrary, label: "Library Deposit", value: "₹4,000/- (refundable)" },
