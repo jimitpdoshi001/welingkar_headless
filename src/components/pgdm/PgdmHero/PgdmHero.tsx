@@ -34,26 +34,12 @@ export function PgdmHero({ data }: PgdmHeroProps) {
         <h1 className={styles.title}>{data.title}</h1>
         <p className={styles.subtitle}>{data.subtitle}</p>
 
-        <ul className={styles.stats}>
-          {data.stats.map((stat) => (
-            <li
-              key={stat}
-              className={styles.stat}>
-              {stat}
-            </li>
-          ))}
-        </ul>
-
+        {/* Figma 644:472 hero: single green Apply Now button, no stats row. */}
         <div className={styles.ctaRow}>
           <Link
             href={data.primaryCta.href}
             className="btn accent">
             {data.primaryCta.label}
-          </Link>
-          <Link
-            href={data.secondaryCta.href}
-            className="btn white-outline">
-            {data.secondaryCta.label}
           </Link>
         </div>
       </div>
