@@ -70,6 +70,13 @@
   }
 }
 
+// Figma: Student-Centric card follows the Strengths fade directly; 122px to USPs.
+.pedagogyBlock {
+  padding-block: 0 12rem;
+
+  @include respond-to(mobile) { padding-block: 0 5rem; }
+}
+
 .blockTight {
   padding-block: 0 8rem;
 

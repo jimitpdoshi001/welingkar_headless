@@ -105,12 +105,10 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           </section>
 
           {/* 7. Program Strengths */}
-          <section className={`container ${styles.block}`}>
-            <PgdmStrengths data={data.strengths} />
-          </section>
+          <PgdmStrengths data={data.strengths} />
 
           {/* 8. Student-Centric Pedagogy */}
-          <section className={`container ${styles.block}`}>
+          <section className={`container ${styles.pedagogyBlock}`}>
             <PgdmPedagogy data={data.studentPedagogy} />
           </section>
 

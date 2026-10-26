@@ -112,8 +112,8 @@ export type PgdmObjective = { id: string; icon?: string; text: string };
 export type PgdmObjectives = { heading: string; items: PgdmObjective[] };
 export type PgdmOutcomes = { heading: string; items: PgdmFeature[] };
 export type PgdmStrengths = { heading: string; subheading: string; image: string; cards: string[] };
-export type PgdmPedagogy = { heading: string; image: string; bullets: string[] };
-export type PgdmInnovative = { heading: string; image: string; links: { label: string; sub?: string }[] };
+export type PgdmPedagogy = { heading: string; intro: string; image: string; bullets: string[] };
+export type PgdmInnovative = { heading: string; image: string; links: string[] };
 export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
 export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
 export type PgdmBandStat = { value: string; label: string };
@@ -167,6 +167,10 @@ const pgdmImages = (slug: "mumbai" | "bengaluru") => {
     feeTuition: img("fee-tuition"),
     feeLibrary: img("fee-library"),
     feeHostel: img("fee-hostel"),
+    strengths: img("program-strengths"),
+    studentCentric: img("student-centric"),
+    usps: img("program-usps"),
+    innovative: img("innovative-pedagogy"),
     community1: img("community-1"),
     community2: img("community-2"),
     avatar1: img("testimonial-1"),
@@ -273,7 +277,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     usps: SHARED_USPS,
     uspBand: {
       heading: "Program USPs",
-      image: IMG.glance,
+      image: IMG.usps,
       cards: [
         "Flagship program – started in 1993",
         "180 Intake with 4 specializations",
@@ -307,7 +311,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     strengths: {
       heading: "Program Strengths",
       subheading: "Contemporary Curriculum",
-      image: IMG.why,
+      image: IMG.strengths,
       cards: [
         "Outcome based approach with AAA framework (Acquisition, Application & Assimilation).",
         "Robust syllabus to stay contemporary, through periodic revision & introducing new courses across specializations.",
@@ -317,13 +321,13 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     studentPedagogy: {
       heading: "Student-Centric Pedagogy",
-      image: IMG.glance,
+      image: IMG.studentCentric,
+      intro: "SHL, an Internationally acclaimed brand - conducts virtual assessment sessions. This enables student-wise, Development Centre (DC) planning. DC actions are implemented/facilitated and steered by faculty mentors, on an ongoing & continuous basis, to enhance student grooming, and employability.",
       bullets: [
-        "SHL, an Internationally acclaimed brand - conducts virtual assessment sessions. This enables student-wise, Development Centre (DC) planning. DC actions are implemented/facilitated and steered by faculty mentors, on an ongoing & continuous basis, to enhance student grooming, and employability.",
         "Guest Sessions by International faculty, Industry experts and Alumni.",
         "Industry Specific Round-Table Conferences.",
         "Alumni mentoring and interaction.",
-        "Mock GDPI and CV enhancement sessions.",
+        "Mock GDPI and CV enhancement sessions",
         "Participation in Smart India Hackathons.",
         "Skill Development – hands-on training on Excel, Bloomberg Terminal and other Data Analytics software.",
         "Bloomberg Market Concepts Certification and Harvard Manage Mentor and KPMG sustainability certificate.",
@@ -331,11 +335,9 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     innovativePedagogy: {
       heading: "Innovative Teaching and Learning Pedagogy",
-      image: IMG.placement,
-      links: [
-        { label: "Faculty Initiatives", sub: "Feedback on faculty teaching & learning initiative" },
-        { label: "Institutional Initiatives" },
-      ],
+      image: IMG.innovative,
+      // Figma 2344:967: first row is the active one (white + play arrow).
+      links: ["Faculty Initiatives", "Feedback on faculty teaching & learning initiative", "Institutional Initiatives"],
     },
     programFaculty: {
       heading: "Program Faculty",

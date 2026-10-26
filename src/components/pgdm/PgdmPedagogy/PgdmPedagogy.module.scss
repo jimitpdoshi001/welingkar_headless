@@ -1,30 +1,39 @@
 @use "../../../styles/base/mixins" as *;
 
+// Figma: 1240x617 card, photo column 505px (≈41%).
 .card {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  background: var(--pgdm-band, #4a3460);
-  border-radius: 2.4rem;
+  grid-template-columns: 735fr 505fr;
+  min-height: 61.7rem;
+  background: #493460;
+  border-radius: 3rem;
   overflow: hidden;
   color: var(--color-white);
 
-  @include respond-to(tab) { grid-template-columns: 1fr; }
+  @include respond-to(tab) { grid-template-columns: 1fr; min-height: 0; }
 }
 
 .text {
-  padding: 5rem;
+  padding: 5rem 5rem 5rem 5rem;
 
   @include respond-to(mobile) { padding: 3.2rem 2.4rem; }
 }
 
 .heading {
-  font-size: 3rem;
+  font-size: 4rem; // Figma 40px ExtraBold
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 2.8rem;
+  margin: 0 0 2.4rem;
   color: var(--color-white);
 
-  @include respond-to(mobile) { font-size: 2.4rem; }
+  @include respond-to(mobile) { font-size: 2.8rem; }
+}
+
+.intro {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  max-width: 61rem;
+  margin: 0 0 2.6rem;
 }
 
 .list {
@@ -33,25 +42,26 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 1.4rem;
 }
 
+// Figma: 6px white dot, text indented 19px.
 .bullet {
   position: relative;
-  padding-left: 2.4rem;
-  font-size: 1.5rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  padding-left: 1.9rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  max-width: 53rem;
 
   &::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 0.8rem;
-    width: 0.8rem;
-    height: 0.8rem;
+    top: 0.7rem;
+    width: 0.6rem;
+    height: 0.6rem;
     border-radius: 50%;
-    background: var(--color-orange, #f28c28);
+    background: var(--color-white);
   }
 }
 
@@ -60,7 +70,8 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  border-radius: 0 3rem 3rem 0;
 
-  @include respond-to(tab) { height: 36rem; }
+  @include respond-to(tab) { height: 36rem; border-radius: 0; }
   @include respond-to(mobile) { height: 24rem; }
 }

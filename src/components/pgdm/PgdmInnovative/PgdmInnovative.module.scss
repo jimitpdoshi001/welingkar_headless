@@ -8,12 +8,12 @@
 
 .card {
   position: relative;
-  border-radius: 2.4rem;
+  border-radius: 3rem;
   overflow: hidden;
   background-color: #1a1420;
   background-size: cover;
   background-position: center;
-  min-height: 58rem;
+  min-height: 60.7rem;
   display: flex;
 
   @include respond-to(tab) { min-height: 48rem; }
@@ -23,7 +23,10 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.55) 45%, rgba(0, 0, 0, 0.1) 100%);
+  // Figma 2319:292 overlay: dark base and dark left edge.
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%);
 }
 
 .content {
@@ -48,38 +51,37 @@
   @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
+// Figma: 547px list, 22px rows, hairlines only between rows.
 .links {
-  max-width: 55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 54.7rem;
 
   @include respond-to(mobile) { max-width: none; }
 }
 
-.linkBlock {
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
-  padding: 1.6rem 0;
-
-  &:last-child { border-bottom: 1px solid rgba(255, 255, 255, 0.28); }
-}
-
-.linkRow {
+.row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.6rem;
+  padding: 1.6rem 0;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: #b1b1b1;
+
+  & + & { border-top: 1px solid rgba(255, 255, 255, 0.3); }
+
+  @include respond-to(mobile) { font-size: 1.7rem; }
 }
 
-.label {
-  font-size: 2rem;
+.rowActive {
   font-weight: 500;
-}
-
-.play {
-  font-size: 1.4rem;
   color: var(--color-white);
 }
 
-.sub {
-  margin: 0.8rem 0 0;
-  font-size: 1.5rem;
-  color: #c7c7c7;
+.play {
+  font-size: 1.2rem;
+  color: var(--color-white);
 }

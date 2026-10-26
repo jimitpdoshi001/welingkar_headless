@@ -17,23 +17,22 @@ export function PgdmInnovative({ data }: PgdmInnovativeProps) {
           <div className={styles.overlay} />
           <div className={styles.content}>
             <h2 className={styles.heading}>{data.heading}</h2>
-            <div className={styles.links}>
-              {data.links.map((link) => (
-                <div
-                  key={link.label}
-                  className={styles.linkBlock}>
-                  <div className={styles.linkRow}>
-                    <span className={styles.label}>{link.label}</span>
+            <ul className={styles.links}>
+              {data.links.map((link, i) => (
+                <li
+                  key={link}
+                  className={`${styles.row} ${i === 0 ? styles.rowActive : ""}`}>
+                  <span>{link}</span>
+                  {i === 0 ? (
                     <span
                       className={styles.play}
                       aria-hidden="true">
                       ▶
                     </span>
-                  </div>
-                  {link.sub ? <p className={styles.sub}>{link.sub}</p> : null}
-                </div>
+                  ) : null}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </div>

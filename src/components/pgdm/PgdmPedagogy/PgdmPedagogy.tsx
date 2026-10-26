@@ -5,17 +5,18 @@ type PgdmPedagogyProps = {
   data: PgdmPedagogyData;
 };
 
-// Figma 644:472: "Student - Centric Pedagogy" — purple rounded card with a
-// bulleted list on the left and a photo filling the right half.
+// Figma 2363:1201: purple rounded card — heading, intro paragraph and a dotted
+// list on the left, photo filling the right column.
 export function PgdmPedagogy({ data }: PgdmPedagogyProps) {
   return (
     <div className={styles.card}>
       <div className={styles.text}>
         <h2 className={styles.heading}>{data.heading}</h2>
+        <p className={styles.intro}>{data.intro}</p>
         <ul className={styles.list}>
-          {data.bullets.map((b, i) => (
+          {data.bullets.map((b) => (
             <li
-              key={i}
+              key={b}
               className={styles.bullet}>
               {b}
             </li>
