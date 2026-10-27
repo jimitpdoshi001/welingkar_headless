@@ -168,7 +168,7 @@ const pgdmImages = (slug: "mumbai" | "bengaluru") => {
     feeTuition: img("fee-tuition"),
     feeLibrary: img("fee-library"),
     feeHostel: img("fee-hostel"),
-    strengths: img("program-strengths"),
+    strengths: img("program-strengths-v2"),
     studentCentric: img("student-centric"),
     usps: img("program-usps"),
     innovative: img("innovative-pedagogy"),
