@@ -471,8 +471,9 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       heading: "Career Opportunities",
       description: "To nurture every budding student, we guide, mentor and stand by each one; helping them discover their innate hidden abilities and interests. Students of this program can look forward to career opportunities like:",
       tabs: CAREER_TABS,
-      // Figma shows five rows of 4 before Show More.
-      initialCount: 20,
+      // Figma shows Show More under the grid; Finance has 20 roles, so show
+      // four rows (16) and reveal the rest. Raise to 20 once more roles exist.
+      initialCount: 16,
     },
     achievements: {
       heading: "Student Achievements",

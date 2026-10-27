@@ -78,7 +78,8 @@
   @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
 }
 
-// Figma 2344:1015: grey glass, rgba(217,217,217,0.9), 15px radius.
+// Frosted glass: translucent light-grey tint over a strong blur of the photo,
+// with a light rim and soft shadow (Figma 2344:1015 tone, 15px radius).
 .card {
   min-height: 11.9rem;
   margin: 0;
@@ -86,10 +87,11 @@
   font-size: 1.6rem;
   line-height: 1.3;
   color: var(--color-black);
-  background: rgba(217, 217, 217, 0.82);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(135deg, rgba(235, 235, 235, 0.72) 0%, rgba(217, 217, 217, 0.48) 100%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border-radius: 1.5rem;
 
   @include respond-to(mobile) { min-height: 0; font-size: 1.4rem; }

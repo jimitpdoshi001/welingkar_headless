@@ -19,11 +19,10 @@ export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
 
   return (
     <div className={styles.root}>
+      <h2 className={styles.heading}>{data.heading}</h2>
+      {/* Figma: Year pills sit on the description line, right-aligned. */}
       <div className={styles.head}>
-        <div>
-          <h2 className={styles.heading}>{data.heading}</h2>
-          <p className={styles.description}>{data.description}</p>
-        </div>
+        <p className={styles.description}>{data.description}</p>
         <div
           className={styles.years}
           role="tablist"
