@@ -5,14 +5,21 @@ type PgdmUspBandProps = {
   data: PgdmUspBandData;
 };
 
-// Figma 644:472: "Program USPs" — dark photo band, heading top-left, a row of
-// white cards along the lower edge.
+// Figma 2344:954: dark photo band, 40px heading top-left, six grey-glass cards
+// along the lower edge.
 export function PgdmUspBand({ data }: PgdmUspBandProps) {
   return (
-    <div
-      className={styles.band}
-      style={{ backgroundImage: `url(${data.image})` }}>
-      <div className={styles.overlay} />
+    <section className={styles.band}>
+      <div
+        className={styles.bg}
+        aria-hidden="true">
+        <img
+          src={data.image}
+          alt=""
+          className={styles.photo}
+        />
+        <div className={styles.overlay} />
+      </div>
       <div className={`container ${styles.inner}`}>
         <h2 className={styles.heading}>{data.heading}</h2>
         <div className={styles.cards}>
@@ -25,7 +32,7 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -5,6 +5,7 @@ export function PgdmRecruiters({ data }: { data: PgdmRecruitersData }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
+      {data.description ? <p className={styles.description}>{data.description}</p> : null}
       <div className={styles.strip}>
         {data.logos.map((logo) => (
           <div

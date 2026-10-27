@@ -76,12 +76,34 @@
   @include respond-to(mobile) { font-size: 1.7rem; }
 }
 
-.rowActive {
-  font-weight: 500;
-  color: var(--color-white);
-}
-
 .play {
   font-size: 1.2rem;
   color: var(--color-white);
+  opacity: 0;
+  transform: translateX(-0.6rem);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+// Active row: white text + play arrow. The first row is active by default;
+// hovering/focusing another row moves the state to it (Figma hover).
+.row {
+  cursor: pointer;
+  transition: color 0.2s ease;
+  outline: none;
+}
+
+.rowActive,
+.row:hover,
+.row:focus-visible {
+  font-weight: 500;
+  color: var(--color-white);
+
+  .play { opacity: 1; transform: none; }
+}
+
+.links:hover .rowActive:not(:hover) {
+  font-weight: 300;
+  color: #b1b1b1;
+
+  .play { opacity: 0; transform: translateX(-0.6rem); }
 }

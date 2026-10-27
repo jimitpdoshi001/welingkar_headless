@@ -21,15 +21,14 @@ export function PgdmInnovative({ data }: PgdmInnovativeProps) {
               {data.links.map((link, i) => (
                 <li
                   key={link}
+                  tabIndex={0}
                   className={`${styles.row} ${i === 0 ? styles.rowActive : ""}`}>
                   <span>{link}</span>
-                  {i === 0 ? (
-                    <span
-                      className={styles.play}
-                      aria-hidden="true">
-                      ▶
-                    </span>
-                  ) : null}
+                  <span
+                    className={styles.play}
+                    aria-hidden="true">
+                    ▶
+                  </span>
                 </li>
               ))}
             </ul>
