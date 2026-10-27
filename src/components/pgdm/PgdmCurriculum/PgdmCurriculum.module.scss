@@ -24,7 +24,9 @@
   font-size: 1.6rem;
   line-height: 1.3;
   color: var(--color-white);
-  max-width: 70rem; // Figma ~700px
+  // Fill the row up to the Year pills (requested).
+  flex: 1;
+  max-width: none;
   margin: 0;
 }
 
