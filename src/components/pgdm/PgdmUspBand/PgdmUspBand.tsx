@@ -1,5 +1,6 @@
 import type { PgdmUspBand as PgdmUspBandData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmUspBand.module.scss";
+import { PgdmMobileRow } from "../common/PgdmMobileRow";
 
 type PgdmUspBandProps = {
   data: PgdmUspBandData;
@@ -22,7 +23,7 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
       </div>
       <div className={`container ${styles.inner}`}>
         <h2 className={styles.heading}>{data.heading}</h2>
-        <div className={styles.cards}>
+        <PgdmMobileRow className={styles.cards} itemWidth="56%" arrowsClassName={styles.noArrows}>
           {data.cards.map((card) => (
             <p
               key={card}
@@ -30,7 +31,7 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
               {card}
             </p>
           ))}
-        </div>
+        </PgdmMobileRow>
       </div>
     </section>
   );

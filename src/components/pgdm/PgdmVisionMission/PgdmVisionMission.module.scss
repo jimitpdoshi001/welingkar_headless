@@ -109,3 +109,35 @@
     }
   }
 }
+
+.readMore { display: none; }
+
+// Figma mobile: single photo per block, Mission as plain paragraphs (first
+// three) with a green "Read More" link.
+@include respond-to(mobile) {
+  .image:nth-child(2) { display: none; }
+
+  .lines {
+    gap: 1.2rem;
+
+    li {
+      padding-left: 0;
+
+      &::before { display: none; }
+    }
+  }
+
+  .lines:not(.linesOpen) li:nth-child(n + 4) { display: none; }
+
+  .readMore {
+    display: inline-block;
+    margin-top: 0.4rem;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #3a9030;
+    font-size: 1.6rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

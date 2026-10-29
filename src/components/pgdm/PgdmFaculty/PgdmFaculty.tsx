@@ -1,5 +1,6 @@
 import type { PgdmProgramFaculty } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmFaculty.module.scss";
+import { PgdmMobileRow } from "../common/PgdmMobileRow";
 
 type PgdmFacultyProps = {
   data: PgdmProgramFaculty;
@@ -10,7 +11,7 @@ export function PgdmFaculty({ data }: PgdmFacultyProps) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <div className={styles.grid}>
+      <PgdmMobileRow className={styles.grid} itemWidth="48%">
         {data.people.map((person) => (
           <article
             key={person.id}
@@ -24,7 +25,7 @@ export function PgdmFaculty({ data }: PgdmFacultyProps) {
             <p className={styles.title}>{person.title}</p>
           </article>
         ))}
-      </div>
+      </PgdmMobileRow>
     </div>
   );
 }

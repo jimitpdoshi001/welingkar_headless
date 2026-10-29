@@ -7,8 +7,12 @@
   align-items: center;
   min-height: 10rem;
 
+  // Figma mobile: 2x2, filled column by column (2 years / 180 | 115.5 / 1994).
   @include respond-to(mobile) {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
     min-height: 0;
     padding-block: 2.4rem;
     gap: 2rem 0;
@@ -28,10 +32,9 @@
   &:first-child { padding-left: 0; }
 
   @include respond-to(mobile) {
-    flex: 0 0 50%;
-    padding: 0 2rem;
-    &:nth-child(odd) { padding-left: 0; }
-    &:nth-child(2n) { border-right: none; }
+    padding: 0 0 0 4.8rem;
+    border-right: none !important;
+    &:nth-child(-n + 2) { padding-left: 0; border-right: 1px solid rgba(255, 255, 255, 0.28) !important; }
   }
 }
 

@@ -47,3 +47,13 @@
   text-align: center;
   color: var(--color-white);
 }
+
+// Figma mobile: logos in a two-column grid inside the white card.
+@include respond-to(mobile) {
+  .strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.4rem 1.6rem;
+    padding: 2.4rem 2rem;
+  }
+}

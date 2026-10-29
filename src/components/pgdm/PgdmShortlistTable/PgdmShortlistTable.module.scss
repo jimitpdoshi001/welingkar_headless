@@ -59,3 +59,48 @@
 }
 
 .program { font-weight: 600 !important; }
+
+.mobileList { display: none; }
+
+@include respond-to(mobile) {
+  .wrap {
+    border: none;
+    border-radius: 3rem 3rem 0 0;
+    overflow: visible;
+  }
+
+  .scroll { display: none; }
+
+  .mobileList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1.6rem;
+  }
+
+  .mobileProgram {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .mobileCells {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .mobileCell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .mobileLabel { font-weight: 600; }
+}

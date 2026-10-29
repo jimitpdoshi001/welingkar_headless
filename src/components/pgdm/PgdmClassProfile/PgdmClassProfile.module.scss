@@ -49,3 +49,28 @@
 
   @include respond-to(mobile) { font-size: 1.6rem; }
 }
+
+// Figma mobile: one stat per row — value then label on the same line.
+@include respond-to(mobile) {
+  .statGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .stat {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1.2rem;
+  }
+
+  .value {
+    font-size: 2.4rem;
+    min-width: 5.6rem;
+    margin-bottom: 0;
+  }
+
+  .label {
+    font-size: 1.6rem;
+    max-width: none;
+  }
+}

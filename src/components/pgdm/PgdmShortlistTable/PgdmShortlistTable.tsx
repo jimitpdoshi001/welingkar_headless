@@ -45,6 +45,29 @@ export function PgdmShortlistTable({ data }: { data: PgdmTable }) {
               </tbody>
             </table>
           </div>
+
+          {/* Figma mobile: stacked blocks instead of the table. */}
+          <div className={styles.mobileList}>
+            {data.rows.map((row) => (
+              <div
+                key={row.program}
+                className={styles.mobileRow}>
+                <p className={styles.mobileProgram}>{row.program}</p>
+                <div className={styles.mobileCells}>
+                  {(row.span ? [row.values[0]] : row.values).map((value, i) => (
+                    <div
+                      key={i}
+                      className={styles.mobileCell}
+                      // Figma mobile tints: lavender (Mumbai), pink (Bengaluru).
+                      style={{ background: campus.color === "#b04535" ? "#fbeeec" : "#f1ecfa" }}>
+                      {row.span ? null : <span className={styles.mobileLabel}>{data.columns[i + 1]}</span>}
+                      <span>{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </div>

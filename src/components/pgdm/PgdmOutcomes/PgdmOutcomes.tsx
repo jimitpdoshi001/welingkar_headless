@@ -1,5 +1,6 @@
 import type { PgdmOutcomes as PgdmOutcomesData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmOutcomes.module.scss";
+import { PgdmMobileRow } from "../common/PgdmMobileRow";
 
 type PgdmOutcomesProps = {
   data: PgdmOutcomesData;
@@ -11,7 +12,7 @@ export function PgdmOutcomes({ data }: PgdmOutcomesProps) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <div className={styles.grid}>
+      <PgdmMobileRow className={styles.grid} itemWidth="82%">
         {data.items.map((item) => (
           <div
             key={item.id}
@@ -20,7 +21,7 @@ export function PgdmOutcomes({ data }: PgdmOutcomesProps) {
             <p className={styles.body}>{item.description}</p>
           </div>
         ))}
-      </div>
+      </PgdmMobileRow>
     </div>
   );
 }
