@@ -1,200 +1,168 @@
 /**
- * Mock data for the WeResearch landing page, mirroring the Figma design.
- * Swap for Drupal fields later. Images are placeholders.
+ * Content for the WeResearch landing page (Figma 2533:391 "WeResearch - Option 2").
+ * Copy is taken from Figma. Governance body text is Figma placeholder (Lorem Ipsum)
+ * and several links have no target yet; swap for Drupal fields when available.
  */
 
-export type ResearchArea = string;
+export type LinkCard = { title: string; image: string; href: string };
 
-export type AwardedPaper = {
-  id: string;
-  area: string;
+export type FeatureBlock = {
+  heading: string;
+  body: string;
+  image: string;
+  cta: { label: string; href: string };
+};
+
+export type ResearchArea = { label: string; icon: string };
+
+export type JournalYear = {
   year: string;
-  title: string;
-  authors: string;
-  journal: string;
-  award: string;
-  href: string;
+  issues: { label: string; href: string }[];
 };
-
-export type ResearchPaper = {
-  id: string;
-  area: string;
-  year: string;
-  title: string;
-  authors: string;
-  journal: string;
-  abstract: string;
-  href: string;
-};
-
-export type BookPublished = {
-  id: string;
-  title: string;
-  authors: string;
-  publisher: string;
-  year: string;
-  href: string;
-};
-
-export type AuthoredCase = {
-  id: string;
-  year: string;
-  publisher: string;
-  title: string;
-  authors: string;
-  source: string;
-  abstract: string;
-  href: string;
-};
-
-export type MagazineArticle = {
-  id: string;
-  area: string;
-  date: string;
-  title: string;
-  author: string;
-  source: string;
-  href: string;
-};
-
-export type ConferenceArticle = {
-  id: string;
-  title: string;
-  authors: string;
-  conference: string;
-  proceedings: string;
-  href: string;
-};
-
-export type JournalIssue = { id: string; volume: string; label: string; latest?: boolean; href: string };
 
 export type WeResearchData = {
-  hero: { title: string; body: string; cta: { label: string; href: string }; image: string };
+  hero: { title: string; body: string; image: string };
+  about: { heading: string; paragraphs: string[]; image: string };
+  governance: {
+    heading: string;
+    items: { title: string; body: string; href: string }[];
+  };
+  publications: { heading: string; description: string; cards: LinkCard[] };
+  projects: FeatureBlock;
+  activities: FeatureBlock;
   areas: { heading: string; items: ResearchArea[] };
-  awarded: { heading: string; description: string; papers: AwardedPaper[] };
-  allPapers: { heading: string; description: string; image: string; papers: ResearchPaper[] };
-  books: { heading: string; description: string; items: BookPublished[] };
-  cases: { heading: string; description: string; items: AuthoredCase[] };
-  magazine: { heading: string; description: string; image: string; items: MagazineArticle[] };
-  conference: { heading: string; description: string; items: ConferenceArticle[] };
-  journal: { heading: string; body: string; image: string; archiveHeading: string; cta: { label: string; href: string }; issues: JournalIssue[] };
+  cecd: {
+    headingLines: string[];
+    body: string;
+    linkLabel: string;
+    linkHref: string;
+    image: string;
+  };
+  seminars: FeatureBlock;
+  doctoral: {
+    heading: string;
+    paragraphs: string[];
+    image: string;
+    pdf: { label: string; href: string };
+    apply: { label: string; href: string };
+  };
+  journal: {
+    heading: string;
+    body: string;
+    downloadHeading: string;
+    years: JournalYear[];
+    image: string;
+  };
 };
 
-const WIMG = {
-  hero: "/weresearch/hero.webp",
-  papers: "/weresearch/papers.webp",
-  magazine: "/weresearch/magazine.webp",
-  journal: "",
-};
+const IMG = "/weresearch";
+const ICON = `${IMG}/areas`;
 
-const AREAS = [
-  "Business Management",
-  "Rural Management",
-  "Healthcare Management",
-  "Media & Entertainment",
-  "Technology Management",
-  "Business Design",
-  "Innovation & Entrepreneurship",
-  "Economics & Social Sciences",
-  "Sustainability",
-];
+// Journal issue PDFs are not supplied yet; every month links to the journal page.
+const JOURNAL_MONTHS = ["March", "September", "October", "December"];
+const journalYear = (year: string): JournalYear => ({
+  year,
+  issues: JOURNAL_MONTHS.map((label) => ({ label, href: "/weresearch/aweshkar" })),
+});
 
 export const WERESEARCH: WeResearchData = {
   hero: {
-    title: "Exploring Ideas. Creating Knowledge. Shaping Management Thoughts.",
-    body: "Research is an integral part of the WeSchool academic ecosystem. Explore work that brings together management, social sciences and technology to examine contemporary business and societal questions. From research papers and case studies to books, conferences, funded projects and the aWEshkar journal, WeSchool's research engages with both academic inquiry and practical contexts.",
-    cta: { label: "Explore Our Research", href: "/weresearch/papers" },
-    image: WIMG.hero,
+    title: "Weschool center for research",
+    body: "WeSchool Center for Research reinforces Welingkar Institute’s research commitment to corporate, society, faculty, and its student community. The mission of the Center is to create and disseminate knowledge of Management, Social Sciences, and Technology.",
+    image: `${IMG}/hero.webp`,
   },
-  areas: { heading: "Research Areas", items: AREAS },
-  awarded: {
-    heading: "Awarded & Recognised Papers",
-    description: "Explore research that has earned recognition for its contribution to management and related fields. From faculty research recognised at academic conferences to papers receiving awards for their work, these contributions reflect the depth and range of inquiry undertaken at WeSchool.",
-    papers: [
-      { id: "aw-1", area: "Technology Management", year: "2024", title: "Digital Transformation and Organisational Resilience: Evidence from Indian SMEs", authors: "Dr. Priya Sharma, Prof. Rajan Mehta", journal: "Journal of Management Studies", award: "Best Paper Award — AIMS International Conference on Management", href: "/weresearch/papers" },
-      { id: "aw-2", area: "Sustainability", year: "2024", title: "Green Banking Practices and Financial Performance: A Study of Indian Commercial Banks", authors: "Dr. Anita Desai, Dr. Suresh Kumar", journal: "International Journal of Bank Marketing", award: "Excellence in Research Award — Indian Finance Association", href: "/weresearch/papers" },
-      { id: "aw-3", area: "Rural Management", year: "2023", title: "Rural Entrepreneurship and Livelihood Generation: Case Studies from Maharashtra", authors: "Prof. Kavitha Rao, Dr. Mohan Pillai", journal: "Journal of Rural Studies", award: "Outstanding Paper — IIMA Research Conference", href: "/weresearch/papers" },
-      { id: "aw-4", area: "Healthcare Management", year: "2023", title: "Workforce Diversity and Organisational Performance in Healthcare Settings", authors: "Dr. Nandita Bose, Prof. Arvind Singh", journal: "Health Care Management Review", award: "Best Research Paper — National HRM Summit", href: "/weresearch/papers" },
+  about: {
+    heading: "About the center for research",
+    paragraphs: [
+      "Our Research findings are disseminated directly through white papers, publications, case studies, research projects, conferences, and seminars. It is also applied in course development for PGDM, MMS, Ph.D., and Executive Education Programs.",
+      "Research is the bedrock for enhancing teaching and learning initiatives at WeSchool. The core activities include inter-alia publication of refereed research journal “aWEshkar”, research papers & case studies presented and published by Faculty and Students, Faculty authored books, encouragement and support to young faculty members for Ph.D. enrollment, planning and execution of live corporate research projects as also social research in partnership with Government and its agencies & other initiatives such as research collaborations and partnerships of different nature with Research bodies/Institutes. We School provides financial assistance for publications and seed funding for various projects.",
+      "WeSchool Centre for Research aims to initiate inter-departmental collaboration, to inter-institutional partnerships at national and international level for funded projects and interdisciplinary research. The centre will facilitate interaction with external agencies at a national and international level through seminars, colloquiums, conferences, roundtables, and doctoral consortium on regular basis.",
+      "At WeSchool, through the University of Mumbai's Ph.D. Programme, we endeavor to create a rich talent pool that will be the driving force of the future. This gives an opportunity to pursue research, and thereby drive 'innovation'.",
+    ],
+    image: `${IMG}/about-bg.webp`,
+  },
+  governance: {
+    heading: "Governance",
+    items: [
+      {
+        title: "Research Policy",
+        body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation",
+        href: "#",
+      },
+      {
+        title: "Anti-plagiarism Policy",
+        body: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation",
+        href: "#",
+      },
     ],
   },
-  allPapers: {
-    heading: "All Research Papers",
-    description: "Explore WeSchool's wider body of published research across management, business, technology and the social sciences. Browse research on subjects ranging from artificial intelligence, finance and sustainability to marketing, human resources, healthcare, entrepreneurship and organisational behaviour.",
-    image: WIMG.papers,
-    papers: Array.from({ length: 4 }, (_, i) => ({
-      id: `rp-${i + 1}`,
-      area: "Technology Management",
-      year: "2024",
-      title: "Artificial Intelligence in Supply Chain Management: Opportunities and Challenges for Indian Firms",
-      authors: "Dr. Priya Sharma, Dr. Vivek Joshi",
-      journal: "International Journal of Production Economics",
-      abstract: "This paper examines the adoption of AI technologies in supply chain operations among Indian firms, identifying key drivers, barriers, and performance outcomes through a mixed-methods study.",
-      href: "/weresearch/papers",
-    })),
+  publications: {
+    heading: "Research Publications",
+    description: "WeSchool provides financial assistance for publications and seed funding for various projects.",
+    cards: [
+      { title: "Research Papers/Articles in Journals", image: `${IMG}/pub-papers.webp`, href: "/weresearch/papers" },
+      { title: "Books Published", image: `${IMG}/pub-books.webp`, href: "/weresearch/papers" },
+      { title: "Cases Authored", image: `${IMG}/pub-cases.webp`, href: "/weresearch/cases" },
+      { title: "FDP Research", image: `${IMG}/pub-fdp.webp`, href: "/weresearch/papers" },
+      { title: "Conferences Organized", image: `${IMG}/pub-conferences.webp`, href: "/weresearch/conferences" },
+      { title: "Funded Projects", image: `${IMG}/pub-funded.webp`, href: "/weresearch/papers" },
+    ],
   },
-  books: {
-    heading: "Books Published",
-    description: "Go beyond individual research papers and explore books and published chapters authored or contributed to by WeSchool faculty and researchers. Covering areas such as finance, management, leadership, healthcare, sustainability, technology and entrepreneurship, these publications extend research into more detailed and accessible bodies of knowledge.",
-    items: Array.from({ length: 5 }, (_, i) => ({
-      id: `bk-${i + 1}`,
-      title: "Management in the Digital Age: Indian Perspectives",
-      authors: "Dr. Priya Sharma, Prof. Rajan Mehta",
-      publisher: "Sage Publications India",
-      year: "2024",
-      href: "/weresearch/cases",
-    })),
+  projects: {
+    heading: "Research projects",
+    body: "The research project explores the grassroots to draw a practical picture on the multiple/singular subject.",
+    image: `${IMG}/projects.webp`,
+    cta: { label: "Know More", href: "/weresearch/papers" },
   },
-  cases: {
-    heading: "Authored Cases",
-    description: "Explore management cases that turn real business situations into opportunities for analysis, discussion and decision-making. WeSchool's case contributions span areas such as strategy, marketing, entrepreneurship, operations, finance and sustainability.",
-    items: Array.from({ length: 5 }, (_, i) => ({
-      id: `ca-${i + 1}`,
-      year: "2024",
-      publisher: "Harvard Business Publishing",
-      title: "Tata Motors and the EV Transition: Strategy in a Disrupted Market",
-      authors: "Dr. Priya Sharma, Prof. Rajan Mehta",
-      source: "Tata Motors Ltd.",
-      abstract: "Examines Tata Motors' strategic pivot to electric vehicles, analysing competitive positioning, supply chain challenges and market development strategies in India's evolving automotive sector.",
-      href: "/weresearch/cases",
-    })),
+  activities: {
+    heading: "Research activities",
+    body: "WeSchool research eco-system involves white papers, publications, case studies, research projects, conferences and seminars. Research is the bedrock for enhancing teaching and learning initiatives.",
+    image: `${IMG}/activities.webp`,
+    cta: { label: "Know More", href: "/weresearch/conferences" },
   },
-  magazine: {
-    heading: "Magazine Articles",
-    description: "Read perspectives from WeSchool faculty and researchers on contemporary issues shaping business, organisations and society. These articles bring academic thinking into a more accessible format, offering observations, interpretations and informed viewpoints.",
-    image: WIMG.magazine,
-    items: Array.from({ length: 4 }, (_, i) => ({
-      id: `ma-${i + 1}`,
-      area: "Sustainability",
-      date: "March 2025",
-      title: "Why Indian Businesses Must Embed ESG Beyond Compliance",
-      author: "Dr. Suresh Kumar",
-      source: "Economic Times CXO",
-      href: "/weresearch/articles",
-    })),
+  areas: {
+    heading: "Area of research",
+    items: [
+      { label: "Business management", icon: `${ICON}/business.svg` },
+      { label: "Rural management", icon: `${ICON}/rural.svg` },
+      { label: "Healthcare management", icon: `${ICON}/healthcare.svg` },
+      { label: "Media and Entertainment", icon: `${ICON}/media.svg` },
+      { label: "Technology management", icon: `${ICON}/technology.svg` },
+      { label: "Business design", icon: `${ICON}/design.svg` },
+      { label: "Innovation and entrepreneurship", icon: `${ICON}/innovation.svg` },
+      { label: "Economics and social sciences", icon: `${ICON}/economics.svg` },
+      { label: "Sustainability", icon: `${ICON}/sustainability.svg` },
+    ],
   },
-  conference: {
-    heading: "Conference Articles",
-    description: "Explore research shared through academic conferences and published proceedings. These contributions capture research questions, findings and perspectives presented within academic forums, covering a range of management and interdisciplinary themes.",
-    items: Array.from({ length: 4 }, (_, i) => ({
-      id: `co-${i + 1}`,
-      title: "Taxation Policies and Healthcare Expenditure: Cross-Country Evidence",
-      authors: "Dr. Suresh Kumar, Dr. Anita Desai",
-      conference: "International Conference on Health Economics",
-      proceedings: "Health Economics Proceedings 2024 · Singapore 2024",
-      href: "/weresearch/conferences",
-    })),
+  cecd: {
+    headingLines: ["Center of Excellence for", "Case Development (CECD),", "Bengaluru"],
+    body: "The WeSchool Centre of Excellence for Case Development (CECD) incepted in June 2012, has the objective to promote case methodology and to develop a repository of India best business practices as management teaching case studies for the purpose of International / National publication. Over the years it has been successful in publishing 34 primary field and secondary based case studies across different publishing houses such as Emerald Publishing, Richard Ivey Publishing, ET Cases etc. The Centre works under the directional leadership of Group Director Prof. Dr Uday Salunkhe. At Bengaluru, it operates under the Dean, Academics, Prof. Dr Madhavi Lokhande. Prof. Dr Sonia Mehrotra leads the Centre, assisted by Ms. Ishani Chakraborty. To know more about the CECD",
+    linkLabel: "click here",
+    linkHref: "/weresearch/cases",
+    image: `${IMG}/cecd.webp`,
+  },
+  seminars: {
+    heading: "Seminars and conferences organized",
+    body: "Our Research findings are disseminated directly through conferences and seminars. WeSchool Centre for Research aims to initiate inter-departmental collaboration, to inter-institutional partnerships at national and international level for funded projects and interdisciplinary research.",
+    image: `${IMG}/seminars.webp`,
+    cta: { label: "Know More", href: "/weresearch/conferences" },
+  },
+  doctoral: {
+    heading: "Doctoral research center",
+    paragraphs: [
+      "Established in the Year 2004-05, the raison d’etre of the Centre is to contribute to the development of Future Management Faculty, Scholars and Researchers by way of providing all the necessary infrastructure, support and intellectual expertise to the students enrolled for the Doctoral Program.",
+      "The Ph.D. is affiliated to the University of Mumbai, conducted at the Institute.",
+      "The Programme is designed to serve multifarious purposes of equipping doctoral students with all the newest, up-to-date advanced tools and techniques deployed as a part of Management Research Methodology, as also providing cutting-edge knowledge in the various disciplines/ specializations of Management.",
+    ],
+    image: `${IMG}/doctoral.webp`,
+    pdf: { label: "Download PDF", href: "#" },
+    apply: { label: "Apply Now", href: "/apply" },
   },
   journal: {
     heading: "Aweshkar Journal",
-    body: "Explore aWEshkar, WeSchool's bi-annual, double-blind peer-reviewed research journal dedicated to creating and sharing knowledge for the academic and corporate community. The journal provides a platform for researchers, practitioners, academicians and professionals to share research, practical experiences and perspectives across Business and Management and related areas.",
-    image: WIMG.journal,
-    archiveHeading: "Journal Archive",
-    cta: { label: "Explore All Issues", href: "/weresearch/aweshkar" },
-    issues: [
-      { id: "ji-1", volume: "Vol. 32 Issue I", label: "March 2025", latest: true, href: "/weresearch/aweshkar" },
-      { id: "ji-2", volume: "Vol. 29 Issue II", label: "September 2022", href: "/weresearch/aweshkar" },
-      { id: "ji-3", volume: "Vol. 29 Issue II", label: "September 2022", href: "/weresearch/aweshkar" },
-      { id: "ji-4", volume: "Vol. 29 Issue II", label: "September 2022", href: "/weresearch/aweshkar" },
-    ],
+    body: "AWEshkar is a bi-annual, double-blind peer-reviewed Journal of Welingkar Institute of Management Development and Research. “WE” stands for Welingkar Education and ‘aWEshkar’ stands for creating new knowledge for the benefit of the academic & corporate community. “Aweshkar” in Hindi means Invention. aWEshkar is included in EBSCO Database, USA and Ulrich' Directory of Periodicals, USA.",
+    downloadHeading: "Download journals",
+    years: ["2026", "2025", "2024", "2023"].map(journalYear),
+    image: `${IMG}/journal.webp`,
   },
 };

@@ -1,142 +1,574 @@
 @use "../../styles/base/mixins" as *;
 
-.block {
-  padding-block: 7rem;
-  @include respond-to(mobile) { padding-block: 4.5rem; }
+// Figma 2533:391 palette.
+$purple: #493460;
+$cream: #fdf8f0;
+
+/* ---------- Shared type ---------- */
+
+// Figma: DM Sans ExtraBold 40px / 44px.
+.heading,
+.headingLight {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  margin: 0 0 1.6rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; margin-bottom: 1.2rem; }
+}
+.headingLight { color: var(--color-white); }
+.headingLine { display: block; }
+
+.body,
+.bodyLight {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0;
+}
+.bodyLight { color: var(--color-white); }
+
+.paragraphs p,
+.aboutBody p {
+  margin: 0;
+  & + p { margin-top: 2.1rem; } // Figma: one blank line between paragraphs
 }
 
-/* Hero */
+// Figma "Know More": 98x37.5 pill, 12px SemiBold.
+.smallBtn {
+  font-size: 1.2rem;
+  padding: 1.25rem 2rem;
+}
+
+/* ---------- Hero (650px) ---------- */
+
 .hero {
   position: relative;
-  min-height: 60rem;
-  display: flex;
-  align-items: flex-end;
+  min-height: 65rem;
   overflow: hidden;
   color: var(--color-white);
-}
-.heroImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.heroOverlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 45%, rgba(0, 0, 0, 0.1) 100%); }
-.heroInner { position: relative; z-index: 1; padding-block: 6rem; }
-.breadcrumb {
-  font-size: 1.4rem;
-  margin-bottom: 2.4rem;
   display: flex;
-  gap: 0.8rem;
-  a { color: rgba(255, 255, 255, 0.85); text-decoration: none; }
-  span { color: rgba(255, 255, 255, 0.6); }
-}
-.heroTitle { font-size: 4.4rem; font-weight: 800; line-height: 1.15; max-width: 92rem; margin-bottom: 2rem; @include respond-to(mobile) { font-size: 2.8rem; } }
-.heroBody { font-size: 1.5rem; line-height: 1.7; max-width: 86rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2.8rem; }
 
-/* Headings */
-.heading { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
-.headingLight { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-white); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
-.sectionBody { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 96rem; margin-bottom: 3.6rem; }
-.sectionBodyLight { font-size: 1.5rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); max-width: 96rem; margin-bottom: 3.2rem; }
-
-/* Pills */
-.pills { display: flex; flex-wrap: wrap; gap: 1.2rem; }
-.pill {
-  font-size: 1.4rem;
-  padding: 0.9rem 1.8rem;
-  border-radius: 3rem;
-  border: 1px solid var(--color-light-gray);
-  background: var(--color-white);
-  color: var(--color-dark-gray);
-  white-space: nowrap;
-}
-.pillActive { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
-
-/* Generic card bits */
-.cardTop { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
-.tag { font-size: 1.3rem; padding: 0.5rem 1.4rem; border-radius: 3rem; background: var(--color-light-yellow); color: var(--color-dark-gray); white-space: nowrap; }
-.tagOutline { display: inline-block; font-size: 1.3rem; padding: 0.4rem 1.4rem; border-radius: 3rem; border: 1px solid var(--color-light-gray); color: var(--color-gray); margin-bottom: 1.6rem; }
-.year { font-size: 1.4rem; font-weight: 700; color: var(--color-secondary); }
-.cardTitle { font-size: 1.9rem; font-weight: 700; line-height: 1.35; margin-bottom: 1.2rem; }
-.cardAuthors { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.4rem; }
-.cardMeta { font-size: 1.4rem; color: var(--color-gray); margin-bottom: 1.6rem; }
-.cardMetaItalic { font-size: 1.4rem; font-style: italic; color: var(--color-gray); margin-bottom: 1.6rem; }
-.abstract { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); margin-bottom: 1.8rem; }
-
-/* Awarded grid */
-.awardGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.awardCard { border: 1px solid var(--color-light-gray); border-radius: 2rem; padding: 2.8rem; display: flex; flex-direction: column; align-items: flex-start; }
-.awardBadge {
-  display: flex; align-items: center; gap: 1rem;
-  font-size: 1.35rem; color: var(--color-dark-gray);
-  background: var(--color-light-yellow);
-  border-radius: 1.2rem; padding: 1.4rem 1.6rem; margin-bottom: 2rem; width: 100%;
+  @include respond-to(mobile) { min-height: 52rem; }
 }
 
-/* All research papers (dark section + panel) */
-.papers { position: relative; overflow: hidden; }
-.papersBg { position: absolute; inset: 0; width: 100%; height: 44rem; object-fit: cover; }
-.papersOverlay { position: absolute; inset: 0; height: 44rem; background: rgba(0, 0, 0, 0.6); }
-.papersInner { position: relative; z-index: 1; padding-top: 6rem; padding-bottom: 7rem; color: var(--color-white); }
-// Panel resets the dark band's white text.
-.papersPanel { background: var(--color-white); color: var(--color-black); border-radius: 2.4rem; padding: 3.2rem; box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.15); }
-.searchRow { display: flex; gap: 1.6rem; margin-bottom: 2rem; @include respond-to(mobile) { flex-wrap: wrap; } }
-.search { flex: 1; min-width: 0; border: 1px solid var(--color-light-gray); border-radius: 3rem; padding: 1.2rem 2rem; font-size: 1.4rem; &:focus { outline: none; border-color: var(--color-primary); } }
-.select { border: 1px solid var(--color-light-gray); border-radius: 3rem; padding: 1.2rem 2rem; font-size: 1.4rem; color: var(--color-dark-gray); white-space: nowrap; }
-.paperList { margin-top: 2.4rem; display: flex; flex-direction: column; }
-.paperItem { padding: 2.8rem 0; border-top: 1px solid var(--color-light-gray); display: flex; flex-direction: column; align-items: flex-start; &:first-child { border-top: 0; } }
-.paperTitle { font-size: 1.9rem; font-weight: 700; line-height: 1.35; margin-bottom: 1rem; }
-
-/* Horizontal scroll rows (books / cases) */
-.scrollRow {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(32rem, 1fr);
-  gap: 2.4rem;
-  overflow-x: auto;
-  padding-bottom: 1.5rem;
-  scroll-snap-type: x mandatory;
-  &::-webkit-scrollbar { height: 6px; }
-  &::-webkit-scrollbar-thumb { background: var(--color-light-gray); border-radius: 3px; }
-  @include respond-to(mobile) { grid-auto-columns: 86%; }
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
 }
-.bookCard { scroll-snap-align: start; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 2rem; padding: 2.4rem; color: var(--color-white); display: flex; flex-direction: column; .cardTitle { color: var(--color-white); } .cardAuthors { color: rgba(255, 255, 255, 0.9); } .cardMetaItalic { color: rgba(255, 255, 255, 0.7); } .year { color: var(--color-white); } .tagOutline { color: rgba(255, 255, 255, 0.85); border-color: rgba(255, 255, 255, 0.4); } }
-.bookFoot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 1.6rem; }
-.caseCard { scroll-snap-align: start; border: 1px solid var(--color-light-gray); border-radius: 2rem; padding: 2.4rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem; .year { margin-bottom: 0.8rem; } .tag { margin-bottom: 1.2rem; } }
 
-/* Magazine (dark image bg) */
-.magazine { position: relative; overflow: hidden; color: var(--color-white); }
-.magazineBg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.magazineOverlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.55) 40%, rgba(0, 0, 0, 0.75) 100%); }
-.magazineInner { position: relative; z-index: 1; padding-block: 7rem; }
-.magazineGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.magazineCard { background: var(--color-white); color: var(--color-black); border-radius: 1.6rem; padding: 2.4rem; .cardMetaItalic { margin-bottom: 1rem; } }
-.readLink { font-size: 1.4rem; font-weight: 600; color: var(--color-primary); text-decoration: none; &:hover { text-decoration: underline; } }
+// Figma: left, bottom and top dark fades over the photo.
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.8) 13.18%, rgba(0, 0, 0, 0) 24.83%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 31.53%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.7) 2.33%, rgba(0, 0, 0, 0) 33.24%);
+}
 
-/* Conference list */
-.confList { display: flex; flex-direction: column; }
-.confItem { display: flex; align-items: center; justify-content: space-between; gap: 2.4rem; padding: 2.6rem 0; border-top: 1px solid var(--color-light-gray); &:first-child { border-top: 0; } @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 1.6rem; } }
-.confTitle { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; }
-.confMeta { font-size: 1.4rem; margin-bottom: 0.4rem; strong { font-weight: 700; } em { color: var(--color-gray); margin-left: 0.8rem; } }
-
-/* Aweshkar journal */
-.journalTop { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: center; margin-bottom: 4rem; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
-.journalImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 10; object-fit: cover; background: var(--color-secondary); }
-.archiveHead { display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; margin-bottom: 2.4rem; }
-.archiveHeading { font-size: 2.2rem; font-weight: 700; }
-.readLinkDark { font-size: 1.4rem; font-weight: 600; color: var(--color-primary); text-decoration: underline; }
-.issueRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
-.issueCard {
+.heroInner {
   position: relative;
-  border: 1px solid var(--color-light-gray);
-  border-radius: 1.6rem;
-  padding: 2.4rem;
-  min-height: 11rem;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  text-decoration: none;
-  color: var(--color-black);
-}
-.issueActive { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
-.issueVol { font-size: 1.3rem; opacity: 0.85; }
-.issueLabel { font-size: 1.9rem; font-weight: 700; }
-.issueTag { font-size: 1.2rem; opacity: 0.9; }
+  padding-top: 13.2rem; // Figma breadcrumb at y132
+  padding-bottom: 5rem;
 
-// Figma slider arrows under the books and cases rows.
-.rowArrows { display: flex; justify-content: flex-end; margin-top: 2.4rem; }
+  @include respond-to(mobile) { padding-top: 10rem; padding-bottom: 3.2rem; }
+}
+
+.heroText { margin-top: auto; }
+
+.heroTitle {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1.6rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; }
+}
+
+.heroBody {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  max-width: 96.1rem;
+  margin: 0;
+}
+
+/* ---------- About: glass card over photo (1091px) ---------- */
+
+.about {
+  position: relative;
+  min-height: 109.1rem;
+  padding-top: 5.5rem;
+  overflow: hidden;
+
+  @include respond-to(tab) { min-height: 0; padding-bottom: 42rem; }
+  @include respond-to(mobile) { padding-top: 3rem; padding-bottom: 28rem; }
+
+  > :global(.container) { position: relative; }
+}
+
+.aboutImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+// Figma 2534:1270: white→26% white gradient, 7.5px blur, 30px radius, soft shadow.
+.aboutCard {
+  padding: 4.3rem 7.3rem 4.5rem 5.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.44);
+  border-radius: 3rem;
+  background: linear-gradient(136.47deg, #fff 0%, rgba(255, 255, 255, 0.26) 100%);
+  backdrop-filter: blur(7.5px);
+  box-shadow: 19px 15px 46px 0 rgba(0, 0, 0, 0.14);
+
+  @include respond-to(mobile) { padding: 2.8rem 2rem; border-radius: 2rem; }
+}
+
+.aboutBody {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--color-black);
+  margin-top: 1.7rem;
+}
+
+/* ---------- Governance (497px purple band) ---------- */
+
+.governance {
+  background: $purple;
+  color: var(--color-white);
+  padding: 8rem 0 11.8rem;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.governanceHeading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  color: #dedede;
+  margin: 0 0 4.9rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; margin-bottom: 2.8rem; }
+}
+
+// Figma: columns at x100 and x730 (630 apart), 567px copy.
+.governanceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; row-gap: 3.6rem; }
+}
+
+.policy { max-width: 56.7rem; }
+
+.policyTitle {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 0 0 1.8rem;
+}
+
+.policyBody {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0 0 3.8rem;
+}
+
+/* ---------- Research Publications slider ---------- */
+
+.publications {
+  padding: 9.8rem 0 6.3rem;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.publicationsHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-bottom: 3.6rem;
+
+  .heading { margin-bottom: 1.6rem; }
+
+  @include respond-to(mobile) { margin-bottom: 2.4rem; }
+}
+
+// Cards start on the container edge and run off the right of the viewport.
+.pubTrack {
+  padding-left: max(2rem, calc((100% - 124rem) / 2));
+}
+
+.pubRow {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 2rem 4rem 0; // bottom room for the glass shadow
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Figma: 400x442 cards, 30px radius.
+.pubCard {
+  position: relative;
+  flex: 0 0 40rem;
+  height: 44.2rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  scroll-snap-align: start;
+
+  // Figma: cards 4-6 carry a bottom fade.
+  &:nth-child(n + 4)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 14.15%, rgba(0, 0, 0, 0) 44.51%);
+  }
+
+  @include respond-to(mobile) { flex-basis: 30rem; height: 34rem; border-radius: 2rem; }
+}
+
+.pubImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// Figma 2534:1303: 371x125.5 frosted panel, 14px from the card edges.
+.pubGlass {
+  position: absolute;
+  z-index: 1;
+  left: 1.4rem;
+  right: 1.5rem;
+  bottom: 1.65rem;
+  min-height: 12.55rem;
+  padding: 1.85rem 2.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.44);
+  border-radius: 3rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.26) 100%);
+  backdrop-filter: blur(12.5px);
+  box-shadow: 19px 15px 46px 0 rgba(0, 0, 0, 0.14);
+
+  @include respond-to(mobile) { min-height: 0; padding: 1.6rem 2rem; border-radius: 2rem; }
+}
+
+.pubTitle {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.2rem;
+  max-width: 21.4rem;
+  min-height: 4.4rem; // keeps buttons aligned for 1- and 2-line titles
+  margin: 0 0 1rem;
+}
+
+/* ---------- Research projects / activities ---------- */
+
+.features {
+  display: grid;
+  gap: 2rem;
+  padding-bottom: 10.3rem;
+
+  @include respond-to(mobile) { padding-bottom: 5rem; }
+}
+
+.featureRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  min-height: 49.7rem;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; min-height: 0; }
+}
+
+// Activities row: photo left, text right (desktop only).
+.featureRowReverse .featureText { order: 2; }
+
+@include respond-to(mobile) {
+  .featureRowReverse .featureText { order: 0; }
+}
+
+.featureText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: $cream;
+  border-radius: 3rem;
+
+  .body { margin-bottom: 2.7rem; }
+
+  @include respond-to(mobile) { padding: 3.2rem 2rem; border-radius: 2rem; }
+}
+
+// Figma: copy inset 72px (projects, 410px) and 68px (activities, 446px).
+.featureTextProjects { padding-inline: 7.2rem; .body { max-width: 41rem; } }
+.featureTextActivities { padding-inline: 6.8rem; .body { max-width: 44.6rem; } }
+
+@include respond-to(mobile) {
+  .featureTextProjects,
+  .featureTextActivities { padding-inline: 2rem; }
+}
+
+.featureImage {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  border-radius: 3rem;
+
+  @include respond-to(mobile) { aspect-ratio: 610 / 497; height: auto; border-radius: 2rem; }
+}
+
+/* ---------- Area of research (657px purple band) ---------- */
+
+.areas {
+  background: $purple;
+  color: var(--color-white);
+  padding: 5.3rem 0 6.1rem; // heading cap 61px below the band top
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.areasHeading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  margin: 0 0 2.7rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; }
+}
+
+// Figma: 3x3 grid, columns 421/420/400, white hairlines between cells only.
+.areaGrid {
+  display: grid;
+  grid-template-columns: 42.1rem 42rem 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); }
+  @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); }
+}
+
+.area {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.2rem 2rem 2.6rem 2.2rem;
+  border-color: rgba(255, 255, 255, 0.3);
+  border-style: solid;
+  border-width: 0;
+
+  // Desktop/tablet: vertical rules after columns 1-2, horizontal rules above rows 2-3.
+  @media (min-width: 768px) {
+    &:not(:nth-child(3n)) { border-right-width: 1px; }
+    &:nth-child(n + 4) { border-top-width: 1px; }
+    &:nth-child(3n + 1) { padding-left: 0.1rem; }
+  }
+
+  @include respond-to(mobile) {
+    padding: 1.6rem 1.2rem 2rem;
+    &:nth-child(odd) { border-right-width: 1px; padding-left: 0; }
+    &:nth-child(n + 3) { border-top-width: 1px; }
+  }
+}
+
+.areaIcon {
+  display: flex;
+  align-items: flex-end;
+  height: 7rem;
+  margin-bottom: 1.5rem;
+
+  img { display: block; max-height: 7rem; width: auto; }
+
+  @include respond-to(mobile) { height: 5rem; margin-bottom: 1.2rem; img { max-height: 5rem; } }
+}
+
+.areaLabel {
+  font-size: 2rem;
+  line-height: 1.2;
+
+  @include respond-to(mobile) { font-size: 1.6rem; }
+}
+
+/* ---------- Split rows (CECD, Doctoral, Journal) ---------- */
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 61rem;
+  gap: 2rem;
+  align-items: start;
+
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+/* CECD (634px cream band) */
+.cecd {
+  background: $cream;
+  padding: 9.7rem 0 10.4rem;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.cecdText {
+  max-width: 53.1rem;
+
+  .heading { margin-bottom: 1.6rem; }
+}
+
+.inlineLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.cecdImage {
+  width: 100%;
+  aspect-ratio: 610 / 425;
+  object-fit: cover;
+  object-position: bottom;
+  border-radius: 3rem;
+  margin-top: 0.8rem; // Figma: photo top aligns with the heading cap line
+
+  @include respond-to(mobile) { border-radius: 2rem; margin-top: 0; }
+}
+
+/* Seminars (529px photo band) */
+.seminars {
+  position: relative;
+  min-height: 52.9rem;
+  display: flex;
+  overflow: hidden;
+  color: var(--color-white);
+  text-align: center;
+}
+
+.seminarsImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 88.6%; // Figma crop: lower-middle of the photo
+}
+
+// Figma: rgba(0,0,0,0.6) over the photo.
+.seminars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+// Figma: copy sits low in the band (273px from the top, 68px from the bottom).
+.seminarsInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 26.6rem 0 6.8rem;
+
+  @include respond-to(mobile) { padding: 12rem 0 5rem; }
+}
+
+.seminarsHeading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  margin: 0 0 1.6rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; }
+}
+
+.seminarsBody {
+  max-width: 84rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0 0 3.6rem;
+}
+
+/* Doctoral (661px white band) with pale green arrow watermark */
+.doctoral {
+  position: relative;
+  overflow: hidden;
+  padding: 13.2rem 0 10.4rem;
+
+  // Figma "_639673728": 331x378 #70A344 triangle at 10% opacity, starts 105px above the band.
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -10.5rem;
+    width: 33.1rem;
+    height: 37.8rem;
+    background: rgba(112, 163, 68, 0.1);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    pointer-events: none;
+
+    @include respond-to(tab) { display: none; }
+  }
+
+  > :global(.container) { position: relative; }
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.doctoralText {
+  max-width: 57.8rem;
+  // Figma: heading box top aligns with the photo top.
+}
+
+.doctoralCtas {
+  display: flex;
+  gap: 2rem;
+  margin-top: 4rem;
+
+  :global(.btn + .btn) { margin-left: 0; }
+}
+
+.doctoralImage {
+  width: 100%;
+  aspect-ratio: 610 / 425;
+  object-fit: cover;
+  border-radius: 3rem;
+
+  @include respond-to(mobile) { border-radius: 2rem; }
+}
+
+/* Aweshkar Journal (684px purple band) */
+.journal {
+  background: $purple;
+  color: var(--color-white);
+  padding: 9rem 0 9.8rem;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.journalText { max-width: 54rem; }
+
+.journalImage {
+  width: 100%;
+  aspect-ratio: 610 / 488;
+  object-fit: cover;
+  border-radius: 4rem;
+  margin-top: 0.8rem; // Figma: photo top aligns with the heading cap line
+
+  @include respond-to(mobile) { border-radius: 2rem; margin-top: 0; }
+}
