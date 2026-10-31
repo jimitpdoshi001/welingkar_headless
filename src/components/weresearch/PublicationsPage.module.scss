@@ -1,0 +1,214 @@
+@use "../../styles/base/mixins" as *;
+
+$purple-tag: #6b4c86;
+$green: #3a9030;
+
+// Figma 2549:1783: breadcrumb at y132, panel ends 131px above the footer.
+.main {
+  padding: 13.2rem 0 13.1rem;
+
+  @include respond-to(tab) { padding: 8.6rem 0 6rem; }
+}
+
+.crumbs { margin-bottom: 7rem; @include respond-to(mobile) { margin-bottom: 3.2rem; } }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+// Years column (x104) beside the 1050px panel (x290).
+.layout {
+  display: grid;
+  grid-template-columns: 19rem 1fr;
+  align-items: start;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 2.4rem; }
+}
+
+.years {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  list-style: none;
+  margin: -0.7rem 0 0; // Figma: first year's cap line level with the panel top
+  padding: 0 0 0 0.4rem;
+
+  @include respond-to(tab) {
+    flex-direction: row;
+    align-items: center;
+    gap: 2.4rem;
+    overflow-x: auto;
+    padding: 0 0 0.4rem;
+    scrollbar-width: none;
+  }
+}
+
+// Figma: 22px #a4a4a4 years, active 40px ExtraBold green.
+.year {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 2.2rem;
+  line-height: 2.9rem;
+  color: #a4a4a4;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover { color: $green; }
+  &:focus-visible { outline: 2px solid $green; outline-offset: 2px; }
+}
+
+.yearActive {
+  font-size: 4rem;
+  line-height: 4rem;
+  font-weight: 800;
+  color: $green;
+
+  @include respond-to(tab) { font-size: 2.8rem; line-height: 3.4rem; }
+}
+
+// Figma: cream #fdf8f0, 30px radius, content inset 56px / 53px.
+.panel {
+  background: #fdf8f0;
+  border-radius: 3rem;
+  padding: 5.3rem 8.5rem 6.1rem 5.6rem;
+
+  @include respond-to(mobile) { padding: 2.8rem 2rem 3.2rem; border-radius: 2rem; }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// Items 406px apart: 30px to the hairline, 34px after it.
+.item {
+  & + & {
+    margin-top: 3rem;
+    padding-top: 3.4rem;
+    border-top: 1px solid #b7b7b7;
+  }
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 3.4rem;
+  margin-bottom: 2rem;
+
+  @include respond-to(mobile) { gap: 1.6rem; flex-wrap: wrap; }
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 3rem;
+  padding: 0 1.6rem;
+  border-radius: 2.5rem;
+  background: $purple-tag;
+  color: var(--color-white);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.itemYear {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: $purple-tag;
+}
+
+.title {
+  max-width: 74.6rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 2.2rem;
+
+  @include respond-to(mobile) { font-size: 1.8rem; }
+}
+
+.authors {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.journal {
+  font-size: 1.6rem;
+  font-style: italic;
+  margin: 0 0 2.6rem;
+}
+
+.abstract {
+  max-width: 87.6rem;
+  font-size: 1.8rem;
+  line-height: 1.3;
+  margin: 0 0 3.6rem;
+
+  @include respond-to(mobile) { font-size: 1.6rem; }
+}
+
+// Figma: 130x50 outline pill, 16px SemiBold.
+.readBtn { padding: 1.6rem 2.1rem; }
+
+.empty { font-size: 1.8rem; margin: 0; }
+
+/* Pager: outlined prev circle, numbers, filled next circle (Figma 2549:1773). */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  margin-top: 6.4rem;
+  margin-right: -4.8rem; // Figma: arrows end 4px inside the panel edge
+
+  @include respond-to(mobile) { margin-right: 0; margin-top: 4rem; justify-content: center; }
+}
+
+.pagePrev,
+.pageNext {
+  display: grid;
+  place-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  border: 1px solid $green;
+  cursor: pointer;
+
+  &:disabled { opacity: 0.4; cursor: default; }
+}
+
+.pagePrev {
+  background: transparent;
+  svg path { fill: $green; }
+}
+
+.pageNext {
+  background: $green;
+  svg path { fill: var(--color-white); }
+}
+
+.pageNum {
+  min-width: 3.6rem;
+  height: 3.6rem;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: $green;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover { text-decoration: underline; }
+}
+
+.pageNumActive { text-decoration: underline; }

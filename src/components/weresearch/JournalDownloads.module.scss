@@ -1,0 +1,62 @@
+.root { margin-top: 5.1rem; }
+
+.heading {
+  display: block;
+  font-size: 1.8rem; // Figma 18px SemiBold
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 2.5rem;
+}
+
+// Figma: 210x54 pill, 1px white border, year at 26px inset.
+.selectWrap {
+  position: relative;
+  width: 21rem;
+}
+
+.select {
+  appearance: none;
+  width: 100%;
+  height: 5.4rem;
+  padding: 0 4.8rem 0 2.6rem;
+  border: 1px solid var(--color-white);
+  border-radius: 10rem;
+  background: transparent;
+  color: var(--color-white);
+  font: inherit;
+  font-size: 1.8rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  option { color: var(--color-black); }
+
+  &:focus-visible { outline: 2px solid var(--color-white); outline-offset: 2px; }
+}
+
+.caret {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.issues {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 2.4rem;
+  list-style: none;
+  margin: 3rem 0 0;
+  padding: 0;
+}
+
+.issue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+  color: var(--color-white);
+  text-decoration: none;
+
+  &:hover { text-decoration: underline; }
+}

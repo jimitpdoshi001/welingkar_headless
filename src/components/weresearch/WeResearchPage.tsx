@@ -5,9 +5,26 @@ import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
-import type { WeResearchData } from "@/lib/weresearch/weresearch-data";
 import { ScrollArrows } from "@/components/campus/ScrollArrows/ScrollArrows";
+import type { FeatureBlock, WeResearchData } from "@/lib/weresearch/weresearch-data";
+import { WeResearchBreadcrumb } from "./WeResearchBreadcrumb";
+import { JournalDownloads } from "./JournalDownloads";
 import styles from "./WeResearchPage.module.scss";
+
+const PUBLICATIONS_ROW_ID = "weresearch-publications";
+
+// Cream text panel used by the Research projects / activities rows.
+function FeatureText({ block, className = "" }: { block: FeatureBlock; className?: string }) {
+  return (
+    <div className={`${styles.featureText} ${className}`}>
+      <h2 className={styles.heading}>{block.heading}</h2>
+      <p className={styles.body}>{block.body}</p>
+      <Link href={block.cta.href} className={`btn accent ${styles.smallBtn}`}>
+        {block.cta.label}
+      </Link>
+    </div>
+  );
+}
 
 export function WeResearchPage({ data }: { data: WeResearchData }) {
   return (
@@ -16,272 +33,179 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
         <Header transparentHero />
 
         <main>
-          {/* Hero */}
+          {/* Hero (Figma 2533:396): photo with left, bottom and top dark fades. */}
           <section className={styles.hero}>
             <img src={data.hero.image} alt="" className={styles.heroImage} />
             <div className={styles.heroOverlay} />
             <div className={`container ${styles.heroInner}`}>
-              <nav className={styles.breadcrumb}>
-                <Link href="/">Home</Link> <span>›</span>{" "}
-                <span>WeResearch</span>
-              </nav>
-              <h1 className={styles.heroTitle}>{data.hero.title}</h1>
-              <p className={styles.heroBody}>{data.hero.body}</p>
-              <Link href={data.hero.cta.href} className="btn accent">
-                {data.hero.cta.label}
+              <WeResearchBreadcrumb current="WeResearch" />
+              <div className={styles.heroText}>
+                <h1 className={styles.heroTitle}>{data.hero.title}</h1>
+                <p className={styles.heroBody}>{data.hero.body}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* About (Figma 2534:1275 + 2534:1270): frosted glass card over a photo. */}
+          <section className={styles.about}>
+            <img src={data.about.image} alt="" className={styles.aboutImage} />
+            <div className="container">
+              <div className={styles.aboutCard}>
+                <h2 className={styles.heading}>{data.about.heading}</h2>
+                <div className={styles.aboutBody}>
+                  {data.about.paragraphs.map((p) => (
+                    <p key={p.slice(0, 40)}>{p}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Governance (Figma 2534:1279): purple band, two policies. */}
+          <section className={styles.governance}>
+            <div className="container">
+              <h2 className={styles.governanceHeading}>{data.governance.heading}</h2>
+              <div className={styles.governanceGrid}>
+                {data.governance.items.map((item) => (
+                  <div key={item.title} className={styles.policy}>
+                    <h3 className={styles.policyTitle}>{item.title}</h3>
+                    <p className={styles.policyBody}>{item.body}</p>
+                    <Link href={item.href} className={`btn accent ${styles.smallBtn}`}>
+                      Know More
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Research Publications (Figma 2544:1345): card row that bleeds off the right edge. */}
+          <section className={styles.publications}>
+            <div className={`container ${styles.publicationsHead}`}>
+              <div>
+                <h2 className={styles.heading}>{data.publications.heading}</h2>
+                <p className={styles.body}>{data.publications.description}</p>
+              </div>
+              <ScrollArrows targetId={PUBLICATIONS_ROW_ID} />
+            </div>
+            <div className={styles.pubTrack}>
+              <ul id={PUBLICATIONS_ROW_ID} className={styles.pubRow}>
+                {data.publications.cards.map((card) => (
+                  <li key={card.title} className={styles.pubCard}>
+                    <img src={card.image} alt="" className={styles.pubImage} />
+                    <div className={styles.pubGlass}>
+                      <h3 className={styles.pubTitle}>{card.title}</h3>
+                      <Link href={card.href} className={`btn accent ${styles.smallBtn}`}>
+                        Know More
+                      </Link>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* Research projects / activities (Figma 2544:1353-1416): 2x2 checkerboard. */}
+          <section className={`container ${styles.features}`}>
+            <div className={styles.featureRow}>
+              <FeatureText block={data.projects} className={styles.featureTextProjects} />
+              <img src={data.projects.image} alt="" className={styles.featureImage} />
+            </div>
+            <div className={`${styles.featureRow} ${styles.featureRowReverse}`}>
+              <FeatureText block={data.activities} className={styles.featureTextActivities} />
+              <img src={data.activities.image} alt="" className={styles.featureImage} />
+            </div>
+          </section>
+
+          {/* Area of research (Figma 2549:1678): 3x3 icon grid with hairline dividers. */}
+          <section className={styles.areas}>
+            <div className="container">
+              <h2 className={styles.areasHeading}>{data.areas.heading}</h2>
+              <ul className={styles.areaGrid}>
+                {data.areas.items.map((area) => (
+                  <li key={area.label} className={styles.area}>
+                    <span className={styles.areaIcon}>
+                      <img src={area.icon} alt="" />
+                    </span>
+                    <span className={styles.areaLabel}>{area.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          {/* CECD (Figma 2549:1679): cream band, text left, photo right. */}
+          <section className={styles.cecd}>
+            <div className={`container ${styles.split}`}>
+              <div className={styles.cecdText}>
+                <h2 className={styles.heading}>
+                  {data.cecd.headingLines.map((line) => (
+                    <span key={line} className={styles.headingLine}>
+                      {line}
+                    </span>
+                  ))}
+                </h2>
+                <p className={styles.body}>
+                  {data.cecd.body}{" "}
+                  <Link href={data.cecd.linkHref} className={styles.inlineLink}>
+                    {data.cecd.linkLabel}
+                  </Link>
+                  .
+                </p>
+              </div>
+              <img src={data.cecd.image} alt="" className={styles.cecdImage} />
+            </div>
+          </section>
+
+          {/* Seminars (Figma 2549:1592): photo with 60% black overlay, centred copy. */}
+          <section className={styles.seminars}>
+            <img src={data.seminars.image} alt="" className={styles.seminarsImage} />
+            <div className={`container ${styles.seminarsInner}`}>
+              <h2 className={styles.seminarsHeading}>{data.seminars.heading}</h2>
+              <p className={styles.seminarsBody}>{data.seminars.body}</p>
+              <Link href={data.seminars.cta.href} className={`btn accent ${styles.smallBtn}`}>
+                {data.seminars.cta.label}
               </Link>
             </div>
           </section>
 
-          {/* Research Areas */}
-          <section className="bg-light-yellow">
-            <div className={`container ${styles.block}`}>
-              <h2 className={styles.heading}>{data.areas.heading}</h2>
-              <div className={styles.pills}>
-                {data.areas.items.map((a, i) => (
-                  <span
-                    key={a}
-                    className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}
-                  >
-                    {a}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Awarded & Recognised Papers */}
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.heading}>{data.awarded.heading}</h2>
-            <p className={styles.sectionBody}>{data.awarded.description}</p>
-            <div className={styles.awardGrid}>
-              {data.awarded.papers.map((p) => (
-                <article key={p.id} className={styles.awardCard}>
-                  <div className={styles.cardTop}>
-                    <span className={styles.tag}>{p.area}</span>
-                    <span className={styles.year}>{p.year}</span>
-                  </div>
-                  <h3 className={styles.cardTitle}>{p.title}</h3>
-                  <p className={styles.cardAuthors}>{p.authors}</p>
-                  <p className={styles.cardMeta}>{p.journal}</p>
-                  <div className={styles.awardBadge}>
-                    <span aria-hidden="true">🏆</span> {p.award}
-                  </div>
-                  <Link href={p.href} className="btn accent-outline">
-                    View Paper
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          {/* All Research Papers */}
-          <section className={styles.papers}>
-            <img
-              src={data.allPapers.image}
-              alt=""
-              className={styles.papersBg}
-            />
-            <div className={styles.papersOverlay} />
-            <div className={`container ${styles.papersInner}`}>
-              <h2 className={styles.headingLight}>{data.allPapers.heading}</h2>
-              <p className={styles.sectionBodyLight}>
-                {data.allPapers.description}
-              </p>
-              <div className={styles.papersPanel}>
-                <div className={styles.searchRow}>
-                  <input
-                    className={styles.search}
-                    type="search"
-                    placeholder="Search research by title, author, keyword, publication or year"
-                    aria-label="Search research"
-                  />
-                  <span className={styles.select}>By Years ▾</span>
-                  <span className={styles.select}>All Areas ▾</span>
-                </div>
-                <div className={styles.pills}>
-                  {data.areas.items.map((a, i) => (
-                    <span
-                      key={a}
-                      className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}
-                    >
-                      {a}
-                    </span>
+          {/* Doctoral research center (Figma 2549:1600-1618) with pale arrow watermark. */}
+          <section className={styles.doctoral}>
+            <div className={`container ${styles.split}`}>
+              <div className={styles.doctoralText}>
+                <h2 className={styles.heading}>{data.doctoral.heading}</h2>
+                <div className={styles.paragraphs}>
+                  {data.doctoral.paragraphs.map((p) => (
+                    <p key={p.slice(0, 40)}>{p}</p>
                   ))}
                 </div>
-                <div className={styles.paperList}>
-                  {data.allPapers.papers.map((p) => (
-                    <article key={p.id} className={styles.paperItem}>
-                      <div className={styles.cardTop}>
-                        <span className={styles.tag}>{p.area}</span>
-                        <span className={styles.year}>{p.year}</span>
-                      </div>
-                      <h3 className={styles.paperTitle}>{p.title}</h3>
-                      <p className={styles.cardAuthors}>{p.authors}</p>
-                      <p className={styles.cardMeta}>{p.journal}</p>
-                      <p className={styles.abstract}>{p.abstract}</p>
-                      <Link href={p.href} className="btn accent-outline">
-                        Read Paper
-                      </Link>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Books Published */}
-          <section className="bg-secondary">
-            <div className={`container ${styles.block}`}>
-              <h2 className={styles.headingLight}>{data.books.heading}</h2>
-              <p className={styles.sectionBodyLight}>
-                {data.books.description}
-              </p>
-              <div id="wr-books" className={styles.scrollRow}>
-                {data.books.items.map((b) => (
-                  <article key={b.id} className={styles.bookCard}>
-                    <span className={styles.tagOutline}>ISBN</span>
-                    <h3 className={styles.cardTitle}>{b.title}</h3>
-                    <p className={styles.cardAuthors}>{b.authors}</p>
-                    <p className={styles.cardMetaItalic}>{b.publisher}</p>
-                    <div className={styles.bookFoot}>
-                      <span className={styles.year}>{b.year}</span>
-                      <Link href={b.href} className="btn accent-outline">
-                        View Paper
-                      </Link>
-                    </div>
-                  </article>
-                ))}
-              </div>
-              <div className={styles.rowArrows}>
-                <ScrollArrows targetId="wr-books" />
-              </div>
-            </div>
-          </section>
-
-          {/* Authored Cases */}
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.heading}>{data.cases.heading}</h2>
-            <p className={styles.sectionBody}>{data.cases.description}</p>
-            <div id="wr-cases" className={styles.scrollRow}>
-              {data.cases.items.map((c) => (
-                <article key={c.id} className={styles.caseCard}>
-                  <span className={styles.year}>{c.year}</span>
-                  <span className={styles.tag}>{c.publisher}</span>
-                  <h3 className={styles.cardTitle}>{c.title}</h3>
-                  <p className={styles.cardAuthors}>{c.authors}</p>
-                  <p className={styles.cardMetaItalic}>{c.source}</p>
-                  <p className={styles.abstract}>{c.abstract}</p>
-                  <Link href={c.href} className="btn accent-outline">
-                    View Case
+                <div className={styles.doctoralCtas}>
+                  <Link href={data.doctoral.pdf.href} className={`btn accent ${styles.smallBtn}`}>
+                    {data.doctoral.pdf.label}
                   </Link>
-                </article>
-              ))}
-            </div>
-            <div className={styles.rowArrows}>
-              <ScrollArrows targetId="wr-cases" />
-            </div>
-          </section>
-
-          {/* Magazine Articles */}
-          <section className={styles.magazine}>
-            <img
-              src={data.magazine.image}
-              alt=""
-              className={styles.magazineBg}
-            />
-            <div className={styles.magazineOverlay} />
-            <div className={`container ${styles.magazineInner}`}>
-              <h2 className={styles.headingLight}>{data.magazine.heading}</h2>
-              <p className={styles.sectionBodyLight}>
-                {data.magazine.description}
-              </p>
-              <div className={styles.magazineGrid}>
-                {data.magazine.items.map((m) => (
-                  <article key={m.id} className={styles.magazineCard}>
-                    <div className={styles.cardTop}>
-                      <span className={styles.tag}>{m.area}</span>
-                      <span className={styles.year}>{m.date}</span>
-                    </div>
-                    <h3 className={styles.cardTitle}>{m.title}</h3>
-                    <p className={styles.cardAuthors}>{m.author}</p>
-                    <p className={styles.cardMetaItalic}>{m.source}</p>
-                    <Link href={m.href} className={styles.readLink}>
-                      Read Article
-                    </Link>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Conference Articles */}
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.heading}>{data.conference.heading}</h2>
-            <p className={styles.sectionBody}>{data.conference.description}</p>
-            <div className={styles.confList}>
-              {data.conference.items.map((c) => (
-                <article key={c.id} className={styles.confItem}>
-                  <div className={styles.confText}>
-                    <h3 className={styles.confTitle}>{c.title}</h3>
-                    <p className={styles.confMeta}>
-                      <strong>{c.authors}</strong> <em>{c.conference}</em>
-                    </p>
-                    <p className={styles.cardMeta}>{c.proceedings}</p>
-                  </div>
-                  <Link href={c.href} className="btn accent-outline">
-                    View Article
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </section>
-
-          {/* Aweshkar Journal */}
-          <section className="bg-light-yellow">
-            <div className={`container ${styles.block}`}>
-              <div className={styles.journalTop}>
-                <div>
-                  <h2 className={styles.heading}>{data.journal.heading}</h2>
-                  <p className={styles.sectionBody}>{data.journal.body}</p>
-                </div>
-                {/* Figma shows a plain purple panel until a journal cover is supplied. */}
-                {data.journal.image ? (
-                  <img
-                    src={data.journal.image}
-                    alt=""
-                    className={styles.journalImage}
-                  />
-                ) : (
-                  <div className={styles.journalImage} aria-hidden="true" />
-                )}
-              </div>
-              <div className={styles.archiveHead}>
-                <h3 className={styles.archiveHeading}>
-                  {data.journal.archiveHeading}
-                </h3>
-                <Link
-                  href={data.journal.cta.href}
-                  className={styles.readLinkDark}
-                >
-                  {data.journal.cta.label}
-                </Link>
-              </div>
-              <div className={styles.issueRow}>
-                {data.journal.issues.map((iss) => (
                   <Link
-                    key={iss.id}
-                    href={iss.href}
-                    className={`${styles.issueCard} ${iss.latest ? styles.issueActive : ""}`}
-                  >
-                    <span className={styles.issueVol}>{iss.volume}</span>
-                    <span className={styles.issueLabel}>{iss.label}</span>
-                    {iss.latest && (
-                      <span className={styles.issueTag}>Latest</span>
-                    )}
+                    href={data.doctoral.apply.href}
+                    className={`btn accent-outline ${styles.smallBtn}`}>
+                    {data.doctoral.apply.label}
                   </Link>
-                ))}
+                </div>
               </div>
+              <img src={data.doctoral.image} alt="" className={styles.doctoralImage} />
+            </div>
+          </section>
+
+          {/* Aweshkar Journal (Figma 2549:1677): purple band, downloads left, photo right. */}
+          <section className={styles.journal}>
+            <div className={`container ${styles.split}`}>
+              <div className={styles.journalText}>
+                <h2 className={styles.headingLight}>{data.journal.heading}</h2>
+                <p className={styles.bodyLight}>{data.journal.body}</p>
+                <JournalDownloads
+                  heading={data.journal.downloadHeading}
+                  years={data.journal.years}
+                />
+              </div>
+              <img src={data.journal.image} alt="" className={styles.journalImage} />
             </div>
           </section>
         </main>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { RegistryPage } from "@/components/shell/RegistryPage";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
-const SLUGS = ["papers","recognised","areas","cases","aweshkar","articles","conferences","mumbai","bengaluru"];
+const SLUGS = ["recognised","areas","cases","aweshkar","articles","conferences","mumbai","bengaluru"];
 export function generateStaticParams() { return SLUGS.map((slug) => ({ slug })); }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

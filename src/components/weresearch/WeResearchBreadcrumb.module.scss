@@ -1,0 +1,15 @@
+.crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.dark { color: var(--color-black); }
+
+.home {
+  display: inline-flex;
+  color: inherit;
+}
