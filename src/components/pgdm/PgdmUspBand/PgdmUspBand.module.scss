@@ -99,3 +99,21 @@
 
 // Figma mobile shows the USP cards peeking, without arrows.
 .noArrows { display: none !important; }
+
+// Figma mobile: photo framed on the students on the right.
+@include respond-to(mobile) {
+  .inner { min-height: 63.5rem; }
+
+  .photo {
+    object-position: 80% 100%;
+    transform: scale(1.45);
+    transform-origin: 78% 70%;
+  }
+
+  // Lighter top shade than desktop so the students stay visible.
+  .overlay {
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 35%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 25%);
+  }
+}

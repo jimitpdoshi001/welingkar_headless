@@ -200,3 +200,12 @@
     &::before { display: block; }
   }
 }
+
+@include respond-to(mobile) {
+  .card { min-height: 34rem; }
+
+  // Figma mobile: fee cards ~80% wide so the next one peeks in.
+  .feesSwiper {
+    margin-right: -2rem;
+  }
+}

@@ -67,3 +67,9 @@
   color: var(--color-black);
   margin: 0 0 2rem;
 }
+
+@include respond-to(mobile) {
+  .subtitle { font-size: 1.6rem; }
+  .card { min-height: 0; padding: 2.4rem 2rem; }
+  .cards { gap: 1.6rem; }
+}

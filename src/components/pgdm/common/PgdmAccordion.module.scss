@@ -51,7 +51,7 @@
   font-weight: 500;
   text-align: left;
 
-  @include respond-to(mobile) { font-size: 1.5rem; }
+  @include respond-to(mobile) { font-size: 1.8rem; } // Figma mobile FAQ
 }
 
 .toggle {
