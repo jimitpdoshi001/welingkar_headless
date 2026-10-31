@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
@@ -7,24 +5,42 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { WeGlobalData, WgCard } from "@/lib/weglobal/weglobal-data";
 import { ScrollArrows } from "@/components/campus/ScrollArrows/ScrollArrows";
+import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcrumb";
+import { PartnerMap } from "./PartnerMap";
 import styles from "./WeGlobalPage.module.scss";
 
-function CardRow({ id, items }: { id: string; items: WgCard[] }) {
+type CardSectionProps = {
+  id: string;
+  heading: string;
+  body: string;
+  items: WgCard[];
+  className?: string;
+};
+
+// Heading + copy with slider arrows on the right, then a 609x362 card row that
+// starts on the container edge and runs off the right of the viewport (Figma).
+function CardSection({ id, heading, body, items, className = "" }: CardSectionProps) {
   return (
-    <>
-      <div id={id} className={styles.scrollRow}>
-        {items.map((c) => (
-          <article key={c.id} className={styles.card}>
-            <img src={c.image} alt="" className={styles.cardImg} />
-            <h3 className={styles.cardTitle}>{c.title}</h3>
-            <p className={styles.cardText}>{c.text}</p>
-          </article>
-        ))}
-      </div>
-      <div className={styles.rowArrows}>
+    <section className={`${styles.cardSection} ${className}`}>
+      <div className={`container ${styles.cardHead}`}>
+        <div>
+          <h2 className={styles.heading}>{heading}</h2>
+          <p className={styles.sectionBody}>{body}</p>
+        </div>
         <ScrollArrows targetId={id} />
       </div>
-    </>
+      <div className={styles.track}>
+        <ul id={id} className={styles.scrollRow}>
+          {items.map((c) => (
+            <li key={c.id} className={styles.card}>
+              <img src={c.image} alt="" className={styles.cardImg} />
+              <h3 className={styles.cardTitle}>{c.title}</h3>
+              <p className={styles.cardText}>{c.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }
 
@@ -35,24 +51,22 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
         <Header />
 
         <main>
-          {/* Hero + intro */}
+          {/* Hero + intro (Figma 1064:287 / 1064:290) */}
           <section className={`container ${styles.heroBlock}`}>
-            <nav className={styles.breadcrumb}>
-              <Link href="/">Home</Link> <span>›</span> <span>We Global</span>
-            </nav>
+            <WeResearchBreadcrumb current="We Global" tone="dark" className={styles.breadcrumb} />
             <img src={data.hero.image} alt="" className={styles.heroImage} />
             <p className={styles.intro}>{data.hero.intro}</p>
           </section>
 
-          {/* Alliances */}
-          <section className={`container ${styles.block} ${styles.alliances}`}>
-            <div>
+          {/* Alliances: copy left, contact cards right */}
+          <section className={`container ${styles.alliances}`}>
+            <div className={styles.alliancesText}>
               <h2 className={styles.heading}>{data.alliances.heading}</h2>
-              {data.alliances.paragraphs.map((p, i) => (
-                <p key={i} className={styles.body}>
-                  {p}
-                </p>
-              ))}
+              <div className={styles.body}>
+                {data.alliances.paragraphs.map((p) => (
+                  <p key={p.slice(0, 40)}>{p}</p>
+                ))}
+              </div>
             </div>
             <div className={styles.contacts}>
               {data.alliances.contacts.map((c) => (
@@ -69,26 +83,36 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
             </div>
           </section>
 
-          {/* Engagements */}
-          <section className="bg-light-yellow">
-            <div className={`container ${styles.block}`}>
-              <h2 className={styles.heading}>{data.engagements.heading}</h2>
-              <p className={styles.sectionBody}>{data.engagements.body}</p>
-              <CardRow id="wg-engagements" items={data.engagements.items} />
-            </div>
+          {/* Partner universities map (Figma 2568:1782 + labels) */}
+          <section className={`container ${styles.partners}`}>
+            <h2 className={styles.heading}>{data.partners.heading}</h2>
+            <PartnerMap
+              map={data.partners.map}
+              items={data.partners.items}
+              title={data.partners.heading}
+            />
           </section>
 
-          {/* Learning */}
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.heading}>{data.learning.heading}</h2>
-            <p className={styles.sectionBody}>{data.learning.body}</p>
-            <CardRow id="wg-learning" items={data.learning.items} />
-          </section>
+          <CardSection
+            id="wg-engagements"
+            heading={data.engagements.heading}
+            body={data.engagements.body}
+            items={data.engagements.items}
+            className={styles.engagements}
+          />
 
-          {/* Become a Student Buddy */}
-          <section className={`bg-secondary ${styles.buddy}`}>
+          <CardSection
+            id="wg-learning"
+            heading={data.learning.heading}
+            body={data.learning.body}
+            items={data.learning.items}
+            className={styles.learning}
+          />
+
+          {/* Become a Student Buddy (Figma 1069:604) */}
+          <section className={styles.buddy}>
             <div className={`container ${styles.buddyInner}`}>
-              <div>
+              <div className={styles.buddyText}>
                 <h2 className={styles.headingLight}>{data.buddy.heading}</h2>
                 <p className={styles.buddyBody}>{data.buddy.body}</p>
               </div>
@@ -98,8 +122,7 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 action="/form-success"
-                className={styles.buddyForm}
-              >
+                className={styles.buddyForm}>
                 <input type="hidden" name="form-name" value="weglobal" />
                 <p hidden aria-hidden="true">
                   <label>
@@ -112,6 +135,8 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
                   name="name"
                   placeholder="Name*"
                   required
+                  maxLength={100}
+                  autoComplete="name"
                   aria-label="Name"
                 />
                 <input
@@ -120,6 +145,8 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
                   name="email"
                   placeholder="Email*"
                   required
+                  maxLength={150}
+                  autoComplete="email"
                   aria-label="Email"
                 />
                 <input
@@ -128,7 +155,9 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
                   name="contact"
                   placeholder="Contact Us*"
                   required
-                  aria-label="Contact"
+                  pattern="[0-9+\-\s]{7,15}"
+                  autoComplete="tel"
+                  aria-label="Contact number"
                 />
                 <input
                   className={styles.input}
@@ -136,19 +165,20 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
                   name="course"
                   placeholder="Course*"
                   required
+                  maxLength={100}
                   aria-label="Course"
                 />
                 <div className={styles.checkRow}>
                   <label className={styles.check}>
-                    <input type="checkbox" name="campus" value="Mumbai" />{" "}
+                    <input type="checkbox" name="campus" value="Mumbai" />
                     Mumbai
                   </label>
                   <label className={styles.check}>
-                    <input type="checkbox" name="campus" value="Bengaluru" />{" "}
+                    <input type="checkbox" name="campus" value="Bengaluru" />
                     Bengaluru
                   </label>
                 </div>
-                <button type="submit" className="btn accent">
+                <button type="submit" className={`btn accent ${styles.submit}`}>
                   Submit
                 </button>
               </form>
