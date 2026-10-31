@@ -1,68 +1,315 @@
 @use "../../styles/base/mixins" as *;
 
-.block { padding-block: 6rem; @include respond-to(mobile) { padding-block: 4rem; } }
+// Figma 1064:189 palette.
+$purple: #493460;
+$cream: #fdf8f0;
 
-.heading { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-black); margin-bottom: 1.6rem; @include respond-to(mobile) { font-size: 2.6rem; } }
-.headingLight { font-size: 3.6rem; font-weight: 800; line-height: 1.2; color: var(--color-white); margin-bottom: 2rem; @include respond-to(mobile) { font-size: 2.6rem; } }
-.body { font-size: 1.45rem; line-height: 1.7; color: var(--color-dark-gray); margin-bottom: 1.4rem; }
-.sectionBody { font-size: 1.5rem; line-height: 1.7; color: var(--color-dark-gray); max-width: 90rem; margin-bottom: 3.2rem; }
+/* ---------- Shared type ---------- */
 
-/* Hero */
-.heroBlock { padding-top: 13rem; padding-bottom: 2rem; @include respond-to(tab) { padding-top: 8.6rem; } }
-.breadcrumb { font-size: 1.4rem; margin-bottom: 1.6rem; display: flex; gap: 0.8rem; color: var(--color-gray); a { color: var(--color-gray); text-decoration: none; } }
-.heroImage { width: 100%; border-radius: 2.4rem; aspect-ratio: 16 / 7; object-fit: cover; margin-bottom: 3.2rem; }
-.intro { font-size: 3.4rem; font-weight: 800; line-height: 1.3; text-align: center; max-width: 108rem; margin: 2rem auto 3rem; @include respond-to(mobile) { font-size: 2.2rem; } }
+// Figma: DM Sans ExtraBold 40px.
+.heading,
+.headingLight {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  color: var(--color-black);
+  margin: 0 0 1.7rem;
 
-/* Alliances */
-.alliances { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: start; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
-.contacts { display: flex; flex-direction: column; gap: 2.4rem; }
-.contactCard {
-  border: 1px solid var(--color-light-gray);
-  border-radius: 2rem;
-  padding: 3.2rem;
-  h3 { font-size: 2rem; font-weight: 700; margin-bottom: 1.6rem; }
-  p { font-size: 1.5rem; margin-bottom: 0.8rem; color: var(--color-dark-gray); strong { color: var(--color-black); } }
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; margin-bottom: 1.2rem; }
+}
+.headingLight { color: var(--color-white); }
+
+.sectionBody {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--color-black);
+  margin: 0;
 }
 
-/* Card rows */
-.scrollRow {
+/* ---------- Hero + intro ---------- */
+
+.heroBlock {
+  padding-top: 13.5rem; // Figma breadcrumb at y135
+  @include respond-to(tab) { padding-top: 8.6rem; }
+}
+
+.breadcrumb { margin-bottom: 2.75rem; }
+
+// Figma: 1240x451, 30px radius.
+.heroImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1240 / 451;
+  object-fit: cover;
+  border-radius: 3rem;
+
+  @include respond-to(mobile) { aspect-ratio: 4 / 3; border-radius: 2rem; }
+}
+
+// Figma: 40px SemiBold / 50px, 1128px centred.
+.intro {
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 5rem;
+  text-align: center;
+  max-width: 112.8rem;
+  margin: 2.9rem auto 0;
+
+  @include respond-to(mobile) { font-size: 2.2rem; line-height: 3rem; margin-top: 2.4rem; }
+}
+
+/* ---------- Alliances ---------- */
+
+.alliances {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(36rem, 1fr);
-  gap: 2.4rem;
-  overflow-x: auto;
-  padding-bottom: 1.5rem;
-  scroll-snap-type: x mandatory;
-  &::-webkit-scrollbar { height: 6px; }
-  &::-webkit-scrollbar-thumb { background: var(--color-light-gray); border-radius: 3px; }
-  @include respond-to(mobile) { grid-auto-columns: 86%; }
-}
-.card { scroll-snap-align: start; }
-.cardImg { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2rem; margin-bottom: 1.6rem; }
-.cardTitle { font-size: 2rem; font-weight: 700; margin-bottom: 0.8rem; }
-.cardText { font-size: 1.4rem; line-height: 1.6; color: var(--color-dark-gray); }
+  grid-template-columns: 1fr 61rem;
+  gap: 2rem;
+  align-items: start;
+  padding-top: 16.5rem;
 
-/* Student buddy */
-.buddy { color: var(--color-white); }
-.buddyInner { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; padding-block: 6.5rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; } }
-.buddyBody { font-size: 1.45rem; line-height: 1.7; color: rgba(255,255,255,0.85); }
-.buddyForm { display: flex; flex-direction: column; gap: 1.8rem; }
-.input {
-  border: 1px solid rgba(255,255,255,0.4);
-  background: transparent;
-  border-radius: 1.4rem;
-  padding: 1.6rem 2rem;
-  font-size: 1.5rem;
-  color: var(--color-white);
-  &::placeholder { color: rgba(255,255,255,0.7); }
-  &:focus { outline: none; border-color: var(--color-primary); }
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; padding-top: 6rem; }
 }
-.checkRow { display: flex; gap: 3.2rem; margin: 0.6rem 0 0.4rem; }
-.check { display: inline-flex; align-items: center; gap: 0.8rem; font-size: 1.5rem; cursor: pointer; }
 
-// Slider arrows under each card row (Figma 1064:189).
-.rowArrows {
+.alliancesText {
+  max-width: 56.8rem;
+  margin-top: -1.1rem; // Figma: heading cap line level with the first card top
+
+  .heading { line-height: 5rem; max-width: 45.8rem; margin-bottom: 1.4rem; }
+
+  @include respond-to(mobile) { margin-top: 0; .heading { line-height: 3.4rem; } }
+}
+
+.body {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--color-black);
+
+  p { margin: 0; } // Figma: paragraphs run on with no gap
+}
+
+.contacts {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 2.4rem;
+  flex-direction: column;
+  gap: 2.1rem;
+}
+
+// Figma: 610x186, 1px #bababa, 30px radius; copy inset 49px.
+.contactCard {
+  min-height: 18.6rem;
+  padding: 1.6rem 4.9rem 3rem; // name cap 50px below the top inside a 50px line box
+  border: 1px solid #bababa;
+  border-radius: 3rem;
+
+  h3 { font-size: 2.2rem; font-weight: 600; line-height: 5rem; margin: 0 0 0.2rem; } // Figma: 50px line box
+  p { font-size: 1.6rem; line-height: 1.3; margin: 0; color: var(--color-black); }
+  p + p { margin-top: 1.5rem; }
+  strong { font-weight: 600; }
+
+  @include respond-to(mobile) { min-height: 0; padding: 2.4rem 2rem; border-radius: 2rem; h3 { font-size: 2rem; } }
+}
+
+/* ---------- Partner universities map ---------- */
+
+.partners {
+  padding: 7.7rem 0 7.1rem;
+
+  .heading { margin-bottom: -0.8rem; } // map labels start 8px into the heading line
+
+  @include respond-to(mobile) { padding: 6rem 0 4rem; .heading { margin-bottom: 1.6rem; } }
+}
+
+// The 1240x667 artboard scales with the container; on small screens it keeps a
+// readable size and scrolls sideways instead.
+.mapScroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.map {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 90rem;
+  font-family: inherit;
+}
+
+.mapTitle { font-size: 14.46px; font-weight: 600; fill: var(--color-white); }
+.mapLine { font-size: 10.85px; fill: var(--color-white); }
+
+/* ---------- Card sliders (Engagements, Learning) ---------- */
+
+.cardSection { @include respond-to(mobile) { padding: 5rem 0; } }
+
+// Figma: cream 835px band; heading cap 105px below the top.
+.engagements {
+  background: $cream;
+  padding: 9.65rem 0 6.5rem;
+}
+
+.learning { padding: 11.45rem 0 9.1rem; }
+
+.cardHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-bottom: 3.1rem;
+
+  .sectionBody { max-width: 106.5rem; }
+
+  // Mobile: copy full width, arrows on their own row at the right.
+  @include respond-to(mobile) { flex-direction: column; align-items: flex-end; gap: 1.6rem; margin-bottom: 2.4rem; > div { width: 100%; } }
+}
+
+.engagements .cardHead .sectionBody { max-width: 89.8rem; }
+.learning .cardHead { margin-bottom: 2.65rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }
+
+// Cards start on the container edge and run off the right of the viewport.
+.track { padding-left: max(2rem, calc((100% - 124rem) / 2)); }
+
+.scrollRow {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 2rem 3.2rem 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Figma: 609x362 photos, 30px radius.
+.card {
+  flex: 0 0 60.9rem;
+  scroll-snap-align: start;
+
+  @include respond-to(mobile) { flex-basis: 85%; }
+}
+
+.cardImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 609 / 362;
+  object-fit: cover;
+  border-radius: 3rem;
+
+  @include respond-to(mobile) { border-radius: 2rem; }
+}
+
+.cardTitle {
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 3.05rem 0 0.75rem;
+
+  @include respond-to(mobile) { font-size: 1.9rem; margin-top: 1.8rem; }
+}
+
+.cardText {
+  max-width: 56.8rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  color: var(--color-black);
+  margin: 0;
+}
+
+/* ---------- Become a Student Buddy (580px purple band) ---------- */
+
+.buddy {
+  background: $purple;
+  color: var(--color-white);
+}
+
+.buddyInner {
+  display: grid;
+  grid-template-columns: 65.2rem 50.5rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  padding-block: 8.9rem;
+
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3.2rem; padding-block: 5rem; }
+}
+
+.buddyBody {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.buddyForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+// Figma: 505x60 white-outlined fields, 15px radius, placeholder inset 33px.
+.input {
+  width: 100%;
+  height: 6rem;
+  padding: 0 3.3rem;
+  border: 1px solid var(--color-white);
+  border-radius: 1.5rem;
+  background: transparent;
+  color: var(--color-white);
+  font: inherit;
+  font-size: 1.6rem;
+
+  &::placeholder { color: var(--color-white); opacity: 1; }
+  &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+}
+
+.checkRow {
+  display: flex;
+  gap: 4.5rem;
+  line-height: 1.5rem;
+  margin-bottom: 1.4rem; // Figma: Submit 34px below the checkboxes
+}
+
+// Figma: 15px white-outlined boxes, 2px radius, label 14px to the right.
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+
+  input {
+    appearance: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    border: 1px solid var(--color-white);
+    border-radius: 2px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 1px;
+      background: var(--color-white);
+      transform: scale(0);
+      transition: transform 0.15s ease;
+    }
+
+    &:checked::after { transform: scale(1); }
+    &:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  }
+}
+
+// Figma: 124x37 pill, 12px SemiBold.
+.submit {
+  min-width: 12.4rem;
+  justify-content: center;
+  font-size: 1.2rem;
+  padding: 1.25rem 2rem;
 }
