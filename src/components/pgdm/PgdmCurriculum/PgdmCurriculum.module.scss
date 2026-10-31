@@ -52,8 +52,8 @@
 }
 
 .yearActive {
-  background: var(--color-orange, #f87219);
-  border-color: var(--color-orange, #f87219);
+  background: var(--faculty-accent, #f87219);
+  border-color: var(--faculty-accent, #f87219);
 }
 
 .track {
@@ -84,7 +84,7 @@
 }
 
 // Middle card tint (Figma).
-.cardAlt { background: #ece7f6; }
+.cardAlt { background: var(--pgdm-tint, #ece7f6); }
 
 .cardHeading {
   font-size: 2rem;

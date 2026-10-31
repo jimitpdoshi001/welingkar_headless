@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: 735fr 505fr;
   min-height: 61.7rem;
-  background: #493460;
+  background: var(--pgdm-band, #493460);
   border-radius: 3rem;
   overflow: hidden;
   color: var(--color-white);
