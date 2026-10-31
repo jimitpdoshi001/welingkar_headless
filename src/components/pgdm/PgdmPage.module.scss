@@ -44,7 +44,12 @@
 }
 
 // Placement band: tighten the top padding of the why-recruit block only.
-.placementBand .block { padding-top: 40px; }
+.placementBand .block {
+  padding-top: 40px;
+
+  // Figma mobile: Recruiters card sits 20px below the stats card.
+  @include respond-to(mobile) { padding-top: 2rem; }
+}
 
 // Vision/Mission band: faint right-pointing arrow watermark emerging from the
 // left edge, behind the "Our Vision" row (Figma). Clipped by the band.
