@@ -28,7 +28,7 @@ export function PgdmClassProfile({ data }: { data: PgdmClassProfileData }) {
       <p className={styles.description}>{data.description}</p>
       <PgdmAccordion
         items={items}
-        defaultOpenId={data.items[0]?.id}
+        defaultOpenId={null}
       />
     </div>
   );
