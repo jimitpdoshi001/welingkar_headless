@@ -49,7 +49,7 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
 
       <Swiper
         className={styles.feesSwiper}
-        slidesPerView={1.1}
+        slidesPerView={1.25}
         spaceBetween={24}
         grabCursor
         breakpoints={{ 768: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3 } }}

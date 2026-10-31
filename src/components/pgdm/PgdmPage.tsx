@@ -49,8 +49,12 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           style={
             {
               "--faculty-accent": accentVar,
-              // Figma: Mumbai bands are purple, Bengaluru bands terracotta.
+              // Campus palette — Mumbai: purple bands, orange accents,
+              // lavender tint. Bengaluru: terracotta bands, green accents,
+              // pink tint (site-wide Bengaluru theme, e.g. listing/MDC pages).
               "--pgdm-band": accent === "orange" ? "#4a3460" : "#b04535",
+              "--pgdm-tint": accent === "orange" ? "#ece7f6" : "#fff4f2",
+              "--pgdm-stat": accent === "orange" ? "#6a4a8c" : "#b04535",
             } as React.CSSProperties
           }
         >

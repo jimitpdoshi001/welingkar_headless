@@ -188,7 +188,7 @@
     cursor: pointer;
   }
 
-  .listTabActive { border-bottom-color: var(--color-orange, #f87219); }
+  .listTabActive { border-bottom-color: var(--faculty-accent, #f87219); }
 
   .listBlockHidden { display: none; }
 
@@ -198,5 +198,14 @@
     padding-left: 2rem;
 
     &::before { display: block; }
+  }
+}
+
+@include respond-to(mobile) {
+  .card { min-height: 34rem; }
+
+  // Figma mobile: fee cards ~80% wide so the next one peeks in.
+  .feesSwiper {
+    margin-right: -2rem;
   }
 }

@@ -141,3 +141,16 @@
   .statUnit { font-size: 1.1rem; }
   .statLabel { font-size: 1.1rem; }
 }
+
+@include respond-to(mobile) {
+  .statValue { font-size: 4rem; }
+
+  // Figma mobile: tight 16px copy, paragraphs run together.
+  .paragraph {
+    line-height: 1.3;
+    color: var(--color-white);
+    margin-bottom: 0;
+  }
+
+  .heading { margin-bottom: 1.2rem; }
+}

@@ -29,10 +29,8 @@
   @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); }
   // Figma mobile: five rows that scroll sideways, two columns in view.
   @include respond-to(mobile) {
-    grid-template-columns: none;
-    grid-template-rows: repeat(5, auto);
-    grid-auto-flow: column;
-    grid-auto-columns: 72%;
+    grid-template-columns: repeat(4, 29rem);
+    margin-right: -2rem;
     gap: 1.2rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -88,4 +86,25 @@
 
   .prev { background: transparent; svg path { fill: #3a9030; } }
   .next { background: #3a9030; svg path { fill: var(--color-white); } }
+}
+
+@include respond-to(mobile) {
+  // Figma mobile: 20px tabs that scroll sideways if needed.
+  .tabs {
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-right: -2rem;
+
+    &::-webkit-scrollbar { display: none; }
+
+    // Figma mobile: 20px black tabs, orange underline on the active one.
+    button {
+      font-size: 2rem !important;
+      font-weight: 600 !important;
+      color: var(--color-black) !important;
+      white-space: nowrap;
+    }
+  }
+
+  .pill { white-space: nowrap; }
 }

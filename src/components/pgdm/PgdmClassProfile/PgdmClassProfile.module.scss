@@ -34,7 +34,7 @@
 .value {
   font-size: 3.6rem; // Figma 36px SemiBold
   font-weight: 600;
-  color: #6a4a8c;
+  color: var(--pgdm-stat, #6a4a8c);
   line-height: 1.1;
   margin-bottom: 0.6rem;
 
@@ -73,4 +73,9 @@
     font-size: 1.6rem;
     max-width: none;
   }
+}
+
+// Figma mobile: 22px accordion labels in Class Profile.
+@include respond-to(mobile) {
+  .root button :global([class*="label"]) { font-size: 2.2rem; }
 }

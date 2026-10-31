@@ -174,7 +174,7 @@
       position: absolute;
       inset: 0 0 auto;
       height: 87rem;
-      background: linear-gradient(180deg, rgba(74, 52, 96, 0) 35%, var(--pgdm-band, #4a3460) 58%);
+      background: linear-gradient(180deg, transparent 35%, var(--pgdm-band, #4a3460) 58%);
       pointer-events: none;
     }
 
@@ -229,3 +229,16 @@
 // Figma: cream band; the peeking slide may run past the container edge.
 .achievementsBand { overflow: hidden; }
 .achievementsBand :global(.swiper) { overflow: visible; }
+
+// Figma PGDM mobile: community arrows are orange and the section starts
+// closer to the heading than on the home page.
+@include respond-to(mobile) {
+  .communitySection {
+    --color-primary: var(--faculty-accent, #f87219);
+
+    // Play buttons stay green (Figma).
+    :global(button[aria-label^="Play video"]) { --color-primary: #3a9030; }
+
+    > :first-child { padding-top: 5.6rem; padding-bottom: 4rem; }
+  }
+}

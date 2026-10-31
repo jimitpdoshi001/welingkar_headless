@@ -11,7 +11,7 @@ export function PgdmFaculty({ data }: PgdmFacultyProps) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <PgdmMobileRow className={styles.grid} itemWidth="48%">
+      <PgdmMobileRow className={styles.grid} itemWidth="50%">
         {data.people.map((person) => (
           <article
             key={person.id}
