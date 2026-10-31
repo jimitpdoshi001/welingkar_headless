@@ -57,7 +57,8 @@ $cream: #fdf8f0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: bottom;
+  // Keep the students' heads in frame (bottom alignment cropped them).
+  object-position: 50% 25%;
 }
 
 // Figma: left, bottom and top dark fades over the photo.
@@ -106,10 +107,16 @@ $cream: #fdf8f0;
   padding-top: 5.5rem;
   overflow: hidden;
 
-  @include respond-to(tab) { min-height: 0; padding-bottom: 42rem; }
-  @include respond-to(mobile) { padding-top: 3rem; padding-bottom: 28rem; }
-
   > :global(.container) { position: relative; }
+
+  // Tablet/mobile: the card is too tall to overlay the photo, so the photo
+  // follows the card in normal flow and stays fully visible.
+  @include respond-to(tab) {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  @include respond-to(mobile) { padding-top: 3rem; }
 }
 
 .aboutImage {
@@ -119,6 +126,13 @@ $cream: #fdf8f0;
   height: 100%;
   object-fit: cover;
   object-position: bottom;
+
+  @include respond-to(tab) {
+    position: static;
+    order: 1;
+    height: auto;
+    margin-top: -4rem; // overlap the photo's transparent top edge
+  }
 }
 
 // Figma 2534:1270: white→26% white gradient, 7.5px blur, 30px radius, soft shadow.
