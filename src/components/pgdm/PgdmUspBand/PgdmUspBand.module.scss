@@ -56,7 +56,8 @@
   flex-direction: column;
   justify-content: space-between;
 
-  @include respond-to(mobile) { min-height: 0; padding-block: 4rem; gap: 3rem; }
+  // Figma mobile: tall photo band, cards swipe along the bottom.
+  @include respond-to(mobile) { min-height: 72rem; padding-block: 5rem 4rem; }
 }
 
 .heading {
@@ -93,5 +94,8 @@
   box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   border-radius: 1.5rem;
 
-  @include respond-to(mobile) { min-height: 0; font-size: 1.4rem; }
+  @include respond-to(mobile) { min-height: 12rem; font-size: 1.6rem; }
 }
+
+// Figma mobile shows the USP cards peeking, without arrows.
+.noArrows { display: none !important; }

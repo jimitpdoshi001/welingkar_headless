@@ -130,3 +130,27 @@
   font-weight: 600;
   margin: 0;
 }
+
+// Figma mobile: heading + text, card, then the arrows bottom-right.
+@include respond-to(mobile) {
+  .root {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .head { display: contents; }
+
+  // Swiper must be width-bounded inside a flex column, or it grows without limit.
+  .root > :global(.swiper) {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .navBtns {
+    order: 10;
+    align-self: flex-end;
+    margin-top: 2.4rem;
+  }
+
+  .description { margin-bottom: 2.4rem !important; }
+}

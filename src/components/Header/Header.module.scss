@@ -596,3 +596,31 @@
     }
   }
 }
+
+// Figma mobile header (2551:3306 / 2551:3310): 148x37 logo and a 30x20
+// hamburger, both on 20px side gutters.
+@include respond-to(mobile) {
+  .headerSticky .stickyMainBar {
+    padding: 2rem 0 1.2rem;
+
+    .stickyMainBarContainer { width: calc(100% - 4rem); }
+
+    .stickyLogo svg {
+      height: 3.7rem;
+      width: auto;
+    }
+  }
+
+  .headerSticky .stickyHamburger {
+    width: 3rem;
+    height: 2rem;
+    padding: 0;
+    gap: 0.72rem;
+
+    span {
+      width: 3rem;
+      height: 0.18rem;
+      flex-shrink: 0; // keep the lines visible inside the 20px box
+    }
+  }
+}

@@ -12,8 +12,9 @@
     min-height: 52rem;
   }
 
+  // Figma mobile: tall 779px hero, copy anchored at the bottom.
   @include respond-to(mobile) {
-    min-height: 46rem;
+    min-height: 78rem;
   }
 }
 
@@ -124,4 +125,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
+}
+
+// Figma mobile hero has no breadcrumb.
+.breadcrumb {
+  @include respond-to(mobile) { display: none; }
 }

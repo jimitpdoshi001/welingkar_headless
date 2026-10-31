@@ -1,5 +1,6 @@
 import type { PgdmStrengths as PgdmStrengthsData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmStrengths.module.scss";
+import { PgdmMobileRow } from "../common/PgdmMobileRow";
 
 type PgdmStrengthsProps = {
   data: PgdmStrengthsData;
@@ -25,7 +26,7 @@ export function PgdmStrengths({ data }: PgdmStrengthsProps) {
         <h2 className={styles.heading}>{data.heading}</h2>
         <p className={styles.subheading}>{data.subheading}</p>
 
-        <div className={styles.cards}>
+        <PgdmMobileRow className={styles.cards} itemWidth="72%">
           {data.cards.map((card) => (
             <p
               key={card}
@@ -33,7 +34,7 @@ export function PgdmStrengths({ data }: PgdmStrengthsProps) {
               {card}
             </p>
           ))}
-        </div>
+        </PgdmMobileRow>
       </div>
     </section>
   );

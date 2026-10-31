@@ -8,11 +8,14 @@ export type AccordionItem = { id: string; label: string; content: ReactNode };
 
 type PgdmAccordionProps = {
   items: AccordionItem[];
-  defaultOpenId?: string;
+  // Omitted: first item opens. null: everything starts closed.
+  defaultOpenId?: string | null;
 };
 
 export function PgdmAccordion({ items, defaultOpenId }: PgdmAccordionProps) {
-  const [openId, setOpenId] = useState<string | null>(defaultOpenId ?? items[0]?.id ?? null);
+  const [openId, setOpenId] = useState<string | null>(
+    defaultOpenId === undefined ? (items[0]?.id ?? null) : defaultOpenId,
+  );
 
   return (
     <div className={styles.root}>

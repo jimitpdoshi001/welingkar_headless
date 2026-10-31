@@ -1,0 +1,56 @@
+@use "../../../styles/base/mixins" as *;
+
+// Desktop keeps the caller's layout; mobile turns it into a swipe track.
+.track {
+  @include respond-to(mobile) {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 1.6rem !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+
+    > * {
+      flex: 0 0 var(--row-item, 86%);
+      max-width: var(--row-item, 86%);
+      scroll-snap-align: start;
+    }
+  }
+}
+
+// Figma mobile: outline prev + filled green next, bottom-right.
+.arrows {
+  display: none;
+
+  @include respond-to(mobile) {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2.4rem;
+  }
+}
+
+.prev,
+.next {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid #3a9030;
+}
+
+.prev {
+  background: transparent;
+  svg path { fill: #3a9030; }
+}
+
+.next {
+  background: #3a9030;
+  svg path { fill: var(--color-white); }
+}

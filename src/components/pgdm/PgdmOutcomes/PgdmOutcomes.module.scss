@@ -42,10 +42,11 @@
     &:nth-child(-n + 4) { border-bottom: 1px solid rgba(255, 255, 255, 0.18); }
   }
 
+  // Figma mobile: swipe row, hairline on the right of each cell.
   @include respond-to(mobile) {
-    border-right: none !important;
-    padding-left: 0 !important;
-    &:not(:last-child) { border-bottom: 1px solid rgba(255, 255, 255, 0.18); }
+    border-bottom: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.18) !important;
+    padding: 0 2.4rem 2rem 0 !important;
   }
 }
 

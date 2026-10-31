@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
 import "swiper/css";
@@ -12,6 +12,9 @@ import styles from "./PgdmFees.module.scss";
 export function PgdmFees({ data }: { data: PgdmFeesData }) {
   // Direct handle so the arrows control the fee-card slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
+  // Mobile: Waiver / Eligibility become tabs (Figma mobile); desktop shows both.
+  const [listTab, setListTab] = useState(0);
+  const blocks = [data.waiver, data.eligibility];
 
   return (
     <div className={styles.root}>
@@ -71,11 +74,27 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
         ))}
       </Swiper>
 
+      <div
+        className={styles.listTabs}
+        role="tablist">
+        {blocks.map((block, bi) => (
+          <button
+            key={block.heading}
+            type="button"
+            role="tab"
+            aria-selected={bi === listTab}
+            className={`${styles.listTab} ${bi === listTab ? styles.listTabActive : ""}`}
+            onClick={() => setListTab(bi)}>
+            {block.heading}
+          </button>
+        ))}
+      </div>
+
       <div className={styles.lists}>
-        {[data.waiver, data.eligibility].map((block, bi) => (
+        {blocks.map((block, bi) => (
           <div
             key={block.heading}
-            className={styles.listBlock}>
+            className={`${styles.listBlock} ${bi === listTab ? "" : styles.listBlockHidden}`}>
             <h3 className={styles.listHeading}>{block.heading}</h3>
             {/* Figma: the waiver list has no bullet markers. */}
             <ul className={`${styles.bullets} ${bi === 0 ? styles.plain : ""}`}>

@@ -161,3 +161,42 @@
 
   &::before { display: none; }
 }
+
+.listTabs { display: none; }
+
+// Figma mobile: two underline tabs, one list shown, every list bulleted.
+@include respond-to(mobile) {
+  .navBtns { display: none; }
+
+  .listTabs {
+    display: flex;
+    gap: 3.2rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .listTab {
+    padding: 0 0 0.8rem;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: none;
+    font-family: inherit;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: left;
+    color: var(--color-black);
+    cursor: pointer;
+  }
+
+  .listTabActive { border-bottom-color: var(--color-orange, #f87219); }
+
+  .listBlockHidden { display: none; }
+
+  .listHeading { display: none; }
+
+  .plain li {
+    padding-left: 2rem;
+
+    &::before { display: block; }
+  }
+}

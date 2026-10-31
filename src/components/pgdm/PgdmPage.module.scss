@@ -74,7 +74,8 @@
 .pedagogyBlock {
   padding-block: 0 12rem;
 
-  @include respond-to(mobile) { padding-block: 0 5rem; }
+  // Figma mobile: purple block runs straight into the USP band.
+  @include respond-to(mobile) { padding-block: 0; }
 }
 
 .blockTight {
@@ -155,12 +156,30 @@
   aspect-ratio: 610 / 437;
   object-fit: cover;
   border-radius: 3rem;
+
+  @include respond-to(mobile) { order: -1; border-radius: 2rem; }
 }
 
 // Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
 .band { background-color: var(--pgdm-band, var(--color-secondary)); }
 .placementBand { background-color: var(--pgdm-band, #4a3460); background-repeat: no-repeat; background-position: top center; background-size: 100% auto;
-  @include respond-to(mobile) { background-size: auto 60rem; }
+  // Figma mobile: photo framed on the two people at the top, text below it.
+  @include respond-to(mobile) {
+    position: relative;
+    background-size: auto 87rem;
+    background-position: 80% top;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 87rem;
+      background: linear-gradient(180deg, rgba(74, 52, 96, 0) 35%, var(--pgdm-band, #4a3460) 58%);
+      pointer-events: none;
+    }
+
+    > * { position: relative; z-index: 1; }
+  }
 }
 
 // Straight from Our Community: full-bleed purple band hosting the home page's

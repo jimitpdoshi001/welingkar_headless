@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import type { PgdmCurriculum as PgdmCurriculumData } from "@/lib/pgdm/pgdm-data";
+import { PgdmMobileRow } from "../common/PgdmMobileRow";
 import styles from "./PgdmCurriculum.module.scss";
 
 const YEAR_LABELS = ["Year I", "Year II"];
@@ -41,7 +42,7 @@ export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
         </div>
       </div>
 
-      <div className={styles.track}>
+      <PgdmMobileRow className={styles.track} itemWidth="86%">
         {years[active]?.trimesters.map((t, i) => (
           <article
             key={t.id}
@@ -54,7 +55,7 @@ export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
             </ul>
           </article>
         ))}
-      </div>
+      </PgdmMobileRow>
     </div>
   );
 }

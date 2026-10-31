@@ -75,3 +75,17 @@
   @include respond-to(tab) { height: 36rem; border-radius: 0; }
   @include respond-to(mobile) { height: 24rem; }
 }
+
+// Figma mobile: full-bleed purple block, photo on top, square corners.
+@include respond-to(mobile) {
+  .card {
+    margin-inline: -2rem;
+    border-radius: 0;
+  }
+
+  .photo {
+    order: -1;
+    border-radius: 0;
+    height: 24rem;
+  }
+}
