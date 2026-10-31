@@ -97,16 +97,6 @@ export const MAIN_NAV: MainNavItem[] = [
       columns: [
         { heading: "Full-Time Programs — Mumbai", headingHref: "/campuses/mumbai", links: FULL_TIME_PGDM },
         { heading: "Full-Time Programs — Bengaluru", headingHref: "/campuses/bengaluru", links: FULL_TIME_PGDM_BLR },
-        {
-          heading: "Explore Campus",
-          links: [
-            { label: "Life @ WeSchool", href: "/life-at-weschool" },
-            { label: "WeExcel", href: "/weexcel" },
-            { label: "Faculty", href: "/about-us/faculty" },
-            { label: "Corporate Interface", href: "/corporate-interface" },
-            { label: "Infrastructure & Accommodation", href: "/life-at-weschool" },
-          ],
-        },
       ],
     },
   },
