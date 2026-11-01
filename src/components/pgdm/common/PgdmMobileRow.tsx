@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import styles from "./PgdmMobileRow.module.scss";
@@ -17,6 +17,18 @@ type PgdmMobileRowProps = {
 
 export function PgdmMobileRow({ className, itemWidth = "86%", arrowsClassName, children }: PgdmMobileRowProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
+  // Arrows only when the row overflows (more items than fit); re-checked on resize.
+  const [overflows, setOverflows] = useState(false);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    const check = () => setOverflows(el.scrollWidth > el.clientWidth + 1);
+    check();
+    const observer = new ResizeObserver(check);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Scroll by one item (first child width + gap).
   const scroll = (dir: 1 | -1) => {
@@ -35,7 +47,7 @@ export function PgdmMobileRow({ className, itemWidth = "86%", arrowsClassName, c
         style={{ "--row-item": itemWidth } as React.CSSProperties}>
         {children}
       </div>
-      <div className={`${styles.arrows} ${arrowsClassName ?? ""}`}>
+      <div className={`${styles.arrows} ${arrowsClassName ?? ""} ${overflows ? "" : styles.arrowsHidden}`}>
         <button
           type="button"
           className={styles.prev}
