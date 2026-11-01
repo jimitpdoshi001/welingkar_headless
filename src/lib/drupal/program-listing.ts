@@ -653,9 +653,6 @@ export const PROGRAM_LISTING_NIDS = {
   pgdmRetailMumbai: 4659,
   pgdmRuralMumbai: 4660,
   pgdmBusinessDesignBengaluru: 4663,
-  pgdmEBusinessMumbai: 4656,
-  pgdmEBusinessBengaluru: 4662,
-  pgdmResearchAnalyticsBengaluru: 4664,
 } as const;
 
 /** Program slugs (/programmes/[slug]) whose content comes from Drupal. */
@@ -666,12 +663,9 @@ export const PROGRAM_SLUG_NIDS: Record<string, number> = {
   "pgdm-media": PROGRAM_LISTING_NIDS.pgdmMediaMumbai,
   "pgdm-retail": PROGRAM_LISTING_NIDS.pgdmRetailMumbai,
   "pgdm-rural": PROGRAM_LISTING_NIDS.pgdmRuralMumbai,
-  "pgdm-e-business": PROGRAM_LISTING_NIDS.pgdmEBusinessMumbai,
 };
 
 /** Bengaluru versions (/programmes/[slug]?campus=bengaluru): Drupal node per slug. */
 export const PROGRAM_SLUG_NIDS_BENGALURU: Record<string, number> = {
   "pgdm-business-design": PROGRAM_LISTING_NIDS.pgdmBusinessDesignBengaluru,
-  "pgdm-e-business": PROGRAM_LISTING_NIDS.pgdmEBusinessBengaluru,
-  "pgdm-research-analytics": PROGRAM_LISTING_NIDS.pgdmResearchAnalyticsBengaluru,
 };
