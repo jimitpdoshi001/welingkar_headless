@@ -475,9 +475,6 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
 }
 
 /** Drupal node IDs of the program_listing pages. */
-// Bengaluru: set the node ID once the "PGDM Bengaluru" program_listing node exists
-// in Drupal (or via PGDM_BENGALURU_NID). Until then the page keeps its built-in content.
 export const PROGRAM_LISTING_NIDS = {
   pgdmMumbai: 4653,
-  pgdmBengaluru: Number(process.env.PGDM_BENGALURU_NID ?? 0),
 } as const;
