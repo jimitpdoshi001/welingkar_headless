@@ -229,7 +229,13 @@ export function MobileDrawer({ open, onClose, onSearch }: MobileDrawerProps) {
                               <span>{intro.subtitle}</span>
                             ) : null}
                           </Link>
-                        ) : null}
+                        ) : (
+                          // Programs: campus name is a label only (no campus link in this menu).
+                          <div className={styles.introCard}>
+                            <strong>{intro.title}</strong>
+                            {intro.subtitle ? <span>{intro.subtitle}</span> : null}
+                          </div>
+                        )}
                         {/* Programs: each campus lists its own groups below its card. */}
                         {(intro.columns ?? [])
                           .flatMap((col) => [col, ...(col.sections ?? [])])
