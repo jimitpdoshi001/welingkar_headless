@@ -114,7 +114,8 @@ export type PgdmObjectives = { heading: string; items: PgdmObjective[] };
 export type PgdmOutcomes = { heading: string; items: PgdmFeature[] };
 export type PgdmStrengths = { heading: string; subheading: string; image: string; cards: string[] };
 export type PgdmPedagogy = { heading: string; intro: string; image: string; bullets: string[] };
-export type PgdmInnovative = { heading: string; image: string; links: string[] };
+// hrefs: optional link per row (PDF / external URL from Drupal), same order as links.
+export type PgdmInnovative = { heading: string; image: string; links: string[]; hrefs?: (string | null)[] };
 export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
 export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
 export type PgdmBandStat = { value: string; label: string };

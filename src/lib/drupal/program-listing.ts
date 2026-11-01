@@ -191,6 +191,8 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   if (missionLines.length) data.visionMission.mission.lines = missionLines;
   if (missionImages.length) data.visionMission.mission.images = missionImages;
 
+  applyProgramSections(data, node);
+
   // FAQs: the CMS list replaces the built-in list once it has any complete item.
   const faqs = entities(node, "field_faq")
     .map((p, i) => ({ id: p.id ?? `faq-${i}`, q: value(p, "field_question"), a: htmlToText(value(p, "field_anwser")) }))
@@ -198,6 +200,228 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   if (faqs.length) data.faqs.items = faqs;
 
   return data;
+}
+
+/** Text of each `<p>` block, e.g. "Position: 1st Prize". */
+const paragraphs = (html: string): string[] =>
+  [...decodeEntities(html).matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => htmlToText(m[1])).filter(Boolean);
+
+/** "₹12.01 lakhs p.a" → { value: "₹12.01L", unit: "LPA" } (Figma stat style); other text is kept as is. */
+function packageStat(raw: string): { value: string; unit?: string } {
+  const m = raw.match(/^(₹\s?[\d.,]+)\s*lakhs?\s*p\.?\s*a\.?$/i);
+  return m ? { value: `${m[1].replace(/\s/g, "")}L`, unit: "LPA" } : { value: raw };
+}
+
+/** Parse the first `<table>` of the shortlisting HTML into columns and rows. */
+function parseShortlistTable(html: string): { columns: string[]; rows: { program: string; values: string[]; span?: boolean }[] } | null {
+  const table = decodeEntities(html).match(/<table[\s\S]*?<\/table>/i)?.[0];
+  if (!table) return null;
+  const columns = [...(table.match(/<thead[\s\S]*?<\/thead>/i)?.[0] ?? "").matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map((m) => htmlToText(m[1]));
+  const body = table.match(/<tbody[\s\S]*?<\/tbody>/i)?.[0] ?? "";
+  const rows = [...body.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)]
+    .map((tr) => {
+      const program = htmlToText(tr[1].match(/<th[^>]*>([\s\S]*?)<\/th>/i)?.[1] ?? "");
+      const cells = [...tr[1].matchAll(/<td([^>]*)>([\s\S]*?)<\/td>/gi)];
+      const values = cells.map((c) => htmlToText(c[2]));
+      const span = cells.length === 1 && /colspan\s*=\s*"?\d/i.test(cells[0][1]);
+      return { program, values, ...(span ? { span: true } : {}) };
+    })
+    .filter((r) => r.program && r.values.length);
+  return columns.length && rows.length ? { columns, rows } : null;
+}
+
+/** Sections added to Drupal after the first release (objectives → recruiters). */
+function applyProgramSections(data: PgdmData, node: RestEntity): void {
+  const text = (field: string) => htmlToText(value(node, field));
+
+  // Program Educational Objectives.
+  const objTitle = value(node, "field_program_educational_title");
+  const objectives = entities(node, "field_program_educational_object")
+    .map((p, i) => ({ id: p.id ?? `peo-${i}`, icon: fileUrl(entities(p, "field_icon")[0]) ?? undefined, text: htmlToText(value(p, "field_desc")) }))
+    .filter((o) => o.text);
+  if (objTitle) data.educationalObjectives.heading = objTitle;
+  if (objectives.length) data.educationalObjectives.items = objectives;
+
+  // Program Outcomes.
+  const outTitle = value(node, "field_program_outcomes_title");
+  const outcomes = entities(node, "field_program_outcomes")
+    .map((p, i) => ({ id: p.id ?? `po-${i}`, title: value(p, "field_main_title"), description: htmlToText(value(p, "field_sub_title")) }))
+    .filter((o) => o.title);
+  if (outTitle) data.outcomes.heading = outTitle;
+  if (outcomes.length) data.outcomes.items = outcomes;
+
+  // Program Strengths.
+  const strengths = entities(node, "field_program_strengths_data").map((p) => value(p, "field_main_title")).filter(Boolean);
+  const strengthsImage = fileUrl(entities(node, "field_program_strengths_desktop")[0]);
+  if (value(node, "field_program_strengths_title")) data.strengths.heading = value(node, "field_program_strengths_title");
+  if (value(node, "field_program_strengths_sub_titl")) data.strengths.subheading = value(node, "field_program_strengths_sub_titl");
+  if (strengthsImage) data.strengths.image = strengthsImage;
+  if (strengths.length) data.strengths.cards = strengths;
+
+  // Student-Centric Pedagogy: first list item is the intro, the rest are bullets.
+  const pedagogy = entities(node, "field_student_centric_pedagogy")[0];
+  if (pedagogy) {
+    const items = htmlToListItems(value(pedagogy, "field_desc"));
+    const image = fileUrl(entities(pedagogy, "field_image")[0]);
+    if (items.length) {
+      data.studentPedagogy.intro = items[0];
+      data.studentPedagogy.bullets = items.slice(1);
+    }
+    if (image) data.studentPedagogy.image = image;
+  }
+  if (value(node, "field_student_centric_pedagogy_t")) data.studentPedagogy.heading = value(node, "field_student_centric_pedagogy_t");
+
+  // Program USPs.
+  const usps = entities(node, "field_program_usps").map((p) => value(p, "field_main_title")).filter(Boolean);
+  const uspImage = fileUrl(entities(node, "field_program_usp_desktop_image")[0]);
+  if (value(node, "field_program_usp_title")) data.uspBand.heading = value(node, "field_program_usp_title");
+  if (uspImage) data.uspBand.image = uspImage;
+  if (usps.length) data.uspBand.cards = usps;
+
+  // Innovative Teaching and Learning: rows link to a PDF or an external URL.
+  const innovative = entities(node, "field_innovative_data")
+    .map((p) => {
+      const pdf = fileUrl(entities(entities(p, "field_pdf")[0], "field_media_document")[0]);
+      const external = toHref(value(p, "field_external_url"));
+      return { label: value(p, "field_main_title"), href: pdf ?? external ?? null };
+    })
+    .filter((l) => l.label);
+  const innovativeImage = fileUrl(entities(node, "field_innovative_teaching_and_le")[0]);
+  if (value(node, "field_innovative_teaching_title")) data.innovativePedagogy.heading = value(node, "field_innovative_teaching_title");
+  if (innovativeImage) data.innovativePedagogy.image = innovativeImage;
+  if (innovative.length) {
+    data.innovativePedagogy.links = innovative.map((l) => l.label);
+    data.innovativePedagogy.hrefs = innovative.map((l) => l.href);
+  }
+
+  // Curriculum: Year I trimesters first, then Year II (the page shows three per year).
+  const terms = entities(node, "field_curriculum_data")
+    .map((p, i) => ({
+      year: value(p, "field_curriculum_year"),
+      trimester: { id: p.id ?? `t${i}`, label: value(p, "field_main_title"), subjects: htmlToListItems(value(p, "field_desc")), objectives: [] as string[] },
+    }))
+    .filter((t) => t.trimester.label && t.trimester.subjects.length);
+  if (value(node, "field_curriculum_title")) data.curriculum.heading = value(node, "field_curriculum_title");
+  if (text("field_curriculum_description")) data.curriculum.description = text("field_curriculum_description");
+  if (terms.length) {
+    const yearOne = terms.filter((t) => t.year === "year_i").map((t) => t.trimester);
+    const later = terms.filter((t) => t.year !== "year_i").map((t) => t.trimester);
+    data.curriculum.trimesters = [...yearOne, ...later];
+  }
+
+  // Class profile.
+  const profile = entities(node, "field_class_profile_data")
+    .map((p, i) => ({
+      id: p.id ?? `cp-${i}`,
+      label: value(p, "field_main_title"),
+      stats: entities(p, "field_data").map((s) => ({ value: value(s, "field_main_title"), label: value(s, "field_sub_title") })).filter((s) => s.value && s.label),
+    }))
+    .filter((g) => g.label && g.stats.length);
+  if (value(node, "field_class_profile_heading")) data.classProfile.heading = value(node, "field_class_profile_heading");
+  if (value(node, "field_class_profile_description")) data.classProfile.description = value(node, "field_class_profile_description");
+  if (profile.length) data.classProfile.items = profile;
+
+  // Career opportunities (role tabs are not filled in Drupal yet).
+  if (value(node, "field_career_opportunities_title")) data.career.heading = value(node, "field_career_opportunities_title");
+  if (value(node, "field_career_opportunities_desc")) data.career.description = value(node, "field_career_opportunities_desc");
+
+  // Placement.
+  const placementParas = text("field_placement_opportunities_de").split("\n").filter(Boolean);
+  const placementImage = fileUrl(entities(node, "field_placement_desktop_image")[0]);
+  const years = entities(node, "field_placement_opportunities")
+    .map((p, i) => {
+      const label = value(p, "field_year").replace(/_/g, "-");
+      const rows = entities(p, "field_placement_opportunities_da");
+      const type = value(rows[0], "field_package_type");
+      const stats = rows
+        .map((r) => ({ ...packageStat(value(r, "field_package")), label: value(r, "field_main_title") }))
+        .filter((s) => s.value && s.label);
+      return {
+        id: label || `year-${i}`,
+        label,
+        caption: `Year ${label}${type ? `\n${type.charAt(0).toUpperCase()}${type.slice(1)}` : ""}`,
+        stats,
+      };
+    })
+    .filter((y) => y.label && y.stats.length);
+  if (value(node, "field_placement_opportunities_ti")) data.placement.heading = value(node, "field_placement_opportunities_ti");
+  if (placementParas.length) data.placement.paragraphs = placementParas;
+  if (placementImage) data.placement.image = placementImage;
+  if (years.length) data.placement.years = years;
+
+  // Recruiters card (placement band) and Our Recruiters section.
+  const recruitersTitle = value(entities(node, "field_recruiters_data")[0], "field_main_title");
+  const recruitersParas = text("field_recruiters_description").split("\n").filter(Boolean);
+  if (recruitersTitle) data.placement.whyRecruit.heading = recruitersTitle;
+  if (recruitersParas.length) data.placement.whyRecruit.paragraphs = recruitersParas;
+  if (value(node, "field_our_recruiters_description")) data.recruiters.description = value(node, "field_our_recruiters_description");
+
+  // Admission and course fees.
+  const fees = entities(node, "field_admission_and_course_fees")
+    .map((p) => ({
+      image: fileUrl(entities(p, "field_image")[0]) ?? "",
+      label: value(p, "field_main_title"),
+      value: value(p, "field_sub_title"),
+      ...(value(p, "field_note") ? { note: value(p, "field_note") } : {}),
+    }))
+    .filter((c) => c.label && c.value && c.image);
+  const waiver = htmlToListItems(value(node, "field_tuition_fee_waiver_scheme"));
+  if (value(node, "field_admission_course_descripti")) data.fees.description = value(node, "field_admission_course_descripti");
+  if (fees.length) data.fees.cards = fees;
+  if (waiver.length) data.fees.waiver.bullets = waiver;
+
+  // Who should apply / eligibility cards.
+  if (value(node, "field_who_should_apply_desc")) data.whoApply.heading = value(node, "field_who_should_apply_desc");
+  const [whoCard, eligibilityCard] = data.whoApply.cards;
+  if (whoCard && value(node, "field_who_should_apply_sub_title")) whoCard.body = value(node, "field_who_should_apply_sub_title");
+  if (eligibilityCard) {
+    if (text("field_eligibility_criteria")) eligibilityCard.heading = text("field_eligibility_criteria");
+    if (text("field_eligibility_criteria_descr")) eligibilityCard.body = text("field_eligibility_criteria_descr");
+    if (value(node, "field_eligibility_criteria_note")) eligibilityCard.note = value(node, "field_eligibility_criteria_note");
+  }
+
+  // Shortlisting criteria table.
+  if (value(node, "field_shortlisting_criteria_titl")) data.shortlisting.title = value(node, "field_shortlisting_criteria_titl").replace(/\s{2,}/g, " ");
+  const table = parseShortlistTable(value(node, "field_shortlisting_criteria"));
+  if (table) {
+    data.shortlisting.columns = table.columns;
+    data.shortlisting.rows = table.rows;
+  }
+
+  // Student achievements: "Position" line, bullet list, then "Team members" names.
+  const achievements = entities(node, "field_student_achievements")
+    .map((p, i) => {
+      const html = value(p, "field_desc");
+      const paras = paragraphs(html);
+      const teamAt = paras.findIndex((t) => /^team members$/i.test(t));
+      const extra = paras.filter((t, idx) => idx !== teamAt && !/^position/i.test(t) && (teamAt < 0 || idx < teamAt));
+      return {
+        id: p.id ?? `ach-${i}`,
+        image: fileUrl(entities(p, "field_image")[0]) ?? "",
+        title: value(p, "field_main_title"),
+        position: paras.find((t) => /^position/i.test(t)) ?? "",
+        bullets: [...htmlToListItems(html), ...extra],
+        team: teamAt >= 0 ? paras.slice(teamAt + 1).join(", ") : "",
+      };
+    })
+    .filter((a) => a.title && a.image);
+  if (achievements.length) data.achievements.items = achievements;
+
+  // Straight from our community: video tiles (YouTube) and quote cards.
+  const community = entities(node, "field_straight_from_our_communit")
+    .map((p, i) => {
+      const video = value(p, "field_type") === "video" ? value(p, "field_youtube_id") : "";
+      return {
+        id: p.id ?? `cm-${i}`,
+        quote: value(p, "field_main_title"),
+        name: value(p, "field_recruiters_sub_title"),
+        role: "",
+        avatar: fileUrl(entities(p, "field_image")[0]) ?? "",
+        ...(video ? { videoUrl: video } : {}),
+      };
+    })
+    .filter((t) => t.avatar && (t.quote || t.videoUrl));
+  if (community.length) data.community.testimonials = community;
 }
 
 /** Drupal node IDs of the program_listing pages. */

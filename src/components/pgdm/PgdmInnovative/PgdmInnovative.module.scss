@@ -92,9 +92,21 @@
   outline: none;
 }
 
+// Linked rows: the anchor fills the row so the whole line is clickable.
+.rowLink {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+
 .rowActive,
 .row:hover,
-.row:focus-visible {
+.row:focus-visible,
+.row:focus-within {
   font-weight: 500;
   color: var(--color-white);
 

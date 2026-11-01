@@ -28,6 +28,7 @@
   // Fill the row width left of the arrows.
   max-width: none;
   margin: 0;
+  white-space: pre-line; // keep the CMS "Please Note" line breaks
 }
 
 // Fee cards carousel arrows: sit at the end of the sub heading row.
