@@ -125,6 +125,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.6rem;
+
+  // Gap handles spacing; drop the global `.btn + .btn` margin that indents the wrapped button.
+  :global(.btn) + :global(.btn) { margin-left: 0; }
 }
 
 // Figma mobile hero has no breadcrumb.
