@@ -73,9 +73,23 @@ export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
                     <details className={styles.sub}>
                       <summary className={styles.subToggle}>{subject.label}</summary>
                       <ul className={styles.subList}>
-                        {subject.children.map((c) => (
-                          <li key={c}>{c}</li>
-                        ))}
+                        {subject.children.map((c) =>
+                          typeof c === "string" ? (
+                            <li key={c}>{c}</li>
+                          ) : (
+                            // Third level: sub-heading with its own items.
+                            <li
+                              key={c.label}
+                              className={styles.subGroup}>
+                              <span className={styles.subGroupLabel}>{c.label}</span>
+                              <ul className={styles.subGroupList}>
+                                {c.children.map((g) => (
+                                  <li key={g}>{g}</li>
+                                ))}
+                              </ul>
+                            </li>
+                          ),
+                        )}
                       </ul>
                     </details>
                   </li>
