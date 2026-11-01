@@ -63,13 +63,15 @@ $profile-bg: #f1eefb;
   aspect-ratio: 506 / 432;
   border-radius: 2.5rem;
   overflow: hidden;
+  background: rgba(253, 248, 240, 1); // faculty photo backdrop (design)
+  isolation: isolate;
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: top center; // portraits: keep the head in frame
   display: block;
 }
 

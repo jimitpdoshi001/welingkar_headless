@@ -81,6 +81,11 @@
   aspect-ratio: 1 / 1;
   border-radius: 2rem;
   overflow: hidden;
+  // Faculty photo backdrop (design): cream behind cut-out or letterboxed photos.
+  background: rgba(253, 248, 240, 1);
+  // Keeps the rounded corners in Safari while the photo zooms on hover.
+  isolation: isolate;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   margin-bottom: 1.6rem;
 }
 
