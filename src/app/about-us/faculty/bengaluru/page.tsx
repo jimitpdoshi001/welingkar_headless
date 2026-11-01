@@ -8,6 +8,7 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
+import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 import { AffiliateFaculty } from "@/components/paragraphs/AffiliateFaculty/AffiliateFaculty";
 import { DEFAULT_DIRECTOR_MESSAGE_BENGALURU } from "@/lib/drupal/faculty";
 
@@ -24,7 +25,10 @@ const HERO_IMAGE = "/faculty/hero.webp";
  * Standalone preview of the Faculty (Bengaluru) page. Identical structure to the
  * Mumbai page — only the Director's message differs. Dev-only.
  */
-export default function FacultyBengaluruPreviewPage() {
+export default async function FacultyBengaluruPreviewPage() {
+  // Drupal faculty for this campus; null (fetch error) keeps the built-in grid.
+  const grid = await getCampusFacultyGrid("bengaluru");
+
 
   return (
     <SearchProvider>
@@ -55,9 +59,18 @@ export default function FacultyBengaluruPreviewPage() {
             <DirectorMessage data={DEFAULT_DIRECTOR_MESSAGE_BENGALURU} />
           </section>
 
-          <section className={`container ${styles.block}`}>
-            <FacultyGrid />
-          </section>
+          {grid === null ? (
+            <section className={`container ${styles.block}`}>
+              <FacultyGrid />
+            </section>
+          ) : grid.members.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <FacultyGrid
+                categories={grid.categories}
+                members={grid.members}
+              />
+            </section>
+          ) : null}
 
           <section className={`container ${styles.block}`}>
             <AffiliateFaculty />

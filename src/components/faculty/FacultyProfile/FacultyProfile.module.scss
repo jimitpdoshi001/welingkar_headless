@@ -230,3 +230,20 @@ $profile-bg: #f1eefb;
   background-color: var(--faculty-accent, var(--color-primary));
   border-color: var(--faculty-accent, var(--color-primary));
 }
+
+// Drupal rich text in a profile tab (headings, paragraphs, lists).
+.richText {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-black);
+
+  p { margin: 0 0 1rem; }
+  strong, b { font-weight: 700; }
+  ul, ol { margin: 0 0 1.4rem; padding-left: 2.2rem; }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  li { margin-bottom: 0.6rem; }
+  li > p { margin: 0; }
+  a { color: var(--faculty-accent, var(--color-primary)); text-decoration: underline; }
+  img { max-width: 100%; height: auto; }
+}

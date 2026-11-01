@@ -25,7 +25,7 @@ export function FacultyProfile({ data = DEFAULT_FACULTY_PROFILE }: FacultyProfil
             aria-label="Breadcrumb">
             <Link href="/">Home</Link>
             <span aria-hidden="true">–</span>
-            <Link href="/faculty">Faculty</Link>
+            <Link href={data.backHref ?? "/faculty"}>Faculty</Link>
           </nav>
 
           <div className={styles.headerLayout}>
@@ -40,7 +40,7 @@ export function FacultyProfile({ data = DEFAULT_FACULTY_PROFILE }: FacultyProfil
             <div className={styles.headerContent}>
               <h1 className={styles.name}>{data.name}</h1>
               <p className={styles.designation}>{data.designation}</p>
-              <p className={styles.body}>{data.body}</p>
+              {data.body ? <p className={styles.body}>{data.body}</p> : null}
 
               {data.link ? (
                 <Link
@@ -75,6 +75,13 @@ export function FacultyProfile({ data = DEFAULT_FACULTY_PROFILE }: FacultyProfil
         </div>
 
         <div className={styles.tabPanel}>
+          {/* Drupal rich text (sanitized server-side in faculty-api). */}
+          {current?.html ? (
+            <div
+              className={styles.richText}
+              dangerouslySetInnerHTML={{ __html: current.html }}
+            />
+          ) : null}
           {current?.blocks.map((block, index) => (
             <div
               key={index}

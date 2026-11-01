@@ -123,6 +123,48 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 
+// Desktop columns: waiver left; Admissions + Education loan stacked right.
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.panelText {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  color: var(--color-black);
+  margin: 0 0 1.2rem;
+}
+
+// Education loan partner pill: white pill with the bank logo and Know More.
+.partner {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1.2rem;
+  padding: 0.4rem 0.4rem 0.4rem 2.4rem;
+  min-height: 5.6rem;
+  background: var(--color-white);
+  border-radius: 10rem;
+  box-shadow: 0 0.4rem 1.6rem rgba(0, 0, 0, 0.06);
+}
+
+.partnerLogo {
+  display: block;
+  height: 2.6rem;
+  width: auto;
+}
+
+.partnerBtn {
+  background: var(--faculty-accent, var(--color-primary));
+  border-color: var(--faculty-accent, var(--color-primary));
+  color: var(--color-white);
+  padding: 1.5rem 2.4rem;
+
+  &:hover { filter: brightness(0.94); }
+}
+
 // One list only (e.g. Drupal has no eligibility points): full width, no tabs.
 .listsSingle {
   grid-template-columns: 1fr;
@@ -159,7 +201,7 @@
       width: 0.7rem;
       height: 0.7rem;
       border-radius: 50%;
-      background: var(--color-black);
+      background: var(--pgdm-band, #4a3460); // design: purple dots
     }
   }
 }
@@ -176,11 +218,18 @@
 @include respond-to(mobile) {
   .navBtns { display: none; }
 
+  // Design mobile: three tabs in a sideways-scrolling row; long names wrap.
   .listTabs {
     display: flex;
     gap: 3.2rem;
     margin-bottom: 2.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
   }
+
+  .listTab { flex: 0 0 auto; max-width: 17rem; }
 
   .listTab {
     padding: 0 0 0.8rem;
@@ -217,3 +266,6 @@
     margin-right: -2rem;
   }
 }
+
+// No Know More link yet: balance the pill padding.
+.partner:not(:has(a)) { padding-right: 2.4rem; }
