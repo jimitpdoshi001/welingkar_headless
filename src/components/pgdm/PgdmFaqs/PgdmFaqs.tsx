@@ -21,13 +21,15 @@ export function PgdmFaqs({ data }: { data: PgdmFaqsData }) {
         defaultOpenId={data.items[2]?.id}
       />
 
-      <div className={styles.brochure}>
-        <Link
-          href={data.brochureCta.href}
-          className="btn accent">
-          {data.brochureCta.label}
-        </Link>
-      </div>
+      {data.brochureCta.href ? (
+        <div className={styles.brochure}>
+          <Link
+            href={data.brochureCta.href}
+            className="btn accent">
+            {data.brochureCta.label}
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 }

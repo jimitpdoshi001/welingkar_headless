@@ -8,10 +8,10 @@ export function PgdmWhoApply({ data }: { data: PgdmWhoApplyData }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <p className={styles.subtitle}>{data.subtitle}</p>
+      {data.subtitle ? <p className={styles.subtitle}>{data.subtitle}</p> : null}
 
       <div className={styles.cards}>
-        {data.cards.map((card, i) => (
+        {data.cards.filter((card) => card.body).map((card, i) => (
           <div
             key={card.heading}
             className={`${styles.card} ${i === 0 ? styles.cardTint : ""}`}>

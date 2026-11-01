@@ -13,47 +13,37 @@
 }
 
 .strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
   background: var(--color-white);
   border-radius: 2rem;
   padding: 2rem 3rem;
+  overflow: hidden;
 
-  @include respond-to(mobile) { gap: 1.6rem; padding: 1.6rem; justify-content: center; }
+  @include respond-to(mobile) { padding: 1.6rem; }
 }
+
+// Linear easing keeps the marquee speed constant between logos.
+.swiper :global(.swiper-wrapper) { transition-timing-function: linear; }
 
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 6.4rem;
 
   img {
-    height: 4rem;
+    max-height: 4rem;
     width: auto;
-    object-fit: contain;
     max-width: 16rem;
+    object-fit: contain;
   }
 }
 
-// Figma: centred 16px paragraph under "Our Recruiters".
-.description {
+// Small disclaimer under the logo strip.
+.disclaimer {
   max-width: 124rem;
-  margin: -1.2rem auto 3.2rem;
-  font-size: 1.6rem;
-  line-height: 1.3;
+  margin: 1.6rem auto 0;
+  font-size: 1.2rem;
+  line-height: 1.4;
   text-align: center;
-  color: var(--color-white);
-}
-
-// Figma mobile: logos in a two-column grid inside the white card.
-@include respond-to(mobile) {
-  .strip {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2.4rem 1.6rem;
-    padding: 2.4rem 2rem;
-  }
+  color: rgba(255, 255, 255, 0.75);
 }

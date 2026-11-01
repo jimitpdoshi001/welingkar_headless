@@ -103,3 +103,46 @@
 
   li { font-size: 1.6rem; line-height: 1.55; color: var(--color-black); } // Figma 16px
 }
+
+// One trimester in the selected year: full-width card on every screen size.
+.trackSingle {
+  @include respond-to(tab) { grid-auto-columns: 100%; }
+}
+
+// Subject with sub-items: expandable sub-menu (caret rotates when open).
+.sub { margin: 0; }
+
+.subToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker { display: none; }
+
+  &::after {
+    content: "";
+    width: 0.7rem;
+    height: 0.7rem;
+    border-right: 2px solid var(--faculty-accent, #f87219);
+    border-bottom: 2px solid var(--faculty-accent, #f87219);
+    transform: rotate(45deg) translateY(-0.2rem);
+    transition: transform 0.2s ease;
+  }
+
+  &:focus-visible { outline: 2px solid var(--faculty-accent, #f87219); outline-offset: 2px; }
+}
+
+.sub[open] > .subToggle::after { transform: rotate(-135deg) translateY(-0.2rem); }
+
+.subList {
+  list-style: disc;
+  margin: 0.4rem 0 0.4rem;
+  padding-left: 2rem;
+
+  li { font-size: 1.5rem; line-height: 1.5; }
+}
+
+// Nothing to scroll with a single card.
+.arrowsHidden { display: none !important; }

@@ -10,7 +10,8 @@ type PgdmStatBarProps = {
 export function PgdmStatBar({ stats }: PgdmStatBarProps) {
   return (
     <div className={styles.band}>
-      <div className={`container ${styles.inner}`}>
+      {/* Layout adapts to 1–4 stats (count class drives the mobile grid). */}
+      <div className={`container ${styles.inner} ${styles[`count${Math.min(stats.length, 4)}`] ?? ""}`}>
         {stats.map((stat) => (
           <div
             key={stat.label}

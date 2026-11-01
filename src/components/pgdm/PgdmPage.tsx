@@ -36,6 +36,14 @@ type PgdmPageProps = {
 };
 
 export function PgdmPage({ data, accent }: PgdmPageProps) {
+  const hasPlacement =
+    data.placement.years.length > 0 || data.placement.paragraphs.length > 0;
+  const hasRecruiters =
+    data.placement.whyRecruit.paragraphs.length > 0 ||
+    data.placement.steps.length > 0 ||
+    // Our Recruiters needs logos; its text is only a disclaimer under them.
+    data.recruiters.logos.length > 0;
+
   const accentVar =
     accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
 
@@ -60,181 +68,249 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
         >
           <PgdmHero data={data.hero} />
 
+          {/* Sections render only when they have content (Drupal pages hide empty ones). */}
           {/* Figma 2344:932: purple stats strip directly under the hero. */}
-          <PgdmStatBar stats={data.bandStats} />
+          {data.bandStats.length > 0 ? (
+            <PgdmStatBar stats={data.bandStats} />
+          ) : null}
 
           {/* 3. Why this Program (Figma 2424:386 + 2344:945): text left, photo right,
               pale green arrow watermark on the left edge. */}
-          <section
-            id="overview"
-            className={`${styles.whySection} ${styles.anchor}`}>
-            <div className={`container ${styles.whyGrid}`}>
-              <div className={styles.whyText}>
-                <h2 className={styles.whyHeading}>{data.whyProgram.heading}</h2>
-                <p className={styles.whyBody}>{data.whyProgram.body}</p>
-              </div>
-              {/* Drupal field_type "video": the photo opens the YouTube video in a new tab. */}
-              {data.whyProgram.videoHref && data.whyProgram.videoHref !== "#" ? (
-                <a
-                  href={data.whyProgram.videoHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Watch video: ${data.whyProgram.heading}`}
-                  className={styles.whyVideoLink}>
+          {data.whyProgram.body ? (
+            <section
+              id="overview"
+              className={`${styles.whySection} ${styles.anchor}`}
+            >
+              <div className={`container ${styles.whyGrid}`}>
+                <div className={styles.whyText}>
+                  <h2 className={styles.whyHeading}>
+                    {data.whyProgram.heading}
+                  </h2>
+                  <p className={styles.whyBody}>{data.whyProgram.body}</p>
+                </div>
+                {/* Drupal field_type "video": the photo opens the YouTube video in a new tab. */}
+                {!data.whyProgram.videoThumb ? null : data.whyProgram
+                    .videoHref && data.whyProgram.videoHref !== "#" ? (
+                  <a
+                    href={data.whyProgram.videoHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Watch video: ${data.whyProgram.heading}`}
+                    className={styles.whyVideoLink}
+                  >
+                    <img
+                      src={data.whyProgram.videoThumb}
+                      alt=""
+                      className={styles.whyPhoto}
+                    />
+                  </a>
+                ) : (
                   <img
                     src={data.whyProgram.videoThumb}
                     alt=""
                     className={styles.whyPhoto}
                   />
-                </a>
-              ) : (
-                <img
-                  src={data.whyProgram.videoThumb}
-                  alt=""
-                  className={styles.whyPhoto}
-                />
-              )}
-            </div>
-          </section>
-
-          {/* 4. Our Vision / Our Mission */}
-          <section className={`${styles.band} ${styles.visionBand}`}>
-            <div className={`container ${styles.block}`}>
-              <PgdmVisionMission data={data.visionMission} />
-            </div>
-          </section>
-
-          {/* 5. Program Educational Objectives */}
-          <section className={`container ${styles.block}`}>
-            <PgdmObjectives data={data.educationalObjectives} />
-          </section>
-
-          {/* 6. Program Outcomes */}
-          <section className={styles.band}>
-            <div className={`container ${styles.block}`}>
-              <PgdmOutcomes data={data.outcomes} />
-            </div>
-          </section>
-
-          {/* 7. Program Strengths */}
-          <PgdmStrengths data={data.strengths} />
-
-          {/* 8. Student-Centric Pedagogy */}
-          <section className={`container ${styles.pedagogyBlock}`}>
-            <PgdmPedagogy data={data.studentPedagogy} />
-          </section>
-
-          {/* 9. Program USPs */}
-          <PgdmUspBand data={data.uspBand} />
-
-          {/* 10. Innovative Teaching and Learning Pedagogy */}
-          <PgdmInnovative data={data.innovativePedagogy} />
-
-          {/* 11. Program Faculty */}
-          <section className={`container ${styles.block}`}>
-            <PgdmFaculty data={data.programFaculty} />
-          </section>
-
-          {/* 12. Curriculum Description */}
-          <section
-            id="curriculum"
-            className={`${styles.band} ${styles.anchor}`}>
-            <div className={`container ${styles.block}`}>
-              <PgdmCurriculum data={data.curriculum} />
-            </div>
-          </section>
-
-          {/* 13. Class profile */}
-          <section className="bg-light-yellow">
-            <div className={`container ${styles.block}`}>
-              <PgdmClassProfile data={data.classProfile} />
-            </div>
-          </section>
-
-          {/* 14. Career Opportunities */}
-          <section className={`container ${styles.block}`}>
-            <PgdmCareer data={data.career} />
-          </section>
-
-          {/* 15. Placement Opportunities (Figma 669:344: one photo band). */}
-          <div
-            id="placements"
-            className={`${styles.placementBand} ${styles.anchor}`}
-            style={
-              {
-                // CSS reads --bg, and --bg-mobile on phones when Drupal supplies one.
-                "--bg": `url(${data.placement.image})`,
-                ...(data.placement.imageMobile ? { "--bg-mobile": `url(${data.placement.imageMobile})` } : {}),
-              } as React.CSSProperties
-            }
-          >
-            <PgdmPlacement data={data.placement} bare />
-
-            <section>
-              <div className={`container ${styles.block}`}>
-                <PgdmWhyRecruit
-                  data={data.placement.whyRecruit}
-                  steps={data.placement.steps}
-                />
-                <div className={styles.recruiters}>
-                  <PgdmRecruiters data={data.recruiters} />
-                </div>
+                )}
               </div>
             </section>
-          </div>
+          ) : null}
+
+          {/* 4. Our Vision / Our Mission */}
+          {data.visionMission.vision.body ||
+          data.visionMission.mission.lines.length > 0 ? (
+            <section className={`${styles.band} ${styles.visionBand}`}>
+              <div className={`container ${styles.block}`}>
+                <PgdmVisionMission data={data.visionMission} />
+              </div>
+            </section>
+          ) : null}
+
+          {/* 5. Program Educational Objectives */}
+          {data.educationalObjectives.items.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <PgdmObjectives data={data.educationalObjectives} />
+            </section>
+          ) : null}
+
+          {/* 6. Program Outcomes */}
+          {data.outcomes.items.length > 0 ? (
+            <section className={styles.band}>
+              <div className={`container ${styles.block}`}>
+                <PgdmOutcomes data={data.outcomes} />
+              </div>
+            </section>
+          ) : null}
+
+          {/* 7. Program Strengths */}
+          {data.strengths.cards.length > 0 ? (
+            <PgdmStrengths data={data.strengths} />
+          ) : null}
+
+          {/* 8. Student-Centric Pedagogy */}
+          {data.studentPedagogy.bullets.length > 0 ||
+          data.studentPedagogy.intro ? (
+            <section className={`container ${styles.pedagogyBlock}`}>
+              <PgdmPedagogy data={data.studentPedagogy} />
+            </section>
+          ) : null}
+
+          {/* 9. Program USPs */}
+          {data.uspBand.cards.length > 0 ? (
+            <PgdmUspBand data={data.uspBand} />
+          ) : null}
+
+          {/* 10. Innovative Teaching and Learning Pedagogy */}
+          {data.innovativePedagogy.links.length > 0 ? (
+            <PgdmInnovative data={data.innovativePedagogy} />
+          ) : null}
+
+          {/* 11. Program Faculty */}
+          {data.programFaculty.people.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <PgdmFaculty data={data.programFaculty} />
+            </section>
+          ) : null}
+
+          {/* 12. Curriculum Description */}
+          {data.curriculum.trimesters.length > 0 ? (
+            <section
+              id="curriculum"
+              className={`${styles.band} ${styles.anchor}`}
+            >
+              <div className={`container ${styles.block}`}>
+                <PgdmCurriculum data={data.curriculum} />
+              </div>
+            </section>
+          ) : null}
+
+          {/* 13. Class profile */}
+          {data.classProfile.items.length > 0 ? (
+            <section className="bg-light-yellow">
+              <div className={`container ${styles.block}`}>
+                <PgdmClassProfile data={data.classProfile} />
+              </div>
+            </section>
+          ) : null}
+
+          {/* 14. Career Opportunities */}
+          {data.career.description || data.career.tabs.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <PgdmCareer data={data.career} />
+            </section>
+          ) : null}
+
+          {/* 15. Placement Opportunities (Figma 669:344: one photo band). */}
+          {hasPlacement || hasRecruiters ? (
+            <div
+              id="placements"
+              className={`${styles.placementBand} ${styles.anchor}`}
+              style={
+                {
+                  // CSS reads --bg, and --bg-mobile on phones when Drupal supplies one.
+                  ...(data.placement.image
+                    ? { "--bg": `url(${data.placement.image})` }
+                    : {}),
+                  ...(data.placement.imageMobile
+                    ? { "--bg-mobile": `url(${data.placement.imageMobile})` }
+                    : {}),
+                } as React.CSSProperties
+              }
+            >
+              {hasPlacement ? (
+                <PgdmPlacement data={data.placement} bare />
+              ) : null}
+
+              {hasRecruiters ? (
+                <section>
+                  <div className={`container ${styles.block}`}>
+                    {data.placement.whyRecruit.paragraphs.length > 0 ||
+                    data.placement.steps.length > 0 ? (
+                      <PgdmWhyRecruit
+                        data={data.placement.whyRecruit}
+                        steps={data.placement.steps}
+                      />
+                    ) : null}
+                    {data.recruiters.logos.length > 0 ? (
+                      <div className={styles.recruiters}>
+                        <PgdmRecruiters data={data.recruiters} />
+                      </div>
+                    ) : null}
+                  </div>
+                </section>
+              ) : null}
+            </div>
+          ) : null}
 
           {/* 16. Admission and Course Fees */}
-          <section className="bg-light-yellow">
-            <div className={`container ${styles.block}`}>
-              <PgdmFees data={data.fees} />
-            </div>
-          </section>
+          {data.fees.cards.length > 0 ||
+          data.fees.waiver.bullets.length > 0 ||
+          data.fees.eligibility.bullets.length > 0 ? (
+            <section className="bg-light-yellow">
+              <div className={`container ${styles.block}`}>
+                <PgdmFees data={data.fees} />
+              </div>
+            </section>
+          ) : null}
 
           {/* 17. Who Should Apply */}
-          <section className={`container ${styles.block}`}>
-            <PgdmWhoApply data={data.whoApply} />
-          </section>
+          {data.whoApply.cards.some((c) => c.body) ? (
+            <section className={`container ${styles.block}`}>
+              <PgdmWhoApply data={data.whoApply} />
+            </section>
+          ) : null}
 
           {/* 18. Shortlisting Criteria */}
-          <section className={`container ${styles.blockTight}`}>
-            <PgdmShortlistTable data={data.shortlisting} />
-          </section>
+          {data.shortlisting.rows.length > 0 ? (
+            <section className={`container ${styles.blockTight}`}>
+              <PgdmShortlistTable data={data.shortlisting} />
+            </section>
+          ) : null}
 
           {/* 19. Student Achievements */}
-          <section className={`bg-light-yellow ${styles.achievementsBand}`}>
-            <div className={`container ${styles.block}`}>
-              <PgdmAchievements data={data.achievements} />
-            </div>
-          </section>
+          {data.achievements.items.length > 0 ? (
+            <section className={`bg-light-yellow ${styles.achievementsBand}`}>
+              <div className={`container ${styles.block}`}>
+                <PgdmAchievements data={data.achievements} />
+              </div>
+            </section>
+          ) : null}
 
           {/* 20. Straight from Our Community: reuse the home page's animated section. */}
-          <section className={styles.communitySection}>
-            <HomeCommunitySection
-              testimonials={data.community.testimonials.map((t) => ({
-                id: t.id,
-                quote: t.quote,
-                name: t.name,
-                role: t.role,
-                avatar: t.avatar,
-                avatarAlt: t.name,
-                videoUrl: t.videoUrl,
-              }))}>
-              <h2 className={styles.communityHeading}>{data.community.heading}</h2>
-              <p className={styles.communityDesc}>{data.community.description}</p>
-              <Link
-                href={data.community.cta.href}
-                className="btn accent">
-                {data.community.cta.label}
-              </Link>
-            </HomeCommunitySection>
-          </section>
+          {data.community.testimonials.length > 0 ? (
+            <section className={styles.communitySection}>
+              <HomeCommunitySection
+                testimonials={data.community.testimonials.map((t) => ({
+                  id: t.id,
+                  quote: t.quote,
+                  name: t.name,
+                  role: t.role,
+                  avatar: t.avatar,
+                  avatarAlt: t.name,
+                  videoUrl: t.videoUrl,
+                }))}
+              >
+                <h2 className={styles.communityHeading}>
+                  {data.community.heading}
+                </h2>
+                <p className={styles.communityDesc}>
+                  {data.community.description}
+                </p>
+                <Link href={data.community.cta.href} className="btn accent">
+                  {data.community.cta.label}
+                </Link>
+              </HomeCommunitySection>
+            </section>
+          ) : null}
 
           {/* 21. FAQs */}
-          <section
-            id="faqs"
-            className={`container ${styles.block} ${styles.anchor}`}>
-            <PgdmFaqs data={data.faqs} />
-          </section>
+          {data.faqs.items.length > 0 ? (
+            <section
+              id="faqs"
+              className={`container ${styles.block} ${styles.anchor}`}
+            >
+              <PgdmFaqs data={data.faqs} />
+            </section>
+          ) : null}
         </main>
 
         <SearchOverlay />

@@ -46,10 +46,14 @@ export type PgdmTable = {
   rows: { program: string; values: string[]; span?: boolean }[];
 };
 
+// A subject, or a subject with sub-items shown as an expandable sub-menu.
+export type PgdmCurriculumSubject = string | { label: string; children: string[] };
+
 export type PgdmCurriculum = {
   heading: string;
   description: string;
-  trimesters: { id: string; label: string; subjects: string[]; objectives: string[] }[];
+  // year: Drupal academic year ("year_i", "year_ii"); without it, three trimesters per year.
+  trimesters: { id: string; label: string; subjects: PgdmCurriculumSubject[]; objectives: string[]; year?: string }[];
 };
 
 export type PgdmVisionMission = {

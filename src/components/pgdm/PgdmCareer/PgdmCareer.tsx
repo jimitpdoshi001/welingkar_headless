@@ -30,56 +30,60 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
       <h2 className={styles.heading}>{data.heading}</h2>
       <p className={styles.description}>{data.description}</p>
 
-      <div className={styles.tabs}>
-        <PgdmTabBar
-          tabs={data.tabs.map((t) => ({ id: t.id, label: t.label }))}
-          active={active}
-          onChange={(id) => {
-            setActive(id);
-            setExpanded(false);
-          }}
-          variant="underline"
-        />
-      </div>
+      {/* Role tabs only when Drupal (or the built-in data) has roles. */}
+      {data.tabs.length > 0 ? (
+        <>
+          <div className={styles.tabs}>
+            <PgdmTabBar
+              tabs={data.tabs.map((t) => ({ id: t.id, label: t.label }))}
+              active={active}
+              onChange={(id) => {
+                setActive(id);
+                setExpanded(false);
+              }}
+              variant="underline"
+            />
+          </div>
 
-      <div
-        ref={gridRef}
-        className={styles.grid}>
-        {visible.map((role) => (
-          <span
-            key={role}
-            className={styles.pill}>
-            {role}
-          </span>
-        ))}
-      </div>
+          <div ref={gridRef} className={styles.grid}>
+            {visible.map((role) => (
+              <span key={role} className={styles.pill}>
+                {role}
+              </span>
+            ))}
+          </div>
 
-      <div className={styles.moreWrap}>
-        {hasMore ? (
-          <button
-            type="button"
-            className="btn accent"
-            onClick={() => setExpanded((prev) => !prev)}>
-            {expanded ? "Show Less" : "Show More"}
-          </button>
-        ) : null}
-        <div className={styles.arrows}>
-          <button
-            type="button"
-            className={styles.prev}
-            onClick={() => scroll(-1)}
-            aria-label="Previous">
-            <ArrowLeft width={7} height={10} />
-          </button>
-          <button
-            type="button"
-            className={styles.next}
-            onClick={() => scroll(1)}
-            aria-label="Next">
-            <ArrowRight width={7} height={10} />
-          </button>
-        </div>
-      </div>
+          <div className={styles.moreWrap}>
+            {hasMore ? (
+              <button
+                type="button"
+                className="btn accent"
+                onClick={() => setExpanded((prev) => !prev)}
+              >
+                {expanded ? "Show Less" : "Show More"}
+              </button>
+            ) : null}
+            <div className={styles.arrows}>
+              <button
+                type="button"
+                className={styles.prev}
+                onClick={() => scroll(-1)}
+                aria-label="Previous"
+              >
+                <ArrowLeft width={7} height={10} />
+              </button>
+              <button
+                type="button"
+                className={styles.next}
+                onClick={() => scroll(1)}
+                aria-label="Next"
+              >
+                <ArrowRight width={7} height={10} />
+              </button>
+            </div>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
