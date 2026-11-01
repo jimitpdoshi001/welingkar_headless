@@ -64,7 +64,7 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`btn ${styles.partnerBtn}`}>
-                  Know More
+                  {partner.label || "Know More"}
                 </a>
               ) : null}
             </div>
