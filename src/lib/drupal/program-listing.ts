@@ -499,7 +499,15 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   const recruitersLink = linkHref(node, "field_recruiters_link");
   if (recruitersLink) data.placement.whyRecruit.cta = { label: recruitersLink.title || data.placement.whyRecruit.cta.label, href: recruitersLink.href };
   const logos = entities(node, "field_our_recruiters_logo")
-    .map((f) => ({ image: fileUrl(f) ?? "", name: str(f.alt) || str((f as { filename?: string }).filename).replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " ") }))
+    .map((f) => {
+      const meta = f as { filename?: string; width?: string | number; height?: string | number };
+      return {
+        image: fileUrl(f) ?? "",
+        name: str(f.alt) || str(meta.filename).replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " "),
+        // Drupal's recruiter logo style pads each logo into a 250x40 canvas.
+        padded: Number(meta.width) === 250 && Number(meta.height) === 40,
+      };
+    })
     .filter((l) => l.image && l.name);
   if (logos.length) data.recruiters.logos = logos;
   if (recruitersTitle) data.placement.whyRecruit.heading = recruitersTitle;

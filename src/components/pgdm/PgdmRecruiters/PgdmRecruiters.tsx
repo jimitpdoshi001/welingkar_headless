@@ -10,7 +10,8 @@ import styles from "./PgdmRecruiters.module.scss";
 // Continuous marquee (same behaviour as the campus recruiter logos): no pause
 // between slides and a long linear transition, so the row glides. Hover pauses.
 const AUTOPLAY = { delay: 0, disableOnInteraction: false, pauseOnMouseEnter: true };
-const SPEED = 3000;
+// Milliseconds per logo; higher is slower.
+const SPEED = 6000;
 
 // Heading, logo slider in the white card, then the description as a small
 // disclaimer under the logos.
@@ -37,7 +38,7 @@ export function PgdmRecruiters({ data }: { data: PgdmRecruitersData }) {
             {slides.map((logo, i) => (
               <SwiperSlide
                 key={`${logo.name}-${i}`}
-                className={styles.logo}>
+                className={`${styles.logo} ${logo.padded ? styles.logoPadded : ""}`}>
                 <img
                   src={logo.image}
                   alt={i < data.logos.length ? logo.name : ""}
