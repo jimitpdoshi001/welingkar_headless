@@ -146,3 +146,20 @@
 
 // Nothing to scroll with a single card.
 .arrowsHidden { display: none !important; }
+
+// Third level inside a sub-menu: bold sub-heading, then square-bulleted items.
+.subGroup { list-style: none; margin-left: -2rem; }
+
+.subGroupLabel {
+  display: block;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+.subGroupList {
+  list-style: square;
+  margin: 0.2rem 0 0.4rem;
+  padding-left: 2rem;
+
+  li { font-size: 1.4rem; line-height: 1.5; }
+}

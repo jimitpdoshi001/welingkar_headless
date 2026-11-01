@@ -47,7 +47,9 @@ export type PgdmTable = {
 };
 
 // A subject, or a subject with sub-items shown as an expandable sub-menu.
-export type PgdmCurriculumSubject = string | { label: string; children: string[] };
+// A sub-item can itself be a group: a sub-heading with its own items (3rd level).
+export type PgdmCurriculumSubItem = string | { label: string; children: string[] };
+export type PgdmCurriculumSubject = string | { label: string; children: PgdmCurriculumSubItem[] };
 
 export type PgdmCurriculum = {
   heading: string;

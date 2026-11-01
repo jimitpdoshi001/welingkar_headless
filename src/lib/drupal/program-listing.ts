@@ -4,7 +4,7 @@ import { drupalConfig } from "./config";
 import { absoluteDrupalUrl } from "./jsonapi";
 import { toHref } from "./link";
 import { fixProgramsSpelling } from "@/lib/content-overrides";
-import type { PgdmData } from "@/lib/pgdm/pgdm-data";
+import type { PgdmCurriculumSubject, PgdmData } from "@/lib/pgdm/pgdm-data";
 
 /**
  * Drupal REST `/api/program-listing/{nid}` → PGDM page content.
@@ -260,49 +260,59 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   return data;
 }
 
-/**
- * Top-level `<li>` items of a list; an item with a nested list becomes
- * `{ label, children }` (shown as an expandable sub-menu).
- */
-function htmlToNestedList(html: string): Array<string | { label: string; children: string[] }> {
-  const decoded = decodeEntities(html);
-  const out: Array<string | { label: string; children: string[] }> = [];
-  // Walk <li> tags tracking depth, so nested lists stay with their parent item.
-  const tokens = decoded.split(/(<\/?(?:li|ul|ol)\b[^>]*>)/i);
-  let depth = 0; // list nesting depth
-  let current: { label: string; children: string[] } | null = null;
-  let child = "";
-  let label = "";
-  for (const token of tokens) {
+type ListNode = { text: string; children: ListNode[] };
+type Subject = PgdmCurriculumSubject;
+
+/** Parse `<ul>/<ol>/<li>` HTML into a tree (any depth); text is converted to plain text. */
+function parseListTree(html: string): ListNode[] {
+  const root: ListNode[] = [];
+  const lists: ListNode[][] = []; // open lists, innermost last
+  const items: ListNode[] = []; // open <li>, innermost last
+  for (const token of decodeEntities(html).split(/(<\/?(?:li|ul|ol)\b[^>]*>)/i)) {
     const tag = token.match(/^<(\/?)(li|ul|ol)\b/i);
     if (!tag) {
-      if (depth === 1 && current === null) label += token;
-      else if (depth >= 2) child += token;
+      // Text belongs to the innermost open item (inline tags like <strong> are kept for htmlToText).
+      if (items.length) items[items.length - 1].text += token;
       continue;
     }
     const closing = tag[1] === "/";
-    const name = tag[2].toLowerCase();
-    if (name === "ul" || name === "ol") {
-      depth += closing ? -1 : 1;
-      if (!closing && depth === 2) current = { label: htmlToText(label), children: [] };
-      if (closing && depth === 1 && current) {
-        out.push(current.children.length ? current : current.label);
-        current = null;
-        label = "";
+    if (tag[2].toLowerCase() === "li") {
+      if (closing) items.pop();
+      else if (lists.length) {
+        const node: ListNode = { text: "", children: [] };
+        lists[lists.length - 1].push(node);
+        items.push(node);
       }
-    } else if (!closing) {
-      if (depth === 1) label = "";
-      else child = "";
-    } else if (depth === 1) {
-      if (label.trim() && !current) out.push(htmlToText(label));
-      label = "";
-    } else if (depth >= 2 && current) {
-      const text = htmlToText(child);
-      if (text) current.children.push(text);
-      child = "";
+    } else if (closing) {
+      lists.pop();
+    } else {
+      // A nested list attaches to the open item; a top-level list to the root.
+      lists.push(items.length ? items[items.length - 1].children : root);
     }
   }
-  return out.filter((item) => (typeof item === "string" ? item : item.label));
+  const clean = (nodes: ListNode[]): ListNode[] =>
+    nodes.map((n) => ({ text: htmlToText(n.text), children: clean(n.children) })).filter((n) => n.text || n.children.length);
+  return clean(root);
+}
+
+/**
+ * Curriculum subjects (up to three levels):
+ *   "Subject"                                  plain item
+ *   { label, children: ["Item", …] }           expandable sub-menu
+ *   { label, children: [{ label, children }] } sub-menu with a sub-heading group
+ * Anything deeper is flattened into its group.
+ */
+function htmlToNestedList(html: string): Subject[] {
+  const flatten = (n: ListNode): string[] => [n.text, ...n.children.flatMap(flatten)].filter(Boolean);
+  return parseListTree(html).map((top): Subject => {
+    if (!top.children.length) return top.text;
+    return {
+      label: top.text,
+      children: top.children.map((mid) =>
+        mid.children.length ? { label: mid.text, children: mid.children.flatMap(flatten) } : mid.text,
+      ),
+    };
+  });
 }
 
 /** Text of each `<p>` block, e.g. "Position: 1st Prize". */
