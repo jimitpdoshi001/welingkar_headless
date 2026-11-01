@@ -12,11 +12,67 @@ import styles from "./PgdmFees.module.scss";
 export function PgdmFees({ data }: { data: PgdmFeesData }) {
   // Direct handle so the arrows control the fee-card slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
-  // Mobile: Waiver / Eligibility become tabs (Figma mobile); desktop shows both.
+  // Desktop: waiver list left; Admissions and Education loan stacked right.
+  // Mobile: every panel becomes an underline tab (one shown at a time).
   const [listTab, setListTab] = useState(0);
-  const blocks = [data.waiver, data.eligibility].filter(
-    (b) => b.bullets.length > 0,
-  );
+  const panels: { id: string; heading: string; body: React.ReactNode; right: boolean }[] = [];
+  if (data.waiver.bullets.length > 0) {
+    panels.push({
+      id: "waiver",
+      heading: data.waiver.heading,
+      right: false,
+      body: (
+        <ul className={styles.bullets}>
+          {data.waiver.bullets.map((bullet, i) => (
+            <li key={i}>{bullet}</li>
+          ))}
+        </ul>
+      ),
+    });
+  }
+  if (data.admissions && data.admissions.paragraphs.length > 0) {
+    panels.push({
+      id: "admissions",
+      heading: data.admissions.heading,
+      right: true,
+      body: data.admissions.paragraphs.map((p, i) => (
+        <p key={i} className={styles.panelText}>
+          {p}
+        </p>
+      )),
+    });
+  }
+  if (data.loan && (data.loan.paragraphs.length > 0 || data.loan.partners.length > 0)) {
+    panels.push({
+      id: "loan",
+      heading: data.loan.heading,
+      right: true,
+      body: (
+        <>
+          {data.loan.paragraphs.map((p, i) => (
+            <p key={i} className={styles.panelText}>
+              {p}
+            </p>
+          ))}
+          {data.loan.partners.map((partner) => (
+            // Partner pill: logo, plus "Know More" when a link is set.
+            <div key={partner.name} className={styles.partner}>
+              <img src={partner.logo} alt={partner.name} className={styles.partnerLogo} />
+              {partner.href ? (
+                <a
+                  href={partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn ${styles.partnerBtn}`}>
+                  Know More
+                </a>
+              ) : null}
+            </div>
+          ))}
+        </>
+      ),
+    });
+  }
 
   return (
     <div className={styles.root}>
@@ -78,40 +134,42 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
         </Swiper>
       ) : null}
 
-      {blocks.length > 1 ? (
+      {panels.length > 1 ? (
         <div className={styles.listTabs} role="tablist">
-          {blocks.map((block, bi) => (
+          {panels.map((panel, i) => (
             <button
-              key={block.heading}
+              key={panel.id}
               type="button"
               role="tab"
-              aria-selected={bi === listTab}
-              className={`${styles.listTab} ${bi === listTab ? styles.listTabActive : ""}`}
-              onClick={() => setListTab(bi)}
-            >
-              {block.heading}
+              aria-selected={i === listTab}
+              className={`${styles.listTab} ${i === listTab ? styles.listTabActive : ""}`}
+              onClick={() => setListTab(i)}>
+              {panel.heading}
             </button>
           ))}
         </div>
       ) : null}
 
-      <div
-        className={`${styles.lists} ${blocks.length === 1 ? styles.listsSingle : ""}`}
-      >
-        {blocks.map((block, bi) => (
-          <div
-            key={block.heading}
-            className={`${styles.listBlock} ${bi === listTab ? "" : styles.listBlockHidden}`}
-          >
-            <h3 className={styles.listHeading}>{block.heading}</h3>
-            <ul className={styles.bullets}>
-              {block.bullets.map((bullet, i) => (
-                <li key={i}>{bullet}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      {panels.length > 0 ? (
+        <div className={`${styles.lists} ${panels.every((p) => p.right) || panels.every((p) => !p.right) ? styles.listsSingle : ""}`}>
+          {[false, true].map((right) => {
+            const column = panels.filter((p) => p.right === right);
+            if (!column.length) return null;
+            return (
+              <div key={String(right)} className={styles.column}>
+                {column.map((panel) => (
+                  <div
+                    key={panel.id}
+                    className={`${styles.listBlock} ${panels.indexOf(panel) === listTab ? "" : styles.listBlockHidden}`}>
+                    <h3 className={styles.listHeading}>{panel.heading}</h3>
+                    {panel.body}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 }

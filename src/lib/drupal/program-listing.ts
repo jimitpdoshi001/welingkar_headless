@@ -528,6 +528,26 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (fees.length) data.fees.cards = fees;
   if (waiver.length) data.fees.waiver.bullets = waiver;
 
+  // Admissions / Education loan (proposed Drupal fields; built-in text until they exist).
+  const admissionsText = text("field_admissions_description").split("\n").filter(Boolean);
+  if (data.fees.admissions) {
+    if (value(node, "field_admissions_title")) data.fees.admissions.heading = value(node, "field_admissions_title");
+    if (admissionsText.length) data.fees.admissions.paragraphs = admissionsText;
+  }
+  const loanText = text("field_education_loan_description").split("\n").filter(Boolean);
+  const loanPartners = entities(node, "field_education_loan_partners")
+    .map((p) => ({
+      name: value(p, "field_main_title"),
+      logo: fileUrl(entities(p, "field_image")[0]) ?? "",
+      href: linkHref(p, "field_link")?.href ?? "",
+    }))
+    .filter((partner) => partner.name && partner.logo);
+  if (data.fees.loan) {
+    if (value(node, "field_education_loan_title")) data.fees.loan.heading = value(node, "field_education_loan_title");
+    if (loanText.length) data.fees.loan.paragraphs = loanText;
+    if (loanPartners.length) data.fees.loan.partners = loanPartners;
+  }
+
   // Who should apply / eligibility cards.
   if (value(node, "field_who_should_apply_desc")) data.whoApply.heading = value(node, "field_who_should_apply_desc");
   const [whoCard, eligibilityCard] = data.whoApply.cards;

@@ -110,6 +110,14 @@ export type PgdmFees = {
   cards: { image: string; label: string; value: string; note?: string }[];
   waiver: { heading: string; bullets: string[] };
   eligibility: { heading: string; bullets: string[] };
+  // Right column (desktop) / extra tabs (mobile): Admissions and Education loan.
+  admissions?: { heading: string; paragraphs: string[] };
+  loan?: {
+    heading: string;
+    paragraphs: string[];
+    // href empty: the partner's "Know More" button is hidden.
+    partners: { name: string; logo: string; href: string }[];
+  };
 };
 
 // videoUrl: photo tile with play button. watchUrl: quote card with a "Watch Video" link.
@@ -548,6 +556,21 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
           "All other fees except tuition fee shall be paid by the beneficiary.",
           "The Candidates admitted under this scheme shall not be allowed to change the course/campus at any stage under any circumstances.",
         ],
+      },
+      admissions: {
+        heading: "Admissions",
+        paragraphs: [
+          "Admissions are based on merit only. No discrimination is made on the basis of the state from which graduation certificate is obtained. There are no reservations for linguistic minorities either.",
+        ],
+      },
+      loan: {
+        heading: "Education loan",
+        paragraphs: [
+          "Student can avail education loans from -",
+          "Our sole purpose is to keep students focused on their goals, i.e. their career. To help them do so, we have partnered with a sound financial institution, to help students avail loans at reasonable rates.",
+        ],
+        // Know More link to be provided; hidden until set.
+        partners: [{ name: "ICICI Bank", logo: "/campus/recruiters/icici-bank.webp", href: "" }],
       },
       eligibility: {
         heading: "Eligibility Criteria",

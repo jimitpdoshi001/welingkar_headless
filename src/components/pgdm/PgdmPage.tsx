@@ -244,7 +244,9 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {/* 16. Admission and Course Fees */}
           {data.fees.cards.length > 0 ||
           data.fees.waiver.bullets.length > 0 ||
-          data.fees.eligibility.bullets.length > 0 ? (
+          data.fees.eligibility.bullets.length > 0 ||
+            Boolean(data.fees.admissions) ||
+            Boolean(data.fees.loan) ? (
             <section className="bg-light-yellow">
               <div className={`container ${styles.block}`}>
                 <PgdmFees data={data.fees} />
