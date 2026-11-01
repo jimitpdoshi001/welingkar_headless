@@ -86,7 +86,15 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                   <h2 className={styles.whyHeading}>
                     {data.whyProgram.heading}
                   </h2>
-                  <p className={styles.whyBody}>{data.whyProgram.body}</p>
+                  {data.whyProgram.html ? (
+                    // Sanitized server-side (program-listing listHtml): lists keep their bullets.
+                    <div
+                      className={`${styles.whyBody} ${styles.whyRich}`}
+                      dangerouslySetInnerHTML={{ __html: data.whyProgram.html }}
+                    />
+                  ) : (
+                    <p className={styles.whyBody}>{data.whyProgram.body}</p>
+                  )}
                 </div>
                 {/* Drupal field_type "video": the photo opens the YouTube video in a new tab. */}
                 {!data.whyProgram.videoThumb ? null : data.whyProgram

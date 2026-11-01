@@ -1,4 +1,5 @@
 @use "../../styles/base/mixins" as *;
+@use "./common/rich" as *;
 
 .block {
   padding-block: 8rem;
@@ -153,6 +154,9 @@
   white-space: pre-line; // Figma: two paragraphs
   margin: 0;
 }
+
+// Drupal overview with bullet lists.
+.whyRich { @include pgdm-rich; }
 
 .whyVideoLink { display: block; @include respond-to(mobile) { order: -1; } }
 

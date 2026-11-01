@@ -1,0 +1,23 @@
+// Drupal rich text with bullet lists (sanitized HTML): spaced paragraphs and
+// visible bullets, since the site reset removes list markers.
+@mixin pgdm-rich {
+  white-space: normal;
+
+  p { margin: 0 0 1rem; }
+
+  ul,
+  ol {
+    margin: 0 0 1rem;
+    padding-left: 2rem;
+  }
+
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  ul ul { list-style: circle; margin: 0.4rem 0 0; }
+
+  li { margin-bottom: 0.6rem; }
+
+  > :last-child { margin-bottom: 0; }
+
+  a { text-decoration: underline; }
+}

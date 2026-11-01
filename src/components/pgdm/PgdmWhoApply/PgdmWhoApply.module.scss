@@ -1,4 +1,5 @@
 @use "../../../styles/base/mixins" as *;
+@use "../common/rich" as *;
 
 .root { width: 100%; }
 
@@ -53,6 +54,8 @@
   max-width: 48rem;
   margin: 0 0 1.6rem;
 }
+
+.rich { @include pgdm-rich; }
 
 // Figma 1012:6172: green Apply Now (same green as the hero CTA).
 .applyBtn {

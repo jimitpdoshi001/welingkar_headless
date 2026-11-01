@@ -16,7 +16,12 @@ export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
         <div className={styles.row}>
           <div className={styles.text}>
             <h2 className={styles.heading}>{data.vision.heading}</h2>
-            <p className={styles.body}>{data.vision.body}</p>
+            {data.vision.html ? (
+              // Sanitized server-side (program-listing listHtml).
+              <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: data.vision.html }} />
+            ) : (
+              <p className={styles.body}>{data.vision.body}</p>
+            )}
           </div>
           <div className={styles.media}>
             {data.vision.images.map((src, i) => (
