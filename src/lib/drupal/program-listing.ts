@@ -647,12 +647,14 @@ export const PROGRAM_LISTING_NIDS = {
   pgdmMumbai: 4653,
   pgdmBengaluru: 4654,
   pgdmResearchAnalytics: 4655,
+  pgdmBusinessDesignMumbai: 4657,
   pgdmBusinessDesignBengaluru: 4663,
 } as const;
 
 /** Program slugs (/programmes/[slug]) whose content comes from Drupal. */
 export const PROGRAM_SLUG_NIDS: Record<string, number> = {
   "pgdm-research-analytics": PROGRAM_LISTING_NIDS.pgdmResearchAnalytics,
+  "pgdm-business-design": PROGRAM_LISTING_NIDS.pgdmBusinessDesignMumbai,
 };
 
 /** Bengaluru versions (/programmes/[slug]?campus=bengaluru): Drupal node per slug. */
