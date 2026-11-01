@@ -17,6 +17,7 @@ import { whatWeOfferHeadings } from "@/lib/content-overrides";
 import "swiper/css";
 import styles from "./HomeWhatWeOffer.module.scss";
 import clsx from "clsx";
+import { useSwiperLock } from "@/util/useSwiperLock";
 
 type HomeWhatWeOfferClientProps = {
   paragraph?: JsonApiResource<
@@ -35,6 +36,7 @@ export function HomeWhatWeOfferClient({
 
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const { locked, lockEvents } = useSwiperLock();
 
   const displayItems = items;
 
@@ -107,6 +109,7 @@ export function HomeWhatWeOfferClient({
             </ul>
           ) : null}
 
+          {locked ? null : (
           <div className={styles.navButtons}>
             <button
               type="button"
@@ -128,11 +131,13 @@ export function HomeWhatWeOfferClient({
               <ArrowRight width={7} height={9} />
             </button>
           </div>
+          )}
         </div>
       </div>
 
       <div className={styles.swiperWrapper}>
         <Swiper
+          {...lockEvents}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
             setIsBeginning(swiper.isBeginning);

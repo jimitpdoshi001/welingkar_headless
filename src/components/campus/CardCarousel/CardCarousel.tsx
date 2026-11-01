@@ -11,6 +11,7 @@ import "swiper/css";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { CampusCard } from "@/lib/campus/campus-data";
 import styles from "./CardCarousel.module.scss";
+import { useSwiperLock } from "@/util/useSwiperLock";
 
 type CardCarouselProps = {
   heading: string;
@@ -27,6 +28,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
   // Direct Swiper handle: arrows call slidePrev/slideNext. Deterministic per
   // instance, so every carousel on the page controls its own slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
+  const { locked, lockEvents } = useSwiperLock();
 
   return (
     <div className={clsx(styles.root, theme === "onDark" && styles.onDark)}>
@@ -35,6 +37,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
           <h2 className={styles.heading}>{heading}</h2>
           {description ? <p className={styles.description}>{description}</p> : null}
         </div>
+        {locked ? null : (
         <div className={styles.navBtns}>
           <button
             type="button"
@@ -57,9 +60,11 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
             />
           </button>
         </div>
+        )}
       </div>
 
       <Swiper
+        {...lockEvents}
         slidesPerView={1.1}
         spaceBetween={20}
         grabCursor
