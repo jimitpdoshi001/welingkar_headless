@@ -110,14 +110,14 @@ function linkHref(entity: RestEntity | undefined, field: string): { href: string
   return { href: href.startsWith("/sites/") ? (absoluteDrupalUrl(href) ?? href) : href, title: str(item?.title) };
 }
 
-/** Fetch one program_listing node by its Drupal node ID (cached per request, revalidated hourly). */
+/** Fetch one program_listing node by its Drupal node ID (cached per request, revalidated every 5 minutes). */
 export const getProgramListing = cache(async (nid: number): Promise<RestEntity | null> => {
   if (!Number.isInteger(nid) || nid <= 0) return null;
 
   try {
     const response = await fetch(`${drupalConfig.baseUrl}/api/program-listing/${nid}`, {
       headers: { Accept: "application/json" },
-      next: { revalidate: 3600 },
+      next: { revalidate: 300 },
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
