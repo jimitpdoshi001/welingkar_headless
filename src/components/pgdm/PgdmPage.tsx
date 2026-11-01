@@ -53,7 +53,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
         <Header transparentHero />
 
         <main
-          className={accent === "orange" ? styles.orangeCtas : undefined}
+          className={`${styles.justify} ${accent === "orange" ? styles.orangeCtas : ""}`}
           style={
             {
               "--faculty-accent": accentVar,
