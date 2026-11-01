@@ -109,7 +109,8 @@ export type PgdmFees = {
   eligibility: { heading: string; bullets: string[] };
 };
 
-export type PgdmTestimonial = { id: string; quote: string; name: string; role: string; avatar: string; videoUrl?: string };
+// videoUrl: photo tile with play button. watchUrl: quote card with a "Watch Video" link.
+export type PgdmTestimonial = { id: string; quote: string; name: string; role: string; avatar: string; videoUrl?: string; watchUrl?: string };
 
 export type PgdmCommunity = { heading: string; description: string; cta: PgdmCta; testimonials: PgdmTestimonial[]; media?: string[] };
 

@@ -287,6 +287,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                   avatar: t.avatar,
                   avatarAlt: t.name,
                   videoUrl: t.videoUrl,
+                  watchUrl: t.watchUrl,
                 }))}
               >
                 <h2 className={styles.communityHeading}>

@@ -28,6 +28,8 @@ export type CommunityTestimonial = {
   avatarAlt: string;
   /** YouTube/Vimeo link; when set the card shows the photo with a play button (Figma). */
   videoUrl?: string;
+  /** YouTube/Vimeo link for a quote card: adds a "Watch Video" link under the author. */
+  watchUrl?: string;
 };
 
 type HomeCommunitySectionProps = {
@@ -142,7 +144,9 @@ function VideoDialog({
 }
 
 function TestimonialBody({ item }: { item: CommunityTestimonial }) {
+  const openVideo = useContext(OpenVideoContext);
   if (item.videoUrl) return <VideoTile item={item} />;
+  const canWatch = item.watchUrl ? Boolean(toSafeEmbedUrl(item.watchUrl)) : false;
   return (
     <>
       <p className={styles.quote}>{item.quote}</p>
@@ -159,6 +163,16 @@ function TestimonialBody({ item }: { item: CommunityTestimonial }) {
         <div>
           {item.name ? <h4 className={styles.name}>{item.name}</h4> : null}
           {item.role ? <span className={styles.role}>{item.role}</span> : null}
+          {/* Video testimonial: opens the section video dialog. */}
+          {canWatch ? (
+            <button
+              type="button"
+              className={styles.watchVideo}
+              onClick={() => openVideo({ ...item, videoUrl: item.watchUrl })}
+              aria-label={`Watch video: ${item.name || "testimonial"}`}>
+              Watch Video
+            </button>
+          ) : null}
         </div>
       </div>
     </>
