@@ -18,7 +18,7 @@ export function PgdmFaqs({ data }: { data: PgdmFaqsData }) {
       <h2 className={styles.heading}>{data.heading}</h2>
       <PgdmAccordion
         items={items}
-        defaultOpenId={data.items[2]?.id}
+        defaultOpenId={null} // all FAQs start closed
       />
 
       {data.brochureCta.href ? (
