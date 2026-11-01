@@ -70,6 +70,14 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
   ].map((p) => ({ ...p, intake: "Present Intake: 180", href: p.slug === "pgdm" ? "/programmes/pgdm/mumbai" : `/programmes/${p.slug}` })),
 };
 
+/** Bengaluru version of a program page, or null when the program runs in Mumbai only. */
+export function bengaluruProgramHref(slug: string): string | null {
+  if (slug === "pgdm") return "/programmes/pgdm/bengaluru";
+  return ["pgdm-e-business", "pgdm-business-design", "pgdm-research-analytics"].includes(slug)
+    ? `/programmes/${slug}?campus=bengaluru`
+    : null;
+}
+
 // Figma 1815:2688: same programmes, terracotta strip, pink tint, green buttons,
 // and only the Full-Time / Executive categories.
 export const LISTING_BENGALURU: ProgrammeListingData = {
@@ -80,7 +88,8 @@ export const LISTING_BENGALURU: ProgrammeListingData = {
   nav: LISTING_MUMBAI.nav.map((n) => (n.label === "About Campus" ? { ...n, href: "/campuses/bengaluru" } : n)),
   pills: LISTING_MUMBAI.pills.slice(0, 2),
   intro: { ...LISTING_MUMBAI.intro, heading: "Full-time Programs" },
-  programmes: LISTING_MUMBAI.programmes.map((p) => (p.slug === "pgdm" ? { ...p, href: "/programmes/pgdm/bengaluru" } : p)),
+  // Programs with a Bengaluru version link to it; Mumbai-only programs keep their page.
+  programmes: LISTING_MUMBAI.programmes.map((p) => ({ ...p, href: bengaluruProgramHref(p.slug) ?? p.href })),
 };
 
 /** Photo slot for a programme row on a campus listing. */

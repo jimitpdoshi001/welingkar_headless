@@ -119,7 +119,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       { label: "About Campus", href: "#about" },
       // Mumbai links out to the programs listing and Life page; Bengaluru keeps in-page anchors.
       { label: "Programs", href: isMumbai ? "/programmes" : "#programmes" },
-      { label: "Faculty", href: "/about-us/faculty" },
+      { label: "Faculty", href: isMumbai ? "/about-us/faculty" : "/about-us/faculty/bengaluru" },
       { label: "Corporate Interface", href: "/corporate-interface" },
       { label: "We Research", href: "/weresearch" },
       { label: "We Excel", href: "#infrastructure" },
@@ -158,7 +158,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     mentors: {
       heading: "Mentors that Are Shaping the Leaders of Tomorrow",
       tabs: ["Deans", "Associate deans & heads", "Faculty", "Specialization"],
-      cta: { label: "View All", href: "/about-us/faculty" },
+      cta: { label: "View All", href: isMumbai ? "/about-us/faculty" : "/about-us/faculty/bengaluru" },
       people: [
         { id: "m1", name: "Prof Jai Raj Nair", title: "Professor- Information Technology", image: CIMG.face1 },
         { id: "m2", name: "Dr. Kiran G", title: "Associate Professor – Marketing", image: CIMG.face2 },
@@ -183,12 +183,12 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     programmes: {
       heading: "Programs Built for Every Ambition",
       description: "Design thinking sits at the heart of everything we teach. Our wide range of curated programs are built to challenge, engage, and shape students into the business leaders of tomorrow.",
-      cta: { label: "View All", href: "/programmes" },
+      cta: { label: "View All", href: isMumbai ? "/programmes" : "/programmes/bengaluru" },
       cards: [
-        { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: "/programmes/pgdm" } },
-        { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: "/programmes/pgdm-e-business" } },
-        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: "/programmes/pgdm-business-design" } },
-        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: "/programmes/pgdm-research-analytics" } },
+        { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm" : "/programmes/pgdm/bengaluru" } },
+        { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-e-business" : "/programmes/pgdm-e-business?campus=bengaluru" } },
+        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-business-design" : "/programmes/pgdm-business-design?campus=bengaluru" } },
+        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-research-analytics" : "/programmes/pgdm-research-analytics?campus=bengaluru" } },
       ],
     },
     recruiters: {
