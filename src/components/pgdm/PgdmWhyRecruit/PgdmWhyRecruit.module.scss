@@ -10,7 +10,12 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; }
 }
 
-.rootSingle { grid-template-columns: 1fr; }
+.rootSingle {
+  grid-template-columns: 1fr;
+
+  // No steps column: the copy spans the full card instead of a 480px column.
+  .body { max-width: none; }
+}
 
 .card {
   background: rgba(255, 255, 255, 0.06);
