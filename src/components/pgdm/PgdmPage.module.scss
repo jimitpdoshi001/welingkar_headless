@@ -255,4 +255,8 @@
 // component deliberately centers (cards, captions) keeps its own alignment.
 :where(.justify) :where(p, li) {
   text-align: justify;
+  // Hyphenate long words at line ends so justified lines don't open wide word gaps.
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
