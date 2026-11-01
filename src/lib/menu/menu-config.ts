@@ -145,11 +145,11 @@ export const MAIN_NAV: MainNavItem[] = [
     href: "/programmes",
     panel: {
       // Live-site structure: hover a campus on the left to switch its programs.
+      // Campus names are tabs only (no link): this menu links to program pages only.
       intro: [
         {
           title: "PGDM Mumbai",
           subtitle: "AICTE approved standalone institute",
-          href: "/campuses/mumbai",
           columns: [
             { heading: "Full-Time Programs", headingHref: "/programmes", links: FULL_TIME_PGDM },
             {
@@ -179,7 +179,6 @@ export const MAIN_NAV: MainNavItem[] = [
         {
           title: "MMS / PhD",
           subtitle: "Autonomous Institute affiliated to University of Mumbai",
-          href: "https://welingkar.edu.in/",
           columns: [
             {
               heading: "Full-Time Programs",
@@ -191,7 +190,6 @@ export const MAIN_NAV: MainNavItem[] = [
         {
           title: "PGDM Bengaluru",
           subtitle: "AICTE approved standalone institute",
-          href: "/campuses/bengaluru",
           columns: [
             {
               heading: "Full-Time Programs",
