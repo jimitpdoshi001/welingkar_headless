@@ -8,6 +8,7 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
+import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 import { AffiliateFaculty } from "@/components/paragraphs/AffiliateFaculty/AffiliateFaculty";
 
 import styles from "./page.module.scss";
@@ -24,7 +25,10 @@ const HERO_IMAGE = "/faculty/hero.webp";
  * Uses mock data from `@/lib/drupal/faculty`. In production the same sections are
  * assembled as paragraphs on a Drupal node. Dev-only, like the HTML tester route.
  */
-export default function FacultyPreviewPage() {
+export default async function FacultyPreviewPage() {
+  // Drupal faculty for this campus; null (fetch error) keeps the built-in grid.
+  const grid = await getCampusFacultyGrid("mumbai");
+
 
   return (
     <SearchProvider>
@@ -55,9 +59,18 @@ export default function FacultyPreviewPage() {
             <DirectorMessage />
           </section>
 
-          <section className={`container ${styles.block}`}>
-            <FacultyGrid />
-          </section>
+          {grid === null ? (
+            <section className={`container ${styles.block}`}>
+              <FacultyGrid />
+            </section>
+          ) : grid.members.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <FacultyGrid
+                categories={grid.categories}
+                members={grid.members}
+              />
+            </section>
+          ) : null}
 
           <section className={`container ${styles.block}`}>
             <AffiliateFaculty />

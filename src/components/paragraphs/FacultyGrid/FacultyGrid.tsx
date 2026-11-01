@@ -29,7 +29,7 @@ export function FacultyGrid({
   const [visibleCount, setVisibleCount] = useState<number>(baseCount);
 
   const filteredMembers = useMemo(
-    () => members.filter((member) => member.categorySlug === activeTab),
+    () => members.filter((member) => (member.categorySlugs ?? [member.categorySlug]).includes(activeTab)),
     [members, activeTab],
   );
 

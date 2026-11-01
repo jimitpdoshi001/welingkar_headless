@@ -13,6 +13,8 @@ export type FacultyMember = {
   designation: string;
   department?: string;
   categorySlug: string;
+  /** All categories (Drupal faculty can sit in several tabs). */
+  categorySlugs?: string[];
   image: string;
   imageAlt?: string;
   link?: string;
@@ -341,6 +343,8 @@ export type FacultyProfileTab = {
   id: string;
   title: string;
   blocks: FacultyProfileBlock[];
+  /** Sanitized rich text from Drupal; rendered instead of `blocks` when set. */
+  html?: string;
 };
 
 export type FacultyProfile = {
@@ -351,6 +355,8 @@ export type FacultyProfile = {
   imageAlt?: string;
   link?: string;
   linkLabel?: string;
+  /** Breadcrumb "Faculty" link (campus listing). */
+  backHref?: string;
   tabs: FacultyProfileTab[];
 };
 
