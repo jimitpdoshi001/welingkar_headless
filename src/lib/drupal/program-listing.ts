@@ -5,6 +5,7 @@ import { absoluteDrupalUrl } from "./jsonapi";
 import { toHref } from "./link";
 import { fixProgramsSpelling } from "@/lib/content-overrides";
 import type { PgdmCurriculumSubject, PgdmData } from "@/lib/pgdm/pgdm-data";
+import { fixCity } from "@/util/city";
 
 /**
  * Drupal REST `/api/program-listing/{nid}` → PGDM page content.
@@ -182,6 +183,18 @@ function clearCmsContent(data: PgdmData): PgdmData {
   return data;
 }
 
+/** Deep-copy with "Bangalore" -> "Bengaluru" in display text; URLs and paths are left untouched. */
+function normalizeCities<T>(value: T): T {
+  if (typeof value === "string") {
+    return (/^(https?:|\/|#|mailto:|tel:)/i.test(value) ? value : fixCity(value)) as T;
+  }
+  if (Array.isArray(value)) return value.map(normalizeCities) as T;
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, normalizeCities(v)])) as T;
+  }
+  return value;
+}
+
 /** Overlay filled Drupal fields onto the base page content. */
 export function applyProgramListing(base: PgdmData, node: RestEntity | null): PgdmData {
   if (!node) return base;
@@ -259,7 +272,8 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   const brochure = linkHref(node, "field_download_brochure");
   if (brochure) data.faqs.brochureCta = { label: brochure.title || "Download Brochure", href: brochure.href };
 
-  return data;
+  // Server-side city spelling fix, so the client CityNormalizer has nothing to change (no hydration mismatch).
+  return normalizeCities(data);
 }
 
 type ListNode = { text: string; children: ListNode[] };
@@ -631,4 +645,5 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
 /** Drupal node IDs of the program_listing pages. */
 export const PROGRAM_LISTING_NIDS = {
   pgdmMumbai: 4653,
+  pgdmBengaluru: 4654,
 } as const;
