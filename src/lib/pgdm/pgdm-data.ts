@@ -13,6 +13,8 @@ export type PgdmHeroData = {
   primaryCta: PgdmCta;
   secondaryCta: PgdmCta;
   image: string;
+  /** Optional mobile banner from Drupal (field_banner.field_mobile). */
+  imageMobile?: string;
   imageAlt: string;
 };
 
@@ -86,6 +88,7 @@ export type PgdmPlacement = {
   heading: string;
   paragraphs: string[];
   image: string;
+  imageMobile?: string;
   // caption: Figma's left label in the stats card; unit: small suffix after the value (e.g. LPA).
   years: { id: string; label: string; caption?: string; stats: { value: string; label: string; unit?: string }[] }[];
   whyRecruit: { heading: string; paragraphs: string[]; cta: PgdmCta };
@@ -112,15 +115,15 @@ export type PgdmFaqs = { heading: string; items: { id: string; q: string; a: str
 export type PgdmObjective = { id: string; icon?: string; text: string };
 export type PgdmObjectives = { heading: string; items: PgdmObjective[] };
 export type PgdmOutcomes = { heading: string; items: PgdmFeature[] };
-export type PgdmStrengths = { heading: string; subheading: string; image: string; cards: string[] };
+export type PgdmStrengths = { heading: string; subheading: string; image: string; imageMobile?: string; cards: string[] };
 export type PgdmPedagogy = { heading: string; intro: string; image: string; bullets: string[] };
 // hrefs: optional link per row (PDF / external URL from Drupal), same order as links.
-export type PgdmInnovative = { heading: string; image: string; links: string[]; hrefs?: (string | null)[] };
+export type PgdmInnovative = { heading: string; image: string; imageMobile?: string; links: string[]; hrefs?: (string | null)[] };
 export type PgdmFacultyPerson = { id: string; name: string; title: string; image: string };
 export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
 export type PgdmBandStat = { value: string; label: string };
 // Figma 644:472: Program USPs is a dark photo band with white cards at the base.
-export type PgdmUspBand = { heading: string; image: string; cards: string[] };
+export type PgdmUspBand = { heading: string; image: string; imageMobile?: string; cards: string[] };
 
 export type PgdmData = {
   campus: "Mumbai" | "Bengaluru";

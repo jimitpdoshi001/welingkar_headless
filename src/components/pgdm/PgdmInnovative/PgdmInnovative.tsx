@@ -13,7 +13,13 @@ export function PgdmInnovative({ data }: PgdmInnovativeProps) {
       <div className="container">
         <div
           className={styles.card}
-          style={{ backgroundImage: `url(${data.image})` }}>
+          style={
+            {
+              // CSS reads --bg, and --bg-mobile on phones when Drupal supplies one.
+              "--bg": `url(${data.image})`,
+              ...(data.imageMobile ? { "--bg-mobile": `url(${data.imageMobile})` } : {}),
+            } as React.CSSProperties
+          }>
           <div className={styles.overlay} />
           <div className={styles.content}>
             <h2 className={styles.heading}>{data.heading}</h2>

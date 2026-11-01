@@ -157,6 +157,8 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
 
     const desktop = mediaUrl(banner, "field_desktop");
     if (desktop) data.hero.image = desktop;
+    const mobile = mediaUrl(banner, "field_mobile");
+    if (mobile) data.hero.imageMobile = mobile;
   }
 
   // Stats strip under the hero.
@@ -174,6 +176,9 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
     if (heading) data.whyProgram.heading = heading;
     if (body) data.whyProgram.body = body;
     if (image) data.whyProgram.videoThumb = image;
+    // field_type "video": the photo links to the YouTube video.
+    const video = value(overview, "field_type") === "video" ? toHref(value(overview, "field_youtube_id")) : null;
+    if (video) data.whyProgram.videoHref = video;
   }
 
   // Vision / Mission.
@@ -256,6 +261,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (value(node, "field_program_strengths_title")) data.strengths.heading = value(node, "field_program_strengths_title");
   if (value(node, "field_program_strengths_sub_titl")) data.strengths.subheading = value(node, "field_program_strengths_sub_titl");
   if (strengthsImage) data.strengths.image = strengthsImage;
+  const strengthsMobile = fileUrl(entities(node, "field_program_strengths_mobile_i")[0]);
+  if (strengthsMobile) data.strengths.imageMobile = strengthsMobile;
   if (strengths.length) data.strengths.cards = strengths;
 
   // Student-Centric Pedagogy: first list item is the intro, the rest are bullets.
@@ -276,6 +283,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   const uspImage = fileUrl(entities(node, "field_program_usp_desktop_image")[0]);
   if (value(node, "field_program_usp_title")) data.uspBand.heading = value(node, "field_program_usp_title");
   if (uspImage) data.uspBand.image = uspImage;
+  const uspMobile = fileUrl(entities(node, "field_program_usp_mobile_image")[0]);
+  if (uspMobile) data.uspBand.imageMobile = uspMobile;
   if (usps.length) data.uspBand.cards = usps;
 
   // Innovative Teaching and Learning: rows link to a PDF or an external URL.
@@ -289,6 +298,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   const innovativeImage = fileUrl(entities(node, "field_innovative_teaching_and_le")[0]);
   if (value(node, "field_innovative_teaching_title")) data.innovativePedagogy.heading = value(node, "field_innovative_teaching_title");
   if (innovativeImage) data.innovativePedagogy.image = innovativeImage;
+  const innovativeMobile = fileUrl(entities(node, "field_innovative_teaching_mobile")[0]);
+  if (innovativeMobile) data.innovativePedagogy.imageMobile = innovativeMobile;
   if (innovative.length) {
     data.innovativePedagogy.links = innovative.map((l) => l.label);
     data.innovativePedagogy.hrefs = innovative.map((l) => l.href);
@@ -324,6 +335,14 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   // Career opportunities (role tabs are not filled in Drupal yet).
   if (value(node, "field_career_opportunities_title")) data.career.heading = value(node, "field_career_opportunities_title");
   if (value(node, "field_career_opportunities_desc")) data.career.description = value(node, "field_career_opportunities_desc");
+  const careerTabs = entities(node, "field_career_opportunities")
+    .map((p, i) => ({
+      id: p.id ?? `career-${i}`,
+      label: value(p, "field_main_title"),
+      roles: entities(p, "field_career_opportunities_data").map((r) => value(r, "field_main_title")).filter(Boolean),
+    }))
+    .filter((t) => t.label && t.roles.length);
+  if (careerTabs.length) data.career.tabs = careerTabs;
 
   // Placement.
   const placementParas = text("field_placement_opportunities_de").split("\n").filter(Boolean);
@@ -332,14 +351,20 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     .map((p, i) => {
       const label = value(p, "field_year").replace(/_/g, "-");
       const rows = entities(p, "field_placement_opportunities_da");
-      const type = value(rows[0], "field_package_type");
+      const types = [...new Set(rows.map((r) => value(r, "field_package_type")).filter(Boolean))];
+      const type = types.length === 1 ? types[0] : "";
+      const titleCase = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
       const stats = rows
-        .map((r) => ({ ...packageStat(value(r, "field_package")), label: value(r, "field_main_title") }))
+        .map((r) => {
+          const rowType = value(r, "field_package_type");
+          const label = value(r, "field_main_title");
+          return { ...packageStat(value(r, "field_package")), label: types.length > 1 && rowType ? `${label} (${titleCase(rowType)})` : label };
+        })
         .filter((s) => s.value && s.label);
       return {
         id: label || `year-${i}`,
         label,
-        caption: `Year ${label}${type ? `\n${type.charAt(0).toUpperCase()}${type.slice(1)}` : ""}`,
+        caption: `Year ${label}${type ? `\n${titleCase(type)}` : ""}`,
         stats,
       };
     })
@@ -347,11 +372,22 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (value(node, "field_placement_opportunities_ti")) data.placement.heading = value(node, "field_placement_opportunities_ti");
   if (placementParas.length) data.placement.paragraphs = placementParas;
   if (placementImage) data.placement.image = placementImage;
+  const placementMobile = fileUrl(entities(node, "field_placement_mobile_image")[0]);
+  if (placementMobile) data.placement.imageMobile = placementMobile;
   if (years.length) data.placement.years = years;
 
   // Recruiters card (placement band) and Our Recruiters section.
-  const recruitersTitle = value(entities(node, "field_recruiters_data")[0], "field_main_title");
-  const recruitersParas = text("field_recruiters_description").split("\n").filter(Boolean);
+  const recruitersCard = entities(node, "field_recruiters_data")[0];
+  const recruitersTitle = value(recruitersCard, "field_main_title");
+  const recruitersParas = (text("field_recruiters_description") || htmlToText(value(recruitersCard, "field_recruiters_sub_title")))
+    .split("\n")
+    .filter(Boolean);
+  const recruitersLink = linkHref(node, "field_recruiters_link");
+  if (recruitersLink) data.placement.whyRecruit.cta = { label: recruitersLink.title || data.placement.whyRecruit.cta.label, href: recruitersLink.href };
+  const logos = entities(node, "field_our_recruiters_logo")
+    .map((f) => ({ image: fileUrl(f) ?? "", name: str(f.alt) || str((f as { filename?: string }).filename).replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " ") }))
+    .filter((l) => l.image && l.name);
+  if (logos.length) data.recruiters.logos = logos;
   if (recruitersTitle) data.placement.whyRecruit.heading = recruitersTitle;
   if (recruitersParas.length) data.placement.whyRecruit.paragraphs = recruitersParas;
   if (value(node, "field_our_recruiters_description")) data.recruiters.description = value(node, "field_our_recruiters_description");
@@ -378,6 +414,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     if (text("field_eligibility_criteria")) eligibilityCard.heading = text("field_eligibility_criteria");
     if (text("field_eligibility_criteria_descr")) eligibilityCard.body = text("field_eligibility_criteria_descr");
     if (value(node, "field_eligibility_criteria_note")) eligibilityCard.note = value(node, "field_eligibility_criteria_note");
+    const eligibilityLink = linkHref(node, "field_eligibility_criteria_link");
+    if (eligibilityLink) eligibilityCard.cta = { label: eligibilityLink.title || eligibilityCard.cta?.label || "Apply Now", href: eligibilityLink.href };
   }
 
   // Shortlisting criteria table.
@@ -387,6 +425,18 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     data.shortlisting.columns = table.columns;
     data.shortlisting.rows = table.rows;
   }
+
+  // Program faculty. No items exist in Drupal yet, so the field names below are
+  // the conventions used by the other paragraphs here; confirm once data is added.
+  const faculty = entities(node, "field_program_faculty_data")
+    .map((p, i) => ({
+      id: p.id ?? `pf-${i}`,
+      name: value(p, "field_main_title") || value(p, "field_name"),
+      title: value(p, "field_sub_title") || value(p, "field_designation"),
+      image: fileUrl(entities(p, "field_image")[0]) ?? mediaUrl(p, "field_image") ?? "",
+    }))
+    .filter((f) => f.name && f.image);
+  if (faculty.length) data.programFaculty.people = faculty;
 
   // Student achievements: "Position" line, bullet list, then "Team members" names.
   const achievements = entities(node, "field_student_achievements")

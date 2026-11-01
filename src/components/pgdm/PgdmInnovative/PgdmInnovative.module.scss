@@ -8,6 +8,7 @@
 
 .card {
   position: relative;
+  background-image: var(--bg);
   border-radius: 3rem;
   overflow: hidden;
   background-color: #1a1420;
@@ -127,6 +128,7 @@
   .card {
     min-height: 66rem;
     background-position: 60% 0;
+    background-image: var(--bg-mobile, var(--bg));
   }
 
   .content {

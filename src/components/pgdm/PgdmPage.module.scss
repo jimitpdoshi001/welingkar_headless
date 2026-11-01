@@ -154,6 +154,8 @@
   margin: 0;
 }
 
+.whyVideoLink { display: block; @include respond-to(mobile) { order: -1; } }
+
 // Figma: 610x437 photo, 30px radius.
 .whyPhoto {
   display: block;
@@ -167,10 +169,11 @@
 
 // Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
 .band { background-color: var(--pgdm-band, var(--color-secondary)); }
-.placementBand { background-color: var(--pgdm-band, #4a3460); background-repeat: no-repeat; background-position: top center; background-size: 100% auto;
+.placementBand { background-color: var(--pgdm-band, #4a3460); background-image: var(--bg); background-repeat: no-repeat; background-position: top center; background-size: 100% auto;
   // Figma mobile: photo framed on the two people at the top, text below it.
   @include respond-to(mobile) {
     position: relative;
+    background-image: var(--bg-mobile, var(--bg));
     background-size: auto 87rem;
     background-position: 80% top;
 
