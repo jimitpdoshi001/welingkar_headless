@@ -31,10 +31,27 @@
   height: 6.4rem;
 
   img {
-    max-height: 4rem;
+    max-height: 5.4rem;
     width: auto;
-    max-width: 16rem;
+    max-width: 100%;
     object-fit: contain;
+  }
+}
+
+// Padded Drupal logos (250x40 canvas, ~66px logo in the middle): draw the
+// canvas 64px tall so the logo itself shows ~106x64, and clip the transparent
+// sides to the slide. Centring keeps the logo in view.
+.logoPadded {
+  overflow: hidden;
+
+  img {
+    height: 6.4rem;
+    max-height: none;
+    width: auto;
+    max-width: none;
+    flex-shrink: 0;
+
+    @include respond-to(mobile) { height: 5.2rem; }
   }
 }
 
