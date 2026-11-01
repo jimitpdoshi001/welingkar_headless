@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PgdmPage } from "@/components/pgdm/PgdmPage";
 import { getProgramme, programmeData, PROGRAMMES } from "@/lib/programmes/programmes";
+import { PROGRAM_SLUG_NIDS, applyProgramListing, getProgramListing } from "@/lib/drupal/program-listing";
 
 export function generateStaticParams() {
   return PROGRAMMES.filter((p) => p.slug !== "pgdm").map((p) => ({ slug: p.slug }));
@@ -19,9 +20,13 @@ export default async function ProgrammeDetailPage({ params }: { params: Promise<
   const meta = getProgramme(slug);
   if (!meta) notFound();
 
+  // Programs with a Drupal node use its content (same rules as PGDM Mumbai/Bengaluru).
+  const nid = PROGRAM_SLUG_NIDS[slug];
+  const doc = nid ? await getProgramListing(nid) : null;
+
   return (
     <PgdmPage
-      data={programmeData(meta)}
+      data={applyProgramListing(programmeData(meta), doc)}
       accent="orange"
     />
   );
