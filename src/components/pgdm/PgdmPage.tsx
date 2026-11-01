@@ -41,7 +41,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
   const hasRecruiters =
     data.placement.whyRecruit.paragraphs.length > 0 ||
     data.placement.steps.length > 0 ||
-    Boolean(data.recruiters.description) ||
+    // Our Recruiters needs logos; its text is only a disclaimer under them.
     data.recruiters.logos.length > 0;
 
   const accentVar =
@@ -230,8 +230,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                         steps={data.placement.steps}
                       />
                     ) : null}
-                    {data.recruiters.description ||
-                    data.recruiters.logos.length > 0 ? (
+                    {data.recruiters.logos.length > 0 ? (
                       <div className={styles.recruiters}>
                         <PgdmRecruiters data={data.recruiters} />
                       </div>

@@ -260,6 +260,51 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   return data;
 }
 
+/**
+ * Top-level `<li>` items of a list; an item with a nested list becomes
+ * `{ label, children }` (shown as an expandable sub-menu).
+ */
+function htmlToNestedList(html: string): Array<string | { label: string; children: string[] }> {
+  const decoded = decodeEntities(html);
+  const out: Array<string | { label: string; children: string[] }> = [];
+  // Walk <li> tags tracking depth, so nested lists stay with their parent item.
+  const tokens = decoded.split(/(<\/?(?:li|ul|ol)\b[^>]*>)/i);
+  let depth = 0; // list nesting depth
+  let current: { label: string; children: string[] } | null = null;
+  let child = "";
+  let label = "";
+  for (const token of tokens) {
+    const tag = token.match(/^<(\/?)(li|ul|ol)\b/i);
+    if (!tag) {
+      if (depth === 1 && current === null) label += token;
+      else if (depth >= 2) child += token;
+      continue;
+    }
+    const closing = tag[1] === "/";
+    const name = tag[2].toLowerCase();
+    if (name === "ul" || name === "ol") {
+      depth += closing ? -1 : 1;
+      if (!closing && depth === 2) current = { label: htmlToText(label), children: [] };
+      if (closing && depth === 1 && current) {
+        out.push(current.children.length ? current : current.label);
+        current = null;
+        label = "";
+      }
+    } else if (!closing) {
+      if (depth === 1) label = "";
+      else child = "";
+    } else if (depth === 1) {
+      if (label.trim() && !current) out.push(htmlToText(label));
+      label = "";
+    } else if (depth >= 2 && current) {
+      const text = htmlToText(child);
+      if (text) current.children.push(text);
+      child = "";
+    }
+  }
+  return out.filter((item) => (typeof item === "string" ? item : item.label));
+}
+
 /** Text of each `<p>` block, e.g. "Position: 1st Prize". */
 const paragraphs = (html: string): string[] =>
   [...decodeEntities(html).matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => htmlToText(m[1])).filter(Boolean);
@@ -362,7 +407,13 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   const terms = entities(node, "field_curriculum_data")
     .map((p, i) => ({
       year: value(p, "field_curriculum_year"),
-      trimester: { id: p.id ?? `t${i}`, label: value(p, "field_main_title"), subjects: htmlToListItems(value(p, "field_desc")), objectives: [] as string[] },
+      trimester: {
+        id: p.id ?? `t${i}`,
+        label: value(p, "field_main_title"),
+        subjects: htmlToNestedList(value(p, "field_desc")),
+        objectives: [] as string[],
+        year: value(p, "field_curriculum_year") || undefined,
+      },
     }))
     .filter((t) => t.trimester.label && t.trimester.subjects.length);
   if (value(node, "field_curriculum_title")) data.curriculum.heading = value(node, "field_curriculum_title");
