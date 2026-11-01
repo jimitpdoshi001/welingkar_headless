@@ -23,7 +23,15 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
         />
         <div className={styles.overlay} />
       </div>
-      <div className={`container ${styles.inner}`}>
+      <div
+        className={`container ${styles.inner}`}
+        // Columns follow the card count: up to 6 per row on desktop, 3 on tablet.
+        style={
+          {
+            "--usp-cols": Math.min(data.cards.length, 6),
+            "--usp-cols-tab": Math.min(data.cards.length, 3),
+          } as React.CSSProperties
+        }>
         <h2 className={styles.heading}>{data.heading}</h2>
         <PgdmMobileRow className={styles.cards} itemWidth="56%" arrowsClassName={styles.noArrows}>
           {data.cards.map((card) => (

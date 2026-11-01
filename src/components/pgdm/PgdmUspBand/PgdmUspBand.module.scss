@@ -72,16 +72,17 @@
 // Figma: six 190x119 cards, 20px apart.
 .cards {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(var(--usp-cols, 6), 1fr);
   gap: 2rem;
 
-  @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); }
+  @include respond-to(tab) { grid-template-columns: repeat(var(--usp-cols-tab, 3), 1fr); }
   @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
 }
 
 // Frosted glass: translucent light-grey tint over a strong blur of the photo,
 // with a light rim and soft shadow (Figma 2344:1015 tone, 15px radius).
 .card {
+  text-align: left; // short labels: justify would open wide gaps in these narrow cards
   min-height: 11.9rem;
   margin: 0;
   padding: 2.2rem 2rem;
