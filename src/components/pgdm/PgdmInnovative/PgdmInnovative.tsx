@@ -13,24 +13,49 @@ export function PgdmInnovative({ data }: PgdmInnovativeProps) {
       <div className="container">
         <div
           className={styles.card}
-          style={{ backgroundImage: `url(${data.image})` }}>
+          style={
+            {
+              // CSS reads --bg, and --bg-mobile on phones when Drupal supplies one.
+              "--bg": `url(${data.image})`,
+              ...(data.imageMobile ? { "--bg-mobile": `url(${data.imageMobile})` } : {}),
+            } as React.CSSProperties
+          }>
           <div className={styles.overlay} />
           <div className={styles.content}>
             <h2 className={styles.heading}>{data.heading}</h2>
             <ul className={styles.links}>
-              {data.links.map((link, i) => (
-                <li
-                  key={link}
-                  tabIndex={0}
-                  className={`${styles.row} ${i === 0 ? styles.rowActive : ""}`}>
-                  <span>{link}</span>
-                  <span
-                    className={styles.play}
-                    aria-hidden="true">
-                    ▶
-                  </span>
-                </li>
-              ))}
+              {data.links.map((link, i) => {
+                const href = data.hrefs?.[i];
+                const inner = (
+                  <>
+                    <span>{link}</span>
+                    <span
+                      className={styles.play}
+                      aria-hidden="true">
+                      ▶
+                    </span>
+                  </>
+                );
+                return (
+                  <li
+                    key={link}
+                    tabIndex={href ? undefined : 0}
+                    className={`${styles.row} ${i === 0 ? styles.rowActive : ""}`}>
+                    {/* Drupal rows open their PDF / form in a new tab. */}
+                    {href ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.rowLink}>
+                        {inner}
+                      </a>
+                    ) : (
+                      inner
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>

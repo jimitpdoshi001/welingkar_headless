@@ -8,6 +8,7 @@
 
 .card {
   position: relative;
+  background-image: var(--bg);
   border-radius: 3rem;
   overflow: hidden;
   background-color: #1a1420;
@@ -92,9 +93,21 @@
   outline: none;
 }
 
+// Linked rows: the anchor fills the row so the whole line is clickable.
+.rowLink {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  color: inherit;
+  text-decoration: none;
+}
+
 .rowActive,
 .row:hover,
-.row:focus-visible {
+.row:focus-visible,
+.row:focus-within {
   font-weight: 500;
   color: var(--color-white);
 
@@ -115,6 +128,7 @@
   .card {
     min-height: 66rem;
     background-position: 60% 0;
+    background-image: var(--bg-mobile, var(--bg));
   }
 
   .content {

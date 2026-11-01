@@ -1,4 +1,5 @@
 import type { PgdmStrengths as PgdmStrengthsData } from "@/lib/pgdm/pgdm-data";
+import { PgdmImage } from "../common/PgdmImage";
 import styles from "./PgdmStrengths.module.scss";
 import { PgdmMobileRow } from "../common/PgdmMobileRow";
 
@@ -14,8 +15,9 @@ export function PgdmStrengths({ data }: PgdmStrengthsProps) {
       <div
         className={styles.bg}
         aria-hidden="true">
-        <img
+        <PgdmImage
           src={data.image}
+          mobileSrc={data.imageMobile}
           alt=""
           className={styles.photo}
         />

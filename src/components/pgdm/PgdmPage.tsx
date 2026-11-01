@@ -73,11 +73,27 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                 <h2 className={styles.whyHeading}>{data.whyProgram.heading}</h2>
                 <p className={styles.whyBody}>{data.whyProgram.body}</p>
               </div>
-              <img
-                src={data.whyProgram.videoThumb}
-                alt=""
-                className={styles.whyPhoto}
-              />
+              {/* Drupal field_type "video": the photo opens the YouTube video in a new tab. */}
+              {data.whyProgram.videoHref && data.whyProgram.videoHref !== "#" ? (
+                <a
+                  href={data.whyProgram.videoHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Watch video: ${data.whyProgram.heading}`}
+                  className={styles.whyVideoLink}>
+                  <img
+                    src={data.whyProgram.videoThumb}
+                    alt=""
+                    className={styles.whyPhoto}
+                  />
+                </a>
+              ) : (
+                <img
+                  src={data.whyProgram.videoThumb}
+                  alt=""
+                  className={styles.whyPhoto}
+                />
+              )}
             </div>
           </section>
 
@@ -144,7 +160,13 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           <div
             id="placements"
             className={`${styles.placementBand} ${styles.anchor}`}
-            style={{ backgroundImage: `url(${data.placement.image})` }}
+            style={
+              {
+                // CSS reads --bg, and --bg-mobile on phones when Drupal supplies one.
+                "--bg": `url(${data.placement.image})`,
+                ...(data.placement.imageMobile ? { "--bg-mobile": `url(${data.placement.imageMobile})` } : {}),
+              } as React.CSSProperties
+            }
           >
             <PgdmPlacement data={data.placement} bare />
 

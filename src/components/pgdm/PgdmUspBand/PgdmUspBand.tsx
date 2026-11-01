@@ -1,4 +1,5 @@
 import type { PgdmUspBand as PgdmUspBandData } from "@/lib/pgdm/pgdm-data";
+import { PgdmImage } from "../common/PgdmImage";
 import styles from "./PgdmUspBand.module.scss";
 import { PgdmMobileRow } from "../common/PgdmMobileRow";
 
@@ -14,8 +15,9 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
       <div
         className={styles.bg}
         aria-hidden="true">
-        <img
+        <PgdmImage
           src={data.image}
+          mobileSrc={data.imageMobile}
           alt=""
           className={styles.photo}
         />

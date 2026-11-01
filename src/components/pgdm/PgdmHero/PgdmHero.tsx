@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import type { PgdmHeroData } from "@/lib/pgdm/pgdm-data";
+import { PgdmImage } from "../common/PgdmImage";
 import styles from "./PgdmHero.module.scss";
 
 type PgdmHeroProps = {
@@ -10,8 +11,9 @@ type PgdmHeroProps = {
 export function PgdmHero({ data }: PgdmHeroProps) {
   return (
     <section className={styles.hero}>
-      <img
+      <PgdmImage
         src={data.image}
+        mobileSrc={data.imageMobile}
         alt={data.imageAlt}
         className={styles.heroImage}
       />
