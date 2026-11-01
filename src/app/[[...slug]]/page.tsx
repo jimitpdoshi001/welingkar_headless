@@ -8,6 +8,11 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 
+// Content-only route (no cookies, headers or query strings). Force static so a
+// Drupal call can never flip it to dynamic during the 5-minute refresh
+// (that crashed "/" on Vercel with DYNAMIC_SERVER_USAGE).
+export const dynamic = "force-static";
+
 type PageProps = {
   params: Promise<{ slug?: string[] }>;
 };
