@@ -78,7 +78,7 @@ function relIds(node: JsonApiResource, field: string): { type: string; id: strin
 }
 
 // Drupal list keys whose label is not a plain title-case of the key.
-const CATEGORY_LABELS: Record<string, string> = { pgdm: "PGDM", e_business: "E-Business" };
+const CATEGORY_LABELS: Record<string, string> = { pgdm: "PGDM", pgdlp: "PGDLP", e_business: "E-Business" };
 
 /** List key -> display label, e.g. "media_and_entertainment" -> "Media and Entertainment". */
 function categoryLabel(key: string): string {
