@@ -646,4 +646,10 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
 export const PROGRAM_LISTING_NIDS = {
   pgdmMumbai: 4653,
   pgdmBengaluru: 4654,
+  pgdmResearchAnalytics: 4655,
 } as const;
+
+/** Program slugs (/programmes/[slug]) whose content comes from Drupal. */
+export const PROGRAM_SLUG_NIDS: Record<string, number> = {
+  "pgdm-research-analytics": PROGRAM_LISTING_NIDS.pgdmResearchAnalytics,
+};
