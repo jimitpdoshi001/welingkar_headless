@@ -167,6 +167,8 @@ function clearCmsContent(data: PgdmData): PgdmData {
     cards: [],
     waiver: { ...data.fees.waiver, bullets: [] },
     eligibility: { ...data.fees.eligibility, bullets: [] },
+    admissions: undefined,
+    loan: undefined,
   };
   data.whoApply = {
     heading: "",
@@ -528,24 +530,24 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (fees.length) data.fees.cards = fees;
   if (waiver.length) data.fees.waiver.bullets = waiver;
 
-  // Admissions / Education loan (proposed Drupal fields; built-in text until they exist).
+  // Admissions / Education loan: shown only when Drupal has content.
   const admissionsText = text("field_admissions_description").split("\n").filter(Boolean);
-  if (data.fees.admissions) {
-    if (value(node, "field_admissions_title")) data.fees.admissions.heading = value(node, "field_admissions_title");
-    if (admissionsText.length) data.fees.admissions.paragraphs = admissionsText;
+  if (admissionsText.length) {
+    data.fees.admissions = { heading: value(node, "field_admissions_heading") || "Admissions", paragraphs: admissionsText };
   }
   const loanText = text("field_education_loan_description").split("\n").filter(Boolean);
-  const loanPartners = entities(node, "field_education_loan_partners")
-    .map((p) => ({
-      name: value(p, "field_main_title"),
-      logo: fileUrl(entities(p, "field_image")[0]) ?? "",
-      href: linkHref(p, "field_link")?.href ?? "",
-    }))
-    .filter((partner) => partner.name && partner.logo);
-  if (data.fees.loan) {
-    if (value(node, "field_education_loan_title")) data.fees.loan.heading = value(node, "field_education_loan_title");
-    if (loanText.length) data.fees.loan.paragraphs = loanText;
-    if (loanPartners.length) data.fees.loan.partners = loanPartners;
+  const bankLogo = entities(node, "field_education_loan_bank_logo")[0];
+  const bankLogoUrl = fileUrl(bankLogo);
+  const loanCta = linkHref(node, "field_education_loan_cta");
+  const loanPartners = bankLogoUrl
+    ? [{ name: str(bankLogo?.alt) || "Bank", logo: bankLogoUrl, href: loanCta?.href ?? "", label: loanCta?.title || "Know More" }]
+    : [];
+  if (loanText.length || loanPartners.length) {
+    data.fees.loan = {
+      heading: value(node, "field_education_loan_heading") || "Education Loan",
+      paragraphs: loanText,
+      partners: loanPartners,
+    };
   }
 
   // Who should apply / eligibility cards.

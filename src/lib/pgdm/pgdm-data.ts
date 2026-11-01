@@ -118,7 +118,8 @@ export type PgdmFees = {
     heading: string;
     paragraphs: string[];
     // href empty: the partner's "Know More" button is hidden.
-    partners: { name: string; logo: string; href: string }[];
+    // label: button text (Drupal link title), defaults to "Know More".
+    partners: { name: string; logo: string; href: string; label?: string }[];
   };
 };
 
