@@ -40,6 +40,8 @@ export type PgdmWhoApply = {
 
 export type PgdmTable = {
   title: string;
+  /** Intro line under the heading (Drupal: first paragraph of the shortlisting HTML). */
+  description?: string;
   // Figma 644:472: one table per campus, each with its own header colour.
   campuses: { label: string; color: string }[];
   columns: string[];

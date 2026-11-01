@@ -562,7 +562,11 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
 
   // Shortlisting criteria table.
   if (value(node, "field_shortlisting_criteria_titl")) data.shortlisting.title = value(node, "field_shortlisting_criteria_titl").replace(/\s{2,}/g, " ");
-  const table = parseShortlistTable(value(node, "field_shortlisting_criteria"));
+  const shortlistHtml = value(node, "field_shortlisting_criteria");
+  // Sub-heading: paragraph text placed before the first table.
+  const intro = paragraphs(shortlistHtml.split(/<table/i)[0] ?? "").join("\n");
+  if (intro) data.shortlisting.description = intro;
+  const table = parseShortlistTable(shortlistHtml);
   if (table) {
     data.shortlisting.columns = table.columns;
     data.shortlisting.rows = table.rows;

@@ -7,6 +7,7 @@ export function PgdmShortlistTable({ data }: { data: PgdmTable }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.title}</h2>
+      {data.description ? <p className={styles.description}>{data.description}</p> : null}
 
       {data.campuses.map((campus) => (
         <div
