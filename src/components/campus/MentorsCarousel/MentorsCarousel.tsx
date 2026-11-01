@@ -10,6 +10,7 @@ import { DEFAULT_FACULTY_GRID_CATEGORIES, DEFAULT_FACULTY_GRID_MEMBERS } from "@
 import type { CampusCta } from "@/lib/campus/campus-data";
 import arrowStyles from "../ScrollArrows/ScrollArrows.module.scss";
 import styles from "../CampusPage.module.scss";
+import { useSwiperLock } from "@/util/useSwiperLock";
 
 type MentorsCarouselProps = {
   /** Tab labels in display order; matched to the faculty categories by position. */
@@ -28,6 +29,7 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
   // Figma opens on "Faculty".
   const [active, setActive] = useState(categories.find((c) => c.slug === "faculty")?.slug ?? categories[0].slug);
   const swiperRef = useRef<SwiperClass | null>(null);
+  const { locked, lockEvents } = useSwiperLock();
 
   const people = useMemo(
     () => DEFAULT_FACULTY_GRID_MEMBERS.filter((member) => member.categorySlug === active),
@@ -58,6 +60,7 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
             className={`btn accent ${styles.smallBtn}`}>
             {cta.label}
           </Link>
+          {locked ? null : (
           <div className={arrowStyles.arrows}>
             <button
               type="button"
@@ -80,12 +83,14 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
               />
             </button>
           </div>
+          )}
         </div>
       </div>
 
       {/* Keyed by tab so the carousel restarts at the first card on each switch. */}
       <Swiper
         key={active}
+        {...lockEvents}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}

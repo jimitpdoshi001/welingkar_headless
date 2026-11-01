@@ -1,0 +1,4 @@
+// Swiper navigation arrows: hidden when every slide already fits (watchOverflow lock).
+.swiper-button-lock {
+  display: none !important;
+}

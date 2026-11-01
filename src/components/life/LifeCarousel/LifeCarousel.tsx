@@ -7,6 +7,7 @@ import "swiper/css";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import arrowStyles from "@/components/campus/ScrollArrows/ScrollArrows.module.scss";
 import styles from "./LifeCarousel.module.scss";
+import { useSwiperLock } from "@/util/useSwiperLock";
 
 type LifeCarouselProps = {
   /** Heading + subtitle, shown in a row with the prev/next arrows. */
@@ -20,11 +21,13 @@ type LifeCarouselProps = {
 /** Card row with prev/next arrows (Figma "Up" icons) beside the section heading. */
 export function LifeCarousel({ header, slideClassName, label, children }: LifeCarouselProps) {
   const swiperRef = useRef<SwiperClass | null>(null);
+  const { locked, lockEvents } = useSwiperLock();
 
   return (
     <>
       <div className={styles.head}>
         {header}
+        {locked ? null : (
         <div className={arrowStyles.arrows}>
           <button
             type="button"
@@ -47,8 +50,10 @@ export function LifeCarousel({ header, slideClassName, label, children }: LifeCa
             />
           </button>
         </div>
+        )}
       </div>
       <Swiper
+        {...lockEvents}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}

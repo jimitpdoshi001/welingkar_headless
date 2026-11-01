@@ -150,6 +150,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
             />
           </div>
 
+          {slides.length > 1 ? (
           <button
             type="button"
             className={styles.nextButton}
@@ -160,6 +161,7 @@ export function HeroBannerGroup({ thumbs, children }: HeroBannerGroupProps) {
               <ArrowRight height={10} width={13} />
             </span>
           </button>
+          ) : null}
         </div>
       </div>
 

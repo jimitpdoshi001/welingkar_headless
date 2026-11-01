@@ -8,10 +8,13 @@ import "swiper/css";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { PgdmFees as PgdmFeesData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmFees.module.scss";
+import { useSwiperLock } from "@/util/useSwiperLock";
 
 export function PgdmFees({ data }: { data: PgdmFeesData }) {
   // Direct handle so the arrows control the fee-card slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
+  // Arrows only when there are more cards than fit.
+  const { locked, lockEvents } = useSwiperLock();
   // Desktop: waiver list left; Admissions and Education loan stacked right.
   // Mobile: every panel becomes an underline tab (one shown at a time).
   const [listTab, setListTab] = useState(0);
@@ -81,7 +84,7 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
       {/* Sub heading and the carousel arrows share one row. */}
       <div className={styles.subRow}>
         <p className={styles.description}>{data.description}</p>
-        {data.cards.length > 0 ? (
+        {data.cards.length > 0 && !locked ? (
           <div className={styles.navBtns}>
             <button
               type="button"
@@ -113,6 +116,7 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
             768: { slidesPerView: 2.2 },
             1024: { slidesPerView: 3 },
           }}
+          {...lockEvents}
           onSwiper={(s) => {
             swiperRef.current = s;
           }}

@@ -7,12 +7,14 @@ import "swiper/css";
 
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import styles from "./MdcTestimonials.module.scss";
+import { useSwiperLock } from "@/util/useSwiperLock";
 
 type Item = { id: string; text: string; name: string; role: string };
 
 // Heading on the left, testimonial carousel on the right with arrows below-right.
 export function MdcTestimonials({ heading, items }: { heading: string; items: Item[] }) {
   const swiperRef = useRef<SwiperClass | null>(null);
+  const { locked, lockEvents } = useSwiperLock();
 
   return (
     <div className={styles.layout}>
@@ -27,6 +29,7 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
       </h2>
 
       <div className={styles.right}>
+        {locked ? null : (
         <div className={styles.nav}>
           <button
             type="button"
@@ -49,8 +52,10 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
             />
           </button>
         </div>
-        
+        )}
+
         <Swiper
+          {...lockEvents}
           slidesPerView={1.05}
           spaceBetween={24}
           grabCursor
