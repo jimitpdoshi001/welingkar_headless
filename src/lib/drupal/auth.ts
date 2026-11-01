@@ -37,9 +37,7 @@ async function login(): Promise<DrupalSession | null> {
         name: drupalConfig.username,
         pass: drupalConfig.password,
       }),
-      // No `cache: "no-store"`: it forces request-time rendering, which crashes
-      // static pages during their timed (ISR) refresh with DYNAMIC_SERVER_USAGE.
-      // POST requests are never cached, so the login still runs fresh.
+      cache: "no-store",
     },
   );
 
