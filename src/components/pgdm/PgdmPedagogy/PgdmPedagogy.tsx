@@ -12,7 +12,7 @@ export function PgdmPedagogy({ data }: PgdmPedagogyProps) {
     <div className={styles.card}>
       <div className={styles.text}>
         <h2 className={styles.heading}>{data.heading}</h2>
-        <p className={styles.intro}>{data.intro}</p>
+        {data.intro ? <p className={styles.intro}>{data.intro}</p> : null}
         <ul className={styles.list}>
           {data.bullets.map((b) => (
             <li
@@ -23,11 +23,13 @@ export function PgdmPedagogy({ data }: PgdmPedagogyProps) {
           ))}
         </ul>
       </div>
-      <img
-        src={data.image}
-        alt=""
-        className={styles.photo}
-      />
+      {data.image ? (
+        <img
+          src={data.image}
+          alt=""
+          className={styles.photo}
+        />
+      ) : null}
     </div>
   );
 }

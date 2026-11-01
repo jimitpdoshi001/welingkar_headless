@@ -5,19 +5,18 @@ export function PgdmRecruiters({ data }: { data: PgdmRecruitersData }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      {data.description ? <p className={styles.description}>{data.description}</p> : null}
-      <div className={styles.strip}>
-        {data.logos.map((logo) => (
-          <div
-            key={logo.name}
-            className={styles.logo}>
-            <img
-              src={logo.image}
-              alt={logo.name}
-            />
-          </div>
-        ))}
-      </div>
+      {data.description ? (
+        <p className={styles.description}>{data.description}</p>
+      ) : null}
+      {data.logos.length > 0 ? (
+        <div className={styles.strip}>
+          {data.logos.map((logo) => (
+            <div key={logo.name} className={styles.logo}>
+              <img src={logo.image} alt={logo.name} />
+            </div>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }

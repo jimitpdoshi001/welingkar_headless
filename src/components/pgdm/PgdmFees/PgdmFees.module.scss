@@ -123,6 +123,13 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 
+// One list only (e.g. Drupal has no eligibility points): full width, no tabs.
+.listsSingle {
+  grid-template-columns: 1fr;
+
+  @include respond-to(mobile) { .listHeading { display: block; } }
+}
+
 .listHeading {
   font-size: 2rem;
   font-weight: 700;

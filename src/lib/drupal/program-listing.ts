@@ -131,10 +131,61 @@ export const getProgramListing = cache(async (nid: number): Promise<RestEntity |
   }
 });
 
+/**
+ * Empty every Drupal-managed section. Fixed design labels with no Drupal field
+ * (e.g. "Our Recruiters", "Tuition Fee Waiver Scheme") are kept; the page hides
+ * a label when its section has no data. The hero keeps its content as a safety net.
+ */
+function clearCmsContent(data: PgdmData): PgdmData {
+  data.bandStats = [];
+  data.whyProgram = { heading: "", body: "", videoThumb: "", videoHref: undefined };
+  data.visionMission = { vision: { heading: "", body: "", images: [] }, mission: { heading: "", lines: [], images: [] } };
+  data.educationalObjectives = { heading: "", items: [] };
+  data.outcomes = { heading: "", items: [] };
+  data.strengths = { heading: "", subheading: "", image: "", cards: [] };
+  data.studentPedagogy = { heading: "", intro: "", image: "", bullets: [] };
+  data.uspBand = { heading: "", image: "", cards: [] };
+  data.innovativePedagogy = { heading: "", image: "", links: [], hrefs: [] };
+  data.programFaculty = { ...data.programFaculty, people: [] };
+  data.curriculum = { heading: "", description: "", trimesters: [] };
+  data.classProfile = { heading: "", description: "", items: [] };
+  data.career = { ...data.career, heading: "", description: "", tabs: [] };
+  data.placement = {
+    ...data.placement,
+    heading: "",
+    paragraphs: [],
+    image: "",
+    imageMobile: undefined,
+    years: [],
+    whyRecruit: { heading: "", paragraphs: [], cta: { label: "", href: "" } },
+    steps: [],
+  };
+  data.recruiters = { ...data.recruiters, description: "", logos: [] };
+  data.fees = {
+    ...data.fees,
+    description: "",
+    cards: [],
+    waiver: { ...data.fees.waiver, bullets: [] },
+    eligibility: { ...data.fees.eligibility, bullets: [] },
+  };
+  data.whoApply = {
+    heading: "",
+    subtitle: "",
+    cards: data.whoApply.cards.map((c) => ({ heading: c.heading, body: "" })),
+  };
+  data.shortlisting = { ...data.shortlisting, title: "", columns: [], rows: [] };
+  data.achievements = { heading: "", description: "", items: [] };
+  data.community = { ...data.community, testimonials: [] };
+  data.faqs = { ...data.faqs, items: [], brochureCta: { label: "", href: "" } };
+  return data;
+}
+
 /** Overlay filled Drupal fields onto the base page content. */
 export function applyProgramListing(base: PgdmData, node: RestEntity | null): PgdmData {
   if (!node) return base;
-  const data: PgdmData = structuredClone(base);
+  // Drupal drives this page: start from empty sections so anything the API does
+  // not supply is hidden instead of showing built-in content.
+  const data: PgdmData = clearCmsContent(structuredClone(base));
 
   // Banner: title, subtitle, CTAs, image.
   const banner = entities(node, "field_banner")[0];
@@ -203,6 +254,8 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
     .map((p, i) => ({ id: p.id ?? `faq-${i}`, q: value(p, "field_question"), a: htmlToText(value(p, "field_anwser")) }))
     .filter((f) => f.q && f.a);
   if (faqs.length) data.faqs.items = faqs;
+  const brochure = linkHref(node, "field_download_brochure");
+  if (brochure) data.faqs.brochureCta = { label: brochure.title || "Download Brochure", href: brochure.href };
 
   return data;
 }
@@ -270,10 +323,10 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (pedagogy) {
     const items = htmlToListItems(value(pedagogy, "field_desc"));
     const image = fileUrl(entities(pedagogy, "field_image")[0]);
-    if (items.length) {
-      data.studentPedagogy.intro = items[0];
-      data.studentPedagogy.bullets = items.slice(1);
-    }
+    // Every Drupal list item is a bullet; the intro is only used for plain paragraphs.
+    const intro = htmlToText(value(pedagogy, "field_desc").replace(/<ul[\s\S]*?<\/ul>|<ol[\s\S]*?<\/ol>/gi, ""));
+    if (items.length) data.studentPedagogy.bullets = items;
+    if (intro) data.studentPedagogy.intro = intro;
     if (image) data.studentPedagogy.image = image;
   }
   if (value(node, "field_student_centric_pedagogy_t")) data.studentPedagogy.heading = value(node, "field_student_centric_pedagogy_t");
@@ -456,6 +509,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     })
     .filter((a) => a.title && a.image);
   if (achievements.length) data.achievements.items = achievements;
+  if (value(node, "field_student_achievements_title")) data.achievements.heading = value(node, "field_student_achievements_title");
+  if (value(node, "field_student_achievements_descr")) data.achievements.description = htmlToText(value(node, "field_student_achievements_descr"));
 
   // Straight from our community: video tiles (YouTube) and quote cards.
   const community = entities(node, "field_straight_from_our_communit")

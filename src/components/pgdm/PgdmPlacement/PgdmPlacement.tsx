@@ -7,7 +7,13 @@ import { PgdmTabBar } from "../common/PgdmTabBar";
 import styles from "./PgdmPlacement.module.scss";
 
 // `bare`: skip the own photo/overlay when a parent band supplies the background.
-export function PgdmPlacement({ data, bare = false }: { data: PgdmPlacementData; bare?: boolean }) {
+export function PgdmPlacement({
+  data,
+  bare = false,
+}: {
+  data: PgdmPlacementData;
+  bare?: boolean;
+}) {
   const [year, setYear] = useState(data.years[0]?.id ?? "");
   const current = data.years.find((y) => y.id === year) ?? data.years[0];
 
@@ -15,11 +21,7 @@ export function PgdmPlacement({ data, bare = false }: { data: PgdmPlacementData;
     <section className={styles.root}>
       {bare ? null : (
         <>
-          <img
-            src={data.image}
-            alt=""
-            className={styles.bg}
-          />
+          <img src={data.image} alt="" className={styles.bg} />
           <div className={styles.overlay} />
         </>
       )}
@@ -27,37 +29,41 @@ export function PgdmPlacement({ data, bare = false }: { data: PgdmPlacementData;
       <div className={`container ${styles.inner}`}>
         <h2 className={styles.heading}>{data.heading}</h2>
         {data.paragraphs.map((para, i) => (
-          <p
-            key={i}
-            className={styles.paragraph}>
+          <p key={i} className={styles.paragraph}>
             {para}
           </p>
         ))}
 
-        <div className={styles.yearTabs}>
-          <PgdmTabBar
-            tabs={data.years.map((y) => ({ id: y.id, label: y.label }))}
-            active={year}
-            onChange={setYear}
-            variant="segmented"
-          />
-        </div>
-
-        {/* Figma: caption on the left, then large values with a small unit. */}
-        <div className={styles.statsCard}>
-          {current?.caption ? <p className={styles.caption}>{current.caption}</p> : null}
-          {current?.stats.map((stat) => (
-            <div
-              key={stat.label}
-              className={styles.stat}>
-              <span className={styles.statValue}>
-                {stat.value}
-                {stat.unit ? <small className={styles.statUnit}>{stat.unit}</small> : null}
-              </span>
-              <span className={styles.statLabel}>{stat.label}</span>
+        {data.years.length > 0 ? (
+          <>
+            <div className={styles.yearTabs}>
+              <PgdmTabBar
+                tabs={data.years.map((y) => ({ id: y.id, label: y.label }))}
+                active={year}
+                onChange={setYear}
+                variant="segmented"
+              />
             </div>
-          ))}
-        </div>
+
+            {/* Figma: caption on the left, then large values with a small unit. */}
+            <div className={styles.statsCard}>
+              {current?.caption ? (
+                <p className={styles.caption}>{current.caption}</p>
+              ) : null}
+              {current?.stats.map((stat) => (
+                <div key={stat.label} className={styles.stat}>
+                  <span className={styles.statValue}>
+                    {stat.value}
+                    {stat.unit ? (
+                      <small className={styles.statUnit}>{stat.unit}</small>
+                    ) : null}
+                  </span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        ) : null}
       </div>
     </section>
   );

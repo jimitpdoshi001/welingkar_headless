@@ -10,6 +10,8 @@
   @include respond-to(mobile) { grid-template-columns: 1fr; }
 }
 
+.rootSingle { grid-template-columns: 1fr; }
+
 .card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -135,3 +137,6 @@
   .stepTitle { font-size: 1.8rem; font-weight: 700; line-height: 2.2rem; }
   .stepDesc { font-size: 1.6rem; line-height: 2.1rem; }
 }
+
+// No CTA link (e.g. none in Drupal): drop the space reserved for the button.
+.cardNoCta .body:last-of-type { margin-bottom: 0; }
