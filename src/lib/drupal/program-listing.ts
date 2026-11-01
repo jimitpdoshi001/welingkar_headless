@@ -563,20 +563,24 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (value(node, "field_student_achievements_title")) data.achievements.heading = value(node, "field_student_achievements_title");
   if (value(node, "field_student_achievements_descr")) data.achievements.description = htmlToText(value(node, "field_student_achievements_descr"));
 
-  // Straight from our community: video tiles (YouTube) and quote cards.
+  // Straight from our community: quote cards. An item with a YouTube URL gets a
+  // "Watch Video" link; one without is a plain quote card.
+  // Drupal: field_main_title = name, field_recruiters_sub_title = role,
+  // field_description = quote, field_icon = avatar (field_image is the older photo).
   const community = entities(node, "field_straight_from_our_communit")
     .map((p, i) => {
-      const video = value(p, "field_type") === "video" ? value(p, "field_youtube_id") : "";
+      const youtube = value(p, "field_youtube_id");
+      const watch = value(p, "field_type") === "video" || youtube ? toHref(youtube) : null;
       return {
         id: p.id ?? `cm-${i}`,
-        quote: value(p, "field_main_title"),
-        name: value(p, "field_recruiters_sub_title"),
-        role: "",
-        avatar: fileUrl(entities(p, "field_image")[0]) ?? "",
-        ...(video ? { videoUrl: video } : {}),
+        quote: htmlToText(value(p, "field_description")),
+        name: value(p, "field_main_title"),
+        role: value(p, "field_recruiters_sub_title"),
+        avatar: fileUrl(entities(p, "field_icon")[0]) ?? fileUrl(entities(p, "field_image")[0]) ?? "",
+        ...(watch ? { watchUrl: watch } : {}),
       };
     })
-    .filter((t) => t.avatar && (t.quote || t.videoUrl));
+    .filter((t) => t.quote && t.name);
   if (community.length) data.community.testimonials = community;
 }
 

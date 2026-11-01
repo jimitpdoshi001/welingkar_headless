@@ -100,6 +100,16 @@ $gap: 3rem;
   margin: 0;
 }
 
+// Fixed-height desktop cards: long quotes are trimmed to 7 lines so the
+// author and "Watch Video" link always stay inside the card.
+.activeCardOverlay .quote {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
 .author {
   display: flex;
   flex-direction: column;
@@ -124,6 +134,25 @@ $gap: 3rem;
 .role {
   font-size: 1.2rem;
   color: var(--color-gray);
+}
+
+// Quote card "Watch Video" link (green, underlined) under the author.
+.watchVideo {
+  display: block;
+  margin-top: 1.2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-primary, #3a9030);
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
+
+  &:hover { filter: brightness(0.9); }
+  &:focus-visible { outline: 2px solid var(--color-primary, #3a9030); outline-offset: 2px; }
 }
 
 .slider {
