@@ -20,7 +20,8 @@ export type PgdmHeroData = {
 
 export type PgdmFeature = { id: string; title: string; description?: string; icon?: string };
 
-export type PgdmWhyProgram = { heading: string; body: string; videoThumb: string; videoHref?: string };
+// html: sanitized Drupal markup, set only when the text has bullet lists.
+export type PgdmWhyProgram = { heading: string; body: string; html?: string; videoThumb: string; videoHref?: string };
 
 export type PgdmGlance = {
   heading: string;
@@ -30,7 +31,7 @@ export type PgdmGlance = {
 
 // Figma 644:472: "Who Should Apply?" is a subtitle over two info cards
 // (eligibility + entrance exams), the second with a note and Apply CTA.
-export type PgdmWhoApplyCard = { heading: string; body: string; note?: string; cta?: PgdmCta };
+export type PgdmWhoApplyCard = { heading: string; body: string; html?: string; note?: string; cta?: PgdmCta };
 
 export type PgdmWhoApply = {
   heading: string;
@@ -61,7 +62,7 @@ export type PgdmCurriculum = {
 };
 
 export type PgdmVisionMission = {
-  vision: { heading: string; body: string; images: string[] };
+  vision: { heading: string; body: string; html?: string; images: string[] };
   mission: { heading: string; lines: string[]; images: string[] };
 };
 

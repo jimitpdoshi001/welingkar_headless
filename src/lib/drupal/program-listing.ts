@@ -6,6 +6,7 @@ import { toHref } from "./link";
 import { fixProgramsSpelling } from "@/lib/content-overrides";
 import type { PgdmCurriculumSubject, PgdmData } from "@/lib/pgdm/pgdm-data";
 import { fixCity } from "@/util/city";
+import sanitizeHtml from "sanitize-html";
 
 /**
  * Drupal REST `/api/program-listing/{nid}` → PGDM page content.
@@ -77,6 +78,20 @@ function htmlToText(html: string): string {
 }
 
 /** Extract `<li>` items; handles lists that were stored as escaped text. */
+/**
+ * Drupal rich text that contains bullet lists -> sanitized HTML (paragraphs,
+ * lists, emphasis and links only). Returns "" for text without lists, so those
+ * sections keep their plain-text rendering.
+ */
+function listHtml(html: string): string {
+  if (!/<(ul|ol)\b/i.test(html)) return "";
+  return sanitizeHtml(html, {
+    allowedTags: ["p", "ul", "ol", "li", "strong", "b", "em", "i", "br", "a"],
+    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+  }).trim();
+}
+
 function htmlToListItems(html: string): string[] {
   const decoded = decodeEntities(html);
   return [...decoded.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => htmlToText(m[1])).filter(Boolean);
@@ -241,6 +256,8 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
     const image = mediaUrl(overview, "field_desktop");
     if (heading) data.whyProgram.heading = heading;
     if (body) data.whyProgram.body = body;
+    const bodyHtml = listHtml(value(overview, "field_desc"));
+    if (bodyHtml) data.whyProgram.html = bodyHtml;
     if (image) data.whyProgram.videoThumb = image;
     // field_type "video": the photo links to the YouTube video.
     const video = value(overview, "field_type") === "video" ? toHref(value(overview, "field_youtube_id")) : null;
@@ -253,6 +270,8 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   const visionImages = entities(node, "field_our_vision_image").map(fileUrl).filter((u): u is string => Boolean(u));
   if (visionTitle) data.visionMission.vision.heading = visionTitle;
   if (visionBody) data.visionMission.vision.body = visionBody;
+  const visionHtml = listHtml(value(node, "field_our_vision_description"));
+  if (visionHtml) data.visionMission.vision.html = visionHtml;
   if (visionImages.length) data.visionMission.vision.images = visionImages;
 
   const missionTitle = value(node, "field_our_mission_title");
@@ -571,6 +590,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (eligibilityCard) {
     if (text("field_eligibility_criteria")) eligibilityCard.heading = text("field_eligibility_criteria");
     if (text("field_eligibility_criteria_descr")) eligibilityCard.body = text("field_eligibility_criteria_descr");
+    const eligibilityHtml = listHtml(value(node, "field_eligibility_criteria_descr"));
+    if (eligibilityHtml) eligibilityCard.html = eligibilityHtml;
     if (value(node, "field_eligibility_criteria_note")) eligibilityCard.note = value(node, "field_eligibility_criteria_note");
     const eligibilityLink = linkHref(node, "field_eligibility_criteria_link");
     if (eligibilityLink) eligibilityCard.cta = { label: eligibilityLink.title || eligibilityCard.cta?.label || "Apply Now", href: eligibilityLink.href };

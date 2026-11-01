@@ -130,3 +130,37 @@ a.columnHeading:hover {
     padding-left: 0.4rem;
   }
 }
+
+// Extra heading + links groups stacked in the same column (live-site layout).
+.section {
+  margin-top: 2.8rem;
+}
+
+// Tab mode (Programs): the hovered/focused campus is highlighted.
+.introActive .introTitle {
+  color: var(--color-primary);
+}
+
+// Campus: three campus links side by side, no columns.
+.innerRow {
+  grid-template-columns: 1fr;
+}
+
+.introRow {
+  flex-direction: row;
+
+  .introGroup {
+    flex: 1;
+    padding: 0 2.4rem;
+    border-bottom: none;
+    text-align: center;
+
+    &:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.14);
+    }
+  }
+
+  .introLink {
+    align-items: center;
+  }
+}

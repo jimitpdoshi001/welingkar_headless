@@ -16,7 +16,12 @@ export function PgdmWhoApply({ data }: { data: PgdmWhoApplyData }) {
             key={card.heading}
             className={`${styles.card} ${i === 0 ? styles.cardTint : ""}`}>
             <h3 className={styles.cardHeading}>{card.heading}</h3>
-            <p className={styles.cardBody}>{card.body}</p>
+            {card.html ? (
+              // Sanitized server-side (program-listing listHtml).
+              <div className={`${styles.cardBody} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: card.html }} />
+            ) : (
+              <p className={styles.cardBody}>{card.body}</p>
+            )}
             {card.note ? <p className={styles.note}>{card.note}</p> : null}
             {card.cta ? (
               <Link

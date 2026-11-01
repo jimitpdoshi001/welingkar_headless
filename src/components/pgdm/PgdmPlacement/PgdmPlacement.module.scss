@@ -158,7 +158,9 @@
 }
 
 @include respond-to(mobile) {
-  .statValue { font-size: 4rem; }
+  // Scales with the screen so two values (e.g. "₹14.50L LPA") fit side by side.
+  .statValue { font-size: clamp(2.4rem, 8.5vw, 4rem); white-space: nowrap; }
+  .statsCard { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
   // Figma mobile: tight 16px copy, paragraphs run together.
   .paragraph {

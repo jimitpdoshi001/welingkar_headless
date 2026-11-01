@@ -33,7 +33,7 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
           } as React.CSSProperties
         }>
         <h2 className={styles.heading}>{data.heading}</h2>
-        <PgdmMobileRow className={styles.cards} itemWidth="56%" arrowsClassName={styles.noArrows}>
+        <PgdmMobileRow className={styles.cards} itemWidth="56%">
           {data.cards.map((card) => (
             <p
               key={card}

@@ -99,7 +99,6 @@
 }
 
 // Figma mobile shows the USP cards peeking, without arrows.
-.noArrows { display: none !important; }
 
 // Figma mobile: photo framed on the students on the right.
 @include respond-to(mobile) {

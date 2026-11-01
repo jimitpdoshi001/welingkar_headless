@@ -12,7 +12,7 @@ import Link from "next/link";
 import styles from "./MobileDrawer.module.scss";
 import { Logo } from "@/assets/svg/Logos";
 import { LightMode, DarkMode } from "@/assets/svg/Icons";
-import { MAIN_NAV, UTILITY_NAV } from "@/lib/menu/menu-config";
+import { MAIN_NAV, UTILITY_NAV, type MegaColumn } from "@/lib/menu/menu-config";
 
 const noopSubscribe = () => () => {};
 
@@ -40,6 +40,31 @@ export function MobileDrawer({ open, onClose, onSearch }: MobileDrawerProps) {
     setOpenGroup(null);
     onClose();
   }, [onClose]);
+
+  // One menu group (heading + links) in the drawer accordion.
+  const renderGroup = (col: MegaColumn, key: string) => (
+    <div key={key} className={styles.subGroup}>
+      {col.heading ? (
+        col.headingHref ? (
+          <Link className={styles.subHeading} href={col.headingHref} onClick={close}>
+            {col.heading}
+          </Link>
+        ) : (
+          <span className={styles.subHeading}>{col.heading}</span>
+        )
+      ) : null}
+      {col.links.map((link) => (
+        <Link
+          key={`${link.href}-${link.label}`}
+          className={styles.subLink}
+          href={link.href}
+          onClick={close}
+        >
+          {link.label}
+        </Link>
+      ))}
+    </div>
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -191,51 +216,30 @@ export function MobileDrawer({ open, onClose, onSearch }: MobileDrawerProps) {
                       Overview
                     </Link>
 
-                    {item.panel.intro?.map((intro) =>
-                      intro.href ? (
-                        <Link
-                          key={intro.title}
-                          className={styles.introCard}
-                          href={intro.href}
-                          onClick={close}
-                        >
-                          <strong>{intro.title}</strong>
-                          {intro.subtitle ? (
-                            <span>{intro.subtitle}</span>
-                          ) : null}
-                        </Link>
-                      ) : null,
-                    )}
-
-                    {item.panel.columns.map((col, ci) => (
-                      <div key={ci} className={styles.subGroup}>
-                        {col.heading ? (
-                          col.headingHref ? (
-                            <Link
-                              className={styles.subHeading}
-                              href={col.headingHref}
-                              onClick={close}
-                            >
-                              {col.heading}
-                            </Link>
-                          ) : (
-                            <span className={styles.subHeading}>
-                              {col.heading}
-                            </span>
-                          )
-                        ) : null}
-                        {col.links.map((link) => (
+                    {item.panel.intro?.map((intro) => (
+                      <div key={intro.title}>
+                        {intro.href ? (
                           <Link
-                            key={`${link.href}-${link.label}`}
-                            className={styles.subLink}
-                            href={link.href}
+                            className={styles.introCard}
+                            href={intro.href}
                             onClick={close}
                           >
-                            {link.label}
+                            <strong>{intro.title}</strong>
+                            {intro.subtitle ? (
+                              <span>{intro.subtitle}</span>
+                            ) : null}
                           </Link>
-                        ))}
+                        ) : null}
+                        {/* Programs: each campus lists its own groups below its card. */}
+                        {(intro.columns ?? [])
+                          .flatMap((col) => [col, ...(col.sections ?? [])])
+                          .map((col, ci) => renderGroup(col, `${intro.title}-${ci}`))}
                       </div>
                     ))}
+
+                    {item.panel.columns
+                      .flatMap((col) => [col, ...(col.sections ?? [])])
+                      .map((col, ci) => renderGroup(col, String(ci)))}
                   </div>
                 )}
               </div>

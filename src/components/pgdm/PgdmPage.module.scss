@@ -1,4 +1,5 @@
 @use "../../styles/base/mixins" as *;
+@use "./common/rich" as *;
 
 .block {
   padding-block: 8rem;
@@ -154,6 +155,9 @@
   margin: 0;
 }
 
+// Drupal overview with bullet lists.
+.whyRich { @include pgdm-rich; }
+
 .whyVideoLink { display: block; @include respond-to(mobile) { order: -1; } }
 
 // Figma: 610x437 photo, 30px radius.
@@ -253,7 +257,8 @@
 
 // Body copy justified on both PGDM pages. Zero specificity (:where), so text a
 // component deliberately centers (cards, captions) keeps its own alignment.
-:where(.justify) :where(p, li) {
+// li with a class are UI items (link rows, chips, cards), not body copy: left as is.
+:where(.justify) :where(p, li:not([class])) {
   text-align: justify;
   // Hyphenate long words at line ends so justified lines don't open wide word gaps.
   hyphens: auto;

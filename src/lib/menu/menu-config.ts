@@ -12,6 +12,8 @@ export type MegaColumn = {
   heading?: string;
   headingHref?: string;
   links: MegaLink[];
+  /** Extra heading + links groups stacked under this one in the same column. */
+  sections?: MegaColumn[];
 };
 
 /** Optional left info column (e.g. the campus/affiliation block in the design). */
@@ -19,6 +21,8 @@ export type MegaIntroGroup = {
   title: string;
   subtitle?: string;
   href?: string;
+  /** Set on every group to make the intro a tab list: hovering a group shows its columns. */
+  columns?: MegaColumn[];
 };
 
 export type MegaPanel = {
@@ -89,15 +93,13 @@ export const MAIN_NAV: MainNavItem[] = [
     label: "Campus",
     href: "/campuses",
     panel: {
+      // Live-site structure: the three campus links only.
       intro: [
-        { title: "PGDM Mumbai Campus", subtitle: "AICTE Approved Standalone Institute", href: "/campuses/mumbai" },
-        { title: "MMS / PhD", subtitle: "Autonomous Institute Affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
-        { title: "PGDM Bengaluru", subtitle: "AICTE Approved Standalone Institute", href: "/campuses/bengaluru" },
+        { title: "PGDM Mumbai", subtitle: "AICTE approved standalone institute", href: "/campuses/mumbai" },
+        { title: "MMS / PhD", subtitle: "Autonomous Institute affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
+        { title: "PGDM Bengaluru", subtitle: "AICTE approved standalone institute", href: "/campuses/bengaluru" },
       ],
-      columns: [
-        { heading: "Full-Time Programs — Mumbai", headingHref: "/campuses/mumbai", links: FULL_TIME_PGDM },
-        { heading: "Full-Time Programs — Bengaluru", headingHref: "/campuses/bengaluru", links: FULL_TIME_PGDM_BLR },
-      ],
+      columns: [],
     },
   },
   {
@@ -142,30 +144,65 @@ export const MAIN_NAV: MainNavItem[] = [
     label: "Programs",
     href: "/programmes",
     panel: {
-      columns: [
-        { heading: "2-Year Full-Time PGDM", headingHref: "/programmes", links: FULL_TIME_PGDM },
+      // Live-site structure: hover a campus on the left to switch its programs.
+      intro: [
         {
-          heading: "Post Graduate",
-          links: [
-            { label: "MMS", href: "/programmes/mms" },
-            { label: "PhD", href: "/programmes/phd" },
-            { label: "PGDM Hybrid", href: "/programmes/pgdm-hybrid" },
-            { label: "PGPTM", href: "/programmes/pgptm" },
+          title: "PGDM Mumbai",
+          subtitle: "AICTE approved standalone institute",
+          href: "/campuses/mumbai",
+          columns: [
+            { heading: "Full-Time Programs", headingHref: "/programmes", links: FULL_TIME_PGDM },
+            {
+              heading: "Executive",
+              links: [{ label: "MDP", href: "/programmes/mdp" }],
+              sections: [
+                {
+                  heading: "11 Months Post Graduate Program (Autonomous)",
+                  links: [
+                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programmes/efmb" },
+                    { label: "PGP in Media & Entertainment", href: "/programmes/pgp-media" },
+                  ],
+                },
+              ],
+            },
+            {
+              heading: "PGDM Hybrid Program",
+              headingHref: "/programmes/pgdm-hybrid",
+              links: [],
+              sections: [
+                { heading: "11 Months PGP & 6 Months Certificate Programs", headingHref: "/programmes/certificate", links: [] },
+                { heading: "Post Graduate Program in Temple Management (PGPTM)", headingHref: "/programmes/pgptm", links: [] },
+              ],
+            },
           ],
         },
         {
-          heading: "Executive & Certificate",
-          links: [
-            { label: "Executive Program (11 months)", href: "/programmes/executive" },
-            { label: "PGP in Entrepreneurship & FMB (EFMB)", href: "/programmes/efmb" },
-            { label: "PGP in Media & Entertainment", href: "/programmes/pgp-media" },
-            { label: "6-month Certificate Program", href: "/programmes/certificate" },
-            { label: "Distance Learning Program (DLP)", href: "/programmes/dlp" },
-            { label: "MDP", href: "/programmes/mdp" },
-            { label: "MDC — Executive Education", href: "/mdc" },
+          title: "MMS / PhD",
+          subtitle: "Autonomous Institute affiliated to University of Mumbai",
+          href: "https://welingkar.edu.in/",
+          columns: [
+            {
+              heading: "Full-Time Programs",
+              links: [{ label: "MMS", href: "/programmes/mms" }],
+              sections: [{ heading: "PhD Programs", links: [{ label: "Management Studies", href: "/programmes/phd" }] }],
+            },
+          ],
+        },
+        {
+          title: "PGDM Bengaluru",
+          subtitle: "AICTE approved standalone institute",
+          href: "/campuses/bengaluru",
+          columns: [
+            {
+              heading: "Full-Time Programs",
+              headingHref: "/programmes/bengaluru",
+              links: FULL_TIME_PGDM_BLR,
+              sections: [{ heading: "Executive", links: [{ label: "MDP", href: "/programmes/mdp" }] }],
+            },
           ],
         },
       ],
+      columns: [],
     },
   },
   {

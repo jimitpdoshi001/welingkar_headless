@@ -23,6 +23,7 @@
 
   @include respond-to(mobile) {
     gap: 2.4rem;
+    flex-wrap: nowrap; // one sideways-scrolling row; long tabs no longer drop to a 2nd line
     overflow-x: auto;
     scrollbar-width: none;
     &::-webkit-scrollbar { display: none; }
