@@ -71,6 +71,7 @@
   font-size: 2rem; // Figma 20px SemiBold
   font-weight: 600;
   color: #564242;
+  text-align: inherit; // stay centered (PgdmPage justifies body text)
   margin: 0;
 
   @include respond-to(mobile) { font-size: 1.6rem; }

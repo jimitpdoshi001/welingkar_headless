@@ -250,3 +250,9 @@
     > :first-child { padding-top: 5.6rem; padding-bottom: 4rem; }
   }
 }
+
+// Body copy justified on both PGDM pages. Zero specificity (:where), so text a
+// component deliberately centers (cards, captions) keeps its own alignment.
+:where(.justify) :where(p, li) {
+  text-align: justify;
+}
