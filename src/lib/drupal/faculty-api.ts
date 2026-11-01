@@ -77,6 +77,19 @@ function relIds(node: JsonApiResource, field: string): { type: string; id: strin
   return Array.isArray(data) ? data : data ? [data] : [];
 }
 
+// Drupal list keys whose label is not a plain title-case of the key.
+const CATEGORY_LABELS: Record<string, string> = { pgdm: "PGDM", e_business: "E-Business" };
+
+/** List key -> display label, e.g. "media_and_entertainment" -> "Media and Entertainment". */
+function categoryLabel(key: string): string {
+  if (CATEGORY_LABELS[key]) return CATEGORY_LABELS[key];
+  return key
+    .split("_")
+    .filter(Boolean)
+    .map((word) => (word === "and" ? word : word[0].toUpperCase() + word.slice(1)))
+    .join(" ");
+}
+
 function campusOf(name: string): FacultyCampus | "" {
   if (/mumbai/i.test(name)) return "mumbai";
   if (/beng|banga/i.test(name)) return "bengaluru";
@@ -91,9 +104,8 @@ export const getFacultyDirectory = cache(async (): Promise<FacultyRecord[] | nul
       "/node/faculty",
       {
         "filter[status]": "1",
-        include: "field_faculty_category,field_thumbnail,field_location",
-        "fields[taxonomy_term--faculty_category]": "name,weight",
-        "fields[taxonomy_term--faculty_location]": "name",
+        // Category and location are list fields on the node (not taxonomy terms).
+        include: "field_thumbnail",
       },
       50,
     );
@@ -113,13 +125,11 @@ export const getFacultyDirectory = cache(async (): Promise<FacultyRecord[] | nul
     for (let n = 2; used.has(slug); n += 1) slug = `${slugify(name)}-${n}`;
     used.add(slug);
 
-    const categories = relIds(node, "field_faculty_category")
-      .map((ref) => included.get(`${ref.type}:${ref.id}`))
-      .filter((t): t is JsonApiResource => Boolean(t))
-      .map((t) => ({ id: t.id, name: str(t.attributes.name), slug: slugify(str(t.attributes.name)) }))
-      .filter((c) => c.name);
-
-    const location = relIds(node, "field_location").map((ref) => included.get(`${ref.type}:${ref.id}`))[0];
+    const categoryKeys = Array.isArray(a.field_faculty_category) ? a.field_faculty_category : [];
+    const categories = categoryKeys
+      .map((key) => str(key))
+      .filter(Boolean)
+      .map((key) => ({ id: key, name: categoryLabel(key), slug: slugify(key) }));
     const thumb = relIds(node, "field_thumbnail").map((ref) => included.get(`${ref.type}:${ref.id}`))[0];
     const thumbUrl = (thumb?.attributes.uri as { url?: string } | undefined)?.url;
 
@@ -130,7 +140,7 @@ export const getFacultyDirectory = cache(async (): Promise<FacultyRecord[] | nul
       designation: str(a.field_designation),
       image: absoluteDrupalUrl(thumbUrl) ?? "",
       categories,
-      campus: campusOf(str(location?.attributes.name)),
+      campus: campusOf(str(a.field_location)),
       sortOrder: Number.isFinite(Number(a.field_sort_order)) && a.field_sort_order !== null ? Number(a.field_sort_order) : Number.MAX_SAFE_INTEGER,
       sections: SECTION_FIELDS.map((s) => ({
         id: s.id,
@@ -149,13 +159,12 @@ export const getFacultyDirectory = cache(async (): Promise<FacultyRecord[] | nul
 const PRIORITY = ["deans", "associate-deans", "faculty"];
 const priority = (slug: string) => (PRIORITY.includes(slug) ? PRIORITY.indexOf(slug) : PRIORITY.length);
 
-/** Category order: Drupal taxonomy weight, then leadership tabs first, then name. */
-function categoryOrder(records: FacultyRecord[], weights: Map<string, number>): FacultyCategory[] {
+/** Category order: leadership tabs first, then name. */
+function categoryOrder(records: FacultyRecord[]): FacultyCategory[] {
   const seen = new Map<string, FacultyCategory>();
   for (const r of records) for (const c of r.categories) if (!seen.has(c.slug)) seen.set(c.slug, c);
   return [...seen.values()].sort(
     (x, y) =>
-      (weights.get(x.id) ?? 0) - (weights.get(y.id) ?? 0) ||
       priority(x.slug) - priority(y.slug) ||
       x.name.localeCompare(y.name),
   );
@@ -172,8 +181,7 @@ export async function getCampusFacultyGrid(
   if (!all) return null;
 
   const records = all.filter((r) => r.campus === campus);
-  const weights = await getCategoryWeights();
-  const categories = categoryOrder(records, weights);
+  const categories = categoryOrder(records);
   const members: FacultyMember[] = records.map((r) => ({
     id: r.id,
     name: r.name,
@@ -202,14 +210,3 @@ export async function getFacultyProfile(slug: string): Promise<FacultyProfile | 
     tabs: r.sections.map((s) => ({ id: s.id, title: s.title, blocks: [], html: s.html })),
   };
 }
-
-/** Taxonomy weights for tab ordering (empty map on error). */
-const getCategoryWeights = cache(async (): Promise<Map<string, number>> => {
-  try {
-    const doc = await fetchPaginatedJsonApi("/taxonomy_term/faculty_category", { "fields[taxonomy_term--faculty_category]": "name,weight" }, 50);
-    const terms = (Array.isArray(doc.data) ? doc.data : []) as JsonApiResource[];
-    return new Map(terms.map((t) => [t.id, Number(t.attributes.weight) || 0]));
-  } catch {
-    return new Map();
-  }
-});
