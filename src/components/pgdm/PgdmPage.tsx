@@ -29,6 +29,8 @@ import { PgdmRecruiters } from "./PgdmRecruiters/PgdmRecruiters";
 import { PgdmFees } from "./PgdmFees/PgdmFees";
 import { HomeCommunitySection } from "@/components/paragraphs/HomeCommunitySection/HomeCommunitySection";
 import { PgdmFaqs } from "./PgdmFaqs/PgdmFaqs";
+import { PgdmScholarship } from "./PgdmScholarship/PgdmScholarship";
+import { PgdmStudentInitiatives } from "./PgdmStudentInitiatives/PgdmStudentInitiatives";
 import styles from "./PgdmPage.module.scss";
 import { PgdmReadMore } from "./common/PgdmReadMore";
 
@@ -186,6 +188,13 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
             </section>
           ) : null}
 
+          {/* Scholarships (after Program Faculty; PGDM Healthcare). */}
+          {data.scholarship ? (
+            <section className={`container ${styles.block}`}>
+              <PgdmScholarship data={data.scholarship} />
+            </section>
+          ) : null}
+
           {/* 12. Curriculum Description */}
           {data.curriculum.trimesters.length > 0 ? (
             <section
@@ -280,6 +289,13 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {data.shortlisting.rows.length > 0 ? (
             <section className={`container ${styles.blockTight}`}>
               <PgdmShortlistTable data={data.shortlisting} />
+            </section>
+          ) : null}
+
+          {/* Student Initiatives (above Student Achievements; PGDM Healthcare). */}
+          {data.studentInitiatives && data.studentInitiatives.items.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <PgdmStudentInitiatives data={data.studentInitiatives} />
             </section>
           ) : null}
 

@@ -1,0 +1,92 @@
+@use "../../../styles/base/mixins" as *;
+
+.root { width: 100%; }
+
+.heading {
+  font-size: 4rem; // design: 40px bold
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1.2rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; }
+}
+
+.description {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  max-width: 102rem;
+  margin: 0 0 3.2rem;
+}
+
+.sliderWrap { position: relative; }
+
+// Design: 708x445 photo (30px radius) left, text column right.
+.slide {
+  display: grid;
+  grid-template-columns: minmax(0, 70.8rem) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: center;
+
+  @include respond-to(tab) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 708 / 445;
+  object-fit: cover;
+  border-radius: 3rem;
+
+  @include respond-to(mobile) { border-radius: 2rem; }
+}
+
+.slideText { max-width: 40rem; padding-bottom: 6rem; }
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 1.2rem;
+}
+
+.body {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  color: var(--color-black);
+  margin: 0;
+}
+
+// Arrows bottom-right: outlined prev, filled next, in the campus accent.
+.arrows {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  gap: 1.2rem;
+
+  @include respond-to(mobile) { position: static; justify-content: flex-end; margin-top: 2rem; }
+}
+
+.prev,
+.next {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid var(--faculty-accent, var(--color-primary));
+}
+
+.prev {
+  background: transparent;
+  svg path { fill: var(--faculty-accent, var(--color-primary)); }
+}
+
+.next {
+  background: var(--faculty-accent, var(--color-primary));
+  svg path { fill: var(--color-white); }
+}
