@@ -158,7 +158,30 @@
 // Drupal overview with bullet lists.
 .whyRich { @include pgdm-rich; }
 
-.whyVideoLink { display: block; @include respond-to(mobile) { order: -1; } }
+.whyVideoLink {
+  position: relative;
+  display: block;
+  @include respond-to(mobile) { order: -1; }
+}
+
+// Centred play button over the video photo; grows slightly on hover.
+.whyPlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  svg {
+    filter: drop-shadow(0 0.4rem 1.2rem rgb(0 0 0 / 30%));
+    transition: transform 0.2s ease;
+  }
+
+  .whyVideoLink:hover & svg { transform: scale(1.08); }
+
+  @include respond-to(mobile) { svg { width: 5.6rem; height: 5.6rem; } }
+}
 
 // Figma: 610x437 photo, 30px radius.
 .whyPhoto {

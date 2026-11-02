@@ -7,6 +7,10 @@ export type DrupalSession = {
 
 let sessionPromise: Promise<DrupalSession | null> | null = null;
 
+// Wait before retrying a failed login, so a slow Drupal is not hit on every request.
+const LOGIN_RETRY_MS = 60_000;
+let loginFailedAt = 0;
+
 function readSetCookies(response: Response): string[] {
   const headers = response.headers as Headers & {
     getSetCookie?: () => string[];
@@ -74,10 +78,20 @@ export async function getDrupalSession(): Promise<DrupalSession | null> {
     return null;
   }
 
+  // After a failed login, allow a fresh attempt once the pause has passed.
+  if (sessionPromise && loginFailedAt && Date.now() - loginFailedAt > LOGIN_RETRY_MS) {
+    sessionPromise = null;
+    loginFailedAt = 0;
+  }
+
   if (!sessionPromise) {
+    // A failed login (e.g. Drupal timing out with 504) must not break the build or
+    // a page: published content is public, so carry on without a session and
+    // retry the login after a short pause.
     sessionPromise = login().catch((error) => {
-      sessionPromise = null;
-      throw error;
+      console.warn("Drupal login unavailable, continuing without session:", error instanceof Error ? error.message : error);
+      loginFailedAt = Date.now();
+      return null;
     });
   }
 

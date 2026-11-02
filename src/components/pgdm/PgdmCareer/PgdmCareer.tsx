@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
+import { useScrollEdges } from "@/util/useScrollEdges";
 
 import type { PgdmCareer as PgdmCareerData } from "@/lib/pgdm/pgdm-data";
 import { PgdmTabBar } from "../common/PgdmTabBar";
@@ -23,12 +24,19 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
   const current = data.tabs.find((t) => t.id === active) ?? data.tabs[0];
   const roles = current?.roles ?? [];
   const visible = expanded ? roles : roles.slice(0, data.initialCount);
+  // Arrows only when the pills overflow (e.g. not for a single role); re-check per tab.
+  const { overflows, atStart, atEnd } = useScrollEdges(gridRef, `${active}-${expanded}`);
   const hasMore = roles.length > data.initialCount;
 
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <p className={styles.description}>{data.description}</p>
+      {data.html ? (
+        // Sanitized/escaped server-side (program-listing): keeps bullet points.
+        <div className={`${styles.description} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: data.html }} />
+      ) : (
+        <p className={styles.description}>{data.description}</p>
+      )}
 
       {/* Role tabs only when Drupal (or the built-in data) has roles. */}
       {data.tabs.length > 0 ? (
@@ -45,7 +53,10 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
             />
           </div>
 
-          <div ref={gridRef} className={styles.grid}>
+          <div
+            ref={gridRef}
+            className={styles.grid}
+            style={{ "--career-rows": Math.min(Math.max(visible.length, 1), 5) } as React.CSSProperties}>
             {visible.map((role) => (
               <span key={role} className={styles.pill}>
                 {role}
@@ -63,10 +74,13 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
                 {expanded ? "Show Less" : "Show More"}
               </button>
             ) : null}
+            {overflows ? (
             <div className={styles.arrows}>
               <button
                 type="button"
                 className={styles.prev}
+                data-slider-arrow
+                disabled={atStart}
                 onClick={() => scroll(-1)}
                 aria-label="Previous"
               >
@@ -75,12 +89,15 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
               <button
                 type="button"
                 className={styles.next}
+                data-slider-arrow
+                disabled={atEnd}
                 onClick={() => scroll(1)}
                 aria-label="Next"
               >
                 <ArrowRight width={7} height={10} />
               </button>
             </div>
+            ) : null}
           </div>
         </>
       ) : null}

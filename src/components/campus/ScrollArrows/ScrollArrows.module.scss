@@ -1,6 +1,9 @@
 // Figma: 50px circles, outlined "previous" and filled "next" in the page accent.
 .arrows { display: flex; gap: 1.5rem; flex-shrink: 0; }
 
+// Nothing to scroll (all items fit): no arrows.
+.arrows[hidden] { display: none; }
+
 .prev,
 .next {
   display: grid;

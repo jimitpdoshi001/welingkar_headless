@@ -14,7 +14,7 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
   // Direct handle so the arrows control the fee-card slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
   // Arrows only when there are more cards than fit.
-  const { locked, lockEvents } = useSwiperLock();
+  const { locked, atStart, atEnd, lockEvents } = useSwiperLock();
   // Desktop: waiver list left; Admissions and Education loan stacked right.
   // Mobile: every panel becomes an underline tab (one shown at a time).
   const [listTab, setListTab] = useState(0);
@@ -89,6 +89,8 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
             <button
               type="button"
               className={styles.arrowBtn}
+              data-slider-arrow
+              disabled={atStart}
               onClick={() => swiperRef.current?.slidePrev()}
               aria-label="Previous"
             >
@@ -97,6 +99,8 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
             <button
               type="button"
               className={styles.arrowBtn}
+              data-slider-arrow
+              disabled={atEnd}
               onClick={() => swiperRef.current?.slideNext()}
               aria-label="Next"
             >

@@ -1,4 +1,7 @@
 @use "../../../styles/base/mixins" as *;
+@use "../common/rich" as *;
+
+.rich { @include pgdm-rich; }
 
 .root { width: 100%; }
 
@@ -27,9 +30,13 @@
   gap: 2rem;
 
   @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); }
-  // Figma mobile: five rows that scroll sideways, two columns in view.
+  // Figma mobile: up to five rows per column, scrolling sideways, two columns in
+  // view. Columns are added only as needed, so one role does not overflow.
   @include respond-to(mobile) {
-    grid-template-columns: repeat(4, 29rem);
+    grid-template-columns: none;
+    grid-template-rows: repeat(var(--career-rows, 5), auto);
+    grid-auto-flow: column;
+    grid-auto-columns: 29rem;
     margin-right: -2rem;
     gap: 1.2rem;
     overflow-x: auto;

@@ -28,7 +28,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
   // Direct Swiper handle: arrows call slidePrev/slideNext. Deterministic per
   // instance, so every carousel on the page controls its own slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
-  const { locked, lockEvents } = useSwiperLock();
+  const { locked, atStart, atEnd, lockEvents } = useSwiperLock();
 
   return (
     <div className={clsx(styles.root, theme === "onDark" && styles.onDark)}>
@@ -42,6 +42,8 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
           <button
             type="button"
             className={styles.arrowBtn}
+            data-slider-arrow
+            disabled={atStart}
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Previous">
             <ArrowLeft
@@ -52,6 +54,8 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
           <button
             type="button"
             className={styles.arrowBtn}
+            data-slider-arrow
+            disabled={atEnd}
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Next">
             <ArrowRight
