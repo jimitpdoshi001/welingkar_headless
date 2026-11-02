@@ -21,12 +21,12 @@ type PgdmReadMoreProps = {
 
 const countWords = (text: string) => (text.match(/\S+/g) ?? []).length;
 
-/** Keep the first `limit` words of plain text (whitespace preserved), adding an ellipsis. */
+/** Keep the first `limit` words of plain text (whitespace preserved). */
 function cutText(text: string, limit: number): string {
   if (countWords(text) <= limit) return text;
   let seen = 0;
   const end = text.replace(/\S+/g, (word) => (++seen <= limit ? word : "")).trimEnd();
-  return `${end}…`;
+  return end; // no ellipsis (requested): the Show More button signals more text
 }
 
 const VOID_TAGS = new Set(["br", "img", "hr", "wbr"]);
@@ -41,7 +41,7 @@ function cutHtml(html: string, limit: number): { html: string; cut: boolean } {
   let used = 0;
   let out = "";
   // Where the last real text ended (and which tags were open there), so a cut at a
-  // paragraph boundary puts "…" after the last word, not in a new empty paragraph.
+  // paragraph boundary ends cleanly after the last word (no empty paragraph).
   let lastTextEnd = 0;
   let openAtLastText: string[] = [];
   for (const token of tokens) {
@@ -67,8 +67,8 @@ function cutHtml(html: string, limit: number): { html: string; cut: boolean } {
     }
     const close = (tags: string[]) => [...tags].reverse().map((tag) => `</${tag}>`).join("");
     if (limit - used <= 0) {
-      // Limit reached exactly at the end of the previous text: end it with "…".
-      return { html: `${out.slice(0, lastTextEnd).trimEnd()}…${close(openAtLastText)}`, cut: true };
+      // Limit reached exactly at the end of the previous text: stop there.
+      return { html: `${out.slice(0, lastTextEnd).trimEnd()}${close(openAtLastText)}`, cut: true };
     }
     out += cutText(token, limit - used);
     // Close whatever is still open (innermost first).
