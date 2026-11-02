@@ -117,6 +117,15 @@ function textBulletsToHtml(text: string): string {
   return inList ? `${html}</ul>` : html;
 }
 
+/** Any Drupal rich text -> sanitized HTML (paragraphs, lists, emphasis, links only). */
+function sanitizeRich(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: ["p", "ul", "ol", "li", "strong", "b", "em", "i", "br", "a"],
+    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+  }).trim();
+}
+
 function htmlToListItems(html: string): string[] {
   const decoded = decodeEntities(html);
   return [...decoded.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => htmlToText(m[1])).filter(Boolean);
@@ -515,6 +524,10 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     const careerHtml = listHtml(careerDesc) || textBulletsToHtml(htmlToText(careerDesc));
     if (careerHtml) data.career.html = careerHtml;
   }
+  // Extra rich text (bullets) under the career description.
+  const careerExtra = value(node, "field_career_opportunities_extra");
+  const careerExtraHtml = careerExtra ? listHtml(careerExtra) || sanitizeRich(careerExtra) : "";
+  if (careerExtraHtml) data.career.extraHtml = careerExtraHtml;
   const careerTabs = entities(node, "field_career_opportunities")
     .map((p, i) => ({
       id: p.id ?? `career-${i}`,

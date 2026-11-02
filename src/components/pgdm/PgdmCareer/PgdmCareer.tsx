@@ -38,6 +38,10 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
       ) : (
         <PgdmReadMore text={data.description} className={styles.description} />
       )}
+      {data.extraHtml ? (
+        // Sanitized server-side (program-listing sanitizeRich).
+        <PgdmReadMore html={data.extraHtml} className={`${styles.description} ${styles.rich}`} />
+      ) : null}
 
       {/* Role tabs only when Drupal (or the built-in data) has roles. */}
       {data.tabs.length > 0 ? (

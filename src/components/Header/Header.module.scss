@@ -255,6 +255,20 @@
   align-items: center;
 }
 
+// Menu item without a page (e.g. Programs) is a <button>: strip the browser's
+// button look so it matches the link items exactly (hover/active styles still apply).
+.navButton {
+  appearance: none;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
 // "+" indicator on nav items that open a dropdown (matches Figma).
 .navPlus {
   margin-left: 0.6rem;
