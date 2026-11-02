@@ -84,12 +84,46 @@ function htmlToText(html: string): string {
  * sections keep their plain-text rendering.
  */
 function listHtml(html: string): string {
-  if (!/<(ul|ol)\b/i.test(html)) return "";
+  // Keep Drupal formatting (lists, bold, links, line breaks, several paragraphs);
+  // a single plain paragraph stays plain text.
+  const formatted = /<(ul|ol|strong|b|em|i|u|a|br)\b/i.test(html) || (html.match(/<p\b/gi) ?? []).length > 1;
+  if (!formatted) return "";
   return sanitizeHtml(html, {
     allowedTags: ["p", "ul", "ol", "li", "strong", "b", "em", "i", "br", "a"],
     allowedAttributes: { a: ["href", "target", "rel"] },
     allowedSchemes: ["http", "https", "mailto", "tel"],
   }).trim();
+}
+
+// Inline formatting allowed inside a bullet / short line.
+const INLINE_TAGS = ["strong", "b", "em", "i", "u", "br", "a"];
+
+/** One bullet's inner HTML, sanitized to inline formatting only (bold, links…). */
+function inlineHtml(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: INLINE_TAGS,
+    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+  })
+    .replace(/^(\s|<br\s*\/?>)+|(\s|<br\s*\/?>)+$/gi, "")
+    .trim();
+}
+
+/** List items as sanitized inline HTML (keeps bold/links), empty ones dropped. */
+function htmlListItemsRich(html: string): string[] {
+  return [...html.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)]
+    .map((m) => inlineHtml(m[1]))
+    .filter((item) => item.replace(/<[^>]*>/g, "").trim());
+}
+
+/** Block rich text (paragraphs + inline) as sanitized HTML; "" when empty. */
+function blockHtml(html: string): string {
+  const clean = sanitizeHtml(html, {
+    allowedTags: ["p", "ul", "ol", "li", ...INLINE_TAGS],
+    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedSchemes: ["http", "https", "mailto", "tel"],
+  }).trim();
+  return clean.replace(/<[^>]*>/g, "").trim() ? clean : "";
 }
 
 /**
@@ -309,7 +343,7 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   if (visionImages.length) data.visionMission.vision.images = visionImages;
 
   const missionTitle = value(node, "field_our_mission_title");
-  const missionLines = htmlToListItems(value(node, "field_our_mission_description"));
+  const missionLines = htmlListItemsRich(value(node, "field_our_mission_description"));
   const missionImages = entities(node, "field_our_mission_image").map(fileUrl).filter((u): u is string => Boolean(u));
   if (missionTitle) data.visionMission.mission.heading = missionTitle;
   if (missionLines.length) data.visionMission.mission.lines = missionLines;
@@ -319,7 +353,7 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
 
   // FAQs: the CMS list replaces the built-in list once it has any complete item.
   const faqs = entities(node, "field_faq")
-    .map((p, i) => ({ id: p.id ?? `faq-${i}`, q: value(p, "field_question"), a: htmlToText(value(p, "field_anwser")) }))
+    .map((p, i) => ({ id: p.id ?? `faq-${i}`, q: value(p, "field_question"), a: blockHtml(value(p, "field_anwser")) }))
     .filter((f) => f.q && f.a);
   if (faqs.length) data.faqs.items = faqs;
   const brochure = linkHref(node, "field_download_brochure");
@@ -419,7 +453,7 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   // Program Educational Objectives.
   const objTitle = value(node, "field_program_educational_title");
   const objectives = entities(node, "field_program_educational_object")
-    .map((p, i) => ({ id: p.id ?? `peo-${i}`, icon: fileUrl(entities(p, "field_icon")[0]) ?? undefined, text: htmlToText(value(p, "field_desc")) }))
+    .map((p, i) => ({ id: p.id ?? `peo-${i}`, icon: fileUrl(entities(p, "field_icon")[0]) ?? undefined, text: blockHtml(value(p, "field_desc")) }))
     .filter((o) => o.text);
   if (objTitle) data.educationalObjectives.heading = objTitle;
   if (objectives.length) data.educationalObjectives.items = objectives;
@@ -445,7 +479,7 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   // Student-Centric Pedagogy: first list item is the intro, the rest are bullets.
   const pedagogy = entities(node, "field_student_centric_pedagogy")[0];
   if (pedagogy) {
-    const items = htmlToListItems(value(pedagogy, "field_desc"));
+    const items = htmlListItemsRich(value(pedagogy, "field_desc"));
     const image = fileUrl(entities(pedagogy, "field_image")[0]);
     // Every Drupal list item is a bullet; the intro is only used for plain paragraphs.
     const intro = htmlToText(value(pedagogy, "field_desc").replace(/<ul[\s\S]*?<\/ul>|<ol[\s\S]*?<\/ol>/gi, ""));
@@ -682,7 +716,7 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
         image: fileUrl(entities(p, "field_image")[0]) ?? "",
         title: value(p, "field_main_title"),
         position: paras.find((t) => /^position/i.test(t)) ?? "",
-        bullets: [...htmlToListItems(html), ...extra],
+        bullets: [...htmlListItemsRich(html), ...extra],
         team: teamAt >= 0 ? paras.slice(teamAt + 1).join(", ") : "",
       };
     })

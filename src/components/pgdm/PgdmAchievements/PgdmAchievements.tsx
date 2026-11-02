@@ -90,8 +90,9 @@ export function PgdmAchievements({ data }: { data: PgdmAchievementsData }) {
                 <h3 className={styles.title}>{item.title}</h3>
                 <p className={styles.position}>{item.position}</p>
                 <ul className={styles.bullets}>
+                  {/* Drupal HTML (bold, links), sanitized server-side. */}
                   {item.bullets.map((bullet, i) => (
-                    <li key={i}>{bullet}</li>
+                    <li key={i} dangerouslySetInnerHTML={{ __html: bullet }} />
                   ))}
                 </ul>
                 {/* Only when Drupal lists the team separately (else it is a bullet). */}
