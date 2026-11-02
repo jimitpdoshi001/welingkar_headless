@@ -10,6 +10,9 @@ import { PgdmTabBar } from "../common/PgdmTabBar";
 import styles from "./PgdmCareer.module.scss";
 import { PgdmReadMore } from "../common/PgdmReadMore";
 
+/** Plain text -> safe HTML text (used when joining the description with HTML bullets). */
+const escapeHtml = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 export function PgdmCareer({ data }: { data: PgdmCareerData }) {
   const [active, setActive] = useState(data.tabs[0]?.id ?? "");
   const [expanded, setExpanded] = useState(false);
@@ -32,16 +35,16 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      {data.html ? (
-        // Sanitized/escaped server-side (program-listing): keeps bullet points.
-        <PgdmReadMore html={data.html} className={`${styles.description} ${styles.rich}`} />
+      {data.html || data.extraHtml ? (
+        // One block (description + extra bullets) so Show More counts their words together.
+        // HTML is sanitized server-side; the plain description is escaped here.
+        <PgdmReadMore
+          html={(data.html ?? (data.description ? `<p>${escapeHtml(data.description)}</p>` : "")) + (data.extraHtml ?? "")}
+          className={`${styles.description} ${styles.rich}`}
+        />
       ) : (
         <PgdmReadMore text={data.description} className={styles.description} />
       )}
-      {data.extraHtml ? (
-        // Sanitized server-side (program-listing sanitizeRich).
-        <PgdmReadMore html={data.extraHtml} className={`${styles.description} ${styles.rich}`} />
-      ) : null}
 
       {/* Role tabs only when Drupal (or the built-in data) has roles. */}
       {data.tabs.length > 0 ? (

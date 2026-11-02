@@ -7,6 +7,16 @@
   @include respond-to(mobile) { padding-block: 5rem; }
 }
 
+// Download Brochure button on its own (page has no FAQs): small spacing.
+.brochureOnly {
+  padding-block: 3.2rem;
+
+  @include respond-to(mobile) { padding-block: 2.4rem; }
+
+  // The button's own top margin (meant to sit under the FAQs) is not needed here.
+  :global([class*="brochure"]) { margin-top: 0; }
+}
+
 // Sections targeted by the in-page nav clear the fixed header + docked nav bar.
 .anchor { scroll-margin-top: 16rem; @include respond-to(tab) { scroll-margin-top: 12rem; } }
 

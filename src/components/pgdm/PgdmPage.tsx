@@ -341,7 +341,8 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {data.faqs.items.length > 0 || data.faqs.brochureCta.href ? (
             <section
               id="faqs"
-              className={`container ${styles.block} ${styles.anchor}`}
+              // Brochure button only (no FAQs): compact spacing; with FAQs: unchanged.
+              className={`container ${data.faqs.items.length > 0 ? styles.block : styles.brochureOnly} ${styles.anchor}`}
             >
               <PgdmFaqs data={data.faqs} />
             </section>
