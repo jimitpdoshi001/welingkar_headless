@@ -33,6 +33,7 @@ export type MegaPanel = {
 export type MainNavItem = {
   id: string;
   label: string;
+  /** Empty = label only (opens its panel, no page of its own). */
   href: string;
   panel?: MegaPanel;
 };
@@ -142,7 +143,7 @@ export const MAIN_NAV: MainNavItem[] = [
   {
     id: "programs",
     label: "Programs",
-    href: "/programmes",
+    href: "", // label only: the /programmes page was removed
     panel: {
       // Live-site structure: hover a campus on the left to switch its programs.
       // Campus names are tabs only (no link): this menu links to program pages only.
@@ -151,7 +152,7 @@ export const MAIN_NAV: MainNavItem[] = [
           title: "PGDM Mumbai",
           subtitle: "AICTE approved standalone institute",
           columns: [
-            { heading: "Full-Time Programs", headingHref: "/programmes", links: FULL_TIME_PGDM },
+            { heading: "Full-Time Programs", links: FULL_TIME_PGDM },
             {
               heading: "Executive",
               links: [{ label: "MDP", href: "/programmes/mdp" }],

@@ -79,12 +79,12 @@
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(var(--strength-cols, 4), 1fr);
   gap: 2rem;
   // Leaves the photo visible between the heading and the cards (Figma).
   margin-top: 60rem;
 
-  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); margin-top: 40rem; }
+  @include respond-to(tab) { grid-template-columns: repeat(var(--strength-cols-tab, 2), 1fr); margin-top: 40rem; }
   @include respond-to(mobile) { grid-template-columns: 1fr; margin-top: 28rem; gap: 1.6rem; }
 }
 

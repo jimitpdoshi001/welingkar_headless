@@ -4,6 +4,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import Link from "next/link";
+import { VideoPopup } from "@/components/campus/VideoPopup/VideoPopup";
 
 import type { PgdmData } from "@/lib/pgdm/pgdm-data";
 import { PgdmHero } from "./PgdmHero/PgdmHero";
@@ -29,6 +30,7 @@ import { PgdmFees } from "./PgdmFees/PgdmFees";
 import { HomeCommunitySection } from "@/components/paragraphs/HomeCommunitySection/HomeCommunitySection";
 import { PgdmFaqs } from "./PgdmFaqs/PgdmFaqs";
 import styles from "./PgdmPage.module.scss";
+import { PgdmReadMore } from "./common/PgdmReadMore";
 
 type PgdmPageProps = {
   data: PgdmData;
@@ -88,22 +90,20 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                   </h2>
                   {data.whyProgram.html ? (
                     // Sanitized server-side (program-listing listHtml): lists keep their bullets.
-                    <div
+                    <PgdmReadMore
+                      html={data.whyProgram.html}
                       className={`${styles.whyBody} ${styles.whyRich}`}
-                      dangerouslySetInnerHTML={{ __html: data.whyProgram.html }}
                     />
                   ) : (
-                    <p className={styles.whyBody}>{data.whyProgram.body}</p>
+                    <PgdmReadMore text={data.whyProgram.body} className={styles.whyBody} />
                   )}
                 </div>
-                {/* Drupal field_type "video": the photo opens the YouTube video in a new tab. */}
+                {/* Drupal field_type "video": the photo opens the video in a popup. */}
                 {!data.whyProgram.videoThumb ? null : data.whyProgram
                     .videoHref && data.whyProgram.videoHref !== "#" ? (
-                  <a
-                    href={data.whyProgram.videoHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Watch video: ${data.whyProgram.heading}`}
+                  <VideoPopup
+                    videoUrl={data.whyProgram.videoHref}
+                    title={data.whyProgram.heading}
                     className={styles.whyVideoLink}
                   >
                     <img
@@ -118,7 +118,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                         <path d="M26 20L46 32L26 44V20Z" fill="white" />
                       </svg>
                     </span>
-                  </a>
+                  </VideoPopup>
                 ) : (
                   <img
                     src={data.whyProgram.videoThumb}

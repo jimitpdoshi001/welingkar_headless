@@ -208,13 +208,15 @@ export function MobileDrawer({ open, onClose, onSearch }: MobileDrawerProps) {
 
                 {isOpen && (
                   <div id={subId} className={styles.sub}>
-                    <Link
-                      className={styles.subLink}
-                      href={item.href}
-                      onClick={close}
-                    >
-                      Overview
-                    </Link>
+                    {item.href ? (
+                      <Link
+                        className={styles.subLink}
+                        href={item.href}
+                        onClick={close}
+                      >
+                        Overview
+                      </Link>
+                    ) : null}
 
                     {item.panel.intro?.map((intro) => (
                       <div key={intro.title}>

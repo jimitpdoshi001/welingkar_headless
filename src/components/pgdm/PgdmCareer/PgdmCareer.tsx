@@ -8,6 +8,7 @@ import { useScrollEdges } from "@/util/useScrollEdges";
 import type { PgdmCareer as PgdmCareerData } from "@/lib/pgdm/pgdm-data";
 import { PgdmTabBar } from "../common/PgdmTabBar";
 import styles from "./PgdmCareer.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 export function PgdmCareer({ data }: { data: PgdmCareerData }) {
   const [active, setActive] = useState(data.tabs[0]?.id ?? "");
@@ -33,9 +34,9 @@ export function PgdmCareer({ data }: { data: PgdmCareerData }) {
       <h2 className={styles.heading}>{data.heading}</h2>
       {data.html ? (
         // Sanitized/escaped server-side (program-listing): keeps bullet points.
-        <div className={`${styles.description} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: data.html }} />
+        <PgdmReadMore html={data.html} className={`${styles.description} ${styles.rich}`} />
       ) : (
-        <p className={styles.description}>{data.description}</p>
+        <PgdmReadMore text={data.description} className={styles.description} />
       )}
 
       {/* Role tabs only when Drupal (or the built-in data) has roles. */}

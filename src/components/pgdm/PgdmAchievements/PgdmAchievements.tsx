@@ -13,6 +13,7 @@ import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { PgdmAchievements as PgdmAchievementsData } from "@/lib/pgdm/pgdm-data";
 import { useHasMounted } from "@/util/useMediaQuery";
 import styles from "./PgdmAchievements.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 export function PgdmAchievements({ data }: { data: PgdmAchievementsData }) {
   const mounted = useHasMounted();
@@ -32,7 +33,7 @@ export function PgdmAchievements({ data }: { data: PgdmAchievementsData }) {
       <div className={styles.head}>
         <div>
           <h2 className={styles.heading}>{data.heading}</h2>
-          <p className={styles.description}>{data.description}</p>
+          <PgdmReadMore text={data.description} className={styles.description} />
         </div>
         <div className={styles.navBtns}>
           <button

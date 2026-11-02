@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { PgdmPlacement as PgdmPlacementData } from "@/lib/pgdm/pgdm-data";
 import { PgdmTabBar } from "../common/PgdmTabBar";
 import styles from "./PgdmPlacement.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 // `bare`: skip the own photo/overlay when a parent band supplies the background.
 export function PgdmPlacement({
@@ -28,11 +29,7 @@ export function PgdmPlacement({
 
       <div className={`container ${styles.inner}`}>
         <h2 className={styles.heading}>{data.heading}</h2>
-        {data.paragraphs.map((para, i) => (
-          <p key={i} className={styles.paragraph}>
-            {para}
-          </p>
-        ))}
+        <PgdmReadMore paragraphs={data.paragraphs} className={styles.paragraph} />
 
         {data.years.length > 0 ? (
           <>

@@ -1,0 +1,17 @@
+// "Show More / Show Less" text toggle under long content, in the campus accent.
+.toggle {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--faculty-accent, var(--color-primary));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
+
+  &:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+}

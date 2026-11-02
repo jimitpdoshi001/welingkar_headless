@@ -61,6 +61,10 @@ function decodeFacultyHtml(raw: string): string {
       .replace(/&amp;/g, "&");
   }
   html = html
+    // Pasted markup is sometimes broken: "<pMBA- …" (missing ">") would swallow
+    // the text, and "<!-- … -->" hides it. Repair/unwrap so all content shows.
+    .replace(/<p(?=[A-Z0-9•(“"'])/g, "<p>")
+    .replace(/<!--|-->/g, "")
     // Word-style layout tables: keep the content, drop the grid.
     .replace(/<\/?(?:table|tbody|thead|tr|td|th|colgroup|col)\b[^>]*>/gi, "")
     .replace(/(&nbsp;\s*){2,}/g, " ");

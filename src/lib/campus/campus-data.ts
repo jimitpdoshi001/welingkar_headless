@@ -118,7 +118,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     nav: [
       { label: "About Campus", href: "#about" },
       // Mumbai links out to the programs listing and Life page; Bengaluru keeps in-page anchors.
-      { label: "Programs", href: isMumbai ? "/programmes" : "#programmes" },
+      { label: "Programs", href: "#programs" },
       { label: "Faculty", href: isMumbai ? "/about-us/faculty" : "/about-us/faculty/bengaluru" },
       { label: "Corporate Interface", href: "/corporate-interface" },
       { label: "We Research", href: "/weresearch" },
@@ -183,7 +183,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     programmes: {
       heading: "Programs Built for Every Ambition",
       description: "Design thinking sits at the heart of everything we teach. Our wide range of curated programs are built to challenge, engage, and shape students into the business leaders of tomorrow.",
-      cta: { label: "View All", href: isMumbai ? "/programmes" : "/programmes/bengaluru" },
+      cta: { label: "View All", href: isMumbai ? "/programmes/pgdm/mumbai" : "/programmes/bengaluru" },
       cards: [
         { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm" : "/programmes/pgdm/bengaluru" } },
         { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-e-business" : "/programmes/pgdm-e-business?campus=bengaluru" } },
