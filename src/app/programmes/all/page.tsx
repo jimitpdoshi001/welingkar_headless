@@ -24,7 +24,7 @@ export default function ProgrammesPage() {
     <PageShell
       title="Programs Built for Every Ambition"
       subtitle="A wide range of curated programs designed to challenge, engage and shape the business leaders of tomorrow."
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Programs", href: "/programmes" }, { label: "All Programs" }]}
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Programs" }, { label: "All Programs" }]}
       accent="orange">
       {CATEGORIES.map((category, ci) => {
         const cards: LinkCard[] = PROGRAMMES.filter((p) => p.category === category).map((p, i) => ({

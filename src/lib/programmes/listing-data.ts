@@ -36,7 +36,7 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
   },
   nav: [
     { label: "About Campus", href: "/campuses/mumbai" },
-    { label: "Programs", href: "/programmes" },
+    { label: "Programs", href: "#programs" },
     { label: "Faculty", href: "/about-us/faculty" },
     { label: "Corporate Interface", href: "/corporate-interface" },
     { label: "We Research", href: "/weresearch" },
@@ -45,7 +45,7 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { label: "MDP", href: "/programmes/mdp" },
   ],
   pills: [
-    { label: "Full-Time Programs", href: "/programmes" },
+    { label: "Full-Time Programs", href: "/programmes/bengaluru" },
     { label: "Executive", href: "/programmes/executive" },
     { label: "11months Post Graduate Program", href: "/programmes/executive" },
     { label: "PGDM Hybrid Program", href: "/programmes/pgdm-hybrid" },

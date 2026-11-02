@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { PgdmFees as PgdmFeesData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmFees.module.scss";
 import { useSwiperLock } from "@/util/useSwiperLock";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 export function PgdmFees({ data }: { data: PgdmFeesData }) {
   // Direct handle so the arrows control the fee-card slides reliably.
@@ -83,7 +84,7 @@ export function PgdmFees({ data }: { data: PgdmFeesData }) {
 
       {/* Sub heading and the carousel arrows share one row. */}
       <div className={styles.subRow}>
-        <p className={styles.description}>{data.description}</p>
+        <PgdmReadMore text={data.description} className={styles.description} />
         {data.cards.length > 0 && !locked ? (
           <div className={styles.navBtns}>
             <button

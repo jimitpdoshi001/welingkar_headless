@@ -24,11 +24,19 @@ export function PgdmStrengths({ data }: PgdmStrengthsProps) {
         <div className={styles.fade} />
       </div>
 
-      <div className={`container ${styles.inner}`}>
+      <div
+        className={`container ${styles.inner}`}
+        // Columns follow the card count (1 card = full width, 2 = two columns…), max 4.
+        style={
+          {
+            "--strength-cols": Math.min(data.cards.length, 4),
+            "--strength-cols-tab": Math.min(data.cards.length, 2),
+          } as React.CSSProperties
+        }>
         <h2 className={styles.heading}>{data.heading}</h2>
         <p className={styles.subheading}>{data.subheading}</p>
 
-        <PgdmMobileRow className={styles.cards} itemWidth="72%">
+        <PgdmMobileRow className={styles.cards} itemWidth={data.cards.length === 1 ? "100%" : "72%"}>
           {data.cards.map((card) => (
             <p
               key={card}

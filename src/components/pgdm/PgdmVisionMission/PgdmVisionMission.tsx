@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import type { PgdmVisionMission as PgdmVisionMissionData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmVisionMission.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
   // Figma mobile: Mission shows three points, then "Read More" reveals the rest.
@@ -18,9 +19,9 @@ export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
             <h2 className={styles.heading}>{data.vision.heading}</h2>
             {data.vision.html ? (
               // Sanitized server-side (program-listing listHtml).
-              <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: data.vision.html }} />
+              <PgdmReadMore html={data.vision.html} className={`${styles.body} ${styles.rich}`} />
             ) : (
-              <p className={styles.body}>{data.vision.body}</p>
+              <PgdmReadMore text={data.vision.body} className={styles.body} />
             )}
           </div>
           <div className={styles.media}>

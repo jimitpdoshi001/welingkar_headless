@@ -97,7 +97,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
             </nav>
           </div>
 
-          <section className={`container ${styles.intro}`}>
+          <section id="programs" className={`container ${styles.intro}`}>
             <h2 className={styles.introHeading}>{data.intro.heading}</h2>
             <p className={styles.introBody}>{data.intro.body}</p>
           </section>

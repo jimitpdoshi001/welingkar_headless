@@ -3,6 +3,7 @@
 import type { PgdmClassProfile as PgdmClassProfileData } from "@/lib/pgdm/pgdm-data";
 import { PgdmAccordion, type AccordionItem } from "../common/PgdmAccordion";
 import styles from "./PgdmClassProfile.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 export function PgdmClassProfile({ data }: { data: PgdmClassProfileData }) {
   const items: AccordionItem[] = data.items.map((item) => ({
@@ -25,7 +26,7 @@ export function PgdmClassProfile({ data }: { data: PgdmClassProfileData }) {
   return (
     <div className={styles.root}>
       <h2 className={styles.heading}>{data.heading}</h2>
-      <p className={styles.description}>{data.description}</p>
+      <PgdmReadMore text={data.description} className={styles.description} />
       <PgdmAccordion
         items={items}
         defaultOpenId={null}

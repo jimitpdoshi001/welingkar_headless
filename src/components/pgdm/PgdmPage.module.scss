@@ -286,5 +286,12 @@
   // Hyphenate long words at line ends so justified lines don't open wide word gaps.
   hyphens: auto;
   -webkit-hyphens: auto;
+  // Hyphenate words of 6+ letters, keeping at least 3 letters on each side.
+  hyphenate-limit-chars: 6 3 3;
   overflow-wrap: break-word;
+  // Tighter base word spacing fits more words per line, so justify stretches less.
+  word-spacing: -0.04em;
+  text-justify: inter-word;
+  // Balanced line breaks: avoids a long stretched line before a short last word.
+  text-wrap: pretty;
 }

@@ -1,5 +1,6 @@
 import type { PgdmPedagogy as PgdmPedagogyData } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmPedagogy.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 type PgdmPedagogyProps = {
   data: PgdmPedagogyData;
@@ -12,7 +13,7 @@ export function PgdmPedagogy({ data }: PgdmPedagogyProps) {
     <div className={styles.card}>
       <div className={styles.text}>
         <h2 className={styles.heading}>{data.heading}</h2>
-        {data.intro ? <p className={styles.intro}>{data.intro}</p> : null}
+        {data.intro ? <PgdmReadMore text={data.intro} className={styles.intro} /> : null}
         <ul className={styles.list}>
           {data.bullets.map((b) => (
             <li

@@ -74,7 +74,7 @@ export function HeaderClient({
   const renderDesktopNav = (itemClass: string, withCaret: boolean) => (
     <>
       {MAIN_NAV.map((item) => {
-        const isActive = item.id === openNav || pathname.startsWith(item.href);
+        const isActive = item.id === openNav || (item.href !== "" && pathname.startsWith(item.href));
         return (
           <div
             key={item.id}
@@ -82,18 +82,36 @@ export function HeaderClient({
             onMouseEnter={() => openPanel(item.id)}
             onMouseLeave={scheduleClose}
           >
-            <Link
-              className={`${itemClass} ${isActive ? styles.navItemActive : ""}`}
-              href={item.href}
-              aria-expanded={item.panel ? item.id === openNav : undefined}
-            >
-              <span>{item.label}</span>
-              {withCaret && item.panel ? (
-                <span className={styles.navPlus} aria-hidden="true">
-                  +
-                </span>
-              ) : null}
-            </Link>
+            {item.href ? (
+              <Link
+                className={`${itemClass} ${isActive ? styles.navItemActive : ""}`}
+                href={item.href}
+                aria-expanded={item.panel ? item.id === openNav : undefined}
+              >
+                <span>{item.label}</span>
+                {withCaret && item.panel ? (
+                  <span className={styles.navPlus} aria-hidden="true">
+                    +
+                  </span>
+                ) : null}
+              </Link>
+            ) : (
+              // No page of its own: click/focus just opens the menu panel.
+              <button
+                type="button"
+                className={`${itemClass} ${isActive ? styles.navItemActive : ""}`}
+                aria-expanded={item.panel ? item.id === openNav : undefined}
+                onClick={() => openPanel(item.id)}
+                onFocus={() => openPanel(item.id)}
+              >
+                <span>{item.label}</span>
+                {withCaret && item.panel ? (
+                  <span className={styles.navPlus} aria-hidden="true">
+                    +
+                  </span>
+                ) : null}
+              </button>
+            )}
           </div>
         );
       })}

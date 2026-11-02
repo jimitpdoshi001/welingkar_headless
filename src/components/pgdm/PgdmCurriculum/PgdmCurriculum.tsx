@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { PgdmCurriculum as PgdmCurriculumData } from "@/lib/pgdm/pgdm-data";
 import { PgdmMobileRow } from "../common/PgdmMobileRow";
 import styles from "./PgdmCurriculum.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 const YEAR_LABELS = ["Year I", "Year II"];
 // Drupal year keys → pill labels.
@@ -34,7 +35,7 @@ export function PgdmCurriculum({ data }: { data: PgdmCurriculumData }) {
       <h2 className={styles.heading}>{data.heading}</h2>
       {/* Figma: Year pills sit on the description line, right-aligned. */}
       <div className={styles.head}>
-        <p className={styles.description}>{data.description}</p>
+        <PgdmReadMore text={data.description} className={styles.description} />
         <div
           className={styles.years}
           role="tablist"

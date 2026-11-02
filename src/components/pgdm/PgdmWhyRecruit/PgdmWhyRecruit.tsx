@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import type { PgdmPlacement } from "@/lib/pgdm/pgdm-data";
 import styles from "./PgdmWhyRecruit.module.scss";
+import { PgdmReadMore } from "../common/PgdmReadMore";
 
 type PgdmWhyRecruitProps = {
   data: PgdmPlacement["whyRecruit"];
@@ -15,11 +16,7 @@ export function PgdmWhyRecruit({ data, steps }: PgdmWhyRecruitProps) {
       {data.paragraphs.length > 0 ? (
         <div className={`${styles.card} ${data.cta.href ? "" : styles.cardNoCta}`}>
           <h2 className={styles.heading}>{data.heading}</h2>
-          {data.paragraphs.map((para, i) => (
-            <p key={i} className={styles.body}>
-              {para}
-            </p>
-          ))}
+          <PgdmReadMore paragraphs={data.paragraphs} className={styles.body} />
           {data.cta.href ? (
             <Link href={data.cta.href} className="btn white-outline">
               {data.cta.label}
