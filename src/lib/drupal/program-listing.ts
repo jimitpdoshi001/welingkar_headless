@@ -646,8 +646,13 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     .map((p, i) => ({
       id: p.id ?? `pf-${i}`,
       name: value(p, "field_main_title") || value(p, "field_name"),
-      title: value(p, "field_sub_title") || value(p, "field_designation"),
-      image: fileUrl(entities(p, "field_image")[0]) ?? mediaUrl(p, "field_image") ?? "",
+      // Field names differ between nodes: some use field_faculty_designation / field_faculty_image.
+      title: value(p, "field_sub_title") || value(p, "field_designation") || value(p, "field_faculty_designation"),
+      image:
+        fileUrl(entities(p, "field_image")[0]) ??
+        fileUrl(entities(p, "field_faculty_image")[0]) ??
+        mediaUrl(p, "field_image") ??
+        "",
     }))
     .filter((f) => f.name && f.image);
   if (faculty.length) data.programFaculty.people = faculty;
@@ -668,7 +673,7 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
         team: teamAt >= 0 ? paras.slice(teamAt + 1).join(", ") : "",
       };
     })
-    .filter((a) => a.title && a.image);
+    .filter((a) => a.title); // photo optional
   if (achievements.length) data.achievements.items = achievements;
   if (value(node, "field_student_achievements_title")) data.achievements.heading = value(node, "field_student_achievements_title");
   if (value(node, "field_student_achievements_descr")) data.achievements.description = htmlToText(value(node, "field_student_achievements_descr"));

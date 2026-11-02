@@ -75,13 +75,16 @@ export function PgdmAchievements({ data }: { data: PgdmAchievementsData }) {
         {data.items.map((item) => (
           <SwiperSlide key={item.id}>
             <article className={styles.card}>
-              <div className={styles.imageWrap}>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={styles.image}
-                />
-              </div>
+              {/* Drupal achievements may have no photo: card shows text only. */}
+              {item.image ? (
+                <div className={styles.imageWrap}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={styles.image}
+                  />
+                </div>
+              ) : null}
               <div className={styles.content}>
                 <h3 className={styles.title}>{item.title}</h3>
                 <p className={styles.position}>{item.position}</p>
@@ -90,8 +93,13 @@ export function PgdmAchievements({ data }: { data: PgdmAchievementsData }) {
                     <li key={i}>{bullet}</li>
                   ))}
                 </ul>
-                <p className={styles.teamLabel}>Team members</p>
-                <p className={styles.team}>{item.team}</p>
+                {/* Only when Drupal lists the team separately (else it is a bullet). */}
+                {item.team ? (
+                  <>
+                    <p className={styles.teamLabel}>Team members</p>
+                    <p className={styles.team}>{item.team}</p>
+                  </>
+                ) : null}
               </div>
             </article>
           </SwiperSlide>
