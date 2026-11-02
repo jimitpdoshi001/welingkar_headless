@@ -23,7 +23,7 @@ export function PgdmObjectives({ data }: PgdmObjectivesProps) {
                 className={styles.icon}
               />
             ) : null}
-            <p className={styles.text}>{item.text}</p>
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: item.text }} />
           </div>
         ))}
       </div>

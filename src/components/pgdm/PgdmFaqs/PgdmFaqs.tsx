@@ -10,7 +10,8 @@ export function PgdmFaqs({ data }: { data: PgdmFaqsData }) {
   const items: AccordionItem[] = data.items.map((item) => ({
     id: item.id,
     label: item.q,
-    content: <p className={styles.answer}>{item.a}</p>,
+    // Answer is Drupal HTML, sanitized server-side.
+    content: <div className={styles.answer} dangerouslySetInnerHTML={{ __html: item.a }} />,
   }));
 
   return (

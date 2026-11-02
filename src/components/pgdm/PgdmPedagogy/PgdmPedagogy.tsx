@@ -15,12 +15,13 @@ export function PgdmPedagogy({ data }: PgdmPedagogyProps) {
         <h2 className={styles.heading}>{data.heading}</h2>
         {data.intro ? <PgdmReadMore text={data.intro} className={styles.intro} /> : null}
         <ul className={styles.list}>
+          {/* Bullets are Drupal HTML (bold, line breaks), sanitized server-side. */}
           {data.bullets.map((b) => (
             <li
               key={b}
-              className={styles.bullet}>
-              {b}
-            </li>
+              className={styles.bullet}
+              dangerouslySetInnerHTML={{ __html: b }}
+            />
           ))}
         </ul>
       </div>

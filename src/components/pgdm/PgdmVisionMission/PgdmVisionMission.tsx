@@ -39,8 +39,9 @@ export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
             <ul
               className={`${styles.lines} ${expanded ? styles.linesOpen : ""}`}
             >
+              {/* Drupal HTML (bold, links), sanitized server-side. */}
               {data.mission.lines.map((line) => (
-                <li key={line}>{line}</li>
+                <li key={line} dangerouslySetInnerHTML={{ __html: line }} />
               ))}
             </ul>
             {hasMore ? (

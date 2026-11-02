@@ -6,35 +6,26 @@ import { useEffect } from "react";
 // links stay in the same tab.
 const CTA_SELECTOR = "a.btn[href]:not([href^='#']):not([href^='mailto:']):not([href^='tel:'])";
 
-/** Opens a CTA in a new tab, with rel=noopener so the new page can't control this one. */
-function markCta(link: HTMLAnchorElement) {
-  if (link.target === "_blank") return;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-}
-
-function markAll(root: ParentNode) {
-  root.querySelectorAll<HTMLAnchorElement>(CTA_SELECTOR).forEach(markCta);
-}
-
 /**
- * Site-wide rule: every CTA button opens in a new tab. Applied after render
- * (and to CTAs added later by sliders, tabs or menus) so no component changes.
+ * Site-wide rule: every CTA button opens in a new tab.
+ * Done on click (not by adding target="_blank" to the links), so the page's HTML
+ * is never changed while React is still hydrating it (that caused a mismatch).
+ * Ctrl/Cmd/Shift/middle clicks keep the browser's own behaviour.
  */
 export function CtaNewTab() {
   useEffect(() => {
-    markAll(document);
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        mutation.addedNodes.forEach((node) => {
-          if (!(node instanceof Element)) return;
-          if (node.matches(CTA_SELECTOR)) markCta(node as HTMLAnchorElement);
-          markAll(node);
-        });
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = (event.target as Element | null)?.closest?.(CTA_SELECTOR) as HTMLAnchorElement | null;
+      if (!link || link.target === "_blank") return;
+      // Stops Next.js client navigation (it skips clicks that are already handled).
+      event.preventDefault();
+      window.open(link.href, "_blank", "noopener,noreferrer");
+    };
+    // Capture phase: runs before the link's own handler.
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
   }, []);
 
   return null;
