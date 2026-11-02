@@ -25,6 +25,7 @@ export const metadata: Metadata = {
 import { Suspense } from "react";
 import { NavigationLoader } from "@/components/Loader/NavigationLoader";
 import { CityNormalizer } from "@/components/CityNormalizer/CityNormalizer";
+import { CtaNewTab } from "@/components/CtaNewTab/CtaNewTab";
 import { ImageFallback } from "@/components/ImageFallback/ImageFallback";
 import { ScrollAnimationProvider } from "@/components/animations";
 
@@ -42,6 +43,7 @@ export default function RootLayout({
           <NavigationLoader />
         </Suspense>
         <CityNormalizer />
+        <CtaNewTab />
         <ImageFallback />
         <ScrollAnimationProvider>
           {children}
