@@ -40,6 +40,10 @@ function cutHtml(html: string, limit: number): { html: string; cut: boolean } {
   const open: string[] = [];
   let used = 0;
   let out = "";
+  // Where the last real text ended (and which tags were open there), so a cut at a
+  // paragraph boundary puts "…" after the last word, not in a new empty paragraph.
+  let lastTextEnd = 0;
+  let openAtLastText: string[] = [];
   for (const token of tokens) {
     if (token.startsWith("<")) {
       const closing = /^<\//.test(token);
@@ -50,14 +54,25 @@ function cutHtml(html: string, limit: number): { html: string; cut: boolean } {
       continue;
     }
     const visible = countWords(token);
+    if (visible === 0) {
+      out += token; // whitespace between tags
+      continue;
+    }
     if (used + visible <= limit) {
       out += token;
       used += visible;
+      lastTextEnd = out.length;
+      openAtLastText = [...open];
       continue;
     }
-    out += cutText(token, Math.max(limit - used, 0));
+    const close = (tags: string[]) => [...tags].reverse().map((tag) => `</${tag}>`).join("");
+    if (limit - used <= 0) {
+      // Limit reached exactly at the end of the previous text: end it with "…".
+      return { html: `${out.slice(0, lastTextEnd).trimEnd()}…${close(openAtLastText)}`, cut: true };
+    }
+    out += cutText(token, limit - used);
     // Close whatever is still open (innermost first).
-    return { html: out + open.reverse().map((tag) => `</${tag}>`).join(""), cut: true };
+    return { html: out + close(open), cut: true };
   }
   return { html: out, cut: false };
 }
