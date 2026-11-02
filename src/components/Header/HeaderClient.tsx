@@ -99,7 +99,7 @@ export function HeaderClient({
               // No page of its own: click/focus just opens the menu panel.
               <button
                 type="button"
-                className={`${itemClass} ${isActive ? styles.navItemActive : ""}`}
+                className={`${itemClass} ${styles.navButton} ${isActive ? styles.navItemActive : ""}`}
                 aria-expanded={item.panel ? item.id === openNav : undefined}
                 onClick={() => openPanel(item.id)}
                 onFocus={() => openPanel(item.id)}
