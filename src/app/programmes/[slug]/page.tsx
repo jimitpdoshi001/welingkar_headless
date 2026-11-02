@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PgdmPage } from "@/components/pgdm/PgdmPage";
 import { getProgramme, programmeData, PROGRAMMES } from "@/lib/programmes/programmes";
+import { withHealthcareExtras } from "@/lib/programmes/healthcare-extras";
 import { PROGRAM_SLUG_NIDS, PROGRAM_SLUG_NIDS_BENGALURU, applyProgramListing, getProgramListing } from "@/lib/drupal/program-listing";
 
 export function generateStaticParams() {
@@ -34,7 +35,11 @@ export default async function ProgrammeDetailPage({
 
   return (
     <PgdmPage
-      data={applyProgramListing(programmeData(meta), doc)}
+      data={
+        slug === "pgdm-healthcare" && !bengaluru
+          ? withHealthcareExtras(applyProgramListing(programmeData(meta), doc))
+          : applyProgramListing(programmeData(meta), doc)
+      }
       accent={bengaluru ? "green" : "orange"}
     />
   );

@@ -149,6 +149,23 @@ export type PgdmBandStat = { value: string; label: string };
 // Figma 644:472: Program USPs is a dark photo band with white cards at the base.
 export type PgdmUspBand = { heading: string; image: string; imageMobile?: string; cards: string[] };
 
+/** Scholarship block (text + photo + Apply Now). */
+export type PgdmScholarship = {
+  heading: string;
+  title: string;
+  paragraphs: string[];
+  image: string;
+  cta?: PgdmCta;
+  note?: string;
+};
+
+/** Student Initiatives slider: intro + one slide per initiative. */
+export type PgdmStudentInitiatives = {
+  heading: string;
+  description: string;
+  items: { id: string; title: string; body: string; image: string }[];
+};
+
 export type PgdmData = {
   campus: "Mumbai" | "Bengaluru";
   hero: PgdmHeroData;
@@ -176,6 +193,9 @@ export type PgdmData = {
   fees: PgdmFees;
   community: PgdmCommunity;
   faqs: PgdmFaqs;
+  /** Optional sections (currently PGDM Healthcare only). */
+  scholarship?: PgdmScholarship;
+  studentInitiatives?: PgdmStudentInitiatives;
 };
 
 // Local image slots: /public/programmes/pgdm/<mumbai|bengaluru>/<name>.webp.
