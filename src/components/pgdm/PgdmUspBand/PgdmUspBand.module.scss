@@ -2,9 +2,9 @@
 
 // Program USPs (new design): rounded card, photo left (~41%), list panel right.
 .section {
-  padding-block: 4.8rem;
+  padding-block: 2.4rem; // reduced (was 4.8rem) per request
 
-  @include respond-to(mobile) { padding-block: 3.2rem; }
+  @include respond-to(mobile) { padding-block: 1.6rem; }
 }
 
 .card {
