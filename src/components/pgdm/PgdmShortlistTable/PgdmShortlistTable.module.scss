@@ -89,6 +89,14 @@
     padding-top: 1.6rem;
   }
 
+  // Grey divider lines between program blocks (as the desktop table rows).
+  .mobileRow {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-light-gray);
+
+    &:last-child { padding-bottom: 0; border-bottom: none; }
+  }
+
   .mobileProgram {
     margin: 0 0 1rem;
     font-size: 1.5rem;

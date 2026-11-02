@@ -14,7 +14,7 @@ type Item = { id: string; text: string; name: string; role: string };
 // Heading on the left, testimonial carousel on the right with arrows below-right.
 export function MdcTestimonials({ heading, items }: { heading: string; items: Item[] }) {
   const swiperRef = useRef<SwiperClass | null>(null);
-  const { locked, lockEvents } = useSwiperLock();
+  const { locked, atStart, atEnd, lockEvents } = useSwiperLock();
 
   return (
     <div className={styles.layout}>
@@ -34,6 +34,8 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
           <button
             type="button"
             className={styles.arrow}
+            data-slider-arrow
+            disabled={atStart}
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Previous">
             <ArrowLeft
@@ -44,6 +46,8 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
           <button
             type="button"
             className={styles.arrow}
+            data-slider-arrow
+            disabled={atEnd}
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Next">
             <ArrowRight

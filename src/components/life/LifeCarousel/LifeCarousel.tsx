@@ -21,7 +21,7 @@ type LifeCarouselProps = {
 /** Card row with prev/next arrows (Figma "Up" icons) beside the section heading. */
 export function LifeCarousel({ header, slideClassName, label, children }: LifeCarouselProps) {
   const swiperRef = useRef<SwiperClass | null>(null);
-  const { locked, lockEvents } = useSwiperLock();
+  const { locked, atStart, atEnd, lockEvents } = useSwiperLock();
 
   return (
     <>
@@ -32,6 +32,8 @@ export function LifeCarousel({ header, slideClassName, label, children }: LifeCa
           <button
             type="button"
             className={arrowStyles.prev}
+            data-slider-arrow
+            disabled={atStart}
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label={`Previous ${label}`}>
             <ArrowLeft
@@ -42,6 +44,8 @@ export function LifeCarousel({ header, slideClassName, label, children }: LifeCa
           <button
             type="button"
             className={arrowStyles.next}
+            data-slider-arrow
+            disabled={atEnd}
             onClick={() => swiperRef.current?.slideNext()}
             aria-label={`Next ${label}`}>
             <ArrowRight

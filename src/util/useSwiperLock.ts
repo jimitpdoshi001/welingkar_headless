@@ -4,12 +4,25 @@ import { useState } from "react";
 import type { Swiper as SwiperClass } from "swiper";
 
 /**
- * Tracks whether a Swiper is "locked" (every slide already fits, so nothing
- * can slide). Spread `lockEvents` on <Swiper> and hide the arrows when `locked`.
- * Swiper re-checks on resize, so this follows breakpoint changes too.
+ * Tracks a Swiper's arrow state: `locked` (every slide already fits, hide the
+ * arrows) plus `atStart` / `atEnd` (disable the arrow that cannot move).
+ * Spread `lockEvents` on <Swiper>; Swiper re-checks on resize and slide change.
  */
 export function useSwiperLock() {
-  const [locked, setLocked] = useState(false);
-  const sync = (swiper: SwiperClass) => setLocked(Boolean(swiper.isLocked));
-  return { locked, lockEvents: { onInit: sync, onLock: sync, onUnlock: sync } };
+  const [state, setState] = useState({ locked: false, atStart: true, atEnd: false });
+  const sync = (swiper: SwiperClass) =>
+    setState({ locked: Boolean(swiper.isLocked), atStart: swiper.isBeginning, atEnd: swiper.isEnd });
+  return {
+    ...state,
+    lockEvents: {
+      onInit: sync,
+      onLock: sync,
+      onUnlock: sync,
+      onSlideChange: sync,
+      onReachBeginning: sync,
+      onReachEnd: sync,
+      onFromEdge: sync,
+      onResize: sync,
+    },
+  };
 }

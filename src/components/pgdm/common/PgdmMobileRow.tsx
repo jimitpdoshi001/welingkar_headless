@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+
+import { useScrollEdges } from "@/util/useScrollEdges";
 
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import styles from "./PgdmMobileRow.module.scss";
@@ -17,18 +19,8 @@ type PgdmMobileRowProps = {
 
 export function PgdmMobileRow({ className, itemWidth = "86%", arrowsClassName, children }: PgdmMobileRowProps) {
   const trackRef = useRef<HTMLDivElement | null>(null);
-  // Arrows only when the row overflows (more items than fit); re-checked on resize.
-  const [overflows, setOverflows] = useState(false);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const check = () => setOverflows(el.scrollWidth > el.clientWidth + 1);
-    check();
-    const observer = new ResizeObserver(check);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  // Arrows only when the row overflows; each disables at its end of the row.
+  const { overflows, atStart, atEnd } = useScrollEdges(trackRef);
 
   // Scroll by one item (first child width + gap).
   const scroll = (dir: 1 | -1) => {
@@ -51,6 +43,8 @@ export function PgdmMobileRow({ className, itemWidth = "86%", arrowsClassName, c
         <button
           type="button"
           className={styles.prev}
+          data-slider-arrow
+          disabled={atStart}
           onClick={() => scroll(-1)}
           aria-label="Previous">
           <ArrowLeft width={7} height={10} />
@@ -58,6 +52,8 @@ export function PgdmMobileRow({ className, itemWidth = "86%", arrowsClassName, c
         <button
           type="button"
           className={styles.next}
+          data-slider-arrow
+          disabled={atEnd}
           onClick={() => scroll(1)}
           aria-label="Next">
           <ArrowRight width={7} height={10} />

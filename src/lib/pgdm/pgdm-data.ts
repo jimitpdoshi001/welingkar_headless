@@ -78,6 +78,8 @@ export type PgdmClassProfile = { heading: string; description: string; items: Pg
 export type PgdmCareer = {
   heading: string;
   description: string;
+  /** Sanitized HTML when the description has bullet points. */
+  html?: string;
   tabs: { id: string; label: string; roles: string[] }[];
   initialCount: number;
 };

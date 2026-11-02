@@ -29,7 +29,7 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
   // Figma opens on "Faculty".
   const [active, setActive] = useState(categories.find((c) => c.slug === "faculty")?.slug ?? categories[0].slug);
   const swiperRef = useRef<SwiperClass | null>(null);
-  const { locked, lockEvents } = useSwiperLock();
+  const { locked, atStart, atEnd, lockEvents } = useSwiperLock();
 
   const people = useMemo(
     () => DEFAULT_FACULTY_GRID_MEMBERS.filter((member) => member.categorySlug === active),
@@ -65,6 +65,8 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
             <button
               type="button"
               className={arrowStyles.prev}
+              data-slider-arrow
+              disabled={atStart}
               onClick={() => swiperRef.current?.slidePrev()}
               aria-label="Previous mentors">
               <ArrowLeft
@@ -75,6 +77,8 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
             <button
               type="button"
               className={arrowStyles.next}
+              data-slider-arrow
+              disabled={atEnd}
               onClick={() => swiperRef.current?.slideNext()}
               aria-label="Next mentors">
               <ArrowRight

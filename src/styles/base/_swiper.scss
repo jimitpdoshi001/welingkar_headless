@@ -2,3 +2,13 @@
 .swiper-button-lock {
   display: none !important;
 }
+
+// Slider arrow at the first/last position: dimmed and inactive, so users can see
+// which way they can move. `[data-slider-arrow]` = custom arrows, `.swiper-button-disabled`
+// = arrows driven by Swiper's Navigation module.
+[data-slider-arrow]:disabled,
+.swiper-button-disabled {
+  opacity: 0.35 !important;
+  cursor: default !important;
+  pointer-events: none;
+}

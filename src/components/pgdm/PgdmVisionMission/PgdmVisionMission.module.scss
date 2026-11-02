@@ -120,15 +120,8 @@
 @include respond-to(mobile) {
   .image:nth-child(2) { display: none; }
 
-  .lines {
-    gap: 1.2rem;
-
-    li {
-      padding-left: 0;
-
-      &::before { display: none; }
-    }
-  }
+  // Mobile keeps the bullets (same as desktop), just tighter spacing.
+  .lines { gap: 1.2rem; }
 
   .lines:not(.linesOpen) li:nth-child(n + 4) { display: none; }
 

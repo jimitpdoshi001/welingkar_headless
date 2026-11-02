@@ -92,6 +92,31 @@ function listHtml(html: string): string {
   }).trim();
 }
 
+/**
+ * Plain-text field with bullet lines ("• item", "- item" or "* item") -> HTML list,
+ * so editors can add bullets in plain-text fields. "" when there are no bullet lines.
+ */
+function textBulletsToHtml(text: string): string {
+  const lines = text.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  const isBullet = (line: string) => /^[•\-*]\s+/.test(line);
+  if (!lines.some(isBullet)) return "";
+  const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let html = "";
+  let inList = false;
+  for (const line of lines) {
+    if (isBullet(line)) {
+      if (!inList) html += "<ul>";
+      inList = true;
+      html += `<li>${esc(line.replace(/^[•\-*]\s+/, ""))}</li>`;
+    } else {
+      if (inList) html += "</ul>";
+      inList = false;
+      html += `<p>${esc(line)}</p>`;
+    }
+  }
+  return inList ? `${html}</ul>` : html;
+}
+
 function htmlToListItems(html: string): string[] {
   const decoded = decodeEntities(html);
   return [...decoded.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => htmlToText(m[1])).filter(Boolean);
@@ -483,7 +508,13 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
 
   // Career opportunities (role tabs are not filled in Drupal yet).
   if (value(node, "field_career_opportunities_title")) data.career.heading = value(node, "field_career_opportunities_title");
-  if (value(node, "field_career_opportunities_desc")) data.career.description = value(node, "field_career_opportunities_desc");
+  const careerDesc = value(node, "field_career_opportunities_desc");
+  if (careerDesc) {
+    data.career.description = htmlToText(careerDesc);
+    // Bullets: real lists (if the field becomes rich text) or "•"/"-" lines in plain text.
+    const careerHtml = listHtml(careerDesc) || textBulletsToHtml(htmlToText(careerDesc));
+    if (careerHtml) data.career.html = careerHtml;
+  }
   const careerTabs = entities(node, "field_career_opportunities")
     .map((p, i) => ({
       id: p.id ?? `career-${i}`,

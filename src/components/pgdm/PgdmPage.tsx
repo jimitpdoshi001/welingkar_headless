@@ -111,6 +111,13 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                       alt=""
                       className={styles.whyPhoto}
                     />
+                    {/* Play button: marks the photo as a video. */}
+                    <span className={styles.whyPlay} aria-hidden="true">
+                      <svg width="72" height="72" viewBox="0 0 64 64" fill="none">
+                        <circle cx="32" cy="32" r="31" fill="var(--faculty-accent, var(--color-primary))" />
+                        <path d="M26 20L46 32L26 44V20Z" fill="white" />
+                      </svg>
+                    </span>
                   </a>
                 ) : (
                   <img

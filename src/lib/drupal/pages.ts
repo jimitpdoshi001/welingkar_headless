@@ -257,7 +257,15 @@ export function isNewsroomOverviewPage(page: DrupalPage): boolean {
 }
 
 export async function getAllRouteParams(): Promise<Array<{ slug: string[] }>> {
-  const pages = await getAllPages();
+  // Drupal down during the build: list no pages instead of failing the build;
+  // each page then renders on its first visit (dynamicParams is on).
+  let pages: DrupalPage[];
+  try {
+    pages = await getAllPages();
+  } catch (error) {
+    console.warn("Drupal pages unavailable at build, rendering on demand:", error instanceof Error ? error.message : error);
+    return [];
+  }
   const params: Array<{ slug: string[] }> = [];
   for (const page of pages) {
     for (const path of page.paths) {
