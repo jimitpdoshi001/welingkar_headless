@@ -80,6 +80,8 @@ export type PgdmCareer = {
   description: string;
   /** Sanitized HTML when the description has bullet points. */
   html?: string;
+  /** Extra bullet content shown under the description (Drupal field_career_opportunities_extra). */
+  extraHtml?: string;
   tabs: { id: string; label: string; roles: string[] }[];
   initialCount: number;
 };

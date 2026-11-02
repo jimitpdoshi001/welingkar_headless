@@ -15,11 +15,15 @@ export function PgdmFaqs({ data }: { data: PgdmFaqsData }) {
 
   return (
     <div className={styles.root}>
-      <h2 className={styles.heading}>{data.heading}</h2>
-      <PgdmAccordion
-        items={items}
-        defaultOpenId={null} // all FAQs start closed
-      />
+      {items.length > 0 ? (
+        <>
+          <h2 className={styles.heading}>{data.heading}</h2>
+          <PgdmAccordion
+            items={items}
+            defaultOpenId={null} // all FAQs start closed
+          />
+        </>
+      ) : null}
 
       {data.brochureCta.href ? (
         <div className={styles.brochure}>

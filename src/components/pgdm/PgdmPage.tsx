@@ -321,7 +321,8 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           ) : null}
 
           {/* 21. FAQs */}
-          {data.faqs.items.length > 0 ? (
+          {/* FAQs and/or the Download Brochure button (shown even without FAQs). */}
+          {data.faqs.items.length > 0 || data.faqs.brochureCta.href ? (
             <section
               id="faqs"
               className={`container ${styles.block} ${styles.anchor}`}
