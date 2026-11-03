@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { Navigation } from "swiper/modules";
@@ -39,6 +39,8 @@ type HomeCommunitySectionProps = {
   >;
   testimonials?: CommunityTestimonial[];
   children?: React.ReactNode;
+  /** Program pages: compact mobile cards + Show More / Show Less on long quotes. */
+  compactMobile?: boolean;
 };
 
 const CARD_HEIGHT = 380;
@@ -56,6 +58,52 @@ const COL3_BASE_Y = COL1_BASE_Y;
 const OpenVideoContext = createContext<(item: CommunityTestimonial) => void>(
   () => {},
 );
+
+// Program pages turn on the quote Show More / Show Less toggle (mobile).
+const QuoteToggleContext = createContext(false);
+
+/**
+ * Quote text. With the toggle on, mobile shows 7 lines and a Show More / Show Less
+ * button, but only when the quote is actually longer than that (measured).
+ */
+function QuoteText({ quote }: { quote: string }) {
+  const toggle = useContext(QuoteToggleContext);
+  const ref = useRef<HTMLParagraphElement | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [overflows, setOverflows] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!toggle || !el) return;
+    // Only measured while clamped; re-checked when the card resizes.
+    const check = () => {
+      if (!expanded) setOverflows(el.scrollHeight > el.clientHeight + 1);
+    };
+    check();
+    const observer = new ResizeObserver(check);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [toggle, expanded, quote]);
+
+  if (!toggle) return <p className={styles.quote}>{quote}</p>;
+
+  return (
+    <>
+      <p ref={ref} className={clsx(styles.quote, !expanded && styles.quoteClamp)}>
+        {quote}
+      </p>
+      {overflows || expanded ? (
+        <button
+          type="button"
+          className={styles.quoteToggle}
+          aria-expanded={expanded}
+          onClick={() => setExpanded((open) => !open)}>
+          {expanded ? "Show Less" : "Show More"}
+        </button>
+      ) : null}
+    </>
+  );
+}
 
 // Figma video card: full-bleed photo, centred play button, video opens in a dialog.
 function VideoTile({ item }: { item: CommunityTestimonial }) {
@@ -149,7 +197,7 @@ function TestimonialBody({ item }: { item: CommunityTestimonial }) {
   const canWatch = item.watchUrl ? Boolean(toSafeEmbedUrl(item.watchUrl)) : false;
   return (
     <>
-      <p className={styles.quote}>{item.quote}</p>
+      <QuoteText quote={item.quote} />
       <div className={styles.author}>
         {item.avatar ? (
           <Image
@@ -206,6 +254,7 @@ function TestimonialCard({
 export function HomeCommunitySection({
   testimonials = [],
   children,
+  compactMobile = false,
 }: HomeCommunitySectionProps) {
   const count = testimonials.length;
   const [step, setStep] = useState(0);
@@ -256,7 +305,8 @@ export function HomeCommunitySection({
 
   return (
     <OpenVideoContext.Provider value={setActiveVideo}>
-      <div className={clsx(styles.root, isMobile ? styles.mobile : "")}>
+      <QuoteToggleContext.Provider value={compactMobile}>
+      <div className={clsx(styles.root, isMobile ? styles.mobile : "", compactMobile && styles.compactMobile)}>
         {children ? <div className={styles.header}>{children}</div> : null}
 
         <div className={styles.rightSide}>
@@ -408,6 +458,7 @@ export function HomeCommunitySection({
       {activeVideo ? (
         <VideoDialog item={activeVideo} onClose={() => setActiveVideo(null)} />
       ) : null}
+      </QuoteToggleContext.Provider>
     </OpenVideoContext.Provider>
   );
 }

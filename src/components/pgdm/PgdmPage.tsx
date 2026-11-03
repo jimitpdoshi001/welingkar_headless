@@ -312,6 +312,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {data.community.testimonials.length > 0 ? (
             <section className={styles.communitySection}>
               <HomeCommunitySection
+                compactMobile
                 testimonials={data.community.testimonials.map((t) => ({
                   id: t.id,
                   quote: t.quote,
