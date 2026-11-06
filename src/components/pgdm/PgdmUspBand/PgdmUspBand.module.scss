@@ -80,7 +80,8 @@
   padding: 0;
   height: 100%;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  // At the end of the list the page keeps scrolling (no need to move off the list).
+  overscroll-behavior: auto;
   scrollbar-width: none;
 
   &::-webkit-scrollbar { display: none; }

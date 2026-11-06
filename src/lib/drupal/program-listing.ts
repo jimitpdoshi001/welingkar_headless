@@ -738,7 +738,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
         quote: htmlToText(value(p, "field_description")),
         name: value(p, "field_main_title"),
         role: value(p, "field_recruiters_sub_title"),
-        avatar: fileUrl(entities(p, "field_icon")[0]) ?? fileUrl(entities(p, "field_image")[0]) ?? "",
+        // Photo only from field_icon (no fallback to field_image, which editors cleared icons from).
+        avatar: fileUrl(entities(p, "field_icon")[0]) ?? "",
         ...(watch ? { watchUrl: watch } : {}),
       };
     })

@@ -338,7 +338,19 @@ $gap: 3rem;
 
     .name { font-size: 1.8rem; }
     .role { font-size: 1.4rem; }
+
+    // Gap between the quote (or its toggle) and the photo / name.
+    .author { margin-top: 2rem; }
   }
+
+  // Less empty space under the cards: smaller arrow area, none with a single card.
+  .compactMobile .slider { padding-bottom: 7.2rem; }
+  .compactMobile .prev,
+  .compactMobile .next { bottom: -6.4rem; }
+  .compactMobile .slider:has(:global(.swiper-button-lock)),
+  .compactMobile.singleSlide .slider { padding-bottom: 0; }
+  // One testimonial: nothing to slide, so no arrows.
+  .compactMobile.singleSlide .arrow { display: none; }
 
   .compactMobile .quoteToggle {
     display: inline-block;

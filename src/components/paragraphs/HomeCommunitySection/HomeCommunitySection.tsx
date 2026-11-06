@@ -306,7 +306,7 @@ export function HomeCommunitySection({
   return (
     <OpenVideoContext.Provider value={setActiveVideo}>
       <QuoteToggleContext.Provider value={compactMobile}>
-      <div className={clsx(styles.root, isMobile ? styles.mobile : "", compactMobile && styles.compactMobile)}>
+      <div className={clsx(styles.root, isMobile ? styles.mobile : "", compactMobile && styles.compactMobile, count <= 1 && styles.singleSlide)}>
         {children ? <div className={styles.header}>{children}</div> : null}
 
         <div className={styles.rightSide}>
