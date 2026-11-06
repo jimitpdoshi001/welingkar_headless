@@ -7,8 +7,11 @@
 .tabsList {
   display: flex;
   align-items: center;
+  flex-wrap: wrap; // 4 tabs: wrap on small screens instead of a long sideways scroll
+  row-gap: 1.2rem;
   gap: 4rem;
-  overflow-x: auto;
+  position: relative;
+  z-index: 5; // dropdown menu above the faculty cards
   scrollbar-width: none;
   padding-bottom: 0.4rem;
   margin-bottom: 3.5rem;
@@ -147,3 +150,57 @@
 }
 
 .caret { display: inline-block; width: 1rem; height: auto; margin-left: 1rem; color: var(--faculty-accent, var(--color-primary)); vertical-align: middle; }
+
+// Specialisation dropdown (4th tab).
+.dropdown { position: relative; }
+
+.dropdown .tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dropdown .caret {
+  margin-left: 0; // the button's gap already spaces it
+  transition: transform 0.2s ease;
+}
+
+.caretOpen { transform: rotate(180deg); }
+
+.menu {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  left: 0;
+  min-width: 28rem;
+  max-height: 40rem;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0.8rem 0;
+  list-style: none;
+  background: var(--color-white);
+  border-radius: 1.6rem;
+  box-shadow: 0 1.2rem 3.2rem rgb(0 0 0 / 14%);
+
+  @include respond-to(mobile) { min-width: 24rem; }
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 1.6rem;
+  text-align: left;
+  color: var(--color-black);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible { background: var(--color-light, #f6f1e7); }
+}
+
+.menuItemActive {
+  color: var(--faculty-accent, var(--color-primary));
+  font-weight: 600;
+}
