@@ -3,6 +3,7 @@ import { cache } from "react";
 import { absoluteDrupalUrl, fetchPaginatedJsonApi } from "./jsonapi";
 import type { JsonApiDocument, JsonApiResource } from "./types";
 import { sanitizeCmsHtml } from "@/lib/security/sanitize-html";
+import { BENGALURU_FACULTY, BENGALURU_PROGRAMS } from "@/lib/faculty/bengaluru-faculty";
 import type { FacultyCategory, FacultyMember, FacultyProfile } from "./faculty";
 
 /**
@@ -184,6 +185,8 @@ export async function getCampusFacultyGrid(
   const all = await getFacultyDirectory();
   if (!all) return null;
 
+  if (campus === "bengaluru") return bengaluruGrid(all);
+
   const records = all.filter((r) => r.campus === campus);
   const categories = categoryOrder(records);
   const members: FacultyMember[] = records.map((r) => ({
@@ -196,6 +199,46 @@ export async function getCampusFacultyGrid(
     imageAlt: r.name,
     link: `/about-us/faculty/${r.slug}`,
   }));
+  return { categories, members };
+}
+
+/** Deans / Associate Deans / Faculty from a designation (Bengaluru sheet rule). */
+function roleTab(designation: string): "deans" | "associate-deans" | "faculty" {
+  if (/associate\s+dean/i.test(designation)) return "associate-deans";
+  if (/\bdean\b/i.test(designation)) return "deans";
+  return "faculty";
+}
+
+/**
+ * Bengaluru grid from the approved sheet: only listed people, in sheet order.
+ * Tabs: Deans / Associate Deans / Faculty by designation (the Librarian sits only
+ * in the Librarian entry); Specialization dropdown = the person's program.
+ */
+function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; members: FacultyMember[] } {
+  const byTitle = new Map(all.map((r) => [r.name, r]));
+  const members: FacultyMember[] = [];
+  for (const row of BENGALURU_FACULTY) {
+    const r = byTitle.get(row.drupalTitle);
+    if (!r) continue; // entry unpublished / renamed in Drupal
+    const slugs = row.program === "librarian" ? ["librarian"] : [roleTab(row.designation), row.program];
+    members.push({
+      id: r.id,
+      name: r.name,
+      designation: r.designation,
+      categorySlug: slugs[0],
+      categorySlugs: slugs,
+      image: r.image,
+      imageAlt: r.name,
+      link: `/about-us/faculty/${r.slug}`,
+    });
+  }
+  const used = new Set(members.flatMap((m) => m.categorySlugs ?? []));
+  const categories: FacultyCategory[] = [
+    { id: "deans", name: "Deans", slug: "deans" },
+    { id: "associate-deans", name: "Associate Deans", slug: "associate-deans" },
+    { id: "faculty", name: "Faculty", slug: "faculty" },
+    ...BENGALURU_PROGRAMS.map((p) => ({ id: p.slug, name: p.name, slug: p.slug })),
+  ].filter((c) => used.has(c.slug)); // no empty tabs
   return { categories, members };
 }
 

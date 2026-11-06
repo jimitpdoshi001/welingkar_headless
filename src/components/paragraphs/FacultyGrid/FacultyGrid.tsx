@@ -20,8 +20,8 @@ type FacultyGridProps = {
 // First three tabs, in this order of preference; shown with the Figma labels.
 const PRIMARY_TAB_SLUGS = ["deans", "associate-deans", "faculty"];
 const TAB_LABELS: Record<string, string> = {
-  deans: "Dean",
-  "associate-deans": "Associate Dean & Heads",
+  deans: "Deans",
+  "associate-deans": "Associate Deans",
   faculty: "Faculty",
 };
 
@@ -95,7 +95,7 @@ export function FacultyGrid({
           );
         })}
 
-        {/* Figma 1726:669: 4th tab "Specialisation" opens a dropdown with every other category. */}
+        {/* Figma 1726:669: 4th tab "Specialization" opens a dropdown with every other category. */}
         {specialisations.length > 0 ? (
           <div className={styles.dropdown} ref={dropdownRef}>
             <button
@@ -104,7 +104,7 @@ export function FacultyGrid({
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((open) => !open)}
               className={clsx(styles.tabBtn, specialisationActive && styles.activeTab)}>
-              {specialisationActive ? activeSpecialisation?.name : "Specialisation"}
+              {specialisationActive ? activeSpecialisation?.name : "Specialization"}
               <svg
                 className={clsx(styles.caret, menuOpen && styles.caretOpen)}
                 width="14"
@@ -118,7 +118,7 @@ export function FacultyGrid({
               </svg>
             </button>
             {menuOpen ? (
-              <ul className={styles.menu} role="listbox" aria-label="Specialisation">
+              <ul className={styles.menu} role="listbox" aria-label="Specialization">
                 {specialisations.map((cat) => (
                   <li key={cat.id}>
                     <button
