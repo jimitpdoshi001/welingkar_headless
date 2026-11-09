@@ -60,7 +60,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 3.2rem 2.4rem;
+  gap: 3.2rem 1.2rem; // smaller column gap = wider photos, still 5 per row
 
   @include respond-to(tab) {
     grid-template-columns: repeat(3, 1fr);
@@ -68,7 +68,7 @@
 
   @include respond-to(mobile) {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2.4rem 1.6rem;
+    gap: 2.4rem 1.2rem;
   }
 }
 
