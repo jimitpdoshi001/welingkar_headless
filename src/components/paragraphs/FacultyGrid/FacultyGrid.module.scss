@@ -81,7 +81,7 @@
 .imageContainer {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 9 / 10; // ~25px taller than square on desktop (requested)
   border-radius: 2rem;
   overflow: hidden;
   // Faculty photo backdrop (design): cream behind cut-out or letterboxed photos.
