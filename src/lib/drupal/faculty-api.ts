@@ -209,6 +209,15 @@ function roleTab(designation: string): "deans" | "associate-deans" | "faculty" {
   return "faculty";
 }
 
+// Drupal faculty category -> Bengaluru program (for people not in the sheet).
+const DRUPAL_CATEGORY_TO_PROGRAM: Record<string, string> = {
+  pgdm: "pgdm",
+  "business-analytics": "pgdm-rba",
+  "business-design": "pgdm-bdi",
+  "e-business": "pgdm-e-business",
+  librarian: "librarian",
+};
+
 /**
  * Bengaluru grid from the approved sheet: only listed people, in sheet order.
  * Tabs: Deans / Associate Deans / Faculty by designation (the Librarian sits only
@@ -234,6 +243,27 @@ function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; m
       link: `/about-us/faculty/${r.slug}`,
     });
   }
+  // Bengaluru faculty in Drupal but not in the sheet: shown after the sheet's
+  // people under Faculty, with a Specialization from their Drupal category when
+  // it matches one of the Bengaluru programs.
+  const listed = new Set(BENGALURU_FACULTY.map((row) => nameKey(row.drupalTitle)));
+  for (const r of byTitle.values()) {
+    if (listed.has(nameKey(r.name))) continue;
+    const program = r.categories.map((c) => DRUPAL_CATEGORY_TO_PROGRAM[c.slug]).find(Boolean);
+    const role = program === "librarian" ? null : roleTab(r.designation);
+    const slugs = [role, program].filter((slug): slug is string => Boolean(slug));
+    members.push({
+      id: r.id,
+      name: r.name,
+      designation: r.designation,
+      categorySlug: slugs[0] ?? "faculty",
+      categorySlugs: slugs.length ? slugs : ["faculty"],
+      image: r.image,
+      imageAlt: r.name,
+      link: `/about-us/faculty/${r.slug}`,
+    });
+  }
+
   const used = new Set(members.flatMap((m) => m.categorySlugs ?? []));
   const categories: FacultyCategory[] = [
     { id: "deans", name: "Deans", slug: "deans" },
