@@ -276,7 +276,8 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                 <div
                   className={styles.honoursTrack}
                   ref={trackRef}>
-                  {data.honours.cards.map((c) => (
+                  {/* Drupal awards carry a year: show the selected year's awards only. */}
+                  {data.honours.cards.filter((c) => !c.year || c.year === activeYear).map((c) => (
                     <article
                       key={c.id}
                       className={styles.honourCard}>

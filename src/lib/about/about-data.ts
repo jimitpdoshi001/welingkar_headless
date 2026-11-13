@@ -5,7 +5,8 @@
  */
 
 export type AboutPerson = { id: string; name: string; title: string; image?: string };
-export type HonourCard = { id: string; image: string; text: string };
+/** `year` set = card shows only under that year (Drupal awards). */
+export type HonourCard = { id: string; image: string; text: string; year?: string };
 
 export type AboutData = {
   hero: { title: string; subtitle: string; image: string };
