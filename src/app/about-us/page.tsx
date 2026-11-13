@@ -3,6 +3,7 @@ import { AboutPage } from "@/components/about/AboutPage";
 import Footer from "@/components/Footer/Footer";
 import { ABOUT } from "@/lib/about/about-data";
 import { getAwards } from "@/lib/drupal/awards";
+import { applyAboutFromDrupal } from "@/lib/drupal/about";
 
 export const metadata: Metadata = {
   title: "About Us — WeSchool",
@@ -12,17 +13,19 @@ export const metadata: Metadata = {
 export default async function Page() {
   // Honours & Achievements from Drupal ("Who We Are – Awards"); built-in cards if unavailable.
   const awards = await getAwards();
+  // Section texts from Drupal ("About Us" node); built-in where Drupal is empty.
+  const base = await applyAboutFromDrupal(ABOUT);
   const data =
     awards && awards.length
       ? {
-          ...ABOUT,
+          ...base,
           honours: {
-            ...ABOUT.honours,
+            ...base.honours,
             years: [...new Set(awards.map((award) => award.year))],
             cards: awards,
           },
         }
-      : ABOUT;
+      : base;
 
   return (
     <AboutPage
