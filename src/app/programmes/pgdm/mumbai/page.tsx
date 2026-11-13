@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { PgdmPage } from "@/components/pgdm/PgdmPage";
 import { PGDM_MUMBAI } from "@/lib/pgdm/pgdm-data";
+import { withProgramFaculty } from "@/lib/programmes/program-faculty";
 import { PROGRAM_LISTING_NIDS, applyProgramListing, getProgramListing } from "@/lib/drupal/program-listing";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default async function PgdmMumbaiCampusPage() {
 
   return (
     <PgdmPage
-      data={applyProgramListing(PGDM_MUMBAI, doc)}
+      data={await withProgramFaculty(applyProgramListing(PGDM_MUMBAI, doc), "mumbai", "pgdm")}
       accent="orange"
     />
   );

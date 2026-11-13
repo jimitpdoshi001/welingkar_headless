@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { PgdmPage } from "@/components/pgdm/PgdmPage";
 import { getProgramme, programmeData, PROGRAMMES } from "@/lib/programmes/programmes";
+import { withProgramFaculty } from "@/lib/programmes/program-faculty";
 import { withHealthcareExtras } from "@/lib/programmes/healthcare-extras";
 import { PROGRAM_SLUG_NIDS, PROGRAM_SLUG_NIDS_BENGALURU, applyProgramListing, getProgramListing } from "@/lib/drupal/program-listing";
 
@@ -35,11 +36,13 @@ export default async function ProgrammeDetailPage({
 
   return (
     <PgdmPage
-      data={
+      data={await withProgramFaculty(
         slug === "pgdm-healthcare" && !bengaluru
           ? withHealthcareExtras(applyProgramListing(programmeData(meta), doc))
-          : applyProgramListing(programmeData(meta), doc)
-      }
+          : applyProgramListing(programmeData(meta), doc),
+        bengaluru ? "bengaluru" : "mumbai",
+        slug,
+      )}
       accent={bengaluru ? "green" : "orange"}
     />
   );

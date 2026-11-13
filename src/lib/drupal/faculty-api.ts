@@ -215,10 +215,12 @@ function roleTab(designation: string): "deans" | "associate-deans" | "faculty" {
  * in the Librarian entry); Specialization dropdown = the person's program.
  */
 function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; members: FacultyMember[] } {
-  const byTitle = new Map(all.map((r) => [r.name, r]));
+  // Match on letters only, so editor fixes like "Dr.X" -> "Dr. X" keep matching.
+  const nameKey = (name: string) => name.toLowerCase().replace(/[^a-z]/g, "");
+  const byTitle = new Map(all.filter((r) => r.campus === "bengaluru").map((r) => [nameKey(r.name), r]));
   const members: FacultyMember[] = [];
   for (const row of BENGALURU_FACULTY) {
-    const r = byTitle.get(row.drupalTitle);
+    const r = byTitle.get(nameKey(row.drupalTitle));
     if (!r) continue; // entry unpublished / renamed in Drupal
     const slugs = row.program === "librarian" ? ["librarian"] : [roleTab(row.designation), row.program];
     members.push({
@@ -256,4 +258,20 @@ export async function getFacultyProfile(slug: string): Promise<FacultyProfile | 
     backHref: r.campus === "bengaluru" ? "/about-us/faculty/bengaluru" : "/about-us/faculty",
     tabs: r.sections.map((s) => ({ id: s.id, title: s.title, blocks: [], html: s.html })),
   };
+}
+
+/**
+ * Program page "Program Faculty" from the Faculty API (same data as the faculty
+ * listing pages), for the given campus and faculty category / Bengaluru program.
+ * Faculty without a photo are skipped (the card is a portrait).
+ */
+export async function getProgramFacultyPeople(
+  campus: FacultyCampus,
+  category: string,
+): Promise<{ id: string; name: string; title: string; image: string }[]> {
+  const grid = await getCampusFacultyGrid(campus);
+  if (!grid) return [];
+  return grid.members
+    .filter((m) => (m.categorySlugs ?? [m.categorySlug]).includes(category) && m.image)
+    .map((m) => ({ id: m.id, name: m.name, title: m.designation, image: m.image }));
 }
