@@ -25,7 +25,8 @@ export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
             )}
           </div>
           <div className={styles.media}>
-            {data.vision.images.map((src, i) => (
+            {/* Main image only (small overlapping image removed, requested). */}
+            {data.vision.images.slice(0, 1).map((src, i) => (
               <img key={i} src={src} alt="" className={styles.image} />
             ))}
           </div>
@@ -56,7 +57,8 @@ export function PgdmVisionMission({ data }: { data: PgdmVisionMissionData }) {
             ) : null}
           </div>
           <div className={styles.media}>
-            {data.mission.images.map((src, i) => (
+            {/* Main image only (small overlapping image removed, requested). */}
+            {data.mission.images.slice(0, 1).map((src, i) => (
               <img key={i} src={src} alt="" className={styles.image} />
             ))}
           </div>

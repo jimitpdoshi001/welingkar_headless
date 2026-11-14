@@ -78,11 +78,6 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                 alt=""
                 className={styles.collageMain}
               />
-              <img
-                src={data.vision.images[1]}
-                alt=""
-                className={styles.collageSmall}
-              />
             </div>
           </section>
 
@@ -93,11 +88,6 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
                 src={data.mission.images[0]}
                 alt=""
                 className={styles.collageMain}
-              />
-              <img
-                src={data.mission.images[1]}
-                alt=""
-                className={styles.collageSmall}
               />
             </div>
             <div className={styles.missionText}>

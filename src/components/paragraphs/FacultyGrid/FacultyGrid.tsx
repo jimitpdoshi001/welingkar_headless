@@ -21,7 +21,7 @@ type FacultyGridProps = {
 const PRIMARY_TAB_SLUGS = ["deans", "associate-deans", "faculty"];
 const TAB_LABELS: Record<string, string> = {
   deans: "Deans",
-  "associate-deans": "Associate Deans",
+  "associate-deans": "Associate Deans & Heads",
   faculty: "Faculty",
 };
 
@@ -104,7 +104,7 @@ export function FacultyGrid({
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((open) => !open)}
               className={clsx(styles.tabBtn, specialisationActive && styles.activeTab)}>
-              {specialisationActive ? activeSpecialisation?.name : "Specialization"}
+              {specialisationActive ? activeSpecialisation?.name : "Specialization / Programs"}
               <svg
                 className={clsx(styles.caret, menuOpen && styles.caretOpen)}
                 width="14"

@@ -160,20 +160,7 @@ export const getFacultyDirectory = cache(async (): Promise<FacultyRecord[] | nul
     .sort((x, y) => x.sortOrder - y.sortOrder || x.name.localeCompare(y.name));
 });
 
-// Leadership tabs first (as on the original page); other categories follow.
-const PRIORITY = ["deans", "associate-deans", "faculty"];
-const priority = (slug: string) => (PRIORITY.includes(slug) ? PRIORITY.indexOf(slug) : PRIORITY.length);
 
-/** Category order: leadership tabs first, then name. */
-function categoryOrder(records: FacultyRecord[]): FacultyCategory[] {
-  const seen = new Map<string, FacultyCategory>();
-  for (const r of records) for (const c of r.categories) if (!seen.has(c.slug)) seen.set(c.slug, c);
-  return [...seen.values()].sort(
-    (x, y) =>
-      priority(x.slug) - priority(y.slug) ||
-      x.name.localeCompare(y.name),
-  );
-}
 
 /**
  * Grid data for one campus: tabs (only categories with members) and members.
@@ -188,7 +175,10 @@ export async function getCampusFacultyGrid(
   if (campus === "bengaluru") return bengaluruGrid(all);
 
   const records = all.filter((r) => r.campus === campus);
-  const categories = categoryOrder(records);
+  // Tabs: Deans, Associate Deans & Heads, Faculty + the 8 programs (dropdown), in
+  // this order and with these names; other subject categories are left out.
+  const present = new Set(records.flatMap((r) => r.categories.map((c) => c.slug)));
+  const categories = MUMBAI_TABS.filter((tab) => present.has(tab.slug)).map((tab) => ({ id: tab.slug, ...tab }));
   const members: FacultyMember[] = records.map((r) => ({
     id: r.id,
     name: r.name,
@@ -208,6 +198,21 @@ function roleTab(designation: string): "deans" | "associate-deans" | "faculty" {
   if (/\bdean\b/i.test(designation)) return "deans";
   return "faculty";
 }
+
+// Mumbai faculty page tabs: Drupal category slug -> label, in display order.
+const MUMBAI_TABS: { slug: string; name: string }[] = [
+  { slug: "deans", name: "Deans" },
+  { slug: "associate-deans", name: "Associate Deans & Heads" },
+  { slug: "faculty", name: "Faculty" },
+  { slug: "pgdm", name: "PGDM" },
+  { slug: "business-design", name: "Business Design" },
+  { slug: "e-business", name: "eBusiness" },
+  { slug: "healthcare", name: "HCM" },
+  { slug: "media-and-entertainment", name: "Media and Entertainment" },
+  { slug: "business-analytics", name: "Research & Business Analytics" },
+  { slug: "retail", name: "Retail" },
+  { slug: "rural-management", name: "Rural Management" },
+];
 
 // Drupal faculty category -> Bengaluru program (for people not in the sheet).
 const DRUPAL_CATEGORY_TO_PROGRAM: Record<string, string> = {

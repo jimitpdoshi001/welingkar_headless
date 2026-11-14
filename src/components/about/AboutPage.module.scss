@@ -25,10 +25,11 @@
 // Vision: big 557x382 right-aligned, small 217x149 overlapping its left edge.
 // Mission: big 488x321 right-aligned, small 217x149 below its bottom-left.
 .collage, .collageLeft { position: relative; }
-.collageMain { display: block; width: 81%; margin-left: auto; aspect-ratio: 557 / 382; object-fit: cover; border-radius: 2rem; }
+// Single image (small overlapping image removed, requested): fills the column.
+.collageMain { display: block; width: 100%; margin-left: auto; aspect-ratio: 557 / 382; object-fit: cover; border-radius: 2rem; }
 .collageSmall { position: absolute; left: 0; bottom: 4.4%; width: 31.5%; aspect-ratio: 217 / 149; object-fit: cover; border-radius: 1.4rem; }
-.collageLeft { padding-bottom: 16%; }
-.collageLeft .collageMain { width: 84%; aspect-ratio: 488 / 321; }
+.collageLeft { padding-bottom: 0; }
+.collageLeft .collageMain { width: 100%; aspect-ratio: 488 / 321; }
 .collageLeft .collageSmall { bottom: 0; width: 37%; }
 
 /* Who We Are */
