@@ -1,0 +1,209 @@
+@use "../../styles/base/mixins" as *;
+
+$border: #a4a4a4;
+$cream: #fdf8f0;
+
+/* ---------- Filters (Figma y416, 42px pills) ---------- */
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+  @include respond-to(mobile) { flex-direction: column; gap: 1.2rem; margin-bottom: 2.4rem; }
+}
+
+.pill {
+  height: 4.2rem;
+  border: 0.0721rem solid $border;
+  border-radius: 10rem;
+  background-color: var(--color-white);
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--color-black);
+}
+
+.search {
+  position: relative;
+  width: 52rem;
+  max-width: 100%;
+
+  input {
+    @extend .pill;
+    width: 100%;
+    padding: 0 5rem 0 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    outline: none;
+    color: var(--color-black);
+    &::placeholder { color: var(--color-black); opacity: 1; font-size: 1.3rem; }
+    &:focus-visible { border-color: var(--color-primary); }
+    &::-webkit-search-cancel-button { display: none; }
+  }
+
+  img {
+    position: absolute;
+    right: 2.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+
+.selects {
+  display: flex;
+  gap: 2rem;
+
+  select {
+    @extend .pill;
+    width: 15.6rem;
+    padding: 0 3.6rem 0 2.5rem;
+    appearance: none;
+    cursor: pointer;
+    // Figma Polygon 6: green triangle pointing down.
+    background: var(--color-white) url("/tenders/icon-caret-down.svg") no-repeat right 2rem center / 0.87rem 0.77rem;
+    &:focus-visible { outline: none; border-color: var(--color-primary); }
+  }
+
+  @include respond-to(mobile) {
+    select { flex: 1; width: auto; }
+  }
+}
+
+/* ---------- Table (header pill y490, rows ~178px) ---------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--color-black);
+  font-size: 1.3rem;
+  font-weight: 500;
+
+  th {
+    background: $cream;
+    height: 4.2rem;
+    padding: 0;
+    text-align: left;
+    font-weight: 700;
+    &:first-child { border-radius: 10rem 0 0 10rem; padding-left: 2.5rem; }
+    &:last-child { border-radius: 0 10rem 10rem 0; }
+  }
+
+  // Column starts on the 1236 header: 920 / 1074 / 1225 (from x104).
+  th:nth-child(2) { width: 15.4rem; }
+  th:nth-child(3) { width: 15.1rem; }
+  th:nth-child(4) { width: 11.5rem; }
+
+  td {
+    vertical-align: top;
+    padding: 6.8rem 0 0; // meta cells align ~35px below title top
+  }
+
+  tbody tr:not(:last-child) td { border-bottom: 1px solid $border; }
+
+  @include respond-to(mobile) {
+    thead { display: none; }
+    tbody, tr, td { display: block; }
+    tr { padding: 2.4rem 0; }
+    tbody tr:not(:last-child) { border-bottom: 1px solid $border; }
+    tbody tr:not(:last-child) td { border-bottom: 0; }
+    td {
+      padding: 0.4rem 0;
+      display: flex;
+      gap: 1rem;
+      &[data-label]::before {
+        content: attr(data-label);
+        font-weight: 700;
+        min-width: 9rem;
+      }
+    }
+  }
+}
+
+.table td.particulars {
+  padding: 3.7rem 2rem 3.3rem 2.5rem;
+  display: table-cell;
+  @include respond-to(mobile) { display: block; padding: 0 0 1.2rem; }
+}
+
+// DM Sans SemiBold 22px, 505px measure.
+.title {
+  max-width: 50.5rem;
+  margin: 0 0 3.2rem;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: normal;
+  @include respond-to(mobile) { font-size: 1.8rem; margin-bottom: 1.6rem; }
+}
+
+.doc {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--color-black);
+  text-decoration: none;
+  &:hover { color: var(--color-primary); }
+}
+
+.empty {
+  padding: 4rem 2.5rem !important;
+  text-align: center;
+}
+
+/* ---------- Pagination + CTA (Figma y1642) ---------- */
+
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 5rem;
+  margin-top: 3.5rem;
+
+  @include respond-to(mobile) { flex-direction: column; gap: 2.4rem; }
+}
+
+.action {
+  position: absolute;
+  right: 0;
+  top: 0;
+  @include respond-to(mobile) { position: static; }
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  ol {
+    display: flex;
+    gap: 3.8rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    border: 0;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  ol button {
+    min-width: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    &[aria-current="page"] { text-decoration: underline; text-underline-offset: 0.4rem; }
+  }
+
+  img { display: block; }
+  .prev img { transform: rotate(-90deg); }
+  .next img { transform: rotate(90deg); }
+  .prev:disabled, .next:disabled { cursor: default; opacity: 0.5; }
+}
