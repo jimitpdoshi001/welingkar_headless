@@ -18,7 +18,7 @@ export function LibraryPage({ data }: { data: LibraryData }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
-        <Header />
+        <Header transparentHero />
 
         <main className={styles.page} style={theme}>
           {/* Hero: full-bleed photo with dark fades */}

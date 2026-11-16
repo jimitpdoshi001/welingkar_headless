@@ -1,0 +1,84 @@
+@use "../../../styles/base/mixins" as *;
+
+.hero {
+  position: relative;
+  min-height: 65rem;
+  display: flex;
+  overflow: hidden;
+  color: var(--color-white);
+
+  @include respond-to(tab) { min-height: 56rem; }
+  @include respond-to(mobile) { min-height: 64rem; }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+// Figma: bottom fade + top fade + left fade.
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, #000 0%, rgb(0 0 0 / 0%) 47%),
+    linear-gradient(180deg, rgb(0 0 0 / 70%) 2%, rgb(0 0 0 / 0%) 33%),
+    linear-gradient(90deg, rgb(0 0 0 / 60%) 0%, rgb(0 0 0 / 0%) 59%);
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 13.2rem;
+  padding-bottom: 4.7rem;
+
+  @include respond-to(mobile) { padding-top: 11rem; padding-bottom: 4rem; }
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+
+  @include respond-to(mobile) { display: none; }
+}
+
+.home { display: inline-flex; }
+
+.title {
+  margin-top: auto;
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+
+  @include respond-to(tab) { font-size: 3rem; }
+  @include respond-to(mobile) { font-size: 2.4rem; }
+}
+
+.tagline {
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+.description {
+  margin-top: 1rem;
+  max-width: 97.8rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+// Figma: 150x50 white-outline pill.
+.cta {
+  margin-top: 3.2rem;
+  min-width: 15rem;
+  height: 5rem;
+  justify-content: center;
+}
