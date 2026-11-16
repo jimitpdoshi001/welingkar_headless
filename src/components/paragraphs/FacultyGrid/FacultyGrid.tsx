@@ -5,7 +5,6 @@ import Link from "next/link";
 import clsx from "clsx";
 
 import type { FacultyCategory, FacultyMember } from "@/lib/drupal/faculty";
-import { DEFAULT_FACULTY_GRID_CATEGORIES, DEFAULT_FACULTY_GRID_MEMBERS } from "@/lib/drupal/faculty";
 import type { FacultyGridAttributes, JsonApiResource } from "@/lib/drupal";
 import styles from "./FacultyGrid.module.scss";
 
@@ -26,8 +25,8 @@ const TAB_LABELS: Record<string, string> = {
 };
 
 export function FacultyGrid({
-  categories = DEFAULT_FACULTY_GRID_CATEGORIES,
-  members = DEFAULT_FACULTY_GRID_MEMBERS,
+  categories = [],
+  members = [],
   initialCount = 10,
   step = 5,
 }: FacultyGridProps) {
@@ -76,6 +75,9 @@ export function FacultyGrid({
     setActiveTab(slug);
     setVisibleCount(baseCount);
   };
+
+  // No Drupal faculty: render nothing (no built-in list).
+  if (members.length === 0) return null;
 
   return (
     <div className={styles.root}>

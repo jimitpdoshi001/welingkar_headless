@@ -6,34 +6,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
 import "swiper/css";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
-import { DEFAULT_FACULTY_GRID_CATEGORIES, DEFAULT_FACULTY_GRID_MEMBERS } from "@/lib/drupal/faculty";
+import type { FacultyCategory, FacultyMember } from "@/lib/drupal/faculty";
 import type { CampusCta } from "@/lib/campus/campus-data";
 import arrowStyles from "../ScrollArrows/ScrollArrows.module.scss";
 import styles from "../CampusPage.module.scss";
 import { useSwiperLock } from "@/util/useSwiperLock";
 
 type MentorsCarouselProps = {
-  /** Tab labels in display order; matched to the faculty categories by position. */
-  tabs: string[];
   cta: CampusCta;
   /** Local campus photos (Figma exports), used instead of the faculty image when the name matches. */
   photos: Record<string, string>;
+  /** Live Drupal faculty for this campus (role tabs + members). */
+  categories: FacultyCategory[];
+  members: FacultyMember[];
 };
 
 /**
  * Campus "Mentors" block: tabs filter the same mentor list as the faculty page,
  * and the prev/next arrows page through the filtered cards.
  */
-export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
-  const categories = DEFAULT_FACULTY_GRID_CATEGORIES;
+export function MentorsCarousel({ cta, photos, categories, members }: MentorsCarouselProps) {
   // Figma opens on "Faculty".
-  const [active, setActive] = useState(categories.find((c) => c.slug === "faculty")?.slug ?? categories[0].slug);
+  const [active, setActive] = useState(categories.find((c) => c.slug === "faculty")?.slug ?? categories[0]?.slug ?? "");
   const swiperRef = useRef<SwiperClass | null>(null);
   const { locked, atStart, atEnd, lockEvents } = useSwiperLock();
 
   const people = useMemo(
-    () => DEFAULT_FACULTY_GRID_MEMBERS.filter((member) => member.categorySlug === active),
-    [active],
+    () => members.filter((member) => (member.categorySlugs ?? [member.categorySlug]).includes(active)),
+    [members, active],
   );
 
   return (
@@ -42,7 +42,7 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
         <div
           className={styles.mentorTabs}
           role="tablist">
-          {categories.map((cat, i) => (
+          {categories.map((cat) => (
             <button
               key={cat.slug}
               type="button"
@@ -50,7 +50,7 @@ export function MentorsCarousel({ tabs, cta, photos }: MentorsCarouselProps) {
               aria-selected={cat.slug === active}
               onClick={() => setActive(cat.slug)}
               className={`${styles.mentorTab} ${cat.slug === active ? styles.mentorTabActive : ""}`}>
-              {tabs[i] ?? cat.name}
+              {cat.name}
             </button>
           ))}
         </div>

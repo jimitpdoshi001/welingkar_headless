@@ -12,7 +12,6 @@ import "swiper/css/navigation";
 
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { FacultyCategory, FacultyMember } from "@/lib/drupal/faculty";
-import { DEFAULT_FACULTY_CATEGORIES, DEFAULT_FACULTY_MEMBERS } from "@/lib/drupal/faculty";
 import type { FacultyListingAttributes, JsonApiResource } from "@/lib/drupal";
 import { useHasMounted } from "@/util/useMediaQuery";
 import styles from "./FacultyListing.module.scss";
@@ -25,8 +24,8 @@ type FacultyListingProps = {
 };
 
 export function FacultyListing({
-  categories = DEFAULT_FACULTY_CATEGORIES,
-  members = DEFAULT_FACULTY_MEMBERS,
+  categories = [],
+  members = [],
 }: FacultyListingProps) {
   const [activeTab, setActiveTab] = useState<string>("faculty");
   const mounted = useHasMounted();
@@ -43,6 +42,9 @@ export function FacultyListing({
 
   const filteredMembers = members.filter((member) => member.categorySlug === activeTab);
   const displayMembers = filteredMembers.length > 0 ? filteredMembers : members;
+
+  // No Drupal faculty: render nothing (no built-in list).
+  if (members.length === 0) return null;
 
   return (
     <div className={styles.root}>

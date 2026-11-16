@@ -302,17 +302,17 @@ export async function getFacultyProfile(slug: string): Promise<FacultyProfile | 
 }
 
 /**
- * Program page "Program Faculty" from the Faculty API (same data as the faculty
- * listing pages), for the given campus and faculty category / Bengaluru program.
- * Faculty without a photo are skipped (the card is a portrait).
+ * Program page "Program Faculty": live Faculty API entries for one campus and
+ * Drupal faculty category (published only, Drupal sort order). Faculty without
+ * a photo are skipped (the card is a portrait).
  */
 export async function getProgramFacultyPeople(
   campus: FacultyCampus,
   category: string,
 ): Promise<{ id: string; name: string; title: string; image: string }[]> {
-  const grid = await getCampusFacultyGrid(campus);
-  if (!grid) return [];
-  return grid.members
-    .filter((m) => (m.categorySlugs ?? [m.categorySlug]).includes(category) && m.image)
-    .map((m) => ({ id: m.id, name: m.name, title: m.designation, image: m.image }));
+  const all = await getFacultyDirectory();
+  if (!all) return [];
+  return all
+    .filter((r) => r.campus === campus && r.image && r.categories.some((c) => c.slug === category))
+    .map((r) => ({ id: r.id, name: r.name, title: r.designation, image: r.image }));
 }

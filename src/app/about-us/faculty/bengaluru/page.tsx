@@ -9,7 +9,6 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
 import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
-import { AffiliateFaculty } from "@/components/paragraphs/AffiliateFaculty/AffiliateFaculty";
 import { DEFAULT_DIRECTOR_MESSAGE_BENGALURU } from "@/lib/drupal/faculty";
 
 import styles from "../page.module.scss";
@@ -26,7 +25,7 @@ const HERO_IMAGE = "/faculty/hero.webp";
  * Mumbai page — only the Director's message differs. Dev-only.
  */
 export default async function FacultyBengaluruPreviewPage() {
-  // Drupal faculty for this campus; null (fetch error) keeps the built-in grid.
+  // Drupal faculty for this campus; hidden when none (or on fetch error).
   const grid = await getCampusFacultyGrid("bengaluru");
 
 
@@ -59,11 +58,7 @@ export default async function FacultyBengaluruPreviewPage() {
             <DirectorMessage data={DEFAULT_DIRECTOR_MESSAGE_BENGALURU} />
           </section>
 
-          {grid === null ? (
-            <section className={`container ${styles.block}`}>
-              <FacultyGrid />
-            </section>
-          ) : grid.members.length > 0 ? (
+          {grid && grid.members.length > 0 ? (
             <section className={`container ${styles.block}`}>
               <FacultyGrid
                 categories={grid.categories}
@@ -71,10 +66,6 @@ export default async function FacultyBengaluruPreviewPage() {
               />
             </section>
           ) : null}
-
-          <section className={`container ${styles.block}`}>
-            <AffiliateFaculty />
-          </section>
         </main>
 
         <SearchOverlay />

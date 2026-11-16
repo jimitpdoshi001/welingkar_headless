@@ -5,7 +5,6 @@ import Link from "next/link";
 import clsx from "clsx";
 
 import type { AffiliateMember, FacultyCategory } from "@/lib/drupal/faculty";
-import { AFFILIATE_FACULTY_CATEGORIES, DEFAULT_AFFILIATE_MEMBERS } from "@/lib/drupal/faculty";
 import type { AffiliateFacultyAttributes, JsonApiResource } from "@/lib/drupal";
 import styles from "./AffiliateFaculty.module.scss";
 
@@ -23,8 +22,8 @@ const DEFAULT_DESCRIPTION =
 
 export function AffiliateFaculty({
   paragraph,
-  categories = AFFILIATE_FACULTY_CATEGORIES,
-  members = DEFAULT_AFFILIATE_MEMBERS,
+  categories = [],
+  members = [],
   initialCount = 15,
   step = 10,
 }: AffiliateFacultyProps) {
@@ -63,6 +62,9 @@ export function AffiliateFaculty({
     window.addEventListener("hashchange", openFromHash);
     return () => window.removeEventListener("hashchange", openFromHash);
   }, [categories, baseCount]);
+
+  // No Drupal data: render nothing (no built-in list).
+  if (members.length === 0) return null;
 
   return (
     <div

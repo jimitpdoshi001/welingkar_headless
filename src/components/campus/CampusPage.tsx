@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import type { FacultyCategory, FacultyMember } from "@/lib/drupal/faculty";
+
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
@@ -13,7 +15,10 @@ import { VideoPopup } from "./VideoPopup/VideoPopup";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
-export function CampusPage({ data }: { data: CampusData }) {
+/** `mentors`: live Drupal faculty for the campus; the Mentors block is hidden when empty. */
+export function CampusPage({ data, mentors }: { data: CampusData; mentors: { categories: FacultyCategory[]; members: FacultyMember[] } | null }) {
+  // Mentor tabs: the role tabs only (Deans, Associate Deans, Faculty).
+  const mentorTabs = mentors?.categories.filter((c) => ["deans", "associate-deans", "faculty"].includes(c.slug)) ?? [];
   const isMumbai = data.accent === "orange";
   const accentVar = data.accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
 
@@ -147,14 +152,17 @@ export function CampusPage({ data }: { data: CampusData }) {
             </div>
           </section>
 
-          <section className={`container ${styles.block}`}>
-            <h2 className={styles.sectionHeading}>{data.mentors.heading}</h2>
-            <MentorsCarousel
-              tabs={data.mentors.tabs}
-              cta={data.mentors.cta}
-              photos={Object.fromEntries(data.mentors.people.map((person) => [person.name, person.image]))}
-            />
-          </section>
+          {mentors && mentorTabs.length > 0 ? (
+            <section className={`container ${styles.block}`}>
+              <h2 className={styles.sectionHeading}>{data.mentors.heading}</h2>
+              <MentorsCarousel
+                cta={data.mentors.cta}
+                photos={{}}
+                categories={mentorTabs}
+                members={mentors.members}
+              />
+            </section>
+          ) : null}
 
           {/* Figma 979:1564: full-width photo card with copy and category list on top. */}
           <section
