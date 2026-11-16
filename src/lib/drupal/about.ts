@@ -1,101 +1,149 @@
 import { cache } from "react";
 
-import type { AboutData } from "@/lib/about/about-data";
-import { fetchJsonApi } from "./jsonapi";
+import type { AboutData, AboutPerson } from "@/lib/about/about-data";
+import { sanitizeCmsHtml } from "@/lib/security/sanitize-html";
+import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
 import type { JsonApiResource } from "./types";
 
 const str = (v: unknown) => (typeof v === "string" ? v.trim() : "");
-const html = (v: unknown) => str((v as { value?: string } | null)?.value);
+const rich = (v: unknown) => str((v as { value?: string } | null)?.value);
 
-/** HTML -> plain text: entities decoded, <br> kept as a line break, tags removed. */
-function toText(source: string): string {
-  return source
-    .replace(/<br\s*\/?>/gi, "\n")
-    .replace(/<[^>]+>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&quot;/g, '"')
-    .replace(/&#0?39;|&rsquo;|&lsquo;/g, "'")
-    .replace(/&ldquo;|&rdquo;/g, '"')
-    .replace(/&ndash;/g, "–")
-    .replace(/&mdash;/g, "—")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
-    .replace(/[ \t]+\n/g, "\n")
-    .trim();
+/** Sanitized HTML, or "" when it has no visible text. */
+function cleanHtml(source: string): string {
+  const html = sanitizeCmsHtml(source).trim();
+  return html.replace(/<[^>]*>|&nbsp;|\s/g, "") ? html : "";
 }
 
-/** <p> blocks (or <li> items) as plain-text paragraphs. */
-function blocks(source: string, tag: "p" | "li"): string[] {
-  const re = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "gi");
-  const found = [...source.matchAll(re)].map((m) => toText(m[1])).filter(Boolean);
-  return found.length ? found : source ? [toText(source)].filter(Boolean) : [];
+/** <p> blocks as plain-text paragraphs (for the large watermark sections). */
+function paragraphs(source: string): string[] {
+  const text = (s: string) =>
+    s
+      .replace(/<br\s*\/?>/gi, "\n")
+      .replace(/<[^>]+>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .replace(/&quot;/g, '"')
+      .replace(/&#0?39;|&rsquo;|&lsquo;/g, "'")
+      .replace(/&amp;/g, "&")
+      .trim();
+  const found = [...source.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => text(m[1])).filter(Boolean);
+  return found.length ? found : [text(source)].filter(Boolean);
 }
 
-/**
- * About Us node from Drupal (JSON:API node--about_us). Texts replace the built-in
- * ones where Drupal has them; photos stay built-in (the node's image fields are
- * empty). Null on a fetch error.
- */
-const getAboutNode = cache(async (): Promise<{ node: JsonApiResource; included: JsonApiResource[] } | null> => {
+const INCLUDE = [
+  "field_banner",
+  "field_banner.field_desktop",
+  "field_banner.field_desktop.field_media_image",
+  "field_our_vision_image",
+  "field_our_mission_image",
+  "field_words_our_director_image",
+  "field_director_desk",
+  "field_director_desk.field_thumbnail",
+  "field_managing_council",
+  "field_managing_council.field_image",
+  "field_academic_advisory_board",
+  "field_industry_advisory_board",
+  "field_accreditations",
+  "field_accreditations.field_image",
+].join(",");
+
+/** About Us page built only from Drupal. Null when Drupal is unreachable. */
+export const getAboutData = cache(async (): Promise<Omit<AboutData, "honours"> | null> => {
+  let node: JsonApiResource | undefined;
+  let included: JsonApiResource[] = [];
   try {
     const doc = await fetchJsonApi<JsonApiResource>("/node/about_us", {
       "filter[status]": "1",
-      include: "field_banner,field_director_desk",
+      include: INCLUDE,
       "page[limit]": "1",
     });
-    const node = (Array.isArray(doc.data) ? doc.data[0] : doc.data) as JsonApiResource | undefined;
-    return node ? { node, included: doc.included ?? [] } : null;
+    node = (Array.isArray(doc.data) ? doc.data[0] : doc.data) as JsonApiResource | undefined;
+    included = doc.included ?? [];
   } catch (error) {
     console.error("about_us fetch failed", error instanceof Error ? error.message : error);
     return null;
   }
+  if (!node) return null;
+
+  const byId = new Map(included.map((r) => [r.id, r]));
+  const refs = (entity: JsonApiResource | undefined, field: string): JsonApiResource[] => {
+    const data = entity?.relationships?.[field]?.data;
+    const list = Array.isArray(data) ? data : data ? [data] : [];
+    return list.map((ref) => byId.get(ref.id)).filter((r): r is JsonApiResource => Boolean(r));
+  };
+  const fileUrl = (file: JsonApiResource | undefined) =>
+    absoluteDrupalUrl((file?.attributes.uri as { url?: string } | undefined)?.url) ?? "";
+  const imageOf = (entity: JsonApiResource | undefined, field: string) => fileUrl(refs(entity, field)[0]);
+  const at = (entity: JsonApiResource | undefined) => (entity?.attributes ?? {}) as Record<string, unknown>;
+  const a = at(node);
+
+  const people = (field: string): AboutPerson[] =>
+    refs(node, field)
+      .map((p) => ({
+        id: p.id,
+        name: str(at(p).field_main_title),
+        title: str(at(p).field_designation),
+        image: imageOf(p, "field_image") || undefined,
+      }))
+      .filter((p) => p.name);
+
+  const banner = refs(node, "field_banner")[0];
+  const bannerMedia = refs(banner, "field_desktop")[0];
+
+  const directorHtml = cleanHtml(rich(a.field_words_our_director_descrip));
+
+  return {
+    hero: {
+      title: str(at(banner).field_main_title),
+      subtitle: str(at(banner).field_sub_title),
+      image: imageOf(bannerMedia, "field_media_image"),
+    },
+    vision: {
+      heading: str(a.field_our_vision_title),
+      html: cleanHtml(rich(a.field_our_vision_description)),
+      image: imageOf(node, "field_our_vision_image"),
+    },
+    mission: {
+      heading: str(a.field_our_mission_title),
+      html: cleanHtml(rich(a.field_our_mission_description)),
+      image: imageOf(node, "field_our_mission_image"),
+    },
+    spMandali: { watermark: str(a.field_about_us_main_header), paragraphs: paragraphs(rich(a.field_about_us_main_description)) },
+    whoWeAre: { watermark: str(a.field_weschool_title), paragraphs: paragraphs(rich(a.field_weschool_description)) },
+    desks: refs(node, "field_director_desk")
+      .map((d) => ({
+        heading: str(at(d).field_main_title),
+        html: cleanHtml(rich(at(d).field_description)),
+        name: str(at(d).field_subtitle),
+        title: str(at(d).field_director_designation),
+        image: imageOf(d, "field_thumbnail"),
+      }))
+      .filter((d) => d.heading && (d.html || d.name)),
+    director:
+      str(a.field_words_our_director_title) && directorHtml
+        ? {
+            heading: str(a.field_words_our_director_title),
+            html: directorHtml,
+            sign: str(a.field_words_our_director_subtitl),
+            image: imageOf(node, "field_words_our_director_image"),
+          }
+        : null,
+    accreditationsHeading: str(a.field_accreditations_title),
+    accreditations: refs(node, "field_accreditations")
+      .map((r) => ({
+        id: r.id,
+        logo: imageOf(r, "field_image"),
+        // Design: the label before the first colon ("ACBSP Accredited:") is bold.
+        html: cleanHtml(rich(at(r).field_description)).replace(/^<p>([^<:]{2,80}:)/, "<p><strong>$1</strong>"),
+      }))
+      .filter((r) => r.html),
+    boards: [
+      { id: "academic-advisory-board", heading: str(a.field_academic_advisory_board_ti), people: people("field_academic_advisory_board") },
+      { id: "industry-advisory-board", heading: str(a.field_industry_advisory_board_ti), people: people("field_industry_advisory_board") },
+    ].filter((b) => b.heading && b.people.length),
+    council: {
+      heading: str(a.field_managing_council_title),
+      html: cleanHtml(rich(a.field_managing_council_descripti)),
+      people: people("field_managing_council"),
+    },
+  };
 });
-
-/** Built-in About data with every Drupal-provided text applied. */
-export async function applyAboutFromDrupal(base: AboutData): Promise<AboutData> {
-  const result = await getAboutNode();
-  if (!result) return base;
-  const { node, included } = result;
-  const a = node.attributes as Record<string, unknown>;
-  const rel = (field: string) => {
-    const ref = node.relationships?.[field]?.data;
-    const first = Array.isArray(ref) ? ref[0] : ref;
-    return first ? included.find((r) => r.id === first.id) : undefined;
-  };
-  const data: AboutData = structuredClone(base);
-  const set = <T,>(value: T | "" | undefined, apply: (v: T) => void) => {
-    if (value !== "" && value !== undefined && !(Array.isArray(value) && value.length === 0)) apply(value as T);
-  };
-
-  const banner = rel("field_banner")?.attributes as Record<string, unknown> | undefined;
-  set(str(banner?.field_main_title), (v) => (data.hero.title = v));
-  set(toText(str(banner?.field_sub_title)), (v) => (data.hero.subtitle = v));
-
-  set(str(a.field_our_vision_title), (v) => (data.vision.heading = v));
-  set(toText(html(a.field_our_vision_description)), (v) => (data.vision.body = v));
-  set(str(a.field_our_mission_title), (v) => (data.mission.heading = v));
-  set(blocks(html(a.field_our_mission_description), "li"), (v) => (data.mission.paragraphs = v));
-
-  set(str(a.field_about_us_main_header), (v) => (data.spMandali.watermark = v));
-  set(blocks(html(a.field_about_us_main_description), "p"), (v) => (data.spMandali.paragraphs = v));
-  set(str(a.field_weschool_title), (v) => (data.whoWeAre.watermark = v));
-  set(blocks(html(a.field_weschool_description), "p").join("\n\n"), (v) => (data.whoWeAre.body = v));
-
-  set(str(a.field_words_our_director_title), (v) => (data.director.heading = v));
-  set(blocks(html(a.field_words_our_director_descrip), "p"), (v) => (data.director.paragraphs = v));
-  set(str(a.field_words_our_director_subtitl), (v) => (data.director.sign = v));
-
-  const desk = rel("field_director_desk")?.attributes as Record<string, unknown> | undefined;
-  set(str(desk?.field_main_title), (v) => (data.chairman.heading = v));
-  set(str(desk?.field_subtitle), (v) => (data.chairman.name = v));
-  set(str(desk?.field_director_designation), (v) => (data.chairman.title = v));
-  set(toText(html(desk?.field_description)), (v) => (data.chairman.body = v));
-
-  set(str(a.field_managing_council_title), (v) => (data.faculty.heading = v));
-  set(toText(html(a.field_managing_council_descripti)), (v) => (data.faculty.body = v));
-  set(str(a.field_academic_advisory_board_ti), (v) => (data.academicBoard.heading = v));
-  set(str(a.field_industry_advisory_board_ti), (v) => (data.industryBoard.heading = v));
-
-  return data;
-}

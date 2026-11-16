@@ -31,8 +31,9 @@ function BoardList({ id, heading, people }: { id: string; heading: string; peopl
 
 // `footer` is rendered on the server (it fetches the Drupal menu) and passed in,
 // because a client component cannot run an async server component itself.
-export function AboutPage({ data, footer }: { data: AboutData; footer?: React.ReactNode }) {
-  const [activeYear, setActiveYear] = useState(data.honours.years[0]);
+// Every section is Drupal content (sanitized server-side) and is hidden when empty.
+export function AboutPage({ data, footer }: { data: AboutData | null; footer?: React.ReactNode }) {
+  const [activeYear, setActiveYear] = useState(data?.honours.years[0] ?? "");
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   const scrollHonours = (dir: 1 | -1) => {
@@ -41,267 +42,283 @@ export function AboutPage({ data, footer }: { data: AboutData; footer?: React.Re
     el.scrollBy({ left: dir * (el.clientWidth * 0.8), behavior: "smooth" });
   };
 
+  const d = data;
+
   return (
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
 
         <main data-auto-reveal="reveal">
-          {/* Hero */}
-          <section className={styles.hero}>
-            <img
-              src={data.hero.image}
-              alt=""
-              className={styles.heroImage}
-            />
-            <div className={styles.heroOverlay} />
-            <div className={`container ${styles.heroInner}`}>
-              <nav className={styles.breadcrumb}>
-                <Link href="/">Home</Link> <span>›</span> <span>About Us</span>
-              </nav>
-              <div className={styles.heroBottom}>
-                <h1 className={styles.heroTitle}>{data.hero.title}</h1>
-                <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
+          {d?.hero.title ? (
+            <section className={styles.hero}>
+              {d.hero.image ? (
+                <img
+                  src={d.hero.image}
+                  alt=""
+                  className={styles.heroImage}
+                />
+              ) : null}
+              <div className={styles.heroOverlay} />
+              <div className={`container ${styles.heroInner}`}>
+                <nav className={styles.breadcrumb}>
+                  <Link href="/">Home</Link> <span>›</span> <span>About Us</span>
+                </nav>
+                <div className={styles.heroBottom}>
+                  <h1 className={styles.heroTitle}>{d.hero.title}</h1>
+                  {d.hero.subtitle ? <p className={styles.heroSubtitle}>{d.hero.subtitle}</p> : null}
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
 
-          {/* Our Vision */}
-          <section id="vision-mission" className={`container ${styles.block} ${styles.vision} ${styles.anchor}`}>
-            <div className={styles.visionText}>
-              <h2 className={styles.bigHeading}>{data.vision.heading}</h2>
-              <p className={styles.lead}>{data.vision.body}</p>
-            </div>
-            <div className={styles.collage}>
-              <img
-                src={data.vision.images[0]}
-                alt=""
-                className={styles.collageMain}
-              />
-            </div>
-          </section>
+          {d?.vision.html ? (
+            <section id="vision-mission" className={`container ${styles.block} ${styles.vision} ${styles.anchor}`}>
+              <div className={styles.visionText}>
+                <h2 className={styles.bigHeading}>{d.vision.heading}</h2>
+                <div className={`${styles.lead} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: d.vision.html }} />
+              </div>
+              {d.vision.image ? (
+                <div className={styles.collage}>
+                  <img
+                    src={d.vision.image}
+                    alt={d.vision.heading}
+                    className={styles.collageMain}
+                  />
+                </div>
+              ) : null}
+            </section>
+          ) : null}
 
-          {/* Our Mission */}
-          <section className={`container ${styles.block} ${styles.mission}`}>
-            <div className={styles.collageLeft}>
-              <img
-                src={data.mission.images[0]}
-                alt=""
-                className={styles.collageMain}
-              />
-            </div>
-            <div className={styles.missionText}>
-              <h2 className={styles.bigHeading}>{data.mission.heading}</h2>
-              {data.mission.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.body}>
-                  {p}
-                </p>
-              ))}
-            </div>
-          </section>
+          {d?.mission.html ? (
+            <section className={`container ${styles.block} ${styles.mission}`}>
+              {d.mission.image ? (
+                <div className={styles.collageLeft}>
+                  <img
+                    src={d.mission.image}
+                    alt={d.mission.heading}
+                    className={styles.collageMain}
+                  />
+                </div>
+              ) : null}
+              <div className={styles.missionText}>
+                <h2 className={styles.bigHeading}>{d.mission.heading}</h2>
+                <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: d.mission.html }} />
+              </div>
+            </section>
+          ) : null}
 
           {/* S.P. Mandali (Figma 2128:185): watermark layout, right after Mission. */}
-          <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
-            <div className="container">
-              <span
-                className={styles.watermark}
-                aria-hidden="true">
-                {data.spMandali.watermark}
-              </span>
-              {data.spMandali.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.whoBody}>
-                  {p}
-                </p>
-              ))}
-            </div>
-          </section>
-
-          {/* Chairman */}
-          <section id="chairman" className={`${styles.bandPurple} ${styles.anchor}`}>
-            <div className={`container ${styles.block} ${styles.chairman}`}>
-              <img
-                src={data.chairman.image}
-                alt={data.chairman.name}
-                className={styles.chairmanImage}
-              />
-              <div className={styles.chairmanText}>
-                <h2 className={styles.heading}>{data.chairman.heading}</h2>
-                <p className={styles.body}>{data.chairman.body}</p>
-                <p className={styles.personName}>{data.chairman.name}</p>
-                <p className={styles.personRole}>{data.chairman.title}</p>
-              </div>
-            </div>
-          </section>
-
-          {/* Vice Chairman (Figma 2289:134): text left, photo right. */}
-          <section id="vice-chairman" className={`mt-5 ${styles.bandCream} ${styles.anchor}`}>
-            <div className={`container ${styles.block} ${styles.chairman} ${styles.chairmanReverse}`}>
-              <div className={styles.chairmanText}>
-                <h2 className={styles.heading}>{data.viceChairman.heading}</h2>
-                <p className={styles.body}>{data.viceChairman.body}</p>
-                <p className={styles.personName}>{data.viceChairman.name}</p>
-                <p className={styles.personRole}>{data.viceChairman.title}</p>
-              </div>
-              <img
-                src={data.viceChairman.image}
-                alt={data.viceChairman.name}
-                className={styles.chairmanImage}
-              />
-            </div>
-          </section>
-
-          {/* Who We Are (WeSchool watermark): after the Vice Chairman. */}
-          <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
-            <div className="container">
-              <span
-                className={styles.watermark}
-                aria-hidden="true">
-                {data.whoWeAre.watermark}
-              </span>
-              <p className={styles.whoBody}>{data.whoWeAre.body}</p>
-            </div>
-          </section>
-
-          {/* Director */}
-            <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
-            <div className={styles.directorText}>
-              <h2 className={styles.heading}>{data.director.heading}</h2>
-              {data.director.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.body}>
-                  {p}
-                </p>
-              ))}
-              <p className={styles.sign}>{data.director.sign}</p>
-            </div>
-            <div className={styles.directorMedia}>
-              <img
-                src={data.director.image}
-                alt=""
-              />
-            </div>
-          </section>
-
-          {/* Advisory boards */}
-          <BoardList
-            id="academic-advisory-board"
-            heading={data.academicBoard.heading}
-            people={data.academicBoard.people}
-          />
-          <BoardList
-            id="industry-advisory-board"
-            heading={data.industryBoard.heading}
-            people={data.industryBoard.people}
-          />
-
-            {/* Accreditations (Figma 2292:147..): heading + 2x2 bordered cards. */}
-          <section>
-            <div className={`container ${styles.block}`}>
-              <h2 className={styles.heading}>Accreditations</h2>
-              <div className={styles.accredGrid}>
-                {data.accreditations.map((a) => (
-                  <div
-                    key={a.title}
-                    className={styles.accredItem}>
-                    <img
-                      src={a.logo}
-                      alt={a.title}
-                      className={styles.accredLogo}
-                    />
-                    <p className={styles.accredText}>
-                      <strong>{a.title}</strong> {a.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Honours & Achievements */}
-          <section id="awards" className={`bg-light-yellow ${styles.anchor}`}>
-            <div className={`container ${styles.block} ${styles.honours}`}>
-              <div className={styles.yearNav}>
-                {data.honours.years.map((y) => (
-                  <button
-                    key={y}
-                    type="button"
-                    className={`${styles.year} ${y === activeYear ? styles.yearActive : ""}`}
-                    onClick={() => setActiveYear(y)}>
-                    {y}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.honoursMain}>
-                <h2 className={styles.heading}>{data.honours.heading}</h2>
+          {d?.spMandali.paragraphs.length ? (
+            <section id="spm" className={`${styles.whoWeAre} ${styles.spm} ${styles.anchor}`}>
+              <div className="container">
                 <span
-                  className={styles.bigYear}
+                  className={styles.watermark}
                   aria-hidden="true">
-                  {activeYear}
+                  {d.spMandali.watermark}
                 </span>
-                <button
-                  type="button"
-                  className={`${styles.hArrow} ${styles.hPrev}`}
-                  onClick={() => scrollHonours(-1)}
-                  aria-label="Previous">
-                  <ArrowLeft
-                    width={7}
-                    height={10}
+                {d.spMandali.paragraphs.map((p, i) => (
+                  <p
+                    key={i}
+                    className={styles.whoBody}>
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {/* Chairman / Vice Chairman desks: alternate purple and cream bands. */}
+          {d?.desks.map((desk, i) => (
+            <section
+              key={desk.heading}
+              id={i === 0 ? "chairman" : i === 1 ? "vice-chairman" : undefined}
+              className={`${i % 2 ? `mt-5 ${styles.bandCream}` : styles.bandPurple} ${styles.anchor}`}>
+              <div className={`container ${styles.block} ${styles.chairman} ${i % 2 ? styles.chairmanReverse : ""}`}>
+                {desk.image && i % 2 === 0 ? (
+                  <img
+                    src={desk.image}
+                    alt={desk.name}
+                    className={styles.chairmanImage}
                   />
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.hArrow} ${styles.hNext}`}
-                  onClick={() => scrollHonours(1)}
-                  aria-label="Next">
-                  <ArrowRight
-                    width={7}
-                    height={10}
+                ) : null}
+                <div className={styles.chairmanText}>
+                  <h2 className={styles.heading}>{desk.heading}</h2>
+                  {desk.html ? <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: desk.html }} /> : null}
+                  {desk.name ? <p className={styles.personName}>{desk.name}</p> : null}
+                  {desk.title ? <p className={styles.personRole}>{desk.title}</p> : null}
+                </div>
+                {desk.image && i % 2 === 1 ? (
+                  <img
+                    src={desk.image}
+                    alt={desk.name}
+                    className={styles.chairmanImage}
                   />
-                </button>
-                <div
-                  className={styles.honoursTrack}
-                  ref={trackRef}>
-                  {/* Drupal awards carry a year: show the selected year's awards only. */}
-                  {data.honours.cards.filter((c) => !c.year || c.year === activeYear).map((c) => (
-                    <article
-                      key={c.id}
-                      className={styles.honourCard}>
-                      <img
-                        src={c.image}
-                        alt=""
-                      />
-                      <p>{c.text}</p>
-                    </article>
+                ) : null}
+              </div>
+            </section>
+          ))}
+
+          {/* Who We Are (WeSchool watermark). */}
+          {d?.whoWeAre.paragraphs.length ? (
+            <section id="weschool" className={`${styles.whoWeAre} ${styles.anchor}`}>
+              <div className="container">
+                <span
+                  className={styles.watermark}
+                  aria-hidden="true">
+                  {d.whoWeAre.watermark}
+                </span>
+                {d.whoWeAre.paragraphs.map((p, i) => (
+                  <p
+                    key={i}
+                    className={styles.whoBody}>
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {d?.director ? (
+            <section id="director" className={`container ${styles.block} ${styles.director} ${styles.anchor}`}>
+              <div className={styles.directorText}>
+                <h2 className={styles.heading}>{d.director.heading}</h2>
+                <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: d.director.html }} />
+                {d.director.sign ? <p className={styles.sign}>{d.director.sign}</p> : null}
+              </div>
+              {d.director.image ? (
+                <div className={styles.directorMedia}>
+                  <img
+                    src={d.director.image}
+                    alt=""
+                  />
+                </div>
+              ) : null}
+            </section>
+          ) : null}
+
+          {/* Advisory boards / committees (only those with people). */}
+          {d?.boards.map((board) => (
+            <BoardList
+              key={board.id}
+              id={board.id}
+              heading={board.heading}
+              people={board.people}
+            />
+          ))}
+
+          {/* Accreditations (Figma 2292:147..): heading + 2x2 bordered cards. */}
+          {d?.accreditations.length ? (
+            <section>
+              <div className={`container ${styles.block}`}>
+                <h2 className={styles.heading}>{d.accreditationsHeading || "Accreditations"}</h2>
+                <div className={styles.accredGrid}>
+                  {d.accreditations.map((a) => (
+                    <div
+                      key={a.id}
+                      className={styles.accredItem}>
+                      {a.logo ? (
+                        <img
+                          src={a.logo}
+                          alt=""
+                          className={styles.accredLogo}
+                        />
+                      ) : null}
+                      <div className={`${styles.accredText} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: a.html }} />
+                    </div>
                   ))}
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
 
-          {/* Faculty */}
-          <section id="managing-council" className={`container ${styles.block} ${styles.anchor}`}>
-            <h2 className={styles.heading}>{data.faculty.heading}</h2>
-            <p className={styles.sub}>{data.faculty.body}</p>
-            <div className={styles.facultyGrid}>
-              {data.faculty.people.map((p) => (
-                <article
-                  key={p.id}
-                  className={styles.facultyCard}>
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                  />
-                  <h3>{p.name}</h3>
-                  <p>{p.title}</p>
-                </article>
-              ))}
-            </div>
-          </section>
+          {/* Honours & Achievements (awards API). */}
+          {d?.honours.cards.length ? (
+            <section id="awards" className={`bg-light-yellow ${styles.anchor}`}>
+              <div className={`container ${styles.block} ${styles.honours}`}>
+                <div className={styles.yearNav}>
+                  {d.honours.years.map((y) => (
+                    <button
+                      key={y}
+                      type="button"
+                      className={`${styles.year} ${y === activeYear ? styles.yearActive : ""}`}
+                      onClick={() => setActiveYear(y)}>
+                      {y}
+                    </button>
+                  ))}
+                </div>
+                <div className={styles.honoursMain}>
+                  <h2 className={styles.heading}>{d.honours.heading}</h2>
+                  <span
+                    className={styles.bigYear}
+                    aria-hidden="true">
+                    {activeYear}
+                  </span>
+                  <button
+                    type="button"
+                    className={`${styles.hArrow} ${styles.hPrev}`}
+                    onClick={() => scrollHonours(-1)}
+                    aria-label="Previous">
+                    <ArrowLeft
+                      width={7}
+                      height={10}
+                    />
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.hArrow} ${styles.hNext}`}
+                    onClick={() => scrollHonours(1)}
+                    aria-label="Next">
+                    <ArrowRight
+                      width={7}
+                      height={10}
+                    />
+                  </button>
+                  <div
+                    className={styles.honoursTrack}
+                    ref={trackRef}>
+                    {d.honours.cards.filter((c) => !c.year || c.year === activeYear).map((c) => (
+                      <article
+                        key={c.id}
+                        className={styles.honourCard}>
+                        {c.image ? (
+                          <img
+                            src={c.image}
+                            alt=""
+                          />
+                        ) : null}
+                        <p>{c.text}</p>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {/* Managing Council. */}
+          {d?.council.people.length ? (
+            <section id="managing-council" className={`container ${styles.block} ${styles.anchor}`}>
+              <h2 className={styles.heading}>{d.council.heading}</h2>
+              {d.council.html ? <div className={`${styles.sub} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: d.council.html }} /> : null}
+              <div className={styles.facultyGrid}>
+                {d.council.people.map((p) => (
+                  <article
+                    key={p.id}
+                    className={styles.facultyCard}>
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                      />
+                    ) : null}
+                    <h3>{p.name}</h3>
+                    <p>{p.title}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
         </main>
 
         <SearchOverlay />

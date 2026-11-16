@@ -179,16 +179,22 @@ export async function getCampusFacultyGrid(
   // this order and with these names; other subject categories are left out.
   const present = new Set(records.flatMap((r) => r.categories.map((c) => c.slug)));
   const categories = MUMBAI_TABS.filter((tab) => present.has(tab.slug)).map((tab) => ({ id: tab.slug, ...tab }));
-  const members: FacultyMember[] = records.map((r) => ({
+  const members: FacultyMember[] = records.map((r) => {
+    // An "Associate Dean" belongs under Associate Deans & Heads only, even if
+    // Drupal also tags them as Deans.
+    const associate = /associate\s+dean/i.test(r.designation);
+    const slugs = r.categories.map((c) => c.slug).filter((slug) => !(associate && slug === "deans"));
+    return {
     id: r.id,
     name: r.name,
     designation: r.designation,
-    categorySlug: r.categories[0]?.slug ?? "",
-    categorySlugs: r.categories.map((c) => c.slug),
+    categorySlug: slugs[0] ?? "",
+    categorySlugs: slugs,
     image: r.image,
     imageAlt: r.name,
     link: `/about-us/faculty/${r.slug}`,
-  }));
+    };
+  });
   return { categories, members };
 }
 
