@@ -1,0 +1,671 @@
+@use "../../styles/base/mixins" as *;
+
+// Figma 2958:129 / 2959:726 palette. Accent + CTA colours come from data (--lib-*).
+$green: #3a9030;
+$cream: #fdf8f0;
+
+.page {
+  overflow-x: clip;
+}
+
+/* ---------- Shared type ---------- */
+
+// DM Sans ExtraBold 40/44.
+.heading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  color: var(--color-black);
+  margin: 0;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; }
+}
+.light { color: var(--color-white); }
+
+.sub {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 1.4rem 0 0;
+}
+
+/* ---------- Hero (650px) ---------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 65rem;
+  color: var(--color-white);
+  overflow: hidden;
+
+  @include respond-to(tab) { min-height: 52rem; }
+  @include respond-to(mobile) { min-height: 44rem; }
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 31.53%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.7) 2.33%, rgba(0, 0, 0, 0) 33.24%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 58.83%);
+}
+
+.heroInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 13.5rem; // Figma breadcrumb at y135
+  padding-bottom: 4.4rem;
+
+  @include respond-to(tab) { padding-top: 10rem; }
+  @include respond-to(mobile) { padding-bottom: 3.2rem; }
+}
+
+.heroText { margin-top: auto; }
+
+.heroTitle {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1.8rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; margin-bottom: 1.2rem; }
+}
+
+.heroSub {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* ---------- About ---------- */
+
+.about {
+  position: relative;
+  padding-top: 15.6rem;
+
+  @include respond-to(mobile) { padding-top: 6rem; }
+}
+
+// Figma: 10% green triangle hugging the left edge under the hero.
+.decor {
+  position: absolute;
+  top: -1.3rem;
+  left: 0;
+  width: 26.7rem;
+  height: 30.5rem;
+  pointer-events: none;
+
+  @include respond-to(mobile) { width: 13rem; height: 15rem; }
+}
+
+.about .heading,
+.about .sub { position: relative; }
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 60.8rem 1fr;
+  gap: 2.2rem;
+  margin-top: 4.2rem;
+
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; margin-top: 3rem; }
+}
+
+// Stretches to the right column height (Figma image bottom = mission card bottom).
+.aboutImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 30rem;
+  object-fit: cover;
+  border-radius: 2.25rem;
+
+  @include respond-to(mobile) { height: auto; min-height: 0; aspect-ratio: 608 / 450; }
+}
+
+.aboutLead {
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: -0.4rem 0 2.6rem;
+
+  @include respond-to(mobile) { font-size: 1.9rem; margin-top: 0; }
+}
+
+.aboutBody {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0 0 2.6rem;
+}
+
+.mission {
+  background: $cream;
+  border-radius: 2rem;
+  padding: 4.4rem 5rem 4.6rem;
+
+  h3 { font-size: 2.2rem; font-weight: 600; line-height: 1.3; margin: 0 0 1.8rem; }
+  p { font-size: 1.6rem; line-height: 1.3; margin: 0; }
+
+  @include respond-to(mobile) { padding: 2.8rem 2.4rem; }
+}
+
+/* ---------- Overall Collection ---------- */
+
+.collection {
+  padding-top: 11rem;
+  padding-bottom: 14.4rem;
+
+  @include respond-to(mobile) { padding-top: 6rem; padding-bottom: 6rem; }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.7rem 2rem;
+  margin: 3.6rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to(mobile) { gap: 1.2rem; }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 12.8rem;
+  padding: 1.6rem 2rem 1.6rem 4.8rem;
+  background: $cream;
+  border-radius: 2rem;
+
+  @include respond-to(mobile) { min-height: 10.4rem; padding: 1.4rem 1.6rem; }
+}
+
+.statLabel,
+.statSuffix {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-black);
+
+  @include respond-to(mobile) { font-size: 1.6rem; }
+}
+
+.statLabel { max-width: 16rem; }
+
+.statValue {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 3rem;
+  color: $green;
+
+  @include respond-to(mobile) { font-size: 2.4rem; }
+}
+
+.highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2.7rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    min-height: 8.2rem;
+    padding: 1.4rem 3.7rem;
+    background: $cream;
+    border-radius: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 1.2rem; }
+  @include respond-to(mobile) { li { font-size: 1.7rem; padding: 1.4rem 1.6rem; } }
+}
+
+/* ---------- Databases (cream band) ---------- */
+
+.databases {
+  background: $cream;
+  padding: 8rem 0 9rem;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.tabs {
+  display: flex;
+  gap: 5rem;
+  margin-top: 4.8rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+
+  @include respond-to(mobile) { gap: 2.8rem; margin-top: 3rem; }
+}
+
+.tab {
+  flex: none;
+  position: relative;
+  padding: 0 0 1.2rem;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: 1.3;
+  color: var(--color-black);
+  cursor: pointer;
+  white-space: nowrap;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.3rem;
+    border-radius: 10rem;
+    background: transparent;
+  }
+
+  &:focus-visible { outline: 2px solid $green; outline-offset: 2px; }
+
+  @include respond-to(mobile) { font-size: 1.8rem; }
+}
+
+.tabActive {
+  font-weight: 600;
+  color: $green;
+  &::after { background: $green; }
+}
+
+.dbGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2.8rem 0 0;
+  padding: 0;
+  list-style: none;
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 1.2rem; }
+}
+
+.dbCard {
+  min-height: 22rem;
+  padding: 2.7rem 2.6rem;
+  background: var(--color-white);
+  border-radius: 2rem;
+
+  @include respond-to(mobile) { min-height: 0; padding: 2.4rem 2rem; }
+}
+
+.dbTag {
+  display: inline-flex;
+  align-items: center;
+  height: 3.8rem;
+  padding: 0 1.3rem;
+  border-radius: 1.9rem;
+  background: rgba($green, 0.1);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.dbName {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 4.6rem 0 1.2rem;
+
+  @include respond-to(mobile) { margin-top: 2.4rem; }
+}
+
+.dbMeta {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.dbEmpty {
+  font-size: 1.6rem;
+  margin: 2.8rem 0 0;
+}
+
+/* ---------- Services (accent band, 795px) ---------- */
+
+.services {
+  background: var(--lib-accent);
+  color: var(--color-white);
+  padding: 8.6rem 0 8.6rem;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+
+.serviceCols {
+  display: grid;
+  grid-template-columns: 33.5rem 33.5rem 30.4rem 1fr;
+  margin-top: 4.6rem;
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); row-gap: 4rem; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; margin-top: 3rem; }
+
+  ul { margin: 0; padding: 0; list-style: none; }
+}
+
+// Vertical white rules between columns (Figma lines at x435/794/1118).
+.serviceCol {
+  padding-right: 2rem;
+
+  & + & {
+    border-left: 1px solid rgba(255, 255, 255, 0.5);
+    padding-left: 2.5rem;
+  }
+
+  @include respond-to(tab) {
+    & + & { border-left: 0; padding-left: 0; }
+  }
+}
+
+.serviceTitle {
+  min-height: 4.6rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0 0 1.4rem;
+
+  @include respond-to(mobile) { min-height: 0; }
+}
+
+.serviceItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.6rem;
+  min-height: 13.1rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+
+  img { display: block; height: 3rem; width: auto; max-width: 3.7rem; }
+
+  @include respond-to(mobile) { min-height: 0; flex-direction: row; align-items: center; padding: 1rem 0; }
+}
+
+/* ---------- Facilities table (Bengaluru) ---------- */
+
+.facilities {
+  padding-top: 12rem;
+
+  @include respond-to(mobile) { padding-top: 6rem; }
+}
+
+.facTable {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 3.4rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); }
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
+.facCol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+
+  li {
+    display: flex;
+    align-items: center;
+    min-height: 7rem;
+    padding: 0.8rem 2.2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+
+  li:last-child { border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+}
+
+.facHead {
+  font-size: 1.8rem !important;
+  font-weight: 800;
+}
+
+/* ---------- Best practices (Bengaluru) ---------- */
+
+.practices {
+  display: grid;
+  grid-template-columns: 52.5rem 60.8rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  padding-top: 10rem;
+
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; padding-top: 6rem; }
+}
+
+.practicesText {
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 2.6rem 0 0;
+}
+
+.practicesImage {
+  display: block;
+  width: 100%;
+  aspect-ratio: 608 / 450;
+  object-fit: cover;
+  border-radius: 2.25rem;
+}
+
+/* ---------- Working hours ---------- */
+
+.hours {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-top: 12rem;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; }
+  @include respond-to(mobile) { padding-top: 6rem; }
+}
+
+.hoursCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 53.2rem;
+  padding: 7.1rem 2.5rem 2.8rem 5rem;
+  background: var(--lib-accent);
+  border-radius: 3rem;
+  color: var(--color-white);
+  overflow: hidden;
+
+  @include respond-to(mobile) { min-height: 0; padding: 4rem 1.6rem 1.6rem; }
+}
+
+.hoursDecor {
+  position: absolute;
+  top: 7.1rem;
+  left: 0;
+  width: 21.4rem;
+  height: 24.4rem;
+  pointer-events: none;
+}
+
+.hoursHeading { position: relative; max-width: 43rem; }
+
+.hoursNote {
+  position: relative;
+  max-width: 49.2rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  margin: 2.6rem 0 3rem;
+}
+
+.contact {
+  position: relative;
+  margin-top: auto;
+  margin-left: -2.5rem;
+  padding: 3.4rem 4.2rem;
+  background: $cream;
+  border-radius: 3rem;
+  color: var(--color-black);
+  font-size: 2.2rem;
+  line-height: 1.3;
+
+  h3 { font-size: inherit; font-weight: 800; margin: 0 0 1.4rem; }
+  p { margin: 0; overflow-wrap: anywhere; }
+
+  @include respond-to(mobile) { margin-left: 0; padding: 2.4rem 2rem; font-size: 1.7rem; }
+}
+
+.timings {
+  display: flex;
+  flex-direction: column;
+  padding: 3.1rem 2.9rem 4.8rem 3rem;
+  background: $cream;
+  border-radius: 3rem;
+
+  @include respond-to(mobile) { padding: 2.4rem 1.6rem; }
+}
+
+.days,
+.linkBox {
+  background: var(--lib-accent);
+  color: var(--color-white);
+  border-radius: 1rem;
+}
+
+.days {
+  align-self: flex-start;
+  padding: 1.1rem 1.8rem;
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+.slots {
+  margin: 5.6rem 0 0 0.7rem;
+
+  @include respond-to(mobile) { margin: 3rem 0 0; }
+}
+
+.slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.6rem;
+  padding-bottom: 2.6rem;
+
+  & + & { border-top: 1px solid rgba(0, 0, 0, 0.3); padding-top: 3.6rem; }
+
+  dt { display: flex; flex-direction: column; gap: 1.6rem; }
+  strong { font-size: 2.2rem; font-weight: 800; line-height: 1.2; }
+  span { font-size: 1.6rem; }
+  dd { margin: 0; font-size: 1.8rem; font-weight: 800; white-space: nowrap; }
+
+  @include respond-to(mobile) {
+    flex-direction: column;
+    align-items: flex-start;
+    strong { font-size: 1.9rem; }
+    dd { font-size: 1.6rem; }
+  }
+}
+
+.links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: auto;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2rem; }
+}
+
+.linkBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.4rem;
+  min-height: 9.1rem;
+  padding: 1.2rem 1.4rem;
+  text-decoration: none;
+
+  span { font-size: 1.4rem; }
+  strong { font-size: 1.5rem; font-weight: 600; overflow-wrap: anywhere; }
+
+  &:hover { filter: brightness(1.15); }
+}
+
+/* ---------- Membership CTA (1238x423) ---------- */
+
+.cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42.3rem;
+  margin: 7.8rem 0 10.5rem;
+  border-radius: 3rem;
+  overflow: hidden;
+  text-align: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  @include respond-to(mobile) { min-height: 0; margin: 6rem 0; border-radius: 2rem; }
+}
+
+.ctaImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ctaInner {
+  position: relative;
+  z-index: 2;
+  max-width: 67.5rem;
+  padding: 5rem 2rem;
+  color: var(--color-white);
+}
+
+.ctaHeading { line-height: 1.3; }
+
+.ctaText {
+  max-width: 60.1rem;
+  margin: 2.6rem auto 2.6rem;
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+.ctaBtn {
+  padding: 1.25rem 1.9rem;
+  font-size: 1.2rem;
+  background-color: var(--lib-cta);
+
+  &:hover { filter: brightness(0.94); }
+}

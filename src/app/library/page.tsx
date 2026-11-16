@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { RegistryPage } from "@/components/shell/RegistryPage";
+import { LibraryPage } from "@/components/library/LibraryPage";
+import { LIBRARY_MUMBAI } from "@/lib/library/library-data";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/library");
 
 export default function Page() {
-  return <RegistryPage path="/library" />;
+  return <LibraryPage data={LIBRARY_MUMBAI} />;
 }
