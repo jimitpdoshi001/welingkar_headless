@@ -1,0 +1,317 @@
+@use "../../styles/base/mixins" as *;
+
+// Figma 2962:1945 palette.
+$purple: #493460;
+$orange: #f77100;
+
+// Figma: DM Sans ExtraBold 40 / 44.
+.heading {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  color: var(--color-black);
+  margin: 0;
+
+  span { display: block; }
+
+  @include respond-to(mobile) {
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+    span { display: inline; }
+    span + span::before { content: " "; }
+  }
+}
+.light { color: var(--color-white); }
+
+/* ---------- Hero (1440x650, image + three gradients) ---------- */
+
+.hero {
+  position: relative;
+  min-height: 65rem;
+  color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 31.5%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.7) 2.3%, rgba(0, 0, 0, 0) 33.2%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 58.8%);
+  }
+
+  @include respond-to(tab) { min-height: 56rem; }
+  @include respond-to(mobile) { min-height: 52rem; }
+}
+
+.heroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0 30%; // Figma crop: image offset ~10% from top
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 13.5rem; // breadcrumb at y135
+  padding-bottom: 4.7rem;
+  flex: 0 1 auto;
+
+  @include respond-to(tab) { padding-top: 10rem; }
+}
+
+.breadcrumb { margin: 0; }
+
+.heroHeading {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: normal;
+  margin: 0 0 2.2rem;
+
+  @include respond-to(mobile) { font-size: 2.6rem; margin-bottom: 1.2rem; }
+}
+
+.heroBody {
+  font-size: 1.6rem;
+  line-height: normal;
+  margin: 0;
+}
+
+/* ---------- Intro (two columns: 450 / 589) ---------- */
+
+.intro {
+  display: flex;
+  justify-content: space-between;
+  gap: 4rem;
+  padding-top: 9.6rem;
+
+  .introBody {
+    max-width: 58.9rem;
+    font-size: 1.6rem;
+    line-height: normal;
+    p { margin: 0 0 1.9rem; }
+    p:last-child { margin-bottom: 0; }
+  }
+
+  @include respond-to(tab) {
+    flex-direction: column;
+    gap: 2.4rem;
+    padding-top: 6rem;
+    .introBody { max-width: none; }
+  }
+}
+
+/* ---------- Experience panel ---------- */
+
+.experience {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  margin-top: 9.3rem;
+
+  // Purple panel: 100 → 1255 (stops 85px short of the container edge), radius 30 left.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: calc(100% - 8.5rem);
+    background: $purple;
+    border-radius: 3rem 0 0 3rem;
+    z-index: 0;
+  }
+
+  @include respond-to(tab) {
+    flex-direction: column;
+    margin-top: 6rem;
+    &::before { display: none; }
+  }
+}
+
+.experienceText {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  align-self: center;
+  max-width: 54rem;
+  padding: 4rem 6.4rem;
+
+  @include respond-to(tab) {
+    max-width: none;
+    background: $purple;
+    border-radius: 3rem 3rem 0 0;
+    padding: 4rem 3rem;
+  }
+  @include respond-to(mobile) { padding: 3.2rem 2rem; }
+}
+
+.experienceBody {
+  font-size: 1.6rem;
+  line-height: normal;
+  color: var(--color-white);
+  max-width: 46.2rem;
+  margin: 3rem 0 0;
+}
+
+.experienceImg {
+  position: relative;
+  z-index: 1;
+  width: 61.3rem;
+  max-width: 50%;
+  height: 48.8rem;
+  margin-left: auto;
+  object-fit: cover;
+  border-radius: 0 2.25rem 2.25rem 0;
+
+  @include respond-to(tab) {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    aspect-ratio: 613 / 488;
+    border-radius: 0 0 3rem 3rem;
+  }
+}
+
+/* ---------- Signature programs ---------- */
+
+.programs {
+  padding-top: 18.6rem;
+  @include respond-to(tab) { padding-top: 8rem; }
+}
+
+.programsBody {
+  font-size: 1.6rem;
+  line-height: normal;
+  margin: 2.8rem 0 0;
+}
+
+.programList {
+  list-style: none;
+  margin: 7.1rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  @include respond-to(tab) { grid-template-columns: 1fr; margin-top: 4rem; }
+}
+
+// Columns split by 1px dividers (Line 119/120, 285 tall).
+.program {
+  padding: 4.1rem 4rem 5rem;
+  min-height: 28.5rem;
+
+  &:first-child { padding-left: 0; }
+  & + & { border-left: 1px solid #d9d9d9; }
+
+  @include respond-to(tab) {
+    min-height: 0;
+    padding: 3rem 0;
+    & + & { border-left: 0; border-top: 1px solid #d9d9d9; }
+  }
+}
+
+.programIcon {
+  display: block;
+  height: 5.6rem;
+  width: auto;
+  max-width: 5.1rem;
+}
+
+.programTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: normal;
+  margin: 3.4rem 0 1.6rem;
+}
+
+.programText {
+  font-size: 1.6rem;
+  line-height: normal;
+  max-width: 34.8rem;
+  margin: 0;
+}
+
+/* ---------- Quote band ---------- */
+
+.quote {
+  background: $purple;
+  color: var(--color-white);
+  text-align: center;
+  margin-top: 8.5rem;
+  padding: 15.1rem 0 15rem;
+
+  @include respond-to(tab) { padding: 8rem 0; margin-top: 4rem; }
+}
+
+.quoteText {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  max-width: 88.6rem;
+  margin: 0 auto;
+
+  @include respond-to(mobile) { font-size: 2.6rem; line-height: 3.2rem; }
+}
+
+.quoteCaption {
+  font-size: 1.6rem;
+  line-height: normal;
+  margin: 3.3rem 0 0;
+}
+
+/* ---------- Reconnect ---------- */
+
+.reconnect {
+  display: flex;
+  align-items: center;
+  gap: 6.2rem;
+  padding: 8.6rem 0 10.1rem;
+
+  @include respond-to(tab) { flex-direction: column; align-items: stretch; gap: 3rem; padding: 6rem 0; }
+}
+
+.reconnectImg {
+  flex: 0 0 auto;
+  width: 61.3rem;
+  max-width: 50%;
+  height: 49rem;
+  object-fit: cover;
+  border-radius: 3rem;
+
+  @include respond-to(tab) { width: 100%; max-width: none; height: auto; aspect-ratio: 613 / 490; }
+}
+
+.reconnectText { max-width: 49.6rem; }
+
+.reconnectBody {
+  font-size: 1.6rem;
+  line-height: normal;
+  margin: 3rem 0 0;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3.4rem;
+  height: 3.7rem;
+  padding: 0 2rem;
+  background: $orange;
+  color: var(--color-white);
+  border-radius: 1.875rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.9; }
+}
