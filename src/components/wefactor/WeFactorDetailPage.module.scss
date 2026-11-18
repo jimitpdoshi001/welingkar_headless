@@ -117,10 +117,5 @@
   margin-top: 2.4rem;
 }
 
-// Sub-topic heading inside a slide (e.g. Impact under Student Initiatives).
-.slideTitle {
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0 0 1.6rem;
-}
+// "Student Initiatives": section heading above the first initiative, same band.
+.groupHeading { margin-bottom: 4rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }

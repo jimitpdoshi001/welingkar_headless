@@ -11,17 +11,8 @@ export type WeFactorItem = {
   images?: string[];
   /** Samvad issues: one download button per issue. */
   downloads?: { label: string; href: string }[];
-  /**
-   * Carousel of sub-topics (e.g. Student Initiatives): each slide has its own
-   * heading, text and photo. When set, it replaces paragraphs/images.
-   */
-  slides?: {
-    id: string;
-    title: string;
-    paragraphs: string[];
-    image: string;
-    downloads?: { label: string; href: string }[];
-  }[];
+  /** Section heading shown above this carousel's title, in the same band. */
+  groupHeading?: string;
 };
 
 /**
@@ -110,52 +101,53 @@ export const WELEARNING: WeFactorDetailData = {
     },
     {
       type: "carousel",
-      id: "student-initiatives",
-      title: "Student Initiatives",
-      paragraphs: [],
-      slides: [
+      id: "impact",
+      groupHeading: "Student Initiatives",
+      title: "Impact",
+      paragraphs: [
+        "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
+      ],
+      images: [IMG("impact"), IMG("impact-2"), IMG("impact-3")],
+    },
+    {
+      type: "carousel",
+      id: "samvad",
+      title: "Samvad",
+      paragraphs: [
+        "With an aim to facilitate the exchange of ideas that inspire innovative thought culture, Samvad makes an interesting read as a B-School magazine for students and by students. Each edition carries articles on themes like leadership, innovation, corporate social responsibility, sports management, technology, and entrepreneurship. The e-magazine also publishes article entries from across top management institutes like IIMs and IITs.",
+      ],
+      images: [IMG("samvad-nov-2020"), IMG("samvad-oct-2020")],
+      downloads: [
         {
-          id: "impact",
-          title: "Impact",
-          image: IMG("impact"),
-          paragraphs: [
-            "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
-          ],
+          label: "November 2020",
+          href: "https://www.welingkar.org/downloads/106_November_2020_Renewable_and_Sustainable_Industry.pdf",
         },
         {
-          id: "samvad",
-          title: "Samvad",
-          image: IMG("samvad-nov-2020"),
-          paragraphs: [
-            "With an aim to facilitate the exchange of ideas that inspire innovative thought culture, Samvad makes an interesting read as a B-School magazine for students and by students. Each edition carries articles on themes like leadership, innovation, corporate social responsibility, sports management, technology, and entrepreneurship. The e-magazine also publishes article entries from across top management institutes like IIMs and IITs.",
-          ],
-          downloads: [
-            {
-              label: "November 2020",
-              href: "https://www.welingkar.org/downloads/106_November_2020_Renewable_and_Sustainable_Industry.pdf",
-            },
-            {
-              label: "October 2020",
-              href: "https://www.welingkar.org/downloads/105_October_2020_Toursim_Industry.pdf",
-            },
-          ],
+          label: "October 2020",
+          href: "https://www.welingkar.org/downloads/105_October_2020_Toursim_Industry.pdf",
         },
-        {
-          id: "munijan",
-          title: "Munijan",
-          image: IMG("munijan"),
-          paragraphs: [
-            "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
-          ],
-        },
-        {
-          id: "competitions",
-          title: "Competitions",
-          image: IMG("competitions"),
-          paragraphs: [
-            "Our student competence and exposure is cultivated over numerous inter B-School competitions held across India. There is focussed mentoring for students who participate in various tech fests, challenges, and big-ticket contests. In 2017-2018, WeSchool students have done us proud by winning over 250 awards at various national level competitions.",
-          ],
-        },
+      ],
+    },
+    {
+      type: "carousel",
+      id: "munijan",
+      title: "Munijan",
+      paragraphs: [
+        "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
+      ],
+      images: [IMG("munijan")],
+    },
+    {
+      type: "carousel",
+      id: "competitions",
+      title: "Competitions",
+      paragraphs: [
+        "Our student competence and exposure is cultivated over numerous inter B-School competitions held across India. There is focussed mentoring for students who participate in various tech fests, challenges, and big-ticket contests. In 2017-2018, WeSchool students have done us proud by winning over 250 awards at various national level competitions.",
+      ],
+      images: [
+        IMG("competitions"),
+        IMG("competitions-2"),
+        IMG("competitions-3"),
       ],
     },
   ],
