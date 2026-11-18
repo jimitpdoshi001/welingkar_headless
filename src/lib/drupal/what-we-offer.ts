@@ -10,6 +10,25 @@ export type WhatWeOfferItem = {
   imageAlt: string;
 };
 
+// Drupal program paths -> the Next.js routes that render those programs.
+const ROUTES: Record<string, string> = {
+  "/programmes/full-time-programme-in-mumbai/pgdm": "/programmes/pgdm",
+  "/programmes/full-time-programme-in-mumbai/pgdm-business-design": "/programmes/pgdm-business-design",
+  "/programmes/full-time-programme-in-mumbai/pgdm-e-business": "/programmes/pgdm-e-business",
+  "/programmes/full-time-programme-in-mumbai/pgdm-healthcare-management": "/programmes/pgdm-healthcare",
+  "/programmes/full-time-programme-in-mumbai/pgdm-media-and-entertainment": "/programmes/pgdm-media",
+  "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics": "/programmes/pgdm-research-analytics",
+  "/programmes/full-time-programme-in-mumbai/pgdm-retail-management": "/programmes/pgdm-retail",
+  "/programmes/full-time-programme-in-mumbai/pgdm-rural-management": "/programmes/pgdm-rural",
+  "/programmes/full-time-programme-in-bengaluru": "/programmes/bengaluru",
+};
+
+/** Map a Drupal path (absolute or relative, trailing slash ignored) to its site route. */
+function siteRoute(url: string): string {
+  const path = url.replace(/^https?:\/\/[^/]+/i, "").replace(/\/+$/, "");
+  return ROUTES[path] ?? url;
+}
+
 export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
   try {
     const document = await fetchJsonApi<JsonApiResource>("/taxonomy_term/what_we_offer", {
@@ -31,6 +50,7 @@ export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
       if (url.startsWith("internal:")) {
         url = url.replace(/^internal:/, "");
       }
+      url = siteRoute(url);
 
       let image: string | null = null;
       let imageAlt = name;
