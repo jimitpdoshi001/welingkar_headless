@@ -10,6 +10,7 @@ import type { WeFactorDetailData } from "@/lib/wefactor/welearning-data";
 import listing from "@/components/campus/CampusListingPage.module.scss";
 import base from "./WeFactorPage.module.scss";
 import styles from "./WeFactorDetailPage.module.scss";
+import { SectionCarousel } from "./SectionCarousel";
 
 /**
  * WeFactor sub-page (WeLearning, …): same banner as the WeFactor page, then
@@ -48,10 +49,16 @@ export function WeFactorDetailPage({ data }: { data: WeFactorDetailData }) {
                 <section
                   id={s.id}
                   className={`${listing.rowSection} ${reverse ? listing.tinted : ""}`}>
-                  <div className={`container ${listing.row} ${reverse ? listing.reverse : ""} ${s.image ? "" : styles.single}`}>
-                    {s.image ? (
+                  <div className={`container ${listing.row} ${reverse ? listing.reverse : ""} ${s.images?.length ? "" : styles.single}`}>
+                    {s.images && s.images.length > 1 ? (
+                      <SectionCarousel
+                        images={s.images}
+                        alt={s.title}
+                        className={listing.image}
+                      />
+                    ) : s.images?.length ? (
                       <img
-                        src={s.image}
+                        src={s.images[0]}
                         alt={s.title}
                         className={listing.image}
                       />

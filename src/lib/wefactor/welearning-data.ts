@@ -8,7 +8,8 @@ export type WeFactorSection = {
   id: string;
   title: string;
   paragraphs: string[];
-  image?: string;
+  /** One photo, or several = carousel (as on the live site). */
+  images?: string[];
   /** Samvad issues: cover + PDF link. */
   downloads?: WeFactorDownload[];
   /** Sections sharing a group get one group heading above the first of them. */
@@ -36,7 +37,7 @@ export const WELEARNING: WeFactorDetailData = {
     {
       id: "aaa",
       title: "Acquisition, Application, and Assimilation (AAA)",
-      image: IMG("aaa"),
+      images: [IMG("aaa"), IMG("aaa-2"), IMG("aaa-3"), IMG("aaa-4")],
       paragraphs: [
         "At WeSchool, learning transcends in three A’s: Acquisition, application, and assimilation. The circle of learning intersperses with self-awareness, experimentation, and the emergence of new ideas. The classroom learning here is technology inclusive, thus apprising learners with real-time industry challenges and available resources to apply. Each student begins the first academic year with a Foundation Fortnight – a series of workshops that strengthens the ‘neev’ of the MBA aspirant. The life at WeSchool begins with the new ‘I’. All students collectively co-create, execute and participate for industry roundtables; socio-cultural fests. Each program designed provides the students across programs opportunities to interact with over 40+ guests from the industry leadership.",
       ],
@@ -44,7 +45,7 @@ export const WELEARNING: WeFactorDetailData = {
     {
       id: "neev",
       title: "Student Induction Program – NEEV",
-      image: IMG("neev"),
+      images: [IMG("neev"), IMG("neev-2")],
       paragraphs: [
         "At WeSchool, we are committed to offer a holistic learning experience to our incoming batch, thus, laying the foundation “NEEV” for Responsible Citizens & Future Leaders with 3 weeks well-structured & intensive – Student Induction Program (SIP). ‘NEEV’ is meticulously crafted to give a strong foundation by blending insightful leadership sessions delivered by industry experts, alumni, entrepreneurs, and technologists, alongside rigorous domain skills such as statistics, finance, technology, & engaging extracurricular activities such as creativity, Zumba, quizzes which will enhance students’ team spirit and leadership skills.",
         "In addition, these endeavours are designed to foster excellent communication and networking skills which will enable students to stand tall among their competitors.",
@@ -61,7 +62,7 @@ export const WELEARNING: WeFactorDetailData = {
     {
       id: "industry-roundtable",
       title: "Industry Roundtable",
-      image: IMG("roundtable"),
+      images: [IMG("roundtable")],
       paragraphs: [
         "We understand that mere theory is knowledge without insights. To acquaint our students with the on-ground realities and best industry practices, industry roundtables are held on campus. Senior management and thought leadership from across industries are invited for roundtable interactive sessions.",
         "To mentor and counsel our students, alumni meets are arranged. The Alumni roundtables are mostly popular in view of career guidance. Here the alumnus answers questions on topics ranging from job role to resume building. Such forums enable students to create an experience from a summer internship or to present impactful live case study projects.",
@@ -85,7 +86,7 @@ export const WELEARNING: WeFactorDetailData = {
       id: "impact",
       group: "Student Initiatives",
       title: "Impact",
-      image: IMG("impact"),
+      images: [IMG("impact"), IMG("impact-2"), IMG("impact-3")],
       paragraphs: [
         "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
       ],
@@ -106,7 +107,7 @@ export const WELEARNING: WeFactorDetailData = {
       id: "munijan",
       group: "Student Initiatives",
       title: "Munijan",
-      image: IMG("munijan"),
+      images: [IMG("munijan")],
       paragraphs: [
         "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
       ],
@@ -115,7 +116,7 @@ export const WELEARNING: WeFactorDetailData = {
       id: "competitions",
       group: "Student Initiatives",
       title: "Competitions",
-      image: IMG("competitions"),
+      images: [IMG("competitions"), IMG("competitions-2"), IMG("competitions-3")],
       paragraphs: [
         "Our student competence and exposure is cultivated over numerous inter B-School competitions held across India. There is focussed mentoring for students who participate in various tech fests, challenges, and big-ticket contests. In 2017-2018, WeSchool students have done us proud by winning over 250 awards at various national level competitions.",
       ],
