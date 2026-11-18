@@ -11,6 +11,8 @@ export type WeFactorItem = {
   images?: string[];
   /** Samvad issues: one download button per issue. */
   downloads?: { label: string; href: string }[];
+  /** Carousel: true = text slides with each photo; default = only the photo slides. */
+  slideText?: boolean;
   /** Section heading shown above this carousel's title, in the same band. */
   groupHeading?: string;
 };
@@ -57,6 +59,7 @@ export const WELEARNING: WeFactorDetailData = {
     {
       type: "carousel",
       id: "neev",
+      slideText: true,
       title: "Student Induction Program – NEEV",
       paragraphs: [
         "At WeSchool, we are committed to offer a holistic learning experience to our incoming batch, thus, laying the foundation “NEEV” for Responsible Citizens & Future Leaders with 3 weeks well-structured & intensive – Student Induction Program (SIP). ‘NEEV’ is meticulously crafted to give a strong foundation by blending insightful leadership sessions delivered by industry experts, alumni, entrepreneurs, and technologists, alongside rigorous domain skills such as statistics, finance, technology, & engaging extracurricular activities such as creativity, Zumba, quizzes which will enhance students’ team spirit and leadership skills.",
@@ -110,44 +113,11 @@ export const WELEARNING: WeFactorDetailData = {
       images: [IMG("impact"), IMG("impact-2"), IMG("impact-3")],
     },
     {
-      type: "carousel",
+      type: "text",
       id: "samvad",
       title: "Samvad",
       paragraphs: [
         "With an aim to facilitate the exchange of ideas that inspire innovative thought culture, Samvad makes an interesting read as a B-School magazine for students and by students. Each edition carries articles on themes like leadership, innovation, corporate social responsibility, sports management, technology, and entrepreneurship. The e-magazine also publishes article entries from across top management institutes like IIMs and IITs.",
-      ],
-      images: [IMG("samvad-nov-2020"), IMG("samvad-oct-2020")],
-      downloads: [
-        {
-          label: "November 2020",
-          href: "https://www.welingkar.org/downloads/106_November_2020_Renewable_and_Sustainable_Industry.pdf",
-        },
-        {
-          label: "October 2020",
-          href: "https://www.welingkar.org/downloads/105_October_2020_Toursim_Industry.pdf",
-        },
-      ],
-    },
-    {
-      type: "carousel",
-      id: "munijan",
-      title: "Munijan",
-      paragraphs: [
-        "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
-      ],
-      images: [IMG("munijan")],
-    },
-    {
-      type: "carousel",
-      id: "competitions",
-      title: "Competitions",
-      paragraphs: [
-        "Our student competence and exposure is cultivated over numerous inter B-School competitions held across India. There is focussed mentoring for students who participate in various tech fests, challenges, and big-ticket contests. In 2017-2018, WeSchool students have done us proud by winning over 250 awards at various national level competitions.",
-      ],
-      images: [
-        IMG("competitions"),
-        IMG("competitions-2"),
-        IMG("competitions-3"),
       ],
     },
   ],
