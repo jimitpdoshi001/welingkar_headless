@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { RegistryPage } from "@/components/shell/RegistryPage";
+import { TestimonialsPage } from "@/components/testimonials/TestimonialsPage";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/testimonials");
 
 export default function Page() {
-  return <RegistryPage path="/testimonials" />;
+  return <TestimonialsPage />;
 }

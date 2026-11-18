@@ -1,0 +1,192 @@
+@use "../../styles/base/mixins" as *;
+
+// Figma 3366:855 (1440 frame). Intro block reuses the WeFactor intro styles.
+.page { position: relative; }
+
+.decor {
+  position: absolute;
+  top: 14.5rem; // Figma y145
+  left: 0;
+  width: 31.2rem;
+  height: 35.6rem;
+  pointer-events: none;
+
+  @include respond-to(mobile) { width: 13rem; height: 15rem; }
+}
+
+.intro {
+  position: relative; // above the decor
+  padding-bottom: 8.4rem; // intro text end -> tabs (y374)
+
+  @include respond-to(mobile) { padding-bottom: 4rem; }
+}
+
+.slider {
+  position: relative;
+  padding-bottom: 6.7rem; // slide end (y821) -> footer (y888)
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-bottom: 2rem; // tabs y364-414, slide at y424
+}
+
+.tabs {
+  display: flex;
+  gap: 6rem; // Alumni x104 -> Corporate x230
+
+  @include respond-to(mobile) { gap: 3.2rem; }
+}
+
+// 22px DM Sans: Light inactive, SemiBold green active with a 3px pill underline.
+.tab {
+  position: relative;
+  padding: 0 0 1.2rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: normal;
+  color: var(--color-black, #000);
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.3rem;
+    border-radius: 10rem;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+
+
+  @include respond-to(mobile) { font-size: 1.8rem; }
+}
+
+.tabActive {
+  font-weight: 600;
+  color: var(--color-primary);
+
+  &::after { transform: scaleX(1); }
+}
+
+.track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: flex-start; // each slide keeps its own height
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Photo 611x398 left; cream panel 711x397 starts 50px under the photo's right edge.
+.slide {
+  // Grid row height follows the photo's aspect ratio; the panel stretches to it.
+  display: grid;
+  grid-template-columns: 48% 1fr; // 611 / 1272
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; }
+}
+
+.media {
+  position: relative;
+  z-index: 1;
+  aspect-ratio: 611 / 398;
+  border-radius: 2.25rem;
+  overflow: hidden;
+}
+
+.play {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5rem;
+  height: 5rem;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease;
+}
+
+.play:hover .playIcon { transform: translate(-50%, -50%) scale(1.1); }
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.2rem;
+  min-width: 0;
+  // height 0 + min-height 100%: the panel fills the photo-sized row without growing it.
+  height: 0;
+  min-height: 100%;
+  margin: 0 0 0 -5rem;
+  padding: 6.3rem 7.4rem 4.9rem 12.4rem; // quote x749/y487, role bottom ~y772
+  background: var(--color-light-yellow);
+
+  @include respond-to(tab) {
+    // Equal-height panels so the track (sized by its tallest slide) leaves no gap.
+    height: auto;
+    min-height: 46rem;
+    margin: -5rem 0 0;
+    padding: 8.2rem 3.2rem 3.2rem;
+  }
+}
+
+// Long alumni quotes scroll inside the panel instead of stretching the slide.
+.quote {
+  flex: 0 1 auto;
+  min-height: 0;
+  margin: 0;
+  overflow-y: auto;
+  font-size: 3rem; // Figma 30px Regular
+  line-height: 1.2;
+  scrollbar-width: thin;
+
+  @include respond-to(tab) { max-height: 24rem; }
+  @include respond-to(mobile) { font-size: 2rem; }
+}
+
+.author {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.name {
+  font-size: 3rem; // Figma 30px SemiBold
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+
+  @include respond-to(mobile) { font-size: 2.2rem; }
+}
+
+.role {
+  font-size: 1.6rem; // Figma 16px SemiBold
+  font-weight: 600;
+}
