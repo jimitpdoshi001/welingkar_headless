@@ -12,7 +12,7 @@ type Row = { id: string; title: string; eyebrow: string; body: string; image: st
 const ROWS: Row[] = [
   {
     id: "mumbai",
-    title: "Campus Mumbai",
+    title: "Mumbai Campus",
     eyebrow: "(AICTE approved standalone institute)",
     body: "The WeSchool Mumbai Campus is a thriving ecosystem of new thoughts, ideas, and enterprise. Here's where cutting-edge global conversations begin.",
     image: "/campus/listing-mumbai.webp",
@@ -29,7 +29,7 @@ const ROWS: Row[] = [
   },
   {
     id: "bengaluru",
-    title: "Campus Bengaluru",
+    title: "Bengaluru Campus",
     eyebrow: "(AICTE approved standalone institute)",
     body: "Situated in Bengaluru, the Silicon Valley of India, the WeSchool Bengaluru campus is designed to nurture Design Thinking and Innovation as well as the business pioneers of tomorrow.",
     image: "/campus/listing-bengaluru.webp",
