@@ -1,0 +1,79 @@
+@use "../../styles/base/mixins" as *;
+
+// Banner: same treatment as the Library / other inner-page heroes.
+.hero {
+  position: relative;
+  display: flex;
+  min-height: 65rem;
+  color: var(--color-white);
+  overflow: hidden;
+
+  @include respond-to(tab) { min-height: 52rem; }
+  @include respond-to(mobile) { min-height: 48rem; }
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 45%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.7) 2.33%, rgba(0, 0, 0, 0) 33.24%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 58.83%);
+}
+
+.heroInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 13.5rem;
+  padding-bottom: 4.4rem;
+
+  @include respond-to(tab) { padding-top: 10rem; }
+  @include respond-to(mobile) { padding-bottom: 3.2rem; }
+}
+
+.heroText { margin-top: auto; max-width: 80rem; }
+
+.heroTitle {
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1.8rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; margin-bottom: 1.2rem; }
+}
+
+.heroSub {
+  font-size: 1.6rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.about {
+  padding-block: 8rem 4rem;
+
+  @include respond-to(mobile) { padding-block: 4rem 2.4rem; }
+}
+
+.aboutHeading {
+  font-size: clamp(2.4rem, 2rem + 0.6vw, 3rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.aboutBody {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: var(--color-black);
+  max-width: 110rem;
+}
