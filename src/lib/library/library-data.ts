@@ -72,7 +72,7 @@ const HIGHLIGHTS = [
 // Figma shows the same six cards (all tagged "Academic Literature") for both campuses.
 const DATABASES: LibraryData["databases"] = {
   heading: "List of Databases",
-  subheading: SUBHEADING,
+  subheading: "Explore Knowledge. Discover Research. Drive Innovation.",
   categories: ["Academic Literature", "E-books", "Company & Industry Analysis", "Statistical"],
   items: [
     { id: "ebsco", category: "Academic Literature", name: "EBSCO Business Source Premiere", meta: "Jrnls-1,017" },
@@ -83,20 +83,21 @@ const DATABASES: LibraryData["databases"] = {
       meta: "Jrnls-10,224/Thesis & Dissertations – More than 21, 000",
     },
     { id: "hbp", category: "Academic Literature", name: "Harvard Business Publishing - Cases", meta: "" },
-    { id: "scopus", category: "Academic Literature", name: "Scopus AI", meta: "Jrnls-1,017" },
+    { id: "scopus", category: "Academic Literature", name: "Scopus AI", meta: "" },
     { id: "sage", category: "Academic Literature", name: "Sage Journals", meta: "26 Journals" },
     { id: "turnitin", category: "Academic Literature", name: "Anti Plagiarism Tool - Turnitin", meta: "" },
   ],
 };
 
 const HOURS_BASE = {
-  heading: "Working Hours library reading room:",
+  heading: "Library Working Hours",
   note: "Institute abide by the below mentioned timings, however, during the examination’s timings are extended by couple of hours.",
   contactTitle: "Contact Details:",
   days: "Monday to Saturday",
   slots: [
     { place: "Ground Floor", label: "Library reading room", time: "7.00 am to 11.00 pm" },
     { place: "Basement & 6th Floor", label: "Library", time: "9.00 am to 7.00 pm" },
+    { place: "Extended Library Timings", label: "", time: "9.00 am to 5.00 pm" },
   ],
   links: [
     { label: "Library Website:", href: "https://elearn.welingkar.org/in" },
@@ -128,11 +129,11 @@ export const LIBRARY_MUMBAI: LibraryData = {
   collection: {
     heading: "Overall Collection",
     stats: [
+      { label: "Books:", value: "1,20,000+" },
       { label: "E-Books:", value: "55599" },
-      { label: "KOHA", value: "(25.11)", suffix: "– ILMS" },
+      { value: "KOHA", suffix: "– Integrated Library Management System (ILMS; version 25.11)" },
       { label: "International Periodicals:", value: "9" },
-      { label: "International Periodicals:", value: "9" },
-      { value: "DSpace" },
+      { value: "DSpace", suffix: "– Institutional Repository" },
       { label: "AV Material:", value: "2552" },
       { label: "Databases:", value: "13" },
       { label: "Major National Newspapers:", value: "18" },
