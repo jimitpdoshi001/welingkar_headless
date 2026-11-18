@@ -116,3 +116,6 @@
   gap: 1.2rem;
   margin-top: 2.4rem;
 }
+
+// "Student Initiatives": section heading above the first initiative, same band.
+.groupHeading { margin-bottom: 4rem; @include respond-to(mobile) { margin-bottom: 2.4rem; } }

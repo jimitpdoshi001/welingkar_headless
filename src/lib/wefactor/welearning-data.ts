@@ -11,6 +11,8 @@ export type WeFactorItem = {
   images?: string[];
   /** Samvad issues: one download button per issue. */
   downloads?: { label: string; href: string }[];
+  /** Section heading shown above this carousel's title, in the same band. */
+  groupHeading?: string;
 };
 
 /**
@@ -98,14 +100,9 @@ export const WELEARNING: WeFactorDetailData = {
       ],
     },
     {
-      type: "text",
-      id: "student-initiatives",
-      title: "Student Initiatives",
-      paragraphs: [],
-    },
-    {
       type: "carousel",
       id: "impact",
+      groupHeading: "Student Initiatives",
       title: "Impact",
       paragraphs: [
         "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",

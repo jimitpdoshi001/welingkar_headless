@@ -12,8 +12,13 @@ export function WeFactorCarousel({ item, tinted }: { item: WeFactorItem; tinted:
   return (
     <section id={item.id} className={`${styles.carousel} ${tinted ? styles.tinted : ""}`}>
       <div className="container">
+        {item.groupHeading ? <h2 className={`${styles.carouselTitle} ${styles.groupHeading}`}>{item.groupHeading}</h2> : null}
         <div className={styles.carouselHead}>
-          <h2 className={styles.carouselTitle}>{item.title}</h2>
+          {item.groupHeading ? (
+            <h3 className={styles.carouselTitle}>{item.title}</h3>
+          ) : (
+            <h2 className={styles.carouselTitle}>{item.title}</h2>
+          )}
           {images.length > 1 ? <ScrollArrows targetId={trackId} /> : null}
         </div>
 
