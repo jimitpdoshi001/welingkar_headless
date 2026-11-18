@@ -39,29 +39,31 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
   const animationClass = getAnimationClass(paragraph?.attributes?.field_animation || "");
 
 
+  const campusTabs =
+    tabs && tabs.length > 1 ? (
+      <div className={styles.tabs} role="tablist" aria-label="Campus">
+        {tabs.map((t, i) => (
+          <button
+            key={t.id}
+            type="button"
+            role="tab"
+            aria-selected={i === active}
+            className={clsx(styles.tab, i === active && styles.tabActive)}
+            onClick={() => setActive(i)}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+    ) : null;
+
   return (
     <>
       <div className={clsx(styles.content, "mb-6")}>
         {heading ? <h3>{heading}</h3> : null}
 
-        {!isMobile && action && <div className={styles.secButton}>{action}</div>}
+        {/* Tabs mode: campus tabs sit where the button was; the button moves below the gallery. */}
+        {tabs ? campusTabs : !isMobile && action && <div className={styles.secButton}>{action}</div>}
       </div>
-
-      {tabs && tabs.length > 1 ? (
-        <div className={clsx(styles.tabs, "mb-6")} role="tablist" aria-label="Campus">
-          {tabs.map((t, i) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={i === active}
-              className={clsx(styles.tab, i === active && styles.tabActive)}
-              onClick={() => setActive(i)}>
-              {t.label}
-            </button>
-          ))}
-        </div>
-      ) : null}
 
       {galleryImages.length >= 6 && !isMobile && (
         <div className={clsx(styles.grid, animationClass)}>
@@ -178,7 +180,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
         </div>
       )}
 
-      {isMobile && action && <div className={clsx(styles.secButton, "mt-4 text-center")}>{action}</div>}
+      {(tabs || isMobile) && action && <div className={clsx(styles.secButton, "mt-6 text-center")}>{action}</div>}
     </>
   );
 }
