@@ -41,6 +41,52 @@ function sanitizeMenuItems<T extends { url: string; children?: T[] }>(items: T[]
   }));
 }
 
+/**
+ * Footer links have no URL in Drupal yet: route each label to its site page.
+ * A real Drupal URL always wins. Labels are matched case-insensitively.
+ */
+const FOOTER_ROUTES: Record<string, string> = {
+  "full-time": "/programmes/all",
+  executive: "/programmes/mdp",
+  phd: "/programmes/phd",
+  "who we are": "/about-us",
+  "mumbai campus": "/campuses/mumbai",
+  "bengaluru campus": "/campuses/bengaluru",
+  "careers @ weschool": "/careers",
+  wefactor: "/wefactor",
+  testimonial: "/testimonials",
+  "contact us": "/contact-us",
+  "national academic depository (nad)": "/nad",
+  blog: "/blogs",
+  "mms 2025-26": "/programmes/mms",
+  "we research @ mumbai": "/weresearch",
+  "mandatory disclosure": "/mandatory-disclosure",
+  autonomy: "/autonomy",
+  "grievance redressal": "/grievance-redressal",
+  "privacy policy": "/privacy-policy",
+  "site map": "/site-map",
+};
+
+/** Site pages not in the Drupal footer, added under "Miscellaneous". */
+const FOOTER_EXTRA_MISC: { title: string; url: string }[] = [{ title: "Tenders", url: "/tenders" }];
+
+function withFooterRoutes(items: FooterLink[]): FooterLink[] {
+  return items.map((group) => {
+    const children = group.children.map((link) => {
+      const route = FOOTER_ROUTES[link.title.trim().toLowerCase()];
+      return link.url === "#" && route ? { ...link, url: route } : link;
+    });
+    if (group.title.trim().toLowerCase() === "miscellaneous") {
+      for (const extra of FOOTER_EXTRA_MISC) {
+        if (!children.some((c) => c.url === extra.url)) {
+          children.push({ id: `extra-${extra.url}`, title: extra.title, url: extra.url, weight: "100", menu: group.menu, children: [] });
+        }
+      }
+    }
+    return { ...group, children };
+  });
+}
+
 export const getTopMenu = cache(async (): Promise<TopMenu> => {
   try {
     const response = await fetch(`${drupalConfig.baseUrl}/api/top-menu`, {
@@ -82,7 +128,7 @@ export const getFooterMenu = cache(async (): Promise<FooterLink[]> => {
     const result = fixProgramsSpelling(await response.json());
 
     if (result?.status && Array.isArray(result?.data)) {
-      return sanitizeMenuItems(result.data);
+      return withFooterRoutes(sanitizeMenuItems(result.data));
     }
   } catch (error) {
     console.error("Error fetching footer menu:", error);
