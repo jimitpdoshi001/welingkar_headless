@@ -17,39 +17,41 @@ export function WeFactorCarousel({ item, tinted }: { item: WeFactorItem; tinted:
           {images.length > 1 ? <ScrollArrows targetId={trackId} /> : null}
         </div>
 
-        <div className={styles.carouselBody}>
-          <ul id={trackId} className={styles.track}>
-            {images.map((src, i) => (
-              <li key={src} className={styles.slide}>
-                <img
-                  src={src}
-                  alt={images.length > 1 ? `${item.title} ${i + 1} of ${images.length}` : item.title}
-                  className={styles.photo}
-                />
-              </li>
-            ))}
-          </ul>
-
-          <div className={styles.text}>
-            {item.paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-            {item.downloads?.length ? (
-              <div className={styles.downloads}>
-                {item.downloads.map((d) => (
-                  <a
-                    key={d.href}
-                    href={d.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn accent">
-                    Download {d.label}
-                  </a>
+        {/* Each slide = photo + text (as on the live site, the text repeats with each photo). */}
+        <ul id={trackId} className={styles.track}>
+          {images.map((src, i) => (
+            <li
+              key={src}
+              className={`${styles.slide} ${styles.carouselBody}`}
+              aria-hidden={i > 0 ? true : undefined}>
+              <img
+                src={src}
+                alt={images.length > 1 ? `${item.title} ${i + 1} of ${images.length}` : item.title}
+                className={styles.photo}
+              />
+              <div className={styles.text}>
+                {item.paragraphs.map((p, j) => (
+                  <p key={j}>{p}</p>
                 ))}
+                {item.downloads?.length ? (
+                  <div className={styles.downloads}>
+                    {item.downloads.map((d) => (
+                      <a
+                        key={d.href}
+                        href={d.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        tabIndex={i > 0 ? -1 : undefined}
+                        className="btn accent">
+                        Download {d.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
               </div>
-            ) : null}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
