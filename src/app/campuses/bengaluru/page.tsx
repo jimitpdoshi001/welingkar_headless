@@ -12,7 +12,16 @@ export const metadata: Metadata = {
 export default async function BengaluruCampusPage() {
   // Director photo: current Drupal faculty photo when the person is found.
   const person = await facultyPerson(CAMPUS_BENGALURU.director.name);
-  const data = { ...CAMPUS_BENGALURU, director: { ...CAMPUS_BENGALURU.director, image: person.image || CAMPUS_BENGALURU.director.image } };
+  // Read More opens the director's faculty profile.
+  const { director } = CAMPUS_BENGALURU;
+  const data = {
+    ...CAMPUS_BENGALURU,
+    director: {
+      ...director,
+      image: person.image || director.image,
+      cta: person.href ? { ...director.cta, href: person.href } : director.cta,
+    },
+  };
   return (
     <CampusPage
       data={data}
