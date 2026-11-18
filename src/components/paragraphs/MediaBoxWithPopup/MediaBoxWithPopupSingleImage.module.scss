@@ -60,6 +60,8 @@
   text-align: left;
 
   background: rgba(255, 255, 255, 0.5);
+  // Dark mode: dark frosted card so the light text stays readable.
+  :global(html[data-theme="dark"]) & { background: rgba(18, 16, 22, 0.62); border-color: rgba(255, 255, 255, 0.12); }
   border: 1px solid rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);

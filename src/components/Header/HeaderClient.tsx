@@ -4,7 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.scss";
 import { Logo } from "@/assets/svg/Logos";
-import { Search, LightMode, DarkMode } from "@/assets/svg/Icons";
+import { Search } from "@/assets/svg/Icons";
+import { ThemeSwitch } from "@/components/ThemeSwitch/ThemeSwitch";
 import Link from "next/link";
 import { useIsDesktop } from "@/util/useMediaQuery";
 import { useOptionalSearch } from "@/components/SearchOverlay/search-context";
@@ -147,14 +148,7 @@ export function HeaderClient({
             </div>
 
             <div className={styles.stickyTopRight}>
-              <span className={styles.stickyModeButton}>
-                <span className={styles.activeMode}>
-                  <LightMode />
-                </span>
-                <span>
-                  <DarkMode />
-                </span>
-              </span>
+              <ThemeSwitch className={styles.stickyModeButton} />
             </div>
           </div>
         </div>
@@ -230,14 +224,7 @@ export function HeaderClient({
           <div className={styles.rightContent}>
             <div className={styles.headerRow1}>
               <div className={styles.headerRow1Left}>
-                <span className={styles.modeButton}>
-                  <span>
-                    <LightMode />
-                  </span>
-                  <span>
-                    <DarkMode />
-                  </span>
-                </span>
+                <ThemeSwitch className={styles.modeButton} />
               </div>
 
               <div className={styles.headerRow1Right}>

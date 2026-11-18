@@ -29,6 +29,8 @@ import { CtaNewTab } from "@/components/CtaNewTab/CtaNewTab";
 import { ImageFallback } from "@/components/ImageFallback/ImageFallback";
 import { ScrollAnimationProvider } from "@/components/animations";
 
+const THEME_SCRIPT = `try{if(localStorage.getItem("theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,7 +39,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.className}`}>
+      className={`${sans.className}`}
+      // The theme script below sets data-theme before React hydrates.
+      suppressHydrationWarning>
+      <head>
+        {/* Apply a saved dark-mode choice before first paint (no light flash). Light is the default. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <Suspense fallback={null}>
           <NavigationLoader />

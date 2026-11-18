@@ -15,7 +15,7 @@
     font-family: inherit;
   }
   input {
-    background-color: var(--color-white);
+    background-color: var(--color-bg);
     padding: 2rem 3rem;
     border-radius: 50vw;
     width: clamp(30rem, 100%, 60rem);
@@ -171,7 +171,7 @@
 
 @media (max-width: 767px) {
   .footerAccordion {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border);
     padding: 2.4rem 0;
 
     // Figma: no divider under the last menu; the copyright rule follows.
@@ -211,4 +211,12 @@
   .accordionIcon.open {
     transform: rotate(180deg);
   }
+}
+
+// Dark mode: keep the brand logo on a white badge (purple/green logo is unreadable on dark).
+:global(html[data-theme="dark"]) .footerTop > svg {
+  background: var(--color-white);
+  border-radius: 1.2rem;
+  padding: 0.6rem 1.2rem;
+  box-sizing: content-box;
 }
