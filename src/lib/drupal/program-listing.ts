@@ -710,7 +710,14 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
       const html = value(p, "field_desc");
       const paras = paragraphs(html);
       const teamAt = paras.findIndex((t) => /^team members$/i.test(t));
-      const extra = paras.filter((t, idx) => idx !== teamAt && !/^position/i.test(t) && (teamAt < 0 || idx < teamAt));
+      // Same <p> blocks as sanitized inline HTML, so bold labels survive.
+      const richParas = [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)]
+        .map((m) => inlineHtml(m[1]))
+        .filter((h) => htmlToText(h));
+      const extra = paras
+        .map((t, idx) => ({ t, rich: richParas[idx] ?? t, idx }))
+        .filter(({ t, idx }) => idx !== teamAt && !/^position/i.test(t) && (teamAt < 0 || idx < teamAt))
+        .map(({ rich }) => rich);
       return {
         id: p.id ?? `ach-${i}`,
         image: fileUrl(entities(p, "field_image")[0]) ?? "",
