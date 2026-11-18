@@ -120,27 +120,5 @@ export const WELEARNING: WeFactorDetailData = {
         "With an aim to facilitate the exchange of ideas that inspire innovative thought culture, Samvad makes an interesting read as a B-School magazine for students and by students. Each edition carries articles on themes like leadership, innovation, corporate social responsibility, sports management, technology, and entrepreneurship. The e-magazine also publishes article entries from across top management institutes like IIMs and IITs.",
       ],
     },
-    {
-      type: "carousel",
-      id: "munijan",
-      title: "Munijan",
-      paragraphs: [
-        "Besides the academic rigour, students lead socio-cultural events which groom their interpersonal skills. It is here the students develop a skill to co-lead with other students through sports. We believe that sports play an integral part in personality development and improve discipline. Cricket, a popular sport offers management lessons and experiences on a pitch which students recall as alumni.",
-      ],
-      images: [IMG("munijan")],
-    },
-    {
-      type: "carousel",
-      id: "competitions",
-      title: "Competitions",
-      paragraphs: [
-        "Our student competence and exposure is cultivated over numerous inter B-School competitions held across India. There is focussed mentoring for students who participate in various tech fests, challenges, and big-ticket contests. In 2017-2018, WeSchool students have done us proud by winning over 250 awards at various national level competitions.",
-      ],
-      images: [
-        IMG("competitions"),
-        IMG("competitions-2"),
-        IMG("competitions-3"),
-      ],
-    },
   ],
 };
