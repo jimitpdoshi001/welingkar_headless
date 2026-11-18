@@ -14,13 +14,26 @@ import styles from "./ImageBoxWefactor.module.scss";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 
+// WeFactor cards whose Drupal link is empty/"#" open their WeFactor page.
+const WEFACTOR_PAGES: [RegExp, string][] = [
+  [/learning/i, "/wefactor/welearning"],
+  [/innovat/i, "/wefactor/weinnovate"],
+  [/entrepreneur/i, "/wefactor/weentrepreneur"],
+  [/lead/i, "/wefactor/welead"],
+];
+
+function wefactorHref(heading: string | null, drupalHref: string | null | undefined): string {
+  if (drupalHref && drupalHref !== "#") return drupalHref;
+  return WEFACTOR_PAGES.find(([re]) => heading && re.test(heading))?.[1] ?? "/wefactor";
+}
+
 export default function ImageBoxWefactor({ paragraph, children }: ImageBoxProps) {
   const heading = paragraph.attributes.field_header || null;
   const description = paragraph.attributes.field_description?.processed || null;
 
   return (
     <Link
-      href={resolveDrupalHref(paragraph.attributes.field_link?.uri) || "#"}
+      href={wefactorHref(heading, resolveDrupalHref(paragraph.attributes.field_link?.uri))}
       className={styles.imageBox}>
       <div className={styles.body}>
         {heading ? <h4 className="bold mb-6">{heading}</h4> : null}
