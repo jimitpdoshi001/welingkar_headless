@@ -7,6 +7,7 @@ import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcru
 import type { WeFactorDetailData } from "@/lib/wefactor/welearning-data";
 import { WeFactorCarousel } from "./WeFactorCarousel";
 import styles from "./WeFactorDetailPage.module.scss";
+import about from "@/components/about/AboutPage.module.scss";
 
 /**
  * WeFactor sub-page (Figma 3193:137): an intro text block, then each section
@@ -34,6 +35,22 @@ export function WeFactorDetailPage({ data }: { data: WeFactorDetailData }) {
               return <WeFactorCarousel key={block.id} item={block} tinted={tinted} />;
             }
             carouselIndex = 0;
+            if (block.type === "list") {
+              // Same design as the About Us board lists: bold heading, company below.
+              return (
+                <section key={block.id} id={block.id} className={`container ${styles.textBlock}`}>
+                  <h2 className={styles.textTitle}>{block.title}</h2>
+                  <ul className={about.boardGrid}>
+                    {block.items.map((item) => (
+                      <li key={item.title}>
+                        <p className={about.boardName}>{item.title}</p>
+                        {item.subtitle ? <p className={about.boardRole}>{item.subtitle}</p> : null}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              );
+            }
             return (
               <section key={block.id} id={block.id} className={`container ${styles.textBlock}`}>
                 <h2 className={styles.textTitle}>{block.title}</h2>

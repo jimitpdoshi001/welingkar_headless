@@ -16,14 +16,14 @@ export const WELEAD: WeFactorDetailData = {
       ],
     },
     {
-      type: "text",
+      type: "list",
       id: "projects",
       title: "Project",
-      paragraphs: [
-        "Sponsored project product based investigation & innovation on different layers of service - Pune intercity — TATA Motors",
-        "Rehabilitation issues — Godrej Foundation",
-        "Evolving ways of influencing customers while choosing a neighbourhood store to shop from — Star Bazaar",
-        "Exploring opportunities for cold chain development in food park segment of the food processing industry",
+      items: [
+        { title: "Sponsored project product based investigation & innovation on different layers of service - Pune intercity", subtitle: "TATA Motors" },
+        { title: "Rehabilitation issues", subtitle: "Godrej Foundation" },
+        { title: "Evolving ways of influencing customers while choosing a neighbourhood store to shop from", subtitle: "Star Bazaar" },
+        { title: "Exploring opportunities for cold chain development in food park segment of the food processing industry" },
       ],
     },
   ],

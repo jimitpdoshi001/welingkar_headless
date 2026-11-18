@@ -21,8 +21,10 @@ export type WeFactorItem = {
  * Figma components: "text" = heading + text on white (intro style);
  * "carousel" = cream band, heading + arrows, photo left and text right.
  */
-export type WeFactorBlock = ({ type: "text" } | { type: "carousel" }) &
-  WeFactorItem;
+export type WeFactorBlock =
+  | (({ type: "text" } | { type: "carousel" }) & WeFactorItem)
+  // Heading + company list (About Us board-list design), e.g. WeLead projects.
+  | { type: "list"; id: string; title: string; items: { title: string; subtitle?: string }[] };
 
 export type WeFactorDetailData = {
   /** Intro block (page title + text). */
