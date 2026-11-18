@@ -137,9 +137,11 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
       const group: ParagraphItem[] = [];
 
       while (index < orderedItems.length && orderedItems[index].resource.type === "paragraph--hero_banner") {
-        group.push(orderedItems[index]);
+        // Retired campaign slides (e.g. "Phase 2 Admissions") are not shown.
+        if (!isRetiredHeroSlide(orderedItems[index])) group.push(orderedItems[index]);
         index += 1;
       }
+      if (!group.length) continue;
 
       nodes.push(
         <HeroBannerGroup
@@ -157,6 +159,14 @@ function renderParagraphItems(items: ParagraphItem[], page: DrupalPage): React.R
   }
 
   return nodes;
+}
+
+/** Hero slides to hide, matched on their heading (Drupal still publishes them). */
+const RETIRED_HERO_SLIDES = [/phase\s*2/i];
+
+function isRetiredHeroSlide(item: ParagraphItem): boolean {
+  const heading = item.children.find((child) => child.resource.type === "paragraph--header_and_description")?.resource.attributes.field_header;
+  return typeof heading === "string" && RETIRED_HERO_SLIDES.some((re) => re.test(heading));
 }
 
 function heroBannerThumbs(items: ParagraphItem[], page: DrupalPage): HeroBannerThumb[] {
