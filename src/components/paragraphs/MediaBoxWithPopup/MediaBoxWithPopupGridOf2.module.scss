@@ -86,6 +86,8 @@
 
   // Figma glass bar is a silver/grey frosted gradient (~rgb 220 → 170).
   background: linear-gradient(120deg, rgba(248, 248, 249, 0.82) 0%, rgba(202, 205, 209, 0.6) 100%);
+  // Dark mode: dark frosted card so the light text stays readable.
+  :global(html[data-theme="dark"]) & { background: rgba(18, 16, 22, 0.62); border-color: rgba(255, 255, 255, 0.12); }
   border: 1px solid rgba(255, 255, 255, 0.6);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);

@@ -47,7 +47,7 @@
 
 .tabItem {
   position: relative;
-  color: #666666;
+  color: var(--color-gray);
   cursor: pointer;
   padding-bottom: 0.6rem;
   transition: color 0.25s ease;
@@ -163,7 +163,7 @@
   flex-direction: column;
   justify-content: flex-end;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
-  background-color: #e5e5e5;
+  background-color: var(--color-light-gray);
 
   @include respond-to(mobile) {
     height: 380px;
@@ -203,6 +203,8 @@
   padding: 24px 20px;
   border-radius: 20px;
   background: linear-gradient(120deg, rgba(248, 248, 249, 0.85) 0%, rgba(201, 204, 208, 0.66) 100%);
+  // Dark mode: dark frosted card so the light text stays readable.
+  :global(html[data-theme="dark"]) & { background: rgba(18, 16, 22, 0.62); border-color: rgba(255, 255, 255, 0.12); }
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.6);

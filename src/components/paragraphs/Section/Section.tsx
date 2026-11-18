@@ -99,7 +99,7 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
       className={clsx("relative", heightClass, hasStickyChild ? undefined : "overflow-hidden", arrowStyleClass, attributes.field_class_name)}>
       <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100", animationClass)}>{children}</div>
 
-      <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass)} />
+      <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass, (responsiveMedia || image) && styles.mediaOverlay)} />
 
       {responsiveMedia && (
         <ResponsiveMedia

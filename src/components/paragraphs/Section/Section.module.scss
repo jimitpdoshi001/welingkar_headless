@@ -16,6 +16,19 @@
   z-index: -10;
 }
 
+// Dark mode: some Drupal background photos have white fades baked in (e.g.
+// WeFactor). Fade the top and bottom into the dark page so no white shows.
+:global(html[data-theme="dark"]) .mediaOverlay {
+  background: linear-gradient(
+    180deg,
+    var(--color-bg) 0%,
+    rgba(18, 16, 22, 0.85) 30%,
+    rgba(18, 16, 22, 0.25) 55%,
+    rgba(18, 16, 22, 0.25) 78%,
+    var(--color-bg) 100%
+  );
+}
+
 .arrowTop,
 .arrowBottom,
 .arrowLeft,

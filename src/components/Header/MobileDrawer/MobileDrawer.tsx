@@ -11,7 +11,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import styles from "./MobileDrawer.module.scss";
 import { Logo } from "@/assets/svg/Logos";
-import { LightMode, DarkMode } from "@/assets/svg/Icons";
+import { ThemeSwitch } from "@/components/ThemeSwitch/ThemeSwitch";
 import { MAIN_NAV, UTILITY_NAV, type MegaColumn } from "@/lib/menu/menu-config";
 
 const noopSubscribe = () => () => {};
@@ -271,14 +271,7 @@ export function MobileDrawer({ open, onClose, onSearch }: MobileDrawerProps) {
 
           <div className={styles.mode}>
             <span>Theme Mode</span>
-            <span className={styles.modeToggle}>
-              <span className={styles.modeActive}>
-                <LightMode />
-              </span>
-              <span>
-                <DarkMode />
-              </span>
-            </span>
+            <ThemeSwitch className={styles.modeToggle} />
           </div>
         </div>
       </div>

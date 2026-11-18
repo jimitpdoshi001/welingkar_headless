@@ -43,7 +43,7 @@
   width: min(88%, 38rem);
   display: flex;
   flex-direction: column;
-  background: var(--color-white);
+  background: var(--color-bg);
   padding: 1.6rem 2rem calc(1.6rem + env(safe-area-inset-bottom));
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -203,7 +203,7 @@
   align-items: center;
   min-height: 4.4rem;
   padding: 0 1.2rem;
-  color: #555555;
+  color: var(--color-gray);
   font-size: 1.5rem;
   border-radius: 0.8rem;
   transition:
@@ -277,9 +277,8 @@
     width: 2.8rem;
     aspect-ratio: 1;
     border-radius: 50%;
-  }
-}
+    cursor: pointer;
 
-.modeActive {
-  background: var(--color-primary);
+    &[aria-pressed="true"] { background: var(--color-primary); }
+  }
 }
