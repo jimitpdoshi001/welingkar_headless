@@ -59,6 +59,47 @@
   &:hover {
     border: 2px solid var(--color-primary);
   }
+
+  position: relative;
+
+  &:hover .hoverArrow,
+  &:focus-visible .hoverArrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hoverArrow {
+  position: absolute;
+  top: 2.4rem; // top-right, clear of the description text
+  right: 2.4rem;
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  opacity: 0;
+  transform: translateX(-0.8rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+
+  svg path { fill: currentColor; }
+
+  // Mobile: always visible, nudging right in a loop.
+  @include respond-to(mobile) {
+    opacity: 1;
+    transform: none;
+    animation: wefactor-nudge 1.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) { animation: none; }
+}
+
+@keyframes wefactor-nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(0.6rem); }
 }
 
 .body {
@@ -66,6 +107,9 @@
   flex-direction: column;
   gap: 1.2rem;
   flex: 1;
+
+  // Room for the arrow at the top-right.
+  h4 { padding-right: 4.8rem; }
 
   h3 {
     flex: 1;
