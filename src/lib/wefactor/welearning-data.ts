@@ -113,22 +113,11 @@ export const WELEARNING: WeFactorDetailData = {
       images: [IMG("impact"), IMG("impact-2"), IMG("impact-3")],
     },
     {
-      type: "carousel",
+      type: "text",
       id: "samvad",
       title: "Samvad",
       paragraphs: [
         "With an aim to facilitate the exchange of ideas that inspire innovative thought culture, Samvad makes an interesting read as a B-School magazine for students and by students. Each edition carries articles on themes like leadership, innovation, corporate social responsibility, sports management, technology, and entrepreneurship. The e-magazine also publishes article entries from across top management institutes like IIMs and IITs.",
-      ],
-      images: [IMG("samvad-nov-2020")], // single cover: no carousel (live page has none)
-      downloads: [
-        {
-          label: "November 2020",
-          href: "https://www.welingkar.org/downloads/106_November_2020_Renewable_and_Sustainable_Industry.pdf",
-        },
-        {
-          label: "October 2020",
-          href: "https://www.welingkar.org/downloads/105_October_2020_Toursim_Industry.pdf",
-        },
       ],
     },
     {
