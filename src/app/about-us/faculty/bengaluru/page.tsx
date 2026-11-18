@@ -6,6 +6,7 @@ import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
+import { getFacultyAbout } from "@/lib/drupal/faculty-about";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
 import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
@@ -26,7 +27,8 @@ const HERO_IMAGE = "/faculty/hero.webp";
  */
 export default async function FacultyBengaluruPreviewPage() {
   // Drupal faculty for this campus; hidden when none (or on fetch error).
-  const grid = await getCampusFacultyGrid("bengaluru");
+  // Banner + director from Drupal (faculty_about_us); built-in values fill any gaps.
+  const [grid, about] = await Promise.all([getCampusFacultyGrid("bengaluru"), getFacultyAbout("bengaluru")]);
 
 
   return (
@@ -37,7 +39,7 @@ export default async function FacultyBengaluruPreviewPage() {
         <main style={{ ["--faculty-accent" as string]: "var(--color-primary)" }}>
           <section className={styles.hero}>
             <img
-              src={HERO_IMAGE}
+              src={about?.hero.image || HERO_IMAGE}
               alt="WeSchool Bengaluru faculty"
               className={styles.heroImage}
             />
@@ -50,12 +52,12 @@ export default async function FacultyBengaluruPreviewPage() {
                 <span aria-hidden="true">–</span>
                 <span className={styles.breadcrumbCurrent}>Faculty</span>
               </nav>
-              <h1 className={styles.heroTitle}>Faculty</h1>
+              <h1 className={styles.heroTitle}>{about?.hero.title || "Faculty"}</h1>
             </div>
           </section>
 
           <section className={`container ${styles.block}`}>
-            <DirectorMessage data={DEFAULT_DIRECTOR_MESSAGE_BENGALURU} />
+            <DirectorMessage data={{ ...DEFAULT_DIRECTOR_MESSAGE_BENGALURU, ...about?.director }} />
           </section>
 
           {grid && grid.members.length > 0 ? (

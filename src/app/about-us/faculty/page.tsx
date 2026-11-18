@@ -6,7 +6,9 @@ import Footer from "@/components/Footer/Footer";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
+import { getFacultyAbout } from "@/lib/drupal/faculty-about";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
+import { DEFAULT_DIRECTOR_MESSAGE } from "@/lib/drupal/faculty";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
 import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 
@@ -26,7 +28,8 @@ const HERO_IMAGE = "/faculty/hero.webp";
  */
 export default async function FacultyPreviewPage() {
   // Drupal faculty for this campus; hidden when none (or on fetch error).
-  const grid = await getCampusFacultyGrid("mumbai");
+  // Banner + director from Drupal (faculty_about_us); built-in values fill any gaps.
+  const [grid, about] = await Promise.all([getCampusFacultyGrid("mumbai"), getFacultyAbout("mumbai")]);
 
 
   return (
@@ -37,7 +40,7 @@ export default async function FacultyPreviewPage() {
         <main style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
           <section className={styles.hero}>
             <img
-              src={HERO_IMAGE}
+              src={about?.hero.image || HERO_IMAGE}
               alt="WeSchool faculty"
               className={styles.heroImage}
             />
@@ -50,12 +53,12 @@ export default async function FacultyPreviewPage() {
                 <span aria-hidden="true">–</span>
                 <span className={styles.breadcrumbCurrent}>Faculty</span>
               </nav>
-              <h1 className={styles.heroTitle}>Faculty</h1>
+              <h1 className={styles.heroTitle}>{about?.hero.title || "Faculty"}</h1>
             </div>
           </section>
 
           <section className={`container ${styles.block}`}>
-            <DirectorMessage />
+            <DirectorMessage data={{ ...DEFAULT_DIRECTOR_MESSAGE, ...about?.director }} />
           </section>
 
           {grid && grid.members.length > 0 ? (
