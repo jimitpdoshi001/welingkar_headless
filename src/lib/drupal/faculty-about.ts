@@ -9,6 +9,8 @@ const NODE_IDS = { mumbai: 4897, bengaluru: 4898 } as const;
 
 export type FacultyAbout = {
   hero: { title: string; image: string };
+  /** Director "Read More" link set in Drupal (empty when not set). */
+  directorLink: string;
   /** Only the fields Drupal filled; the page merges them over its defaults. */
   director: Partial<DirectorMessage>;
 };
@@ -72,7 +74,12 @@ export const getFacultyAbout = cache(async (campus: keyof typeof NODE_IDS): Prom
     }).filter(([, v]) => v),
   ) as Partial<DirectorMessage>;
 
+  // Drupal link field: "internal:/path" -> "/path"; only site-relative paths are used.
+  const rawLink = str((d.field_link as { uri?: string } | null)?.uri).replace(/^internal:/, "");
+  const directorLink = rawLink.startsWith("/") && !rawLink.startsWith("//") ? rawLink : "";
+
   return {
+    directorLink,
     hero: {
       title: str(at(banner).field_main_title),
       image: fileUrl(ref(ref(banner, "field_desktop"), "field_media_image")),

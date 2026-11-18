@@ -112,7 +112,7 @@ $gap: 3rem;
   scrollbar-color: var(--color-primary) transparent;
 }
 
-.activeCardOverlay .author { margin-top: 2rem; }
+.activeCardOverlay .author { margin-top: 3.2rem; }
 
 .author {
   display: flex;
@@ -344,7 +344,7 @@ $gap: 3rem;
     .role { font-size: 1.4rem; }
 
     // Gap between the quote (or its toggle) and the photo / name.
-    .author { margin-top: 2rem; }
+    .author { margin-top: 3.2rem; }
   }
 
   // Less empty space under the cards: smaller arrow area, none with a single card.
