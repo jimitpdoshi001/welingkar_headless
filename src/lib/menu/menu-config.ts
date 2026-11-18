@@ -101,30 +101,13 @@ export const MAIN_NAV: MainNavItem[] = [
     label: "Campus",
     href: "/campuses",
     panel: {
-      // Campus links, then each campus's student-life pages.
+      // Campus links only.
       intro: [
         { title: "Mumbai Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/mumbai" },
         { title: "MMS / PhD", subtitle: "Autonomous Institute affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
         { title: "Bengaluru Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/bengaluru" },
       ],
-      columns: [
-        {
-          heading: "Mumbai",
-          links: [
-            { label: "Life @ WeSchool", href: "/life-at-weschool" },
-            { label: "Library (LRC)", href: "/library" },
-            { label: "MDC", href: "/mdc" },
-          ],
-        },
-        {
-          heading: "Bengaluru",
-          links: [
-            { label: "Life @ WeSchool", href: "/life-at-weschool/bengaluru" },
-            { label: "Library (LRC)", href: "/library/bengaluru" },
-            { label: "MDC", href: "/mdc/bengaluru" },
-          ],
-        },
-      ],
+      columns: [],
     },
   },
   {
