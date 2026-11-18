@@ -716,7 +716,9 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
         image: fileUrl(entities(p, "field_image")[0]) ?? "",
         title: value(p, "field_main_title"),
         position: paras.find((t) => /^position/i.test(t)) ?? "",
-        bullets: [...htmlListItemsRich(html), ...extra],
+        // Editors wrap list items in <p>, so the same lines also appear as
+        // paragraphs; use the list when there is one, else the paragraphs.
+        bullets: htmlListItemsRich(html).length ? htmlListItemsRich(html) : extra,
         team: teamAt >= 0 ? paras.slice(teamAt + 1).join(", ") : "",
       };
     })

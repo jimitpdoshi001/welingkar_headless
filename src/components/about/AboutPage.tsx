@@ -197,6 +197,29 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
             </section>
           ) : null}
 
+          {/* Managing Council. */}
+          {d?.council.people.length ? (
+            <section id="managing-council" className={`container ${styles.block} ${styles.anchor}`}>
+              <h2 className={styles.heading}>{d.council.heading}</h2>
+              {d.council.html ? <div className={`${styles.sub} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: d.council.html }} /> : null}
+              <div className={styles.facultyGrid}>
+                {d.council.people.map((p) => (
+                  <article
+                    key={p.id}
+                    className={styles.facultyCard}>
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                      />
+                    ) : null}
+                    <h3>{p.name}</h3>
+                    <p>{p.title}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : null}
           {/* Advisory boards / committees (only those with people). */}
           {d?.boards.map((board) => (
             <BoardList
@@ -296,29 +319,6 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
             </section>
           ) : null}
 
-          {/* Managing Council. */}
-          {d?.council.people.length ? (
-            <section id="managing-council" className={`container ${styles.block} ${styles.anchor}`}>
-              <h2 className={styles.heading}>{d.council.heading}</h2>
-              {d.council.html ? <div className={`${styles.sub} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: d.council.html }} /> : null}
-              <div className={styles.facultyGrid}>
-                {d.council.people.map((p) => (
-                  <article
-                    key={p.id}
-                    className={styles.facultyCard}>
-                    {p.image ? (
-                      <img
-                        src={p.image}
-                        alt={p.name}
-                      />
-                    ) : null}
-                    <h3>{p.name}</h3>
-                    <p>{p.title}</p>
-                  </article>
-                ))}
-              </div>
-            </section>
-          ) : null}
         </main>
 
         <SearchOverlay />

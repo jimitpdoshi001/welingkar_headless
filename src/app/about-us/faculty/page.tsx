@@ -10,7 +10,7 @@ import { getFacultyAbout } from "@/lib/drupal/faculty-about";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
 import { DEFAULT_DIRECTOR_MESSAGE } from "@/lib/drupal/faculty";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
-import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
+import { facultyProfileHref, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 
 import styles from "./page.module.scss";
 
@@ -31,6 +31,10 @@ export default async function FacultyPreviewPage() {
   // Banner + director from Drupal (faculty_about_us); built-in values fill any gaps.
   const [grid, about] = await Promise.all([getCampusFacultyGrid("mumbai"), getFacultyAbout("mumbai")]);
 
+
+  // Read More opens the director's own faculty profile (hidden if not in the directory).
+  const merged = { ...DEFAULT_DIRECTOR_MESSAGE, ...about?.director };
+  const director = { ...merged, link: await facultyProfileHref(merged.name) };
 
   return (
     <SearchProvider>
@@ -58,7 +62,7 @@ export default async function FacultyPreviewPage() {
           </section>
 
           <section className={`container ${styles.block}`}>
-            <DirectorMessage data={{ ...DEFAULT_DIRECTOR_MESSAGE, ...about?.director }} />
+            <DirectorMessage data={director} />
           </section>
 
           {grid && grid.members.length > 0 ? (

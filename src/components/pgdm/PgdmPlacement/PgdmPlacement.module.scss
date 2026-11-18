@@ -24,6 +24,16 @@
   background: linear-gradient(90deg, rgba(10, 6, 18, 0.9) 0%, rgba(10, 6, 18, 0.6) 100%);
 }
 
+// Bare mode: left-to-right shade over the parent band photo (Figma: copy on a dark area).
+.bareOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(26, 15, 40, 0.88) 0%, rgba(26, 15, 40, 0.7) 40%, rgba(26, 15, 40, 0) 70%);
+  pointer-events: none;
+
+  @include respond-to(mobile) { display: none; }
+}
+
 .inner {
   position: relative;
   z-index: 1;
@@ -42,7 +52,7 @@
   font-size: 1.6rem;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
-  max-width: 78rem;
+  max-width: 61rem; // keep the copy on the shaded left half
   margin-bottom: 1.6rem;
 }
 

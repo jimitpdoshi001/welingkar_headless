@@ -316,3 +316,11 @@ export async function getProgramFacultyPeople(
     .filter((r) => r.campus === campus && r.image && r.categories.some((c) => c.slug === category))
     .map((r) => ({ id: r.id, name: r.name, title: r.designation, image: r.image }));
 }
+
+/** Profile URL for a faculty name (titles/punctuation ignored); undefined if not found. */
+export async function facultyProfileHref(name: string): Promise<string | undefined> {
+  const key = (n: string) => n.toLowerCase().replace(/\b(prof|dr|mr|mrs|ms)\b\.?/g, " ").replace(/[^a-z]/g, "");
+  const all = await getFacultyDirectory();
+  const match = all?.find((r) => key(r.name) === key(name));
+  return match ? `/about-us/faculty/${match.slug}` : undefined;
+}

@@ -20,7 +20,10 @@ export function PgdmPlacement({
 
   return (
     <section className={styles.root}>
-      {bare ? null : (
+      {bare ? (
+        // Band photo comes from Drupal: darken its left side so the copy stays readable.
+        <div className={styles.bareOverlay} aria-hidden="true" />
+      ) : (
         <>
           <img src={data.image} alt="" className={styles.bg} />
           <div className={styles.overlay} />
