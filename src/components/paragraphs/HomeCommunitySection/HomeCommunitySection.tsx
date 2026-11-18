@@ -231,10 +231,13 @@ function TestimonialCard({
   item,
   opacity,
   transitioning,
+  fast = false,
 }: {
   item: CommunityTestimonial;
   opacity: number;
   transitioning: boolean;
+  /** Quick fade-out: the card moving to column 1 must not show twice. */
+  fast?: boolean;
 }) {
   return (
     <div
@@ -242,7 +245,7 @@ function TestimonialCard({
       style={{
         opacity,
         transition: transitioning
-          ? "opacity 0.75s cubic-bezier(0.25, 1, 0.5, 1)"
+          ? `opacity ${fast ? "0.15s" : "0.75s"} cubic-bezier(0.25, 1, 0.5, 1)`
           : "none",
       }}
     >
@@ -314,10 +317,13 @@ export function HomeCommunitySection({
 
         <div
           className={styles.rightSide}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocus={() => setPaused(true)}
-          onBlur={() => setPaused(false)}>
+          // Pause only while a mouse is over a white card (touch never pauses).
+          onPointerOver={(e) => {
+            const card = (e.target as HTMLElement).closest<HTMLElement>(`.${styles.activeCardOverlay}`);
+            // Hidden (faded-out) cards still sit in the track: ignore them.
+            setPaused(e.pointerType === "mouse" && !!card && Number(card.style.opacity) > 0.5);
+          }}
+          onPointerLeave={() => setPaused(false)}>
           <div className={styles.columnContainer}>
             <div
               className={styles.columnTrack}
@@ -392,6 +398,7 @@ export function HomeCommunitySection({
                         item={item}
                         opacity={cardOpacity}
                         transitioning={isTransitioning}
+                        fast={isTopSlot}
                       />
                     ) : null}
                   </div>
