@@ -637,6 +637,7 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
     }))
     .filter((c) => c.label && c.value && c.image);
   const waiver = htmlToListItems(value(node, "field_tuition_fee_waiver_scheme"));
+  if (value(node, "field_admission_fees_heading")) data.fees.heading = value(node, "field_admission_fees_heading");
   if (value(node, "field_admission_course_descripti")) data.fees.description = value(node, "field_admission_course_descripti");
   if (fees.length) data.fees.cards = fees;
   if (waiver.length) data.fees.waiver.bullets = waiver;
