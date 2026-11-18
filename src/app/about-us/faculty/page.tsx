@@ -10,7 +10,7 @@ import { getFacultyAbout } from "@/lib/drupal/faculty-about";
 import { DirectorMessage } from "@/components/paragraphs/DirectorMessage/DirectorMessage";
 import { DEFAULT_DIRECTOR_MESSAGE } from "@/lib/drupal/faculty";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
-import { facultyProfileHref, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
+import { facultyPerson, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 
 import styles from "./page.module.scss";
 
@@ -34,7 +34,9 @@ export default async function FacultyPreviewPage() {
 
   // Read More opens the director's own faculty profile (hidden if not in the directory).
   const merged = { ...DEFAULT_DIRECTOR_MESSAGE, ...about?.director };
-  const director = { ...merged, link: await facultyProfileHref(merged.name) };
+  const person = await facultyPerson(merged.name);
+  // Drupal director-desk photo first, then the person's faculty photo.
+  const director = { ...merged, image: about?.director.image || person.image || merged.image, link: person.href };
 
   return (
     <SearchProvider>

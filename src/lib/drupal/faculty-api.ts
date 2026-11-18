@@ -329,10 +329,13 @@ export async function getProgramFacultyPeople(
     .map((r) => ({ id: r.id, name: r.name, title: r.designation, image: r.image }));
 }
 
-/** Profile URL for a faculty name (titles/punctuation ignored); undefined if not found. */
-export async function facultyProfileHref(name: string): Promise<string | undefined> {
+/**
+ * Profile URL and current Drupal photo for a faculty name (titles/punctuation
+ * ignored), so director sections always show the photo editors uploaded.
+ */
+export async function facultyPerson(name: string): Promise<{ href?: string; image?: string }> {
   const key = (n: string) => n.toLowerCase().replace(/\b(prof|dr|mr|mrs|ms)\b\.?/g, " ").replace(/[^a-z]/g, "");
   const all = await getFacultyDirectory();
   const match = all?.find((r) => key(r.name) === key(name));
-  return match ? `/about-us/faculty/${match.slug}` : undefined;
+  return match ? { href: `/about-us/faculty/${match.slug}`, image: match.image || undefined } : {};
 }
