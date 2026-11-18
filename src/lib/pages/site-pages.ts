@@ -272,10 +272,6 @@ export const SITE_PAGES: Record<string, SitePage> = {
       },
     ],
   },
-  "/wefactor/weinnovate": simple("WeInnovate", "Innovation and design thinking at the heart of WeSchool.", ["WeFactor", "/wefactor"], undefined, HERO.office),
-  "/wefactor/weentrepreneur": simple("WeEntrepreneur", "Incubation, mentoring and support for student startups.", ["WeFactor", "/wefactor"], undefined, HERO.office),
-  "/wefactor/welead": simple("WeLead", "Building the leaders of tomorrow.", ["WeFactor", "/wefactor"], undefined, HERO.office),
-  "/wefactor/welearning": simple("WeLearning", "Continuous and lifelong learning at WeSchool.", ["WeFactor", "/wefactor"], undefined, HERO.office),
 
   // ---- WeGlobal ----
   "/weglobal": {
