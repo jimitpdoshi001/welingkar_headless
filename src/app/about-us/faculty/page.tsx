@@ -36,7 +36,7 @@ export default async function FacultyPreviewPage() {
   const merged = { ...DEFAULT_DIRECTOR_MESSAGE, ...about?.director };
   const person = await facultyPerson(merged.name);
   // Drupal director-desk photo first, then the person's faculty photo.
-  const director = { ...merged, image: about?.director.image || person.image || merged.image, link: person.href };
+  const director = { ...merged, image: about?.director.image || person.image || merged.image, link: about?.directorLink || person.href };
 
   return (
     <SearchProvider>

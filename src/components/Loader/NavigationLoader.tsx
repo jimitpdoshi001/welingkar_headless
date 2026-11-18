@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./NavigationLoader.module.scss";
 import { Logo } from "@/assets/svg/Logos";
+import { opensInNewTab } from "@/lib/links/new-tab";
 
 function NavigationPathReset({ onReset }: { onReset: () => void }) {
   const pathname = usePathname();
@@ -33,19 +34,23 @@ export function NavigationLoader() {
       const target = event.target as HTMLElement | null;
       const anchor = target?.closest("a");
 
-      if (!anchor) return;
+      if (!anchor || event.button !== 0) return;
 
       const href = anchor.getAttribute("href");
-      const targetAttr = anchor.getAttribute("target");
 
+      // PDFs, third-party links and modifier clicks open another tab: this tab
+      // does not navigate, so it must not show the loader.
       if (
         href &&
         !href.startsWith("#") &&
         !href.startsWith("mailto:") &&
         !href.startsWith("tel:") &&
-        targetAttr !== "_blank" &&
+        !anchor.hasAttribute("download") &&
+        !opensInNewTab(anchor) &&
         !event.ctrlKey &&
-        !event.metaKey
+        !event.metaKey &&
+        !event.shiftKey &&
+        !event.altKey
       ) {
         const currentUrl = `${window.location.pathname}${window.location.search}`;
         const targetUrl = href.startsWith("http")
@@ -61,12 +66,16 @@ export function NavigationLoader() {
       }
     };
 
+    // Back/forward cache restores the page as it was (loader on): clear it.
+    const onPageShow = (e: PageTransitionEvent) => e.persisted && handleReset();
     document.addEventListener("click", handleAnchorClick, true);
+    window.addEventListener("pageshow", onPageShow);
     return () => {
       document.removeEventListener("click", handleAnchorClick, true);
+      window.removeEventListener("pageshow", onPageShow);
       if (showTimer.current) clearTimeout(showTimer.current);
     };
-  }, []);
+  }, [handleReset]);
 
   return (
     <>
