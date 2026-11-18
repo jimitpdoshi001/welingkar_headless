@@ -45,6 +45,13 @@ export default function ImageBoxWefactor({ paragraph, children }: ImageBoxProps)
         ) : null}
         {children}
       </div>
+      {/* Hover cue: green arrow slides in at the bottom-right (CSS only). */}
+      <span className={styles.hoverArrow} aria-hidden="true">
+        <ArrowRight
+          height={10}
+          width={12}
+        />
+      </span>
     </Link>
   );
 }
