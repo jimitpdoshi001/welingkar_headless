@@ -65,6 +65,13 @@ const FOOTER_ROUTES: Record<string, string> = {
   "grievance redressal": "/grievance-redressal",
   "privacy policy": "/privacy-policy",
   "site map": "/site-map",
+  // No page on the new site yet: open the current welingkar.org pages.
+  "11 months pcp & 6 months certificate": "https://www.welingkar.org/programmes/11-month-pg-6-month-certificate-programmes",
+  "pgdm hybrid program": "https://www.welingkaronline.org/pgdm-courses",
+  "foreign trade management": "https://www.welingkar.org/foreign-trade-management/",
+  "jewellary design & business management": "https://www.welingkar.org/Jewelry-design-and-business-management/",
+  "jewellery design & business management": "https://www.welingkar.org/Jewelry-design-and-business-management/",
+  "we research @ bengaluru": "https://www.welingkar.org/we-research-bengaluru",
 };
 
 /** Site pages not in the Drupal footer, added under "Miscellaneous". */
