@@ -99,6 +99,8 @@ const BUTTON_OVERRIDES: Record<string, { title?: string; uri?: string }> = {
   "caca1488-e93d-4372-9a43-2534fa888b9b": { title: "View All" },
   // WeFactor section "Know more" -> WeFactor page.
   "bd6ed729-9578-42d7-9d0a-8faa4e905b58": { uri: "internal:/wefactor" },
+  // "Straight from Our Community" View All -> Testimonials page.
+  "f76e1bb6-cb2b-4242-a385-9a7eefc73f38": { uri: "internal:/testimonials" },
 };
 
 export function overrideButtonLink<T extends { uri: string; title: string }>(id: string, link: T | null): T | null {
