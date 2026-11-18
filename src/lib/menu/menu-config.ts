@@ -96,9 +96,9 @@ export const MAIN_NAV: MainNavItem[] = [
     panel: {
       // Live-site structure: the three campus links only.
       intro: [
-        { title: "Campus Mumbai", subtitle: "AICTE approved standalone institute", href: "/campuses/mumbai" },
+        { title: "Mumbai Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/mumbai" },
         { title: "MMS / PhD", subtitle: "Autonomous Institute affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
-        { title: "Campus Bengaluru", subtitle: "AICTE approved standalone institute", href: "/campuses/bengaluru" },
+        { title: "Bengaluru Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/bengaluru" },
       ],
       columns: [],
     },
