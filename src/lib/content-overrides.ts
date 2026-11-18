@@ -28,7 +28,18 @@ export function overrideCmsHtml(html: string | null | undefined): string | null 
     const re = new RegExp(`<p\\b[^>]*>(?:(?!</p>)[\\s\\S])*?${escaped}(?:(?!</p>)[\\s\\S])*?</p>`, "gi");
     out = out.replace(re, "");
   }
+  // Phrases removed from inline text (e.g. hero tagline "Learn Your Way. Full-time, Online, or Executive").
+  for (const phrase of REMOVE_INLINE_PHRASES) out = out.replace(phrase, "");
   return out;
+}
+
+const REMOVE_INLINE_PHRASES = [/\s*Full-time,\s*Online,?\s*(?:or|&amp;|&)\s*Executive\.?/gi];
+
+/** Stat headings to correct (Drupal value -> display), e.g. legacy years "47" -> "47+". */
+const STAT_OVERRIDES: Record<string, string> = { "47": "47+" };
+
+export function overrideStatHeading(heading: string | null): string | null {
+  return heading ? (STAT_OVERRIDES[heading.trim()] ?? heading) : heading;
 }
 
 /** YouTube URLs for the "Our Campus Experience" popups, keyed by campus. */
