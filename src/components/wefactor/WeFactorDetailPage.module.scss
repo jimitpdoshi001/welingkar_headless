@@ -1,37 +1,119 @@
 @use "../../styles/base/mixins" as *;
 
-// Layout glue only; all visuals come from WeResearchPage.module.scss.
-.features { padding-top: 10rem; @include respond-to(mobile) { padding-top: 5rem; } }
+/* ---------- Simple heading + text block (Figma 3341:800 / 3341:801) ---------- */
 
-.featureText {
-  padding: 5.6rem 7.2rem;
-  @include respond-to(mobile) { padding: 3.2rem 2rem; }
+// Breadcrumb at y135 under the site header, title 54px below it.
+.intro {
+  padding-top: 13.5rem;
+  padding-bottom: 10.8rem;
+
+  @include respond-to(tab) { padding-top: 10rem; }
+  @include respond-to(mobile) { padding-top: 9rem; padding-bottom: 5rem; }
+
+  .textTitle { margin-top: 5.4rem; @include respond-to(mobile) { margin-top: 3.2rem; } }
 }
 
-.paragraphs p + p { margin-top: 1.6rem; }
+.textBlock {
+  padding-block: 8.4rem;
 
-.downloads { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 2.4rem; }
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
 
-// Photo slider: snap row of photos, existing ScrollArrows under it.
-.slider { display: flex; flex-direction: column; gap: 1.6rem; min-width: 0; }
+.textTitle {
+  font-size: 3.4rem; // Figma 34px ExtraBold
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 2.4rem;
 
+  @include respond-to(mobile) { font-size: 2.8rem; margin-bottom: 1.6rem; }
+}
+
+.textBody {
+  font-size: 1.6rem; // Figma 16px Regular
+  line-height: 1.3;
+  margin: 0;
+
+  & + & { margin-top: 1.6rem; }
+}
+
+/* ---------- Carousel block (Figma 3341:814) ---------- */
+
+.carousel {
+  padding-block: 8.4rem; // Figma: 84px band padding
+
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
+.tinted { background: var(--color-light-yellow); }
+
+.carouselHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-bottom: 3.9rem; // heading box 493-565, photo at 604
+
+  @include respond-to(mobile) { margin-bottom: 2.4rem; }
+}
+
+.carouselTitle {
+  max-width: 56.7rem;
+  font-size: 4rem; // Figma 40px / 44px ExtraBold
+  font-weight: 800;
+  line-height: 4.4rem;
+  margin: 0;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; }
+}
+
+.carouselBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 611 + 20 + 609
+  gap: 2rem;
+  align-items: start;
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
+// Photo slider: one photo per view, moved by the ScrollArrows in the head row.
 .track {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  flex: 1;
+  min-width: 0;
   margin: 0;
   padding: 0;
   list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 2.25rem;
+
   &::-webkit-scrollbar { display: none; }
 }
 
 .slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  display: flex;
-  img { height: 100%; }
 }
 
-.sliderArrows { display: flex; justify-content: flex-end; }
+.photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 611 / 359;
+  object-fit: cover;
+  border-radius: 2.25rem; // Figma 22.5px
+}
+
+.text {
+  font-size: 1.6rem;
+  line-height: 1.3;
+
+  p { margin: 0; }
+  p + p { margin-top: 1.6rem; }
+}
+
+.downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+}
