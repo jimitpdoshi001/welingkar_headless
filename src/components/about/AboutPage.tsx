@@ -310,7 +310,9 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
                             alt=""
                           />
                         ) : null}
-                        <p>{c.text}</p>
+                        <p className={styles.honourTitle}>{c.text}</p>
+                        {/* Award description from Drupal (sanitized server-side). */}
+                        {c.html ? <div className={`${styles.honourText} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: c.html }} /> : null}
                       </article>
                     ))}
                   </div>

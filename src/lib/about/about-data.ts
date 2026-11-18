@@ -5,8 +5,8 @@
  */
 
 export type AboutPerson = { id: string; name: string; title: string; image?: string };
-/** `year` set = card shows only under that year (Drupal awards). */
-export type HonourCard = { id: string; image: string; text: string; year?: string };
+/** `year` set = card shows only under that year; `html` = sanitized award description (Drupal awards). */
+export type HonourCard = { id: string; image: string; text: string; html?: string; year?: string };
 export type AboutDesk = { heading: string; html: string; name: string; title: string; image: string };
 
 export type AboutData = {

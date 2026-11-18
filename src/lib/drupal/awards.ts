@@ -1,14 +1,22 @@
 import { cache } from "react";
 
+import { sanitizeCmsHtml } from "@/lib/security/sanitize-html";
 import { absoluteDrupalUrl, fetchPaginatedJsonApi } from "./jsonapi";
 import type { JsonApiResource } from "./types";
 
 /** One award for the About Us "Honours & Achievements" section. */
-export type AwardCard = { id: string; year: string; text: string; image: string };
+/** `html`: the award description (sanitized Drupal rich text), "" when empty. */
+export type AwardCard = { id: string; year: string; text: string; html: string; image: string };
 
 const str = (v: unknown) => (typeof v === "string" ? v.trim() : "");
 
 /** Capitalise the first letter (Drupal titles are often entered in lower case). */
+/** Sanitized HTML, or "" when it has no visible text. */
+const richText = (source: string) => {
+  const html = sanitizeCmsHtml(source).trim();
+  return html.replace(/<[^>]*>|&nbsp;|\s/g, "") ? html : "";
+};
+
 const sentence = (text: string) => (text ? text[0].toUpperCase() + text.slice(1) : text);
 
 /**
@@ -34,6 +42,7 @@ export const getAwards = cache(async (): Promise<AwardCard[] | null> => {
           id: node.id,
           year: str(a.field_award_year),
           text: sentence(str(a.field_award_title) || str(a.title)),
+          html: richText(str((a.field_award_description as { value?: string } | null)?.value)),
           image: absoluteDrupalUrl(url) ?? "",
           sort: Number(a.field_award_sort_order) || 0,
         };
