@@ -211,28 +211,6 @@
 .directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
 .directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
 
-/* Mentors grid */
-.mentorsBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-bottom: 3.2rem;
-  flex-wrap: wrap;
-}
-.mentorTabs { display: flex; flex-wrap: wrap; gap: 1.6rem 5.6rem; @include respond-to(tab) { gap: 1.2rem 3.2rem; } }
-.mentorTab { appearance: none; background: none; border: 0; font-family: inherit; text-align: left; font-size: 1.8rem; font-weight: 300; color: gray; cursor: pointer; position: relative; padding-bottom: 0.8rem; }
-.mentorTabActive {
-  color: var(--faculty-accent, var(--color-primary));
-  font-weight: 600;
-  &::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--faculty-accent, var(--color-primary)); }
-}
-.barActions { display: flex; align-items: center; gap: 2rem; }
-.mentorCard { display: flex; flex-direction: column; }
-.mentorImage { width: 100%; aspect-ratio: 190 / 175; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.2rem; }
-.mentorName { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
-.mentorRole { font-size: 1.3rem; color: var(--color-black); line-height: 1.4; margin-bottom: 0.8rem; }
-.mentorLink { font-size: 1.3rem; font-weight: 600; color: var(--faculty-accent, var(--color-primary)); text-decoration: none; &:hover { text-decoration: underline; } }
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
 // Desktop: the photo (fade baked into the export) keeps its Figma box, scaled

@@ -10,15 +10,13 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
 import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
 import { RecruiterLogos } from "./RecruiterLogos/RecruiterLogos";
-import { MentorsCarousel } from "./MentorsCarousel/MentorsCarousel";
+import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
 import { VideoPopup } from "./VideoPopup/VideoPopup";
 import type { CampusData } from "@/lib/campus/campus-data";
 import styles from "./CampusPage.module.scss";
 
 /** `mentors`: live Drupal faculty for the campus; the Mentors block is hidden when empty. */
 export function CampusPage({ data, mentors }: { data: CampusData; mentors: { categories: FacultyCategory[]; members: FacultyMember[] } | null }) {
-  // Mentor tabs: the role tabs only (Deans, Associate Deans, Faculty).
-  const mentorTabs = mentors?.categories.filter((c) => ["deans", "associate-deans", "faculty"].includes(c.slug)) ?? [];
   const isMumbai = data.accent === "orange";
   const accentVar = data.accent === "orange" ? "var(--color-orange)" : "var(--color-primary)";
 
@@ -152,13 +150,12 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
             </div>
           </section>
 
-          {mentors && mentorTabs.length > 0 ? (
+          {/* Same faculty grid as the campus faculty page (tabs + Specialization dropdown). */}
+          {mentors && mentors.members.length > 0 ? (
             <section className={`container ${styles.block}`}>
               <h2 className={styles.sectionHeading}>{data.mentors.heading}</h2>
-              <MentorsCarousel
-                cta={data.mentors.cta}
-                photos={{}}
-                categories={mentorTabs}
+              <FacultyGrid
+                categories={mentors.categories}
                 members={mentors.members}
               />
             </section>
