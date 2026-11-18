@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BengaluruCampusPage() {
-  // Director photo: current Drupal faculty photo when the person is found.
+  // Faculty profile lookup for the director's Read More link.
   const person = await facultyPerson(CAMPUS_BENGALURU.director.name);
   // Read More opens the director's faculty profile.
   const { director } = CAMPUS_BENGALURU;
@@ -18,7 +18,8 @@ export default async function BengaluruCampusPage() {
     ...CAMPUS_BENGALURU,
     director: {
       ...director,
-      image: person.image || director.image,
+      // Supplied 536x387 photo sized for this card (not the square faculty photo).
+      image: "/campus/madhavi-lokhande-director.webp",
       cta: person.href ? { ...director.cta, href: person.href } : director.cta,
     },
   };
