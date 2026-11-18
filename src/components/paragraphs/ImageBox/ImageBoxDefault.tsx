@@ -6,9 +6,10 @@ import Image from "next/image";
 import { ResponsiveMedia } from "../ResponsiveMedia/ResponsiveMedia";
 import type { ImageBoxProps } from "./ImageBox";
 import styles from "./ImageBoxDefault.module.scss";
+import { overrideStatHeading } from "@/lib/content-overrides";
 
 export default function ImageBoxDefault({ paragraph, image, responsiveMedia, children }: ImageBoxProps) {
-  const heading = paragraph.attributes.field_header || null;
+  const heading = overrideStatHeading(paragraph.attributes.field_header || null);
   const description = paragraph.attributes.field_description?.processed || null;
   const hasMedia = Boolean(responsiveMedia || image);
 
