@@ -4,6 +4,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  // Mobile: heading on its own line, tabs + button below it.
+  @include respond-to(mobile) {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
 }
 
 .grid {
@@ -108,5 +114,17 @@
     height: 2px;
     border-radius: 2px;
     background-color: var(--color-primary);
+  }
+}
+
+// Tabs mode: tabs then the campus button, right of the heading; wraps below it on small screens.
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+
+  @include respond-to(mobile) {
+    flex-wrap: wrap;
+    gap: 1.6rem 2.4rem;
   }
 }
