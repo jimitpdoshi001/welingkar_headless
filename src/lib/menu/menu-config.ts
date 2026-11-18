@@ -176,7 +176,7 @@ export const MAIN_NAV: MainNavItem[] = [
           title: "PGDM Mumbai",
           subtitle: "AICTE approved standalone institute",
           columns: [
-            { heading: "Full-Time Programs", links: FULL_TIME_PGDM },
+            { heading: "Full-Time Programs", headingHref: "/programmes/mumbai", links: FULL_TIME_PGDM },
             {
               heading: "Executive",
               links: [{ label: "MDP", href: "/programmes/mdp" }],
