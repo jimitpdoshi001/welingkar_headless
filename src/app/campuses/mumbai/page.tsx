@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { facultyPerson, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
+import { getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 import { CampusPage } from "@/components/campus/CampusPage";
 import { CAMPUS_MUMBAI } from "@/lib/campus/campus-data";
 
@@ -9,13 +9,11 @@ export const metadata: Metadata = {
   description: "WeSchool Mumbai Campus — Prin. L. N. Welingkar Institute of Management Development & Research",
 };
 
+// Director photo stays the original campus image (requested), not the Drupal one.
 export default async function MumbaiCampusPage() {
-  // Director photo: current Drupal faculty photo when the person is found.
-  const person = await facultyPerson(CAMPUS_MUMBAI.director.name);
-  const data = { ...CAMPUS_MUMBAI, director: { ...CAMPUS_MUMBAI.director, image: person.image || CAMPUS_MUMBAI.director.image } };
   return (
     <CampusPage
-      data={data}
+      data={CAMPUS_MUMBAI}
       mentors={await getCampusFacultyGrid("mumbai")}
     />
   );
