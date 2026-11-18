@@ -7,7 +7,8 @@ import styles from "./PgdmWhoApply.module.scss";
 export function PgdmWhoApply({ data }: { data: PgdmWhoApplyData }) {
   return (
     <div className={styles.root}>
-      <h2 className={styles.heading}>{data.heading}</h2>
+      {/* Drupal may leave the heading empty: render no blank h2. */}
+      {data.heading ? <h2 className={styles.heading}>{data.heading}</h2> : null}
       {data.subtitle ? <p className={styles.subtitle}>{data.subtitle}</p> : null}
 
       <div className={styles.cards}>
