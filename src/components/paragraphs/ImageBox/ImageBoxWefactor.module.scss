@@ -71,8 +71,8 @@
 
 .hoverArrow {
   position: absolute;
-  top: 2.4rem; // top-right, clear of the description text
   right: 2.4rem;
+  bottom: 2.4rem;
   display: grid;
   place-items: center;
   width: 4rem;
@@ -108,8 +108,8 @@
   gap: 1.2rem;
   flex: 1;
 
-  // Room for the arrow at the top-right.
-  h4 { padding-right: 4.8rem; }
+  // Room for the arrow at the bottom-right (long one-word headings can't wrap).
+  margin-bottom: 3.6rem;
 
   h3 {
     flex: 1;
