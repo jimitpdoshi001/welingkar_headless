@@ -1,40 +1,37 @@
 @use "../../styles/base/mixins" as *;
 
-// No photo: the card takes the whole row.
-.single { grid-template-columns: 1fr; }
+// Layout glue only; all visuals come from WeResearchPage.module.scss.
+.features { padding-top: 10rem; @include respond-to(mobile) { padding-top: 5rem; } }
 
-// Several paragraphs: keep them close; the last one keeps the listing gap.
-.card { justify-content: center; }
-.paragraph { margin-bottom: 1.6rem; &:last-of-type { margin-bottom: 0; } }
-
-.groupHead { padding-top: 8rem; @include respond-to(mobile) { padding-top: 4rem; } }
-.groupTitle {
-  font-size: clamp(2.8rem, 2.2rem + 0.8vw, 3.6rem);
-  font-weight: 800;
-  line-height: 1.2;
+.featureText {
+  padding: 5.6rem 7.2rem;
+  @include respond-to(mobile) { padding: 3.2rem 2rem; }
 }
 
-// Samvad issues: cover, month, Download.
-.downloads {
+.paragraphs p + p { margin-top: 1.6rem; }
+
+.downloads { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 2.4rem; }
+
+// Photo slider: snap row of photos, existing ScrollArrows under it.
+.slider { display: flex; flex-direction: column; gap: 1.6rem; min-width: 0; }
+
+.track {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2.4rem;
-  margin-top: 2.4rem;
-
-  li {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 14rem;
-  }
-
-  img {
-    width: 100%;
-    aspect-ratio: 320 / 452;
-    object-fit: cover;
-    border-radius: 1.2rem;
-  }
-
-  span { font-size: 1.5rem; font-weight: 600; }
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  &::-webkit-scrollbar { display: none; }
 }
+
+.slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  img { height: 100%; }
+}
+
+.sliderArrows { display: flex; justify-content: flex-end; }
