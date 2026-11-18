@@ -5,13 +5,15 @@ import styles from "./WeResearchBreadcrumb.module.scss";
 type Props = {
   /** Last crumb label (current page). */
   current: string;
+  /** Optional middle crumb (e.g. WeFactor on a WeFactor sub-page). */
+  parent?: { label: string; href: string };
   /** "light" over the hero photo, "dark" on a white page. */
   tone?: "light" | "dark";
   className?: string;
 };
 
 // Figma breadcrumb: home icon, "-" separator, current page (12px).
-export function WeResearchBreadcrumb({ current, tone = "light", className = "" }: Props) {
+export function WeResearchBreadcrumb({ current, parent, tone = "light", className = "" }: Props) {
   return (
     <nav
       aria-label="Breadcrumb"
@@ -25,6 +27,12 @@ export function WeResearchBreadcrumb({ current, tone = "light", className = "" }
         </svg>
       </Link>
       <span aria-hidden="true">-</span>
+      {parent ? (
+        <>
+          <Link href={parent.href}>{parent.label}</Link>
+          <span aria-hidden="true">-</span>
+        </>
+      ) : null}
       <span aria-current="page">{current}</span>
     </nav>
   );
