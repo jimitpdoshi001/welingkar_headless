@@ -86,7 +86,7 @@ $gap: 3rem;
   padding: 2.4rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start; // name sits right under the quote
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
   will-change: opacity;
@@ -100,15 +100,19 @@ $gap: 3rem;
   margin: 0;
 }
 
-// Fixed-height desktop cards: long quotes are trimmed to 7 lines so the
-// author and "Watch Video" link always stay inside the card.
+// Fixed-height desktop cards: long quotes scroll inside the card (the
+// auto-scroll pauses while the pointer is over the cards) so the author and
+// "Watch Video" link always stay visible.
 .activeCardOverlay .quote {
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex-shrink: 0;
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
 }
+
+.activeCardOverlay .author { margin-top: 2rem; }
 
 .author {
   display: flex;
