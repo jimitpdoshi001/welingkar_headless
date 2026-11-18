@@ -68,7 +68,19 @@ function decodeFacultyHtml(raw: string): string {
     .replace(/<!--|-->/g, "")
     // Word-style layout tables: keep the content, drop the grid.
     .replace(/<\/?(?:table|tbody|thead|tr|td|th|colgroup|col)\b[^>]*>/gi, "")
-    .replace(/(&nbsp;\s*){2,}/g, " ");
+    .replace(/(&nbsp;\s*){2,}/g, " ")
+    // Pasted <style> rules leak in as text (".liMargin { margin-bottom: 13px;}"): drop them.
+    .replace(/<style\b[\s\S]*?<\/style>/gi, "")
+    .replace(/[.#]?[a-z][\w-]*\s*\{[^{}<]*\}/gi, "")
+    // "• a<br>• b" typed bullets inside one <p> -> a real list.
+    .replace(/<p[^>]*>\s*(•[\s\S]*?)<\/p>/gi, (_, body: string) => {
+      const items = body
+        .split(/<br\s*\/?>/i)
+        .map((t) => t.replace(/^\s*•\s*/, "").trim())
+        .filter(Boolean);
+      return `<ul>${items.map((t) => `<li>${t}</li>`).join("")}</ul>`;
+    })
+    .replace(/<p[^>]*>\s*<\/p>/gi, "");
   // Whole section wrapped in one bullet (<ul><li>…</li></ul>): drop the wrapper.
   const wrapped = html.match(/^\s*<ul[^>]*>\s*<li[^>]*>([\s\S]*)<\/li>\s*<\/ul>\s*$/i);
   if (wrapped && !/<li\b/i.test(wrapped[1]) && /<p\b/i.test(wrapped[1])) html = wrapped[1];

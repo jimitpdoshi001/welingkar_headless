@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, Suspense } from "react";
+import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import styles from "./NavigationLoader.module.scss";
 import { Logo } from "@/assets/svg/Logos";
@@ -18,8 +18,13 @@ function NavigationPathReset({ onReset }: { onReset: () => void }) {
 
 export function NavigationLoader() {
   const [isLoading, setIsLoading] = useState(false);
+  // Fast client navigations finish before this fires, so the full-screen
+  // loader only shows for slow pages instead of flashing like a reload.
+  const showTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleReset = useCallback(() => {
+    if (showTimer.current) clearTimeout(showTimer.current);
+    showTimer.current = null;
     setIsLoading(false);
   }, []);
 
@@ -47,8 +52,11 @@ export function NavigationLoader() {
           ? href.replace(window.location.origin, "")
           : href;
 
-        if (targetUrl !== currentUrl) {
-          setIsLoading(true);
+        // Same page with only a #hash change: no route change, so no loader
+        // (it would never be reset and would stay on screen).
+        if (targetUrl.split("#")[0] !== currentUrl) {
+          if (showTimer.current) clearTimeout(showTimer.current);
+          showTimer.current = setTimeout(() => setIsLoading(true), 400);
         }
       }
     };
@@ -56,6 +64,7 @@ export function NavigationLoader() {
     document.addEventListener("click", handleAnchorClick, true);
     return () => {
       document.removeEventListener("click", handleAnchorClick, true);
+      if (showTimer.current) clearTimeout(showTimer.current);
     };
   }, []);
 
