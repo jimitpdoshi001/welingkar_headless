@@ -61,8 +61,15 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
       <div className={clsx(styles.content, "mb-6")}>
         {heading ? <h3>{heading}</h3> : null}
 
-        {/* Tabs mode: campus tabs sit where the button was; the button moves below the gallery. */}
-        {tabs ? campusTabs : !isMobile && action && <div className={styles.secButton}>{action}</div>}
+        {/* Tabs mode: campus tabs, then the "Life at …" button, on the heading row. */}
+        {tabs ? (
+          <div className={styles.headerActions}>
+            {campusTabs}
+            {action}
+          </div>
+        ) : (
+          !isMobile && action && <div className={styles.secButton}>{action}</div>
+        )}
       </div>
 
       {galleryImages.length >= 6 && !isMobile && (
@@ -180,7 +187,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
         </div>
       )}
 
-      {(tabs || isMobile) && action && <div className={clsx(styles.secButton, "mt-6 text-center")}>{action}</div>}
+      {!tabs && isMobile && action && <div className={clsx(styles.secButton, "mt-4 text-center")}>{action}</div>}
     </>
   );
 }
