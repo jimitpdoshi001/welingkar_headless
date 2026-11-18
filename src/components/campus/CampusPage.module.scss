@@ -206,7 +206,8 @@
 
   @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
 }
-.directorImage { width: 100%; border-radius: 2.5rem; aspect-ratio: 536 / 387; object-fit: cover; }
+// Faculty photos are square portraits: anchor to the top so heads are not cropped.
+.directorImage { width: 100%; border-radius: 2.5rem; aspect-ratio: 536 / 387; object-fit: cover; object-position: center top; }
 .directorName { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
 .directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
 .directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
