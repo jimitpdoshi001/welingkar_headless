@@ -88,6 +88,8 @@
 .hNext { right: 0; background: var(--color-primary); svg path { fill: #fff; } @include respond-to(tab) { top: auto; bottom: 0; } }
 .honoursTrack { position: relative; z-index: 1; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(26rem, 1fr); gap: 3rem; overflow-x: auto; padding-top: 10rem; padding-bottom: 1rem; scroll-snap-type: x mandatory; &::-webkit-scrollbar { height: 5px; } &::-webkit-scrollbar-thumb { background: var(--color-light-gray); border-radius: 3px; } @include respond-to(tab) { grid-auto-columns: minmax(24rem, 40%); padding-top: 4rem; margin-bottom: 7rem; } @include respond-to(mobile) { grid-auto-columns: 80%; } }
 .honourCard { scroll-snap-align: start; img { width: 16rem; height: 16rem; object-fit: cover; border-radius: 1.6rem; margin-bottom: 1.4rem; } p { font-size: 1.4rem; line-height: 1.5; color: var(--color-dark-gray); } }
+.honourTitle { font-weight: 700; margin-bottom: 0.6rem; }
+.honourText { font-size: 1.4rem; line-height: 1.5; color: var(--color-gray); p { color: inherit; } }
 
 /* Faculty grid */
 .facultyGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.8rem 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(3, 1fr); } @include respond-to(mobile) { grid-template-columns: repeat(2, 1fr); } }
