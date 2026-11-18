@@ -11,6 +11,8 @@ export type WeFactorItem = {
   images?: string[];
   /** Samvad issues: one download button per issue. */
   downloads?: { label: string; href: string }[];
+  /** Carousel: true = text slides with each photo; default = only the photo slides. */
+  slideText?: boolean;
   /** Section heading shown above this carousel's title, in the same band. */
   groupHeading?: string;
 };
@@ -57,6 +59,7 @@ export const WELEARNING: WeFactorDetailData = {
     {
       type: "carousel",
       id: "neev",
+      slideText: true,
       title: "Student Induction Program – NEEV",
       paragraphs: [
         "At WeSchool, we are committed to offer a holistic learning experience to our incoming batch, thus, laying the foundation “NEEV” for Responsible Citizens & Future Leaders with 3 weeks well-structured & intensive – Student Induction Program (SIP). ‘NEEV’ is meticulously crafted to give a strong foundation by blending insightful leadership sessions delivered by industry experts, alumni, entrepreneurs, and technologists, alongside rigorous domain skills such as statistics, finance, technology, & engaging extracurricular activities such as creativity, Zumba, quizzes which will enhance students’ team spirit and leadership skills.",
@@ -116,7 +119,7 @@ export const WELEARNING: WeFactorDetailData = {
       paragraphs: [
         "With an aim to facilitate the exchange of ideas that inspire innovative thought culture, Samvad makes an interesting read as a B-School magazine for students and by students. Each edition carries articles on themes like leadership, innovation, corporate social responsibility, sports management, technology, and entrepreneurship. The e-magazine also publishes article entries from across top management institutes like IIMs and IITs.",
       ],
-      images: [IMG("samvad-nov-2020"), IMG("samvad-oct-2020")],
+      images: [IMG("samvad-nov-2020")], // single cover: no carousel (live page has none)
       downloads: [
         {
           label: "November 2020",
