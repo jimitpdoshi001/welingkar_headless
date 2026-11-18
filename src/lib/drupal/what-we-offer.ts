@@ -1,4 +1,10 @@
 import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
+import {
+  PROGRAM_LISTING_NIDS,
+  PROGRAM_SLUG_NIDS_BENGALURU,
+  getProgramListing,
+  programBannerImage,
+} from "./program-listing";
 import type { JsonApiResource } from "./types";
 
 export type WhatWeOfferItem = {
@@ -31,6 +37,13 @@ function siteRoute(url: string): string {
   return ROUTES[path] ?? local;
 }
 
+/** Bengaluru card route -> its program page's Drupal node (for the banner image). */
+function bengaluruNid(url: string): number | undefined {
+  if (url === "/programmes/pgdm/bengaluru") return PROGRAM_LISTING_NIDS.pgdmBengaluru;
+  const m = url.match(/^\/programmes\/([a-z-]+)\?campus=bengaluru$/);
+  return m ? PROGRAM_SLUG_NIDS_BENGALURU[m[1]] : undefined;
+}
+
 export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
   try {
     const document = await fetchJsonApi<JsonApiResource>("/taxonomy_term/what_we_offer", {
@@ -42,7 +55,7 @@ export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
     const items = Array.isArray(document.data) ? document.data : document.data ? [document.data] : [];
     const included = document.included ?? [];
 
-    return items.map((item) => {
+    const terms = items.map((item) => {
       const attributes = item.attributes ?? {};
       const name = (attributes.name as string) || "";
       const location = ((attributes.field_location as string) || "").trim().toLowerCase();
@@ -80,6 +93,15 @@ export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
         imageAlt,
       };
     });
+
+    // Bengaluru cards show their own program page's banner image (cached fetch).
+    return Promise.all(
+      terms.map(async (term) => {
+        const nid = term.location === "bangalore" ? bengaluruNid(term.url) : undefined;
+        const banner = nid ? programBannerImage(await getProgramListing(nid)) : null;
+        return banner ? { ...term, image: banner } : term;
+      }),
+    );
   } catch (error) {
     console.error("Failed to fetch What We Offer taxonomy terms:", error);
     return [];

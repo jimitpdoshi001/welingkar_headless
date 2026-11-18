@@ -757,6 +757,11 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (community.length) data.community.testimonials = community;
 }
 
+/** Desktop banner image of a program_listing node (null when missing). */
+export function programBannerImage(doc: RestEntity | null): string | null {
+  return mediaUrl(entities(doc ?? undefined, "field_banner")[0], "field_desktop") || null;
+}
+
 /** Drupal node IDs of the program_listing pages. */
 export const PROGRAM_LISTING_NIDS = {
   pgdmMumbai: 4653,
