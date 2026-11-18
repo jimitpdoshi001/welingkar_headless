@@ -265,6 +265,9 @@ export function HomeCommunitySection({
     null,
   );
 
+  // Pointer over the cards: pause so long quotes can be scrolled and read.
+  const [paused, setPaused] = useState(false);
+
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
     const update = () => setIsMobile(media.matches);
@@ -274,13 +277,13 @@ export function HomeCommunitySection({
   }, []);
 
   useEffect(() => {
-    if (count === 0 || isMobile || activeVideo) return;
+    if (count === 0 || isMobile || activeVideo || paused) return;
     const interval = setInterval(() => {
       setIsTransitioning(true);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [count, isMobile, activeVideo]);
+  }, [count, isMobile, activeVideo, paused]);
 
   useEffect(() => {
     if (!isTransitioning || count === 0 || isMobile) return;
@@ -309,7 +312,12 @@ export function HomeCommunitySection({
       <div className={clsx(styles.root, isMobile ? styles.mobile : "", compactMobile && styles.compactMobile, count <= 1 && styles.singleSlide)}>
         {children ? <div className={styles.header}>{children}</div> : null}
 
-        <div className={styles.rightSide}>
+        <div
+          className={styles.rightSide}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}>
           <div className={styles.columnContainer}>
             <div
               className={styles.columnTrack}
