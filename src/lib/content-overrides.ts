@@ -44,26 +44,6 @@ export function campusVideoOverride(heading: string | null | undefined): string 
   return CAMPUS_VIDEO_OVERRIDES[heading.trim().toLowerCase()] ?? null;
 }
 
-/** "What We Offer" card headings per campus (in order). */
-const WHAT_WE_OFFER_HEADINGS: Record<string, string[]> = {
-  mumbai: [
-    "Full-Time Programs",
-    "Executive",
-    "Post Graduate Program",
-    "PGDM Hybrid Program",
-    "PGP & 6 months Certificate Programs",
-    "Post Graduate Program in Temple Management (PGPTM)",
-  ],
-  bengaluru: ["Full-Time Programs", "Executive"],
-  bangalore: ["Full-Time Programs", "Executive"],
-  banglore: ["Full-Time Programs", "Executive"],
-};
-
-export function whatWeOfferHeadings(location: string | null | undefined): string[] | null {
-  if (!location) return null;
-  return WHAT_WE_OFFER_HEADINGS[location.trim().toLowerCase()] ?? null;
-}
-
 /**
  * The placement-partners section currently carries the intro section's text
  * ("We are WeSchool" / "There's a future…") in Drupal. Force the correct

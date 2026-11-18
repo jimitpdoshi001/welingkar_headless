@@ -12,7 +12,6 @@ import type {
 } from "@/lib/drupal";
 import type { WhatWeOfferItem } from "@/lib/drupal/what-we-offer";
 import { fixCity } from "@/util/city";
-import { whatWeOfferHeadings } from "@/lib/content-overrides";
 
 import "swiper/css";
 import styles from "./HomeWhatWeOffer.module.scss";
@@ -42,31 +41,25 @@ export function HomeWhatWeOfferClient({
 
   const showTabs = paragraph?.attributes?.field_show_tabs ?? true;
 
-  // Extract unique locations from Drupal data
+  // Unique Drupal locations; Mumbai tab always first, others keep Drupal order.
   const locations = Array.from(
     new Set(
       displayItems
         .map((item) => item.location)
         .filter((location): location is string => Boolean(location))
     )
-  );
+  ).sort((a, b) => Number(b === "mumbai") - Number(a === "mumbai"));
 
   const [activeLocation, setActiveLocation] = useState<string>(
     locations[0] || ""
   );
 
-  const baseItems = showTabs
+  const filteredItems = showTabs
     ? displayItems.filter(
         (item) => !item.location || item.location === activeLocation
       )
     : displayItems;
 
-  // Force the requested card headings per campus until corrected in Drupal.
-  const desiredHeadings = whatWeOfferHeadings(activeLocation);
-  const filteredItems =
-    desiredHeadings && baseItems.length
-      ? desiredHeadings.map((name, i) => ({ ...baseItems[i % baseItems.length], name }))
-      : baseItems;
 
   const handlePrev = () => {
     swiperRef.current?.slidePrev();

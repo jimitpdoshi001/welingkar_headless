@@ -25,8 +25,10 @@ const ROUTES: Record<string, string> = {
 
 /** Map a Drupal path (absolute or relative, trailing slash ignored) to its site route. */
 function siteRoute(url: string): string {
-  const path = url.replace(/^https?:\/\/[^/]+/i, "").replace(/\/+$/, "");
-  return ROUTES[path] ?? url;
+  // Links typed with this site's own domain become relative (in-app navigation).
+  const local = url.replace(/^https?:\/\/welingkar-headless\.vercel\.app(?=\/)/i, "");
+  const path = local.replace(/^https?:\/\/[^/]+/i, "").replace(/\/+$/, "");
+  return ROUTES[path] ?? local;
 }
 
 export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
