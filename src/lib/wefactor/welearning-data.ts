@@ -23,7 +23,7 @@ export type WeFactorItem = {
  */
 export type WeFactorBlock =
   | (({ type: "text" } | { type: "carousel" }) & WeFactorItem)
-  // Heading + company list (About Us board-list design), e.g. WeLead projects.
+  // Heading + company cards (PGDM Career card design), e.g. WeLead projects.
   | { type: "list"; id: string; title: string; items: { title: string; subtitle?: string }[] };
 
 export type WeFactorDetailData = {

@@ -7,7 +7,7 @@ import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcru
 import type { WeFactorDetailData } from "@/lib/wefactor/welearning-data";
 import { WeFactorCarousel } from "./WeFactorCarousel";
 import styles from "./WeFactorDetailPage.module.scss";
-import about from "@/components/about/AboutPage.module.scss";
+import career from "@/components/pgdm/PgdmCareer/PgdmCareer.module.scss";
 
 /**
  * WeFactor sub-page (Figma 3193:137): an intro text block, then each section
@@ -36,15 +36,15 @@ export function WeFactorDetailPage({ data }: { data: WeFactorDetailData }) {
             }
             carouselIndex = 0;
             if (block.type === "list") {
-              // Same design as the About Us board lists: bold heading, company below.
+              // PGDM Career role-card design, 2 per row: project, then company.
               return (
                 <section key={block.id} id={block.id} className={`container ${styles.textBlock}`}>
                   <h2 className={styles.textTitle}>{block.title}</h2>
-                  <ul className={about.boardGrid}>
+                  <ul className={styles.cardGrid}>
                     {block.items.map((item) => (
-                      <li key={item.title}>
-                        <p className={about.boardName}>{item.title}</p>
-                        {item.subtitle ? <p className={about.boardRole}>{item.subtitle}</p> : null}
+                      <li key={item.title} className={`${career.pill} ${styles.card}`}>
+                        <h3 className={styles.cardTitle}>{item.title}</h3>
+                        {item.subtitle ? <p className={styles.cardSub}>{item.subtitle}</p> : null}
                       </li>
                     ))}
                   </ul>
