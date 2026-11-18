@@ -85,7 +85,7 @@ export function CampusListingPage() {
                   <Link
                     href={r.href}
                     className="btn accent">
-                    Know More
+                    Visit Campus
                   </Link>
                 </div>
               </div>
