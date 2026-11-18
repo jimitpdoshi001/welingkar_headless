@@ -12,10 +12,15 @@ export const metadata: Metadata = {
 
 export default async function PgdmMumbaiPage() {
   const doc = await getProgramListing(PROGRAM_LISTING_NIDS.pgdmMumbai);
+  const data = applyProgramListing(PGDM_MUMBAI, doc);
+  // Hidden on this page (requested): Program Strengths and Student-Centric Pedagogy.
+  // PgdmPage skips a section when its content is empty.
+  data.strengths = { ...data.strengths, cards: [] };
+  data.studentPedagogy = { ...data.studentPedagogy, intro: "", bullets: [] };
 
   return (
     <PgdmPage
-      data={await withProgramFaculty(applyProgramListing(PGDM_MUMBAI, doc), "mumbai", "pgdm")}
+      data={await withProgramFaculty(data, "mumbai", "pgdm")}
       accent="orange"
     />
   );
