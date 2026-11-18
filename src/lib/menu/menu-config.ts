@@ -86,6 +86,13 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "Awards & Accolades", href: "/about-us#awards" },
           ],
         },
+        {
+          heading: "Faculty",
+          links: [
+            { label: "Mumbai Faculty", href: "/about-us/faculty" },
+            { label: "Bengaluru Faculty", href: "/about-us/faculty/bengaluru" },
+          ],
+        },
       ],
     },
   },
@@ -94,13 +101,30 @@ export const MAIN_NAV: MainNavItem[] = [
     label: "Campus",
     href: "/campuses",
     panel: {
-      // Live-site structure: the three campus links only.
+      // Campus links, then each campus's student-life pages.
       intro: [
         { title: "Mumbai Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/mumbai" },
         { title: "MMS / PhD", subtitle: "Autonomous Institute affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
         { title: "Bengaluru Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/bengaluru" },
       ],
-      columns: [],
+      columns: [
+        {
+          heading: "Mumbai",
+          links: [
+            { label: "Life @ WeSchool", href: "/life-at-weschool" },
+            { label: "Library (LRC)", href: "/library" },
+            { label: "MDC", href: "/mdc" },
+          ],
+        },
+        {
+          heading: "Bengaluru",
+          links: [
+            { label: "Life @ WeSchool", href: "/life-at-weschool/bengaluru" },
+            { label: "Library (LRC)", href: "/library/bengaluru" },
+            { label: "MDC", href: "/mdc/bengaluru" },
+          ],
+        },
+      ],
     },
   },
   {
@@ -160,7 +184,7 @@ export const MAIN_NAV: MainNavItem[] = [
                 {
                   heading: "11 Months Post Graduate Program (Autonomous)",
                   links: [
-                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programmes/efmb" },
+                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programmes/pgp-entrepreneurship" },
                     { label: "PGP in Media & Entertainment", href: "/programmes/pgp-media" },
                   ],
                 },
