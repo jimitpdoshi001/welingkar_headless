@@ -71,9 +71,9 @@ function testimonialsFromChildren(
         role: attributes.field_designation || "",
         avatar: image?.url || "",
         avatarAlt: image?.alt || attributes.field_name || "",
-        // Optional Drupal link field (`field_video_url`); plain string also accepted.
-        // Drupal link field; the UI created it as `field_field_video_url`.
-        videoUrl: videoUri(
+        // Drupal link field (UI created it as `field_field_video_url`). Shown as a
+        // "Watch Video" link on the quote card, like the program pages (no thumbnails).
+        watchUrl: videoUri(
           (
             attributes as {
               field_video_url?: unknown;
@@ -83,7 +83,9 @@ function testimonialsFromChildren(
             (attributes as { field_video_url?: unknown }).field_video_url,
         ),
       };
-    });
+    })
+    // Quote cards only (program-page rule): entries without a quote or name are skipped.
+    .filter((t) => t.quote && t.name);
 }
 
 export const paragraphComponents: Record<
@@ -157,6 +159,7 @@ export const paragraphComponents: Record<
           >[0]["paragraph"]
         }
         testimonials={testimonialsFromChildren(item, page)}
+        compactMobile
       >
         {renderChildren(headerChildren)}
       </HomeCommunitySection>
