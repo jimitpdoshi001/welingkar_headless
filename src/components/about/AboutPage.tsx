@@ -11,7 +11,8 @@ import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { AboutData, AboutPerson } from "@/lib/about/about-data";
 import styles from "./AboutPage.module.scss";
 
-function BoardList({ id, heading, people }: { id: string; heading: string; people: AboutPerson[] }) {
+// splitRole: Drupal titles read "Designation - Role"; show the role on its own line, without the hyphen.
+function BoardList({ id, heading, people, splitRole = false }: { id: string; heading: string; people: AboutPerson[]; splitRole?: boolean }) {
   return (
     <section id={id} className={`container ${styles.block} ${styles.anchor}`}>
       <h2 className={styles.heading}>{heading}</h2>
@@ -21,7 +22,13 @@ function BoardList({ id, heading, people }: { id: string; heading: string; peopl
             key={p.id}
             className={styles.boardItem}>
             <p className={styles.boardName}>{p.name}</p>
-            <p className={styles.boardRole}>{p.title}</p>
+            {splitRole ? (
+              p.title.split(/\s+[-–]\s+/).map((line, i) => (
+                <p key={i} className={styles.boardRole}>{line}</p>
+              ))
+            ) : (
+              <p className={styles.boardRole}>{p.title}</p>
+            )}
           </div>
         ))}
       </div>
@@ -249,6 +256,7 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
                 id={board.id}
                 heading={board.heading}
                 people={board.people}
+                splitRole={isCdcBoard(board.heading)}
               />
             </Fragment>
           ))}
