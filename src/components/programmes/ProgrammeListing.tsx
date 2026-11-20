@@ -17,7 +17,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main
+        <main data-auto-reveal="reveal"
           style={
             {
               "--listing-strip": data.theme.strip,

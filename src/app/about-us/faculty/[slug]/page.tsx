@@ -35,7 +35,7 @@ export default async function FacultyMemberPage({ params }: Params) {
       <div className="GlobalLayout">
         <Header />
 
-        <main style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
+        <main data-auto-reveal="reveal" style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
           <FacultyProfile data={profile} />
         </main>
 

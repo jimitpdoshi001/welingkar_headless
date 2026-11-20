@@ -17,7 +17,7 @@ export function PgpEntrepreneurshipPage({ data }: { data: PgpData }) {
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
-        <main style={{ "--pgdm-band": "#493460" } as React.CSSProperties}>
+        <main data-auto-reveal="reveal" style={{ "--pgdm-band": "#493460" } as React.CSSProperties}>
           <PgpHero data={data.hero} />
           <PgpOverview data={data.overview} />
           {data.uspBand.cards.length > 0 ? <PgdmUspBand data={data.uspBand} /> : null}

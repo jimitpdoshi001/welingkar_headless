@@ -20,7 +20,7 @@ export function PublicationsPage() {
       <div className="GlobalLayout">
         <Header />
 
-        <main className={`container ${styles.main}`}>
+        <main data-auto-reveal="reveal" className={`container ${styles.main}`}>
           <WeResearchBreadcrumb current="WeResearch" tone="dark" className={styles.crumbs} />
           <h1 className={styles.srOnly}>Research Publications</h1>
           <PublicationsList

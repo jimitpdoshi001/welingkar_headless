@@ -38,7 +38,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
-        <main>
+        <main data-auto-reveal="reveal">
           <BlogDetail article={article} />
         </main>
         <SearchOverlay />

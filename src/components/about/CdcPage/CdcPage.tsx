@@ -14,7 +14,7 @@ export function CdcPage({ title, members }: { title: string; members: CdcMember[
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
-        <main>
+        <main data-auto-reveal="reveal">
           <section className={`container ${wf.intro} ${styles.intro}`}>
             <WeResearchBreadcrumb current={title} parent={{ label: "About Us", href: "/about-us" }} tone="dark" />
             <h1 className={wf.textTitle}>{title}</h1>

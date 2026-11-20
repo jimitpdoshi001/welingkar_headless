@@ -16,7 +16,7 @@ export function AlumniPage({ data }: { data: AlumniData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main data-auto-reveal="reveal">
           {/* Full-bleed hero under the transparent header (Figma 2962:1950) */}
           <section className={styles.hero}>
             <Image src={hero.image} alt="" fill priority sizes="100vw" className={styles.heroImg} />

@@ -27,7 +27,7 @@ export function TendersPage({ data, variant = "current" }: Props) {
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
-        <main className={`container ${styles.page}`}>
+        <main data-auto-reveal="reveal" className={`container ${styles.page}`}>
           <WeResearchBreadcrumb current={data.breadcrumb} tone="dark" />
           <h1 className={styles.heading}>{data.heading}</h1>
           <div className={`${styles.introRow} ${isArchive ? styles.introArchive : ""}`}>

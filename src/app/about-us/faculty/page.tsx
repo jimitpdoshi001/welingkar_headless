@@ -43,7 +43,7 @@ export default async function FacultyPreviewPage() {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
+        <main data-auto-reveal="reveal" style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
           <section className={styles.hero}>
             <img
               src={about?.hero.image || HERO_IMAGE}

@@ -14,7 +14,7 @@ export function MediaGridPage({ data }: { data: MediaGridData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main data-auto-reveal="reveal">
           <section className={styles.hero}>
             <img
               src={data.hero.image}

@@ -21,7 +21,7 @@ export function WeFactorDetailPage({ data }: { data: WeFactorDetailData }) {
       <div className="GlobalLayout">
         <Header />
 
-        <main>
+        <main data-auto-reveal="reveal">
           <section className={`container ${styles.intro}`}>
             <WeResearchBreadcrumb current={title} parent={parent} tone="dark" />
             <h1 className={styles.textTitle}>{title}</h1>

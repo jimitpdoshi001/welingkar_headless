@@ -20,7 +20,7 @@ export function LibraryPage({ data }: { data: LibraryData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main className={styles.page} style={theme}>
+        <main data-auto-reveal="reveal" className={styles.page} style={theme}>
           {/* Hero: full-bleed photo with dark fades */}
           <section className={styles.hero}>
             <img src={hero.image} alt="" className={styles.heroImage} />

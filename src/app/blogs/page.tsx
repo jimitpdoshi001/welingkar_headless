@@ -34,7 +34,7 @@ export default async function BlogsPage({ searchParams }: PageProps) {
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
-        <main>
+        <main data-auto-reveal="reveal">
           <BlogsListing listing={listing} />
         </main>
         <SearchOverlay />

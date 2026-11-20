@@ -50,7 +50,7 @@ export function WeGlobalPage({ data }: { data: WeGlobalData }) {
       <div className="GlobalLayout">
         <Header />
 
-        <main>
+        <main data-auto-reveal="reveal">
           {/* Hero + intro (Figma 1064:287 / 1064:290) */}
           <section className={`container ${styles.heroBlock}`}>
             <WeResearchBreadcrumb current="We Global" tone="dark" className={styles.breadcrumb} />
