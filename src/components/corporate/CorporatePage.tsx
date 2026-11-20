@@ -11,18 +11,22 @@ import { CorporateAccordion } from "./CorporateAccordion";
 import styles from "./CorporatePage.module.scss";
 
 /** Figma 3466:1642: Corporate page. Hero reuses the Alumni hero styles. */
-export function CorporatePage() {
+export type CorporateCampus = "mumbai" | "bengaluru";
+
+/** Same template per campus; only the campus colours and breadcrumb differ. */
+export function CorporatePage({ campus }: { campus: CorporateCampus }) {
+  const campusName = campus === "mumbai" ? "Mumbai" : "Bengaluru";
   const { overview, placements, recruiters, batch, studentProfile, stats } = CORPORATE;
   return (
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main className={styles[campus]}>
           <section className={hero.hero}>
             <Image src={CORPORATE.hero.image} alt="" fill priority sizes="100vw" className={hero.heroImg} />
             <div className={`container ${hero.heroInner}`}>
-              <WeResearchBreadcrumb current="Corporate" className={hero.breadcrumb} />
+              <WeResearchBreadcrumb current={`Corporate - ${campusName}`} className={hero.breadcrumb} />
               <div className={hero.heroText}>
                 <h1 className={hero.heroHeading}>{CORPORATE.hero.title}</h1>
                 <p className={`${hero.heroBody} ${styles.preLine}`}>{CORPORATE.hero.body}</p>

@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
-import { CorporatePage } from "@/components/corporate/CorporatePage";
-import { sitePageMetadata } from "@/lib/pages/page-metadata";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = sitePageMetadata("/corporate-interface");
-
+// The corporate page now exists per campus; the old address opens Mumbai.
 export default function Page() {
-  return <CorporatePage />;
+  redirect("/corporate-interface/mumbai");
 }

@@ -198,13 +198,12 @@ export const MAIN_NAV: MainNavItem[] = [
   {
     id: "corporates",
     label: "Corporates",
-    href: "/corporate-interface",
+    href: "", // label only: each campus has its own corporate page
     panel: {
       // Two entries only: one corporate page per campus.
       intro: [
-        { title: "Mumbai Campus", href: "/corporate-interface" },
-        // No Bengaluru corporate page yet: shares the Mumbai page until one exists.
-        { title: "Bengaluru Campus", href: "/corporate-interface" },
+        { title: "Mumbai", href: "/corporate-interface/mumbai" },
+        { title: "Bengaluru", href: "/corporate-interface/bengaluru" },
       ],
       columns: [],
     },
