@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { AlumniPage } from "@/components/alumni/AlumniPage";
-import { ALUMNI } from "@/lib/alumni/alumni-data";
+import { getAlumni } from "@/lib/drupal/pages/alumni";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/alumni");
 
-export default function Page() {
-  return <AlumniPage data={ALUMNI} />;
+export default async function Page() {
+  return <AlumniPage data={await getAlumni()} />;
 }

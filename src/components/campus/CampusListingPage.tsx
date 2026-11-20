@@ -7,9 +7,9 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import styles from "./CampusListingPage.module.scss";
 
-type Row = { id: string; title: string; eyebrow: string; body: string; image: string; href: string; reverse?: boolean };
+export type CampusRow = { id: string; title: string; eyebrow: string; body: string; image: string; href: string; reverse?: boolean };
 
-const ROWS: Row[] = [
+export const CAMPUS_ROWS: CampusRow[] = [
   {
     id: "mumbai",
     title: "Mumbai Campus",
@@ -37,7 +37,8 @@ const ROWS: Row[] = [
   },
 ];
 
-export function CampusListingPage() {
+/** Rows from Drupal (campus_listing node) when given; built-in rows otherwise. */
+export function CampusListingPage({ rows = CAMPUS_ROWS }: { rows?: CampusRow[] }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
@@ -68,7 +69,7 @@ export function CampusListingPage() {
             </nav>
           </div>
 
-          {ROWS.map((r) => (
+          {rows.map((r) => (
             <section
               key={r.id}
               className={`${styles.rowSection} ${r.reverse ? styles.tinted : ""}`}>

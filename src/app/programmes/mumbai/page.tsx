@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 import { ProgrammeListing } from "@/components/programmes/ProgrammeListing";
-import { LISTING_MUMBAI } from "@/lib/programmes/listing-data";
+import { getProgrammeListing } from "@/lib/drupal/pages/programme-listing";
 
 export const metadata: Metadata = {
   title: "Full-Time Programs in Mumbai — Welingkar",
   description: "Explore WeSchool Mumbai's full-time PGDM and MMS programs.",
 };
 
-export default function ProgrammesMumbaiPage() {
-  return <ProgrammeListing data={LISTING_MUMBAI} />;
+export default async function ProgrammesMumbaiPage() {
+  return <ProgrammeListing data={await getProgrammeListing("mumbai")} />;
 }

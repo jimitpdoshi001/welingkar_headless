@@ -110,7 +110,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
                 className={`${styles.rowSection} ${banded ? styles.banded : ""}`}>
                 <div className={`container ${styles.row} ${banded ? styles.reverse : ""}`}>
                   <img
-                    src={listingImage(data.campus, p.slug)}
+                    src={p.image || listingImage(data.campus, p.slug)}
                     alt=""
                     className={styles.image}
                   />
