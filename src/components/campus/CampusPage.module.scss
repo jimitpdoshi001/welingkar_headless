@@ -229,7 +229,17 @@
   width: calc(var(--rw-width) / 1440 * 100vw); height: calc(var(--rw-height) / 1440 * 100vw);
   // Cover so a photo whose aspect differs from its Figma box fills the box without stretching.
   object-fit: cover;
-  @include respond-to(tab) { inset: 0; width: 100%; height: 100%; }
+  // Fade the photo's own top and bottom edges to transparent, so a photo without
+  // the fade baked in (Bengaluru) blends into the white like Mumbai's does.
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 70%, transparent 100%);
+  // Tablet/mobile: the photo covers the whole section, so it must fade out
+  // before the "World of WeSchool" heading lower down.
+  @include respond-to(tab) {
+    inset: 0; width: 100%; height: 100%;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 40%, transparent 58%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 40%, transparent 58%);
+  }
 }
 .weresearch { text-align: center; margin-bottom: clamp(30rem, 55vw, 82rem); }
 .weresearchHeading { font-size: clamp(2.6rem, 2rem + 1.2vw, 4rem); font-weight: 800; line-height: 1.2; max-width: 61.1rem; margin: 0 auto 2.4rem; color: var(--color-black); }
