@@ -48,7 +48,11 @@ function tagAutoReveal(scope: HTMLElement) {
     const inFlowMediaClass =
       mode === "slide-right" ? "animate-fade-in-right" : mode === "reveal" ? "animate-reveal-clip" : "animate-fade-in";
     root.querySelectorAll<HTMLElement>(AUTO_MEDIA).forEach((el) => {
-      if (el.closest("[class*='animate-'], [data-no-reveal]")) return;
+      // Media still gets its own reveal inside a block that only fades/staggers in
+      // (e.g. Drupal-animated home sections); skip it when the media itself, or a
+      // wrapper running the clip reveal, is already animated.
+      if ([...el.classList].some((c) => c.startsWith("animate-"))) return;
+      if (el.closest(".animate-reveal-clip, [data-no-reveal]")) return;
       let cls = "animate-fade-in";
       if (inFlowMediaClass !== "animate-fade-in") {
         const pos = window.getComputedStyle(el).position;
