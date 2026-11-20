@@ -165,6 +165,8 @@ export function HomeWhatWeOfferClient({
                     src={item.image}
                     alt={item.imageAlt || item.name}
                     fill
+                    // Clip reveal on scroll and after a tab switch (card clips it).
+                    data-reveal="clip"
                     // Mumbai Executive photo: subject sits right of centre.
                     className={clsx(styles.cardImage, item.location === "mumbai" && /executive/i.test(item.name) && styles.cardImageRight)}
                     sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 30vw"

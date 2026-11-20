@@ -57,7 +57,9 @@ function tagAutoReveal(scope: HTMLElement) {
       let cls = "animate-fade-in";
       if (inFlowMediaClass !== "animate-fade-in") {
         const pos = window.getComputedStyle(el).position;
-        if (pos !== "absolute" && pos !== "fixed") cls = inFlowMediaClass;
+        // data-reveal="clip": an absolutely positioned image inside a clipped card
+        // that may still use the clip reveal (no gap can show behind it).
+        if ((pos !== "absolute" && pos !== "fixed") || el.dataset.reveal === "clip") cls = inFlowMediaClass;
       }
       el.classList.add(cls);
       el.dataset.animationDuration ??= "1.4";
@@ -69,6 +71,9 @@ function tagAutoReveal(scope: HTMLElement) {
 // Ensure ScrollTrigger is registered safely on the client side
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
+  // Mobile address bar show/hide resizes the viewport while scrolling; without
+  // this every scroll triggers a full refresh, which makes the page flicker.
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 interface ScrollAnimationContextType {
@@ -334,7 +339,11 @@ export function ScrollAnimationProvider({
             const element = node as HTMLElement;
             if (
               element.matches?.("[class*='animate-'], .animate-stagger") ||
-              element.querySelector?.("[class*='animate-'], .animate-stagger")
+              element.querySelector?.("[class*='animate-'], .animate-stagger") ||
+              // New media inside an auto-reveal root (e.g. slides shown after a tab
+              // switch) still needs tagging, though it has no animation class yet.
+              (element.closest?.("[data-auto-reveal]") &&
+                (element.matches?.(AUTO_MEDIA) || element.querySelector?.(AUTO_MEDIA)))
             ) {
               hasNewAnimatedElements = true;
             }

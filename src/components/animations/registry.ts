@@ -46,7 +46,9 @@ export const ANIMATION_REGISTRY: Record<string, AnimationPreset> = {
   // slight zoom. Matches the fishermedia "Our Blog" card reveal.
   "animate-reveal-clip": {
     from: { clipPath: "inset(0% 50% 0% 50%)", scale: 1.12 },
-    to: { clipPath: "inset(0% 0% 0% 0%)", scale: 1 },
+    // clearProps: drop the inline clip/transform once revealed, so CSS hover zooms
+    // and later layout changes are not overridden by leftover inline styles.
+    to: { clipPath: "inset(0% 0% 0% 0%)", scale: 1, clearProps: "clipPath,transform,scale" },
   },
   "animate-fade-in-down": {
     from: { opacity: 0, y: -60 },
