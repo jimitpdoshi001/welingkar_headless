@@ -12,8 +12,7 @@ type GalleryGridProps = {
 // the gallery on the Drupal "Campus Bengaluru" page (editors update it there).
 const BENGALURU_GALLERY_ID = "e7482f09-2288-417e-90f6-e4ec1393ed7f";
 
-// Mumbai photos supplied for this section (1000x667). The desktop grid needs 6
-// images, so these fill slots 1-5 and Drupal's 6th image stays in the last slot.
+// Mumbai photos supplied for this section (1000x667), one per desktop grid slot.
 const MUMBAI_IMAGES: DrupalImage[] = [
   // Tall first slot: keep the two students (right side of the photo) in frame.
   { alt: "Students talking by the Create Collaborate Innovate wall", position: "78% center" },
@@ -21,6 +20,7 @@ const MUMBAI_IMAGES: DrupalImage[] = [
   { alt: "Students laughing together on the campus steps" },
   { alt: "Students reading in the library" },
   { alt: "Students working on a project in the innovation lab" },
+  { alt: "Two students sharing a handshake by the WeSchool sign" },
 ].map((img, i) => ({ ...img, url: `/home/moments/mumbai-${i + 1}.webp`, width: 1000, height: 667 }));
 
 export async function GalleryGrid({ paragraph, images = [], children }: GalleryGridProps) {
