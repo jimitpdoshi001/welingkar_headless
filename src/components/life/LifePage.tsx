@@ -23,7 +23,7 @@ export function LifePage({ data }: { data: LifeData }) {
         {/* data-auto-reveal: scroll fade-in for text, media and buttons.
             --life-band drives the gallery/visit band colour per campus. */}
         <main
-          data-auto-reveal=""
+          data-auto-reveal="reveal"
           style={{ ["--life-band" as string]: isRed ? "#b04535" : "var(--color-secondary)" }}>
           {/* Hero (Figma 1384:134): 650px, breadcrumb top-left, title bottom-left. */}
           <section className={styles.hero}>

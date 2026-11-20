@@ -27,7 +27,7 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
 
         {/* data-auto-reveal: scroll fade-in for text, media and buttons (ScrollAnimationProvider). */}
         <main
-          data-auto-reveal=""
+          data-auto-reveal="reveal"
           className={`${styles.page} ${data.accent === "orange" ? styles.orangeCtas : ""}`}
           style={
             {
