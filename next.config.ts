@@ -89,15 +89,18 @@ const nextConfig: NextConfig = {
     ],
   },
   // SEO: the current welingkar.org addresses serve the matching pages here
-  // (the address stays in the browser). afterFiles: checked before dynamic
-  // routes, so e.g. /events/mumbai or /we-factor/* are not caught by them.
+  // (the address stays in the browser). beforeFiles: applied before pages and
+  // prerendered files, so a Drupal page prerendered at the same address by the
+  // [[...slug]] catch-all (e.g. /campus-bengaluru) can never win over ours.
   async rewrites() {
-    return [
-      ...PUBLIC_PATHS.map(([source, destination]) => ({ source, destination })),
-      { source: `${PROFILE_PREFIX.live}/:slug`, destination: `${PROFILE_PREFIX.internal}/:slug` },
-      // Live Bengaluru profiles carry a "banglore/" segment.
-      { source: `${PROFILE_PREFIX.live}/banglore/:slug`, destination: `${PROFILE_PREFIX.internal}/:slug` },
-    ];
+    return {
+      beforeFiles: [
+        ...PUBLIC_PATHS.map(([source, destination]) => ({ source, destination })),
+        { source: `${PROFILE_PREFIX.live}/:slug`, destination: `${PROFILE_PREFIX.internal}/:slug` },
+        // Live Bengaluru profiles carry a "banglore/" segment.
+        { source: `${PROFILE_PREFIX.live}/banglore/:slug`, destination: `${PROFILE_PREFIX.internal}/:slug` },
+      ],
+    };
   },
   async headers() {
     return [

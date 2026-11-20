@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import Link from "next/link";
 
 import Header from "@/components/Header/Header";
@@ -43,6 +43,41 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
   };
 
   const d = data;
+
+  // Chairman / Vice Chairman desks: alternate purple and cream bands.
+  const renderDesk = (desk: AboutData["desks"][number], i: number) => (
+
+            <section
+              key={desk.heading}
+              id={i === 0 ? "chairman" : i === 1 ? "vice-chairman" : undefined}
+              className={`${i % 2 ? `mt-5 ${styles.bandCream}` : styles.bandPurple} ${styles.anchor}`}>
+              <div className={`container ${styles.block} ${styles.chairman} ${i % 2 ? styles.chairmanReverse : ""}`}>
+                {desk.image && i % 2 === 0 ? (
+                  <img
+                    src={desk.image}
+                    alt={desk.name}
+                    className={styles.chairmanImage}
+                  />
+                ) : null}
+                <div className={styles.chairmanText}>
+                  <h2 className={styles.heading}>{desk.heading}</h2>
+                  {desk.html ? <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: desk.html }} /> : null}
+                  {desk.name ? <p className={styles.personName}>{desk.name}</p> : null}
+                  {desk.title ? <p className={styles.personRole}>{desk.title}</p> : null}
+                </div>
+                {desk.image && i % 2 === 1 ? (
+                  <img
+                    src={desk.image}
+                    alt={desk.name}
+                    className={styles.chairmanImage}
+                  />
+                ) : null}
+              </div>
+            </section>
+  );
+  // The CDC Chairman's desk sits just above the College Development Committee.
+  const isCdcDesk = (heading: string) => /\bCDC\b/i.test(heading);
+  const isCdcBoard = (heading: string) => /college development committee/i.test(heading);
 
   return (
     <SearchProvider>
@@ -128,36 +163,8 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
             </section>
           ) : null}
 
-          {/* Chairman / Vice Chairman desks: alternate purple and cream bands. */}
-          {d?.desks.map((desk, i) => (
-            <section
-              key={desk.heading}
-              id={i === 0 ? "chairman" : i === 1 ? "vice-chairman" : undefined}
-              className={`${i % 2 ? `mt-5 ${styles.bandCream}` : styles.bandPurple} ${styles.anchor}`}>
-              <div className={`container ${styles.block} ${styles.chairman} ${i % 2 ? styles.chairmanReverse : ""}`}>
-                {desk.image && i % 2 === 0 ? (
-                  <img
-                    src={desk.image}
-                    alt={desk.name}
-                    className={styles.chairmanImage}
-                  />
-                ) : null}
-                <div className={styles.chairmanText}>
-                  <h2 className={styles.heading}>{desk.heading}</h2>
-                  {desk.html ? <div className={`${styles.body} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: desk.html }} /> : null}
-                  {desk.name ? <p className={styles.personName}>{desk.name}</p> : null}
-                  {desk.title ? <p className={styles.personRole}>{desk.title}</p> : null}
-                </div>
-                {desk.image && i % 2 === 1 ? (
-                  <img
-                    src={desk.image}
-                    alt={desk.name}
-                    className={styles.chairmanImage}
-                  />
-                ) : null}
-              </div>
-            </section>
-          ))}
+          {/* Chairman desks (the CDC desk is shown above the College Development Committee). */}
+          {d?.desks.map((desk, i) => (isCdcDesk(desk.heading) ? null : renderDesk(desk, i)))}
 
           {/* Who We Are (WeSchool watermark). */}
           {d?.whoWeAre.paragraphs.length ? (
@@ -222,12 +229,16 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
           ) : null}
           {/* Advisory boards / committees (only those with people). */}
           {d?.boards.map((board) => (
-            <BoardList
-              key={board.id}
-              id={board.id}
-              heading={board.heading}
-              people={board.people}
-            />
+            <Fragment key={board.id}>
+              {isCdcBoard(board.heading)
+                ? d.desks.map((desk, i) => (isCdcDesk(desk.heading) ? renderDesk(desk, i) : null))
+                : null}
+              <BoardList
+                id={board.id}
+                heading={board.heading}
+                people={board.people}
+              />
+            </Fragment>
           ))}
 
           {/* Accreditations (Figma 2292:147..): heading + 2x2 bordered cards. */}
