@@ -137,11 +137,12 @@ export const MAIN_NAV: MainNavItem[] = [
     href: "", // label only: the /programmes page was removed
     panel: {
       // Live-site structure: hover a campus on the left to switch its programs.
-      // Campus names are tabs only (no link): this menu links to program pages only.
+      // Titles link to each location's PGDM programme page (programme pages only, no campus pages).
       intro: [
         {
           title: "PGDM Mumbai",
           subtitle: "AICTE approved standalone institute",
+          href: "/programmes/full-time-programme-in-mumbai/pgdm",
           columns: [
             { heading: "Full-Time Programs", headingHref: "/programmes/full-time-programme-in-mumbai", links: FULL_TIME_PGDM },
             {
@@ -182,6 +183,7 @@ export const MAIN_NAV: MainNavItem[] = [
         {
           title: "PGDM Bengaluru",
           subtitle: "AICTE approved standalone institute",
+          href: "/programmes/full-time-programme-in-bengaluru/pgdm",
           columns: [
             {
               heading: "Full-Time Programs",
