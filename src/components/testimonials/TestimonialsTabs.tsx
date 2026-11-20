@@ -7,6 +7,9 @@ import { VideoPopup } from "@/components/campus/VideoPopup/VideoPopup";
 import type { TestimonialTab } from "@/lib/testimonials/testimonials-data";
 import styles from "./TestimonialsPage.module.scss";
 
+/** Drupal images are full URLs/paths; built-in ones are file names in /public/testimonials. */
+const imageSrc = (image: string) => (/^(https?:)?\//.test(image) ? image : `/testimonials/${image}`);
+
 /** Tabs + one-at-a-time slider; only the active tab's track is rendered. */
 export function TestimonialsTabs({ tabs }: { tabs: TestimonialTab[] }) {
   const [activeId, setActiveId] = useState(tabs[0]?.id);
@@ -42,11 +45,11 @@ export function TestimonialsTabs({ tabs }: { tabs: TestimonialTab[] }) {
             <div className={styles.media}>
               {item.video ? (
                 <VideoPopup videoUrl={item.video} title={item.name} className={styles.play}>
-                  <img src={`/testimonials/${item.image}`} alt={item.name} className={styles.photo} loading="lazy" />
+                  <img src={imageSrc(item.image)} alt={item.name} className={styles.photo} loading="lazy" />
                   <img src="/testimonials/play.svg" alt="" className={styles.playIcon} aria-hidden="true" />
                 </VideoPopup>
               ) : (
-                <img src={`/testimonials/${item.image}`} alt={item.name} className={styles.photo} loading="lazy" />
+                <img src={imageSrc(item.image)} alt={item.name} className={styles.photo} loading="lazy" />
               )}
             </div>
             <blockquote className={styles.panel}>
