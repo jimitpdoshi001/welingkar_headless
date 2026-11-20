@@ -77,10 +77,10 @@ export function MediaGridPage({ data }: { data: MediaGridData }) {
                   className={styles.card}>
                   <img
                     src={c.image}
-                    alt=""
+                    alt={c.text}
                   />
                   <div className={styles.caption}>
-                    <p className={styles.date}>{c.date}</p>
+                    {c.date ? <p className={styles.date}>{c.date}</p> : null}
                     <p className={styles.text}>{c.text}</p>
                     <Link
                       href={c.href}
