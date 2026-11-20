@@ -232,7 +232,7 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
 
           {/* Accreditations (Figma 2292:147..): heading + 2x2 bordered cards. */}
           {d?.accreditations.length ? (
-            <section>
+            <section className={styles.accredSection}>
               <div className={`container ${styles.block}`}>
                 <h2 className={styles.heading}>{d.accreditationsHeading || "Accreditations"}</h2>
                 <div className={styles.accredGrid}>

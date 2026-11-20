@@ -216,27 +216,13 @@ export const MAIN_NAV: MainNavItem[] = [
     label: "Corporates",
     href: "/corporate-interface",
     panel: {
-      columns: [
-        {
-          heading: "Recruit",
-          headingHref: "/corporate-interface",
-          links: [
-            { label: "Corporate Overview", href: "/corporate-interface" },
-            { label: "Why Recruit from WeSchool", href: "/corporate-interface#why-recruit" },
-            { label: "Top Recruiters", href: "/corporate-interface/top-recruiters" },
-            { label: "Placement Cell Contact", href: "/corporate-interface/placement-contact" },
-            { label: "Corporate Testimonials", href: "/corporate-interface/testimonials" },
-          ],
-        },
-        {
-          heading: "Engage",
-          links: [
-            { label: "MDP & EEP", href: "/programmes/mdp" },
-            { label: "Projects & Internships", href: "/corporate-interface/internships" },
-            { label: "Industry Advisory Board", href: "/about-us/industry-advisory-board" },
-          ],
-        },
+      // Two entries only: one corporate page per campus.
+      intro: [
+        { title: "Mumbai", href: "/corporate-interface" },
+        // No Bengaluru corporate page yet: shares the Mumbai page until one exists.
+        { title: "Bengaluru", href: "/corporate-interface" },
       ],
+      columns: [],
     },
   },
   {
