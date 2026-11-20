@@ -90,7 +90,7 @@ export function SocialBar() {
       </ul>
       <button
         type="button"
-        className={style.item}
+        className={`${style.item} ${style.share}`}
         aria-label="Follow WeSchool on social media"
         aria-expanded={open}
         aria-controls="social-bar-links"
