@@ -180,6 +180,8 @@ export const getFacultyDirectory = cache(async (): Promise<FacultyRecord[] | nul
  */
 export async function getCampusFacultyGrid(
   campus: FacultyCampus,
+  /** Campus Mumbai page: "Faculty" tab split by designation (see ROLE_TABS). */
+  options: { roleTabs?: boolean } = {},
 ): Promise<{ categories: FacultyCategory[]; members: FacultyMember[] } | null> {
   const all = await getFacultyDirectory();
   if (!all) return null;
@@ -189,13 +191,19 @@ export async function getCampusFacultyGrid(
   const records = all.filter((r) => r.campus === campus);
   // Tabs: Deans, Associate Deans & Heads, Faculty + the 8 programs (dropdown), in
   // this order and with these names; other subject categories are left out.
-  const present = new Set(records.flatMap((r) => r.categories.map((c) => c.slug)));
-  const categories = MUMBAI_TABS.filter((tab) => present.has(tab.slug)).map((tab) => ({ id: tab.slug, ...tab }));
+  const tabs = options.roleTabs
+    ? MUMBAI_TABS.flatMap((tab) => (tab.slug === "faculty" ? ROLE_TABS.map(({ slug, name }) => ({ slug, name })) : [tab]))
+    : MUMBAI_TABS;
   const members: FacultyMember[] = records.map((r) => {
     // An "Associate Dean" belongs under Associate Deans & Heads only, even if
     // Drupal also tags them as Deans.
     const associate = /associate\s+dean/i.test(r.designation);
-    const slugs = r.categories.map((c) => c.slug).filter((slug) => !(associate && slug === "deans"));
+    let slugs = r.categories.map((c) => c.slug).filter((slug) => !(associate && slug === "deans"));
+    if (options.roleTabs) {
+      // Role tabs come from the designation; the generic "faculty" tag is dropped.
+      const roles = ROLE_TABS.filter((t) => t.match.test(r.designation)).map((t) => t.slug);
+      slugs = [...slugs.filter((slug) => slug !== "faculty" && slug !== "librarian"), ...roles];
+    }
     return {
     id: r.id,
     name: r.name,
@@ -207,8 +215,20 @@ export async function getCampusFacultyGrid(
     link: `/about-us/faculty/${r.slug}`,
     };
   });
+  // Only tabs that have people, in the fixed order above.
+  const present = new Set(members.flatMap((m) => m.categorySlugs ?? []));
+  const categories = tabs.filter((tab) => present.has(tab.slug)).map((tab) => ({ id: tab.slug, ...tab }));
   return { categories, members };
 }
+
+// Campus Mumbai faculty section: these replace the "Faculty" tab, matched on
+// the designation (e.g. "Assistant Professor - Operations", "Deputy Librarian").
+const ROLE_TABS: { slug: string; name: string; match: RegExp }[] = [
+  { slug: "assistant-professor", name: "Assistant Professor", match: /assistant\s+professor/i },
+  { slug: "associate-professor", name: "Associate Professor", match: /associate\s+professor/i },
+  { slug: "registrar", name: "Registrar", match: /registrar/i },
+  { slug: "role-librarian", name: "Librarian", match: /librarian/i },
+];
 
 /** Deans / Associate Deans / Faculty from a designation (Bengaluru sheet rule). */
 function roleTab(designation: string): "deans" | "associate-deans" | "faculty" {

@@ -62,6 +62,18 @@
   }
 }
 
+// Share trigger keeps the old share button's colours: purple with a white icon.
+.share {
+  background: var(--color-secondary);
+  color: var(--color-white);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .links { transition: none; }
 }

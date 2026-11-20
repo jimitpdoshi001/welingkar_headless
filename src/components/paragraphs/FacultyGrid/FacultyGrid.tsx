@@ -16,8 +16,8 @@ type FacultyGridProps = {
   step?: number;
 };
 
-// First three tabs, in this order of preference; shown with the Figma labels.
-const PRIMARY_TAB_SLUGS = ["deans", "associate-deans", "faculty"];
+// Main tabs, in this order; the role tabs (Campus Mumbai) replace "faculty".
+const PRIMARY_TAB_SLUGS = ["deans", "associate-deans", "faculty", "assistant-professor", "associate-professor", "registrar", "role-librarian"];
 const TAB_LABELS: Record<string, string> = {
   deans: "Deans",
   "associate-deans": "Associate Deans & Heads",

@@ -18,7 +18,7 @@ export default async function MumbaiCampusPage() {
   return (
     <CampusPage
       data={data}
-      mentors={await getCampusFacultyGrid("mumbai")}
+      mentors={await getCampusFacultyGrid("mumbai", { roleTabs: true })}
     />
   );
 }
