@@ -17,11 +17,14 @@ export function CdcPage({
   members,
   intro,
   parent = { label: "About Us", href: "/who-we-are" },
+  columns = 5,
 }: {
   title: string;
   members: CdcMember[];
   intro?: string;
   parent?: { label: string; href: string };
+  /** Grid columns on desktop (CDC: 5; extended faculty pages: 4). */
+  columns?: 4 | 5;
 }) {
   return (
     <SearchProvider>
@@ -34,7 +37,7 @@ export function CdcPage({
             {intro ? <p className={wf.textBody}>{intro}</p> : null}
           </section>
           <section className={`container ${styles.section}`}>
-            <ul className={styles.grid}>
+            <ul className={`${styles.grid} ${columns === 4 ? styles.grid4 : ""}`}>
               {members.map((m) => (
                 <li key={`${m.name}-${m.designation}`} className={styles.member}>
                   <h2 className={styles.name}>{m.name}</h2>

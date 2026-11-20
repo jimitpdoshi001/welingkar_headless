@@ -19,6 +19,14 @@
   @include respond-to(mobile) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4rem 2.4rem; }
 }
 
+// Extended faculty pages: 4 per row on desktop.
+.grid4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  @include respond-to(tab) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @include respond-to(mobile) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
 .name {
   margin: 0 0 1rem;
   font-size: 2rem;
