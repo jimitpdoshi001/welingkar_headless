@@ -86,13 +86,6 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "Awards & Accolades", href: "/about-us#awards" },
           ],
         },
-        {
-          heading: "Faculty",
-          links: [
-            { label: "Mumbai Faculty", href: "/about-us/faculty" },
-            { label: "Bengaluru Faculty", href: "/about-us/faculty/bengaluru" },
-          ],
-        },
       ],
     },
   },
@@ -133,15 +126,6 @@ export const MAIN_NAV: MainNavItem[] = [
             { label: "TFW Scheme", href: "/admissions" },
             { label: "Scholarships", href: "/admissions" },
             { label: "Financial Assistance", href: "/admissions" },
-          ],
-        },
-        {
-          heading: "Programs",
-          links: [
-            { label: "PGDM", href: "/programmes/pgdm" },
-            { label: "MMS", href: "/programmes/mms" },
-            { label: "PhD", href: "/programmes/phd" },
-            { label: "Executive & MDP", href: "/programmes/mdp" },
           ],
         },
       ],
@@ -218,9 +202,9 @@ export const MAIN_NAV: MainNavItem[] = [
     panel: {
       // Two entries only: one corporate page per campus.
       intro: [
-        { title: "Mumbai", href: "/corporate-interface" },
+        { title: "Mumbai Campus", href: "/corporate-interface" },
         // No Bengaluru corporate page yet: shares the Mumbai page until one exists.
-        { title: "Bengaluru", href: "/corporate-interface" },
+        { title: "Bengaluru Campus", href: "/corporate-interface" },
       ],
       columns: [],
     },
