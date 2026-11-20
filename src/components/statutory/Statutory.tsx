@@ -6,21 +6,31 @@ import {
   CAREER_OPENINGS,
   CAREER_OPTIONS,
   GRIEVANCE_OPTIONS,
+  type DisclosureGroup,
   type DocLink,
 } from "@/lib/statutory/statutory-data";
 import styles from "./Statutory.module.scss";
 
 // Figma 1610:771: side menu + collapsible campus groups of disclosure PDFs.
 export function MandatoryDisclosure() {
+  return <DisclosureLayout active="Mandatory Disclosure" groups={DISCLOSURE_GROUPS} />;
+}
+
+/**
+ * Shared disclosure layout (Mandatory Disclosure + Accreditation pages): side
+ * menu with the active entry highlighted, then the document groups. A group
+ * without a title lists its documents directly.
+ */
+export function DisclosureLayout({ active, groups }: { active: string; groups: DisclosureGroup[] }) {
   return (
     <section className={`container ${styles.block} ${styles.disclosure}`}>
       <nav className={styles.sideNav} aria-label="Disclosures">
-        {DISCLOSURE_NAV.map((item, i) => (
+        {DISCLOSURE_NAV.map((item) => (
           <Link
             key={item.label}
             href={item.href}
-            aria-current={i === 0 ? "page" : undefined}
-            className={i === 0 ? styles.sideActive : undefined}
+            aria-current={item.label === active ? "page" : undefined}
+            className={item.label === active ? styles.sideActive : undefined}
           >
             {item.label}
           </Link>
@@ -28,9 +38,11 @@ export function MandatoryDisclosure() {
       </nav>
 
       <div className={styles.groups}>
-        {DISCLOSURE_GROUPS.map((g, i) =>
-          // Native <details> gives keyboard-accessible toggling without client JS.
-          g.links.length ? (
+        {groups.map((g, i) =>
+          !g.title ? (
+            <DocList key={`untitled-${i}`} links={g.links} className={styles.disclosureLinks} />
+          ) : g.links.length ? (
+            // Native <details> gives keyboard-accessible toggling without client JS.
             <details key={g.title} className={styles.group} open={i === 0}>
               <summary className={styles.groupTitle}>{g.title}</summary>
               <DocList links={g.links} className={styles.disclosureLinks} />

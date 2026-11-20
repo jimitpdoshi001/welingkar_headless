@@ -6,35 +6,158 @@
 
 export type DocLink = { label: string; href: string };
 
-// Left-hand menu shared by the disclosure pages; only the active page has a route today.
+// Left-hand menu shared by the disclosure pages: Mandatory Disclosure has its
+// own page; every other entry is a section of the Accreditation page.
 export const DISCLOSURE_NAV: DocLink[] = [
   { label: "Mandatory Disclosure", href: "/mandatory-disclosure" },
-  { label: "AICTE Approvals", href: "#" },
-  { label: "NIRF", href: "#" },
-  { label: "AIU Equivalence", href: "#" },
-  { label: "ARIIA", href: "#" },
-  { label: "SAQS Accreditation", href: "#" },
-  { label: "NBA", href: "#" },
-  { label: "ACBSP accreditation", href: "#" },
+  { label: "AICTE Approvals", href: "/accreditation?section=aicte-approvals" },
+  { label: "NIRF", href: "/accreditation?section=nirf" },
+  { label: "AIU Equivalence", href: "/accreditation?section=aiu-equivalence" },
+  { label: "ARIIA", href: "/accreditation?section=ariia" },
+  { label: "SAQS Accreditation", href: "/accreditation?section=saqs" },
+  { label: "NBA", href: "/accreditation?section=nba" },
+  { label: "ACBSP accreditation", href: "/accreditation?section=acbsp" },
 ];
-
-const PGDM_YEARS = ["2025-26", "2024-25", "2023-24", "2022-23", "2021-22", "2020-21"];
 
 export type DisclosureGroup = { title: string; links: DocLink[] };
 
+// From the current site's Mandatory Disclosures page; files copied into
+// /public/mandatory-disclosure/docs.
 export const DISCLOSURE_GROUPS: DisclosureGroup[] = [
   {
-    title: "Mumbai",
-    links: PGDM_YEARS.map((y) => ({
-      label: `Mandatory disclosure of ( Academic Year ${y}) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).`,
-      href: "#",
-    })),
+    "title": "Mumbai",
+    "links": [
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2025-26) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).",
+        "href": "/mandatory-disclosure/docs/pgdm_mandatory_disclosure_2025_26_updated.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2024-25) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).",
+        "href": "/mandatory-disclosure/docs/pgdm-mandatory-disclosure-2024-25.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2023-24) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).",
+        "href": "/mandatory-disclosure/docs/pgdm-mandatory-disclosure-ay-2023-24--revised.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2022-23) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).",
+        "href": "/mandatory-disclosure/docs/pgdm-mandatory-disclosure-2022-23.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2021-22) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).",
+        "href": "/mandatory-disclosure/docs/pgdm-mandatory-disclosure-2021-22.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2020-21) of Prin L.N.Welingkar Institute of Management Development & Research ( PGDM).",
+        "href": "/mandatory-disclosure/docs/pgdm-mandatory-disclosure-2020-21.pdf"
+      }
+    ]
   },
-  { title: "Bengaluru", links: [] },
-  { title: "MMS", links: [] },
-  { title: "Annexure 1", links: [] },
-  { title: "Annexure 2", links: [] },
-  { title: "Annexure 3", links: [] },
+  {
+    "title": "Bengaluru",
+    "links": [
+      {
+        "label": "WeSchool, Bengaluru - Details of AICTE Mandatory Committees",
+        "href": "/mandatory-disclosure/docs/weschool-bengaluru-details-of-aicte-mandatory-committees.pdf"
+      },
+      {
+        "label": "Mandatory disclosure for the year AY 2025-2026",
+        "href": "/mandatory-disclosure/docs/mandatorydisclosure2025-2026.pdf"
+      },
+      {
+        "label": "Mandatory disclosure for the year AY 2024-2025",
+        "href": "/mandatory-disclosure/docs/mandatory_disclosure_2024-25.pdf"
+      },
+      {
+        "label": "Mandatory disclosure for the year AY 2023-2024",
+        "href": "/mandatory-disclosure/docs/mandatory-disclosure-2023-2024.pdf"
+      }
+    ]
+  },
+  {
+    "title": "MMS",
+    "links": [
+      {
+        "label": "Mandatory Disclosure (Academic Year 2020-21) of Prin. L.N. Welingkar Institute of Management Development & Research, Mumbai",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2020-2021.pdf"
+      },
+      {
+        "label": "Mandatory Disclosure (Academic Year 2021-22)of Prin.L.N.Welingkar Institute of Management Development and Research (MMS)",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2021-22.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2025-26) of Prin L.N.Welingkar Institute of Management Development & Research ( MMS).",
+        "href": "/mandatory-disclosure/docs/mms_mandatory_disclosure_2025_26_final.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2024-25) of Prin L.N.Welingkar Institute of Management Development & Research ( MMS).",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2024-25_revised.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2023-24) of Prin L.N.Welingkar Institute of Management Development & Research ( MMS).",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2023-24-revised.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2022-23) of Prin L.N.Welingkar Institute of Management Development & Research ( MMS).",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2022-23.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2021-22) of Prin L.N.Welingkar Institute of Management Development & Research ( MMS).",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2021-22-16.pdf"
+      },
+      {
+        "label": "Mandatory disclosure of ( Academic Year 2020-21) of Prin L.N.Welingkar Institute of Management Development & Research ( MMS).",
+        "href": "/mandatory-disclosure/docs/mms-mandatory-disclosure-2020-21.pdf"
+      },
+      {
+        "label": "Fee Proposal AY 2024-25",
+        "href": "/mandatory-disclosure/docs/proposal-for-fixation-of-fees-for-the-ay-2024-25.pdf"
+      }
+    ]
+  },
+  {
+    "title": "Annexure 1",
+    "links": [
+      {
+        "label": "Organisation Chart",
+        "href": "/mandatory-disclosure/docs/organization_chart_mms.pdf"
+      }
+    ]
+  },
+  {
+    "title": "Annexure 2",
+    "links": [
+      {
+        "label": "Director's Profile",
+        "href": "/mandatory-disclosure/docs/directors-profile.pptx"
+      }
+    ]
+  },
+  {
+    "title": "Annexure 3",
+    "links": [
+      {
+        "label": "MoM of Academic Council",
+        "href": "/mandatory-disclosure/docs/mom-of-academic-council.pdf"
+      },
+      {
+        "label": "MoM of Board of Studies",
+        "href": "/mandatory-disclosure/docs/mom-of-board-of-studies.pdf"
+      },
+      {
+        "label": "MoM of Finance Committee",
+        "href": "/mandatory-disclosure/docs/mom-of-finance-committee.pdf"
+      },
+      {
+        "label": "MoM of Governing Body",
+        "href": "/mandatory-disclosure/docs/mom-of-governing-body.pdf"
+      },
+      {
+        "label": "MoM of IQAC",
+        "href": "/mandatory-disclosure/docs/mom-of-iqac.pdf"
+      }
+    ]
+  }
 ];
 
 export const AUTONOMY_DOCS: DocLink[] = [
