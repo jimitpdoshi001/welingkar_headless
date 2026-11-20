@@ -55,6 +55,16 @@ export const MEDIA_PAGE: MediaGridData = {
     { label: "Video gallery", href: "/media/videos" },
   ],
   filters: ["Select Category", "Select Year", "Sort By"],
-  cards: cards(12),
+  cards: [
+    // Real coverage first; external article opens in a new tab (site link rule).
+    {
+      id: "asean-round-table",
+      image: "/media/asean-round-table.webp",
+      date: "May 09, 2025",
+      text: "ASEAN Round Table in WeSchool for strengthening regional peace and prosperity",
+      href: "https://indiaeducationdiary.in/asean-round-table-in-weschool-for-strengthening-regional-peace-and-prosperity/",
+    },
+    ...cards(12),
+  ],
   loadMore: true,
 };
