@@ -78,6 +78,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[0].url ?? ""}
               alt={galleryImages[0].alt}
+              style={galleryImages[0].position ? { objectPosition: galleryImages[0].position } : undefined}
               width={galleryImages[0].width ?? 800}
               height={galleryImages[0].height ?? 600}
               className="img-fluid w-100"
@@ -87,6 +88,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[1].url ?? ""}
               alt={galleryImages[1].alt}
+              style={galleryImages[1].position ? { objectPosition: galleryImages[1].position } : undefined}
               width={galleryImages[1].width ?? 800}
               height={galleryImages[1].height ?? 600}
               className="img-fluid w-100"
@@ -96,6 +98,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[2].url ?? ""}
               alt={galleryImages[2].alt}
+              style={galleryImages[2].position ? { objectPosition: galleryImages[2].position } : undefined}
               width={galleryImages[2].width ?? 800}
               height={galleryImages[2].height ?? 600}
               className="img-fluid w-100"
@@ -105,6 +108,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[3].url ?? ""}
               alt={galleryImages[3].alt}
+              style={galleryImages[3].position ? { objectPosition: galleryImages[3].position } : undefined}
               width={galleryImages[3].width ?? 800}
               height={galleryImages[3].height ?? 600}
               className="img-fluid w-100"
@@ -114,6 +118,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[4].url ?? ""}
               alt={galleryImages[4].alt}
+              style={galleryImages[4].position ? { objectPosition: galleryImages[4].position } : undefined}
               width={galleryImages[4].width ?? 800}
               height={galleryImages[4].height ?? 600}
               className="img-fluid w-100"
@@ -123,6 +128,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[5].url ?? ""}
               alt={galleryImages[5].alt}
+              style={galleryImages[5].position ? { objectPosition: galleryImages[5].position } : undefined}
               width={galleryImages[5].width ?? 800}
               height={galleryImages[5].height ?? 600}
               className="img-fluid w-100"
@@ -150,6 +156,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[0].url ?? ""}
               alt={galleryImages[0].alt}
+              style={galleryImages[0].position ? { objectPosition: galleryImages[0].position } : undefined}
               width={galleryImages[0].width ?? 800}
               height={galleryImages[0].height ?? 600}
               className="img-fluid w-100"
@@ -160,6 +167,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
               <Image
                 src={galleryImages[2].url ?? ""}
                 alt={galleryImages[2].alt}
+              style={galleryImages[2].position ? { objectPosition: galleryImages[2].position } : undefined}
                 width={galleryImages[2].width ?? 800}
                 height={galleryImages[2].height ?? 600}
                 className="img-fluid w-100"
@@ -169,6 +177,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
               <Image
                 src={galleryImages[3].url ?? ""}
                 alt={galleryImages[3].alt}
+              style={galleryImages[3].position ? { objectPosition: galleryImages[3].position } : undefined}
                 width={galleryImages[3].width ?? 800}
                 height={galleryImages[3].height ?? 600}
                 className="img-fluid w-100"
@@ -179,6 +188,7 @@ export function GalleryGridClient({ paragraph, images = [], tabs, children }: Ga
             <Image
               src={galleryImages[1].url ?? ""}
               alt={galleryImages[1].alt}
+              style={galleryImages[1].position ? { objectPosition: galleryImages[1].position } : undefined}
               width={galleryImages[1].width ?? 800}
               height={galleryImages[1].height ?? 600}
               className="img-fluid w-100"

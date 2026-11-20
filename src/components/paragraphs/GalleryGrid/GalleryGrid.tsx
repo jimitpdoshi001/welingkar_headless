@@ -12,6 +12,17 @@ type GalleryGridProps = {
 // the gallery on the Drupal "Campus Bengaluru" page (editors update it there).
 const BENGALURU_GALLERY_ID = "e7482f09-2288-417e-90f6-e4ec1393ed7f";
 
+// Mumbai photos supplied for this section (1000x667), one per desktop grid slot.
+const MUMBAI_IMAGES: DrupalImage[] = [
+  // Tall first slot: keep the two students (right side of the photo) in frame.
+  { alt: "Students talking by the Create Collaborate Innovate wall", position: "78% center" },
+  { alt: "Students sharing tea in the canteen" },
+  { alt: "Students laughing together on the campus steps" },
+  { alt: "Students reading in the library" },
+  { alt: "Students working on a project in the innovation lab" },
+  { alt: "Two students sharing a handshake by the WeSchool sign" },
+].map((img, i) => ({ ...img, url: `/home/moments/mumbai-${i + 1}.webp`, width: 1000, height: 667 }));
+
 export async function GalleryGrid({ paragraph, images = [], children }: GalleryGridProps) {
   const isMoments = /moments from the campus/i.test(paragraph.attributes.field_header ?? "");
   if (!isMoments) {
@@ -24,7 +35,7 @@ export async function GalleryGrid({ paragraph, images = [], children }: GalleryG
 
   const bengaluru = await getGalleryImages(BENGALURU_GALLERY_ID);
   const tabs: GalleryTab[] = [
-    { id: "mumbai", label: "Mumbai", images, cta: { label: "Life at Mumbai", href: "/life-at-weschool" } },
+    { id: "mumbai", label: "Mumbai", images: [...MUMBAI_IMAGES, ...images.slice(MUMBAI_IMAGES.length)], cta: { label: "Life at Mumbai", href: "/life-at-weschool" } },
     { id: "bengaluru", label: "Bengaluru", images: bengaluru, cta: { label: "Life at Bengaluru", href: "/life-at-weschool/bengaluru" } },
   ].filter((t) => t.images.length > 0);
 

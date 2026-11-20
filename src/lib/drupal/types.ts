@@ -103,6 +103,8 @@ export type DrupalImage = {
   width?: number;
   height?: number;
   filename?: string;
+  /** Optional CSS object-position for cropped layouts (local images only). */
+  position?: string;
 };
 
 export type DrupalMedia =
