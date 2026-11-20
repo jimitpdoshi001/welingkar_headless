@@ -32,7 +32,7 @@ export function WeResearchPage({ data }: { data: WeResearchData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main data-auto-reveal="reveal">
           {/* Hero (Figma 2533:396): photo with left, bottom and top dark fades. */}
           <section className={styles.hero}>
             <img src={data.hero.image} alt="" className={styles.heroImage} />

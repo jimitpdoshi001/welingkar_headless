@@ -22,7 +22,7 @@ export function CorporatePage({ campus }: { campus: CorporateCampus }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main className={styles[campus]}>
+        <main data-auto-reveal="reveal" className={styles[campus]}>
           <section className={hero.hero}>
             <Image src={CORPORATE.hero.image} alt="" fill priority sizes="100vw" className={hero.heroImg} />
             <div className={`container ${hero.heroInner}`}>

@@ -76,7 +76,7 @@ export function AccreditationPage() {
     <SearchProvider>
       <div className="GlobalLayout">
         <Header />
-        <main className={`container ${styles.page}`}>
+        <main data-auto-reveal="reveal" className={`container ${styles.page}`}>
           <nav
             className={styles.breadcrumb}
             aria-label="Breadcrumb">

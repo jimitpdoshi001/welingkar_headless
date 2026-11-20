@@ -56,7 +56,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main
+        <main data-auto-reveal="reveal"
           className={`${styles.justify} ${accent === "orange" ? styles.orangeCtas : ""}`}
           style={
             {

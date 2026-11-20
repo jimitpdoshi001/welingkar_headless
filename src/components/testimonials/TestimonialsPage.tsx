@@ -16,7 +16,7 @@ export function TestimonialsPage() {
       <div className="GlobalLayout">
         <Header />
 
-        <main className={styles.page}>
+        <main data-auto-reveal="reveal" className={styles.page}>
           <img src="/testimonials/decor-triangle.svg" alt="" className={styles.decor} aria-hidden="true" />
           <section className={`container ${wf.intro} ${styles.intro}`}>
             <WeResearchBreadcrumb current="Testimonials" tone="dark" />

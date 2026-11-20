@@ -14,7 +14,7 @@ export function ConferencePage({ data }: { data: ConferenceData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main data-auto-reveal="reveal">
           {/* Hero */}
           <section className={styles.hero}>
             <img

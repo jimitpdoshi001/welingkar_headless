@@ -15,7 +15,7 @@ export function MdcPage({ data }: { data: MdcData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main
+        <main data-auto-reveal="reveal"
           style={
             {
               "--faculty-accent": "var(--mdc-accent, var(--color-secondary))",

@@ -31,7 +31,7 @@ export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, 
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main style={accentVar ? ({ ["--faculty-accent" as string]: accentVar } as React.CSSProperties) : undefined}>
+        <main data-auto-reveal="reveal" style={accentVar ? ({ ["--faculty-accent" as string]: accentVar } as React.CSSProperties) : undefined}>
           <section className={variant === "tall" ? `${styles.hero} ${styles.heroTall}` : styles.hero}>
             <img
               src={image}

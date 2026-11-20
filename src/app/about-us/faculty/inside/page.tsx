@@ -23,7 +23,7 @@ export default function FacultyInsidePreviewPage() {
       <div className="GlobalLayout">
         <Header />
 
-        <main style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
+        <main data-auto-reveal="reveal" style={{ ["--faculty-accent" as string]: "var(--color-orange)" }}>
           <FacultyProfile />
         </main>
 

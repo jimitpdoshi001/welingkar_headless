@@ -18,7 +18,7 @@ export function WeFactorPage({ data }: { data: WeFactorData }) {
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main>
+        <main data-auto-reveal="reveal">
           {/* Banner: same pattern as the other inner pages (photo, breadcrumb, title, intro). */}
           <section className={styles.hero}>
             <img src={hero.image} alt="" className={styles.heroImage} />

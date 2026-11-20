@@ -44,7 +44,7 @@ export function CampusListingPage({ rows = CAMPUS_ROWS }: { rows?: CampusRow[] }
       <div className="GlobalLayout">
         <Header />
 
-        <main>
+        <main data-auto-reveal="reveal">
           <div className={`container ${styles.crumbWrap}`}>
             <nav className={styles.breadcrumb}>
               {/* Figma: home icon, "-" separator, current page. */}
