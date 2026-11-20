@@ -1,4 +1,5 @@
 import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
+import { toPublicPath } from "@/lib/seo/public-paths";
 import {
   PROGRAM_LISTING_NIDS,
   PROGRAM_SLUG_NIDS_BENGALURU,
@@ -18,15 +19,15 @@ export type WhatWeOfferItem = {
 
 // Drupal program paths -> the Next.js routes that render those programs.
 const ROUTES: Record<string, string> = {
-  "/programmes/full-time-programme-in-mumbai/pgdm": "/programmes/pgdm",
-  "/programmes/full-time-programme-in-mumbai/pgdm-business-design": "/programmes/pgdm-business-design",
-  "/programmes/full-time-programme-in-mumbai/pgdm-e-business": "/programmes/pgdm-e-business",
-  "/programmes/full-time-programme-in-mumbai/pgdm-healthcare-management": "/programmes/pgdm-healthcare",
-  "/programmes/full-time-programme-in-mumbai/pgdm-media-and-entertainment": "/programmes/pgdm-media",
-  "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics": "/programmes/pgdm-research-analytics",
-  "/programmes/full-time-programme-in-mumbai/pgdm-retail-management": "/programmes/pgdm-retail",
-  "/programmes/full-time-programme-in-mumbai/pgdm-rural-management": "/programmes/pgdm-rural",
-  "/programmes/full-time-programme-in-bengaluru": "/programmes/bengaluru",
+  "/programmes/full-time-programme-in-mumbai/pgdm": "/programmes/full-time-programme-in-mumbai/pgdm",
+  "/programmes/full-time-programme-in-mumbai/pgdm-business-design": "/programmes/full-time-programme-in-mumbai/pgdm-business-design",
+  "/programmes/full-time-programme-in-mumbai/pgdm-e-business": "/programmes/full-time-programme-in-mumbai/pgdm-e-business",
+  "/programmes/full-time-programme-in-mumbai/pgdm-healthcare-management": "/programmes/full-time-programme-in-mumbai/pgdm-health-care-management",
+  "/programmes/full-time-programme-in-mumbai/pgdm-media-and-entertainment": "/programmes/full-time-programme-in-mumbai/pgdm-media-and-entertainment",
+  "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics": "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics",
+  "/programmes/full-time-programme-in-mumbai/pgdm-retail-management": "/programmes/full-time-programme-in-mumbai/pgdm-retail-management",
+  "/programmes/full-time-programme-in-mumbai/pgdm-rural-management": "/programmes/full-time-programme-in-mumbai/pgdm-rural-management",
+  "/programmes/full-time-programme-in-bengaluru": "/programmes/full-time-programme-in-bengaluru",
 };
 
 /** Map a Drupal path (absolute or relative, trailing slash ignored) to its site route. */
@@ -99,7 +100,9 @@ export async function getWhatWeOfferTerms(): Promise<WhatWeOfferItem[]> {
       terms.map(async (term) => {
         const nid = term.location === "bangalore" ? bengaluruNid(term.url) : undefined;
         const banner = nid ? programBannerImage(await getProgramListing(nid)) : null;
-        return banner ? { ...term, image: banner } : term;
+        // Links use the public (live-site) address once the node lookup is done.
+        const withImage = banner ? { ...term, image: banner } : term;
+        return { ...withImage, url: toPublicPath(term.url) };
       }),
     );
   } catch (error) {

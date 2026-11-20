@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { canonical } from "@/lib/seo/public-paths";
 
 import { facultyPerson, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 import { CampusPage } from "@/components/campus/CampusPage";
 import { CAMPUS_BENGALURU } from "@/lib/campus/campus-data";
 
 export const metadata: Metadata = {
+  ...canonical("/campuses/bengaluru"),
   title: "Bengaluru Campus — Welingkar",
   description: "WeSchool Bengaluru Campus — Prin. L. N. Welingkar Institute of Management Development & Research",
 };

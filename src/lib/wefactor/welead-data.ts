@@ -5,7 +5,7 @@ export const WELEAD: WeFactorDetailData = {
   title: "WeLead",
   intro:
     "WeLead with winning examples from alumni to prospective students. Our students work on various research projects and live case studies for some of the finest brands. They acquire their learning by doing.",
-  parent: { label: "WeFactor", href: "/wefactor" },
+  parent: { label: "WeFactor", href: "/we-factor" },
   blocks: [
     {
       type: "text",

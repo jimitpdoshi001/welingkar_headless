@@ -212,7 +212,7 @@ export async function getCampusFacultyGrid(
     categorySlugs: slugs,
     image: r.image,
     imageAlt: r.name,
-    link: `/about-us/faculty/${r.slug}`,
+    link: `/profile/${r.slug}`,
     };
   });
   // Only tabs that have people, in the fixed order above.
@@ -283,7 +283,7 @@ function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; m
       categorySlugs: slugs,
       image: r.image,
       imageAlt: r.name,
-      link: `/about-us/faculty/${r.slug}`,
+      link: `/profile/${r.slug}`,
     });
   }
   // Bengaluru faculty in Drupal but not in the sheet: shown after the sheet's
@@ -303,7 +303,7 @@ function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; m
       categorySlugs: slugs.length ? slugs : ["faculty"],
       image: r.image,
       imageAlt: r.name,
-      link: `/about-us/faculty/${r.slug}`,
+      link: `/profile/${r.slug}`,
     });
   }
 
@@ -317,10 +317,25 @@ function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; m
   return { categories, members };
 }
 
-/** Profile page data for one faculty slug. */
+/**
+ * Name key for matching the live site's profile slugs to ours: honorifics
+ * (dr, prof, mr, ms, mrs, ca, cs, smt, shri), a trailing "-0" copy marker and
+ * all non-letters are dropped, e.g. "drpayal-sanan" and "dr-payal-sanan" ->
+ * "payalsanan", "prof-dr-kaustubh-dhargalkar" -> "kaustubhdhargalkar".
+ */
+function profileKey(slug: string): string {
+  return decodeURIComponent(slug)
+    .toLowerCase()
+    .replace(/-\d+$/, "")
+    .replace(/^((prof|dr|mr|ms|mrs|ca|cs|smt|shri)[.\s-]*)+/, "")
+    .replace(/[^a-z]/g, "");
+}
+
+/** Profile page data for one faculty slug (ours, or the live site's form). */
 export async function getFacultyProfile(slug: string): Promise<FacultyProfile | null> {
   const all = await getFacultyDirectory();
-  const r = all?.find((f) => f.slug === slug);
+  const key = profileKey(slug);
+  const r = all?.find((f) => f.slug === slug) ?? all?.find((f) => profileKey(f.slug) === key);
   if (!r) return null;
   return {
     name: r.name,
@@ -357,5 +372,5 @@ export async function facultyPerson(name: string): Promise<{ href?: string; imag
   const key = (n: string) => n.toLowerCase().replace(/\b(prof|dr|mr|mrs|ms)\b\.?/g, " ").replace(/[^a-z]/g, "");
   const all = await getFacultyDirectory();
   const match = all?.find((r) => key(r.name) === key(name));
-  return match ? { href: `/about-us/faculty/${match.slug}`, image: match.image || undefined } : {};
+  return match ? { href: `/profile/${match.slug}`, image: match.image || undefined } : {};
 }

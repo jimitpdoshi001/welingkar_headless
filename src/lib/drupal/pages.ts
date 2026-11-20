@@ -235,7 +235,7 @@ export async function getPageByPath(slug: string[] | undefined): Promise<DrupalP
   return pages.find((page) => page.paths.includes(requestPath)) ?? pages.find((page) => page.path === requestPath) ?? null;
 }
 
-/** Pretty paths keyed by Drupal nid (`entity:node/7` → `/about-us`). */
+/** Pretty paths keyed by Drupal nid (`entity:node/7` → `/who-we-are`). */
 export async function getNodePathMap(): Promise<Record<number, string>> {
   const pages = await getAllPages();
   const map: Record<number, string> = {};

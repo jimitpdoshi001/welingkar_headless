@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { canonical } from "@/lib/seo/public-paths";
 import { notFound } from "next/navigation";
 
 import { PgdmPage } from "@/components/pgdm/PgdmPage";
@@ -11,10 +12,20 @@ export function generateStaticParams() {
   return PROGRAMMES.filter((p) => p.slug !== "pgdm").map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ campus?: string | string[] }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const meta = getProgramme(slug);
-  return meta ? { title: `${meta.title} — Welingkar`, description: meta.summary } : { title: "Program not found" };
+  // Canonical: the live-site address for this programme (campus version included).
+  const campus = (await searchParams).campus === "bengaluru" ? "?campus=bengaluru" : "";
+  return meta
+    ? { title: `${meta.title} — Welingkar`, description: meta.summary, ...canonical(`/programmes/${slug}${campus}`) }
+    : { title: "Program not found" };
 }
 
 export default async function ProgrammeDetailPage({

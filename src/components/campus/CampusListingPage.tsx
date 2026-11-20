@@ -16,7 +16,7 @@ export const CAMPUS_ROWS: CampusRow[] = [
     eyebrow: "(AICTE approved standalone institute)",
     body: "The WeSchool Mumbai Campus is a thriving ecosystem of new thoughts, ideas, and enterprise. Here's where cutting-edge global conversations begin.",
     image: "/campus/listing-mumbai.webp",
-    href: "/campuses/mumbai",
+    href: "/campus-mumbai",
   },
   {
     id: "mms",
@@ -24,7 +24,7 @@ export const CAMPUS_ROWS: CampusRow[] = [
     eyebrow: "(Autonomous Institute affiliated to University of Mumbai)",
     body: "MMS (Master of Management Studies) is a 2-year full-time Master's Degree program introduced in 1984. It offers specializations in Marketing, Finance, Human Resource Management, and Operations.",
     image: "/campus/listing-mms.webp",
-    href: "/programmes/mms",
+    href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies",
     reverse: true,
   },
   {
@@ -33,7 +33,7 @@ export const CAMPUS_ROWS: CampusRow[] = [
     eyebrow: "(AICTE approved standalone institute)",
     body: "Situated in Bengaluru, the Silicon Valley of India, the WeSchool Bengaluru campus is designed to nurture Design Thinking and Innovation as well as the business pioneers of tomorrow.",
     image: "/campus/listing-bengaluru.webp",
-    href: "/campuses/bengaluru",
+    href: "/campus-bengaluru",
   },
 ];
 

@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
 import type { JsonApiResource } from "./types";
+import { toPublicPath } from "@/lib/seo/public-paths";
 
 /**
  * One Drupal node plus its included paragraphs/files, with small readers so
@@ -51,7 +52,7 @@ type LinkValue = { uri?: string; title?: string };
 function toHref(uri: string): string {
   const href = uri.replace(/^internal:/, "").replace(/^entity:node\//, "/node/");
   // Links typed with this site's own domain stay in-app.
-  return href.replace(/^https?:\/\/welingkar-headless\.vercel\.app(?=\/)/i, "");
+  return toPublicPath(href.replace(/^https?:\/\/welingkar-headless\.vercel\.app(?=\/)/i, ""));
 }
 
 /** Fetch a node by type + nid with the given include paths (cached per request). */

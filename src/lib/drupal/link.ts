@@ -1,3 +1,4 @@
+import { toPublicPath } from "@/lib/seo/public-paths";
 const SAFE_PROTOCOLS = new Set(["http:", "https:", "mailto:", "tel:"]);
 
 /** Reject javascript:, data:, protocol-relative, and other non-navigation URLs. */
@@ -64,7 +65,11 @@ export function toHref(uri?: string | null, nodePaths?: Record<number, string>):
   return safe(value);
 }
 
-export const resolveDrupalHref = toHref;
+/** Drupal link -> href, using the public (live-site) address for mapped pages. */
+export function resolveDrupalHref(...args: Parameters<typeof toHref>): ReturnType<typeof toHref> {
+  const href = toHref(...args);
+  return href ? toPublicPath(href) : href;
+}
 
 export function isAppPath(href: string): boolean {
   return href.startsWith("/") && !href.startsWith("//");

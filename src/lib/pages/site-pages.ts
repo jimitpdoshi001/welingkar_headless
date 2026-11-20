@@ -1,3 +1,4 @@
+import { toPublicPath } from "@/lib/seo/public-paths";
 /**
  * Content registry for the site's informational / landing pages.
  * One entry per route path → rendered by <RegistryPage path="…" />.
@@ -54,18 +55,18 @@ function simple(title: string, subtitle: string, parent: [string, string], extra
 
 export const SITE_PAGES: Record<string, SitePage> = {
   // ---- Who We Are (sub-pages; /about-us itself is a Drupal page) ----
-  "/about-us/spm": simple("About S. P. Mandali", "The S.P. Mandali Trust is one of the oldest and most respected educational trusts in India.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/managing-council": simple("Managing Council Members", "The distinguished members who guide WeSchool's vision and governance.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/chairman-message": simple("Chairman's Message", "A message from the Chairman of the Managing Council.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/directors-message": simple("Director's Message", "A message from the Director of WeSchool.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/academic-advisory-board": simple("Academic Advisory Board", "Eminent academicians shaping our curriculum and academic rigour.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/industry-advisory-board": simple("Industry Advisory Board", "Industry leaders keeping our programs aligned to real-world needs.", ["Who We Are", "/about-us"], undefined, HERO.people),
-  "/about-us/awards": simple("Awards & Accolades", "Recognition of WeSchool's excellence in management education and innovation.", ["Who We Are", "/about-us"], undefined, HERO.office),
+  "/about-us/spm": simple("About S. P. Mandali", "The S.P. Mandali Trust is one of the oldest and most respected educational trusts in India.", ["Who We Are", "/who-we-are"], undefined, HERO.people),
+  "/about-us/managing-council": simple("Managing Council Members", "The distinguished members who guide WeSchool's vision and governance.", ["Who We Are", "/who-we-are"], undefined, HERO.people),
+  "/about-us/chairman-message": simple("Chairman's Message", "A message from the Chairman of the Managing Council.", ["Who We Are", "/who-we-are"], undefined, HERO.people),
+  "/about-us/directors-message": simple("Director's Message", "A message from the Director of WeSchool.", ["Who We Are", "/who-we-are"], undefined, HERO.people),
+  "/about-us/academic-advisory-board": simple("Academic Advisory Board", "Eminent academicians shaping our curriculum and academic rigour.", ["Who We Are", "/who-we-are"], undefined, HERO.people),
+  "/about-us/industry-advisory-board": simple("Industry Advisory Board", "Industry leaders keeping our programs aligned to real-world needs.", ["Who We Are", "/who-we-are"], undefined, HERO.people),
+  "/about-us/awards": simple("Awards & Accolades", "Recognition of WeSchool's excellence in management education and innovation.", ["Who We Are", "/who-we-are"], undefined, HERO.office),
   "/about-us/vision-mission": {
     title: "Vision & Mission",
     subtitle: "What drives us, and the promise we make to every learner.",
     image: HERO.people,
-    breadcrumbs: crumbs(["Home", "/"], ["Who We Are", "/about-us"], ["Vision & Mission"]),
+    breadcrumbs: crumbs(["Home", "/"], ["Who We Are", "/who-we-are"], ["Vision & Mission"]),
     sections: [
       { heading: "Our Vision", paragraphs: ["Provide industry and society, management graduates having excellence in leadership, entrepreneurial talent and research, through continuously innovative curriculum."] },
       {
@@ -102,7 +103,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
       },
     ],
   },
-  "/mandatory-disclosure": {
+  "/mandatory-disclosures": {
     title: "Mandatory Disclosures",
     subtitle: "Statutory disclosures for the Mumbai and Bengaluru campuses, as mandated by AICTE.",
     image: HERO.office,
@@ -112,9 +113,9 @@ export const SITE_PAGES: Record<string, SitePage> = {
         heading: "Disclosures",
         cardColumns: 2,
         cards: [
-          { title: "Mandatory Disclosure — Mumbai Campus", text: "AICTE-mandated disclosures for the Mumbai campus.", href: "/mandatory-disclosure" },
-          { title: "Mandatory Disclosure — Bengaluru Campus", text: "AICTE-mandated disclosures for the Bengaluru campus.", href: "/mandatory-disclosure" },
-          { title: "Mandatory Disclosure — MMS", text: "Disclosures for the MMS program.", href: "/mandatory-disclosure" },
+          { title: "Mandatory Disclosure — Mumbai Campus", text: "AICTE-mandated disclosures for the Mumbai campus.", href: "/mandatory-disclosures" },
+          { title: "Mandatory Disclosure — Bengaluru Campus", text: "AICTE-mandated disclosures for the Bengaluru campus.", href: "/mandatory-disclosures" },
+          { title: "Mandatory Disclosure — MMS", text: "Disclosures for the MMS program.", href: "/mandatory-disclosures" },
           { title: "Approvals & Affiliations", text: "AICTE approvals and university affiliation details.", href: "/accreditation" },
         ],
       },
@@ -127,7 +128,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     breadcrumbs: crumbs(["Home", "/"], ["Autonomy"]),
     sections: [{ heading: "Academic Autonomy", paragraphs: ["As an autonomous institute, WeSchool designs and continuously evolves its own curriculum, pedagogy and assessment — enabling faster, industry-aligned innovation while upholding the highest standards of academic governance."] }],
   },
-  "/grievance-redressal": {
+  "/grievance": {
     title: "Grievance Redressal",
     subtitle: "Our transparent mechanism for raising and resolving grievances.",
     image: HERO.office,
@@ -167,7 +168,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         tint: "cream",
         cards: [
           { title: "Programs", text: "Browse our full-time, executive and certificate programs.", href: "/programmes/all" },
-          { title: "Fees & Scholarships", text: "Tuition, hostel fees, EMI options and the TFW scheme.", href: "/programmes/pgdm" },
+          { title: "Fees & Scholarships", text: "Tuition, hostel fees, EMI options and the TFW scheme.", href: "/programmes/full-time-programme-in-mumbai/pgdm" },
           { title: "Apply Now", text: "Start your application today.", href: "/apply" },
         ],
       },
@@ -202,7 +203,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
   "/corporate-interface/internships": simple("Projects & Internships", "Collaborate with our students through live projects and internships.", ["Corporate Interface", "/corporate-interface"], undefined, HERO.office, "orange"),
 
   // ---- WeResearch ----
-  "/weresearch": {
+  "/we-research-mumbai": {
     title: "WeResearch",
     subtitle: "Advancing management knowledge through rigorous, application-oriented research across business, technology and the social sciences.",
     image: HERO.research,
@@ -226,33 +227,33 @@ export const SITE_PAGES: Record<string, SitePage> = {
       },
     ],
   },
-  "/weresearch/papers": simple("Published Research", "Explore WeSchool's wider body of published research across management, business, technology and the social sciences — on subjects ranging from artificial intelligence to organisational behaviour.", ["WeResearch", "/weresearch"], undefined, HERO.research),
-  "/weresearch/recognised": simple("Awarded & Recognised Papers", "Research that has earned recognition for its contribution to management and related fields — from faculty research recognised at academic conferences to award-winning papers.", ["WeResearch", "/weresearch"], undefined, HERO.research),
+  "/weresearch/papers": simple("Published Research", "Explore WeSchool's wider body of published research across management, business, technology and the social sciences — on subjects ranging from artificial intelligence to organisational behaviour.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
+  "/weresearch/recognised": simple("Awarded & Recognised Papers", "Research that has earned recognition for its contribution to management and related fields — from faculty research recognised at academic conferences to award-winning papers.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
   "/weresearch/areas": {
     title: "Research Areas",
     subtitle: "The themes and domains that shape our research agenda.",
     image: HERO.research,
-    breadcrumbs: crumbs(["Home", "/"], ["WeResearch", "/weresearch"], ["Research Areas"]),
+    breadcrumbs: crumbs(["Home", "/"], ["WeResearch", "/we-research-mumbai"], ["Research Areas"]),
     sections: [
       { heading: "Our Focus Areas", cardColumns: 4, cards: ["Artificial Intelligence & Analytics", "Organisational Behaviour", "Finance & Accounting", "Marketing & Consumer Behaviour", "Operations & Supply Chain", "Sustainability & ESG", "Entrepreneurship & Innovation", "Digital & E-Business"].map((n) => ({ title: n, text: "Active research theme at WeSchool.", href: "/weresearch/papers" })) },
     ],
   },
-  "/weresearch/cases": simple("Management Cases", "Explore management cases that turn real business situations into opportunities for analysis, discussion and decision-making — for example, Tata Motors' strategic pivot to electric vehicles, analysing competitive positioning, supply-chain challenges and market development in India's evolving EV landscape.", ["WeResearch", "/weresearch"], undefined, HERO.research),
+  "/weresearch/cases": simple("Management Cases", "Explore management cases that turn real business situations into opportunities for analysis, discussion and decision-making — for example, Tata Motors' strategic pivot to electric vehicles, analysing competitive positioning, supply-chain challenges and market development in India's evolving EV landscape.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
   "/weresearch/aweshkar": {
     title: "aWEshkar Journal",
     subtitle: "WeSchool's bi-annual, double-blind peer-reviewed research journal, dedicated to creating and sharing knowledge for the academic and corporate community.",
     image: HERO.research,
-    breadcrumbs: crumbs(["Home", "/"], ["WeResearch", "/weresearch"], ["aWEshkar Journal"]),
+    breadcrumbs: crumbs(["Home", "/"], ["WeResearch", "/we-research-mumbai"], ["aWEshkar Journal"]),
     sections: [
       { heading: "About the Journal", paragraphs: ["Browse the aWEshkar archive to explore research published across past March and September editions. Open an issue to view its editorial, research articles and contributors."] },
       { heading: "Journal Archive", tint: "cream", cardColumns: 2, cards: [{ title: "Vol. 32, Issue I — March 2025", text: "Latest edition.", href: "/weresearch/aweshkar" }, { title: "Vol. 29, Issue II — September 2022", text: "Archive edition.", href: "/weresearch/aweshkar" }] },
     ],
   },
-  "/weresearch/articles": simple("Articles & Perspectives", "Read perspectives from WeSchool faculty and researchers on contemporary issues shaping business, organisations and society — bringing academic thinking into accessible, real-world conversations.", ["WeResearch", "/weresearch"], undefined, HERO.research),
-  "/weresearch/conferences": simple("Conference Research", "Explore research shared through academic conferences and published proceedings — capturing research questions, findings and perspectives presented within the academic community.", ["WeResearch", "/weresearch"], undefined, HERO.research),
+  "/weresearch/articles": simple("Articles & Perspectives", "Read perspectives from WeSchool faculty and researchers on contemporary issues shaping business, organisations and society — bringing academic thinking into accessible, real-world conversations.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
+  "/weresearch/conferences": simple("Conference Research", "Explore research shared through academic conferences and published proceedings — capturing research questions, findings and perspectives presented within the academic community.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
 
   // ---- WeFactor ----
-  "/wefactor": {
+  "/we-factor": {
     title: "WeFactor",
     subtitle: "The WeSchool innovation and entrepreneurship ecosystem.",
     image: HERO.office,
@@ -264,10 +265,10 @@ export const SITE_PAGES: Record<string, SitePage> = {
         tint: "cream",
         cardColumns: 4,
         cards: [
-          { title: "WeInnovate", text: "Innovation and design thinking in action.", href: "/wefactor/weinnovate" },
-          { title: "WeEntrepreneur", text: "Incubation and startup support.", href: "/wefactor/weentrepreneur" },
-          { title: "WeLead", text: "Leadership development initiatives.", href: "/wefactor/welead" },
-          { title: "WeLearning", text: "Continuous and lifelong learning.", href: "/wefactor/welearning" },
+          { title: "WeInnovate", text: "Innovation and design thinking in action.", href: "/we-factor/we-innovate" },
+          { title: "WeEntrepreneur", text: "Incubation and startup support.", href: "/we-factor/we-entrepreneurship" },
+          { title: "WeLead", text: "Leadership development initiatives.", href: "/we-factor/we-lead" },
+          { title: "WeLearning", text: "Continuous and lifelong learning.", href: "/we-factor/we-learn" },
         ],
       },
     ],
@@ -494,8 +495,8 @@ export const SITE_PAGES: Record<string, SitePage> = {
       {
         heading: "Our Campuses",
         cards: [
-          { title: "Mumbai Campus", text: "L. N. Road, Matunga (Central), Mumbai 400 019.", href: "/campuses/mumbai" },
-          { title: "Bengaluru Campus", text: "WeSchool Bengaluru Campus.", href: "/campuses/bengaluru" },
+          { title: "Mumbai Campus", text: "L. N. Road, Matunga (Central), Mumbai 400 019.", href: "/campus-mumbai" },
+          { title: "Bengaluru Campus", text: "WeSchool Bengaluru Campus.", href: "/campus-bengaluru" },
           { title: "Enquiry Form", text: "Send us your query and we'll get back to you.", href: "/enquire-now" },
         ],
       },
@@ -571,9 +572,9 @@ export const SITE_PAGES: Record<string, SitePage> = {
         heading: "By Campus / Program",
         tint: "cream",
         cards: [
-          { title: "Mumbai", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campuses/mumbai" },
-          { title: "Bengaluru", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campuses/bengaluru" },
-          { title: "MMS", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/programmes/mms" },
+          { title: "Mumbai", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campus-mumbai" },
+          { title: "Bengaluru", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campus-bengaluru" },
+          { title: "MMS", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
         ],
       },
       {
@@ -666,9 +667,9 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cardColumns: 4,
         cards: [
           { title: "358", text: "Companies on campus", href: "/corporate-interface/top-recruiters" },
-          { title: "₹11.99 LPA", text: "Domestic average (2024–26)", href: "/programmes/mms" },
-          { title: "₹23 LPA", text: "Domestic high", href: "/programmes/mms" },
-          { title: "₹22.92 LPA", text: "International average", href: "/programmes/mms" },
+          { title: "₹11.99 LPA", text: "Domestic average (2024–26)", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
+          { title: "₹23 LPA", text: "Domestic high", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
+          { title: "₹22.92 LPA", text: "International average", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
         ],
       },
       { heading: "Contact", paragraphs: ["Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019 · mms.director@welingkar.org."] },
@@ -687,12 +688,12 @@ export const SITE_PAGES: Record<string, SitePage> = {
   },
 
   // ---- Footer / statutory / utility ----
-  "/testimonials": {
+  "/testimonial": {
     title: "Testimonials",
     subtitle: "What our students, alumni and recruiters say about the WeSchool experience.",
     image: HERO.people,
     breadcrumbs: crumbs(["Home", "/"], ["Testimonials"]),
-    sections: [{ heading: "In Their Words", cardColumns: 2, cards: [{ title: "Rajesh Ramineni — BigBasket DC, Manager", text: "\"I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.\"", href: "/testimonials" }, { title: "Priya Nair — Deloitte, Consultant", text: "\"The industry exposure and mentoring at WeSchool shaped how I approach real business problems every day.\"", href: "/testimonials" }] }],
+    sections: [{ heading: "In Their Words", cardColumns: 2, cards: [{ title: "Rajesh Ramineni — BigBasket DC, Manager", text: "\"I joined WeSchool as an Aeronautical Engineer & left as a Design Thinker ready to take on the corporate world.\"", href: "/testimonial" }, { title: "Priya Nair — Deloitte, Consultant", text: "\"The industry exposure and mentoring at WeSchool shaped how I approach real business problems every day.\"", href: "/testimonial" }] }],
   },
   "/privacy-policy": simple("Privacy Policy", "How WeSchool collects, uses and protects your personal information.", ["Home", "/"], undefined, HERO.office),
   "/nad": simple("National Academic Depository (NAD)", "Access and verify your academic records through the National Academic Depository / DigiLocker.", ["Home", "/"], undefined, HERO.office),
@@ -718,15 +719,15 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.office,
     breadcrumbs: crumbs(["Home", "/"], ["Site Map"]),
     sections: [
-      { heading: "Who We Are", cardColumns: 3, cards: [{ title: "About Us", text: "", href: "/about-us" }, { title: "Vision & Mission", text: "", href: "/about-us/vision-mission" }, { title: "Managing Council", text: "", href: "/about-us/managing-council" }, { title: "Chairman's Message", text: "", href: "/about-us/chairman-message" }, { title: "Director's Message", text: "", href: "/about-us/directors-message" }, { title: "Faculty", text: "", href: "/about-us/faculty" }, { title: "Accreditation", text: "", href: "/accreditation" }, { title: "Awards & Accolades", text: "", href: "/about-us/awards" }] },
-      { heading: "Campuses", tint: "cream", cardColumns: 3, cards: [{ title: "Campuses", text: "", href: "/campuses" }, { title: "Mumbai Campus", text: "", href: "/campuses/mumbai" }, { title: "Bengaluru Campus", text: "", href: "/campuses/bengaluru" }, { title: "Life @ WeSchool", text: "", href: "/life-at-weschool" }, { title: "Life — Bengaluru", text: "", href: "/life-at-weschool/bengaluru" }, { title: "Life — MMS", text: "", href: "/life-at-weschool/mms" }] },
-      { heading: "Programs", cardColumns: 3, cards: [{ title: "All Programs", text: "", href: "/programmes/all" }, { title: "PGDM (Mumbai)", text: "", href: "/programmes/pgdm" }, { title: "PGDM (Bengaluru)", text: "", href: "/programmes/pgdm/bengaluru" }, { title: "MMS", text: "", href: "/programmes/mms" }, { title: "Admissions", text: "", href: "/admissions" }, { title: "MDC — Executive Education", text: "", href: "/mdc" }] },
-      { heading: "Research, Corporate & Global", tint: "cream", cardColumns: 3, cards: [{ title: "WeResearch", text: "", href: "/weresearch" }, { title: "aWEshkar Journal", text: "", href: "/weresearch/aweshkar" }, { title: "We Conference", text: "", href: "/we-conference" }, { title: "Corporate Interface", text: "", href: "/corporate-interface" }, { title: "WeFactor", text: "", href: "/wefactor" }, { title: "WeGlobal", text: "", href: "/weglobal" }] },
-      { heading: "Engage & Statutory", cardColumns: 3, cards: [{ title: "Blogs", text: "", href: "/blogs" }, { title: "Events", text: "", href: "/events" }, { title: "News & Media", text: "", href: "/media" }, { title: "Careers", text: "", href: "/careers" }, { title: "Alumni", text: "", href: "/alumni" }, { title: "Contact Us", text: "", href: "/contact-us" }, { title: "Library (LRC)", text: "", href: "/library" }, { title: "Mandatory Disclosures", text: "", href: "/mandatory-disclosure" }, { title: "Autonomy", text: "", href: "/autonomy" }, { title: "Grievance Redressal", text: "", href: "/grievance-redressal" }, { title: "Privacy Policy", text: "", href: "/privacy-policy" }, { title: "NAD", text: "", href: "/nad" }] },
+      { heading: "Who We Are", cardColumns: 3, cards: [{ title: "About Us", text: "", href: "/who-we-are" }, { title: "Vision & Mission", text: "", href: "/about-us/vision-mission" }, { title: "Managing Council", text: "", href: "/about-us/managing-council" }, { title: "Chairman's Message", text: "", href: "/about-us/chairman-message" }, { title: "Director's Message", text: "", href: "/about-us/directors-message" }, { title: "Faculty", text: "", href: "/about-us/faculty" }, { title: "Accreditation", text: "", href: "/accreditation" }, { title: "Awards & Accolades", text: "", href: "/about-us/awards" }] },
+      { heading: "Campuses", tint: "cream", cardColumns: 3, cards: [{ title: "Campuses", text: "", href: "/campuses" }, { title: "Mumbai Campus", text: "", href: "/campus-mumbai" }, { title: "Bengaluru Campus", text: "", href: "/campus-bengaluru" }, { title: "Life @ WeSchool", text: "", href: "/life-at-weschool" }, { title: "Life — Bengaluru", text: "", href: "/life-at-weschool/bengaluru" }, { title: "Life — MMS", text: "", href: "/life-at-weschool/mms" }] },
+      { heading: "Programs", cardColumns: 3, cards: [{ title: "All Programs", text: "", href: "/programmes/all" }, { title: "PGDM (Mumbai)", text: "", href: "/programmes/full-time-programme-in-mumbai/pgdm" }, { title: "PGDM (Bengaluru)", text: "", href: "/programmes/full-time-programme-in-bengaluru/pgdm" }, { title: "MMS", text: "", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" }, { title: "Admissions", text: "", href: "/admissions" }, { title: "MDC — Executive Education", text: "", href: "/mdc" }] },
+      { heading: "Research, Corporate & Global", tint: "cream", cardColumns: 3, cards: [{ title: "WeResearch", text: "", href: "/we-research-mumbai" }, { title: "aWEshkar Journal", text: "", href: "/weresearch/aweshkar" }, { title: "We Conference", text: "", href: "/we-conference" }, { title: "Corporate Interface", text: "", href: "/corporate-interface" }, { title: "WeFactor", text: "", href: "/we-factor" }, { title: "WeGlobal", text: "", href: "/weglobal" }] },
+      { heading: "Engage & Statutory", cardColumns: 3, cards: [{ title: "Blogs", text: "", href: "/blogs" }, { title: "Events", text: "", href: "/events" }, { title: "News & Media", text: "", href: "/media" }, { title: "Careers", text: "", href: "/careers" }, { title: "Alumni", text: "", href: "/alumni" }, { title: "Contact Us", text: "", href: "/contact-us" }, { title: "Library (LRC)", text: "", href: "/library" }, { title: "Mandatory Disclosures", text: "", href: "/mandatory-disclosures" }, { title: "Autonomy", text: "", href: "/autonomy" }, { title: "Grievance Redressal", text: "", href: "/grievance" }, { title: "Privacy Policy", text: "", href: "/privacy-policy" }, { title: "NAD", text: "", href: "/nad" }] },
     ],
   },
-  "/weresearch/mumbai": simple("We Research @ Mumbai", "Research initiatives, publications and activities at the Mumbai campus.", ["WeResearch", "/weresearch"], undefined, HERO.research),
-  "/weresearch/bengaluru": simple("We Research @ Bengaluru", "Research initiatives, publications and activities at the Bengaluru campus.", ["WeResearch", "/weresearch"], undefined, HERO.research),
+  "/weresearch/mumbai": simple("We Research @ Mumbai", "Research initiatives, publications and activities at the Mumbai campus.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
+  "/weresearch/bengaluru": simple("We Research @ Bengaluru", "Research initiatives, publications and activities at the Bengaluru campus.", ["WeResearch", "/we-research-mumbai"], undefined, HERO.research),
 
   // ---- Event detail (Events Inside) ----
   "/events/sample": {
@@ -750,5 +751,6 @@ SITE_PAGES["/mdc/bengaluru"] = {
 };
 
 export function getSitePage(path: string): SitePage | undefined {
-  return SITE_PAGES[path];
+  // Pages are keyed by their public address; internal routes resolve too.
+  return SITE_PAGES[path] ?? SITE_PAGES[toPublicPath(path)];
 }

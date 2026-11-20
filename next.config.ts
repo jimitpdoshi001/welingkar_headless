@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { PROFILE_PREFIX, PUBLIC_PATHS } from "./src/lib/seo/public-paths";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -86,6 +87,17 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
     ],
+  },
+  // SEO: the current welingkar.org addresses serve the matching pages here
+  // (the address stays in the browser). afterFiles: checked before dynamic
+  // routes, so e.g. /events/mumbai or /we-factor/* are not caught by them.
+  async rewrites() {
+    return [
+      ...PUBLIC_PATHS.map(([source, destination]) => ({ source, destination })),
+      { source: `${PROFILE_PREFIX.live}/:slug`, destination: `${PROFILE_PREFIX.internal}/:slug` },
+      // Live Bengaluru profiles carry a "banglore/" segment.
+      { source: `${PROFILE_PREFIX.live}/banglore/:slug`, destination: `${PROFILE_PREFIX.internal}/:slug` },
+    ];
   },
   async headers() {
     return [

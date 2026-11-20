@@ -4,7 +4,7 @@ import { MandatoryDisclosure } from "@/components/statutory/Statutory";
 
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
-export const metadata: Metadata = sitePageMetadata("/mandatory-disclosure");
+export const metadata: Metadata = sitePageMetadata("/mandatory-disclosures");
 
 export default function Page() {
   return (

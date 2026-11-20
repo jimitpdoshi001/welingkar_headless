@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import type { DirectorMessage } from "./faculty";
 import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
+import { toPublicPath } from "@/lib/seo/public-paths";
 import type { JsonApiResource } from "./types";
 
 /** Drupal `faculty_about_us` node per campus (banner + director's desk). */
@@ -76,7 +77,7 @@ export const getFacultyAbout = cache(async (campus: keyof typeof NODE_IDS): Prom
 
   // Drupal link field: "internal:/path" -> "/path"; only site-relative paths are used.
   const rawLink = str((d.field_link as { uri?: string } | null)?.uri).replace(/^internal:/, "");
-  const directorLink = rawLink.startsWith("/") && !rawLink.startsWith("//") ? rawLink : "";
+  const directorLink = rawLink.startsWith("/") && !rawLink.startsWith("//") ? toPublicPath(rawLink) : "";
 
   return {
     directorLink,

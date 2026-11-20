@@ -101,7 +101,7 @@ const RECRUITERS = ["Axis Bank", "EY", "ICICI Bank", "Infosys", "Kotak Mahindra 
 function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
   const isMumbai = campus === "Mumbai";
   const CIMG = campusImages(isMumbai ? "mumbai" : "bengaluru");
-  const base = isMumbai ? "/campuses/mumbai" : "/campuses/bengaluru";
+  const base = isMumbai ? "/campus-mumbai" : "/campus-bengaluru";
   return {
     campus,
     accent: isMumbai ? "orange" : "green",
@@ -121,7 +121,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       { label: "Programs", href: "#programs" },
       { label: "Faculty", href: isMumbai ? "/about-us/faculty" : "/about-us/faculty/bengaluru" },
       { label: "Corporate Interface", href: "/corporate-interface" },
-      { label: "We Research", href: "/weresearch" },
+      { label: "We Research", href: "/we-research-mumbai" },
       { label: "We Excel", href: "#infrastructure" },
       { label: "Life @ WeSchool", href: isMumbai ? "/life-at-weschool" : "#life" },
     ],
@@ -183,12 +183,12 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     programmes: {
       heading: "Programs Built for Every Ambition",
       description: "Design thinking sits at the heart of everything we teach. Our wide range of curated programs are built to challenge, engage, and shape students into the business leaders of tomorrow.",
-      cta: { label: "View All", href: isMumbai ? "/programmes/pgdm/mumbai" : "/programmes/bengaluru" },
+      cta: { label: "View All", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm" : "/programmes/full-time-programme-in-bengaluru" },
       cards: [
-        { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm" : "/programmes/pgdm/bengaluru" } },
-        { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-e-business" : "/programmes/pgdm-e-business?campus=bengaluru" } },
-        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-business-design" : "/programmes/pgdm-business-design?campus=bengaluru" } },
-        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/pgdm-research-analytics" : "/programmes/pgdm-research-analytics?campus=bengaluru" } },
+        { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm" : "/programmes/full-time-programme-in-bengaluru/pgdm" } },
+        { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm-e-business" : "/programmes/full-time-programme-in-bengaluru/pgdm-e-business" } },
+        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm-business-design" : "/programmes/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation" } },
+        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics" : "/programmes/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics" } },
       ],
     },
     recruiters: {
@@ -205,7 +205,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       imageBox: isMumbai
         ? { top: -510, left: -2, width: 1441, height: 1823 }
         : { top: -62, left: -282, width: 2136, height: 1363 },
-      cta: { label: "Know More", href: "/weresearch" },
+      cta: { label: "Know More", href: "/we-research-mumbai" },
     },
     world: {
       heading: `The World of WeSchool, ${campus}`,
