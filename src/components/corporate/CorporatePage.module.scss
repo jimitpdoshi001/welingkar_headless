@@ -1,0 +1,332 @@
+@use "../../styles/base/mixins" as *;
+
+// Figma 3466:1642 palette.
+$purple: #493460;
+$orange: #f77100;
+
+.preLine { white-space: pre-line; }
+.cover { object-fit: cover; }
+.light { color: var(--color-white); }
+
+// DM Sans ExtraBold 40 / 44 (same as the other internal pages).
+.heading {
+  margin: 0 0 3rem;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; margin-bottom: 2rem; }
+}
+
+.body {
+  margin: 0 0 1.6rem;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
+}
+
+.narrow { max-width: 54.2rem; }
+
+// Two columns: text 578 | media/accordion 608 (x100 / x737).
+.split {
+  display: grid;
+  grid-template-columns: 57.8rem 60.8rem;
+  justify-content: space-between;
+  gap: 4rem;
+  align-items: start;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 3.2rem; }
+}
+
+/* ---------- Overview (triangle decor at the top left) ---------- */
+.overview {
+  position: relative;
+  padding: 16.4rem 0 8rem;
+
+  @include respond-to(mobile) { padding: 8rem 0 5rem; }
+}
+
+.decor {
+  position: absolute;
+  top: -1.3rem;
+  left: 0;
+  width: 26.7rem;
+  height: 30.5rem;
+  pointer-events: none;
+
+  @include respond-to(mobile) { width: 13rem; height: 15rem; }
+}
+
+.overviewImg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 608 / 348;
+  object-fit: cover;
+  border-radius: 2.25rem;
+}
+
+/* ---------- Placements (cream band) ---------- */
+.placements {
+  padding-block: 8rem;
+  background: var(--color-light-yellow);
+
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
+.accordion { width: 100%; }
+
+.accItem + .accItem { border-top: 1px solid #c8c8c8; }
+
+.accHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  width: 100%;
+  min-height: 9.3rem;
+  padding: 1.8rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+}
+
+button.accHeader { cursor: pointer; }
+
+.accTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 2.9rem;
+
+  @include respond-to(mobile) { font-size: 1.8rem; line-height: 2.4rem; }
+}
+
+// 50px circle: filled when closed, outlined when open; triangle flips.
+.accToggle {
+  position: relative;
+  flex: none;
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid var(--acc-color);
+  border-radius: 50%;
+  background: var(--acc-color);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-width: 0.7rem 0.45rem 0;
+    border-color: var(--color-white) transparent transparent;
+  }
+}
+
+.accToggleOpen {
+  background: transparent;
+
+  &::after {
+    border-width: 0 0.45rem 0.7rem;
+    border-color: transparent transparent var(--acc-color);
+  }
+}
+
+.orange { --acc-color: #{$orange}; }
+.green { --acc-color: var(--color-primary); }
+
+.accPanel { padding-bottom: 2.8rem; }
+
+.contact { margin-top: 2.4rem; }
+.contactName { margin: 0 0 1.4rem; font-size: 1.8rem; font-weight: 600; }
+.contactRole { margin: 0 0 2rem; font-size: 1.4rem; }
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem 4.4rem;
+  margin: 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--color-black);
+  }
+}
+
+/* ---------- Recruiters (purple band) ---------- */
+.recruiters {
+  padding-block: 9.4rem 9.3rem;
+  background: $purple;
+
+  .split { align-items: center; }
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
+.logoBox {
+  margin-top: 4.5rem;
+  padding: 2.2rem 4rem;
+  border-radius: 3rem;
+  background: var(--color-white);
+
+  @include respond-to(mobile) { padding: 1.6rem; border-radius: 2rem; overflow-x: auto; }
+}
+
+.logos {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  @include respond-to(mobile) { width: 70rem; max-width: none; }
+}
+
+.recruitersFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.4rem;
+  margin-top: 4rem;
+
+  @include respond-to(mobile) { flex-direction: column; align-items: flex-start; }
+}
+
+.disclaimer {
+  max-width: 59.3rem;
+  margin: 0;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  color: var(--color-white);
+}
+
+.orangeBtn {
+  background: $orange;
+  border-color: $orange;
+  color: var(--color-white);
+}
+
+/* ---------- Batch + Student Profile ---------- */
+.batch {
+  padding-block: 11.5rem 4.4rem;
+
+  > .body { margin-bottom: 2.4rem; }
+  .accItem { border-color: #d9d9d9; }
+  @include respond-to(mobile) { padding-block: 6rem 3rem; }
+}
+
+// Figma: 5 columns (x100/393/664/935/1181), 60px purple figures.
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 5.7rem 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li { display: flex; flex-direction: column; gap: 1.6rem; }
+
+  @include respond-to(tab) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @include respond-to(mobile) { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.2rem 1.6rem; }
+}
+
+.statValue {
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 4.7rem;
+  color: $purple;
+
+  @include respond-to(mobile) { font-size: 4rem; line-height: 3.6rem; }
+}
+
+.statLabel {
+  max-width: 16rem;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+}
+
+/* ---------- Student profile (photo band, dark fade on the right) ---------- */
+.studentProfile {
+  position: relative;
+  min-height: 49.2rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, rgb(0 0 0 / 80%), rgb(0 0 0 / 0%));
+  }
+
+  @include respond-to(mobile) {
+    min-height: 0;
+    padding-block: 26rem 4rem;
+    &::after { background: linear-gradient(to top, rgb(0 0 0 / 90%) 45%, rgb(0 0 0 / 0%)); }
+  }
+}
+
+.studentInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.studentText { max-width: 61rem; }
+
+/* ---------- Placement stats (purple, glass cards) ---------- */
+.stats {
+  padding-block: 13.3rem 13.3rem;
+  background: $purple;
+
+  @include respond-to(mobile) { padding-block: 5rem; }
+}
+
+.statsBody { max-width: 79.6rem; }
+
+.statCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.2rem;
+  margin-top: 4.5rem;
+
+  @include respond-to(tab) { grid-template-columns: minmax(0, 1fr); }
+}
+
+.statCard {
+  min-width: 0;
+  min-height: 23.4rem;
+  padding: 5.3rem 2.8rem 5.3rem 4.4rem;
+  border-radius: 3rem;
+  border: 1px solid rgb(255 255 255 / 25%);
+  background: rgb(255 255 255 / 4%);
+  box-shadow: inset 0 0 2.4rem rgb(255 255 255 / 6%);
+  color: var(--color-white);
+
+  @include respond-to(mobile) { padding: 3.2rem 2.4rem; }
+}
+
+.statCardTitle { margin: 0 0 4.3rem; font-size: 2.2rem; font-weight: 800; }
+
+.statCardRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+
+  p { margin: 0; display: flex; flex-direction: column; gap: 1.4rem; }
+}
+
+.salary {
+  font-size: clamp(3.6rem, 4.1vw, 6rem);
+  font-weight: 700;
+  line-height: 4.7rem;
+  white-space: nowrap;
+
+  small { margin-left: 0.6rem; font-size: 0.5em; }
+  @include respond-to(mobile) { font-size: 3rem; line-height: 3.6rem; }
+}
+
+.salaryLabel { font-size: 1.3rem; font-weight: 500; }
