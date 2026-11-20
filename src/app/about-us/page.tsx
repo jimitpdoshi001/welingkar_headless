@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { canonical } from "@/lib/seo/public-paths";
 import { AboutPage } from "@/components/about/AboutPage";
 import Footer from "@/components/Footer/Footer";
 import { getAwards } from "@/lib/drupal/awards";
 import { getAboutData } from "@/lib/drupal/about";
 
 export const metadata: Metadata = {
+  ...canonical("/about-us"),
   title: "About Us — WeSchool",
   description: "Prin. L. N. Welingkar Institute of Management Development and Research — a legacy of learning and leadership.",
 };

@@ -16,7 +16,7 @@ export async function getWeFactor(): Promise<WeFactorData> {
       title: or(r.text(p, "field_main_title"), fallback?.title ?? ""),
       body: or(r.paras(p, "field_description").join(" "), fallback?.body ?? ""),
       image: or(r.image(p, "field_image"), fallback?.image ?? ""),
-      href: or(r.link(p, "field_link").href, fallback?.href ?? "/wefactor"),
+      href: or(r.link(p, "field_link").href, fallback?.href ?? "/we-factor"),
     };
   });
 

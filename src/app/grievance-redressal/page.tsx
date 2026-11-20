@@ -4,7 +4,7 @@ import { GrievanceForm } from "@/components/statutory/Statutory";
 import { GRIEVANCE_INTRO } from "@/lib/statutory/statutory-data";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
-export const metadata: Metadata = sitePageMetadata("/grievance-redressal");
+export const metadata: Metadata = sitePageMetadata("/grievance");
 
 export default function Page() {
   return (

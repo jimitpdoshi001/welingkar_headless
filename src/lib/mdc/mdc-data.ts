@@ -50,7 +50,7 @@ export const MDC: MdcData = {
     { label: "Programs", href: "#offerings" },
     { label: "Faculty", href: "/about-us/faculty" },
     { label: "Corporate interface", href: "/corporate-interface" },
-    { label: "We Research", href: "/weresearch" },
+    { label: "We Research", href: "/we-research-mumbai" },
     { label: "We Excel", href: "#why" },
     { label: "Life @ WeSchool", href: "/life-at-weschool" },
     { label: "MDP", href: "/programmes/mdp" },

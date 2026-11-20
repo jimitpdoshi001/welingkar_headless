@@ -4,7 +4,7 @@
  */
 import type { PgdmCta, PgdmUspBand } from "@/lib/pgdm/pgdm-data";
 
-const IMG = "/programmes/pgp-entrepreneurship";
+const IMG = "/programmes/executive-programme-in-mumbai/entrepreneurship-management";
 
 export type PgpHero = {
   breadcrumb: string;

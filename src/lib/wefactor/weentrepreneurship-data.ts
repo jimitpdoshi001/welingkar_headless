@@ -7,7 +7,7 @@ export const WEENTREPRENEURSHIP: WeFactorDetailData = {
   title: "WeEntrepreneurship",
   intro:
     "We inspire young talent to distinguish themselves as entrepreneurs. The Center for Innovation & Memetics is the Innovation Lab (InnoWe) on campus that encourages students to work on their ideas and test them out practically. InnoWe is a space where thinking is stimulated; ideas germinate and are nurtured along to become paradigm-defining businesses.",
-  parent: { label: "WeFactor", href: "/wefactor" },
+  parent: { label: "WeFactor", href: "/we-factor" },
   blocks: [
     {
       type: "carousel",

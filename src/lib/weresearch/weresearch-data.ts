@@ -55,7 +55,7 @@ export type WeResearchData = {
   };
 };
 
-const IMG = "/weresearch";
+const IMG = "/we-research-mumbai";
 const ICON = `${IMG}/areas`;
 
 // Journal issue PDFs are not supplied yet; every month links to the journal page.

@@ -41,7 +41,7 @@ export const WELEARNING: WeFactorDetailData = {
   title: "WeLearning Experience",
   intro:
     "The sustainability-centric learning on the WE campus merges knowledge with practical exposure. Powered by technology, the students are apprised on future skills like business analytics. The study duration on campus takes the students to the grassroots of the subject. It is here, where learners get a chance to interact with CXO\'s, Alumni and renowned successful personalities.",
-  parent: { label: "WeFactor", href: "/wefactor" },
+  parent: { label: "WeFactor", href: "/we-factor" },
   blocks: [
     {
       type: "carousel",

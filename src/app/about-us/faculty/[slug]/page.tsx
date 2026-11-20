@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PROFILE_PREFIX } from "@/lib/seo/public-paths";
 import { notFound } from "next/navigation";
 
 import Header from "@/components/Header/Header";
@@ -21,7 +22,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const profile = await getFacultyProfile(slug);
   return profile
-    ? { title: `${profile.name} — Faculty | Welingkar`, description: profile.designation || "Faculty — Welingkar" }
+    ? {
+        title: `${profile.name} — Faculty | Welingkar`,
+        description: profile.designation || "Faculty — Welingkar",
+        // Canonical: the live-site profile address.
+        alternates: { canonical: `${PROFILE_PREFIX.live}/${slug}` },
+      }
     : { title: "Faculty — Welingkar" };
 }
 

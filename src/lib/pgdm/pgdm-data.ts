@@ -615,7 +615,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       heading: "Straight from Our Community",
       description:
         "There's something special about watching our students, recruiters and faculty come together. It's a big part of what pushes us to keep raising the bar on academic excellence. Hear it from our alumni in their own words.",
-      cta: { label: "View All", href: "/testimonials" },
+      cta: { label: "View All", href: "/testimonial" },
       // Figma: two video tiles beside the quote card.
       media: [IMG.community1, IMG.community2],
       testimonials: [

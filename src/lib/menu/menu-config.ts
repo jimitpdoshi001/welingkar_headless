@@ -40,50 +40,50 @@ export type MainNavItem = {
 
 /** Full-time PGDM programmes, reused across Campus and Programmes panels. */
 const FULL_TIME_PGDM: MegaLink[] = [
-  { label: "PGDM", href: "/programmes/pgdm" },
-  { label: "PGDM E-Business", href: "/programmes/pgdm-e-business" },
-  { label: "PGDM Business Design", href: "/programmes/pgdm-business-design" },
-  { label: "PGDM Healthcare", href: "/programmes/pgdm-healthcare" },
-  { label: "PGDM Retail Management", href: "/programmes/pgdm-retail" },
-  { label: "PGDM Rural Management", href: "/programmes/pgdm-rural" },
-  { label: "PGDM Media & Entertainment", href: "/programmes/pgdm-media" },
-  { label: "PGDM Research & Business Analytics", href: "/programmes/pgdm-research-analytics" },
+  { label: "PGDM", href: "/programmes/full-time-programme-in-mumbai/pgdm" },
+  { label: "PGDM E-Business", href: "/programmes/full-time-programme-in-mumbai/pgdm-e-business" },
+  { label: "PGDM Business Design", href: "/programmes/full-time-programme-in-mumbai/pgdm-business-design" },
+  { label: "PGDM Healthcare", href: "/programmes/full-time-programme-in-mumbai/pgdm-health-care-management" },
+  { label: "PGDM Retail Management", href: "/programmes/full-time-programme-in-mumbai/pgdm-retail-management" },
+  { label: "PGDM Rural Management", href: "/programmes/full-time-programme-in-mumbai/pgdm-rural-management" },
+  { label: "PGDM Media & Entertainment", href: "/programmes/full-time-programme-in-mumbai/pgdm-media-and-entertainment" },
+  { label: "PGDM Research & Business Analytics", href: "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics" },
 ];
 
 const FULL_TIME_PGDM_BLR: MegaLink[] = [
-  { label: "PGDM", href: "/programmes/pgdm/bengaluru" },
-  { label: "PGDM E-Business", href: "/programmes/pgdm-e-business?campus=bengaluru" },
-  { label: "PGDM Business Design & Innovation", href: "/programmes/pgdm-business-design?campus=bengaluru" },
-  { label: "PGDM Research & Business Analytics", href: "/programmes/pgdm-research-analytics?campus=bengaluru" },
+  { label: "PGDM", href: "/programmes/full-time-programme-in-bengaluru/pgdm" },
+  { label: "PGDM E-Business", href: "/programmes/full-time-programme-in-bengaluru/pgdm-e-business" },
+  { label: "PGDM Business Design & Innovation", href: "/programmes/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation" },
+  { label: "PGDM Research & Business Analytics", href: "/programmes/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics" },
 ];
 
 export const MAIN_NAV: MainNavItem[] = [
   {
     id: "who-we-are",
     label: "Who We Are",
-    href: "/about-us",
+    href: "/who-we-are",
     panel: {
       columns: [
         {
           heading: "Who We Are",
-          headingHref: "/about-us#weschool",
+          headingHref: "/who-we-are#weschool",
           links: [
             // Anchors scroll to the matching section on the About Us page.
-            { label: "Vision & Mission", href: "/about-us#vision-mission" },
-            { label: "About WeSchool", href: "/about-us#weschool" },
-            { label: "About SPM", href: "/about-us#spm" },
-            { label: "Managing Council Members", href: "/about-us#managing-council" },
-            { label: "Chairman's Message", href: "/about-us#chairman" },
-            { label: "Director's Message", href: "/about-us#director" },
+            { label: "Vision & Mission", href: "/who-we-are#vision-mission" },
+            { label: "About WeSchool", href: "/who-we-are#weschool" },
+            { label: "About SPM", href: "/who-we-are#spm" },
+            { label: "Managing Council Members", href: "/who-we-are#managing-council" },
+            { label: "Chairman's Message", href: "/who-we-are#chairman" },
+            { label: "Director's Message", href: "/who-we-are#director" },
           ],
         },
         {
           heading: "Governance",
           links: [
-            { label: "Academic Advisory Board", href: "/about-us#academic-advisory-board" },
-            { label: "Industry Advisory Board", href: "/about-us#industry-advisory-board" },
+            { label: "Academic Advisory Board", href: "/who-we-are#academic-advisory-board" },
+            { label: "Industry Advisory Board", href: "/who-we-are#industry-advisory-board" },
             { label: "Accreditations & Affiliations", href: "/accreditation" },
-            { label: "Awards & Accolades", href: "/about-us#awards" },
+            { label: "Awards & Accolades", href: "/who-we-are#awards" },
           ],
         },
       ],
@@ -96,9 +96,9 @@ export const MAIN_NAV: MainNavItem[] = [
     panel: {
       // Campus links only.
       intro: [
-        { title: "Mumbai Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/mumbai" },
+        { title: "Mumbai Campus", subtitle: "AICTE approved standalone institute", href: "/campus-mumbai" },
         { title: "MMS / PhD", subtitle: "Autonomous Institute affiliated to University of Mumbai", href: "https://welingkar.edu.in/" },
-        { title: "Bengaluru Campus", subtitle: "AICTE approved standalone institute", href: "/campuses/bengaluru" },
+        { title: "Bengaluru Campus", subtitle: "AICTE approved standalone institute", href: "/campus-bengaluru" },
       ],
       columns: [],
     },
@@ -122,7 +122,7 @@ export const MAIN_NAV: MainNavItem[] = [
         {
           heading: "Fees & Support",
           links: [
-            { label: "Fees & EMI", href: "/programmes/pgdm" },
+            { label: "Fees & EMI", href: "/programmes/full-time-programme-in-mumbai/pgdm" },
             { label: "TFW Scheme", href: "/admissions" },
             { label: "Scholarships", href: "/admissions" },
             { label: "Financial Assistance", href: "/admissions" },
@@ -143,7 +143,7 @@ export const MAIN_NAV: MainNavItem[] = [
           title: "PGDM Mumbai",
           subtitle: "AICTE approved standalone institute",
           columns: [
-            { heading: "Full-Time Programs", headingHref: "/programmes/mumbai", links: FULL_TIME_PGDM },
+            { heading: "Full-Time Programs", headingHref: "/programmes/full-time-programme-in-mumbai", links: FULL_TIME_PGDM },
             {
               heading: "Executive",
               links: [{ label: "MDP", href: "/programmes/mdp" }],
@@ -151,8 +151,8 @@ export const MAIN_NAV: MainNavItem[] = [
                 {
                   heading: "11 Months Post Graduate Program (Autonomous)",
                   links: [
-                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programmes/pgp-entrepreneurship" },
-                    { label: "PGP in Media & Entertainment", href: "/programmes/pgp-media" },
+                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programmes/executive-programme-in-mumbai/entrepreneurship-management" },
+                    { label: "PGP in Media & Entertainment", href: "/programmes/executive-programme-in-mumbai/media-and-entertainment-management" },
                   ],
                 },
               ],
@@ -162,7 +162,7 @@ export const MAIN_NAV: MainNavItem[] = [
               headingHref: "/programmes/pgdm-hybrid",
               links: [],
               sections: [
-                { heading: "11 Months PGP & 6 Months Certificate Programs", headingHref: "/programmes/certificate", links: [] },
+                { heading: "11 Months PGP & 6 Months Certificate Programs", headingHref: "/programmes/11-month-pg-6-month-certificate-programmes", links: [] },
                 { heading: "Post Graduate Program in Temple Management (PGPTM)", headingHref: "/programmes/pgptm", links: [] },
               ],
             },
@@ -174,8 +174,8 @@ export const MAIN_NAV: MainNavItem[] = [
           columns: [
             {
               heading: "Full-Time Programs",
-              links: [{ label: "MMS", href: "/programmes/mms" }],
-              sections: [{ heading: "PhD Programs", links: [{ label: "Management Studies", href: "/programmes/phd" }] }],
+              links: [{ label: "MMS", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" }],
+              sections: [{ heading: "PhD Programs", links: [{ label: "Management Studies", href: "/programmes/phd-programme-in-mumbai" }] }],
             },
           ],
         },
@@ -185,7 +185,7 @@ export const MAIN_NAV: MainNavItem[] = [
           columns: [
             {
               heading: "Full-Time Programs",
-              headingHref: "/programmes/bengaluru",
+              headingHref: "/programmes/full-time-programme-in-bengaluru",
               links: FULL_TIME_PGDM_BLR,
               sections: [{ heading: "Executive", links: [{ label: "MDP", href: "/programmes/mdp" }] }],
             },
@@ -202,8 +202,8 @@ export const MAIN_NAV: MainNavItem[] = [
     panel: {
       // Two entries only: one corporate page per campus.
       intro: [
-        { title: "Mumbai", href: "/corporate-interface/mumbai" },
-        { title: "Bengaluru", href: "/corporate-interface/bengaluru" },
+        { title: "Mumbai", href: "/career-management-centre-mumbai" },
+        { title: "Bengaluru", href: "/career-management-centre-bengaluru" },
       ],
       columns: [],
     },
@@ -211,14 +211,14 @@ export const MAIN_NAV: MainNavItem[] = [
   {
     id: "weresearch",
     label: "WeResearch",
-    href: "/weresearch",
+    href: "/we-research-mumbai",
     panel: {
       columns: [
         {
           heading: "Research",
-          headingHref: "/weresearch",
+          headingHref: "/we-research-mumbai",
           links: [
-            { label: "Introduction", href: "/weresearch" },
+            { label: "Introduction", href: "/we-research-mumbai" },
             { label: "All Research Papers", href: "/weresearch/papers" },
             { label: "Awarded & Recognised Papers", href: "/weresearch/recognised" },
             { label: "Research Areas", href: "/weresearch/areas" },
@@ -240,18 +240,18 @@ export const MAIN_NAV: MainNavItem[] = [
   {
     id: "wefactor",
     label: "WeFactor",
-    href: "/wefactor",
+    href: "/we-factor",
     panel: {
       columns: [
         {
           heading: "WeFactor",
-          headingHref: "/wefactor",
+          headingHref: "/we-factor",
           links: [
-            { label: "About WeFactor", href: "/wefactor" },
-            { label: "WeInnovate", href: "/wefactor/weinnovate" },
-            { label: "WeEntrepreneur", href: "/wefactor/weentrepreneur" },
-            { label: "WeLead", href: "/wefactor/welead" },
-            { label: "WeLearning", href: "/wefactor/welearning" },
+            { label: "About WeFactor", href: "/we-factor" },
+            { label: "WeInnovate", href: "/we-factor/we-innovate" },
+            { label: "WeEntrepreneur", href: "/we-factor/we-entrepreneurship" },
+            { label: "WeLead", href: "/we-factor/we-lead" },
+            { label: "WeLearning", href: "/we-factor/we-learn" },
           ],
         },
       ],

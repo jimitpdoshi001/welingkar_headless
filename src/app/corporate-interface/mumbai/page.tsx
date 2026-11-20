@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { canonical } from "@/lib/seo/public-paths";
 import { CorporatePage } from "@/components/corporate/CorporatePage";
 
 export const metadata: Metadata = {
+  ...canonical("/corporate-interface/mumbai"),
   title: "Corporate - Mumbai | WeSchool",
   description: "Industry-academia engagement, placements and recruiting at WeSchool Mumbai.",
 };

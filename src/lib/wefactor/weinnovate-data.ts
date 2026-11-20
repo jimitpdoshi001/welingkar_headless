@@ -7,7 +7,7 @@ export const WEINNOVATE: WeFactorDetailData = {
   title: "WeInnovate",
   intro:
     "We center on empathy to design some of the most impactful solutions and inventions for organisational and community development. WeInnovate branches out into various international/industry academia partnered events.",
-  parent: { label: "WeFactor", href: "/wefactor" },
+  parent: { label: "WeFactor", href: "/we-factor" },
   blocks: [
     {
       type: "text",

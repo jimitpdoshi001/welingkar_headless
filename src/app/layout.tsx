@@ -12,6 +12,8 @@ const sans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  // Base for canonical URLs: the public domain (override with NEXT_PUBLIC_SITE_URL).
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.welingkar.org"),
   title: {
     default: "Welingkar",
     template: "%s | Welingkar",

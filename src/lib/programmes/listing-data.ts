@@ -1,3 +1,4 @@
+import { toPublicPath } from "@/lib/seo/public-paths";
 /**
  * Programme listing pages (Figma 627:1158 Mumbai). Copy, order and intakes come
  * from Figma; images are local placeholders until real photos are uploaded to
@@ -37,21 +38,21 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     image: img("mumbai", "hero"),
   },
   nav: [
-    { label: "About Campus", href: "/campuses/mumbai" },
+    { label: "About Campus", href: "/campus-mumbai" },
     { label: "Programs", href: "#programs" },
     { label: "Faculty", href: "/about-us/faculty" },
     { label: "Corporate Interface", href: "/corporate-interface" },
-    { label: "We Research", href: "/weresearch" },
+    { label: "We Research", href: "/we-research-mumbai" },
     { label: "We Excel", href: "/weexcel" },
     { label: "Life @ WeSchool", href: "/life-at-weschool" },
     { label: "MDP", href: "/programmes/mdp" },
   ],
   pills: [
-    { label: "Full-Time Programs", href: "/programmes/bengaluru" },
-    { label: "Executive", href: "/programmes/executive" },
-    { label: "11months Post Graduate Program", href: "/programmes/executive" },
+    { label: "Full-Time Programs", href: "/programmes/full-time-programme-in-bengaluru" },
+    { label: "Executive", href: "/programmes/executive-programme-in-mumbai" },
+    { label: "11months Post Graduate Program", href: "/programmes/executive-programme-in-mumbai" },
     { label: "PGDM Hybrid Program", href: "/programmes/pgdm-hybrid" },
-    { label: "11 months PGP & 6 months Certificate Programs", href: "/programmes/certificate" },
+    { label: "11 months PGP & 6 months Certificate Programs", href: "/programmes/11-month-pg-6-month-certificate-programmes" },
     { label: "Post Graduate Program in Temple Management (PGPTM)", href: "/programmes/pgptm" },
   ],
   intro: {
@@ -69,14 +70,14 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { slug: "pgdm-media", title: "PGDM - Media & Entertainment", description: "This course trains students to become well-rounded media professionals, grounded in the best practices of the field." },
     { slug: "pgdm-research-analytics", title: "PGDM - Research and Business Analytics", description: "This course sharpens analytical minds in every keen student, shaping future business thinkers who lead with versatility." },
     { slug: "mms", title: "MMS", description: "This interdisciplinary program equips students with integrated management knowledge and analytical skills, offering a competitive advantage on par with postgraduate programs." },
-  ].map((p) => ({ ...p, intake: "Present Intake: 180", href: p.slug === "pgdm" ? "/programmes/pgdm/mumbai" : `/programmes/${p.slug}` })),
+  ].map((p) => ({ ...p, intake: "Present Intake: 180", href: toPublicPath(p.slug === "pgdm" ? "/programmes/pgdm" : `/programmes/${p.slug}`) })),
 };
 
 /** Bengaluru version of a program page, or null when the program runs in Mumbai only. */
 export function bengaluruProgramHref(slug: string): string | null {
-  if (slug === "pgdm") return "/programmes/pgdm/bengaluru";
+  if (slug === "pgdm") return "/programmes/full-time-programme-in-bengaluru/pgdm";
   return ["pgdm-e-business", "pgdm-business-design", "pgdm-research-analytics"].includes(slug)
-    ? `/programmes/${slug}?campus=bengaluru`
+    ? toPublicPath(`/programmes/${slug}?campus=bengaluru`)
     : null;
 }
 
@@ -87,7 +88,7 @@ export const LISTING_BENGALURU: ProgrammeListingData = {
   campus: "bengaluru",
   theme: { strip: "#b04535", tint: "#fff4f2", button: "var(--color-primary)" },
   hero: { ...LISTING_MUMBAI.hero, title: "Full-Time Programs in Bengaluru", image: img("bengaluru", "hero") },
-  nav: LISTING_MUMBAI.nav.map((n) => (n.label === "About Campus" ? { ...n, href: "/campuses/bengaluru" } : n)),
+  nav: LISTING_MUMBAI.nav.map((n) => (n.label === "About Campus" ? { ...n, href: "/campus-bengaluru" } : n)),
   pills: LISTING_MUMBAI.pills.slice(0, 2),
   intro: { ...LISTING_MUMBAI.intro, heading: "Full-time Programs" },
   // Programs with a Bengaluru version link to it; Mumbai-only programs keep their page.

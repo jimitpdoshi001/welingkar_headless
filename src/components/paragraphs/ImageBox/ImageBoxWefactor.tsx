@@ -16,15 +16,15 @@ import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 
 // WeFactor cards whose Drupal link is empty/"#" open their WeFactor page.
 const WEFACTOR_PAGES: [RegExp, string][] = [
-  [/learning/i, "/wefactor/welearning"],
-  [/innovat/i, "/wefactor/weinnovate"],
-  [/entrepreneur/i, "/wefactor/weentrepreneur"],
-  [/lead/i, "/wefactor/welead"],
+  [/learning/i, "/we-factor/we-learn"],
+  [/innovat/i, "/we-factor/we-innovate"],
+  [/entrepreneur/i, "/we-factor/we-entrepreneurship"],
+  [/lead/i, "/we-factor/we-lead"],
 ];
 
 function wefactorHref(heading: string | null, drupalHref: string | null | undefined): string {
   if (drupalHref && drupalHref !== "#") return drupalHref;
-  return WEFACTOR_PAGES.find(([re]) => heading && re.test(heading))?.[1] ?? "/wefactor";
+  return WEFACTOR_PAGES.find(([re]) => heading && re.test(heading))?.[1] ?? "/we-factor";
 }
 
 export default function ImageBoxWefactor({ paragraph, children }: ImageBoxProps) {
