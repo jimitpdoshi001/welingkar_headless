@@ -10,6 +10,8 @@ export type ListingProgramme = {
   description: string;
   intake: string;
   href: string;
+  /** Drupal photo; the local placeholder is used when missing. */
+  image?: string;
 };
 
 export type ProgrammeListingData = {

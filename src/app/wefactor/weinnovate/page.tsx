@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { WeFactorDetailPage } from "@/components/wefactor/WeFactorDetailPage";
+import { getWeFactorDetail } from "@/lib/drupal/pages/wefactor-detail";
 import { WEINNOVATE } from "@/lib/wefactor/weinnovate-data";
 
 export const metadata: Metadata = {
@@ -7,6 +8,6 @@ export const metadata: Metadata = {
   description: WEINNOVATE.intro,
 };
 
-export default function Page() {
-  return <WeFactorDetailPage data={WEINNOVATE} />;
+export default async function Page() {
+  return <WeFactorDetailPage data={await getWeFactorDetail("weinnovate")} />;
 }
