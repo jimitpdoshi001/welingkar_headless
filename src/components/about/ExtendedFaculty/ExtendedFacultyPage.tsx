@@ -29,6 +29,7 @@ export function ExtendedFacultyPage({ campus, type }: { campus: ExtendedFacultyC
       title={`${page.title} — ${CAMPUS[campus].name}`}
       intro={page.intro}
       members={page.members}
+      columns={4}
       parent={{ label: `${CAMPUS[campus].name} Faculty`, href: CAMPUS[campus].faculty }}
     />
   );

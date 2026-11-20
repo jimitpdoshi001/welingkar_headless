@@ -61,6 +61,9 @@ const nextConfig: NextConfig = {
   agentRules: false,
   poweredByHeader: false,
   experimental: {
+    // Build cache off: a restored Turbopack cache served stale pages (e.g. the
+    // Bengaluru campus page kept old faculty links after the data changed).
+    turbopackFileSystemCacheForBuild: false,
     sri: {
       algorithm: "sha256",
     },
