@@ -547,3 +547,20 @@ export const ACCREDITATION_SECTIONS: AccreditationSection[] = [
     ]
   }
 ];
+
+export type AccreditationCampus = "mumbai" | "bengaluru";
+
+/** Side menu for one campus page: every accreditation section. */
+export const accreditationNav = (campus: AccreditationCampus) =>
+  ACCREDITATION_SECTIONS.map((s) => ({ label: s.title, href: `/accreditation/${campus}?section=${s.id}` }));
+
+/**
+ * Groups for one campus: titled groups naming the campus (prefix "Mumbai: "
+ * dropped), plus untitled groups, which apply to both campuses.
+ */
+export function campusGroups(section: AccreditationSection, campus: AccreditationCampus): DisclosureGroup[] {
+  const name = campus === "mumbai" ? "Mumbai" : "Bengaluru";
+  return section.groups
+    .filter((g) => !g.title || new RegExp(`\\b${name}\\b`, "i").test(g.title))
+    .map((g) => ({ ...g, title: g.title.replace(new RegExp(`^${name}(:\\s*|$)`, "i"), "") }));
+}

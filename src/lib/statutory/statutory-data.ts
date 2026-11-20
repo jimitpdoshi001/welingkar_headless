@@ -8,16 +8,8 @@ export type DocLink = { label: string; href: string };
 
 // Left-hand menu shared by the disclosure pages: Mandatory Disclosure has its
 // own page; every other entry is a section of the Accreditation page.
-export const DISCLOSURE_NAV: DocLink[] = [
-  { label: "Mandatory Disclosure", href: "/mandatory-disclosures" },
-  { label: "AICTE Approvals", href: "/accreditation?section=aicte-approvals" },
-  { label: "NIRF", href: "/accreditation?section=nirf" },
-  { label: "AIU Equivalence", href: "/accreditation?section=aiu-equivalence" },
-  { label: "ARIIA", href: "/accreditation?section=ariia" },
-  { label: "SAQS Accreditation", href: "/accreditation?section=saqs" },
-  { label: "NBA", href: "/accreditation?section=nba" },
-  { label: "ACBSP accreditation", href: "/accreditation?section=acbsp" },
-];
+// Mandatory Disclosures page: its own tab only (accreditations have their own pages).
+export const DISCLOSURE_NAV: DocLink[] = [{ label: "Mandatory Disclosure", href: "/mandatory-disclosures" }];
 
 export type DisclosureGroup = { title: string; links: DocLink[] };
 

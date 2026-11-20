@@ -257,6 +257,18 @@ export const MAIN_NAV: MainNavItem[] = [
       ],
     },
   },
+  {
+    id: "accreditations",
+    label: "Accreditations",
+    href: "", // label only: one page per campus
+    panel: {
+      intro: [
+        { title: "Mumbai", href: "/accreditation/mumbai" },
+        { title: "Bengaluru", href: "/accreditation/bengaluru" },
+      ],
+      columns: [],
+    },
+  },
 ];
 
 export const UTILITY_NAV: MegaLink[] = [

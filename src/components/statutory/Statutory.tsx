@@ -21,11 +21,11 @@ export function MandatoryDisclosure() {
  * menu with the active entry highlighted, then the document groups. A group
  * without a title lists its documents directly.
  */
-export function DisclosureLayout({ active, groups }: { active: string; groups: DisclosureGroup[] }) {
+export function DisclosureLayout({ active, groups, nav = DISCLOSURE_NAV }: { active: string; groups: DisclosureGroup[]; nav?: DocLink[] }) {
   return (
     <section className={`container ${styles.block} ${styles.disclosure}`}>
       <nav className={styles.sideNav} aria-label="Disclosures">
-        {DISCLOSURE_NAV.map((item) => (
+        {nav.map((item) => (
           <Link
             key={item.label}
             href={item.href}
