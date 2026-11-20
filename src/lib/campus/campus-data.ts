@@ -171,11 +171,11 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     faculty: {
       heading: "Our Extended Faculty Network",
       description: "Our academic strength is enriched by a distinguished network of visiting faculty members from across India and abroad, bringing diverse perspectives, industry insight, and global best practices into the classroom.",
-      // Each opens the matching Affiliate Faculty tab on the Mumbai faculty page.
+      // Each opens this campus's own International / Visiting / Guest faculty page.
       categories: [
-        { label: "International Faculty", href: "/about-us/faculty#affiliate-international" },
-        { label: "Visiting Faculty", href: "/about-us/faculty#affiliate-visiting" },
-        { label: "Guest Lecturers", href: "/about-us/faculty#affiliate-guests" },
+        { label: "International Faculty", href: `/${isMumbai ? "mumbai" : "bengaluru"}/international-faculty` },
+        { label: "Visiting Faculty", href: `/${isMumbai ? "mumbai" : "bengaluru"}/visiting-faculty` },
+        { label: "Guest Lecturers", href: `/${isMumbai ? "mumbai" : "bengaluru"}/guest-faculty` },
       ],
       image: CIMG.facultyNetwork,
       cta: { label: "Meet Our Faculty", href: "/about-us/faculty" },

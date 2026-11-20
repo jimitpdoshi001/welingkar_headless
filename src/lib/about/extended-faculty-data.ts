@@ -128,7 +128,7 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       },
       {
         "name": "Chitra Chandrasekhar",
-        "designation": "Kirthi Consutants P Ltd",
+        "designation": "Kirthi Consultants P Ltd",
         "role": "Director"
       },
       {
@@ -137,14 +137,14 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
         "role": "CMO"
       },
       {
-        "name": "Dr.Rahul Shah",
+        "name": "Dr. Rahul Shah",
         "designation": "Skill Recognition and Learning Center of India",
         "role": "Founder"
       },
       {
         "name": "Durgesh Tinaikar",
         "designation": "Mizuho Bank Ltd.",
-        "role": "Managing Director & Head - Corporate & Industrail Banking - India"
+        "role": "Managing Director & Head - Corporate & Industrial Banking - India"
       },
       {
         "name": "Hamza Kazi",
@@ -154,7 +154,7 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       {
         "name": "Jayesh Deshmukh",
         "designation": "IndusInd Bank",
-        "role": "Asistant VP2 & Sr. Product Manager"
+        "role": "Assistant VP2 & Sr. Product Manager"
       },
       {
         "name": "Kinnari Dave",
@@ -168,8 +168,8 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       },
       {
         "name": "Mahendra Sadashiv Gupta",
-        "designation": "Synergeze Consultnts Pvt. Ltd. India",
-        "role": "Sr. Vice Presindent - Operations Consulting"
+        "designation": "Synergeze Consultants Pvt. Ltd. India",
+        "role": "Sr. Vice President - Operations Consulting"
       },
       {
         "name": "Mayuresh Belsare",
@@ -189,11 +189,11 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       {
         "name": "Priten Bangdiwala",
         "designation": "Aditya Birla Group",
-        "role": "Joint president - head ind4.0 and ecommerce platforms"
+        "role": "Joint President - Head Ind 4.0 and E-commerce Platforms"
       },
       {
         "name": "Puraskar Chakrabarti",
-        "designation": "Department of Economics,Universtiy of Mumbai",
+        "designation": "Department of Economics,University of Mumbai",
         "role": "Sr Research Fellow"
       },
       {
@@ -224,7 +224,7 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       {
         "name": "Vartika Sethi",
         "designation": "Jewel Story",
-        "role": "Founder-Sole Properiter"
+        "role": "Founder-Sole Proprietor"
       },
       {
         "name": "Viswanathan R",
@@ -270,7 +270,7 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       },
       {
         "name": "Mr. Harmeet Singh Kapoor",
-        "designation": "AGM Supply Chain at LOreal"
+        "designation": "AGM Supply Chain at L'Oréal"
       },
       {
         "name": "Mr. Rahul Deshak",
@@ -480,12 +480,12 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
       },
       {
         "name": "T Sivanandam",
-        "designation": "Independent Consultant and Visitng faculty"
+        "designation": "Independent Consultant and Visiting faculty"
       },
       {
         "name": "Venkatesha Bhagavath",
         "designation": "Senior Consultant (Project Delivery)",
-        "role": "Fisher Statistics Group, Edinburg, Scotland [Working for SME]"
+        "role": "Fisher Statistics Group, Edinburgh, Scotland [Working for SME]"
       },
       {
         "name": "Vidya Chira",
@@ -785,87 +785,87 @@ export const EXTENDED_FACULTY: ExtendedFacultyPage[] = [
         "role": "Mellon Capital"
       },
       {
-        "name": "manjula dharmalingam",
+        "name": "Manjula Dharmalingam",
         "designation": "Founder",
         "role": "Her Second Innings"
       },
       {
-        "name": "swapnil tiwari",
+        "name": "Swapnil Tiwari",
         "designation": "Sociopreneur",
         "role": "Livemad Foundation"
       },
       {
-        "name": "ashish mehta",
+        "name": "Ashish Mehta",
         "designation": "Managing Director APAC;",
         "role": "International Institute of Business Analysis (IIBA)"
       },
       {
-        "name": "aarif aziz",
+        "name": "Aarif Aziz",
         "designation": "Head HR",
         "role": "GE Healthcare"
       },
       {
-        "name": "parabesh de",
+        "name": "Parabesh De",
         "designation": "Startup Engagement and Innovation Evangelist",
         "role": "Chief Manager at ICICI Bank"
       },
       {
-        "name": "rinku kaul",
+        "name": "Rinku Kaul",
         "designation": "Managing Director - Talent Supply Chain",
         "role": "Accenture Services Pvt Ltd"
       },
       {
-        "name": "m.ram naresh yadav",
+        "name": "M. Ram Naresh Yadav",
         "designation": "Managing Partner",
         "role": "DKK & Associates, Chartered Accountants"
       },
       {
-        "name": "prakash khadam",
+        "name": "Prakash Khadam",
         "designation": "Senior Software Engineering Manager",
         "role": "Nvidia"
       },
       {
-        "name": "moses chowdary",
+        "name": "Moses Chowdary",
         "designation": "Program Manager",
         "role": "EnAble India"
       },
       {
-        "name": "vasudevan chinnathambi",
+        "name": "Vasudevan Chinnathambi",
         "designation": "Co-Founder",
         "role": "Ninjacart"
       },
       {
-        "name": "c amarnath",
+        "name": "C Amarnath",
         "designation": "Emeritus Professor",
         "role": "IIT Bombay"
       },
       {
-        "name": "nameet m",
+        "name": "Nameet M",
         "designation": "Director & Chief Production Head",
         "role": "First Agro"
       },
       {
-        "name": "surya prakash mohapatra",
+        "name": "Surya Prakash Mohapatra",
         "designation": "Global Head- Talent Transformation",
         "role": "Wipro BPS"
       },
       {
-        "name": "rahul dhawan",
+        "name": "Rahul Dhawan",
         "designation": "Technical Analysis Expert",
         "role": "Stock Market Institute"
       },
       {
-        "name": "yashaswi kumar",
+        "name": "Yashaswi Kumar",
         "designation": "Co-founder",
         "role": "Knappily"
       },
       {
-        "name": "ramesh ranjan",
+        "name": "Ramesh Ranjan",
         "designation": "Founder &Chief Editor",
-        "role": "www.humanengineers.com a HR Portal."
+        "role": "www.humanengineers.com, an HR portal"
       },
       {
-        "name": "andrea hvistendhl",
+        "name": "Andrea Hvistendahl",
         "designation": "Lecturer - School of Innovation, Design and Engineering",
         "role": "Mälardalen University"
       },
