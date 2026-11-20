@@ -221,6 +221,7 @@ export const MAIN_NAV: MainNavItem[] = [
           heading: "Recruit",
           headingHref: "/corporate-interface",
           links: [
+            { label: "Corporate Overview", href: "/corporate-interface" },
             { label: "Why Recruit from WeSchool", href: "/corporate-interface#why-recruit" },
             { label: "Top Recruiters", href: "/corporate-interface/top-recruiters" },
             { label: "Placement Cell Contact", href: "/corporate-interface/placement-contact" },
