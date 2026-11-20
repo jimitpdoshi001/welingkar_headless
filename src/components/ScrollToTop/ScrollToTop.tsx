@@ -1,7 +1,8 @@
 "use client";
 
 import style from "./ScrollToTop.module.scss";
-import { Whatsapp, Share } from "@/assets/svg/Icons";
+import { Whatsapp } from "@/assets/svg/Icons";
+import { SocialBar } from "./SocialBar";
 import Link from "next/link";
 import { useMediaQuery } from "@/util/useMediaQuery";
 
@@ -12,18 +13,6 @@ const ScrollToTop = () => {
 
   const contactWhatsapp = () => {
     window.location.href = "https://wa.me/919876543210";
-  };
-
-  const sharePage = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: document.title,
-        url: window.location.href,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert("Link copied to clipboard!");
-    }
   };
 
   // if (!showButton) return null;
@@ -41,13 +30,8 @@ const ScrollToTop = () => {
           </Link>
         )}
 
-        <div
-          className={style.share}
-          onClick={sharePage}
-          aria-label="Share page"
-        >
-          <Share />
-        </div>
+        {/* Slide-out social links (replaces the old share button). */}
+        <SocialBar />
 
         <div
           className={style.whatsapp}

@@ -1,0 +1,67 @@
+@use "../../styles/base/mixins" as *;
+
+// 40x40 squares: green background, purple icon; colours flip on hover.
+.item {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--color-primary);
+  color: var(--color-secondary);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+  }
+}
+
+// The share square stays in the rail; the links sit to its left, hidden.
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.links {
+  position: absolute;
+  right: calc(100% + 0.6rem);
+  top: 50%;
+  display: flex;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(1.6rem, -50%);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+// Open: tap toggles `.open`; mouse users also open it by hovering.
+.open .links {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(0, -50%);
+}
+
+@media (hover: hover) {
+  .bar:hover .links,
+  .bar:focus-within .links {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(0, -50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links { transition: none; }
+}
