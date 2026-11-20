@@ -44,16 +44,33 @@
 
 /* Chairman band colours (Figma): lavender for Chairman, cream for Vice Chairman.
    Full-section backgrounds so the two bands sit flush with no white gap. */
-.bandPurple { background: #f1ecfa; }
-.bandCream { background: #faf3ee; }
+.bandPurple { background: #f1ecfa; overflow: hidden; }
+.bandCream { background: #faf3ee; overflow: hidden; }
 
 /* Chairman */
 .chairman { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 4.8rem; align-items: center; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; } }
 // Vice Chairman (Figma 2289:134): text left, photo right.
-.chairmanReverse { grid-template-columns: 1.15fr 0.85fr; @include respond-to(mobile) { grid-template-columns: 1fr; .chairmanImage { order: -1; } } }
-// Desktop/tablet: photo stands on the band's bottom edge (Figma).
-@media (min-width: 768px) { .chairman { padding-bottom: 0; } .chairmanText { padding-bottom: 6.5rem; } }
-.chairmanImage { width: 100%; max-width: 52rem; object-fit: contain; align-self: end; @include respond-to(mobile) { max-width: 32rem; margin-inline: auto; } }
+.chairmanReverse { grid-template-columns: 1.15fr 0.85fr; @include respond-to(mobile) { grid-template-columns: 1fr; .chairmanMedia { order: -1; } } }
+// Photo fills the band from just below its top edge down to the bottom (screenshot ref).
+@media (min-width: 768px) {
+  .chairman { padding-top: 4rem; padding-bottom: 0; align-items: stretch; }
+  .chairmanText { padding-block: 2.5rem 6.5rem; align-self: center; }
+  // Frame fills the band height; the photo is zoomed by --desk-zoom from the bottom
+  // centre and clipped by the frame (not a transform: the scroll-reveal animation
+  // owns transform on the image).
+  .chairmanMedia { position: relative; align-self: stretch; min-height: 40rem; overflow: hidden; }
+  .chairmanMedia .chairmanImage {
+    position: absolute;
+    left: calc((1 - var(--desk-zoom, 1)) * 50%);
+    bottom: 0;
+    width: calc(var(--desk-zoom, 1) * 100%);
+    max-width: none;
+    height: calc(var(--desk-zoom, 1) * 100%);
+    object-fit: contain;
+    object-position: center bottom;
+  }
+}
+.chairmanImage { display: block; width: 100%; max-width: 52rem; object-fit: contain; @include respond-to(mobile) { max-width: 32rem; margin-inline: auto; } }
 .personName { font-size: 1.9rem; font-weight: 700; margin-top: 1.6rem; }
 .personRole { font-size: 1.5rem; color: var(--color-gray); }
 
