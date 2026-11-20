@@ -20,9 +20,17 @@ $rule: rgba(0, 0, 0, 0.15);
   position: relative;
   display: block;
   aspect-ratio: 400 / 279;
+  width: 100%;
+  padding: 0;
+  border: 0;
   border-radius: 3rem;
   overflow: hidden;
+  background: none;
   color: #000;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  &:focus-visible { outline: 2px solid $green; outline-offset: 3px; }
   &:hover .cardImg { transform: scale(1.04); }
 }
 
@@ -50,46 +58,73 @@ $rule: rgba(0, 0, 0, 0.15);
 // Source SVG points up; rotate to point right.
 .cardArrow { width: 5rem; height: 5rem; transform: rotate(90deg); }
 
-// Info row: side box 400 + two 327 columns.
+// Info row: 400px side box + contact groups in two 327px columns.
 .info {
   display: grid;
-  grid-template-columns: 40rem 1fr 1fr;
+  grid-template-columns: 40rem 1fr;
   column-gap: 7.1rem;
   margin-top: 7rem;
   align-items: start;
-  @include respond-to(tab) { grid-template-columns: 1fr 1fr; row-gap: 4rem; column-gap: 3rem; .side { grid-column: 1 / -1; } }
-  @include respond-to(mobile) { grid-template-columns: 1fr; }
+  @include respond-to(tab) { grid-template-columns: 1fr; row-gap: 4rem; }
 }
 
+// Side box doubles as the section switcher; the active entry is the bold title.
 .side {
   background: $cream;
   border-radius: 3rem;
-  padding: 3.8rem 3.6rem 4.9rem;
+  padding: 2.6rem 3.6rem 3.7rem;
   ul { list-style: none; margin: 0; padding: 0; }
-  li { padding: 2.4rem 0; border-top: 1px solid $rule; font-size: 1.6rem; line-height: 1.3; }
-  li:last-child { padding-bottom: 0; }
+  li + li { border-top: 1px solid $rule; }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    width: 100%;
+    padding: 2.2rem 0;
+    border: 0;
+    background: none;
+    color: #000;
+    font: inherit;
+    font-size: 1.6rem;
+    line-height: 1.3;
+    text-align: left;
+    cursor: pointer;
+    &:hover { color: $green; }
+    img { flex: none; }
+  }
+  .sideActive { font-size: 2.2rem; font-weight: 800; line-height: 1.2; &:hover { color: #000; } }
 }
 
-.sideHeading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 0 2.4rem;
-  font-size: 2.2rem;
-  font-weight: 800;
-  line-height: 1.2;
+// Two columns that fill top to bottom; a group never splits across columns.
+.groups {
+  columns: 2;
+  column-gap: 7.1rem;
+  @include respond-to(mobile) { columns: 1; }
 }
 
-.col { max-width: 33.2rem; @include respond-to(tab) { max-width: none; } }
-.colHeading { margin: 0 0 2.6rem; font-size: 1.8rem; font-weight: 800; line-height: 1.2; }
+.colHeading { margin: 0 0 1.6rem; font-size: 1.8rem; font-weight: 800; line-height: 1.2; }
 
 .group {
+  break-inside: avoid;
   padding: 1.5rem 0;
-  border-top: 1px solid $rule;
-  &:first-of-type { border-top: 0; padding-top: 0; }
+  border-bottom: 1px solid $rule;
 }
+// Bold-titled groups start a new block: extra space above.
+.groupStart { padding-top: 2.6rem; }
+.groups > .group:first-child { padding-top: 0; }
+.groups > .group:last-child { border-bottom: 0; }
 
 .groupLabel { margin: 0 0 1rem; font-size: 1.4rem; line-height: 1.3; }
+
+.note {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  white-space: pre-line;
+  & + * , * + & { margin-top: 1rem; }
+}
+.inlineLink { color: $green; text-decoration: underline; }
 
 .line {
   display: flex;

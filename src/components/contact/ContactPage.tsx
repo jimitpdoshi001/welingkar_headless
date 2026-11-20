@@ -1,24 +1,9 @@
-import Link from "next/link";
-
 import { PageShell } from "@/components/shell/PageShell";
-import { CONNECT, CONTACT_CAMPUSES, CONTACT_COLUMNS, CONTACT_SIDE, type ContactLine } from "@/lib/contact/contact-data";
+import { CONNECT } from "@/lib/contact/contact-data";
+import { ContactTabs } from "./ContactTabs";
 import styles from "./ContactPage.module.scss";
 
-// Phone numbers become tel: links; multi-line text (timings) stays plain.
-function Line({ line }: { line: ContactLine }) {
-  const icon = line.kind === "phone" ? "/contact/icon-phone.svg" : "/contact/icon-mail.svg";
-  const first = line.text.split(/[/\n]/)[0].replace(/[^\d+]/g, "");
-  const href = line.kind === "mail" ? `mailto:${line.text.trim()}` : first.length >= 8 && !line.text.includes("Ext") ? `tel:${first}` : undefined;
-  const body = href ? <a href={href}>{line.text.trim()}</a> : line.text;
-  return (
-    <p className={`${styles.line} ${line.kind === "mail" ? styles.mail : ""}`}>
-      <img src={icon} alt="" width={line.kind === "phone" ? 15 : 18} height={line.kind === "phone" ? 15 : 11} />
-      <span>{body}</span>
-    </p>
-  );
-}
-
-/** Figma 3507:152 Contact Us (Mumbai). */
+/** Figma 3507:152 Contact Us. */
 export function ContactPage() {
   return (
     <PageShell
@@ -26,58 +11,9 @@ export function ContactPage() {
       title="Contact us"
       subtitle="If you’d like to know more about WeSchool or have a query answered, we'd be happy to help."
       image="/contact/hero.webp"
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Mumbai - Contact Us" }]}
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
     >
-      <section className={`container ${styles.campuses}`}>
-        {CONTACT_CAMPUSES.map((c) => {
-          const inner = (
-            <>
-              <img src={c.image} alt="" className={styles.cardImg} />
-              <span className={styles.cardBar}>
-                <span>{c.label}</span>
-                <img src={"active" in c ? "/contact/arrow-active.svg" : "/contact/arrow.svg"} alt="" width={50} height={50} className={styles.cardArrow} />
-              </span>
-            </>
-          );
-          return "href" in c ? (
-            <Link key={c.label} href={c.href} className={styles.card}>
-              {inner}
-            </Link>
-          ) : (
-            <div key={c.label} className={styles.card}>
-              {inner}
-            </div>
-          );
-        })}
-      </section>
-
-      <section className={`container ${styles.info}`}>
-        <aside className={styles.side}>
-          <h2 className={styles.sideHeading}>
-            {CONTACT_SIDE.heading}
-            <img src="/contact/icon-play.svg" alt="" width={10} height={12} />
-          </h2>
-          <ul>
-            {CONTACT_SIDE.items.map((t) => (
-              <li key={t}>{t}</li>
-            ))}
-          </ul>
-        </aside>
-
-        {CONTACT_COLUMNS.map((col) => (
-          <div key={col.heading} className={styles.col}>
-            <h2 className={styles.colHeading}>{col.heading}</h2>
-            {col.groups.map((g, i) => (
-              <div key={i} className={styles.group}>
-                {g.label ? <p className={styles.groupLabel}>{g.label}</p> : null}
-                {g.lines.map((l) => (
-                  <Line key={l.text} line={l} />
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
-      </section>
+      <ContactTabs />
 
       <section className={`container ${styles.connect}`}>
         <div className={styles.connectText}>
