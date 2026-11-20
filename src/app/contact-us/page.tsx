@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { RegistryPage } from "@/components/shell/RegistryPage";
+import { ContactPage } from "@/components/contact/ContactPage";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/contact-us");
 
 export default function Page() {
-  return <RegistryPage path="/contact-us" />;
+  return <ContactPage />;
 }

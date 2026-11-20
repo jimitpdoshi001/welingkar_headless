@@ -45,7 +45,10 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
   const d = data;
 
   // Chairman / Vice Chairman desks: alternate purple and cream bands.
-  const renderDesk = (desk: AboutData["desks"][number], i: number) => (
+  // CDC Chairman photo comes from Figma 3507:676.
+  const renderDesk = (raw: AboutData["desks"][number], i: number) => {
+    const desk = isCdcDesk(raw.heading) ? { ...raw, image: "/about/cdc-chairman.webp" } : raw;
+    return (
 
             <section
               key={desk.heading}
@@ -74,7 +77,8 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
                 ) : null}
               </div>
             </section>
-  );
+    );
+  };
   // The CDC Chairman's desk sits just above the College Development Committee.
   const isCdcDesk = (heading: string) => /\bCDC\b/i.test(heading);
   const isCdcBoard = (heading: string) => /college development committee/i.test(heading);

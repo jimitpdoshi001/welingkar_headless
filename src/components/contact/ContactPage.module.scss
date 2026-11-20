@@ -1,0 +1,177 @@
+@use "../../styles/base/mixins" as *;
+
+// Figma 3507:152 Contact Us. 1rem = 10px.
+$green: #3a9030;
+$cream: #fdf8f0;
+$grey: #838383;
+$rule: rgba(0, 0, 0, 0.15);
+
+// Campus cards: 3 x 400x279, 20px gap.
+.campuses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 7rem;
+  @include respond-to(tab) { gap: 1.6rem; margin-top: 5rem; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
+.card {
+  position: relative;
+  display: block;
+  aspect-ratio: 400 / 279;
+  border-radius: 3rem;
+  overflow: hidden;
+  color: #000;
+  &:hover .cardImg { transform: scale(1.04); }
+}
+
+.cardImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+
+// Glass label bar: 22px inset, 68px tall.
+.cardBar {
+  position: absolute;
+  left: 2.2rem;
+  right: 2.2rem;
+  bottom: 2rem;
+  height: 6.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.9rem 0 2.9rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(1.2rem);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.2rem;
+}
+
+// Source SVG points up; rotate to point right.
+.cardArrow { width: 5rem; height: 5rem; transform: rotate(90deg); }
+
+// Info row: side box 400 + two 327 columns.
+.info {
+  display: grid;
+  grid-template-columns: 40rem 1fr 1fr;
+  column-gap: 7.1rem;
+  margin-top: 7rem;
+  align-items: start;
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; row-gap: 4rem; column-gap: 3rem; .side { grid-column: 1 / -1; } }
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
+.side {
+  background: $cream;
+  border-radius: 3rem;
+  padding: 3.8rem 3.6rem 4.9rem;
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { padding: 2.4rem 0; border-top: 1px solid $rule; font-size: 1.6rem; line-height: 1.3; }
+  li:last-child { padding-bottom: 0; }
+}
+
+.sideHeading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 2.4rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.col { max-width: 33.2rem; @include respond-to(tab) { max-width: none; } }
+.colHeading { margin: 0 0 2.6rem; font-size: 1.8rem; font-weight: 800; line-height: 1.2; }
+
+.group {
+  padding: 1.5rem 0;
+  border-top: 1px solid $rule;
+  &:first-of-type { border-top: 0; padding-top: 0; }
+}
+
+.groupLabel { margin: 0 0 1rem; font-size: 1.4rem; line-height: 1.3; }
+
+.line {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: pre-line;
+  & + & { margin-top: 1.2rem; }
+  img { flex: none; margin-top: 0.2rem; }
+  a { color: inherit; &:hover { color: $green; } }
+}
+.mail img { margin-top: 0.4rem; }
+
+// Connect With Us: text left, 524x472 map right.
+.connect {
+  display: grid;
+  grid-template-columns: 1fr 52.4rem;
+  gap: 7.5rem;
+  margin: 12.7rem auto 9.4rem;
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 4rem; margin: 8rem auto 6rem; }
+}
+
+.connectHeading { margin: 0; font-size: 4rem; font-weight: 800; line-height: 1.2; }
+.address { max-width: 64.7rem; margin: 2.4rem 0 0; color: $grey; font-size: 1.6rem; line-height: 2.2rem; }
+
+.connectPhone {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin: 1.4rem 0 0;
+  color: $grey;
+  font-size: 1.6rem;
+  a { color: inherit; }
+}
+
+.formHeading { margin: 5.2rem 0 0; font-size: 2.2rem; font-weight: 700; line-height: 2.2rem; }
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.4rem;
+  row-gap: 2.6rem;
+  max-width: 64.7rem;
+  margin-top: 2.6rem;
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
+.field {
+  display: block;
+  input, textarea {
+    width: 100%;
+    padding: 0 0 0.6rem;
+    border: 0;
+    border-bottom: 1px solid #c4c4c4;
+    background: transparent;
+    font: inherit;
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+    resize: vertical;
+    &::placeholder { color: $grey; }
+    &:focus { outline: none; border-bottom-color: $green; }
+  }
+}
+.full { grid-column: 1 / -1; }
+
+.submit {
+  justify-self: start;
+  width: 13rem;
+  height: 5rem;
+  margin-top: 1.8rem;
+  border: 0;
+  border-radius: 2.5rem;
+  background: $green;
+  color: #fff;
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover { opacity: 0.9; }
+}
+
+.map { width: 100%; aspect-ratio: 524 / 472; border-radius: 3rem; object-fit: cover; }
