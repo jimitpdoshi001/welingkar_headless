@@ -105,3 +105,26 @@
   li { margin-bottom: 0.6rem; }
   > :last-child { margin-bottom: 0; }
 }
+
+// Accreditations: campus photo behind the section (Figma 3461:143), faded to
+// white at the top and over the lower part where the cards sit.
+.accredSection {
+  position: relative;
+  // Figma: photo 746px tall at the top of the section, white fade top and bottom.
+  background:
+    linear-gradient(to bottom, #fff 0%, rgb(255 255 255 / 0%) 27.7%) top / 100% 74.6rem no-repeat,
+    linear-gradient(to top, #fff 24.4%, rgb(255 255 255 / 0%) 44.9%) top / 100% 74.6rem no-repeat,
+    url("/about/accreditations-bg.webp") center bottom / cover no-repeat;
+  background-size: 100% 74.6rem, 100% 74.6rem, 100% 74.6rem;
+  background-position: top, top, center top;
+
+  .accredGrid { margin-top: 32rem; }
+  .accredItem { background: var(--color-white); }
+
+  @include respond-to(tab) { .accredGrid { margin-top: 20rem; } }
+  @include respond-to(mobile) {
+    background-size: 100% 36rem, 100% 36rem, cover;
+    background-size: 100% 36rem;
+    .accredGrid { margin-top: 14rem; }
+  }
+}

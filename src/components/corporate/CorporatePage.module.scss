@@ -1,8 +1,12 @@
 @use "../../styles/base/mixins" as *;
 
-// Figma 3466:1642 palette.
-$purple: #493460;
-$orange: #f77100;
+// Campus palette (set on .root): Mumbai = Figma 3466:1642 purple/orange;
+// Bengaluru = the Bengaluru listing colours (terracotta, pink tint, green).
+$purple: var(--corp-dark);
+$orange: var(--corp-accent);
+
+.mumbai { --corp-dark: #493460; --corp-accent: #f77100; --corp-tint: var(--color-light-yellow); }
+.bengaluru { --corp-dark: #b04535; --corp-accent: var(--color-primary); --corp-tint: #fff4f2; }
 
 .preLine { white-space: pre-line; }
 .cover { object-fit: cover; }
@@ -67,7 +71,7 @@ $orange: #f77100;
 /* ---------- Placements (cream band) ---------- */
 .placements {
   padding-block: 8rem;
-  background: var(--color-light-yellow);
+  background: var(--corp-tint);
 
   @include respond-to(mobile) { padding-block: 5rem; }
 }
