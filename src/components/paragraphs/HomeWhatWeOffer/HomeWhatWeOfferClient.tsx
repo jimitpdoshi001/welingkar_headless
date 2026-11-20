@@ -102,13 +102,16 @@ export function HomeWhatWeOfferClient({
             </ul>
           ) : null}
 
-          {locked ? null : (
-          <div className={styles.navButtons}>
+          {/* No arrows needed: keep their space (hidden) so the tabs don't move. */}
+          {(
+          <div
+            className={clsx(styles.navButtons, locked && styles.navHidden)}
+            aria-hidden={locked || undefined}>
             <button
               type="button"
               className={styles.navBtn}
               onClick={handlePrev}
-              disabled={isBeginning}
+              disabled={locked || isBeginning}
               aria-label="Previous slide"
             >
               <ArrowLeft width={7} height={9} />
@@ -118,7 +121,7 @@ export function HomeWhatWeOfferClient({
               type="button"
               className={clsx(styles.navBtn, styles.navNext)}
               onClick={handleNext}
-              disabled={isEnd}
+              disabled={locked || isEnd}
               aria-label="Next slide"
             >
               <ArrowRight width={7} height={9} />

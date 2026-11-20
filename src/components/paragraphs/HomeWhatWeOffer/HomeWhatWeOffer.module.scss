@@ -221,3 +221,6 @@
     gap: 12px;
   }
 }
+
+// Arrows not needed (all cards fit): invisible but still taking their space.
+.navHidden { visibility: hidden; }

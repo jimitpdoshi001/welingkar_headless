@@ -55,19 +55,19 @@ export function FooterClient({ footerMenu }: FooterClientProps) {
               </p>
 
               <div className={`f gap2 ai-c ${styles.footerSocial}`}>
-                <a href="#">
+                <a href="https://www.facebook.com/Welingkar" target="_blank" rel="noopener noreferrer" aria-label="WeSchool on Facebook">
                   <Facebook />
                 </a>
-                <a href="#">
+                <a href="https://www.instagram.com/welingkareducation/" target="_blank" rel="noopener noreferrer" aria-label="WeSchool on Instagram">
                   <Instagram />
                 </a>
-                <a href="#">
+                <a href="https://x.com/welingkarinst" target="_blank" rel="noopener noreferrer" aria-label="WeSchool on X">
                   <Twitter />
                 </a>
-                <a href="#">
+                <a href="https://in.linkedin.com/company/welingkar-fmb" target="_blank" rel="noopener noreferrer" aria-label="WeSchool on LinkedIn">
                   <LinkedIn />
                 </a>
-                <a href="#">
+                <a href="https://www.youtube.com/user/WelingkarInstitute" target="_blank" rel="noopener noreferrer" aria-label="WeSchool on YouTube">
                   <Youtube />
                 </a>
               </div>
@@ -94,11 +94,16 @@ export function FooterClient({ footerMenu }: FooterClientProps) {
                 <div
                   className={`${styles.footerLinks} ${openSection === section.id ? styles.footerLinksOpen : ""}`}
                 >
-                  {section.children?.map((link) => (
-                    <a href={link.url || "#"} key={link.id}>
-                      {link.title}
-                    </a>
-                  ))}
+                  {section.children?.map((link) =>
+                    // No page yet: plain text instead of a dead "#" link.
+                    link.url && link.url !== "#" ? (
+                      <a href={link.url} key={link.id}>
+                        {link.title}
+                      </a>
+                    ) : (
+                      <span key={link.id}>{link.title}</span>
+                    ),
+                  )}
                 </div>
               </div>
             ))}
