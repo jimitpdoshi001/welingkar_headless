@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { MdcPage } from "@/components/mdc/MdcPage";
-import { MDC_BENGALURU } from "@/lib/mdc/mdc-data";
+import { getMdcBengaluru } from "@/lib/drupal/pages/mdc";
 import { sitePageMetadata } from "@/lib/pages/page-metadata";
 
 export const metadata: Metadata = sitePageMetadata("/mdc/bengaluru");
 
-export default function Page() {
-  return <MdcPage data={MDC_BENGALURU} />;
+export default async function Page() {
+  return <MdcPage data={await getMdcBengaluru()} />;
 }
