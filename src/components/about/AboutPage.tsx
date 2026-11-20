@@ -47,7 +47,11 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
   // Chairman / Vice Chairman desks: alternate purple and cream bands.
   // CDC Chairman photo comes from Figma 3507:676.
   const renderDesk = (raw: AboutData["desks"][number], i: number) => {
-    const desk = isCdcDesk(raw.heading) ? { ...raw, image: "/about/cdc-chairman.webp" } : raw;
+    const cdc = isCdcDesk(raw.heading);
+    const desk = cdc ? { ...raw, image: "/about/cdc-chairman.webp" } : raw;
+    // Both photos have plain space above the head; zoom from the bottom edge so the
+    // person fills the band top to bottom (values tuned to each photo's framing).
+    const zoom = { ["--desk-zoom" as string]: cdc ? 1.15 : i === 0 ? 1.35 : 1 } as React.CSSProperties;
     return (
 
             <section
@@ -56,11 +60,13 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
               className={`${i % 2 ? `mt-5 ${styles.bandCream}` : styles.bandPurple} ${styles.anchor}`}>
               <div className={`container ${styles.block} ${styles.chairman} ${i % 2 ? styles.chairmanReverse : ""}`}>
                 {desk.image && i % 2 === 0 ? (
-                  <img
-                    src={desk.image}
-                    alt={desk.name}
-                    className={styles.chairmanImage}
-                  />
+                  <div className={styles.chairmanMedia} style={zoom}>
+                    <img
+                      src={desk.image}
+                      alt={desk.name}
+                      className={styles.chairmanImage}
+                    />
+                  </div>
                 ) : null}
                 <div className={styles.chairmanText}>
                   <h2 className={styles.heading}>{desk.heading}</h2>
@@ -69,11 +75,13 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
                   {desk.title ? <p className={styles.personRole}>{desk.title}</p> : null}
                 </div>
                 {desk.image && i % 2 === 1 ? (
-                  <img
-                    src={desk.image}
-                    alt={desk.name}
-                    className={styles.chairmanImage}
-                  />
+                  <div className={styles.chairmanMedia} style={zoom}>
+                    <img
+                      src={desk.image}
+                      alt={desk.name}
+                      className={styles.chairmanImage}
+                    />
+                  </div>
                 ) : null}
               </div>
             </section>
