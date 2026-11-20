@@ -10,28 +10,41 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import type { AboutData, AboutPerson } from "@/lib/about/about-data";
 import styles from "./AboutPage.module.scss";
+import cdc from "./CdcPage/CdcPage.module.scss";
 
-// splitRole: Drupal titles read "Designation - Role"; show the role on its own line, without the hyphen.
+// splitRole (College Development Committee): Drupal titles read "Designation - Role";
+// rendered like the Visiting Faculty grid: name, designation, role in purple on its own line.
 function BoardList({ id, heading, people, splitRole = false }: { id: string; heading: string; people: AboutPerson[]; splitRole?: boolean }) {
   return (
     <section id={id} className={`container ${styles.block} ${styles.anchor}`}>
       <h2 className={styles.heading}>{heading}</h2>
-      <div className={styles.boardGrid}>
-        {people.map((p) => (
-          <div
-            key={p.id}
-            className={styles.boardItem}>
-            <p className={styles.boardName}>{p.name}</p>
-            {splitRole ? (
-              p.title.split(/\s+[-–]\s+/).map((line, i) => (
-                <p key={i} className={styles.boardRole}>{line}</p>
-              ))
-            ) : (
+      {splitRole ? (
+        <ul className={`${cdc.grid} ${cdc.grid4}`}>
+          {people.map((p) => {
+            // Role = text after the last hyphen; any earlier hyphens become spaces.
+            const parts = p.title.split(/\s+[-–]\s+/);
+            const role = parts.length > 1 ? parts.pop() : "";
+            return (
+              <li key={p.id} className={cdc.member}>
+                <p className={cdc.name}>{p.name}</p>
+                <p className={cdc.designation}>{parts.join(" ")}</p>
+                {role ? <p className={cdc.role}>{role}</p> : null}
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div className={styles.boardGrid}>
+          {people.map((p) => (
+            <div
+              key={p.id}
+              className={styles.boardItem}>
+              <p className={styles.boardName}>{p.name}</p>
               <p className={styles.boardRole}>{p.title}</p>
-            )}
-          </div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }
