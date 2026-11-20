@@ -6,11 +6,11 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcrumb";
-import type { AlumniData } from "@/lib/alumni/alumni-data";
+import { ALUMNI_APP, ALUMNI_CAMPUSES, ALUMNI_DIRECTORS, ALUMNI_GALLERY, ALUMNI_NEWS, type AlumniData } from "@/lib/alumni/alumni-data";
 import styles from "./AlumniPage.module.scss";
 
 export function AlumniPage({ data }: { data: AlumniData }) {
-  const { hero, intro, experience, programs, quote, reconnect } = data;
+  const { hero, experience, programs, quote, reconnect } = data;
   return (
     <SearchProvider>
       <div className="GlobalLayout">
@@ -29,16 +29,113 @@ export function AlumniPage({ data }: { data: AlumniData }) {
             </div>
           </section>
 
-          <section className={`container ${styles.intro}`}>
-            <h2 className={styles.heading}>
-              {intro.headingLines.map((l) => (
-                <span key={l}>{l}</span>
+          {/* Figma 3461:440 revision: campuses, directors, gallery, news, app. */}
+          <section className={`container ${styles.campuses}`}>
+            <h2 className={styles.heading}>Our Campuses</h2>
+            <ul className={styles.campusGrid}>
+              {ALUMNI_CAMPUSES.map((c) => (
+                <li key={c.title} className={styles.campusCard}>
+                  <Image src={c.image} alt={c.title} fill sizes="(max-width: 767px) 100vw, 400px" className={styles.cover} />
+                  <div className={styles.campusPanel}>
+                    <h3 className={styles.campusTitle}>{c.title}</h3>
+                    <Link href={c.href} className={`btn primary ${styles.smallBtn}`}>
+                      Know More
+                    </Link>
+                  </div>
+                </li>
               ))}
-            </h2>
-            <div className={styles.introBody}>
-              {intro.paragraphs.map((p) => (
-                <p key={p.slice(0, 40)}>{p}</p>
+            </ul>
+          </section>
+
+          {ALUMNI_DIRECTORS.map((d, i) => (
+            <section key={d.name} className={`${styles.director} ${i === 0 ? styles.tinted : ""}`}>
+              <div className={`container ${styles.directorInner}`}>
+                <Image src={d.image} alt={d.name} width={400} height={388} sizes="(max-width: 767px) 100vw, 400px" className={styles.directorImg} />
+                <div className={styles.directorText}>
+                  {d.paragraphs.map((p) => (
+                    <p key={p.slice(0, 40)}>{p}</p>
+                  ))}
+                  <h3 className={styles.directorName}>{d.name}</h3>
+                  <p className={styles.directorRole}>{d.role}</p>
+                  {d.org ? <p className={styles.directorRole}>{d.org}</p> : null}
+                </div>
+              </div>
+            </section>
+          ))}
+
+          <section className={`container ${styles.gallery}`}>
+            <div className={styles.sectionHead}>
+              <h2 className={styles.heading}>{ALUMNI_GALLERY.heading}</h2>
+              <Link href={ALUMNI_GALLERY.viewAll} className="btn primary">
+                View All
+              </Link>
+            </div>
+            <div className={styles.galleryGrid}>
+              {ALUMNI_GALLERY.images.map((src, i) => (
+                <div key={src} className={`${styles.galleryItem} ${styles[`g${i + 1}`]}`}>
+                  <Image src={src} alt="" fill sizes="(max-width: 767px) 100vw, 820px" className={styles.cover} />
+                </div>
               ))}
+            </div>
+          </section>
+
+          <section className={`container ${styles.news}`}>
+            <div className={styles.sectionHead}>
+              <div>
+                <h2 className={styles.heading}>{ALUMNI_NEWS.heading}</h2>
+                <p className={styles.sectionBody}>{ALUMNI_NEWS.body}</p>
+              </div>
+              <Link href={ALUMNI_NEWS.viewAll} className="btn primary">
+                View All
+              </Link>
+            </div>
+            <div className={styles.newsGrid}>
+              <article className={styles.newsFeatured}>
+                <Image src={ALUMNI_NEWS.featured.image ?? ""} alt="" fill sizes="(max-width: 767px) 100vw, 610px" className={styles.cover} />
+                <div className={styles.newsPanel}>
+                  <h3 className={styles.newsTitle}>{ALUMNI_NEWS.featured.title}</h3>
+                  <p className={styles.newsText}>{ALUMNI_NEWS.featured.text}</p>
+                  <p className={styles.newsDate}>{ALUMNI_NEWS.featured.date}</p>
+                  <Link href={ALUMNI_NEWS.featured.href} className={styles.playBtn} aria-label={`Read: ${ALUMNI_NEWS.featured.title}`} />
+                </div>
+              </article>
+              {ALUMNI_NEWS.photos.map((src) => (
+                <div key={src} className={styles.newsPhoto}>
+                  <Image src={src} alt="" fill sizes="(max-width: 767px) 50vw, 295px" className={styles.cover} />
+                </div>
+              ))}
+              {ALUMNI_NEWS.items.map((n) => (
+                <article key={n.title} className={styles.newsCard}>
+                  <h3 className={styles.newsTitle}>{n.title}</h3>
+                  <p className={styles.newsDate}>{n.date}</p>
+                  <Link href={n.href} className={styles.playBtn} aria-label={`Read: ${n.title}`} />
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className={`container ${styles.app}`}>
+            <h2 className={styles.heading}>{ALUMNI_APP.heading}</h2>
+            <p className={styles.sectionBody}>{ALUMNI_APP.body}</p>
+            <div className={styles.appBand}>
+              <div className={styles.appText}>
+                <Image src={ALUMNI_APP.logo} alt="weunion - WeSchool Alumni Association" width={368} height={117} className={styles.appLogo} />
+                {ALUMNI_APP.paragraphs.map((p) => (
+                  <p key={p.slice(0, 30)}>{p}</p>
+                ))}
+                <div className={styles.stores}>
+                  {ALUMNI_APP.stores.map((st) =>
+                    st.href ? (
+                      <a key={st.label} href={st.href} target="_blank" rel="noopener noreferrer">
+                        <img src={st.image} alt={st.label} width={st.width} height={st.height} />
+                      </a>
+                    ) : (
+                      <img key={st.label} src={st.image} alt={st.label} width={st.width} height={st.height} />
+                    ),
+                  )}
+                </div>
+              </div>
+              <Image src={ALUMNI_APP.phone} alt="WeAlumni app on a phone" width={491} height={635} sizes="(max-width: 767px) 80vw, 491px" className={styles.appPhone} />
             </div>
           </section>
 

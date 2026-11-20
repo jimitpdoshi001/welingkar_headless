@@ -7,8 +7,6 @@
 
   @include respond-to(mobile) {
     margin-top: 0;
-    // Keep the slider arrows off the footer.
-    padding-bottom: 4rem;
   }
 }
 
@@ -22,93 +20,50 @@
   }
 }
 
-.logos {
-  .logo {
-    img {
-      width: 100%;
-      height: 5rem;
-      object-fit: contain;
-    }
+// Continuous logo marquee; edges fade out.
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  --gap: 6rem;
+  gap: var(--gap);
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+
+  @include respond-to(mobile) { --gap: 3.6rem; }
+}
+
+// Pause only while the pointer is on a logo (not the gaps between them).
+.marquee:has(.logo:hover) .track { animation-play-state: paused; }
+
+.logo {
+  flex: none;
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 16rem;
+    height: 5rem;
+    object-fit: contain;
+
+    @include respond-to(mobile) { height: 4rem; max-width: 12rem; }
   }
 }
 
-:global(.swiper) {
-  position: relative;
-  overflow-y: visible;
-  overflow-x: clip;
-
-  .arrow {
-    position: absolute;
-    top: 50%;
-    z-index: 10;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--color-primary);
-    border-radius: 50%;
-    background: transparent;
-    color: var(--color-primary);
-    cursor: pointer;
-    transform: translateY(-50%);
-    font-size: 20px;
-
-    &:hover {
-      background: var(--color-primary);
-      color: var(--color-white);
-    }
-  }
-  .prev {
-    top: -120;
-    right: 60;
-    transition: all 0.3s ease;
-
-    @include respond-to(mobile) {
-      top: unset;
-      bottom: -80;
-      right: 60;
-    }
-
-    &:hover svg {
-      path {
-        fill: var(--color-white);
-      }
-    }
-  }
-
-  .next {
-    top: -120;
-    right: 0;
-    transition: all 0.3s ease;
-
-    @include respond-to(mobile) {
-      top: unset;
-      bottom: -80;
-      right: 0;
-    }
-
-    &:hover svg {
-      path {
-        fill: var(--color-white);
-      }
-    }
-  }
+// Shift by one full logo list plus one gap: (track width + gap) / 2.
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - var(--gap) / 2)); }
 }
 
-.logoGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 6rem;
-}
-
-// Figma: the "next" arrow is filled green; "previous" stays outlined.
-.arrow.next,
-.arrow.next:hover {
-  background: var(--color-primary);
-  color: var(--color-white);
-
-  svg path {
-    fill: var(--color-white);
-  }
+@media (prefers-reduced-motion: reduce) {
+  .track { animation-duration: 120s; }
 }

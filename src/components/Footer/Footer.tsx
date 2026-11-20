@@ -1,10 +1,7 @@
-import { getFooterMenu } from "@/lib/drupal";
+import { FOOTER_MENU } from "@/lib/footer/footer-config";
 import { FooterClient } from "./FooterClient";
 
-const Footer = async () => {
-  const footerMenu = await getFooterMenu();
-
-  return <FooterClient footerMenu={footerMenu} />;
-};
+/** Footer per the approved sheet (static columns). Backup: FooterLegacy (Drupal menu). */
+const Footer = () => <FooterClient footerMenu={FOOTER_MENU} />;
 
 export default Footer;

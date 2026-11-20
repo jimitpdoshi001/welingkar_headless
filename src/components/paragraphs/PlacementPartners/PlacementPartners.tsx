@@ -3,21 +3,13 @@
 import type { DrupalImage, JsonApiResource, PlacementPartnersAttributes } from "@/lib/drupal";
 import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-
-import "swiper/css";
-import "swiper/css/navigation";
-
-import { useIsMobile } from "@/util/useMediaQuery";
 
 import styles from "./PlacementPartners.module.scss";
-import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import { overridePlacementHeading, overridePlacementDescription } from "@/lib/content-overrides";
-import clsx from "clsx";
 
-// Logos scroll on their own in a loop; pause while hovered.
-const LOGO_AUTOPLAY = { delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true };
+/** One marquee list: logos repeated until at least 12, so it is wider than the screen. */
+const loopList = (images: DrupalImage[]) =>
+  Array.from({ length: Math.ceil(12 / images.length) }, () => images).flat();
 
 type PlacementPartnersProps = {
   paragraph: JsonApiResource<"paragraph--placement_partners", PlacementPartnersAttributes>;
@@ -28,8 +20,6 @@ type PlacementPartnersProps = {
 export function PlacementPartners({ paragraph, images = [], children }: PlacementPartnersProps) {
   const heading = overridePlacementHeading(paragraph.attributes.field_header);
   const description = overridePlacementDescription(paragraph.attributes.field_description?.processed);
-  const isMobile = useIsMobile();
-  const showArrows = paragraph.attributes.field_show_arrows || false;
   return (
     <div className={styles.root}>
       {(heading || description) && (
@@ -45,118 +35,28 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
         </div>
       )}
 
-      {images.length > 0 && !isMobile && (
-        <div className={clsx(styles.logos, "logos")}>
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            autoplay={LOGO_AUTOPLAY}
-            slidesPerView={6}
-            slidesPerGroup={1}
-            spaceBetween={20}
-            // navigation
-            loop={images.length > 6}
-            navigation={{
-              prevEl: `.${styles.prev}`,
-              nextEl: `.${styles.next}`,
-            }}
-            className={styles.swiper}>
-            {images.map((image) => (
-              <SwiperSlide key={image.url}>
-                <div className={styles.logo}>
-                  <Image
-                    src={image.url}
-                    alt={image.alt}
-                    width={image.width ?? 160}
-                    height={image.height ?? 80}
-                  />
-                </div>
-              </SwiperSlide>
+      {images.length > 0 && (
+        // Continuous marquee: the logo list is rendered twice and the track
+        // moves left by one list width, so the loop is seamless. CSS pauses it
+        // only while a logo itself is hovered.
+        <div className={styles.marquee}>
+          <ul
+            className={styles.track}
+            style={{ ["--marquee-duration" as string]: `${Math.max(20, images.length * 3)}s` }}>
+            {[...loopList(images), ...loopList(images)].map((image, i) => (
+              <li
+                key={`${image.url}-${i}`}
+                className={styles.logo}
+                aria-hidden={i >= images.length ? true : undefined}>
+                <Image
+                  src={image.url}
+                  alt={i >= images.length ? "" : image.alt}
+                  width={image.width ?? 160}
+                  height={image.height ?? 80}
+                />
+              </li>
             ))}
-
-            {showArrows && (
-              <>
-                <button
-                  type="button"
-                  className={`${styles.arrow} ${styles.prev}`}
-                  aria-label="Previous">
-                  <ArrowLeft
-                    height={7}
-                    width={9}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className={`${styles.arrow} ${styles.next}`}
-                  aria-label="Next">
-                  <ArrowRight
-                    height={7}
-                    width={9}
-                  />
-                </button>
-              </>
-            )}
-          </Swiper>
-        </div>
-      )}
-
-      {images.length > 0 && isMobile && (
-        <div className={styles.logos}>
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            autoplay={LOGO_AUTOPLAY}
-            slidesPerView={1}
-            slidesPerGroup={1}
-            spaceBetween={20}
-            loop={images.length > 6}
-            navigation={{
-              prevEl: `.${styles.prev}`,
-              nextEl: `.${styles.next}`,
-            }}
-            className={styles.swiper}>
-            {Array.from({ length: Math.ceil(images.length / 6) }).map((_, slideIndex) => {
-              const slideImages = images.slice(slideIndex * 6, slideIndex * 6 + 6);
-
-              return (
-                <SwiperSlide key={slideIndex}>
-                  <div className={styles.logoGrid}>
-                    {slideImages.map((image) => (
-                      <div
-                        className={styles.logo}
-                        key={image.url}>
-                        <Image
-                          src={image.url}
-                          alt={image.alt}
-                          width={image.width ?? 160}
-                          height={image.height ?? 80}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-
-            <button
-              type="button"
-              className={`${styles.arrow} ${styles.prev}`}
-              aria-label="Previous">
-              <ArrowLeft
-                height={7}
-                width={9}
-              />
-            </button>
-
-            <button
-              type="button"
-              className={`${styles.arrow} ${styles.next}`}
-              aria-label="Next">
-              <ArrowRight
-                height={7}
-                width={9}
-              />
-            </button>
-          </Swiper>
+          </ul>
         </div>
       )}
 
