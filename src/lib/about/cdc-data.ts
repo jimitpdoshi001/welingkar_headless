@@ -2,7 +2,7 @@
  * College Development Committee members (from the supplied design screenshot).
  * No Drupal content type exists for this yet; swap for a fetch once it does.
  */
-export type CdcMember = { name: string; designation: string; role: string };
+export type CdcMember = { name: string; designation: string; role?: string };
 
 export const CDC_INTRO = { title: "College Development Committee" };
 
