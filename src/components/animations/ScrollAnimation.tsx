@@ -17,7 +17,8 @@ import {
 // Auto-reveal: inside any `[data-auto-reveal]` root, text and buttons fade up
 // and media fades in, without tagging each element by hand.
 const AUTO_TEXT = "h1, h2, h3, h4, h5, h6, p, li, blockquote, a.btn, .btn, button";
-const AUTO_MEDIA = "img, video, picture";
+// <picture> is inline, so a clip reveal on it never resolves: animate its <img> instead.
+const AUTO_MEDIA = "img, video";
 
 function tagAutoReveal(scope: HTMLElement) {
   scope.querySelectorAll<HTMLElement>("[data-auto-reveal]").forEach((root) => {
