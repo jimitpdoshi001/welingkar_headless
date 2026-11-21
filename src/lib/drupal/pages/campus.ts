@@ -1,5 +1,6 @@
 import type { CampusData } from "@/lib/campus/campus-data";
 import { absoluteDrupalUrl } from "../jsonapi";
+import { getWhatWeOfferTerms } from "../what-we-offer";
 import { getNodeReader, or, type NodeReader } from "../node-page";
 
 const INCLUDE = [
@@ -72,6 +73,15 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
     const match = base.infrastructure.cards.find((c) => c.title.toLowerCase() === title.toLowerCase());
     return { id: p.id, title, image: r.image(p, "field_image") || base.infrastructure.cards[i]?.image || "", meta: match?.meta };
   }).filter((c) => c.title);
+  // Program cards: same Drupal source as the home "What We Offer" cards (what_we_offer terms
+  // for this campus); the built-in intake line stays when titles match.
+  const location = base.campus === "Mumbai" ? "mumbai" : "bangalore";
+  const programCards: CampusData["programmes"]["cards"] = (await getWhatWeOfferTerms())
+    .filter((t) => t.location === location && t.name && t.image)
+    .map((t) => {
+      const match = base.programmes.cards.find((c) => c.title.toLowerCase() === t.name.toLowerCase());
+      return { id: t.id, title: t.name, image: t.image ?? "", meta: match?.meta, cta: { label: "Know More", href: t.url } };
+    });
   const moments = r
     .refs(n, "field_campus_moments_data")
     .map((p) => ({ id: p.id, image: r.image(p, "field_image"), video: r.text(p, "field_category") === "video" || undefined }))
@@ -131,6 +141,7 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
       ...base.programmes,
       heading: or(r.text(n, "field_programs_built_title"), base.programmes.heading),
       description: or(r.paras(n, "field_programs_built_description").join(" "), base.programmes.description),
+      cards: or(programCards, base.programmes.cards),
     },
     recruiters: {
       ...base.recruiters,
