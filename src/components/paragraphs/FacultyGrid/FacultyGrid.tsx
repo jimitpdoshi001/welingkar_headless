@@ -53,6 +53,17 @@ export function FacultyGrid({
 
   const [menuOpen, setMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  // The tab bar scrolls sideways, which would clip an absolutely placed menu,
+  // so the menu is fixed to the viewport just under its button.
+  const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
+  const toggleMenu = (button: HTMLButtonElement) => {
+    if (menuOpen) return setMenuOpen(false);
+    const rect = button.getBoundingClientRect();
+    // Keep the menu (max 28rem = 280px wide) inside the screen with a 16px gutter.
+    const left = Math.max(16, Math.min(rect.left, window.innerWidth - 280 - 16));
+    setMenuPos({ top: rect.bottom + 8, left });
+    setMenuOpen(true);
+  };
 
   // Close the dropdown on an outside click or Escape.
   useEffect(() => {
@@ -63,11 +74,17 @@ export function FacultyGrid({
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMenuOpen(false);
     };
+    // A fixed menu would drift from its button, so close it on any scroll or resize.
+    const close = () => setMenuOpen(false);
     document.addEventListener("mousedown", onPointer);
     document.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", close, { capture: true, passive: true });
+    window.addEventListener("resize", close);
     return () => {
       document.removeEventListener("mousedown", onPointer);
       document.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", close, { capture: true });
+      window.removeEventListener("resize", close);
     };
   }, [menuOpen]);
 
@@ -104,7 +121,7 @@ export function FacultyGrid({
               type="button"
               aria-haspopup="listbox"
               aria-expanded={menuOpen}
-              onClick={() => setMenuOpen((open) => !open)}
+              onClick={(event) => toggleMenu(event.currentTarget)}
               className={clsx(styles.tabBtn, specialisationActive && styles.activeTab)}>
               {specialisationActive ? activeSpecialisation?.name : "Specialization / Programs"}
               <svg
@@ -120,7 +137,7 @@ export function FacultyGrid({
               </svg>
             </button>
             {menuOpen ? (
-              <ul className={styles.menu} role="listbox" aria-label="Specialization">
+              <ul className={styles.menu} style={menuPos ?? undefined} role="listbox" aria-label="Specialization">
                 {specialisations.map((cat) => (
                   <li key={cat.id}>
                     <button

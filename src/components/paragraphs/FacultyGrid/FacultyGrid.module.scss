@@ -7,8 +7,9 @@
 .tabsList {
   display: flex;
   align-items: center;
-  flex-wrap: wrap; // 4 tabs: wrap on small screens instead of a long sideways scroll
-  row-gap: 1.2rem;
+  // One line; scrolls left/right when the tabs are wider than the screen.
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 4rem;
   position: relative;
   z-index: 5; // dropdown menu above the faculty cards
@@ -167,10 +168,10 @@
 
 .caretOpen { transform: rotate(180deg); }
 
+// Fixed: top/left come from the button position (see FacultyGrid.tsx).
 .menu {
-  position: absolute;
-  top: calc(100% + 0.8rem);
-  left: 0;
+  position: fixed;
+  z-index: 20;
   min-width: 28rem;
   max-height: 40rem;
   overflow-y: auto;
