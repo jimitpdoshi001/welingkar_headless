@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight } from "@/assets/svg/Arrows";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -56,6 +57,24 @@ export function FacultyGrid({
   // The tab bar scrolls sideways, which would clip an absolutely placed menu,
   // so the menu is fixed to the viewport just under its button.
   const [menuPos, setMenuPos] = useState<{ top: number; left: number } | null>(null);
+  // Tab row scroll hints: arrows show only while there is more row to that side.
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+  const [canScroll, setCanScroll] = useState({ left: false, right: false });
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    const update = () =>
+      setCanScroll({ left: el.scrollLeft > 4, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 });
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      el.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [members.length]);
+  const scrollTabs = (dir: 1 | -1) => tabsRef.current?.scrollBy({ left: dir * 200, behavior: "smooth" });
+
   const toggleMenu = (button: HTMLButtonElement) => {
     if (menuOpen) return setMenuOpen(false);
     const rect = button.getBoundingClientRect();
@@ -98,7 +117,13 @@ export function FacultyGrid({
 
   return (
     <div className={styles.root}>
-      <div className={styles.tabsList} role="tablist">
+      <div className={styles.tabsWrap}>
+      {canScroll.left ? (
+        <button type="button" className={clsx(styles.tabsArrow, styles.tabsArrowLeft)} onClick={() => scrollTabs(-1)} aria-label="Scroll tabs left">
+          <ArrowLeft width={7} height={9} />
+        </button>
+      ) : null}
+      <div className={styles.tabsList} role="tablist" ref={tabsRef}>
         {primaryTabs.map((cat) => {
           const isActive = cat.slug === activeTab;
           return (
@@ -157,6 +182,12 @@ export function FacultyGrid({
             ) : null}
           </div>
         ) : null}
+      </div>
+      {canScroll.right ? (
+        <button type="button" className={clsx(styles.tabsArrow, styles.tabsArrowRight)} onClick={() => scrollTabs(1)} aria-label="Scroll tabs right">
+          <ArrowRight width={7} height={9} />
+        </button>
+      ) : null}
       </div>
 
       <div className={styles.grid}>

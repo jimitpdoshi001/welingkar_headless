@@ -13,13 +13,25 @@
   gap: 4rem;
   position: relative;
   z-index: 5; // dropdown menu above the faculty cards
-  scrollbar-width: none;
+  // Thin visible scrollbar under the tabs so users can tell the row scrolls.
+  scrollbar-width: thin;
+  scrollbar-color: var(--faculty-accent, var(--color-primary)) var(--color-light-gray);
   padding-bottom: 0.4rem;
   margin-bottom: 3.5rem;
   border-bottom: 1px solid var(--color-light-gray);
 
   &::-webkit-scrollbar {
-    display: none;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-light-gray);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--faculty-accent, var(--color-primary));
+    border-radius: 4px;
   }
 
   @include respond-to(mobile) {
@@ -27,6 +39,34 @@
     margin-bottom: 2.4rem;
   }
 }
+
+// Holds the scrolling tab row and its left/right arrow buttons.
+.tabsWrap {
+  position: relative;
+}
+
+.tabsArrow {
+  position: absolute;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  border: 1px solid var(--faculty-accent, var(--color-primary));
+  border-radius: 50%;
+  background: var(--color-white);
+  color: var(--faculty-accent, var(--color-primary));
+  cursor: pointer;
+  box-shadow: 0 0 1.6rem 1.2rem var(--color-white); // fades the tabs under the arrow
+
+  svg path { fill: currentColor; } // icon in the circle's accent colour
+}
+
+.tabsArrowLeft { left: 0; }
+.tabsArrowRight { right: 0; }
 
 .tabBtn {
   background: transparent;
