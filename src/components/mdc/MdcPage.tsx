@@ -198,7 +198,7 @@ export function MdcPage({ data }: { data: MdcData }) {
                       <h3>{c.title}</h3>
                       <p>{c.text}</p>
                       <Link
-                        href="/mdc#team"
+                        href="#team"
                         className="btn accent-outline">
                         Enquire Now
                       </Link>

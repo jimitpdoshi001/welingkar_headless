@@ -13,6 +13,9 @@ export const PUBLIC_PATHS: [live: string, internal: string][] = [
   ["/career-management-centre-mumbai", "/corporate-interface/mumbai"],
   ["/career-management-centre-bengaluru", "/corporate-interface/bengaluru"],
   ["/mandatory-disclosures", "/mandatory-disclosure"],
+  // MDP (Management Development Programs) pages use the MDC design.
+  ["/programmes/mdp", "/mdc"],
+  ["/programmes/mdp/bengaluru", "/mdc/bengaluru"],
   ["/testimonial", "/testimonials"],
   ["/grievance", "/grievance-redressal"],
   // WeFactor
