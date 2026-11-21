@@ -42,7 +42,7 @@ export const MDC: MdcData = {
   hero: {
     title: "Build Future-Ready Leaders for the Age of AI",
     subtitle: "Executive education and custom training programs by WeSchool Management Development Centre.",
-    cta: { label: "Talk to Our Team", href: "/mdc#team" },
+    cta: { label: "Talk to Our Team", href: "#team" },
     image: DIMG.hero,
   },
   nav: [

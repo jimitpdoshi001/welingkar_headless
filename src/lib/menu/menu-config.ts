@@ -187,7 +187,7 @@ export const MAIN_NAV: MainNavItem[] = [
               heading: "Full-Time Programs",
               headingHref: "/programmes/full-time-programme-in-bengaluru",
               links: FULL_TIME_PGDM_BLR,
-              sections: [{ heading: "Executive", links: [{ label: "MDP", href: "/programmes/mdp" }] }],
+              sections: [{ heading: "Executive", links: [{ label: "MDP", href: "/programmes/mdp/bengaluru" }] }],
             },
           ],
         },
