@@ -6,7 +6,7 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcrumb";
 import hero from "@/components/alumni/AlumniPage.module.scss";
-import { CORPORATE } from "@/lib/corporate/corporate-data";
+import { CORPORATE, type CorporateData } from "@/lib/corporate/corporate-data";
 import { CorporateAccordion } from "./CorporateAccordion";
 import styles from "./CorporatePage.module.scss";
 
@@ -14,9 +14,9 @@ import styles from "./CorporatePage.module.scss";
 export type CorporateCampus = "mumbai" | "bengaluru";
 
 /** Same template per campus; only the campus colours and breadcrumb differ. */
-export function CorporatePage({ campus }: { campus: CorporateCampus }) {
+export function CorporatePage({ campus, data = CORPORATE }: { campus: CorporateCampus; data?: CorporateData }) {
   const campusName = campus === "mumbai" ? "Mumbai" : "Bengaluru";
-  const { overview, placements, recruiters, batch, studentProfile, stats } = CORPORATE;
+  const { hero: heroData, overview, placements, recruiters, batch, studentProfile, stats } = data;
   return (
     <SearchProvider>
       <div className="GlobalLayout">
@@ -24,12 +24,12 @@ export function CorporatePage({ campus }: { campus: CorporateCampus }) {
 
         <main data-auto-reveal="reveal" className={styles[campus]}>
           <section className={hero.hero}>
-            <Image src={CORPORATE.hero.image} alt="" fill priority sizes="100vw" className={hero.heroImg} />
+            <Image src={heroData.image} alt="" fill priority sizes="100vw" className={hero.heroImg} />
             <div className={`container ${hero.heroInner}`}>
               <WeResearchBreadcrumb current={`Corporate - ${campusName}`} className={hero.breadcrumb} />
               <div className={hero.heroText}>
-                <h1 className={hero.heroHeading}>{CORPORATE.hero.title}</h1>
-                <p className={`${hero.heroBody} ${styles.preLine}`}>{CORPORATE.hero.body}</p>
+                <h1 className={hero.heroHeading}>{heroData.title}</h1>
+                <p className={`${hero.heroBody} ${styles.preLine}`}>{heroData.body}</p>
               </div>
             </div>
           </section>

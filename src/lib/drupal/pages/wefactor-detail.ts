@@ -46,8 +46,8 @@ const SPECS = {
       entrepreneurship: { title: "field_entrepreneurship_at_wescho", desc: "field_entrepreneurship_at_desc" },
       nisp: { title: "field_nisp_policy_title", desc: "field_nisp_policy_description" },
       wenture: { data: "field_wenture_data", itemTitle: true },
-      // Drupal has photos only; the section text stays built-in.
-      "smart-india-hackathons": { data: "field_smart_india_hackathons_dat" },
+      // Drupal has the title (on each item) and photos; it has no description field, so that text stays built-in.
+      "smart-india-hackathons": { data: "field_smart_india_hackathons_dat", itemTitle: true },
     },
   },
   welead: {

@@ -105,3 +105,5 @@ export const CORPORATE = {
     ],
   },
 };
+
+export type CorporateData = typeof CORPORATE;
