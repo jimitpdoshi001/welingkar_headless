@@ -45,12 +45,15 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
     <section className={`container ${styles.section}`}>
       <div className={styles.card}>
         <div className={styles.media}>
-          <PgdmImage
-            src={data.image}
-            mobileSrc={data.imageMobile}
-            alt=""
-            className={styles.photo}
-          />
+          {/* No USP image in Drupal: skip the photo instead of rendering a broken image. */}
+          {data.image ? (
+            <PgdmImage
+              src={data.image}
+              mobileSrc={data.imageMobile}
+              alt=""
+              className={styles.photo}
+            />
+          ) : null}
           <div className={styles.overlay} aria-hidden="true" />
           <h2 className={styles.heading}>{data.heading}</h2>
         </div>
