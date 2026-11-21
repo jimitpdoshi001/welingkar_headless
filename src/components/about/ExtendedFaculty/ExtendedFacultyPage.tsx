@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CdcPage } from "@/components/about/CdcPage/CdcPage";
+import { getExtendedFacultyContent } from "@/lib/drupal/pages/extended-faculty";
 import {
   getExtendedFaculty,
   type ExtendedFacultyCampus,
@@ -22,8 +23,8 @@ export function extendedFacultyMetadata(campus: ExtendedFacultyCampus, type: Ext
 }
 
 /** International / visiting / guest faculty list, on the CDC member-grid design. */
-export function ExtendedFacultyPage({ campus, type }: { campus: ExtendedFacultyCampus; type: ExtendedFacultyType }) {
-  const page = getExtendedFaculty(campus, type);
+export async function ExtendedFacultyPage({ campus, type }: { campus: ExtendedFacultyCampus; type: ExtendedFacultyType }) {
+  const page = await getExtendedFacultyContent(campus, type);
   return (
     <CdcPage
       title={`${page.title} — ${CAMPUS[campus].name}`}
