@@ -10,7 +10,8 @@ export type LibStat = {
   suffix?: string;
 };
 
-export type LibDatabase = { id: string; category: string; name: string; meta: string };
+/** `href`: the name links to the database (opens in a new tab). */
+export type LibDatabase = { id: string; category: string; name: string; meta: string; href?: string };
 
 export type LibIconItem = { label: string; icon: string };
 
@@ -210,7 +211,7 @@ export const LIBRARY_BENGALURU: LibraryData = {
   collection: {
     heading: "Overall Collection",
     stats: [
-      { label: "E-Books:", value: "4500" },
+      { label: "E-Books:", value: "29,000+" },
       { label: "KOHA", value: "(25.11)", suffix: "– ILMS" },
       { label: "Books:", value: "Over 16700" },
       { label: "International Periodicals:", value: "4" },
@@ -222,7 +223,7 @@ export const LIBRARY_BENGALURU: LibraryData = {
     ],
     highlights: HIGHLIGHTS,
   },
-  databases: DATABASES,
+  databases: { ...DATABASES, items: DATABASES.items.map((d) => ({ ...d, meta: "" })) },
   services: {
     heading: "LRC Services",
     columns: [
@@ -313,8 +314,15 @@ export const LIBRARY_BENGALURU: LibraryData = {
   },
   hours: {
     ...HOURS_BASE,
+    days: "Our Library – Ground Floor Only",
+    slots: [
+      { place: "Monday to Friday", label: "", time: "9:00 am to 8:00 pm" },
+      { place: "Saturday", label: "", time: "9:00 am to 5:00 pm" },
+    ],
+    links: [HOURS_BASE.links[0], { label: "Remote Access – Bengaluru Campus:", href: "https://idp.welingkar.org/" }],
     contactLines: [
-      "Mr. Rajakumar A, Librarian",
+      "Mr. Rajakumar, A.",
+      "Librarian",
       "Email: library.blr@welingkar.org",
       "Mobile : 9632559594",
       "Phone: 91-080-42678300 Extn: 395",

@@ -57,7 +57,15 @@ export function DatabaseTabs({ categories, items }: { categories: string[]; item
             {visible.map((d) => (
               <li key={d.id} className={styles.dbCard}>
                 <span className={styles.dbTag}>{d.category}</span>
-                <h3 className={styles.dbName}>{d.name}</h3>
+                <h3 className={styles.dbName}>
+                  {d.href ? (
+                    <a href={d.href} target="_blank" rel="noopener noreferrer">
+                      {d.name}
+                    </a>
+                  ) : (
+                    d.name
+                  )}
+                </h3>
                 {d.meta && <p className={styles.dbMeta}>{d.meta}</p>}
               </li>
             ))}
