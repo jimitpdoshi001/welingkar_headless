@@ -15,6 +15,8 @@ const INCLUDE = [
   "field_our_recruiters_logos",
   "field_weresearch_desktop_image",
   "field_world_of_weschool_image",
+  "field_programs_built_data",
+  "field_programs_built_data.field_image",
   "field_state_of_the_art_data",
   "field_state_of_the_art_data.field_image",
   "field_campus_moments_data",
@@ -72,6 +74,22 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
     const match = base.infrastructure.cards.find((c) => c.title.toLowerCase() === title.toLowerCase());
     return { id: p.id, title, image: r.image(p, "field_image") || base.infrastructure.cards[i]?.image || "", meta: match?.meta };
   }).filter((c) => c.title);
+  // Program cards: title, image and Know More link from Drupal; the built-in intake line stays when titles match.
+  const programCards: CampusData["programmes"]["cards"] = r
+    .refs(n, "field_programs_built_data")
+    .map((p, i) => {
+      const title = r.text(p, "field_main_title");
+      const link = r.link(p, "field_link");
+      const match = base.programmes.cards.find((c) => c.title.toLowerCase() === title.toLowerCase());
+      return {
+        id: p.id,
+        title,
+        image: r.image(p, "field_image") || base.programmes.cards[i]?.image || "",
+        meta: match?.meta,
+        cta: link.href ? { label: link.title || "Know More", href: link.href } : match?.cta,
+      };
+    })
+    .filter((c) => c.title);
   const moments = r
     .refs(n, "field_campus_moments_data")
     .map((p) => ({ id: p.id, image: r.image(p, "field_image"), video: r.text(p, "field_category") === "video" || undefined }))
@@ -131,6 +149,7 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
       ...base.programmes,
       heading: or(r.text(n, "field_programs_built_title"), base.programmes.heading),
       description: or(r.paras(n, "field_programs_built_description").join(" "), base.programmes.description),
+      cards: or(programCards, base.programmes.cards),
     },
     recruiters: {
       ...base.recruiters,
