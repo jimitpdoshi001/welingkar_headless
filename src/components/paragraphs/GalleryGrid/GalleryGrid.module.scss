@@ -17,8 +17,6 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: 2rem;
-  // Fixed frame: equal rows regardless of each photo's own size.
-  aspect-ratio: 16 / 11;
 
   .item {
     min-height: 0;
@@ -44,13 +42,9 @@
   }
 }
 
-// Tile size comes from the grid only; the image fills it without affecting layout.
+// Fill each grid cell so every tile's bottom edge lines up (no clipped image).
 .item {
-  position: relative;
-
   img {
-    position: absolute;
-    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
