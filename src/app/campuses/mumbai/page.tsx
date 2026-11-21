@@ -3,6 +3,7 @@ import { canonical } from "@/lib/seo/public-paths";
 
 import { facultyPerson, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 import { CampusPage } from "@/components/campus/CampusPage";
+import { withCampusContent } from "@/lib/drupal/pages/campus";
 import { CAMPUS_MUMBAI } from "@/lib/campus/campus-data";
 
 export const metadata: Metadata = {
@@ -19,7 +20,7 @@ export default async function MumbaiCampusPage() {
   const data = person.href ? { ...CAMPUS_MUMBAI, director: { ...director, cta: { ...director.cta, href: person.href } } } : CAMPUS_MUMBAI;
   return (
     <CampusPage
-      data={data}
+      data={await withCampusContent(5765, data)}
       mentors={await getCampusFacultyGrid("mumbai", { roleTabs: true })}
     />
   );

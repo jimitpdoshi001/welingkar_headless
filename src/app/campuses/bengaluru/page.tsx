@@ -3,6 +3,7 @@ import { canonical } from "@/lib/seo/public-paths";
 
 import { facultyPerson, getCampusFacultyGrid } from "@/lib/drupal/faculty-api";
 import { CampusPage } from "@/components/campus/CampusPage";
+import { withCampusContent } from "@/lib/drupal/pages/campus";
 import { CAMPUS_BENGALURU } from "@/lib/campus/campus-data";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default async function BengaluruCampusPage() {
   };
   return (
     <CampusPage
-      data={data}
+      data={await withCampusContent(5766, data)}
       mentors={await getCampusFacultyGrid("bengaluru")}
     />
   );
