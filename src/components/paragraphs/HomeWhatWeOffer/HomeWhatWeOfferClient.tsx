@@ -54,10 +54,9 @@ export function HomeWhatWeOfferClient({
     locations[0] || ""
   );
 
+  // Tabs mode: only items set to the selected campus (items with no location in Drupal are hidden).
   const filteredItems = showTabs
-    ? displayItems.filter(
-        (item) => !item.location || item.location === activeLocation
-      )
+    ? displayItems.filter((item) => item.location === activeLocation)
     : displayItems;
 
 
