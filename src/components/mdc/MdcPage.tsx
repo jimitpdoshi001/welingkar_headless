@@ -53,11 +53,13 @@ export function MdcPage({ data }: { data: MdcData }) {
           {/* In-page nav */}
           <nav className={styles.inPageNav}>
             <div className={`container ${styles.inPageNavInner}`}>
-              {data.nav.map((n, i) => (
+              {data.nav.map((n) => (
                 <Link
                   key={n.label}
                   href={n.href}
-                  className={`${styles.inPageLink} ${i === 0 ? styles.inPageActive : ""}`}>
+                  // This page is the MDP page, so its MDP tab is the active one.
+                  className={`${styles.inPageLink} ${n.label === "MDP" ? styles.inPageActive : ""}`}
+                  aria-current={n.label === "MDP" ? "page" : undefined}>
                   {n.label}
                 </Link>
               ))}
