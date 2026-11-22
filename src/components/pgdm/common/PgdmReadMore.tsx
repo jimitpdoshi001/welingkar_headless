@@ -17,6 +17,8 @@ type PgdmReadMoreProps = {
   /** Class for the text element(s). */
   className?: string;
   limit?: number;
+  /** Plain `text` only: cut by characters instead of words (at the last whole word). */
+  charLimit?: number;
 };
 
 const countWords = (text: string) => (text.match(/\S+/g) ?? []).length;
@@ -78,7 +80,15 @@ function cutHtml(html: string, limit: number): { html: string; cut: boolean } {
 }
 
 /** Long content: shows the first {@link READ_MORE_LIMIT} words with a Show More / Show Less toggle. */
-export function PgdmReadMore({ text, paragraphs, html, className, limit = READ_MORE_LIMIT }: PgdmReadMoreProps) {
+/** First `max` characters of `text`, ending on a whole word. */
+function cutChars(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const slice = text.slice(0, max);
+  const lastSpace = slice.lastIndexOf(" ");
+  return (lastSpace > 0 ? slice.slice(0, lastSpace) : slice).trimEnd();
+}
+
+export function PgdmReadMore({ text, paragraphs, html, className, limit = READ_MORE_LIMIT, charLimit }: PgdmReadMoreProps) {
   const [expanded, setExpanded] = useState(false);
 
   let body: React.ReactNode;
@@ -109,8 +119,9 @@ export function PgdmReadMore({ text, paragraphs, html, className, limit = READ_M
     ));
   } else {
     const value = text ?? "";
-    isLong = countWords(value) > limit;
-    body = <p className={className}>{expanded || !isLong ? value : cutText(value, limit)}</p>;
+    isLong = charLimit ? value.length > charLimit : countWords(value) > limit;
+    const short = charLimit ? cutChars(value, charLimit) : cutText(value, limit);
+    body = <p className={className}>{expanded || !isLong ? value : short}</p>;
   }
 
   return (

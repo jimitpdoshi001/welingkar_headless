@@ -1,6 +1,6 @@
 import { MDC, MDC_BENGALURU, type MdcData } from "@/lib/mdc/mdc-data";
 import { absoluteDrupalUrl } from "../jsonapi";
-import { getNodeReader, or } from "../node-page";
+import { getNodeReader } from "../node-page";
 
 const INCLUDE = [
   "field_banner",
@@ -25,8 +25,10 @@ const INCLUDE = [
 const strip = (s: string, label: string) => s.replace(new RegExp(`\\s*${label}\\s*$`, "i"), "").trim();
 
 /**
- * MDC pages from Drupal (mdc_listing 5777 Mumbai, 5778 Bengaluru). Each value
- * falls back to the built-in page; icons, logos, nav and theme stay built-in.
+ * MDP pages from Drupal (mdc_listing 5777 Mumbai, 5778 Bengaluru). Content is
+ * Drupal-only: an empty field leaves that part empty (the page hides it). The
+ * built-in page is used only when Drupal cannot be reached. Nav, icons and
+ * campus colours stay built-in.
  */
 async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
   const r = await getNodeReader("mdc_listing", nid, INCLUDE);
@@ -40,9 +42,9 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
   const offers = r.refs(n, "field_what_we_offer_data").map((p) => r.text(p, "field_main_title")).filter(Boolean);
   const why = r.refs(n, "field_why_organizations_mdc_data").map((p) => ({ title: r.text(p, "field_main_title"), text: r.paras(p, "field_description").join(" ") }));
   const expertise = r.refs(n, "field_our_areas_of_expertise_dat").map((p) => r.text(p, "field_main_title")).filter(Boolean);
-  const flagship = r.refs(n, "field_our_flagship_offerings_dat").map((p, i) => ({
+  const flagship = r.refs(n, "field_our_flagship_offerings_dat").map((p) => ({
     id: p.id,
-    image: r.image(p, "field_image") || base.flagship.cards[i]?.image || "",
+    image: r.image(p, "field_image"),
     title: r.text(p, "field_main_title"),
     text: r.paras(p, "field_description").join(" "),
   }));
@@ -88,35 +90,35 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
     ...base,
     hero: {
       ...base.hero,
-      title: or(r.text(banner, "field_main_title"), base.hero.title),
-      subtitle: or(r.text(banner, "field_sub_title"), base.hero.subtitle),
+      title: r.text(banner, "field_main_title"),
+      subtitle: r.text(banner, "field_sub_title"),
       // Drupal stores "/mdc#team" on both nodes; keep it an in-page anchor so Bengaluru stays on its own page.
-      cta: cta.href ? { label: or(cta.title, base.hero.cta.label), href: cta.href.replace(/^\/mdc(?=#)/, "") } : base.hero.cta,
-      image: or(r.image(banner, "field_desktop"), base.hero.image),
+      cta: cta.href ? { label: cta.title, href: cta.href.replace(/^\/mdc(?=#)/, "") } : { label: "", href: "" },
+      image: r.image(banner, "field_desktop"),
     },
-    stats: or(stats, base.stats),
+    stats: stats,
     learning: {
-      heading: or(r.text(n, "field_our_vision_title"), base.learning.heading),
-      paragraphs: or(r.paras(n, "field_our_vision_description"), base.learning.paragraphs),
-      images: or(learnImages, base.learning.images),
-      features: or(features, base.learning.features),
+      heading: r.text(n, "field_our_vision_title"),
+      paragraphs: r.paras(n, "field_our_vision_description"),
+      images: learnImages,
+      features: features,
     },
     about: {
       ...base.about,
-      heading: or(r.text(n, "field_about_weschool_title"), base.about.heading),
-      paragraphs: or(r.paras(n, "field_about_weschool_description"), base.about.paragraphs),
-      image: or(r.image(n, "field_desktop_image"), base.about.image),
-      offers: or(offers, base.about.offers),
+      heading: r.text(n, "field_about_weschool_title"),
+      paragraphs: r.paras(n, "field_about_weschool_description"),
+      image: r.image(n, "field_desktop_image"),
+      offers: offers,
     },
-    why: { heading: or(r.text(n, "field_why_organizations_title"), base.why.heading), cards: or(why, base.why.cards) },
-    expertise: { heading: or(r.text(n, "field_our_areas_title"), base.expertise.heading), items: or(expertise, base.expertise.items) },
-    flagship: { heading: or(r.text(n, "field_our_flagship_offerings_tit"), base.flagship.heading), cards: or(flagship, base.flagship.cards) },
-    trusted: { heading: or(r.text(n, "field_trusted_organizations_titl"), base.trusted.heading), logos: or(logos, base.trusted.logos) },
-    testimonials: { heading: or(r.text(n, "field_hear_participants_title"), base.testimonials.heading), items: or(testimonials, base.testimonials.items) },
+    why: { heading: r.text(n, "field_why_organizations_title"), cards: why },
+    expertise: { heading: r.text(n, "field_our_areas_title"), items: expertise },
+    flagship: { heading: r.text(n, "field_our_flagship_offerings_tit"), cards: flagship },
+    trusted: { heading: r.text(n, "field_trusted_organizations_titl"), logos: logos },
+    testimonials: { heading: r.text(n, "field_hear_participants_title"), items: testimonials },
     team: {
-      heading: or(r.text(n, "field_mdp_team_title"), base.team.heading),
-      subtitle: or(r.paras(n, "field_mdp_team_description").join(" "), base.team.subtitle),
-      contacts: or(contacts, base.team.contacts),
+      heading: r.text(n, "field_mdp_team_title"),
+      subtitle: r.paras(n, "field_mdp_team_description").join(" "),
+      contacts: contacts,
     },
   };
 }
