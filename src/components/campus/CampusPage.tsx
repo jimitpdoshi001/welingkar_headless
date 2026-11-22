@@ -330,10 +330,10 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
               </Link>
             </div>
             <div className={styles.momentsGrid}>
-              {data.moments.images.map((m, i) => (
+              {data.moments.images.map((m) => (
                 <div
                   key={m.id}
-                  className={`${styles.momentItem} ${styles[`moment${i + 1}`]}`}>
+                  className={styles.momentItem}>
                   <img
                     src={m.image}
                     alt=""
