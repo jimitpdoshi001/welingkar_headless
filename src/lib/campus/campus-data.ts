@@ -154,7 +154,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       title: isMumbai ? "In-Charge Director" : "Bengaluru Campus Director",
       body: "At WeSchool, we are deeply inspired by these words of the great American writer and futurist. Undoubtedly, being convinced of the need for a radical change in management education, we decided to tread the path that leads to corporate revolution. Emerging unarticulated needs and realities need a new approach both in terms of thought as well as action.",
       image: CIMG.director,
-      cta: { label: "Read More", href: "/about-us/directors-message" },
+      cta: { label: "Read More", href: "/who-we-are" },
     },
     mentors: {
       heading: "Mentors that Are Shaping the Leaders of Tomorrow",

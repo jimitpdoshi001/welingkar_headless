@@ -105,6 +105,25 @@ const nextConfig: NextConfig = {
       ],
     };
   },
+  // Old About Us sub-pages are now sections of Who We Are (/who-we-are).
+  async redirects() {
+    const section = (slug: string, anchor = "") => ({
+      source: `/about-us/${slug}`,
+      destination: `/who-we-are${anchor ? `#${anchor}` : ""}`,
+      permanent: true,
+    });
+    return [
+      section("spm", "spm"),
+      section("managing-council", "managing-council"),
+      section("chairman-message", "chairman"),
+      section("directors-message"),
+      section("academic-advisory-board"),
+      section("industry-advisory-board"),
+      section("awards", "awards"),
+      section("vision-mission", "vision-mission"),
+      section("college-development-committee", "college-development-committee"),
+    ];
+  },
   async headers() {
     return [
       {

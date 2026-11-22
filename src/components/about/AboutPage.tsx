@@ -266,7 +266,7 @@ export function AboutPage({ data, footer }: { data: AboutData | null; footer?: R
                 ? d.desks.map((desk, i) => (isCdcDesk(desk.heading) ? renderDesk(desk, i) : null))
                 : null}
               <BoardList
-                id={board.id}
+                id={isCdcBoard(board.heading) ? "college-development-committee" : board.id}
                 heading={board.heading}
                 people={board.people}
                 splitRole={isCdcBoard(board.heading)}
