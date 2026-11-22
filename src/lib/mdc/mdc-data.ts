@@ -52,8 +52,8 @@ export const MDC: MdcData = {
     { label: "Corporate interface", href: "/corporate-interface" },
     { label: "We Research", href: "/we-research-mumbai" },
     { label: "We Excel", href: "#why" },
-    { label: "Life @ WeSchool", href: "/life-at-weschool" },
     { label: "MDP", href: "/programmes/mdp" },
+    { label: "Life @ WeSchool", href: "/life-at-weschool" },
   ],
   stats: [
     { value: "25+", label: "Years of Excellence" },
@@ -152,6 +152,8 @@ export const MDC_BENGALURU: MdcData = {
   ...MDC,
   theme: { accent: "#b04535", tint: "#fff4f2" },
   iconSet: "bengaluru/",
+  // MDP tab opens the Bengaluru MDP page.
+  nav: MDC.nav.map((n) => (n.label === "MDP" ? { ...n, href: "/programmes/mdp/bengaluru" } : n)),
   hero: { ...MDC.hero, image: BIMG("hero") },
   learning: { ...MDC.learning, images: [BIMG("learn1"), BIMG("learn2")] },
   about: { ...MDC.about, image: BIMG("about") },

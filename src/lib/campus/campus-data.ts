@@ -123,6 +123,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       { label: "Corporate Interface", href: "/corporate-interface" },
       { label: "We Research", href: "/we-research-mumbai" },
       { label: "We Excel", href: "#infrastructure" },
+      { label: "MDP", href: isMumbai ? "/programmes/mdp" : "/programmes/mdp/bengaluru" },
       { label: "Life @ WeSchool", href: isMumbai ? "/life-at-weschool" : "#life" },
     ],
     about: {
