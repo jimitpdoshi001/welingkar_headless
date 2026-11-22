@@ -24,6 +24,19 @@ summary.groupTitle { cursor: pointer; }
   a { font-size: 1.6rem; line-height: 1.2; color: var(--color-black); text-decoration: underline; &:hover { color: var(--color-primary); } }
 }
 
+/* Documents inside an accordion: 4 columns (2 on tablet, 1 on mobile). */
+.disclosureGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem 2.4rem;
+  margin-top: 1.6rem;
+  list-style: none;
+  padding: 0;
+
+  @include respond-to(tab) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+
 /* Autonomy exhibit list */
 .autonomyList {
   max-width: 116rem;

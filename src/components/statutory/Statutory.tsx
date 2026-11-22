@@ -45,7 +45,8 @@ export function DisclosureLayout({ active, groups, nav = DISCLOSURE_NAV }: { act
             // Native <details> gives keyboard-accessible toggling without client JS.
             <details key={g.title} className={styles.group} open={i === 0}>
               <summary className={styles.groupTitle}>{g.title}</summary>
-              <DocList links={g.links} className={styles.disclosureLinks} />
+              {/* Accordion content: documents in a 4-column grid. */}
+              <DocList links={g.links} className={`${styles.disclosureLinks} ${styles.disclosureGrid}`} />
             </details>
           ) : (
             <div key={g.title} className={styles.group}>
