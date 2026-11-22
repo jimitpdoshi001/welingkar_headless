@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PgdmReadMore } from "@/components/pgdm/common/PgdmReadMore";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -52,11 +53,13 @@ export function MdcPage({ data }: { data: MdcData }) {
           {/* In-page nav */}
           <nav className={styles.inPageNav}>
             <div className={`container ${styles.inPageNavInner}`}>
-              {data.nav.map((n, i) => (
+              {data.nav.map((n) => (
                 <Link
                   key={n.label}
                   href={n.href}
-                  className={`${styles.inPageLink} ${i === 0 ? styles.inPageActive : ""}`}>
+                  // This page is the MDP page, so its MDP tab is the active one.
+                  className={`${styles.inPageLink} ${n.label === "MDP" ? styles.inPageActive : ""}`}
+                  aria-current={n.label === "MDP" ? "page" : undefined}>
                   {n.label}
                 </Link>
               ))}
@@ -82,26 +85,22 @@ export function MdcPage({ data }: { data: MdcData }) {
             <div className={`container ${styles.block} ${styles.learning}`}>
               <div>
                 <h2 className={styles.heading}>{data.learning.heading}</h2>
-                {data.learning.paragraphs.map((p, i) => (
-                  <p
-                    key={i}
-                    className={styles.body}>
-                    {p}
-                  </p>
-                ))}
-              </div>
-              <div className={styles.collage}>
-                <img
-                  src={data.learning.images[0]}
-                  alt=""
-                  className={styles.collageMain}
-                />
-                <img
-                  src={data.learning.images[1]}
-                  alt=""
-                  className={styles.collageSmall}
+                {/* Long copy: first part with Show More / Show Less (same as program pages). */}
+                <PgdmReadMore
+                  paragraphs={data.learning.paragraphs}
+                  className={styles.body}
                 />
               </div>
+              {/* Main photo only (the small overlapping photo was removed on request). */}
+              {data.learning.images[0] ? (
+                <div className={styles.collage}>
+                  <img
+                    src={data.learning.images[0]}
+                    alt=""
+                    className={styles.collageMain}
+                  />
+                </div>
+              ) : null}
             </div>
           </section>
 
@@ -173,7 +172,7 @@ export function MdcPage({ data }: { data: MdcData }) {
                   <div
                     key={e}
                     className={styles.expertiseItem}>
-                    <img src={`/mdc/icons/expertise-${i + 1}.svg`} alt="" className={styles.expertiseIcon} />
+                    <img src={`/mdc/icons/expertise-${(i % 8) + 1}.svg`} /* 8 icons; reused in turn when Drupal has more items */ alt="" className={styles.expertiseIcon} />
                     <span>{e}</span>
                   </div>
                 ))}

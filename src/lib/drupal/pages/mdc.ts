@@ -16,6 +16,9 @@ const INCLUDE = [
   "field_why_organizations_mdc_data",
   "field_mdp_team_data",
   "field_our_vision_image",
+  "field_desktop_image",
+  "field_client_logos",
+  "field_trusted_organizations_logo",
 ];
 
 /** Drop a trailing label ("Office", "Mobile") from a contact line. */
@@ -69,6 +72,18 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
     .map((f) => absoluteDrupalUrl((f.attributes.uri as { url?: string } | undefined)?.url) ?? "")
     .filter(Boolean);
 
+  // Logo strip: client logos when uploaded, else the trusted-organisation logos.
+  const logoFiles = (field: string) =>
+    r
+      .refs(n, field)
+      .map((f) => ({
+        name: String(f.attributes.filename ?? "").replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " "),
+        image: absoluteDrupalUrl((f.attributes.uri as { url?: string } | undefined)?.url) ?? "",
+      }))
+      .filter((l) => l.image);
+  const clientLogos = logoFiles("field_client_logos");
+  const logos = clientLogos.length ? clientLogos : logoFiles("field_trusted_organizations_logo");
+
   return {
     ...base,
     hero: {
@@ -90,13 +105,14 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
       ...base.about,
       heading: or(r.text(n, "field_about_weschool_title"), base.about.heading),
       paragraphs: or(r.paras(n, "field_about_weschool_description"), base.about.paragraphs),
+      image: or(r.image(n, "field_desktop_image"), base.about.image),
       offers: or(offers, base.about.offers),
     },
     why: { heading: or(r.text(n, "field_why_organizations_title"), base.why.heading), cards: or(why, base.why.cards) },
     expertise: { heading: or(r.text(n, "field_our_areas_title"), base.expertise.heading), items: or(expertise, base.expertise.items) },
     flagship: { heading: or(r.text(n, "field_our_flagship_offerings_tit"), base.flagship.heading), cards: or(flagship, base.flagship.cards) },
-    trusted: { ...base.trusted, heading: or(r.text(n, "field_trusted_organizations_titl"), base.trusted.heading) },
-    testimonials: { ...base.testimonials, items: or(testimonials, base.testimonials.items) },
+    trusted: { heading: or(r.text(n, "field_trusted_organizations_titl"), base.trusted.heading), logos: or(logos, base.trusted.logos) },
+    testimonials: { heading: or(r.text(n, "field_hear_participants_title"), base.testimonials.heading), items: or(testimonials, base.testimonials.items) },
     team: {
       heading: or(r.text(n, "field_mdp_team_title"), base.team.heading),
       subtitle: or(r.paras(n, "field_mdp_team_description").join(" "), base.team.subtitle),

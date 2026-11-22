@@ -37,7 +37,6 @@
 }
 .collage { position: relative; min-height: 32rem; }
 .collageMain { width: 100%; border-radius: 2rem; aspect-ratio: 4/3; object-fit: cover; }
-.collageSmall { position: absolute; left: -2rem; bottom: -3rem; width: 40%; border-radius: 1.4rem; aspect-ratio: 4/3; object-fit: cover; box-shadow: 0 1rem 3rem rgba(0,0,0,0.2); }
 
 .bg-purplearrow{position: relative; overflow: hidden;
 &::before { content: ""; position: absolute; left: 0; top: 1rem; width: 24rem; height: 30.5rem; background: rgba(73, 52, 96, 0.08); clip-path: polygon(0 0, 100% 50%, 0 100%); pointer-events: none; z-index: 0; @include respond-to(tab) { display: none; } }
