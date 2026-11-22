@@ -49,7 +49,7 @@ export function WeFactorCarousel({ item, tinted }: { item: WeFactorItem; tinted:
                         rel="noopener noreferrer"
                         tabIndex={i > 0 ? -1 : undefined}
                         className="btn accent">
-                        Download {d.label}
+                        {d.label}
                       </a>
                     ))}
                   </div>
@@ -85,7 +85,7 @@ export function WeFactorCarousel({ item, tinted }: { item: WeFactorItem; tinted:
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn accent">
-                      Download {d.label}
+                      {d.label}
                     </a>
                   ))}
                 </div>

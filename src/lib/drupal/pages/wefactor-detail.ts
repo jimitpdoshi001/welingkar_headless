@@ -10,7 +10,8 @@ import { getNodeReader, or, type NodeReader } from "../node-page";
  * field_description + field_image (one photo per item); `image` is a single
  * file field on the node; `list` items use field_project_title + field_sub_title.
  */
-type BlockSpec = { title?: string; itemTitle?: boolean; desc?: string; data?: string; image?: string; groupHeading?: string; list?: string };
+/** `links`: node link field shown as CTA buttons; `itemLinks`: CTA buttons from each data item's field_link. */
+type BlockSpec = { title?: string; itemTitle?: boolean; desc?: string; data?: string; image?: string; groupHeading?: string; list?: string; links?: string; itemLinks?: boolean };
 type PageSpec = { type: string; nid: number; base: WeFactorDetailData; title: string; intro: string; blocks: Record<string, BlockSpec> };
 
 const SPECS = {
@@ -44,8 +45,8 @@ const SPECS = {
     blocks: {
       innowe: { title: "field_innowe_title", desc: "field_innowe_description", image: "field_innowe_image" },
       entrepreneurship: { title: "field_entrepreneurship_at_wescho", desc: "field_entrepreneurship_at_desc" },
-      nisp: { title: "field_nisp_policy_title", desc: "field_nisp_policy_description" },
-      wenture: { data: "field_wenture_data", itemTitle: true },
+      nisp: { title: "field_nisp_policy_title", desc: "field_nisp_policy_description", links: "field_nisp_policy_link" },
+      wenture: { data: "field_wenture_data", itemTitle: true, itemLinks: true },
       // Drupal has the title (on each item) and photos; it has no description field, so that text stays built-in.
       "smart-india-hackathons": { data: "field_smart_india_hackathons_dat", itemTitle: true },
     },
@@ -78,6 +79,9 @@ function applyBlock(r: NodeReader, block: WeFactorBlock, spec: BlockSpec | undef
   }
 
   const paragraphs = spec.desc ? r.paras(n, spec.desc) : uniqueParas(r, items);
+  // CTA buttons (label = Drupal link text).
+  const ctaLinks = spec.links ? r.links(n, spec.links) : spec.itemLinks ? items.flatMap((p) => r.links(p, "field_link")) : [];
+  const downloads = ctaLinks.filter((l) => l.href).map((l) => ({ label: l.title || "Know More", href: l.href }));
   const images = spec.image ? [r.image(n, spec.image)].filter(Boolean) : items.map((p) => r.image(p, "field_image")).filter(Boolean);
   return {
     ...block,
@@ -85,6 +89,7 @@ function applyBlock(r: NodeReader, block: WeFactorBlock, spec: BlockSpec | undef
     ...(spec.groupHeading ? { groupHeading: or(r.text(n, spec.groupHeading), block.groupHeading ?? ""), title: block.title } : {}),
     paragraphs: or(paragraphs, block.paragraphs),
     ...(block.type === "carousel" ? { images: or(images, block.images ?? []) } : {}),
+    ...(downloads.length ? { downloads } : {}),
   };
 }
 
