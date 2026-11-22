@@ -81,25 +81,28 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
             <nav
               className={`container ${styles.pills}`}
               aria-label="Program categories">
-              {data.pills.map((pill, i) => (
+              {data.pills.map((pill, i) => {
+                const active = data.activePill ? pill.label === data.activePill : i === 0;
+                return (
                 <Link
                   key={pill.label}
                   href={pill.href}
-                  className={`${styles.pill} ${i === 0 ? styles.pillActive : ""}`}
-                  aria-current={i === 0 ? "page" : undefined}>
+                  className={`${styles.pill} ${active ? styles.pillActive : ""}`}
+                  aria-current={active ? "page" : undefined}>
                   {pill.label}
                   <span
                     className={styles.caret}
                     aria-hidden="true"
                   />
                 </Link>
-              ))}
+                );
+              })}
             </nav>
           </div>
 
           <section id="programs" className={`container ${styles.intro}`}>
             <h2 className={styles.introHeading}>{data.intro.heading}</h2>
-            <p className={styles.introBody}>{data.intro.body}</p>
+            {data.intro.body ? <p className={styles.introBody}>{data.intro.body}</p> : null}
           </section>
 
           {data.programmes.map((p, i) => {
@@ -117,7 +120,7 @@ export function ProgrammeListing({ data }: { data: ProgrammeListingData }) {
                   <div className={styles.card}>
                     <h3 className={`${styles.title} ${p.slug === "pgdm-media" ? styles.titleOneLine : ""}`}>{p.title}</h3>
                     <p className={styles.body}>{p.description}</p>
-                    <p className={styles.intake}>{p.intake}</p>
+                    {p.intake ? <p className={styles.intake}>{p.intake}</p> : null}
                     <div className={styles.actions}>
                       <Link
                         href={p.href}

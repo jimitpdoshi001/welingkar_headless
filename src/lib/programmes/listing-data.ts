@@ -22,6 +22,8 @@ export type ProgrammeListingData = {
   hero: { title: string; subtitle: string; image: string };
   nav: { label: string; href: string }[];
   pills: { label: string; href: string }[];
+  /** Label of the highlighted pill (default: the first one). */
+  activePill?: string;
   intro: { heading: string; body: string };
   programmes: ListingProgramme[];
   applyHref: string;
