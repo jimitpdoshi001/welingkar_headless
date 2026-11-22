@@ -34,7 +34,8 @@ export function HeaderClient({
   };
 
   useEffect(() => {
-    const threshold = isHomePage ? 700 : 420;
+    // White sticky header after ~2 wheel scrolls (about 100px each) on every page.
+    const threshold = 200;
     const handleScroll = () => setIsScrolled(window.scrollY > threshold);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
