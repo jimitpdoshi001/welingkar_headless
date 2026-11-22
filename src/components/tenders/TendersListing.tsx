@@ -92,10 +92,12 @@ export function TendersListing({ data, footerAction }: Props) {
             <tr key={t.id}>
               <td className={styles.particulars}>
                 <h2 className={styles.title}>{t.title}</h2>
-                <a href={t.documentUrl} className={styles.doc} download>
-                  <Image src="/tenders/icon-download.svg" alt="" width={16} height={16} />
-                  {t.documentLabel}
-                </a>
+                {t.documentUrl ? (
+                  <a href={t.documentUrl} className={styles.doc} download>
+                    <Image src="/tenders/icon-download.svg" alt="" width={16} height={16} />
+                    {t.documentLabel}
+                  </a>
+                ) : null}
               </td>
               <td data-label={col.status}>{t.status}</td>
               <td data-label={col.startDate}>{t.startDate}</td>

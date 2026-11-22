@@ -227,7 +227,7 @@ const ROLE_TABS: { slug: string; name: string; match: RegExp }[] = [
   { slug: "assistant-professor", name: "Assistant Professor", match: /assistant\s+professor/i },
   { slug: "associate-professor", name: "Associate Professor", match: /associate\s+professor/i },
   { slug: "registrar", name: "Registrar", match: /registrar/i },
-  { slug: "role-librarian", name: "Librarian", match: /librarian/i },
+  { slug: "role-librarian", name: "Library", match: /librarian/i },
 ];
 
 /** Deans / Associate Deans / Faculty from a designation (Bengaluru sheet rule). */
