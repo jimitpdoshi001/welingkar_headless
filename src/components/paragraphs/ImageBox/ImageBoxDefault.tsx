@@ -19,7 +19,9 @@ export default function ImageBoxDefault({ paragraph, image, responsiveMedia, chi
   return (
     <article className={`${styles.imageBox}`}>
       {hasMedia && (
-        <div className={styles.media}>
+        // Reveal the whole frame (photo + dark overlay) together, so the overlay
+        // never shows as a grey/black box before the photo appears.
+        <div className={`${styles.media} animate-reveal-clip`}>
           {responsiveMedia && (
             <ResponsiveMedia
               media={responsiveMedia}
