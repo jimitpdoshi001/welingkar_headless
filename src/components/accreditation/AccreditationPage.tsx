@@ -13,7 +13,7 @@ export function AccreditationPage({ campus, section }: { campus: AccreditationCa
       image="/statutory/mandatory-disclosure.webp"
       breadcrumbs={[{ label: "Home", href: "/" }, { label: `Accreditations - ${label}` }]}
     >
-      <DisclosureLayout active={current.title} groups={campusGroups(current, campus)} nav={accreditationNav(campus)} />
+      <DisclosureLayout active={current.title} groups={campusGroups(current, campus)} nav={accreditationNav(campus)} grid />
     </PageShell>
   );
 }

@@ -21,7 +21,8 @@ export function MandatoryDisclosure() {
  * menu with the active entry highlighted, then the document groups. A group
  * without a title lists its documents directly.
  */
-export function DisclosureLayout({ active, groups, nav = DISCLOSURE_NAV }: { active: string; groups: DisclosureGroup[]; nav?: DocLink[] }) {
+/** `grid`: accordion documents in a 4-column grid (Accreditation pages). */
+export function DisclosureLayout({ active, groups, nav = DISCLOSURE_NAV, grid = false }: { active: string; groups: DisclosureGroup[]; nav?: DocLink[]; grid?: boolean }) {
   return (
     <section className={`container ${styles.block} ${styles.disclosure}`}>
       <nav className={styles.sideNav} aria-label="Disclosures">
@@ -45,8 +46,7 @@ export function DisclosureLayout({ active, groups, nav = DISCLOSURE_NAV }: { act
             // Native <details> gives keyboard-accessible toggling without client JS.
             <details key={g.title} className={styles.group} open={i === 0}>
               <summary className={styles.groupTitle}>{g.title}</summary>
-              {/* Accordion content: documents in a 4-column grid. */}
-              <DocList links={g.links} className={`${styles.disclosureLinks} ${styles.disclosureGrid}`} />
+              <DocList links={g.links} className={grid ? `${styles.disclosureLinks} ${styles.disclosureGrid}` : styles.disclosureLinks} />
             </details>
           ) : (
             <div key={g.title} className={styles.group}>
