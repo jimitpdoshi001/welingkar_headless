@@ -30,23 +30,27 @@ export function MdcPage({ data }: { data: MdcData }) {
           }>
           {/* Hero */}
           <section className={styles.hero}>
-            <img
-              src={data.hero.image}
-              alt=""
-              className={styles.heroImage}
-            />
+            {data.hero.image ? (
+              <img
+                src={data.hero.image}
+                alt=""
+                className={styles.heroImage}
+              />
+            ) : null}
             <div className={styles.heroOverlay} />
             <div className={`container ${styles.heroInner}`}>
               <nav className={styles.breadcrumb}>
-                <Link href="/">Home</Link> <span>›</span> <span>MDC</span>
+                <Link href="/">Home</Link> <span>›</span> <span>MDP</span>
               </nav>
               <h1 className={styles.heroTitle}>{data.hero.title}</h1>
-              <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
-              <Link
-                href={data.hero.cta.href}
-                className="btn white-outline">
-                {data.hero.cta.label}
-              </Link>
+              {data.hero.subtitle ? <p className={styles.heroSubtitle}>{data.hero.subtitle}</p> : null}
+              {data.hero.cta.href && data.hero.cta.label ? (
+                <Link
+                  href={data.hero.cta.href}
+                  className="btn white-outline">
+                  {data.hero.cta.label}
+                </Link>
+              ) : null}
             </div>
           </section>
 
@@ -67,6 +71,7 @@ export function MdcPage({ data }: { data: MdcData }) {
           </nav>
 
           {/* Stats */}
+          {data.stats.length ? (
           <section className={`container ${styles.block}`}>
             <div className={styles.stats}>
               {data.stats.map((s) => (
@@ -79,16 +84,20 @@ export function MdcPage({ data }: { data: MdcData }) {
               ))}
             </div>
           </section>
+          ) : null}
 
           {/* Learning that keeps pace */}
+          {data.learning.heading || data.learning.paragraphs.length ? (
           <section className={styles["bg-purplearrow"]}>
             <div className={`container ${styles.block} ${styles.learning}`}>
               <div>
                 <h2 className={styles.heading}>{data.learning.heading}</h2>
                 {/* Long copy: first part with Show More / Show Less (same as program pages). */}
+                {/* Collapsed view: the first two paragraphs only. */}
                 <PgdmReadMore
                   paragraphs={data.learning.paragraphs}
                   className={styles.body}
+                  limit={data.learning.paragraphs.slice(0, 2).join(" ").split(/\s+/).filter(Boolean).length}
                 />
               </div>
               {/* Main photo only (the small overlapping photo was removed on request). */}
@@ -103,7 +112,9 @@ export function MdcPage({ data }: { data: MdcData }) {
               ) : null}
             </div>
           </section>
+          ) : null}
 
+          {data.learning.features.length ? (
           <section className={styles.featureBand}>
             <div className={`container ${styles.featureRow}`}>
               {data.learning.features.map((f, i) => (
@@ -116,14 +127,18 @@ export function MdcPage({ data }: { data: MdcData }) {
               ))}
             </div>
           </section>
+          ) : null}
 
           {/* About MDC (dark) */}
+          {data.about.heading || data.about.paragraphs.length ? (
           <section className={styles.about}>
-            <img
-              src={data.about.image}
-              alt=""
-              className={styles.aboutBg}
-            />
+            {data.about.image ? (
+              <img
+                src={data.about.image}
+                alt=""
+                className={styles.aboutBg}
+              />
+            ) : null}
             <div className={styles.aboutOverlay} />
             <div className={`container ${styles.aboutInner}`}>
               <h2 className={styles.headingLightCenter}>{data.about.heading}</h2>
@@ -134,6 +149,8 @@ export function MdcPage({ data }: { data: MdcData }) {
                   {p}
                 </p>
               ))}
+              {data.about.offers.length ? (
+              <>
               <h3 className={styles.offerHeading}>{data.about.offerHeading}</h3>
               <div className={styles.offerGrid}>
                 {data.about.offers.map((o) => (
@@ -144,10 +161,14 @@ export function MdcPage({ data }: { data: MdcData }) {
                   </span>
                 ))}
               </div>
+              </>
+              ) : null}
             </div>
           </section>
+          ) : null}
 
           {/* Why organizations choose MDC */}
+          {data.why.cards.length ? (
           <section className={`container ${styles.block}`}>
             <h2 className={styles.heading}>{data.why.heading}</h2>
             <div className={styles.whyGrid}>
@@ -162,8 +183,10 @@ export function MdcPage({ data }: { data: MdcData }) {
               ))}
             </div>
           </section>
+          ) : null}
 
           {/* Areas of expertise (purple) */}
+          {data.expertise.items.length ? (
           <section className={`bg-secondary ${styles.band}`}>
             <div className={`container ${styles.block}`}>
               <h2 className={styles.headingLight}>{data.expertise.heading}</h2>
@@ -180,7 +203,10 @@ export function MdcPage({ data }: { data: MdcData }) {
             </div>
           </section>
 
+          ) : null}
+
           {/* Flagship offerings */}
+          {data.flagship.cards.length ? (
           <section className={styles.flagshipBand}>
             <div className={`container ${styles.block}`}>
               <h2 className={styles.heading}>{data.flagship.heading}</h2>
@@ -189,18 +215,19 @@ export function MdcPage({ data }: { data: MdcData }) {
                   <article
                     key={c.id}
                     className={styles.flagshipCard}>
-                    <img
-                      src={c.image}
-                      alt=""
-                    />
+                    {c.image ? (
+                      <img
+                        src={c.image}
+                        alt=""
+                      />
+                    ) : null}
                     <div className={styles.flagshipBody}>
                       <h3>{c.title}</h3>
-                      <p>{c.text}</p>
-                      <Link
-                        href="#team"
-                        className="btn accent-outline">
-                        Enquire Now
-                      </Link>
+                      {/* First 150 characters, Show More / Show Less for the rest. Enquire Now hidden for now. */}
+                      <PgdmReadMore
+                        text={c.text}
+                        charLimit={150}
+                      />
                     </div>
                   </article>
                 ))}
@@ -208,7 +235,10 @@ export function MdcPage({ data }: { data: MdcData }) {
             </div>
           </section>
 
+          ) : null}
+
           {/* Trusted */}
+          {data.trusted.logos.length ? (
           <section className={`container ${styles.block}`}>
             <h2 className={styles.headingCenter}>{data.trusted.heading}</h2>
             <div className={styles.logoStrip}>
@@ -222,7 +252,10 @@ export function MdcPage({ data }: { data: MdcData }) {
             </div>
           </section>
 
+          ) : null}
+
           {/* Testimonials: heading left, carousel right (arrows below-right). */}
+          {data.testimonials.items.length ? (
           <section className={`bg-secondary ${styles.band}`}>
             <div className={`container ${styles.block}`}>
               <MdcTestimonials
@@ -232,12 +265,15 @@ export function MdcPage({ data }: { data: MdcData }) {
             </div>
           </section>
 
+          ) : null}
+
           {/* Talk to our MDP team */}
+          {data.team.contacts.length ? (
           <section
             id="team"
             className={`container ${styles.block}`}>
             <h2 className={styles.heading}>{data.team.heading}</h2>
-            <p className={styles.sub}>{data.team.subtitle}</p>
+            {data.team.subtitle ? <p className={styles.sub}>{data.team.subtitle}</p> : null}
             <div className={styles.contactGrid}>
               {data.team.contacts.map((c) => (
                 <div
@@ -246,19 +282,26 @@ export function MdcPage({ data }: { data: MdcData }) {
                   <h3>{c.name}</h3>
                   <p className={styles.contactTitle}>{c.title}</p>
                   <p className={styles.contactDept}>{c.dept}</p>
-                  <p className={styles.contactLine}>
-                    {c.office} <span>Office</span>
-                  </p>
-                  <p className={styles.contactLine}>
-                    {c.mobile} <span>Mobile</span>
-                  </p>
-                  <p className={styles.contactLine}>
-                    <a href={`mailto:${c.email}`}>{c.email}</a>
-                  </p>
+                  {c.office ? (
+                    <p className={styles.contactLine}>
+                      {c.office} <span>Office</span>
+                    </p>
+                  ) : null}
+                  {c.mobile ? (
+                    <p className={styles.contactLine}>
+                      {c.mobile} <span>Mobile</span>
+                    </p>
+                  ) : null}
+                  {c.email ? (
+                    <p className={styles.contactLine}>
+                      <a href={`mailto:${c.email}`}>{c.email}</a>
+                    </p>
+                  ) : null}
                 </div>
               ))}
             </div>
           </section>
+          ) : null}
         </main>
 
         <SearchOverlay />
