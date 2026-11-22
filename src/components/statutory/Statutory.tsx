@@ -41,7 +41,7 @@ export function DisclosureLayout({ active, groups, nav = DISCLOSURE_NAV, grid = 
       <div className={styles.groups}>
         {groups.map((g, i) =>
           !g.title ? (
-            <DocList key={`untitled-${i}`} links={g.links} className={styles.disclosureLinks} />
+            <DocList key={`untitled-${i}`} links={g.links} className={grid ? `${styles.disclosureLinks} ${styles.disclosureGrid}` : styles.disclosureLinks} />
           ) : g.links.length ? (
             // Native <details> gives keyboard-accessible toggling without client JS.
             <details key={g.title} className={styles.group} open={i === 0}>
