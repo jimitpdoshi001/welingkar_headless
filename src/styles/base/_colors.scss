@@ -62,7 +62,7 @@ section:has([class*="backgroundMedia"]) {
     }
   }
 
-  &:has(> div .text-white)::before {
+  &:has(> div .text-white) > [class*="backgroundLayer"]::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -78,7 +78,7 @@ section:has([class*="backgroundMedia"]) {
     );
   }
 
-  &:has(> div .text-black)::before {
+  &:has(> div .text-black) > [class*="backgroundLayer"]::before {
     content: "";
     position: absolute;
     inset: 0;

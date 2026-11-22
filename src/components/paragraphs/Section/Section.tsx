@@ -99,23 +99,31 @@ export function Section({ paragraph, image, responsiveMedia, children }: Section
       className={clsx("relative", heightClass, hasStickyChild ? undefined : "overflow-hidden", arrowStyleClass, attributes.field_class_name)}>
       <div className={clsx(paddingClass, paddingXClass, paddingYClass, widthClass, hasBackground, "h-100", animationClass)}>{children}</div>
 
-      <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass, (responsiveMedia || image) && styles.mediaOverlay)} />
+      {responsiveMedia || image ? (
+        // Background photo, its colour overlay and the readability scrim reveal as
+        // one layer, so the dark overlay never shows before the photo appears.
+        <div className={clsx(styles.backgroundLayer, "animate-reveal-clip-flat")}>
+          <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass, styles.mediaOverlay)} />
 
-      {responsiveMedia && (
-        <ResponsiveMedia
-          media={responsiveMedia}
-          className={styles.backgroundMedia}
-          fill
-        />
-      )}
-      {image && !responsiveMedia && (
-        <Image
-          src={image.url}
-          alt={image.alt}
-          className={styles.backgroundMedia}
-          fill
-          style={{ objectFit: "cover" }}
-        />
+          {responsiveMedia && (
+            <ResponsiveMedia
+              media={responsiveMedia}
+              className={styles.backgroundMedia}
+              fill
+            />
+          )}
+          {image && !responsiveMedia && (
+            <Image
+              src={image.url}
+              alt={image.alt}
+              className={styles.backgroundMedia}
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          )}
+        </div>
+      ) : (
+        <div className={clsx(styles.backgroundColorOverlay, backgroundColorClass)} />
       )}
       {/* Decorative pale-green triangle (Figma). Only the light/transparent
           one is kept; the small solid arrow was removed per feedback. */}
