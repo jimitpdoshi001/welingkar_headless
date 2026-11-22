@@ -50,6 +50,11 @@ export const ANIMATION_REGISTRY: Record<string, AnimationPreset> = {
     // and later layout changes are not overridden by leftover inline styles.
     to: { clipPath: "inset(0% 0% 0% 0%)", scale: 1, clearProps: "clipPath,transform,scale" },
   },
+  // Same opening clip, without the zoom: for whole sections (photo + overlay + text).
+  "animate-reveal-clip-flat": {
+    from: { clipPath: "inset(0% 50% 0% 50%)" },
+    to: { clipPath: "inset(0% 0% 0% 0%)", clearProps: "clipPath" },
+  },
   "animate-fade-in-down": {
     from: { opacity: 0, y: -60 },
     to: { opacity: 1, y: 0 },

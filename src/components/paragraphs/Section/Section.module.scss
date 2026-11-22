@@ -1,3 +1,11 @@
+// Holds the background photo + overlays (own stacking context, behind the content).
+.backgroundLayer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .backgroundMedia {
   position: absolute;
   top: 0;

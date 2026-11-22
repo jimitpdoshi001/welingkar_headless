@@ -105,7 +105,7 @@ export default function MediaBoxWithPopupGridOf2({ paragraph, image, responsiveM
     <article className={clsx(styles.card)}>
       <button
         type="button"
-        className={styles.thumb}
+        className={`${styles.thumb} animate-reveal-clip`} /* card frame + dark bg reveal with the photo */
         onClick={() => video && setOpen(true)}
         aria-label={heading ? `Play video: ${heading}` : "Play video"}>
         {image && (

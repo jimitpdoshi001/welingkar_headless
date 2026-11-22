@@ -53,7 +53,7 @@ function tagAutoReveal(scope: HTMLElement) {
       // (e.g. Drupal-animated home sections); skip it when the media itself, or a
       // wrapper running the clip reveal, is already animated.
       if ([...el.classList].some((c) => c.startsWith("animate-"))) return;
-      if (el.closest(".animate-reveal-clip, [data-no-reveal]")) return;
+      if (el.closest(".animate-reveal-clip, .animate-reveal-clip-flat, [data-no-reveal]")) return;
       let cls = "animate-fade-in";
       if (inFlowMediaClass !== "animate-fade-in") {
         const pos = window.getComputedStyle(el).position;
