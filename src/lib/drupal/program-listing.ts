@@ -777,7 +777,6 @@ export const PROGRAM_LISTING_NIDS = {
   pgdmEBusinessBengaluru: 4662,
   pgdmResearchAnalyticsBengaluru: 4664,
   pgpMedia: 5767,
-  executive: 5798,
 } as const;
 
 /** Program slugs (/programmes/[slug]) whose content comes from Drupal. */
@@ -790,7 +789,6 @@ export const PROGRAM_SLUG_NIDS: Record<string, number> = {
   "pgdm-rural": PROGRAM_LISTING_NIDS.pgdmRuralMumbai,
   "pgdm-e-business": PROGRAM_LISTING_NIDS.pgdmEBusinessMumbai,
   "pgp-media": PROGRAM_LISTING_NIDS.pgpMedia,
-  executive: PROGRAM_LISTING_NIDS.executive,
 };
 
 /** Bengaluru versions (/programmes/[slug]?campus=bengaluru): Drupal node per slug. */
@@ -799,3 +797,31 @@ export const PROGRAM_SLUG_NIDS_BENGALURU: Record<string, number> = {
   "pgdm-e-business": PROGRAM_LISTING_NIDS.pgdmEBusinessBengaluru,
   "pgdm-research-analytics": PROGRAM_LISTING_NIDS.pgdmResearchAnalyticsBengaluru,
 };
+
+/**
+ * Executive listing (node 5798): the Programme Overview text holds one block per
+ * programme — a bold title, a description paragraph, then "Know more | Download
+ * brochure" links. Each block becomes one listing card.
+ */
+export function programOverviewListing(doc: RestEntity | null) {
+  const banner = entities(doc ?? undefined, "field_banner")[0];
+  const overview = entities(doc ?? undefined, "field_programme_overview")[0];
+  const html = decodeEntities(value(overview, "field_desc"));
+  // Split at each bold title paragraph; the text before the first title is ignored.
+  const blocks = html.split(/<p>\s*<strong>/i).slice(1);
+  const cards = blocks
+    .map((block) => {
+      const title = htmlToText(block.split(/<\/strong>/i)[0]);
+      const paras = [...block.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => m[1]);
+      const description = htmlToText(paras.find((p) => !/<a\s/i.test(p)) ?? "");
+      const knowMore = block.match(/<a[^>]+href="([^"]+)"[^>]*>\s*Know more/i)?.[1] ?? "";
+      return { title, description, href: (knowMore && toHref(knowMore)) || "" };
+    })
+    .filter((c) => c.title);
+  return {
+    hero: { title: value(banner, "field_main_title"), subtitle: value(banner, "field_sub_title"), image: mediaUrl(banner, "field_desktop") ?? "" },
+    heading: value(overview, "field_main_title"),
+    image: mediaUrl(overview, "field_desktop") ?? "",
+    cards,
+  };
+}

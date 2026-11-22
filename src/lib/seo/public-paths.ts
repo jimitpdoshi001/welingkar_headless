@@ -43,7 +43,6 @@ export const PUBLIC_PATHS: [live: string, internal: string][] = [
   ["/programmes/full-time-programme-in-bengaluru/pgdm-e-business", "/programmes/pgdm-e-business?campus=bengaluru"],
   ["/programmes/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics", "/programmes/pgdm-research-analytics?campus=bengaluru"],
   // Executive, certificate and PhD
-  ["/programmes/executive-programme-in-mumbai", "/programmes/executive"],
   ["/programmes/executive-programme-in-mumbai/entrepreneurship-management", "/programmes/pgp-entrepreneurship"],
   ["/programmes/executive-programme-in-mumbai/media-and-entertainment-management", "/programmes/pgp-media"],
   ["/programmes/11-month-pg-6-month-certificate-programmes", "/programmes/certificate"],

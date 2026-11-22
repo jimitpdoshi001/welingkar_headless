@@ -122,6 +122,7 @@ const nextConfig: NextConfig = {
       section("awards", "awards"),
       section("vision-mission", "vision-mission"),
       section("college-development-committee", "college-development-committee"),
+      { source: "/programmes/executive", destination: "/programmes/executive-programme-in-mumbai", permanent: true },
     ];
   },
   async headers() {
