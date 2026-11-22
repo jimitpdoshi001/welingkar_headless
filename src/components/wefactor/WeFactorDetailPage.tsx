@@ -59,6 +59,21 @@ export function WeFactorDetailPage({ data }: { data: WeFactorDetailData }) {
                     {p}
                   </p>
                 ))}
+                {/* CTA buttons from Drupal (e.g. NISP policy PDFs). */}
+                {block.downloads?.length ? (
+                  <div className={styles.downloads}>
+                    {block.downloads.map((d) => (
+                      <a
+                        key={d.href}
+                        href={d.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn accent">
+                        {d.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
               </section>
             );
           })}

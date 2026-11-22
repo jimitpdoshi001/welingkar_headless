@@ -29,7 +29,7 @@ const HERO_IMAGE = "/faculty/hero.webp";
 export default async function FacultyPreviewPage() {
   // Drupal faculty for this campus; hidden when none (or on fetch error).
   // Banner + director from Drupal (faculty_about_us); built-in values fill any gaps.
-  const [grid, about] = await Promise.all([getCampusFacultyGrid("mumbai"), getFacultyAbout("mumbai")]);
+  const [grid, about] = await Promise.all([getCampusFacultyGrid("mumbai", { roleTabs: true }), getFacultyAbout("mumbai")]);
 
 
   // Read More opens the director's own faculty profile (hidden if not in the directory).
