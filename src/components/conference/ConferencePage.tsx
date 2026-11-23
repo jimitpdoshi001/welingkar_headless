@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -29,7 +30,7 @@ export function ConferencePage({ data }: { data: ConferenceData }) {
               </nav>
               <h1 className={styles.heroTitle}>{data.hero.title}</h1>
               <p className={styles.heroSubtitle}>{data.hero.subtitle}</p>
-              <p className={styles.heroMeta}>{data.hero.meta}</p>
+              {data.hero.meta ? <p className={styles.heroMeta}>{data.hero.meta}</p> : null}
             </div>
           </section>
 
@@ -82,13 +83,22 @@ export function ConferencePage({ data }: { data: ConferenceData }) {
             <div className={`container ${styles.block} ${styles.guidelines}`}>
               <h2 className={styles.headingLight}>{data.guidelines.heading}</h2>
               <div className={styles.chipList}>
-                {data.guidelines.items.map((g) => (
-                  <div
-                    key={g}
-                    className={styles.chip}>
-                    {g}
-                  </div>
-                ))}
+                {/* Drupal items may hold sub-lists and links: sanitized HTML. */}
+                {data.guidelines.html
+                  ? data.guidelines.html.map((g, i) => (
+                      <SafeHtml
+                        key={i}
+                        html={g}
+                        className={`${styles.chip} ${styles.chipRich}`}
+                      />
+                    ))
+                  : data.guidelines.items.map((g) => (
+                      <div
+                        key={g}
+                        className={styles.chip}>
+                        {g}
+                      </div>
+                    ))}
               </div>
             </div>
           </section>
@@ -98,12 +108,22 @@ export function ConferencePage({ data }: { data: ConferenceData }) {
             <div className={styles.pubGrid}>
               <div>
                 <h2 className={styles.heading}>{data.publication.heading}</h2>
-                <p className={styles.pubIntro}>{data.publication.intro}</p>
-                <ul className={styles.pubPoints}>
-                  {data.publication.points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
+                {data.publication.html ? (
+                  // Drupal rich text (numbered list with sub-points), sanitized.
+                  <SafeHtml
+                    html={data.publication.html}
+                    className={styles.pubRich}
+                  />
+                ) : (
+                  <>
+                    <p className={styles.pubIntro}>{data.publication.intro}</p>
+                    <ul className={styles.pubPoints}>
+                      {data.publication.points.map((p) => (
+                        <li key={p}>{p}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
               </div>
               <div className={styles.datesBox}>
                 <h2 className={styles.heading}>{data.keyDates.heading}</h2>

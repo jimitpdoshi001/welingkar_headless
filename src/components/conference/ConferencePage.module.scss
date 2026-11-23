@@ -55,10 +55,30 @@
 .chipList { display: flex; flex-direction: column; gap: 1.6rem; max-width: 86rem; margin-left: auto; }
 .chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 1.2rem; padding: 1.8rem 2.2rem; color: rgba(255,255,255,0.92); font-size: 1.45rem; line-height: 1.5; }
 
+/* Rich guideline chip (Drupal HTML): paragraphs, sub-list and links on the dark band. */
+.chipRich {
+  p { margin: 0; }
+  p + ul, p + ol { margin-top: 0.8rem; }
+  ul, ol { padding-left: 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+  a { color: var(--color-white); text-decoration: underline; word-break: break-all; }
+}
+
 /* Publication + dates */
 .pubGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.8rem; align-items: start; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; } }
 .pubIntro { font-size: 1.45rem; font-weight: 600; line-height: 1.6; margin-bottom: 1.6rem; }
 .pubPoints { list-style: disc; padding-left: 2rem; display: flex; flex-direction: column; gap: 1rem; li { font-size: 1.45rem; line-height: 1.6; color: var(--color-dark-gray); &::marker { color: var(--color-primary); } } }
+/* Publication rich text (Drupal): numbered list with a bulleted sub-list. */
+.pubRich {
+  font-size: 1.45rem;
+  line-height: 1.6;
+  color: var(--color-dark-gray);
+  ol, ul { padding-left: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  ol { list-style: decimal; }
+  ul { list-style: disc; margin-top: 1rem; }
+  li::marker { color: var(--color-primary); }
+}
 .datesBox { background: var(--color-light-yellow); border-radius: 2rem; padding: 3.2rem; }
 .dateList { display: flex; flex-direction: column; }
 .dateRow { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.8rem 0; border-bottom: 1px solid rgba(0,0,0,0.08); &:last-child { border-bottom: 0; } span { font-size: 1.45rem; color: var(--color-dark-gray); } strong { font-size: 1.5rem; font-weight: 700; white-space: nowrap; } }
