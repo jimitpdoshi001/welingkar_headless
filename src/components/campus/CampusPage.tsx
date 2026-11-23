@@ -8,6 +8,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
+import { CampusTabs } from "./CampusTabs";
 import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
 import { RecruiterLogos } from "./RecruiterLogos/RecruiterLogos";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
@@ -61,15 +62,13 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
             className={styles.inPageNav}
             label="Campus sections">
             <div className={`container ${styles.inPageNavInner}`}>
-              {data.nav.map((item, i) => (
-                <Link
-                  key={item.href}
-                  // No mentors grid (Faculty API empty/down): Faculty falls back to the faculty network section.
-                  href={item.href === "#mentors" && !(mentors && mentors.members.length > 0) ? "#faculty" : item.href}
-                  className={`${styles.inPageLink} ${i === 0 ? styles.inPageActive : ""}`}>
-                  {item.label}
-                </Link>
-              ))}
+              {/* No mentors grid (Faculty API empty/down): Faculty falls back to the faculty network section. */}
+              <CampusTabs
+                tabs={data.nav.map((item) => ({
+                  ...item,
+                  href: item.href === "#mentors" && !(mentors && mentors.members.length > 0) ? "#faculty" : item.href,
+                }))}
+              />
             </div>
           </StickyInPageNav>
 

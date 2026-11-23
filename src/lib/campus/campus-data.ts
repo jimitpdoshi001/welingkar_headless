@@ -121,7 +121,6 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       { label: "Programs", href: "#programs" },
       { label: "Faculty", href: "#mentors" },
       { label: "We Research", href: "#weresearch" },
-      { label: "We Excel", href: "#infrastructure" },
       { label: "MDP", href: isMumbai ? "/programmes/mdp" : "/programmes/mdp/bengaluru" },
       { label: "Life @ WeSchool", href: "#life" },
     ],

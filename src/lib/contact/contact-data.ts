@@ -6,8 +6,11 @@ export type ContactItem =
   | { kind: "phone" | "mail" | "text"; text: string }
   | { kind: "link"; text: string; href: string; before?: string; after?: string };
 
-/** heading: bold group title; label: small sub-label (e.g. a zone). */
-export type ContactGroup = { heading?: string; label?: string; items: ContactItem[] };
+/**
+ * heading: starts a new contact card; label: a zone/sub-block inside the current card;
+ * region: the "regional desks" header row that the following zones sit under.
+ */
+export type ContactGroup = { heading?: string; label?: string; region?: boolean; items: ContactItem[] };
 export type ContactSection = { title: string; groups: ContactGroup[] };
 export type ContactCampus = { id: string; label: string; image: string; sections: ContactSection[] };
 
@@ -20,12 +23,16 @@ const MUMBAI: ContactSection[] = [
   {
     title: "Prospective Students",
     groups: [
-      { heading: "Full time PGDM", items: [phone("022-24198400/ 022- 24198700")] },
-      { label: "For Admission Enquiry, Contact numbers below -", items: [phone("Monday to Saturday | Timing: 10:30 am to 7:00 pm")] },
-      { label: "West", items: [phone("9702772899/ 8452062782/ 9137282627/ 7208649706/ 9321875551")] },
-      { label: "East", items: [phone("09830277120")] },
-      { label: "North", items: [phone("09212171051/ 8976712275")] },
-      { label: "South", items: [phone("09886440456 / 080 42678300"), mail("pgapp@welingkarmail.org")] },
+      {
+        heading: "Full time PGDM",
+        items: [text("2-Year Full Time Post Graduate Diploma in Management (AICTE Approved)"), phone("022-24198400/ 022- 24198700"), mail("pgapp@welingkarmail.org")],
+      },
+      // "region" marks the regional-desk header row; zones follow it as cards.
+      { label: "For Admission Enquiry, Contact numbers below -", region: true, items: [text("Monday to Saturday | Timing: 10:30 am to 7:00 pm")] },
+      { label: "West Zone (MH, GJ, GA, MP)", items: [phone("9702772899/ 8452062782/ 9137282627/ 7208649706/ 9321875551")] },
+      { label: "North Zone (DL, UP, HR, PB, RJ)", items: [phone("09212171051/ 8976712275")] },
+      { label: "South Zone (KA, TN, KL, AP, TS)", items: [phone("09886440456 / 080 42678300")] },
+      { label: "East Zone (WB, OD, JH, BR, NE)", items: [phone("09830277120")] },
       { heading: "University Programmes", items: [text("a) Masters in Management Studies (MMS)"), phone("022 24198300 Ext: 8133 / 8134"), mail("admin@welingkar.org")] },
       { items: [text("b) PHD"), phone("022-24198300 Ext: 8191 / 8192"), mail("phdadmission@welingkarmail.org")] },
       { heading: "6 months Certificate & 11 month PG programs", items: [phone("022-24198600/ 9892595456/ 9987986501/ 8879127417 / 9320715152"), mail("autonomous@welingkar.org")] },
