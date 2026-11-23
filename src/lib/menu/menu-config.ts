@@ -146,6 +146,7 @@ export const MAIN_NAV: MainNavItem[] = [
             { heading: "Full-Time Programs", headingHref: "/programmes/full-time-programme-in-mumbai", links: FULL_TIME_PGDM },
             {
               heading: "Executive",
+              headingHref: "/programmes/executive-programme-in-mumbai",
               links: [{ label: "MDP", href: "/programmes/mdp" }],
               sections: [
                 {
@@ -175,7 +176,7 @@ export const MAIN_NAV: MainNavItem[] = [
             {
               heading: "Full-Time Programs",
               links: [{ label: "MMS", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" }],
-              sections: [{ heading: "PhD Programs", links: [{ label: "Management Studies", href: "/programmes/phd-programme-in-mumbai" }] }],
+              sections: [{ heading: "PhD Programs", headingHref: "/programmes/phd-programme-in-mumbai", links: [{ label: "Management Studies", href: "/programmes/phd-programme-in-mumbai" }] }],
             },
           ],
         },
@@ -187,7 +188,7 @@ export const MAIN_NAV: MainNavItem[] = [
               heading: "Full-Time Programs",
               headingHref: "/programmes/full-time-programme-in-bengaluru",
               links: FULL_TIME_PGDM_BLR,
-              sections: [{ heading: "Executive", links: [{ label: "MDP", href: "/programmes/mdp/bengaluru" }] }],
+              sections: [{ heading: "Executive", headingHref: "/programmes/mdp/bengaluru", links: [{ label: "MDP", href: "/programmes/mdp/bengaluru" }] }],
             },
           ],
         },

@@ -342,3 +342,6 @@
 }
 // Figma 979:1818: 524 x 472 map, right-aligned.
 .map { width: 100%; max-width: 52.4rem; justify-self: end; border-radius: 2.4rem; aspect-ratio: 524 / 472; object-fit: cover; @include respond-to(mobile) { justify-self: stretch; max-width: none; } }
+
+// Tab anchors: land below the fixed header + docked section bar.
+.page section[id] { scroll-margin-top: 17rem; }

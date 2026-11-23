@@ -116,15 +116,14 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       image: CIMG.hero,
     },
     nav: [
+      // In-page anchors only (sections below on this page).
       { label: "About Campus", href: "#about" },
-      // Mumbai links out to the programs listing and Life page; Bengaluru keeps in-page anchors.
       { label: "Programs", href: "#programs" },
-      { label: "Faculty", href: isMumbai ? "/about-us/faculty" : "/about-us/faculty/bengaluru" },
-      { label: "Corporate Interface", href: "/corporate-interface" },
-      { label: "We Research", href: "/we-research-mumbai" },
+      { label: "Faculty", href: "#mentors" },
+      { label: "We Research", href: "#weresearch" },
       { label: "We Excel", href: "#infrastructure" },
       { label: "MDP", href: isMumbai ? "/programmes/mdp" : "/programmes/mdp/bengaluru" },
-      { label: "Life @ WeSchool", href: isMumbai ? "/life-at-weschool" : "#life" },
+      { label: "Life @ WeSchool", href: "#life" },
     ],
     about: {
       heading: `About the ${campus} Campus`,

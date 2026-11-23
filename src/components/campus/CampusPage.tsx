@@ -64,7 +64,8 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
               {data.nav.map((item, i) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  // No mentors grid (Faculty API empty/down): Faculty falls back to the faculty network section.
+                  href={item.href === "#mentors" && !(mentors && mentors.members.length > 0) ? "#faculty" : item.href}
                   className={`${styles.inPageLink} ${i === 0 ? styles.inPageActive : ""}`}>
                   {item.label}
                 </Link>
@@ -152,7 +153,9 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
 
           {/* Same faculty grid as the campus faculty page (tabs + Specialization dropdown). */}
           {mentors && mentors.members.length > 0 ? (
-            <section className={`container ${styles.block}`}>
+            <section
+              id="mentors"
+              className={`container ${styles.block}`}>
               <h2 className={styles.sectionHeading}>{data.mentors.heading}</h2>
               <FacultyGrid
                 categories={mentors.categories}
@@ -228,6 +231,7 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
           {/* Figma 1064:184: one campus photo behind WeResearch and The World of
               WeSchool, fading to white at the top and bottom. */}
           <section
+            id="weresearch"
             className={styles.researchWorld}
             style={
               {
