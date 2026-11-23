@@ -12,7 +12,9 @@ export type ContactItem =
  */
 export type ContactGroup = { heading?: string; label?: string; region?: boolean; items: ContactItem[] };
 export type ContactSection = { title: string; groups: ContactGroup[] };
-export type ContactCampus = { id: string; label: string; image: string; sections: ContactSection[] };
+/** Connect With Us block for a campus (switches with the campus tab, as on the current site). */
+export type ContactConnect = { address: string; phones: string[]; hours?: string; mapEmbed: string };
+export type ContactCampus = { id: string; label: string; sections: ContactSection[]; connect: ContactConnect };
 
 const phone = (text: string): ContactItem => ({ kind: "phone", text });
 const mail = (text: string): ContactItem => ({ kind: "mail", text });
@@ -134,16 +136,31 @@ const BENGALURU: ContactSection[] = [
   },
 ];
 
+// Map embeds are the current site's Google Maps iframes for each campus.
 export const CONTACT_CAMPUSES: ContactCampus[] = [
-  { id: "mumbai", label: "Mumbai", image: "/contact/card-bengaluru.webp", sections: MUMBAI },
-  { id: "bengaluru", label: "Bengaluru", image: "/contact/card-mumbai.webp", sections: BENGALURU },
-  // The live Delhi tab has no visible contacts.
-  { id: "delhi", label: "Delhi", image: "/contact/card-mumbai.webp", sections: [] },
+  {
+    id: "mumbai",
+    label: "Mumbai",
+    sections: MUMBAI,
+    connect: {
+      hours: "Office Hours: Monday to Saturday, 10:00 hrs - 19:00 hrs",
+      address: "Prin. L. N. Welingkar Institute of Management Development & Research, Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai- 400 019.",
+      phones: ["022-24198300", "022-24178300"],
+      mapEmbed:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60361.857324148565!2d72.7751689566951!3d18.992555300508045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ced7f4386195%3A0xa7fea98c278939c6!2sWelingkar+Institute+of+Management+Development+%26+Research!5e0!3m2!1sen!2sin!4v1530014457509",
+    },
+  },
+  {
+    id: "bengaluru",
+    label: "Bengaluru",
+    sections: BENGALURU,
+    connect: {
+      address: "102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru-560100",
+      phones: ["080-42678300", "080-28521066", "080-28522514"],
+      mapEmbed:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.002901756854!2d77.66081491405393!3d12.843088721161902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16773e7dc413%3A0xecf2213880352cd2!2sWelingkar+Institute+of+Management+Development+%26+Research.!5e0!3m2!1sen!2sin!4v1536571647524",
+    },
+  },
 ];
 
-export const CONNECT = {
-  heading: "Connect With Us",
-  address: "Address: 102/103, Electronic City Phase 1, Next to Telephone Exchange, Hosur Road, Bengaluru-560100",
-  phone: "080-42678300",
-  map: "/contact/map.webp",
-};
+export const CONNECT_HEADING = "Connect With Us";

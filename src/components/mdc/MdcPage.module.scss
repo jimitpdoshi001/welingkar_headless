@@ -94,24 +94,19 @@
 // Campus-coloured band (purple Mumbai, terracotta Bengaluru).
 .band { background: var(--mdc-accent, var(--color-secondary)); }
 
-/* Gallery: 3-column masonry (2 on mobile); each tile keeps its photo's shape. */
+/* Gallery: News & Events grid (NewsItems.module.scss); these only add spacing and figure resets. */
 .galleryGrid {
-  column-count: 3;
-  column-gap: 2rem;
   margin-top: 4rem;
-
-  @include respond-to(mobile) { column-count: 2; column-gap: 1.2rem; margin-top: 2.4rem; }
+  & + & { margin-top: 3rem; }
+  @include respond-to(mobile) { margin-top: 2.4rem; & + & { margin-top: 2rem; } }
 }
 .galleryItem {
-  position: relative;
-  margin: 0 0 2rem; // <figure> has default side margins
-  break-inside: avoid;
-  border-radius: 2rem;
-  overflow: hidden;
-  img { display: block; width: 100%; height: auto; }
-
-  @include respond-to(mobile) { margin-bottom: 1.2rem; border-radius: 1.2rem; }
+  margin: 0; // <figure> has default margins
+  min-height: 0;
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
+// Small tiles: keep a square shape when the row has no featured height to fill (tablet/mobile).
+.galleryGrid > .galleryItem:not(:first-child) img { aspect-ratio: 1 / 1; }
 
 /* Our Programs: grouped list in the "What we offer" card style, on white. */
 .programGroup { margin-top: 4rem; @include respond-to(mobile) { margin-top: 2.8rem; } }

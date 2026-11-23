@@ -9,49 +9,35 @@ $rule: rgba(0, 0, 0, 0.15);
 // Campus cards: 3 x 400x279, 20px gap.
 .campuses {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-top: 7rem;
   @include respond-to(tab) { gap: 1.6rem; margin-top: 5rem; }
   @include respond-to(mobile) { grid-template-columns: 1fr; }
 }
 
+// Campus tabs (no photo): cream bar with label + arrow; selected tab gets a green border.
 .card {
-  position: relative;
   display: block;
-  aspect-ratio: 400 / 279;
   width: 100%;
   padding: 0;
-  border: 0;
-  border-radius: 3rem;
-  overflow: hidden;
-  background: none;
+  border: 1px solid $rule;
+  border-radius: 2rem;
+  background: $cream;
   color: #000;
   font: inherit;
   text-align: left;
-  // Selected campus tab: green border (outline follows the rounded corners and isn't clipped by overflow).
-  &[aria-selected="true"] { outline: 3px solid var(--color-primary); outline-offset: 0; }
   cursor: pointer;
+  &[aria-selected="true"] { outline: 3px solid var(--color-primary); outline-offset: -1px; }
   &:focus-visible { outline: 2px solid $green; outline-offset: 3px; }
-  &:hover .cardImg { transform: scale(1.04); }
 }
 
-.cardImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-
-// Glass label bar: 22px inset, 68px tall.
 .cardBar {
-  position: absolute;
-  left: 2.2rem;
-  right: 2.2rem;
-  bottom: 2rem;
   height: 6.8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 0.9rem 0 2.9rem;
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(1.2rem);
   font-size: 1.8rem;
   font-weight: 500;
   line-height: 2.2rem;
@@ -140,7 +126,7 @@ $rule: rgba(0, 0, 0, 0.15);
 }
 .cardTitle { margin: 0; font-size: 2.2rem; font-weight: 800; line-height: 1.2; }
 .cardSub { margin: 0.8rem 0 0; font-size: 1.4rem; line-height: 1.4; color: $grey; white-space: pre-line; }
-.mails { display: flex; flex-direction: column; align-items: flex-end; gap: 0.8rem; @include respond-to(mobile) { align-items: flex-start; } }
+.mails { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 0.8rem; @include respond-to(mobile) { align-items: flex-start; } }
 .mailPill {
   display: inline-flex;
   align-items: center;
@@ -152,8 +138,9 @@ $rule: rgba(0, 0, 0, 0.15);
   color: $green;
   font-size: 1.4rem;
   font-weight: 600;
-  word-break: break-all;
+  white-space: nowrap; // email always on one line
   &:hover { background: rgba(58, 144, 48, 0.15); }
+  @include respond-to(mobile) { padding: 0.8rem 1.2rem; font-size: 1.3rem; gap: 0.8rem; }
 }
 // Desk tiles: 2 per row with a Call button.
 .desks {
@@ -295,4 +282,4 @@ a.chip:hover { border-color: $green; color: $green; }
   &:hover { opacity: 0.9; }
 }
 
-.map { width: 100%; aspect-ratio: 524 / 472; border-radius: 3rem; object-fit: cover; }
+.map { width: 100%; aspect-ratio: 524 / 472; border: 0; border-radius: 3rem; }
