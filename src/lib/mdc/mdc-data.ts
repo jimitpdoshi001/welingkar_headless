@@ -185,7 +185,11 @@ export const MDC_BENGALURU: MdcData = {
   iconSet: "bengaluru/",
   galleryRules: {
     captionedOnly: true,
-    hiddenCaptions: ["Virtual Executive Training Program on Cyber Security for Corporate Professionals on 31st January 2026"],
+    // Moved into Load More (not in the first 5).
+    hiddenCaptions: [
+      "Virtual Executive Training Program on Cyber Security for Corporate Professionals on 31st January 2026",
+      "Open Virtual Executive Training Program on The Art of Asking AI: Prompt Engineering for Professionals on 20th June 2026",
+    ],
   },
   // MDP tab opens the Bengaluru MDP page.
   nav: MDC.nav.map((n) => (n.label === "MDP" ? { ...n, href: "/programmes/mdp/bengaluru" } : n)),
