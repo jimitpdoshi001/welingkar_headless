@@ -121,7 +121,7 @@ export function MdcPage({ data }: { data: MdcData }) {
                 <div
                   key={f.title}
                   className={styles.feature}>
-                  <img src={`/mdc/icons/${data.iconSet ?? ""}feature-${i + 1}.svg`} alt="" className={styles.featureIcon} />
+                  <img src={f.icon || `/mdc/icons/${data.iconSet ?? ""}feature-${i + 1}.svg`} alt="" className={styles.featureIcon} />
                   <h3>{f.title}</h3>
                 </div>
               ))}
@@ -176,7 +176,7 @@ export function MdcPage({ data }: { data: MdcData }) {
                 <div
                   key={c.title}
                   className={styles.whyCard}>
-                  <img src={`/mdc/icons/${data.iconSet ?? ""}why-${i + 1}.svg`} alt="" className={styles.whyIcon} />
+                  <img src={c.icon || `/mdc/icons/${data.iconSet ?? ""}why-${(i % 8) + 1}.svg`} alt="" className={styles.whyIcon} />
                   <h3>{c.title}</h3>
                   <p>{c.text}</p>
                 </div>
@@ -195,7 +195,7 @@ export function MdcPage({ data }: { data: MdcData }) {
                   <div
                     key={e}
                     className={styles.expertiseItem}>
-                    <img src={`/mdc/icons/expertise-${(i % 8) + 1}.svg`} /* 8 icons; reused in turn when Drupal has more items */ alt="" className={styles.expertiseIcon} />
+                    <img src={data.expertise.icons?.[i] || `/mdc/icons/expertise-${(i % 8) + 1}.svg`} /* Drupal icon, else the 8 built-in icons in turn */ alt="" className={styles.expertiseIcon} />
                     <span>{e}</span>
                   </div>
                 ))}
@@ -258,6 +258,14 @@ export function MdcPage({ data }: { data: MdcData }) {
             </div>
           </section>
 
+          ) : null}
+
+          {/* Why partner (text above the client list). */}
+          {data.partner ? (
+            <section className={`container ${styles.block} ${styles.partner}`}>
+              <h2 className={styles.heading}>{data.partner.heading}</h2>
+              <p className={styles.partnerText}>{data.partner.text}</p>
+            </section>
           ) : null}
 
           {/* Trusted */}

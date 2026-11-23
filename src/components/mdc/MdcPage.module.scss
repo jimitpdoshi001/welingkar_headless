@@ -115,3 +115,7 @@
 .programGroupTitle { font-size: 2.2rem; font-weight: 700; margin-bottom: 2rem; color: var(--mdc-accent, var(--color-secondary)); @include respond-to(mobile) { font-size: 1.9rem; } }
 .programGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; list-style: none; padding: 0; margin: 0; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; gap: 1.2rem; } }
 .programCard { display: flex; align-items: center; min-height: 10rem; background: var(--mdc-tint, #f3eefb); border-radius: 1.2rem; padding: 1.8rem 2.4rem; font-size: 1.6rem; line-height: 1.4; color: var(--color-black); @include respond-to(mobile) { min-height: 0; } }
+
+/* Why partner: heading + one paragraph, tight to the client list below. */
+.partner { padding-bottom: 0; }
+.partnerText { font-size: 1.8rem; line-height: 1.6; color: var(--color-dark-gray); max-width: 110rem; margin-top: 2rem; @include respond-to(mobile) { font-size: 1.6rem; } }

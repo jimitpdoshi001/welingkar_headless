@@ -3,7 +3,8 @@
  * mirroring the Figma design. Swap for Drupal fields later. Placeholders.
  */
 
-export type MdcFeature = { title: string; text: string };
+/** `icon`: Drupal icon URL; the built-in icon is used when empty. */
+export type MdcFeature = { title: string; text: string; icon?: string };
 export type MdcCard = { id: string; image: string; title: string; text: string };
 export type MdcTestimonial = { id: string; text: string; name: string; role: string };
 export type MdcContact = { id: string; name: string; title: string; dept: string; office: string; mobile: string; email: string };
@@ -15,10 +16,15 @@ export type MdcData = {
   learning: { heading: string; paragraphs: string[]; images: string[]; features: MdcFeature[] };
   about: { heading: string; paragraphs: string[]; image: string; offerHeading: string; offers: string[] };
   why: { heading: string; cards: MdcFeature[] };
-  expertise: { heading: string; items: string[] };
+  /** `icons[i]`: Drupal icon for items[i] (built-in icon when empty). */
+  expertise: { heading: string; items: string[]; icons?: string[] };
   flagship: { heading: string; cards: MdcCard[] };
   trusted: { heading: string; logos: { name: string; image: string }[] };
   testimonials: { heading: string; items: MdcTestimonial[] };
+  /** "Why Partner" text above the client list (static, from the approved brochure). Hidden when absent. */
+  partner?: { heading: string; text: string };
+  /** Client logos fixed in code (approved brochure); when set, they replace the Drupal logos. */
+  fixedLogos?: { name: string; image: string }[];
   /** Program lists by group (static for now: no Drupal field yet). Hidden when absent. */
   programs?: { heading: string; groups: { title: string; items: string[] }[] };
   /** Photo gallery (Drupal field_mdc_gallery); hidden when empty. */
@@ -41,6 +47,18 @@ const DIMG = {
 };
 
 const TRUSTED = ["Mahindra", "Kalpataru", "Bayer", "Galaxy", "Aries", "McDonald's"].map((n, i) => ({ name: n, image: `/mdc/mumbai/logo-${i + 1}.png` }));
+
+// MDP Clientele from the approved "About MDC" brochure (page 2), A–Z by company.
+const MUMBAI_CLIENTS: { name: string; image: string }[] = [
+  ["Aditya Birla Grasim", "aditya-birla-grasim"], ["Alembic", "alembic"], ["Apotex", "apotex"], ["Aries Agro Limited", "aries-agro"],
+  ["Asian Paints", "asian-paints"], ["Bank of India", "bank-of-india"], ["Bayer", "bayer"], ["Bharat Petroleum", "bharat-petroleum"],
+  ["Birwal", "birwal"], ["CEAT", "ceat"], ["Galaxy", "galaxy"], ["Hinduja Renewables", "hinduja-renewables"],
+  ["Hindustan Petroleum", "hindustan-petroleum"], ["ICEPDAK", "icepdak"], ["JSW Infrastructure", "jsw-infrastructure"],
+  ["Larsen & Toubro", "larsen-toubro"], ["LIC", "lic"], ["Mahindra", "mahindra"], ["McDonald's", "mcdonalds"],
+  ["Motilal Oswal", "motilal-oswal"], ["Novartis", "novartis"], ["Owens Corning", "owens-corning"], ["Panasonic", "panasonic"],
+  ["Reliance", "reliance"], ["Schneider Electric", "schneider-electric"], ["Tata Consultancy Services", "tcs"],
+  ["Thomas Cook", "thomas-cook"], ["TVS Credit", "tvs-credit"], ["Client", "client-seal"],
+].map(([name, file]) => ({ name, image: `/mdc/mumbai/clients/${file}.png` }));
 
 export const MDC: MdcData = {
   hero: {
@@ -131,6 +149,11 @@ export const MDC: MdcData = {
     ],
   },
   trusted: { heading: "Trusted by Leading Organizations", logos: TRUSTED },
+  partner: {
+    heading: "Why Partner with WeSchool Executive Education Center?",
+    text: "WeSchool Executive Education Center combines academic excellence, industry expertise, innovative pedagogy, and customized solutions to help organizations build agile, future-ready talent. As a trusted learning partner, we are committed to delivering transformational learning experiences that create sustainable value for individuals, teams, and organizations.",
+  },
+  fixedLogos: MUMBAI_CLIENTS,
   testimonials: {
     heading: "Hear from <br> Our Participants",
     items: [
@@ -154,6 +177,8 @@ const BIMG = (n: string) => `/mdc/bengaluru/${n}.webp`;
 
 export const MDC_BENGALURU: MdcData = {
   ...MDC,
+  partner: undefined,
+  fixedLogos: undefined,
   theme: { accent: "#b04535", tint: "#fff4f2" },
   iconSet: "bengaluru/",
   // MDP tab opens the Bengaluru MDP page.
