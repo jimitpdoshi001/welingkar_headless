@@ -128,6 +128,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 2.4rem; // keeps the menu off the logo and the search button
+
+      @media (max-width: 1200px) { width: 94%; gap: 1.6rem; }
     }
 
     .stickyLeftContent {
@@ -145,6 +148,8 @@
       svg {
         height: 4.5rem;
         width: auto;
+
+        @media (max-width: 1200px) { height: 3.8rem; }
       }
     }
 
@@ -152,6 +157,11 @@
       display: flex;
       align-items: center;
       gap: 2.8rem;
+
+      // Narrower desktops/laptops: tighten so "Who We Are" etc. stay on one line.
+      @include respond-to(md-desktop) { gap: 2rem; }
+      @include respond-to(sm-desktop) { gap: 1.4rem; }
+      @media (max-width: 1200px) { gap: 1rem; }
     }
 
     .stickySecondaryNavItem {
@@ -160,6 +170,10 @@
       gap: 0.5rem;
       color: var(--color-dark-gray);
       font-size: 1.5rem;
+      white-space: nowrap;
+
+      @include respond-to(sm-desktop) { font-size: 1.4rem; }
+      @media (max-width: 1200px) { font-size: 1.3rem; }
       transition: color 0.2s ease;
 
       &:hover,

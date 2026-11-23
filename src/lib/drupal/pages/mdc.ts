@@ -101,6 +101,15 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
       })
       .filter((l) => l.image);
   };
+  // Gallery photos with the image title (set in Drupal) as caption.
+  const galleryImages = () => {
+    const rel = n.relationships?.field_mdc_gallery?.data;
+    const titles = new Map((Array.isArray(rel) ? rel : []).map((d) => [d.id, String((d.meta as { title?: string } | undefined)?.title ?? "").trim()]));
+    return r
+      .refs(n, "field_mdc_gallery")
+      .map((f) => ({ image: absoluteDrupalUrl((f.attributes.uri as { url?: string } | undefined)?.url) ?? "", caption: titles.get(f.id) ?? "" }))
+      .filter((g) => g.image);
+  };
   const clientLogos = logoFiles("field_client_logos");
   const logos = clientLogos.length ? clientLogos : logoFiles("field_trusted_organizations_logo");
   // Mumbai: logos in alphabetical order (by company name).
@@ -135,7 +144,7 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
     flagship: { heading: r.text(n, "field_our_flagship_offerings_tit"), cards: flagship },
     // Logos fixed in code (approved brochure list) win over Drupal's.
     trusted: { heading: r.text(n, "field_trusted_organizations_titl"), logos: base.fixedLogos ?? logos },
-    gallery: { heading: r.text(n, "field_mdc_gallery_title"), images: logoFiles("field_mdc_gallery").map((f) => f.image) },
+    gallery: { heading: r.text(n, "field_mdc_gallery_title"), images: galleryImages() },
     testimonials: { heading: r.text(n, "field_hear_participants_title"), items: testimonials },
     team: {
       heading: r.text(n, "field_mdp_team_title"),

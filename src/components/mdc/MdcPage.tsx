@@ -290,16 +290,18 @@ export function MdcPage({ data }: { data: MdcData }) {
             <section className={`container ${styles.block}`}>
               {data.gallery.heading ? <h2 className={styles.headingCenter}>{data.gallery.heading}</h2> : null}
               <div className={styles.galleryGrid}>
-                {data.gallery.images.map((src) => (
-                  <div
-                    key={src}
+                {data.gallery.images.map((g) => (
+                  <figure
+                    key={g.image}
                     className={styles.galleryItem}>
                     <img
-                      src={src}
-                      alt=""
+                      src={g.image}
+                      alt={g.caption}
                       loading="lazy"
                     />
-                  </div>
+                    {/* Caption card like the home News & Events cards (only when Drupal has a title). */}
+                    {g.caption ? <figcaption className={styles.galleryCaption}>{g.caption}</figcaption> : null}
+                  </figure>
                 ))}
               </div>
             </section>

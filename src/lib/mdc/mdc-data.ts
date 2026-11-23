@@ -27,8 +27,8 @@ export type MdcData = {
   fixedLogos?: { name: string; image: string }[];
   /** Program lists by group (static for now: no Drupal field yet). Hidden when absent. */
   programs?: { heading: string; groups: { title: string; items: string[] }[] };
-  /** Photo gallery (Drupal field_mdc_gallery); hidden when empty. */
-  gallery?: { heading: string; images: string[] };
+  /** Photo gallery (Drupal field_mdc_gallery); `caption` = the image's Drupal title. Hidden when empty. */
+  gallery?: { heading: string; images: { image: string; caption: string }[] };
   team: { heading: string; subtitle: string; contacts: MdcContact[] };
   /** Optional campus colours; Mumbai uses the default purple. */
   theme?: { accent: string; tint: string };

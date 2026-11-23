@@ -107,3 +107,9 @@
     gap: 1.6rem 2.4rem;
   }
 }
+
+// The masonry columns end at different heights, so the section's normal bottom
+// padding plus the next section's top padding read as a large gap: trim it here.
+:global(section):has(.grid) > :global(div) {
+  padding-bottom: 4rem;
+}
