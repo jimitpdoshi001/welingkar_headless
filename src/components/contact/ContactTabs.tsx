@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
-import { CONTACT_CAMPUSES, type ContactGroup, type ContactItem } from "@/lib/contact/contact-data";
+import { CONNECT_HEADING, CONTACT_CAMPUSES, type ContactGroup, type ContactItem } from "@/lib/contact/contact-data";
 import styles from "./ContactPage.module.scss";
 
 // tel: target = first number in the text; rows with an extension or a timing stay plain.
@@ -193,7 +193,7 @@ function ContactCards({ groups }: { groups: ContactGroup[] }) {
 }
 
 /** Campus cards pick the campus; the side box picks the section shown in the two columns. */
-export function ContactTabs() {
+export function ContactTabs({ form }: { form: ReactNode }) {
   const [campusId, setCampusId] = useState(CONTACT_CAMPUSES[0].id);
   const [sectionIdx, setSectionIdx] = useState(0);
   const campus = CONTACT_CAMPUSES.find((c) => c.id === campusId) ?? CONTACT_CAMPUSES[0];
@@ -216,7 +216,6 @@ export function ContactTabs() {
                 setSectionIdx(0);
               }}
             >
-              <img src={c.image} alt="" className={styles.cardImg} />
               <span className={styles.cardBar}>
                 <span>{c.label}</span>
                 <img src={active ? "/contact/arrow-active.svg" : "/contact/arrow.svg"} alt="" width={50} height={50} className={styles.cardArrow} />
@@ -244,6 +243,36 @@ export function ContactTabs() {
           <ContactCards groups={section.groups} />
         </section>
       ) : null}
+
+      <section className={`container ${styles.connect}`}>
+        <div className={styles.connectText}>
+          <h2 className={styles.connectHeading}>{CONNECT_HEADING}</h2>
+          {campus.connect.hours ? <p className={styles.address}>{campus.connect.hours}</p> : null}
+          <p className={styles.address}>{campus.connect.address}</p>
+          <p className={styles.connectPhone}>
+            <img src="/contact/icon-phone-grey.svg" alt="" width={13} height={13} />
+            <span>
+              {campus.connect.phones.map((ph, i) => (
+                <span key={ph}>
+                  {i ? " / " : null}
+                  <a href={`tel:${ph.replace(/\D/g, "")}`}>{ph}</a>
+                </span>
+              ))}
+            </span>
+          </p>
+          <h3 className={styles.formHeading}>Contact form</h3>
+          {form}
+        </div>
+        <iframe
+          key={campus.id}
+          src={campus.connect.mapEmbed}
+          title={`Map of the WeSchool ${campus.label} campus`}
+          className={styles.map}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+      </section>
     </>
   );
 }

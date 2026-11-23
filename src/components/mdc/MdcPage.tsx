@@ -9,6 +9,7 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { MdcData } from "@/lib/mdc/mdc-data";
 import { MdcTestimonials } from "./MdcTestimonials/MdcTestimonials";
+import newsStyles from "@/components/paragraphs/NewsItems/NewsItems.module.scss";
 import styles from "./MdcPage.module.scss";
 
 export function MdcPage({ data }: { data: MdcData }) {
@@ -282,25 +283,37 @@ export function MdcPage({ data }: { data: MdcData }) {
 
           ) : null}
 
-          {/* Gallery (Drupal photos): masonry like the campus moments grid. */}
+          {/* Gallery (Drupal photos): same grid as the home News & Events section. */}
           {data.gallery?.images.length ? (
             <section className={`container ${styles.block}`}>
               {data.gallery.heading ? <h2 className={styles.headingCenter}>{data.gallery.heading}</h2> : null}
-              <div className={styles.galleryGrid}>
-                {data.gallery.images.map((g) => (
-                  <figure
-                    key={g.image}
-                    className={styles.galleryItem}>
-                    <img
-                      src={g.image}
-                      alt={g.caption}
-                      loading="lazy"
-                    />
-                    {/* Caption card like the home News & Events cards (only when Drupal has a title). */}
-                    {g.caption ? <figcaption className={styles.galleryCaption}>{g.caption}</figcaption> : null}
-                  </figure>
-                ))}
-              </div>
+              {/* Home News & Events layout: per 5 photos, a large featured photo + four smaller ones. */}
+              {Array.from({ length: Math.ceil(data.gallery.images.length / 5) }, (_, c) => data.gallery!.images.slice(c * 5, c * 5 + 5)).map((chunk, c) => (
+                <div
+                  key={c}
+                  className={`${newsStyles.mainGrid} ${styles.galleryGrid}`}>
+                  {chunk.map((g, k) => (
+                    <figure
+                      key={g.image}
+                      className={`${newsStyles.card} ${k === 0 ? newsStyles.featuredCard : newsStyles.imageCard} ${styles.galleryItem}`}>
+                      <img
+                        src={g.image}
+                        alt={g.caption}
+                        loading="lazy"
+                      />
+                      {g.caption ? (
+                        k === 0 ? (
+                          <figcaption className={newsStyles.featuredContent}>
+                            <h6>{g.caption}</h6>
+                          </figcaption>
+                        ) : (
+                          <figcaption className={styles.galleryCaption}>{g.caption}</figcaption>
+                        )
+                      ) : null}
+                    </figure>
+                  ))}
+                </div>
+              ))}
             </section>
           ) : null}
 
