@@ -66,6 +66,11 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
   const networkLinks = r
     .refs(n, "field_our_network_links")
     .map((p) => ({ label: r.text(p, "field_main_title"), href: r.text(p, "field_url_link") }))
+    // Drupal points these at an old "/about-us/faculty#affiliate-*" anchor; use this campus's own page instead.
+    .map((l) => {
+      const own = base.faculty.categories.find((c) => c.label.split(" ")[0].toLowerCase() === l.label.split(" ")[0].toLowerCase());
+      return own && l.href.includes("#affiliate-") ? { ...l, href: own.href } : l;
+    })
     .filter((l) => l.label && l.href);
   // Infrastructure cards: Drupal has title + image; the built-in line under each title stays when titles match.
   const infra: CampusData["infrastructure"]["cards"] = r.refs(n, "field_state_of_the_art_data").map((p, i) => {
