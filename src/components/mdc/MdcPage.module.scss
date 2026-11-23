@@ -139,3 +139,5 @@
 
 /* Significance (dark band): Show More / Show Less in white, centred under the text. */
 .aboutMore { text-align: center; button { color: var(--color-white); } }
+
+.galleryMore { margin-top: 4rem; text-align: center; @include respond-to(mobile) { margin-top: 2.4rem; } }
