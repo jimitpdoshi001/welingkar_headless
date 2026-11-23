@@ -34,8 +34,8 @@ export type MdcData = {
   theme?: { accent: string; tint: string };
   /** Sub-folder of recoloured icons, e.g. "bengaluru/". */
   iconSet?: string;
-  /** Gallery display rules: only captioned photos, minus hidden captions, shown in pages of 5 with Load More. */
-  galleryRules?: { captionedOnly: boolean; hiddenCaptions: string[] };
+  /** Gallery display rule: photos without a caption first, captioned photos only after Load More (5 at a time). */
+  galleryRules?: { captionedInLoadMore: boolean };
 };
 
 const DIMG = {
@@ -183,10 +183,8 @@ export const MDC_BENGALURU: MdcData = {
   fixedLogos: undefined,
   theme: { accent: "#b04535", tint: "#fff4f2" },
   iconSet: "bengaluru/",
-  galleryRules: {
-    captionedOnly: true,
-    hiddenCaptions: ["Virtual Executive Training Program on Cyber Security for Corporate Professionals on 31st January 2026"],
-  },
+  galleryRules: { captionedInLoadMore: true },
+
   // MDP tab opens the Bengaluru MDP page.
   nav: MDC.nav.map((n) => (n.label === "MDP" ? { ...n, href: "/programmes/mdp/bengaluru" } : n)),
   hero: { ...MDC.hero, image: BIMG("hero") },
