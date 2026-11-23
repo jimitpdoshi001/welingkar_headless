@@ -113,8 +113,8 @@ export const MAIN_NAV: MainNavItem[] = [
           heading: "Apply",
           headingHref: "/admissions",
           links: [
-            { label: "How to Apply", href: "/admissions" },
-            { label: "Eligibility & Cut-offs", href: "/admissions" },
+            { label: "How to Apply", href: "/admissions#how-to-apply" },
+            { label: "Eligibility & Cut-offs", href: "/admissions#eligibility-cutoffs" },
             { label: "Apply Now", href: "/apply" },
             { label: "Enquire Now", href: "/enquire-now" },
           ],
@@ -123,9 +123,9 @@ export const MAIN_NAV: MainNavItem[] = [
           heading: "Fees & Support",
           links: [
             { label: "Fees & EMI", href: "/programmes/full-time-programme-in-mumbai/pgdm" },
-            { label: "TFW Scheme", href: "/admissions" },
-            { label: "Scholarships", href: "/admissions" },
-            { label: "Financial Assistance", href: "/admissions" },
+            { label: "TFW Scheme", href: "/admissions#tfw-scheme" },
+            { label: "Scholarships", href: "/admissions#scholarships" },
+            { label: "Financial Assistance", href: "/admissions#education-loan" },
           ],
         },
       ],

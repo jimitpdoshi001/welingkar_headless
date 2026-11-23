@@ -289,3 +289,6 @@ $cream: #fdf8f0;
   color: var(--color-white);
   p { font-size: 1.6rem; line-height: 1.3; }
 }
+
+// Menu deep links: keep section headings clear of the fixed header.
+:global(#how-to-apply), :global(#eligibility-cutoffs), :global(#tfw-scheme), :global(#education-loan), :global(#scholarships) { scroll-margin-top: 12rem; }
