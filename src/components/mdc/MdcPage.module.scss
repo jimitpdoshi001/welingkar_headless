@@ -79,7 +79,7 @@
 .flagshipBody { position: relative; z-index: 1; margin: auto 1.6rem 1.6rem; padding: 2rem; border-radius: 1.4rem; background: rgba(255,255,255,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); align-self: flex-end; width: calc(100% - 3.2rem); h3 { font-size: 1.8rem; font-weight: 700; margin-bottom: 0.8rem; } p { font-size: 1.35rem; line-height: 1.5; color: var(--color-dark-gray); margin-bottom: 1.6rem; } }
 
 /* Trusted logos */
-.logoStrip { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4rem; img { height: 9rem; width: auto; object-fit: contain; max-width: 26rem; } }
+.logoMarquee { margin-top: 5rem; @include respond-to(mobile) { margin-top: 3rem; } }
 
 /* Contact team */
 .contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
