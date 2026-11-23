@@ -254,6 +254,26 @@ export function MdcPage({ data }: { data: MdcData }) {
 
           ) : null}
 
+          {/* Gallery (Drupal photos): masonry like the campus moments grid. */}
+          {data.gallery?.images.length ? (
+            <section className={`container ${styles.block}`}>
+              {data.gallery.heading ? <h2 className={styles.headingCenter}>{data.gallery.heading}</h2> : null}
+              <div className={styles.galleryGrid}>
+                {data.gallery.images.map((src) => (
+                  <div
+                    key={src}
+                    className={styles.galleryItem}>
+                    <img
+                      src={src}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
           {/* Testimonials: heading left, carousel right (arrows below-right). */}
           {data.testimonials.items.length ? (
           <section className={`bg-secondary ${styles.band}`}>

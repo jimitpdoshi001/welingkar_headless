@@ -91,3 +91,21 @@
 
 // Campus-coloured band (purple Mumbai, terracotta Bengaluru).
 .band { background: var(--mdc-accent, var(--color-secondary)); }
+
+/* Gallery: 3-column masonry (2 on mobile); each tile keeps its photo's shape. */
+.galleryGrid {
+  column-count: 3;
+  column-gap: 2rem;
+  margin-top: 4rem;
+
+  @include respond-to(mobile) { column-count: 2; column-gap: 1.2rem; margin-top: 2.4rem; }
+}
+.galleryItem {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  border-radius: 2rem;
+  overflow: hidden;
+  img { display: block; width: 100%; height: auto; }
+
+  @include respond-to(mobile) { margin-bottom: 1.2rem; border-radius: 1.2rem; }
+}

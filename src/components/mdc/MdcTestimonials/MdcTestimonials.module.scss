@@ -31,10 +31,18 @@
   padding: 3rem 2.6rem;
   min-height: 40.5rem;
   height: 100%;
+  // Name and role sit at the bottom so every card lines up.
+  display: flex;
+  flex-direction: column;
 }
 
+// Equal-height slides: each slide stretches to the tallest card in the row.
+.swiper :global(.swiper-slide) { height: auto; }
+
+.textWrap { flex: 1; margin-bottom: 2rem; }
+
 .stars { color: var(--color-primary); font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 1.6rem; }
-.text { font-size: 1.35rem; line-height: 1.6; color: var(--color-dark-gray); margin-bottom: 2rem; }
+.text { font-size: 1.35rem; line-height: 1.6; color: var(--color-dark-gray); }
 .name { font-size: 1.5rem; font-weight: 700; color: var(--color-black); }
 .role { font-size: 1.3rem; color: var(--color-gray); }
 

@@ -19,6 +19,8 @@ export type MdcData = {
   flagship: { heading: string; cards: MdcCard[] };
   trusted: { heading: string; logos: { name: string; image: string }[] };
   testimonials: { heading: string; items: MdcTestimonial[] };
+  /** Photo gallery (Drupal field_mdc_gallery); hidden when empty. */
+  gallery?: { heading: string; images: string[] };
   team: { heading: string; subtitle: string; contacts: MdcContact[] };
   /** Optional campus colours; Mumbai uses the default purple. */
   theme?: { accent: string; tint: string };

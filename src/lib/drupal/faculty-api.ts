@@ -186,7 +186,7 @@ export async function getCampusFacultyGrid(
   const all = await getFacultyDirectory();
   if (!all) return null;
 
-  if (campus === "bengaluru") return bengaluruGrid(all);
+  if (campus === "bengaluru") return bengaluruGrid(all, options.roleTabs);
 
   const records = all.filter((r) => r.campus === campus);
   // Tabs: Deans, Associate Deans & Heads, Faculty + the 8 programs (dropdown), in
@@ -266,7 +266,7 @@ const DRUPAL_CATEGORY_TO_PROGRAM: Record<string, string> = {
  * Tabs: Deans / Associate Deans / Faculty by designation (the Librarian sits only
  * in the Librarian entry); Specialization dropdown = the person's program.
  */
-function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; members: FacultyMember[] } {
+function bengaluruGrid(all: FacultyRecord[], roleTabs = false): { categories: FacultyCategory[]; members: FacultyMember[] } {
   // Match on letters only, so editor fixes like "Dr.X" -> "Dr. X" keep matching.
   const nameKey = (name: string) => name.toLowerCase().replace(/[^a-z]/g, "");
   const byTitle = new Map(all.filter((r) => r.campus === "bengaluru").map((r) => [nameKey(r.name), r]));
@@ -307,11 +307,23 @@ function bengaluruGrid(all: FacultyRecord[]): { categories: FacultyCategory[]; m
     });
   }
 
+  if (roleTabs) {
+    // Same tabs as Mumbai: "Faculty" is split by designation (Assistant / Associate
+    // Professor, Registrar, Library); the librarian moves to the Library tab.
+    for (const m of members) {
+      const roles = ROLE_TABS.filter((t) => t.match.test(m.designation)).map((t) => t.slug);
+      const slugs = [...(m.categorySlugs ?? []).filter((slug) => slug !== "faculty" && slug !== "librarian"), ...roles];
+      m.categorySlugs = slugs;
+      m.categorySlug = slugs[0] ?? "";
+    }
+  }
   const used = new Set(members.flatMap((m) => m.categorySlugs ?? []));
   const categories: FacultyCategory[] = [
     { id: "deans", name: "Deans", slug: "deans" },
     { id: "associate-deans", name: "Associate Deans", slug: "associate-deans" },
-    { id: "faculty", name: "Faculty", slug: "faculty" },
+    ...(roleTabs
+      ? ROLE_TABS.map(({ slug, name }) => ({ id: slug, name, slug }))
+      : [{ id: "faculty", name: "Faculty", slug: "faculty" }]),
     ...BENGALURU_PROGRAMS.map((p) => ({ id: p.slug, name: p.name, slug: p.slug })),
   ].filter((c) => used.has(c.slug)); // no empty tabs
   return { categories, members };

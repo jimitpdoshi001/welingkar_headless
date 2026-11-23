@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { PgdmReadMore } from "@/components/pgdm/common/PgdmReadMore";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperClass } from "swiper";
 import "swiper/css";
@@ -60,6 +61,7 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
 
         <Swiper
           {...lockEvents}
+          className={styles.swiper}
           slidesPerView={1.05}
           spaceBetween={24}
           grabCursor
@@ -71,7 +73,14 @@ export function MdcTestimonials({ heading, items }: { heading: string; items: It
             <SwiperSlide key={t.id}>
               <article className={styles.card}>
                 <div className={styles.stars}>★★★★★</div>
-                <p className={styles.text}>{t.text}</p>
+                {/* Long quotes: first 260 characters, Show More / Show Less for the rest. */}
+                <div className={styles.textWrap}>
+                  <PgdmReadMore
+                    text={t.text}
+                    charLimit={260}
+                    className={styles.text}
+                  />
+                </div>
                 <p className={styles.name}>{t.name}</p>
                 <p className={styles.role}>{t.role}</p>
               </article>
