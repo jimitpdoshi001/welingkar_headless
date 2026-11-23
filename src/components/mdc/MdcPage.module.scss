@@ -48,7 +48,8 @@
 .featureRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-block: 5rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
 .feature { h3 { font-size: 2.1rem; font-weight: 600; line-height: 1.4; max-width: 80%; color: var(--color-black); } }
 // Figma line icons, ~60px tall with natural widths.
-.featureIcon, .whyIcon, .expertiseIcon { display: block; height: auto; width: auto; max-width: 9rem; margin-bottom: 1.4rem; }
+// Fixed-height icon box (aspect kept, sits on the baseline) so titles line up when icon sizes differ.
+.featureIcon, .whyIcon, .expertiseIcon { display: block; height: 9rem; width: auto; max-width: 12rem; object-fit: contain; object-position: left bottom; margin-bottom: 1.4rem; }
 
 /* About (dark) */
 .about { position: relative; overflow: hidden; color: var(--color-white); }
