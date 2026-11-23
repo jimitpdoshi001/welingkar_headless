@@ -29,6 +29,8 @@ $rule: rgba(0, 0, 0, 0.15);
   color: #000;
   font: inherit;
   text-align: left;
+  // Selected campus tab: green border (outline follows the rounded corners and isn't clipped by overflow).
+  &[aria-selected="true"] { outline: 3px solid var(--color-primary); outline-offset: 0; }
   cursor: pointer;
   &:focus-visible { outline: 2px solid $green; outline-offset: 3px; }
   &:hover .cardImg { transform: scale(1.04); }
