@@ -21,8 +21,9 @@
   @include respond-to(mobile) { font-size: 2.6rem; }
 }
 
-// min-width:0 lets the carousel shrink inside the grid cell.
-.right { min-width: 0; }
+// min-width:0 lets the carousel shrink inside the grid cell; overflow keeps
+// slides that move left from sliding over the heading column.
+.right { min-width: 0; overflow: hidden; }
 
 // Figma 310 x 405.
 .card {

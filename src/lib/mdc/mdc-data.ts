@@ -19,6 +19,8 @@ export type MdcData = {
   flagship: { heading: string; cards: MdcCard[] };
   trusted: { heading: string; logos: { name: string; image: string }[] };
   testimonials: { heading: string; items: MdcTestimonial[] };
+  /** Program lists by group (static for now: no Drupal field yet). Hidden when absent. */
+  programs?: { heading: string; groups: { title: string; items: string[] }[] };
   /** Photo gallery (Drupal field_mdc_gallery); hidden when empty. */
   gallery?: { heading: string; images: string[] };
   team: { heading: string; subtitle: string; contacts: MdcContact[] };
@@ -162,5 +164,40 @@ export const MDC_BENGALURU: MdcData = {
   flagship: {
     ...MDC.flagship,
     cards: MDC.flagship.cards.map((c, i) => ({ ...c, image: BIMG(`f${i + 1}`) })),
+  },
+  // Static until Drupal has a field for it (requested).
+  programs: {
+    heading: "Our Programs",
+    groups: [
+      {
+        title: "Long Term Programs",
+        items: [
+          "Junior Management Leadership Program (JMLP)",
+          "Executive Education Management Program (EEMP)",
+          "Leveraging Analytics In Business Program",
+          "Executive Program in General Management (EPGM)",
+        ],
+      },
+      {
+        title: "Short Term Programs",
+        items: [
+          "Leadership Development",
+          "HR Analytics",
+          "Design Thinking & Innovation",
+          "Supply Chain Management with Analytics",
+          "Sales & Marketing Analytics",
+          "Negotiation Skills",
+          "Cyber Security",
+          "Artificial Intelligence in Business",
+          "Machine Learning",
+          "Robotics Process Automation",
+          "Brand Communication Marketing & Media",
+          "Startup Valuation for Early Stage Ventures",
+          "Fund Raising for Startups / Early Stage Ventures",
+          "Key Account Management Program",
+          "Future of Digital Marketing",
+        ],
+      },
+    ],
   },
 };
