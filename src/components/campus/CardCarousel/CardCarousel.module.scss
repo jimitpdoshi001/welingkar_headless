@@ -7,6 +7,8 @@
   // Figma infrastructure cards: photo only, caption sits below on the purple band.
   .card { background: transparent; border-radius: 0; }
   .card:not(.overlayCard) .imageWrap { aspect-ratio: 400 / 442; border-radius: 2rem; }
+  // Programs cards keep the rounded photo too.
+  .overlayCard .imageWrap { border-radius: 2rem; }
   // Figma 979:1587 / 979:1584: Medium 22px title, Medium 16/22 copy, white.
   .card:not(.overlayCard) .title { font-size: 2.2rem; font-weight: 500; line-height: 2.2rem; margin-bottom: 1.2rem; }
   // Programs cards (Figma 2025:178): Medium 18px label.
