@@ -143,13 +143,14 @@ export function MdcPage({ data }: { data: MdcData }) {
             <div className={styles.aboutOverlay} />
             <div className={`container ${styles.aboutInner}`}>
               <h2 className={styles.headingLightCenter}>{data.about.heading}</h2>
-              {data.about.paragraphs.map((p, i) => (
-                <p
-                  key={i}
-                  className={styles.aboutBody}>
-                  {p}
-                </p>
-              ))}
+              {/* First two paragraphs, then Show More / Show Less. */}
+              <div className={styles.aboutMore}>
+                <PgdmReadMore
+                  paragraphs={data.about.paragraphs}
+                  className={styles.aboutBody}
+                  limit={data.about.paragraphs.slice(0, 2).join(" ").split(/\s+/).filter(Boolean).length}
+                />
+              </div>
               {data.about.offers.length ? (
               <>
               <h3 className={styles.offerHeading}>{data.about.offerHeading}</h3>
