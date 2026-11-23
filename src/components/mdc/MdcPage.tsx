@@ -205,6 +205,29 @@ export function MdcPage({ data }: { data: MdcData }) {
 
           ) : null}
 
+          {/* Our Programs (Long / Short Term): offer-card style on the tinted band. */}
+          {data.programs?.groups.length ? (
+            <section className={`container ${styles.block}`}>
+              <h2 className={styles.heading}>{data.programs.heading}</h2>
+              {data.programs.groups.map((g) => (
+                <div
+                  key={g.title}
+                  className={styles.programGroup}>
+                  <h3 className={styles.programGroupTitle}>{g.title}</h3>
+                  <ul className={styles.programGrid}>
+                    {g.items.map((item) => (
+                      <li
+                        key={item}
+                        className={styles.programCard}>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          ) : null}
+
           {/* Flagship offerings */}
           {data.flagship.cards.length ? (
           <section className={styles.flagshipBand}>
