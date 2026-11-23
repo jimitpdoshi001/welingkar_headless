@@ -41,7 +41,16 @@ export function CampusTabs({ tabs }: { tabs: Tab[] }) {
         <Link
           key={item.href}
           href={item.href}
-          onClick={() => item.href.startsWith("#") && setActive(item.href)}
+          onClick={(e) => {
+            if (!item.href.startsWith("#")) return;
+            // Smooth scroll (instead of the instant hash jump) so the scroll-reveal animations play on the way.
+            const target = document.querySelector(item.href);
+            if (!target) return;
+            e.preventDefault();
+            setActive(item.href);
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState(null, "", item.href);
+          }}
           aria-current={item.href === active ? "true" : undefined}
           className={`${styles.inPageLink} ${item.href === active ? styles.inPageActive : ""}`}>
           {item.label}

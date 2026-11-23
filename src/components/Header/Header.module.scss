@@ -16,6 +16,16 @@
     background-color: var(--color-white);
     padding: 1.5rem 3rem 1rem 6rem;
     border-radius: 0 50vw 50vw 0;
+
+    // 1025-1366px screens: smaller logo block so the full menu + search fit on screen.
+    @media (max-width: 1366px) {
+      padding: 1.2rem 2rem 0.8rem 3rem;
+      svg { width: 20rem; height: auto; }
+    }
+    @media (max-width: 1200px) {
+      padding: 1rem 1.6rem 0.6rem 2rem;
+      svg { width: 15rem; }
+    }
   }
 }
 
@@ -322,11 +332,15 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 3rem;
+  @media (max-width: 1366px) { gap: 1.6rem; }
 
   .leftContent {
     display: flex;
     align-items: center;
     gap: 8rem;
+    // Narrower desktops: less space between logo and menu so the menu never runs off the right edge.
+    @include respond-to(md-desktop) { gap: 3rem; }
+    @include respond-to(sm-desktop) { gap: 1.6rem; }
   }
 
   .rightContent {
@@ -377,6 +391,17 @@
       @include respond-to(sm-desktop) {
         font-size: 1.4rem;
         padding: 0.6rem 1rem;
+      }
+
+      @media (max-width: 1200px) {
+        font-size: 1.3rem;
+        padding: 0.6rem 0.8rem;
+      }
+
+      // Small laptops (1025-1150px): tightest size that still fits the whole menu.
+      @media (max-width: 1150px) {
+        font-size: 1.2rem;
+        padding: 0.5rem 0.6rem;
       }
     }
   }
