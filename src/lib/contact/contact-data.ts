@@ -161,6 +161,18 @@ export const CONTACT_CAMPUSES: ContactCampus[] = [
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.002901756854!2d77.66081491405393!3d12.843088721161902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae16773e7dc413%3A0xecf2213880352cd2!2sWelingkar+Institute+of+Management+Development+%26+Research.!5e0!3m2!1sen!2sin!4v1536571647524",
     },
   },
+  // The current site's Delhi tab has no contact groups, only the address, phone and map.
+  {
+    id: "delhi",
+    label: "Delhi",
+    sections: [],
+    connect: {
+      address: "Spaces, Max Towers, 17th Floor, Plot No C- 001A, Sector 16 B, DND Flyway, Noida, Uttar Pradesh - 201301",
+      phones: ["09212171051"],
+      mapEmbed:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.854682109459!2d77.31038671474376!3d28.574126093473573!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce51d4c4d0abb%3A0x2f75642efd94cd9b!2sSpaces%20-%20Noida%2C%20Max%20Towers!5e0!3m2!1sen!2sin!4v1647849609870!5m2!1sen!2sin",
+    },
+  },
 ];
 
 export const CONNECT_HEADING = "Connect With Us";

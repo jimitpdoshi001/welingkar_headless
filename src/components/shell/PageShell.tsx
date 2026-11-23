@@ -20,12 +20,14 @@ type PageShellProps = {
   variant?: "default" | "tall";
   /** Optional call-to-action under the subtitle (e.g. an outline pill button). */
   heroAction?: ReactNode;
+  /** The banner image already shows the title: no dark overlay, title/subtitle kept for screen readers only. */
+  textInImage?: boolean;
   children?: ReactNode;
 };
 
 const DEFAULT_HERO = "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&auto=format&fit=crop&q=80";
 
-export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, accent = "default", variant = "default", heroAction, children }: PageShellProps) {
+export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, accent = "default", variant = "default", heroAction, textInImage = false, children }: PageShellProps) {
   const accentVar = accent === "orange" ? "var(--color-orange)" : accent === "green" ? "var(--color-primary)" : undefined;
 
   return (
@@ -34,7 +36,7 @@ export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, 
         <Header transparentHero />
 
         <main data-auto-reveal="reveal" style={accentVar ? ({ ["--faculty-accent" as string]: accentVar } as React.CSSProperties) : undefined}>
-          <section className={variant === "tall" ? `${styles.hero} ${styles.heroTall}` : styles.hero}>
+          <section className={`${styles.hero} ${variant === "tall" ? styles.heroTall : ""} ${textInImage ? styles.heroTextInImage : ""}`}>
             <img
               src={image}
               alt=""

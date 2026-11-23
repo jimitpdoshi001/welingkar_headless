@@ -9,7 +9,7 @@ $rule: rgba(0, 0, 0, 0.15);
 // Campus cards: 3 x 400x279, 20px gap.
 .campuses {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: 7rem;
   @include respond-to(tab) { gap: 1.6rem; margin-top: 5rem; }
