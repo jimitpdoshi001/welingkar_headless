@@ -201,6 +201,8 @@ $cream: #fdf8f0;
   }
 }
 .feeImage { object-fit: cover; }
+// Figma 3668:1416 overlay box: 114.52% x 124.58% at -7.26% / -24.65%.
+.feeOverlay { position: absolute; left: -7.26%; top: -24.65%; width: 114.52%; height: 124.58%; max-width: none; object-fit: fill; }
 .feeInfo {
   position: absolute;
   z-index: 1;
@@ -216,7 +218,7 @@ $cream: #fdf8f0;
   color: var(--color-black);
 }
 .feeTitle { font-size: 1.8rem; font-weight: 500; line-height: 2.2rem; margin-bottom: 1.2rem; }
-.feeAmount { white-space: nowrap; font-size: 1.8rem; font-weight: 700; line-height: 2.2rem; & + & { margin-top: 1.2rem; } @include respond-to(mobile) { font-size: 1.6rem; white-space: normal; } }
+.feeAmount { font-size: 1.8rem; font-weight: 700; line-height: 2.2rem; & + & { margin-top: 1.2rem; } @include respond-to(mobile) { font-size: 1.6rem; } }
 .feeNote { font-size: 1.2rem; font-weight: 700; margin-top: 1.4rem; }
 
 .feeDetails {

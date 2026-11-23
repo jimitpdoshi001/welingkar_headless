@@ -183,14 +183,17 @@ export function AdmissionsPage() {
                   fill
                   sizes="(max-width: 767px) 85vw, 400px"
                   className={styles.feeImage}
+                  style={{ objectPosition: c.position }}
                 />
                 {c.overlay ? (
+                  // Figma places this second photo layer oversized and offset, not fitted to the card.
                   <Image
                     src={c.overlay}
                     alt=""
-                    fill
-                    sizes="(max-width: 767px) 85vw, 400px"
-                    className={styles.feeImage}
+                    width={497}
+                    height={598}
+                    sizes="(max-width: 767px) 100vw, 460px"
+                    className={styles.feeOverlay}
                   />
                 ) : null}
                 <div className={styles.feeInfo}>

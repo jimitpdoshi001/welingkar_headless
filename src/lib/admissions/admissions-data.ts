@@ -5,7 +5,8 @@
 
 const IMG = (name: string) => `/admissions/${name}`;
 
-export type AdmFeeCard = { title: string; lines: string[]; note?: string; image: string; overlay?: string };
+/** position: CSS object-position matching the Figma crop of each photo. */
+export type AdmFeeCard = { title: string; lines: string[]; note?: string; image: string; position?: string; overlay?: string };
 
 export const ADMISSIONS = {
   intro: {
@@ -75,8 +76,8 @@ export const ADMISSIONS = {
     heading: "Fees & Support",
     text: "At WeSchool, we invest in our students' futures—focusing not just on traditional ROI, but on holistic growth to prepare graduates for today's fast-paced business world. Tuition fees and other charges for the 2027–29 academic batch are as follows:",
     cards: [
-      { title: "Tuition Fees & Other", lines: ["₹7,50,000/- p.a*"], note: "*Subject to change", image: IMG("fee-tuition.webp") },
-      { title: "Library Deposit", lines: ["₹4,000/- (refundable)"], image: IMG("fee-library.webp") },
+      { title: "Tuition Fees & Other", lines: ["₹7,50,000/- p.a*"], note: "*Subject to change", image: IMG("fee-tuition.webp"), position: "center bottom" },
+      { title: "Library Deposit", lines: ["₹4,000/- (refundable)"], image: IMG("fee-library.webp"), position: "left bottom" },
       {
         title: "Hostel Fees",
         lines: ["₹1,60,000/- p.a. to ₹2,20,000/- p.a.", "Plus a deposit of ₹10,000/- (refundable)"],
