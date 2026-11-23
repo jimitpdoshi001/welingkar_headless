@@ -57,5 +57,9 @@
   .subtitle { max-width: 108rem; font-size: 1.6rem; line-height: 1.4; }
 
   @include respond-to(tab) { min-height: 48rem; .breadcrumb { top: 9rem; } .heroInner { padding-bottom: 5rem; } }
-  @include respond-to(mobile) { min-height: 42rem; .title { font-size: 2.8rem; } }
+  // Long hero text grows the hero instead of running up under the header/breadcrumb.
+  @include respond-to(mobile) { min-height: 42rem; .heroInner { padding-top: 13rem; } .title { font-size: 2.8rem; } }
 }
+
+// Optional hero call-to-action (sits under the subtitle).
+.heroAction { position: relative; z-index: 1; margin-top: 3rem; @include respond-to(mobile) { margin-top: 2.4rem; } }

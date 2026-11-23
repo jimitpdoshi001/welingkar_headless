@@ -2,14 +2,10 @@
 
 import type { DrupalImage, JsonApiResource, PlacementPartnersAttributes } from "@/lib/drupal";
 import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
-import Image from "next/image";
+import { LogoMarquee } from "@/components/LogoMarquee/LogoMarquee";
 
 import styles from "./PlacementPartners.module.scss";
 import { overridePlacementHeading, overridePlacementDescription } from "@/lib/content-overrides";
-
-/** One marquee list: logos repeated until at least 12, so it is wider than the screen. */
-const loopList = (images: DrupalImage[]) =>
-  Array.from({ length: Math.ceil(12 / images.length) }, () => images).flat();
 
 type PlacementPartnersProps = {
   paragraph: JsonApiResource<"paragraph--placement_partners", PlacementPartnersAttributes>;
@@ -36,28 +32,8 @@ export function PlacementPartners({ paragraph, images = [], children }: Placemen
       )}
 
       {images.length > 0 && (
-        // Continuous marquee: the logo list is rendered twice and the track
-        // moves left by one list width, so the loop is seamless. CSS pauses it
-        // only while a logo itself is hovered.
-        <div className={styles.marquee}>
-          <ul
-            className={styles.track}
-            style={{ ["--marquee-duration" as string]: `${Math.max(20, images.length * 3)}s` }}>
-            {[...loopList(images), ...loopList(images)].map((image, i) => (
-              <li
-                key={`${image.url}-${i}`}
-                className={styles.logo}
-                aria-hidden={i >= images.length ? true : undefined}>
-                <Image
-                  src={image.url}
-                  alt={i >= images.length ? "" : image.alt}
-                  width={image.width ?? 160}
-                  height={image.height ?? 80}
-                />
-              </li>
-            ))}
-          </ul>
-        </div>
+        // Scrolling logo carousel with arrows (shared with the MDP pages).
+        <LogoMarquee logos={images.map((image) => ({ name: image.alt, image: image.url ?? "" }))} />
       )}
 
       {children}

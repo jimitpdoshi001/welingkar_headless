@@ -18,7 +18,7 @@ const COLUMNS: { title: string; items: Item[] }[] = [
       ["PGP in Media & Entertainment", "/programmes/executive-programme-in-mumbai/media-and-entertainment-management"],
       ["11 months PGP & 6 Months Certificate", "/programmes/11-month-pg-6-month-certificate-programmes"],
       ["PGDM Hybrid Program", "/programmes/pgdm-hybrid"],
-      ["PGP Foreign Trade Management", ""],
+      ["PGP Foreign Trade Management", "/programmes/foreign-trade-management"],
     ],
   },
   {

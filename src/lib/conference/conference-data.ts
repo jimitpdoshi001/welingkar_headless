@@ -11,8 +11,10 @@ export type ConferenceData = {
   about: { heading: string; paragraphs: string[] };
   info: { title: string; text: string }[];
   tracks: { heading: string; description: string; items: ConfTrack[] };
-  guidelines: { heading: string; items: string[] };
-  publication: { heading: string; intro: string; points: string[] };
+  /** `html`: rich items from Drupal (nested lists, links), shown instead of `items`. */
+  guidelines: { heading: string; items: string[]; html?: string[] };
+  /** `html`: Drupal rich text (numbered list with sub-points), shown instead of intro + points. */
+  publication: { heading: string; intro: string; points: string[]; html?: string };
   keyDates: { heading: string; items: ConfDate[] };
   contact: { heading: string; email: string; org: string; address: string };
   reachOut: { heading: string; phone: string; people: string[] };

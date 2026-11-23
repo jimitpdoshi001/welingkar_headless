@@ -1,0 +1,434 @@
+@use "../../../styles/base/mixins" as *;
+
+// Figma 3652:1025 (1440 artboard, 1240 content). 1rem = 10px.
+
+// ---------- Shared type ----------
+.heading,
+.headingLight {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.4rem;
+  color: var(--color-black);
+  margin-bottom: 3rem;
+
+  @include respond-to(mobile) { font-size: 2.8rem; line-height: 3.4rem; margin-bottom: 2rem; }
+}
+.headingLight { color: var(--color-white); }
+.center { text-align: center; }
+
+.body {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  color: var(--color-black);
+  & + & { margin-top: 2rem; }
+}
+
+.subheading {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 5rem 0 3rem;
+  @include respond-to(mobile) { font-size: 1.9rem; margin: 3.2rem 0 2rem; }
+}
+
+// Green 5px dot bullets, 40px rows (Figma lists).
+.dotList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    position: relative;
+    padding-left: 1.8rem;
+    font-size: 1.6rem;
+    line-height: 4rem;
+    color: var(--color-black);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.75rem;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--color-primary);
+    }
+
+    @include respond-to(mobile) { line-height: 1.5; padding-block: 0.6rem; &::before { top: 1.45rem; } }
+  }
+}
+.dotListLight li { color: var(--color-white); }
+
+// ---------- Hero CTA (outline pill, 295 x 50) ----------
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 29.5rem;
+  height: 5rem;
+  padding: 0 3rem;
+  border: 1px solid var(--color-white);
+  border-radius: 2.5rem;
+  color: var(--color-white);
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: background-color 0.25s ease, color 0.25s ease;
+
+  &:hover,
+  &:focus-visible { background: var(--color-white); color: var(--color-black); }
+
+  @include respond-to(mobile) { min-width: 0; }
+}
+
+// ---------- About us (cream band 310px) ----------
+.aboutBand {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-light-yellow);
+  padding: 10.4rem 0 10.4rem;
+  text-align: center;
+
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+.decor {
+  position: absolute;
+  left: 0;
+  top: 2.3rem;
+  @include respond-to(tab) { width: 9rem; height: auto; }
+}
+.aboutInner { position: relative; }
+.aboutText {
+  max-width: 88.2rem;
+  margin: 0 auto;
+  font-size: 2.2rem;
+  line-height: 1.3;
+  @include respond-to(mobile) { font-size: 1.8rem; }
+}
+
+// ---------- Intro ----------
+.intro {
+  max-width: 98.5rem;
+  padding: 8.4rem 0 8.6rem;
+  text-align: center;
+  @include respond-to(mobile) { padding: 5rem 0; }
+}
+.introLead { font-size: 2.2rem; font-weight: 700; margin-bottom: 3rem; @include respond-to(mobile) { font-size: 1.9rem; } }
+.introText { font-size: 1.6rem; line-height: 1.35; & + & { margin-top: 2rem; } }
+
+// ---------- Rankings (3 joined panels, 619px tall) ----------
+.rankings {
+  display: grid;
+  grid-template-columns: 37.2rem 42rem 1fr;
+  min-height: 61.9rem;
+  border-radius: 3rem;
+  overflow: hidden;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; min-height: 0; }
+}
+.rankLabel { background: var(--color-secondary); padding: 8.3rem 5.9rem; @include respond-to(tab) { padding: 4rem 3rem 1rem; } }
+.rankDark,
+.rankLight { padding: 19.4rem 4rem 4rem 3.8rem; @include respond-to(tab) { padding: 3rem; } }
+.rankDark { background: #3c2a4f; color: var(--color-white); }
+.rankLight { background: var(--color-light-yellow); color: var(--color-black); padding-top: 11.1rem; }
+.rankValue { font-size: 12rem; font-weight: 800; line-height: 1; @include respond-to(mobile) { font-size: 8rem; } }
+.rankValueGreen { color: var(--color-primary); font-size: 15rem; @include respond-to(mobile) { font-size: 9rem; } }
+.rankUnit { font-size: 2.2rem; margin-top: 1.6rem; }
+.rankText {
+  font-size: 2.2rem;
+  line-height: 1.3;
+  max-width: 36.2rem;
+  margin-top: 4.2rem;
+  @include respond-to(mobile) { font-size: 1.8rem; margin-top: 2rem; }
+}
+.rankDark .rankText { margin-top: 4.2rem; }
+.rankLight .rankText { margin-top: 10rem; @include respond-to(tab) { margin-top: 2rem; } }
+
+// ---------- About FIEO ----------
+.fieo { padding: 13.4rem 0 6rem; @include respond-to(mobile) { padding: 5rem 0; } }
+
+// ---------- Leader messages (512px bands; photo sits on the band's bottom edge) ----------
+.message { padding-top: 6rem; & + & { margin-top: 3rem; } }
+.messageLavender { background: #f5eeff; }
+.messagePeach { background: #fff4f2; }
+.messageInner {
+  display: grid;
+  grid-template-columns: 45.1rem 1fr;
+  gap: 3.9rem;
+  align-items: start;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 3rem; }
+}
+.messageReverse {
+  grid-template-columns: 1fr 43.7rem;
+  gap: 5.3rem;
+  .messagePhoto { order: 2; width: 43.7rem; height: 43.7rem; }
+  .messageText { padding-top: 3.3rem; }
+  @include respond-to(tab) { grid-template-columns: 1fr; .messagePhoto { order: 0; } .messageText { padding-top: 0; } }
+}
+.messagePhoto {
+  display: block;
+  width: 45.1rem;
+  height: 45.1rem;
+  object-fit: cover;
+  align-self: end;
+  @include respond-to(mobile) { width: 100%; height: auto; max-width: 36rem; }
+}
+.messageText { padding-top: 1.6rem; padding-bottom: 5rem; @include respond-to(tab) { padding-bottom: 4rem; } }
+.messageBody { font-size: 1.6rem; line-height: 2.4rem; }
+.messageName { font-size: 2.2rem; font-weight: 800; margin-top: 3rem; }
+.messageRole { font-size: 1.6rem; line-height: 2rem; margin-top: 1.2rem; }
+
+// ---------- Programme overview ----------
+.programme {
+  display: grid;
+  grid-template-columns: 64.7rem 50.5rem;
+  justify-content: space-between;
+  align-items: start;
+  padding: 8.8rem 0 7rem;
+
+  .heading { max-width: 64.7rem; }
+  .body { max-width: 60.8rem; }
+
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 4rem; padding: 5rem 0; }
+}
+.programmeImage {
+  display: block;
+  width: 50.5rem;
+  height: 50rem;
+  object-fit: cover;
+  border-radius: 3rem;
+  @include respond-to(tab) { width: 100%; height: auto; aspect-ratio: 505 / 500; }
+}
+.encompass {
+  display: grid;
+  grid-template-columns: repeat(2, 29.2rem);
+  gap: 1.9rem 2.3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    min-height: 8.9rem;
+    padding: 1.4rem 4rem;
+    border-radius: 1rem;
+    background: var(--color-secondary);
+    color: var(--color-white);
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; li { padding: 1.4rem 2.4rem; } }
+}
+
+// ---------- Program features (cream band) ----------
+.featuresBand { background: var(--color-light-yellow); padding: 8.7rem 0 7.3rem; @include respond-to(mobile) { padding: 5rem 0; } }
+.featureRow {
+  display: grid;
+  grid-template-columns: 29.5rem 31.5rem 31.5rem 1fr;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #909090;
+  border-radius: 3rem;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 4.6rem;
+    padding: 3.9rem 3rem 3.6rem;
+    font-size: 2.2rem;
+    line-height: 1.3;
+    & + li { border-left: 1px solid #909090; }
+  }
+
+  @include respond-to(tab) {
+    grid-template-columns: 1fr 1fr;
+    li { gap: 2.4rem; font-size: 1.8rem; }
+    li:nth-child(3) { border-left: 0; }
+    li:nth-child(n + 3) { border-top: 1px solid #909090; }
+  }
+  @include respond-to(mobile) { grid-template-columns: 1fr; li { border-left: 0 !important; } li + li { border-top: 1px solid #909090; } }
+}
+.featureIcon { display: block; }
+
+.detailCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  @include respond-to(tab) { grid-template-columns: 1fr; }
+}
+.detailCard {
+  background: var(--color-secondary);
+  color: var(--color-white);
+  border-radius: 1rem;
+  padding: 4.4rem 4rem 4rem;
+  min-height: 40.4rem;
+
+  @include respond-to(mobile) { padding: 3rem 2.4rem; min-height: 0; }
+}
+.detailBlock {
+  h3 { font-size: 2.2rem; font-weight: 700; margin-bottom: 1.4rem; }
+  p { font-size: 1.6rem; }
+  & + & { margin-top: 2.2rem; padding-top: 2.2rem; border-top: 1px solid rgba(255, 255, 255, 0.4); }
+}
+.batchSlot {
+  margin-top: 1.4rem;
+  & + & { margin-top: 2.2rem; }
+  p { font-size: 1.6rem; }
+  strong { display: block; margin-top: 1rem; font-size: 2.2rem; font-weight: 700; white-space: pre-line; @include respond-to(mobile) { font-size: 1.8rem; } }
+}
+.listCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 6.4rem;
+  @include respond-to(tab) { grid-template-columns: 1fr; margin-top: 4rem; }
+}
+.listHeading { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.6rem; }
+
+// ---------- Course structure (photo card + 80% black overlay) ----------
+.structureWrap { padding: 0; }
+.structure {
+  position: relative;
+  border-radius: 3rem;
+  overflow: hidden;
+  min-height: 43.7rem;
+  background: #000;
+
+  &::after { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.8); }
+}
+.structureBg { object-fit: cover; }
+.structureInner { position: relative; z-index: 1; padding: 4.7rem 4rem 5rem; .headingLight { margin-bottom: 2rem; } }
+.semesters {
+  display: grid;
+  grid-template-columns: 26.6rem 32.7rem;
+  justify-content: center;
+  gap: 19.6rem;
+  @include respond-to(tab) { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  @include respond-to(mobile) { grid-template-columns: 1fr; }
+}
+.semesterTitle { font-size: 2.2rem; font-weight: 800; color: var(--color-white); margin-bottom: 1rem; }
+
+// ---------- Course fee + Admissions (cream band) ----------
+.feeBand { background: var(--color-light-yellow); padding: 7.6rem 0 5rem; margin-top: 7.6rem; @include respond-to(mobile) { padding: 5rem 0; margin-top: 5rem; } }
+.feeGrid {
+  display: grid;
+  grid-template-columns: 50.5rem 60.1rem;
+  justify-content: space-between;
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 5rem; }
+}
+.feeGroup {
+  max-width: 50.5rem;
+  & + & { margin-top: 2.2rem; padding-top: 2.2rem; border-top: 1px solid #bbb; }
+}
+.feeTitle { font-size: 2.2rem; font-weight: 700; margin-bottom: 1.4rem; }
+.feeLines { font-size: 1.8rem; line-height: 1.2; span { display: block; } }
+.feeSub { font-size: 1.6rem; font-weight: 600; margin-top: 1.8rem; }
+.feeBullets {
+  margin-top: 1rem;
+  li { font-size: 1.8rem; line-height: 1.2; padding-block: 0.5rem; &::before { top: 1.2rem; } }
+}
+.admissionLink {
+  display: inline-block;
+  margin-top: 2.6rem;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  word-break: break-all;
+  &:hover { text-decoration: underline; }
+  @include respond-to(mobile) { font-size: 1.8rem; }
+}
+
+// ---------- Contact us (purple band) ----------
+.contactBand { background: var(--color-secondary); padding: 6rem 0 5.6rem; @include respond-to(mobile) { padding: 5rem 0; } }
+.contactGrid {
+  display: grid;
+  grid-template-columns: 51.6rem 51.6rem;
+  justify-content: space-between;
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 3rem; }
+}
+.address { font-style: normal; color: var(--color-white); font-size: 1.8rem; line-height: 1.3; word-break: break-word; p { margin: 0; } }
+
+// ---------- Enquire now ----------
+.enquire {
+  display: grid;
+  grid-template-columns: 64.7rem 52.4rem;
+  justify-content: space-between;
+  align-items: start;
+  padding: 9.3rem 0 11.4rem;
+
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 4rem; padding: 5rem 0; }
+}
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.8rem 3.7rem;
+
+  input,
+  select {
+    width: 100%;
+    height: 3.4rem;
+    border: 0;
+    border-bottom: 1px solid #bbb;
+    border-radius: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: 1.6rem;
+    color: var(--color-black);
+    &::placeholder { color: #838383; }
+    &:focus { outline: none; border-bottom-color: var(--color-primary); }
+  }
+
+  // Green down-triangle on dropdowns (Figma polygon).
+  select {
+    appearance: none;
+    padding-right: 2.4rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='9' viewBox='0 0 12 9'%3E%3Cpath d='M6 9 0 0h12z' fill='%233a9030'/%3E%3C/svg%3E") no-repeat right center;
+    color: #838383;
+    &:valid { color: var(--color-black); }
+  }
+
+  @include respond-to(mobile) { grid-template-columns: 1fr; gap: 2.4rem; }
+}
+.full { grid-column: 1 / -1; }
+textarea.message {
+  height: 15.3rem;
+  padding: 1.8rem 1.4rem;
+  border: 1px solid #bbb;
+  border-radius: 2rem;
+  font-family: inherit;
+  font-size: 1.6rem;
+  resize: vertical;
+  margin-top: 1.4rem;
+  &::placeholder { color: #838383; }
+  &:focus { outline: none; border-color: var(--color-primary); }
+}
+.submit {
+  justify-self: start;
+  width: 13rem;
+  height: 5rem;
+  border: 0;
+  border-radius: 2.5rem;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 1.6rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.8rem;
+  &:hover { filter: brightness(1.08); }
+}
+.enquireImage {
+  display: block;
+  width: 52.4rem;
+  height: 47.2rem;
+  object-fit: cover;
+  border-radius: 3rem;
+  @include respond-to(tab) { width: 100%; height: auto; aspect-ratio: 524 / 472; }
+}
+
+// Hero title wraps at Figma's 664px (PageShell renders the h1; scoped to this page).
+:global(main):has(.aboutBand) h1 { max-width: 66.4rem; }
