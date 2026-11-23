@@ -29,7 +29,7 @@ export default async function BengaluruCampusPage() {
   return (
     <CampusPage
       data={await withCampusContent(5766, data)}
-      mentors={await getCampusFacultyGrid("bengaluru")}
+      mentors={await getCampusFacultyGrid("bengaluru", { roleTabs: true })}
     />
   );
 }
