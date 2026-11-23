@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PgdmReadMore } from "@/components/pgdm/common/PgdmReadMore";
+import { LogoMarquee } from "@/components/LogoMarquee/LogoMarquee";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -272,14 +273,9 @@ export function MdcPage({ data }: { data: MdcData }) {
           {data.trusted.logos.length ? (
           <section className={`container ${styles.block}`}>
             <h2 className={styles.headingCenter}>{data.trusted.heading}</h2>
-            <div className={styles.logoStrip}>
-              {data.trusted.logos.map((l) => (
-                <img
-                  key={l.name}
-                  src={l.image}
-                  alt={l.name}
-                />
-              ))}
+            {/* Same scrolling carousel as the home "Our Placement Partners". */}
+            <div className={styles.logoMarquee}>
+              <LogoMarquee logos={data.trusted.logos} />
             </div>
           </section>
 
