@@ -1,0 +1,74 @@
+@use "../../styles/base/mixins" as *;
+
+// Logo carousel (home "Our Placement Partners" look): edges fade out.
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  --gap: 6rem;
+  gap: var(--gap);
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform; // moved by JS (LogoMarquee.tsx)
+
+  @include respond-to(mobile) { --gap: 3.6rem; }
+}
+
+.logo {
+  flex: none;
+
+  img {
+    display: block;
+    width: auto;
+    max-width: 16rem;
+    height: 5rem;
+    object-fit: contain;
+
+    @include respond-to(mobile) { height: 4rem; max-width: 12rem; }
+  }
+}
+
+// Arrows below the carousel, right-aligned (What We Offer arrow style).
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.2rem;
+  margin-top: 3.2rem;
+
+  @include respond-to(mobile) { justify-content: center; margin-top: 2.4rem; }
+}
+
+.navBtn {
+  --accent: var(--mdc-accent, var(--color-primary));
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1.5px solid var(--accent);
+  background-color: transparent;
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+
+  svg path { fill: var(--accent); transition: fill 0.25s ease; }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--accent);
+    transform: scale(1.05);
+    svg path { fill: var(--color-white); }
+  }
+}
+
+.navNext {
+  background-color: var(--accent);
+  svg path { fill: var(--color-white); }
+}
