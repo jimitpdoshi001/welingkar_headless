@@ -19,6 +19,7 @@ const INCLUDE = [
   "field_desktop_image",
   "field_client_logos",
   "field_trusted_organizations_logo",
+  "field_mdc_gallery",
 ];
 
 /** Drop a trailing label ("Office", "Mobile") from a contact line. */
@@ -75,16 +76,27 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
     .filter(Boolean);
 
   // Logo strip: client logos when uploaded, else the trusted-organisation logos.
-  const logoFiles = (field: string) =>
-    r
+  const logoFiles = (field: string) => {
+    // Alt text sits on the relationship; a generic alt ("Client logo") is ignored.
+    const rel = n.relationships?.[field]?.data;
+    const alts = new Map((Array.isArray(rel) ? rel : []).map((d) => [d.id, String((d.meta as { alt?: string } | undefined)?.alt ?? "")]));
+    return r
       .refs(n, field)
-      .map((f) => ({
-        name: String(f.attributes.filename ?? "").replace(/\.[a-z0-9]+$/i, "").replace(/[-_]+/g, " "),
-        image: absoluteDrupalUrl((f.attributes.uri as { url?: string } | undefined)?.url) ?? "",
-      }))
+      .map((f) => {
+        const file = String(f.attributes.filename ?? "").replace(/\.[a-z0-9]+$/i, "");
+        const alt = alts.get(f.id) ?? "";
+        return {
+          // Name: the alt text if it names the company, else the code after the last "_" (e.g. "..._jsw" → "jsw").
+          name: alt && !/^client logo$/i.test(alt) ? alt : (file.split("_").pop() ?? file).replace(/[-_]+/g, " "),
+          image: absoluteDrupalUrl((f.attributes.uri as { url?: string } | undefined)?.url) ?? "",
+        };
+      })
       .filter((l) => l.image);
+  };
   const clientLogos = logoFiles("field_client_logos");
   const logos = clientLogos.length ? clientLogos : logoFiles("field_trusted_organizations_logo");
+  // Mumbai: logos in alphabetical order (by company name).
+  if (nid === 5777) logos.sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
 
   return {
     ...base,
@@ -114,6 +126,7 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
     expertise: { heading: r.text(n, "field_our_areas_title"), items: expertise },
     flagship: { heading: r.text(n, "field_our_flagship_offerings_tit"), cards: flagship },
     trusted: { heading: r.text(n, "field_trusted_organizations_titl"), logos: logos },
+    gallery: { heading: r.text(n, "field_mdc_gallery_title"), images: logoFiles("field_mdc_gallery").map((f) => f.image) },
     testimonials: { heading: r.text(n, "field_hear_participants_title"), items: testimonials },
     team: {
       heading: r.text(n, "field_mdp_team_title"),
