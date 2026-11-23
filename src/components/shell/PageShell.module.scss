@@ -63,3 +63,10 @@
 
 // Optional hero call-to-action (sits under the subtitle).
 .heroAction { position: relative; z-index: 1; margin-top: 3rem; @include respond-to(mobile) { margin-top: 2.4rem; } }
+
+// Banner artwork with its own title text: show the photo as is, keep the text for screen readers.
+.heroTextInImage {
+  .heroImage { object-position: left center; }
+  .heroOverlay { background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 30%); } // only keeps the breadcrumb readable
+  .title, .subtitle { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}

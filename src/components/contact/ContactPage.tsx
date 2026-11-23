@@ -10,6 +10,7 @@ export function ContactPage() {
       title="Contact us"
       subtitle="If you’d like to know more about WeSchool or have a query answered, we'd be happy to help."
       image="/contact/hero.webp"
+      textInImage
       breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]}
     >
       {/* Campus tabs switch the contact cards and the Connect With Us block (address, phones, map). */}
