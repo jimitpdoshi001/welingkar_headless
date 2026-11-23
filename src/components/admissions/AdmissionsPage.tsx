@@ -132,7 +132,9 @@ export function AdmissionsPage() {
       </section>
 
       {/* Eligibility & cut-offs: two purple cards */}
-      <section className={`container ${styles.cutoffs}`}>
+      <section
+        id="eligibility-cutoffs"
+        className={`container ${styles.cutoffs}`}>
         <h2 className={styles.heading}>{D.cutoffs.heading}</h2>
         <p className={styles.body}>{D.cutoffs.text}</p>
         <div className={styles.cutoffCards}>
@@ -208,7 +210,11 @@ export function AdmissionsPage() {
 
           <div className={styles.feeDetails}>
             <div>
-              <h3 className={styles.subheading}>{D.fees.waiver.heading}</h3>
+              <h3
+                id="tfw-scheme"
+                className={styles.subheading}>
+                {D.fees.waiver.heading}
+              </h3>
               <ul className={styles.dotList}>
                 {D.fees.waiver.items.map((t) => (
                   <li key={t}>{t}</li>
@@ -218,7 +224,9 @@ export function AdmissionsPage() {
             <div>
               <h3 className={styles.subheading}>{D.fees.admissions.heading}</h3>
               <p className={styles.body}>{D.fees.admissions.text}</p>
-              <h3 className={`${styles.subheading} ${styles.loanHeading}`}>{D.fees.loan.heading}</h3>
+              <h3
+                id="education-loan"
+                className={`${styles.subheading} ${styles.loanHeading}`}>{D.fees.loan.heading}</h3>
               {D.fees.loan.paragraphs.map((p) => (
                 <p
                   key={p.slice(0, 30)}
@@ -245,7 +253,9 @@ export function AdmissionsPage() {
       </section>
 
       {/* Scholarships: photo band with dark overlay */}
-      <section className={styles.scholarships}>
+      <section
+        id="scholarships"
+        className={styles.scholarships}>
         <Image
           src={D.scholarships.image}
           alt=""
