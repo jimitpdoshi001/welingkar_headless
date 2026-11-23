@@ -11,14 +11,16 @@ const PAGE = 5;
 
 /**
  * Gallery in the home News & Events grid: each set of 5 photos = 1 featured + 4 small.
- * With `rules`, only captioned photos (minus hidden captions) show, 5 at a time with Load More.
+ * With `rules`: first view = captioned photos (up to 5, minus hidden captions); Load More then
+ * reveals the rest (uncaptioned + hidden-caption photos) 5 at a time.
  */
 export function MdcGallery({ images, rules }: { images: Photo[]; rules?: MdcData["galleryRules"] }) {
   const hidden = new Set((rules?.hiddenCaptions ?? []).map((c) => c.trim().toLowerCase()));
-  const photos = rules
-    ? images.filter((g) => (!rules.captionedOnly || g.caption.trim()) && !hidden.has(g.caption.trim().toLowerCase()))
-    : images;
-  const [count, setCount] = useState(rules ? PAGE : photos.length);
+  const isFirst = (g: Photo) => (!rules?.captionedOnly || g.caption.trim()) && !hidden.has(g.caption.trim().toLowerCase());
+  const first = rules ? images.filter(isFirst) : images;
+  const later = rules ? images.filter((g) => !isFirst(g)) : [];
+  const photos = [...first, ...later];
+  const [count, setCount] = useState(rules ? Math.min(PAGE, first.length) || PAGE : photos.length);
   const shown = photos.slice(0, count);
 
   return (
