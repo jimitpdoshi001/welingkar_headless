@@ -51,7 +51,15 @@
 .trackPoints { list-style: disc; padding: 1.6rem 2.4rem 2.4rem 4.4rem; display: flex; flex-direction: column; gap: 0.8rem; li { font-size: 1.45rem; color: var(--color-dark-gray); } }
 
 /* Guidelines */
-.guidelines { .headingLight { margin-bottom: 3.2rem; } }
+// Heading on the left, vertically centred against the guideline list; stacks on tablet.
+.guidelines {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 86rem);
+  align-items: center;
+  gap: 4rem;
+  .headingLight { margin: 0; }
+  @include respond-to(tab) { grid-template-columns: 1fr; gap: 3.2rem; }
+}
 .chipList { display: flex; flex-direction: column; gap: 1.6rem; max-width: 86rem; margin-left: auto; }
 .chip { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18); border-radius: 1.2rem; padding: 1.8rem 2.2rem; color: rgba(255,255,255,0.92); font-size: 1.45rem; line-height: 1.5; }
 
