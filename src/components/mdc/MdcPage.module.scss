@@ -31,7 +31,7 @@
 .statLabel { font-size: 1.5rem; color: var(--color-gray); margin-top: 0.8rem; }
 
 /* Learning + collage */
-.learning { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; padding-bottom: 12rem; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; padding-bottom: 8rem; }
+.learning { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; padding-bottom: 20rem; @include respond-to(mobile) { grid-template-columns: 1fr; gap: 3rem; padding-bottom: 20rem; }
   // Faint purple arrow watermark behind the copy (Figma 1540:133). Anchored to
   // the content, not glued to the screen edge.
 }
@@ -44,6 +44,7 @@
 }
 
 /* Feature band (light purple) */
+// The band is pulled up 15rem; .learning keeps 20rem bottom padding so its text and photo never sit on the band.
 .featureBand { background: var(--mdc-tint, #f3eefb);padding-top: 100px;margin-top: -150px; }
 .featureRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-block: 5rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
 .feature { h3 { font-size: 2.1rem; font-weight: 600; line-height: 1.4; max-width: 80%; color: var(--color-black); } }
