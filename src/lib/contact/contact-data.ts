@@ -128,8 +128,8 @@ const BENGALURU: ContactSection[] = [
 ];
 
 export const CONTACT_CAMPUSES: ContactCampus[] = [
-  { id: "mumbai", label: "Mumbai", image: "/contact/card-mumbai.webp", sections: MUMBAI },
-  { id: "bengaluru", label: "Bengaluru", image: "/contact/card-bengaluru.webp", sections: BENGALURU },
+  { id: "mumbai", label: "Mumbai", image: "/contact/card-bengaluru.webp", sections: MUMBAI },
+  { id: "bengaluru", label: "Bengaluru", image: "/contact/card-mumbai.webp", sections: BENGALURU },
   // The live Delhi tab has no visible contacts.
   { id: "delhi", label: "Delhi", image: "/contact/card-mumbai.webp", sections: [] },
 ];
