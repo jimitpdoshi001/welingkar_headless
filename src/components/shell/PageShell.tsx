@@ -18,12 +18,14 @@ type PageShellProps = {
   accent?: "orange" | "green" | "default";
   /** "tall": Figma statutory-page hero (650px, breadcrumb pinned to top). */
   variant?: "default" | "tall";
+  /** Optional call-to-action under the subtitle (e.g. an outline pill button). */
+  heroAction?: ReactNode;
   children?: ReactNode;
 };
 
 const DEFAULT_HERO = "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&auto=format&fit=crop&q=80";
 
-export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, accent = "default", variant = "default", children }: PageShellProps) {
+export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, accent = "default", variant = "default", heroAction, children }: PageShellProps) {
   const accentVar = accent === "orange" ? "var(--color-orange)" : accent === "green" ? "var(--color-primary)" : undefined;
 
   return (
@@ -54,6 +56,7 @@ export function PageShell({ title, subtitle, breadcrumbs, image = DEFAULT_HERO, 
               ) : null}
               <h1 className={styles.title}>{title}</h1>
               {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
+              {heroAction ? <div className={styles.heroAction}>{heroAction}</div> : null}
             </div>
           </section>
 
