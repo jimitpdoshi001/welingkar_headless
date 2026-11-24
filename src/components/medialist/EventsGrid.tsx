@@ -71,22 +71,26 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
             </button>
           ))}
         </div>
-        <select
-          aria-label="Select Campus"
-          className={styles.select}
-          value={campus}
-          onChange={(e) => {
-            setCampusPick(e.target.value as EventCity);
-            setCount(PAGE);
-          }}>
-          {CAMPUSES.map((c) => (
-            <option
-              key={c.value}
-              value={c.value}>
-              {c.label}
-            </option>
-          ))}
-        </select>
+        {/* Visible "Campus" label + green pill so the selected location is obvious. */}
+        <label className={styles.campusField}>
+          <span className={styles.campusLabel}>Campus</span>
+          <select
+            aria-label="Select Campus"
+            className={`${styles.select} ${styles.campusSelect}`}
+            value={campus}
+            onChange={(e) => {
+              setCampusPick(e.target.value as EventCity);
+              setCount(PAGE);
+            }}>
+            {CAMPUSES.map((c) => (
+              <option
+                key={c.value}
+                value={c.value}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </label>
       </div>
 
       {shown.length ? (
