@@ -15,14 +15,13 @@ const readUrlCampus = (): EventCity | "" => {
   const c = new URLSearchParams(window.location.search).get("campus");
   return c === "mumbai" || c === "bengaluru" ? c : "";
 };
-const VISIBLE_YEARS = 4; // Figma: four year tabs, older years in the caret dropdown
 const FALLBACK_IMAGE = "/campus/mumbai/life-at-weschool.webp"; // events without a featured image
 const CAMPUSES: { value: EventCity; label: string }[] = [
   { value: "mumbai", label: "Mumbai" },
   { value: "bengaluru", label: "Bengaluru" },
 ];
 
-/** Events listing: year tabs (+ older years), campus select, card grid and Load More. */
+/** Events listing: year tabs (all years side by side), campus select, card grid and Load More. */
 export function EventsGrid({ events }: { events: EventCard[] }) {
   // "?campus=mumbai|bengaluru" (old /events/<campus> URLs redirect here) picks the campus; default Mumbai.
   // Read from the URL on the client only (server snapshot ""), so the listing stays statically cached.
@@ -42,8 +41,6 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
 
   const filtered = events.filter((e) => e.year === year && e.city === campus);
   const shown = filtered.slice(0, count);
-  const tabYears = years.slice(0, VISIBLE_YEARS);
-  const olderYears = years.slice(VISIBLE_YEARS);
 
   // Any filter change starts the list again from the first page.
   const pickYear = (y: string) => {
@@ -62,7 +59,7 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
           className={styles.years}
           role="tablist"
           aria-label="Year">
-          {tabYears.map((y) => (
+          {years.map((y) => (
             <button
               key={y}
               type="button"
@@ -73,22 +70,6 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
               {y}
             </button>
           ))}
-          {olderYears.length ? (
-            <select
-              aria-label="Older years"
-              className={`${styles.yearSelect} ${olderYears.includes(year) ? styles.yearActive : ""}`}
-              value={olderYears.includes(year) ? year : ""}
-              onChange={(e) => e.target.value && pickYear(e.target.value)}>
-              <option value="">{olderYears.includes(year) ? year : "Older"}</option>
-              {olderYears.map((y) => (
-                <option
-                  key={y}
-                  value={y}>
-                  {y}
-                </option>
-              ))}
-            </select>
-          ) : null}
         </div>
         <select
           aria-label="Select Campus"
