@@ -1,4 +1,5 @@
 import type { PgpData } from "@/lib/pgp/pgp-entrepreneurship-data";
+import { absoluteDrupalUrl } from "../jsonapi";
 import { getNodeReader, htmlParas, or, type NodeReader } from "../node-page";
 
 /** Drupal node--pgp_entrepreneurship 5799 (PGP in Entrepreneurship & Family Managed Business). */
@@ -10,9 +11,12 @@ const INCLUDE = [
   "field_programme_overview",
   "field_programme_overview.field_desktop",
   "field_programme_overview.field_desktop.field_media_image",
+  "field_programme_overview.field_desktop.field_media_video_file",
   "field_programme_overview.field_mobile",
   "field_programme_overview.field_mobile.field_media_image",
   "field_program_usps",
+  "field_program_usp_desktop_image",
+  "field_program_usp_mobile_image",
   "field_admission_and_course_fees",
   "field_admission_and_course_fees.field_image",
 ];
@@ -60,8 +64,8 @@ function headingLists(source: string): { items: string[]; details: string[][] } 
 
 /**
  * PGP EFMB page from Drupal. Each value falls back to the built-in page while Drupal is
- * unreachable; empty Drupal fields hide their element. Kept built-in: USP photo and
- * Ideal For photo (no Drupal field), the Ideal For primary button (Drupal links to the old
+ * unreachable; empty Drupal fields hide their element. Kept built-in: the Ideal For photo
+ * (no Drupal field), the USP photo while its Drupal field is empty, the Ideal For primary button (Drupal links to the old
  * live site), the hero breadcrumb.
  */
 export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<PgpData> {
@@ -78,6 +82,11 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
   const ov = r.refs(n, "field_programme_overview")[0];
   const youtubeId = r.text(ov, "field_youtube_id");
   const isVideo = r.text(ov, "field_type") === "video" && /^[\w-]{11}$/.test(youtubeId);
+  // field_desktop may be a media--video (MP4 in field_media_video_file): plays inline.
+  const ovMedia = r.refs(ov, "field_desktop")[0];
+  const videoFileEntity = ovMedia?.type === "media--video" ? r.refs(ovMedia, "field_media_video_file")[0] : undefined;
+  const videoUri = (videoFileEntity?.attributes?.uri as { url?: string } | undefined)?.url;
+  const videoFile = videoUri ? absoluteDrupalUrl(videoUri) ?? "" : "";
 
   // Fees: items with a photo are fee cards; the rest are the purple info blocks.
   const feeItems = r.refs(n, "field_admission_and_course_fees");
@@ -92,6 +101,7 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
       // Drupal's photos are small icons today: keep the built-in photo (and its crop) until a large one is uploaded.
       image: big ? r.image(p, "field_image") : (fallback?.image ?? r.image(p, "field_image")),
       imagePosition: big ? undefined : fallback?.imagePosition,
+      imageTop: big ? undefined : fallback?.imageTop,
     };
   }).filter((c) => c.label);
   const info = feeItems.filter((p) => !withImage(p)).map((p) => ({ heading: r.text(p, "field_main_title"), ...textList(plain(p, "field_sub_title")) })).filter((b) => b.heading);
@@ -102,7 +112,7 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
   const ideal = headingLists(idealHtml);
   if (!ideal.items.length) ideal.items = [...idealHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => htmlParas(m[1]).join(" ")).filter(Boolean);
   const idealIntro = [...idealHtml.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => htmlParas(m[1]).join(" ")).filter(Boolean).join(" ");
-  // Brochure (stage PDF on the banner) drives the Ideal For "Download Brochure" button; the hero has no brochure slot.
+  // Brochure (stage PDF on the banner): hero and Ideal For "Download Brochure" buttons.
   const brochure = r.link(banner, "field_brochure");
 
   return {
@@ -114,17 +124,23 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
       facts: facts ? facts.split(/\s*·\s*/).filter(Boolean) : [],
       image: or(r.image(banner, "field_desktop"), base.hero.image),
       cta: apply.href && !isLiveSite(apply.href) ? { label: or(apply.title, base.hero.cta.label), href: apply.href } : base.hero.cta,
+      brochure: brochure.href && !isLiveSite(brochure.href) ? { label: or(brochure.title, "Download Brochure"), href: brochure.href } : undefined,
     },
     overview: {
       heading: r.text(ov, "field_main_title"),
       paragraphs: [],
       html: html(ov, "field_desc"),
-      image: or(r.image(ov, "field_desktop"), base.overview.image),
-      imageMobile: r.image(ov, "field_mobile") || undefined,
-      videoHref: isVideo ? `https://www.youtube.com/watch?v=${youtubeId}` : undefined,
+      // With a video file, field_mobile is its poster; otherwise the desktop/mobile photos.
+      image: videoFile ? or(r.image(ov, "field_mobile"), base.overview.image) : or(r.image(ov, "field_desktop"), base.overview.image),
+      imageMobile: videoFile ? undefined : r.image(ov, "field_mobile") || undefined,
+      videoFile: videoFile || undefined,
+      videoHref: !videoFile && isVideo ? `https://www.youtube.com/watch?v=${youtubeId}` : undefined,
     },
     uspBand: {
       ...base.uspBand,
+      // Drupal USP photos (plain image files); the built-in photo stays while they are empty.
+      image: or(r.image(n, "field_program_usp_desktop_image"), base.uspBand.image),
+      imageMobile: r.image(n, "field_program_usp_mobile_image") || undefined,
       heading: r.text(n, "field_program_usp_title"),
       cards: r.refs(n, "field_program_usps").map((p) => r.text(p, "field_main_title")).filter(Boolean),
     },

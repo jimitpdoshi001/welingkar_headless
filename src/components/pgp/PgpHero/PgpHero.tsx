@@ -31,9 +31,17 @@ export function PgpHero({ data }: { data: PgpHeroData }) {
             ))}
           </ul>
         ) : null}
-        <Link href={data.cta.href} className={`btn white-outline ${styles.cta}`}>
-          {data.cta.label}
-        </Link>
+        <div className={styles.ctas}>
+          <Link href={data.cta.href} className={`btn white-outline ${styles.cta}`}>
+            {data.cta.label}
+          </Link>
+          {/* Drupal brochure PDF (stage): opens in a new tab. */}
+          {data.brochure?.href ? (
+            <a href={data.brochure.href} target="_blank" rel="noopener noreferrer" className={`btn white-outline ${styles.cta}`}>
+              {data.brochure.label}
+            </a>
+          ) : null}
+        </div>
       </div>
     </section>
   );

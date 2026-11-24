@@ -22,7 +22,7 @@
 .grid {
   position: relative;
   display: grid;
-  grid-template-columns: 50.5rem 61rem;
+  grid-template-columns: 58rem 61rem; // PGDM overview: 580px text + 610px media
   justify-content: space-between;
   align-items: center;
   gap: 4rem;
@@ -60,12 +60,12 @@
 .photo {
   display: block;
   width: 100%;
-  aspect-ratio: 610 / 591;
+  aspect-ratio: 610 / 437; // same card as the PGDM program overview
   object-fit: cover;
   object-position: center 35%;
   border-radius: 3rem;
 
-  @include respond-to(mobile) { border-radius: 2rem; aspect-ratio: 4 / 3.4; }
+  @include respond-to(mobile) { border-radius: 2rem; }
 }
 
 .play {
@@ -85,3 +85,6 @@
   strong, b { font-weight: 700; }
   p + p { margin-top: 1.2rem; }
 }
+
+// Vertical Drupal video cropped to the card; speaker sits just above the middle of the frame.
+.video { background: #000; object-position: center 40%; }
