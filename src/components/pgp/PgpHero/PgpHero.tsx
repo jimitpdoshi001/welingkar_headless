@@ -21,9 +21,16 @@ export function PgpHero({ data }: { data: PgpHeroData }) {
           <span>{data.breadcrumb}</span>
         </nav>
 
-        <h1 className={styles.title}>{data.title}</h1>
-        <p className={styles.tagline}>{data.tagline}</p>
-        <p className={styles.description}>{data.description}</p>
+        {data.title ? <h1 className={styles.title}>{data.title}</h1> : null}
+        {data.tagline ? <p className={styles.tagline}>{data.tagline}</p> : null}
+        {data.description ? <p className={styles.description}>{data.description}</p> : null}
+        {data.facts?.length ? (
+          <ul className={styles.facts}>
+            {data.facts.map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
+        ) : null}
         <Link href={data.cta.href} className={`btn white-outline ${styles.cta}`}>
           {data.cta.label}
         </Link>

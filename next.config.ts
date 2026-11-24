@@ -123,6 +123,9 @@ const nextConfig: NextConfig = {
       section("vision-mission", "vision-mission"),
       section("college-development-committee", "college-development-committee"),
       { source: "/programmes/executive", destination: "/programmes/executive-programme-in-mumbai", permanent: true },
+      // Old-site campus event lists -> Events listing with that campus pre-selected.
+      { source: "/events/mumbai", destination: "/events?campus=mumbai", permanent: true },
+      { source: "/events/bengaluru", destination: "/events?campus=bengaluru", permanent: true },
     ];
   },
   async headers() {

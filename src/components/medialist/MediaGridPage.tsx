@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -8,7 +9,8 @@ import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import type { MediaGridData } from "@/lib/medialist/media-data";
 import styles from "./MediaGridPage.module.scss";
 
-export function MediaGridPage({ data }: { data: MediaGridData }) {
+/** `body` replaces the built-in filter bar, grid and Load More (e.g. the Drupal-driven Events grid). */
+export function MediaGridPage({ data, body }: { data: MediaGridData; body?: ReactNode }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
@@ -45,6 +47,8 @@ export function MediaGridPage({ data }: { data: MediaGridData }) {
               </div>
             )}
 
+            {body ?? (
+              <>
             <div className={styles.filterBar}>
               {data.tabs ? (
                 data.filters.map((f) => (
@@ -100,6 +104,8 @@ export function MediaGridPage({ data }: { data: MediaGridData }) {
                   Load More
                 </button>
               </div>
+            )}
+              </>
             )}
           </section>
         </main>

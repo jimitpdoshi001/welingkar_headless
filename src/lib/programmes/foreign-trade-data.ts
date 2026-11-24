@@ -1,14 +1,43 @@
 /**
  * Post Graduate Program in Foreign Trade Management (PGP-FTM) page content,
- * from Figma 3652:1025. Static: the Drupal node (5795) has no content yet.
+ * from Figma 3652:1025. Live content comes from Drupal (node--pgpftm 5958, see
+ * src/lib/drupal/pages/foreign-trade.ts); this copy is the fallback when Drupal
+ * cannot be reached, and the source of the built-in feature icons and form options.
  */
 
 const IMG = (name: string) => `/programmes/foreign-trade/${name}`;
 
 export type FtmPerson = { name: string; role: string; message: string; image: string };
 export type FtmFeeGroup = { title: string; lines: string[]; subheading?: string; bullets?: string[] };
+export type FtmRank = { value: string; unit: string; text: string };
+export type FtmTitled = { title: string; text: string };
 
-export const FOREIGN_TRADE = {
+/** Page shape. Optional/empty parts are hidden by the page (Drupal fields left empty). */
+export type ForeignTradeData = {
+  hero: { title: string; subtitle: string; cta: { label: string; href: string }; image: string };
+  about: { heading: string; text: string };
+  intro: { lead: string; paragraphs: string[] };
+  rankings: { heading: string; accreditation?: FtmRank; nirf?: FtmRank };
+  fieo: { heading: string; text: string };
+  messages: FtmPerson[];
+  programme: { heading: string; paragraphs: string[]; image: string; encompassHeading: string; encompass: string[] };
+  features: {
+    heading: string;
+    items: { label: string; icon: string; w: number; h: number }[];
+    duration?: FtmTitled;
+    batch?: { title: string; slots: { label: string; time: string }[] };
+    details: FtmTitled[];
+    objectives: { heading: string; items: string[] };
+    faculty: { heading: string; items: string[] };
+  };
+  structure: { heading: string; image: string; semesters: { title: string; items: string[] }[] };
+  fee: { heading: string; groups: FtmFeeGroup[] };
+  admissions: { heading: string; text: string; link: string };
+  contact: { heading: string; addresses: string[][] };
+  enquire: { heading: string; image: string; graduationFields: string[]; cities: string[] };
+};
+
+export const FOREIGN_TRADE: ForeignTradeData = {
   hero: {
     title: "Post Graduate Program in Foreign Trade Management (PGP-FTM)",
     subtitle:
@@ -59,7 +88,7 @@ export const FOREIGN_TRADE = {
       message:
         "\"In today’s rapidly evolving global economy, international trade is a key driver of growth and innovation. The need for skilled professionals in global business is even more critical. It gives me immense pleasure to welcome you to the Post Graduate Programme in Foreign Trade Management (PGP-FTM), a collaborative initiative between WeSchool and the Federation of Indian Export Organisations (FIEO). This programme bridges industry and academia, equipping learners with relevant knowledge and practical skills in international trade. At WeSchool, we believe in nurturing thought leaders with a global mindset, innovative thinking, and a strong sense of purpose. The PGP-FTM blends academic rigor, industry insights, and hands-on learning to develop future-ready professionals. Participants not only gain domain knowledge but also build meaningful connections and develop a strategic understanding of global trade dynamics. I am confident that our participants will emerge as future leaders in the world of international business.",
     },
-  ] as FtmPerson[],
+  ],
   programme: {
     heading: "Post graduate program in foreign trade management (PGP-FTM)",
     paragraphs: [
@@ -156,7 +185,7 @@ export const FOREIGN_TRADE = {
           "In favor of Federation of Indian Export Organisations for Rs. 20,650/-",
         ],
       },
-    ] as FtmFeeGroup[],
+    ],
   },
   admissions: {
     heading: "Admissions",
