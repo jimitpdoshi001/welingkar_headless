@@ -24,19 +24,23 @@ const CAMPUSES: { value: EventCity; label: string }[] = [
 
 /** Events listing: year tabs (+ older years), campus select, card grid and Load More. */
 export function EventsGrid({ events }: { events: EventCard[] }) {
-  // Distinct years, newest first.
-  const years = useMemo(() => [...new Set(events.map((e) => e.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a)), [events]);
-  // "?campus=mumbai|bengaluru" (old /events/<campus> URLs redirect here) pre-selects the campus.
+  // "?campus=mumbai|bengaluru" (old /events/<campus> URLs redirect here) picks the campus; default Mumbai.
   // Read from the URL on the client only (server snapshot ""), so the listing stays statically cached.
   const urlCampus = useSyncExternalStore(noopSubscribe, readUrlCampus, () => "" as const);
-  // null = not picked yet: fall back to the URL campus and its newest year with events.
-  const [campusPick, setCampusPick] = useState<EventCity | "" | null>(null);
+  const [campusPick, setCampusPick] = useState<EventCity | null>(null);
   const [yearPick, setYearPick] = useState<string | null>(null);
   const [count, setCount] = useState(PAGE);
-  const campus = campusPick ?? urlCampus;
-  const year = yearPick ?? (urlCampus ? years.find((y) => events.some((e) => e.year === y && e.city === urlCampus)) : undefined) ?? years[0] ?? "";
+  const campus: EventCity = campusPick ?? (urlCampus || "mumbai");
 
-  const filtered = events.filter((e) => (!year || e.year === year) && (!campus || e.city === campus));
+  // Year tabs: only years that have events for the selected campus, newest first.
+  const years = useMemo(
+    () => [...new Set(events.filter((e) => e.city === campus).map((e) => e.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a)),
+    [events, campus],
+  );
+  // A picked year that this campus has no events for falls back to the campus's newest year.
+  const year = yearPick && years.includes(yearPick) ? yearPick : (years[0] ?? "");
+
+  const filtered = events.filter((e) => e.year === year && e.city === campus);
   const shown = filtered.slice(0, count);
   const tabYears = years.slice(0, VISIBLE_YEARS);
   const olderYears = years.slice(VISIBLE_YEARS);
@@ -91,10 +95,9 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
           className={styles.select}
           value={campus}
           onChange={(e) => {
-            setCampusPick(e.target.value as EventCity | "");
+            setCampusPick(e.target.value as EventCity);
             setCount(PAGE);
           }}>
-          <option value="">Select Campus</option>
           {CAMPUSES.map((c) => (
             <option
               key={c.value}
