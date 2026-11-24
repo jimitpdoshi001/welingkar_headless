@@ -38,12 +38,12 @@ export function PgpOverview({ data }: { data: PgpOverviewData }) {
           )}
         </div>
         {data.videoFile ? (
-          // Drupal MP4 (vertical): cropped to the card, poster = field_mobile photo.
+          // Drupal MP4 (vertical), cropped to the card. No poster: "#t=0.1" makes every browser
+          // show the video's first frame (the speaker) as the thumbnail.
           <div className={styles.media}>
             <video
               className={`${styles.photo} ${styles.video}`}
-              src={data.videoFile}
-              poster={data.image || undefined}
+              src={`${data.videoFile}#t=0.1`}
               controls
               playsInline
               preload="metadata"
