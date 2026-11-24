@@ -205,8 +205,8 @@
 }
 // <picture> wrapper is the grid item (photo column); on mobile it moves above the text like the photo did.
 .whyPicture { display: block; min-width: 0; @include respond-to(mobile) { order: -1; } }
-// Drupal mobile photo: show it at its own (portrait) shape on phones instead of the desktop crop.
-.whyPhotoMobileNatural { @include respond-to(mobile) { aspect-ratio: auto; height: auto; } }
+// Drupal mobile photo: landscape crop on phones (3:2, centred) so any letterbox bars in the file are cut off.
+.whyPhotoMobileNatural { @include respond-to(mobile) { aspect-ratio: 3 / 2; object-fit: cover; object-position: center; } }
 
 // Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
 .band { background-color: var(--pgdm-band, var(--color-secondary)); }
