@@ -82,3 +82,14 @@
   height: 5rem;
   justify-content: center;
 }
+
+// Key facts (Drupal third sub-title block): one line, dot-separated like the source text.
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.3;
+  li + li::before { content: "·"; margin: 0 0.8rem; }
+}

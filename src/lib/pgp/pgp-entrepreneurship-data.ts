@@ -1,16 +1,19 @@
 /**
- * Mock content for the Mumbai PGP Entrepreneurship (EFMB) page, mirroring
- * Figma 3045:135. No Drupal node exists yet; swap for Drupal fields later.
+ * Built-in content for the Mumbai PGP Entrepreneurship (EFMB) page (Figma 3045:135).
+ * Live content comes from Drupal node 5799 (src/lib/drupal/pages/pgp-entrepreneurship.ts);
+ * this copy shows only when Drupal cannot be reached.
  */
 import type { PgdmCta, PgdmUspBand } from "@/lib/pgdm/pgdm-data";
 
-const IMG = "/programmes/executive-programme-in-mumbai/entrepreneurship-management";
+const IMG = "/programmes/pgp-entrepreneurship"; // files live in public/programmes/pgp-entrepreneurship
 
 export type PgpHero = {
   breadcrumb: string;
   title: string;
   tagline: string;
   description: string;
+  /** Short key facts under the description (Drupal: third sub-title block, " · "-separated). */
+  facts?: string[];
   image: string;
   cta: PgdmCta;
 };
@@ -18,22 +21,31 @@ export type PgpHero = {
 export type PgpOverview = {
   heading: string;
   paragraphs: string[];
+  /** Drupal rich text (list with bold labels); rendered via SafeHtml instead of `paragraphs`. */
+  html?: string;
   image: string;
   /** Video opened from the photo; without it the play button is decorative. */
   videoHref?: string;
 };
 
+/** Text with an optional bullet list (Drupal plain fields: a lead line, then "- " lines). */
+export type PgpTextList = { body: string; items?: string[] };
+
 export type PgpFees = {
   heading: string;
   description: string;
+  /** Bullets after the description (e.g. "What's Included"). */
+  descriptionItems?: string[];
   cards: { image: string; label: string; value: string[]; imagePosition?: string }[];
-  info: { heading: string; body: string }[];
+  info: ({ heading: string } & PgpTextList)[];
 };
 
 export type PgpIdealFor = {
   heading: string;
   description: string;
   items: string[];
+  /** Bullets under each item, same order as `items` (Drupal h3 + ul). */
+  itemDetails?: string[][];
   image: string;
   primaryCta: PgdmCta;
   secondaryCta: PgdmCta;

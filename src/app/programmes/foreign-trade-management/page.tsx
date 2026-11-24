@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ForeignTradePage } from "@/components/programmes/ForeignTrade/ForeignTradePage";
+import { getForeignTrade } from "@/lib/drupal/pages/foreign-trade";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/programmes/foreign-trade-management" },
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
     "An 11-month programme by WeSchool and FIEO that trains aspirants for careers in exports and international trade management.",
 };
 
-export default function Page() {
-  return <ForeignTradePage />;
+// Same cache window as the Drupal fetches.
+export const revalidate = 300;
+
+export default async function Page() {
+  return <ForeignTradePage data={await getForeignTrade()} />;
 }
