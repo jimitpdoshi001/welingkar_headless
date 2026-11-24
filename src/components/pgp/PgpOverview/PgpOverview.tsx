@@ -10,7 +10,11 @@ const PLAY = "/programmes/pgp-entrepreneurship/play-button.svg";
 export function PgpOverview({ data }: { data: PgpOverviewData }) {
   const media = (
     <>
-      <img src={data.image} alt="" className={styles.photo} />
+      <picture>
+        {/* Phone-size photo from Drupal when present. */}
+        {data.imageMobile ? <source media="(max-width: 767px)" srcSet={data.imageMobile} /> : null}
+        <img src={data.image} alt="" className={styles.photo} />
+      </picture>
       <img src={PLAY} alt="" className={styles.play} aria-hidden="true" />
     </>
   );
