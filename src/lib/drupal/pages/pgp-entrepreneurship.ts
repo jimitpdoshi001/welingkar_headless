@@ -10,6 +10,8 @@ const INCLUDE = [
   "field_programme_overview",
   "field_programme_overview.field_desktop",
   "field_programme_overview.field_desktop.field_media_image",
+  "field_programme_overview.field_mobile",
+  "field_programme_overview.field_mobile.field_media_image",
   "field_program_usps",
   "field_admission_and_course_fees",
   "field_admission_and_course_fees.field_image",
@@ -59,7 +61,8 @@ function headingLists(source: string): { items: string[]; details: string[][] } 
 /**
  * PGP EFMB page from Drupal. Each value falls back to the built-in page while Drupal is
  * unreachable; empty Drupal fields hide their element. Kept built-in: USP photo and
- * Ideal For photo (no Drupal field), Ideal For buttons, the hero breadcrumb.
+ * Ideal For photo (no Drupal field), the Ideal For primary button (Drupal links to the old
+ * live site), the hero breadcrumb.
  */
 export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<PgpData> {
   const r = await getNodeReader("pgp_entrepreneurship", NID, INCLUDE);
@@ -94,7 +97,13 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
   const info = feeItems.filter((p) => !withImage(p)).map((p) => ({ heading: r.text(p, "field_main_title"), ...textList(plain(p, "field_sub_title")) })).filter((b) => b.heading);
   const feesDesc = textList(plain(n, "field_admission_course_descripti"));
 
-  const ideal = headingLists(html(n, "field_ideal_for_description"));
+  // Ideal For: "<p>intro</p><ul><li>…</li></ul>" (or h3 + ul groups).
+  const idealHtml = html(n, "field_ideal_for_description");
+  const ideal = headingLists(idealHtml);
+  if (!ideal.items.length) ideal.items = [...idealHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => htmlParas(m[1]).join(" ")).filter(Boolean);
+  const idealIntro = [...idealHtml.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => htmlParas(m[1]).join(" ")).filter(Boolean).join(" ");
+  // Brochure (stage PDF on the banner) drives the Ideal For "Download Brochure" button; the hero has no brochure slot.
+  const brochure = r.link(banner, "field_brochure");
 
   return {
     hero: {
@@ -111,6 +120,7 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
       paragraphs: [],
       html: html(ov, "field_desc"),
       image: or(r.image(ov, "field_desktop"), base.overview.image),
+      imageMobile: r.image(ov, "field_mobile") || undefined,
       videoHref: isVideo ? `https://www.youtube.com/watch?v=${youtubeId}` : undefined,
     },
     uspBand: {
@@ -128,9 +138,10 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
     idealFor: {
       ...base.idealFor,
       heading: r.text(n, "field_ideal_for_title"),
-      description: "",
+      description: idealIntro,
       items: ideal.items,
       itemDetails: ideal.details,
+      secondaryCta: brochure.href && !isLiveSite(brochure.href) ? { label: or(brochure.title, base.idealFor.secondaryCta.label), href: brochure.href } : base.idealFor.secondaryCta,
     },
   };
 }

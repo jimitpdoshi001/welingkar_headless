@@ -24,6 +24,8 @@ export type PgpOverview = {
   /** Drupal rich text (list with bold labels); rendered via SafeHtml instead of `paragraphs`. */
   html?: string;
   image: string;
+  /** Optional phone-size photo (Drupal field_mobile), used at ≤767px. */
+  imageMobile?: string;
   /** Video opened from the photo; without it the play button is decorative. */
   videoHref?: string;
 };
