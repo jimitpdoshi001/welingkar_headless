@@ -1,4 +1,5 @@
 import type { PgpData } from "@/lib/pgp/pgp-entrepreneurship-data";
+import { absoluteDrupalUrl } from "../jsonapi";
 import { getNodeReader, htmlParas, or, type NodeReader } from "../node-page";
 
 /** Drupal node--pgp_entrepreneurship 5799 (PGP in Entrepreneurship & Family Managed Business). */
@@ -10,6 +11,7 @@ const INCLUDE = [
   "field_programme_overview",
   "field_programme_overview.field_desktop",
   "field_programme_overview.field_desktop.field_media_image",
+  "field_programme_overview.field_desktop.field_media_video_file",
   "field_programme_overview.field_mobile",
   "field_programme_overview.field_mobile.field_media_image",
   "field_program_usps",
@@ -80,6 +82,11 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
   const ov = r.refs(n, "field_programme_overview")[0];
   const youtubeId = r.text(ov, "field_youtube_id");
   const isVideo = r.text(ov, "field_type") === "video" && /^[\w-]{11}$/.test(youtubeId);
+  // field_desktop may be a media--video (MP4 in field_media_video_file): plays inline.
+  const ovMedia = r.refs(ov, "field_desktop")[0];
+  const videoFileEntity = ovMedia?.type === "media--video" ? r.refs(ovMedia, "field_media_video_file")[0] : undefined;
+  const videoUri = (videoFileEntity?.attributes?.uri as { url?: string } | undefined)?.url;
+  const videoFile = videoUri ? absoluteDrupalUrl(videoUri) ?? "" : "";
 
   // Fees: items with a photo are fee cards; the rest are the purple info blocks.
   const feeItems = r.refs(n, "field_admission_and_course_fees");
@@ -104,7 +111,7 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
   const ideal = headingLists(idealHtml);
   if (!ideal.items.length) ideal.items = [...idealHtml.matchAll(/<li[^>]*>([\s\S]*?)<\/li>/gi)].map((m) => htmlParas(m[1]).join(" ")).filter(Boolean);
   const idealIntro = [...idealHtml.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => htmlParas(m[1]).join(" ")).filter(Boolean).join(" ");
-  // Brochure (stage PDF on the banner) drives the Ideal For "Download Brochure" button; the hero has no brochure slot.
+  // Brochure (stage PDF on the banner): hero and Ideal For "Download Brochure" buttons.
   const brochure = r.link(banner, "field_brochure");
 
   return {
@@ -116,14 +123,17 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
       facts: facts ? facts.split(/\s*·\s*/).filter(Boolean) : [],
       image: or(r.image(banner, "field_desktop"), base.hero.image),
       cta: apply.href && !isLiveSite(apply.href) ? { label: or(apply.title, base.hero.cta.label), href: apply.href } : base.hero.cta,
+      brochure: brochure.href && !isLiveSite(brochure.href) ? { label: or(brochure.title, "Download Brochure"), href: brochure.href } : undefined,
     },
     overview: {
       heading: r.text(ov, "field_main_title"),
       paragraphs: [],
       html: html(ov, "field_desc"),
-      image: or(r.image(ov, "field_desktop"), base.overview.image),
-      imageMobile: r.image(ov, "field_mobile") || undefined,
-      videoHref: isVideo ? `https://www.youtube.com/watch?v=${youtubeId}` : undefined,
+      // With a video file, field_mobile is its poster; otherwise the desktop/mobile photos.
+      image: videoFile ? or(r.image(ov, "field_mobile"), base.overview.image) : or(r.image(ov, "field_desktop"), base.overview.image),
+      imageMobile: videoFile ? undefined : r.image(ov, "field_mobile") || undefined,
+      videoFile: videoFile || undefined,
+      videoHref: !videoFile && isVideo ? `https://www.youtube.com/watch?v=${youtubeId}` : undefined,
     },
     uspBand: {
       ...base.uspBand,

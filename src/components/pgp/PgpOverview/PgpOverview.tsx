@@ -1,5 +1,6 @@
 import { VideoPopup } from "@/components/campus/VideoPopup/VideoPopup";
-import { SafeHtml } from "@/components/SafeHtml/SafeHtml";
+import { PgdmReadMore } from "@/components/pgdm/common/PgdmReadMore";
+import { sanitizeCmsHtml } from "@/lib/security/sanitize-html";
 import type { PgpOverview as PgpOverviewData } from "@/lib/pgp/pgp-entrepreneurship-data";
 import styles from "./PgpOverview.module.scss";
 
@@ -27,7 +28,7 @@ export function PgpOverview({ data }: { data: PgpOverviewData }) {
           {data.heading ? <h2 className={styles.heading}>{data.heading}</h2> : null}
           {/* Drupal rich text (sanitized); the built-in copy uses plain paragraphs. */}
           {data.html ? (
-            <SafeHtml html={data.html} className={`${styles.body} ${styles.rich}`} />
+            <PgdmReadMore html={sanitizeCmsHtml(data.html)} className={`${styles.body} ${styles.rich}`} />
           ) : (
             data.paragraphs.map((p, i) => (
               <p key={i} className={styles.body}>
@@ -36,7 +37,19 @@ export function PgpOverview({ data }: { data: PgpOverviewData }) {
             ))
           )}
         </div>
-        {data.videoHref ? (
+        {data.videoFile ? (
+          // Drupal MP4 (vertical): cropped to the card, poster = field_mobile photo.
+          <div className={styles.media}>
+            <video
+              className={`${styles.photo} ${styles.video}`}
+              src={data.videoFile}
+              poster={data.image || undefined}
+              controls
+              playsInline
+              preload="metadata"
+            />
+          </div>
+        ) : data.videoHref ? (
           <VideoPopup videoUrl={data.videoHref} title={data.heading} className={styles.media}>
             {media}
           </VideoPopup>

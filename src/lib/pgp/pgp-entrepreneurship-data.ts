@@ -16,6 +16,8 @@ export type PgpHero = {
   facts?: string[];
   image: string;
   cta: PgdmCta;
+  /** Optional "Download Brochure" button beside the CTA (Drupal banner field_brochure). */
+  brochure?: PgdmCta;
 };
 
 export type PgpOverview = {
@@ -26,6 +28,8 @@ export type PgpOverview = {
   image: string;
   /** Optional phone-size photo (Drupal field_mobile), used at ≤767px. */
   imageMobile?: string;
+  /** Drupal video file (media--video): plays inline in the photo card instead of the photo. */
+  videoFile?: string;
   /** Video opened from the photo; without it the play button is decorative. */
   videoHref?: string;
 };
