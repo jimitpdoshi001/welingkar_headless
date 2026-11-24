@@ -54,3 +54,6 @@
   text-align: center;
   color: rgba(255, 255, 255, 0.75);
 }
+
+// Optional heading above the logo strip (white on the purple band).
+.title { margin: 0 0 3.2rem; font-size: 4rem; font-weight: 800; line-height: 1.2; color: var(--color-white); text-align: center; @include respond-to(mobile) { font-size: 2.8rem; margin-bottom: 2.4rem; } }

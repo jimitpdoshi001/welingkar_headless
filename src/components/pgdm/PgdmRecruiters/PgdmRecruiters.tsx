@@ -21,6 +21,7 @@ export function PgdmRecruiters({ data }: { data: PgdmRecruitersData }) {
 
   return (
     <div className={styles.root}>
+      {data.title ? <h2 className={styles.title}>{data.title}</h2> : null}
       {slides.length > 0 ? (
         <div className={styles.strip}>
           <Swiper

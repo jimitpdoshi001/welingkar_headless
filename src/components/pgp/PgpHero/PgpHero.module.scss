@@ -26,7 +26,9 @@
   background:
     linear-gradient(0deg, #000 0%, rgb(0 0 0 / 0%) 47%),
     linear-gradient(180deg, rgb(0 0 0 / 70%) 2%, rgb(0 0 0 / 0%) 33%),
-    linear-gradient(90deg, rgb(0 0 0 / 60%) 0%, rgb(0 0 0 / 0%) 59%);
+    // Stronger left-side shade so white text stays readable on busy/light banners from Drupal.
+    linear-gradient(90deg, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 60%) 55%, rgb(0 0 0 / 35%) 100%);
+  @media (max-width: 767px) { background: rgb(0 0 0 / 62%); } // text spans the full width on mobile
 }
 
 .inner {

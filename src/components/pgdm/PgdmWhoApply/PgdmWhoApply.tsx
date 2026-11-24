@@ -14,9 +14,9 @@ export function PgdmWhoApply({ data }: { data: PgdmWhoApplyData }) {
       <div className={styles.cards}>
         {data.cards.filter((card) => card.body).map((card, i) => (
           <div
-            key={card.heading}
+            key={card.heading || i}
             className={`${styles.card} ${i === 0 ? styles.cardTint : ""}`}>
-            <h3 className={styles.cardHeading}>{card.heading}</h3>
+            {card.heading ? <h3 className={styles.cardHeading}>{card.heading}</h3> : null}
             {card.html ? (
               // Sanitized server-side (program-listing listHtml).
               <div className={`${styles.cardBody} ${styles.rich}`} dangerouslySetInnerHTML={{ __html: card.html }} />

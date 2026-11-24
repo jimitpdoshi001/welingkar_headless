@@ -626,6 +626,11 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (recruitersTitle) data.placement.whyRecruit.heading = recruitersTitle;
   if (recruitersParas.length) data.placement.whyRecruit.paragraphs = recruitersParas;
   if (value(node, "field_our_recruiters_description")) data.recruiters.description = value(node, "field_our_recruiters_description");
+  // Media & Entertainment: its only recruiter text ("Alumni at These Companies") is shown as the band heading.
+  if (node.id === String(PROGRAM_LISTING_NIDS.pgpMedia) && data.recruiters.description) {
+    data.recruiters.title = data.recruiters.description;
+    data.recruiters.description = "";
+  }
 
   // Admission and course fees.
   const fees = entities(node, "field_admission_and_course_fees")
@@ -666,6 +671,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   if (value(node, "field_who_should_apply_desc")) data.whoApply.heading = value(node, "field_who_should_apply_desc");
   const [whoCard, eligibilityCard] = data.whoApply.cards;
   if (whoCard && value(node, "field_who_should_apply_sub_title")) whoCard.body = value(node, "field_who_should_apply_sub_title");
+  // Media & Entertainment: Drupal has no card heading, so hide the template's "Who Should Apply?" (it repeats the section heading).
+  if (whoCard && node.id === String(PROGRAM_LISTING_NIDS.pgpMedia)) whoCard.heading = "";
   if (eligibilityCard) {
     if (text("field_eligibility_criteria")) eligibilityCard.heading = text("field_eligibility_criteria");
     if (text("field_eligibility_criteria_descr")) eligibilityCard.body = text("field_eligibility_criteria_descr");

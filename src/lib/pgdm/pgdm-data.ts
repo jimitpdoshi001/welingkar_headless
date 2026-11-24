@@ -109,7 +109,8 @@ export type PgdmPlacement = {
 };
 
 // padded: Drupal's 250x40 logo files hold a ~66px logo centred in transparent padding.
-export type PgdmRecruiters = { heading: string; description?: string; logos: { name: string; image: string; padded?: boolean }[] };
+/** title: optional heading shown above the logo strip (description stays the small caption under it). */
+export type PgdmRecruiters = { heading: string; title?: string; description?: string; logos: { name: string; image: string; padded?: boolean }[] };
 
 export type PgdmFees = {
   heading: string;
