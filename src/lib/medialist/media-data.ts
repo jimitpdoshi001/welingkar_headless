@@ -36,7 +36,7 @@ export const EVENTS_PAGE: MediaGridData = {
     title: "Events",
     subtitle: "Stay up to date with the latest news on every event at WeSchool.",
     crumb: "Events",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1600&auto=format&fit=crop&q=80",
+    image: "/events/hero.webp",
   },
   filters: ["2006", "2025", "2024", "2023"],
   cards: cards(12),
