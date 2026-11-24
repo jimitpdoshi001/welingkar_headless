@@ -151,7 +151,8 @@ export type PgdmFacultyPerson = { id: string; name: string; title: string; image
 export type PgdmProgramFaculty = { heading: string; people: PgdmFacultyPerson[] };
 export type PgdmBandStat = { value: string; label: string };
 // Figma 644:472: Program USPs is a dark photo band with white cards at the base.
-export type PgdmUspBand = { heading: string; image: string; imageMobile?: string; cards: string[] };
+/** imagePosition: optional crop focus for the photo (CSS object-position). */
+export type PgdmUspBand = { heading: string; image: string; imageMobile?: string; imagePosition?: string; cards: string[] };
 
 /** Scholarship block (text + photo + Apply Now). */
 export type PgdmScholarship = {

@@ -313,7 +313,7 @@
 // Section + optional Drupal photo on the right (Career Opportunities). Stacks on tablet/mobile.
 .sideImageRow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 38rem;
+  grid-template-columns: minmax(0, 1fr) 56rem; // larger photo column (Career Opportunities)
   gap: 4rem;
   align-items: start;
   @include respond-to(tab) { grid-template-columns: minmax(0, 1fr); gap: 3rem; }

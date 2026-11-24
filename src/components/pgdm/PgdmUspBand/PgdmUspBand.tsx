@@ -50,6 +50,7 @@ export function PgdmUspBand({ data }: PgdmUspBandProps) {
             <PgdmImage
               src={data.image}
               mobileSrc={data.imageMobile}
+              position={data.imagePosition}
               alt=""
               className={styles.photo}
             />

@@ -4,15 +4,18 @@ type PgdmImageProps = {
   mobileSrc?: string;
   alt: string;
   className?: string;
+  /** Optional CSS object-position (crop focus), e.g. "15% center". */
+  position?: string;
 };
 
 // Plain <img>, or <picture> with a mobile source when Drupal supplies one.
-export function PgdmImage({ src, mobileSrc, alt, className }: PgdmImageProps) {
+export function PgdmImage({ src, mobileSrc, alt, className, position }: PgdmImageProps) {
   const img = (
     <img
       src={src}
       alt={alt}
       className={className}
+      style={position ? { objectPosition: position } : undefined}
     />
   );
   if (!mobileSrc) return img;

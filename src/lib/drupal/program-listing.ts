@@ -502,6 +502,8 @@ function applyProgramSections(data: PgdmData, node: RestEntity): void {
   const uspImage = fileUrl(entities(node, "field_program_usp_desktop_image")[0]);
   if (value(node, "field_program_usp_title")) data.uspBand.heading = value(node, "field_program_usp_title");
   if (uspImage) data.uspBand.image = uspImage;
+  // Media & Entertainment: the subject sits left in the USP photo; keep his face in the crop.
+  if (uspImage && node.id === String(PROGRAM_LISTING_NIDS.pgpMedia)) data.uspBand.imagePosition = "15% center";
   const uspMobile = fileUrl(entities(node, "field_program_usp_mobile_image")[0]);
   if (uspMobile) data.uspBand.imageMobile = uspMobile;
   if (usps.length) data.uspBand.cards = usps;
