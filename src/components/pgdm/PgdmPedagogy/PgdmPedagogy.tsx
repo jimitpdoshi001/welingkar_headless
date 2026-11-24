@@ -10,7 +10,8 @@ type PgdmPedagogyProps = {
 // list on the left, photo filling the right column.
 export function PgdmPedagogy({ data }: PgdmPedagogyProps) {
   return (
-    <div className={styles.card}>
+    // No photo: text spans the whole card instead of leaving an empty right column.
+    <div className={`${styles.card} ${data.image ? "" : styles.noImage}`}>
       <div className={styles.text}>
         <h2 className={styles.heading}>{data.heading}</h2>
         {data.intro ? <PgdmReadMore text={data.intro} className={styles.intro} /> : null}
