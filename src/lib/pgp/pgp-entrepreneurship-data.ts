@@ -42,7 +42,8 @@ export type PgpFees = {
   description: string;
   /** Bullets after the description (e.g. "What's Included"). */
   descriptionItems?: string[];
-  cards: { image: string; label: string; value: string[]; imagePosition?: string }[];
+  /** imageTop: photo fills only the top of the card so its subjects sit above the label. */
+  cards: { image: string; label: string; value: string[]; imagePosition?: string; imageTop?: boolean }[];
   info: ({ heading: string } & PgpTextList)[];
 };
 
@@ -105,7 +106,8 @@ export const PGP_ENTREPRENEURSHIP: PgpData = {
         image: `${IMG}/fees-tuition.webp`,
         label: "Tuition Fees & Other",
         value: ["₹7 lakhs + taxes as applicable", "for 11 months"],
-        imagePosition: "center bottom",
+        imagePosition: "center top",
+        imageTop: true,
       },
       {
         image: `${IMG}/fees-library.webp`,

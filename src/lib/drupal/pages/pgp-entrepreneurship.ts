@@ -101,6 +101,7 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
       // Drupal's photos are small icons today: keep the built-in photo (and its crop) until a large one is uploaded.
       image: big ? r.image(p, "field_image") : (fallback?.image ?? r.image(p, "field_image")),
       imagePosition: big ? undefined : fallback?.imagePosition,
+      imageTop: big ? undefined : fallback?.imageTop,
     };
   }).filter((c) => c.label);
   const info = feeItems.filter((p) => !withImage(p)).map((p) => ({ heading: r.text(p, "field_main_title"), ...textList(plain(p, "field_sub_title")) })).filter((b) => b.heading);

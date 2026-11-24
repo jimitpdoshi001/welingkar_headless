@@ -57,6 +57,9 @@
   height: 100%;
   object-fit: cover;
 }
+// Photo in the top part only (dark card behind the label) so its subjects are not hidden by the label.
+.cardImageTop { height: 27rem; @include respond-to(mobile) { height: 24rem; } }
+.card:has(.cardImageTop) { background: #2b2433; }
 
 // Figma 3081:972: frosted white panel, 380x126, 30px radius.
 .glass {

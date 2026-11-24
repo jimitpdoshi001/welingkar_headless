@@ -22,7 +22,7 @@ export function PgpFees({ data }: { data: PgpFeesData }) {
               <img
                 src={card.image}
                 alt=""
-                className={styles.cardImage}
+                className={`${styles.cardImage} ${card.imageTop ? styles.cardImageTop : ""}`}
                 style={card.imagePosition ? { objectPosition: card.imagePosition } : undefined}
               />
               <div className={styles.glass}>
