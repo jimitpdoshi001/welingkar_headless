@@ -13,6 +13,8 @@ const INCLUDE = [
   "field_programme_overview.field_mobile",
   "field_programme_overview.field_mobile.field_media_image",
   "field_program_usps",
+  "field_program_usp_desktop_image",
+  "field_program_usp_mobile_image",
   "field_admission_and_course_fees",
   "field_admission_and_course_fees.field_image",
 ];
@@ -60,8 +62,8 @@ function headingLists(source: string): { items: string[]; details: string[][] } 
 
 /**
  * PGP EFMB page from Drupal. Each value falls back to the built-in page while Drupal is
- * unreachable; empty Drupal fields hide their element. Kept built-in: USP photo and
- * Ideal For photo (no Drupal field), the Ideal For primary button (Drupal links to the old
+ * unreachable; empty Drupal fields hide their element. Kept built-in: the Ideal For photo
+ * (no Drupal field), the USP photo while its Drupal field is empty, the Ideal For primary button (Drupal links to the old
  * live site), the hero breadcrumb.
  */
 export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<PgpData> {
@@ -125,6 +127,9 @@ export async function withPgpEntrepreneurshipContent(base: PgpData): Promise<Pgp
     },
     uspBand: {
       ...base.uspBand,
+      // Drupal USP photos (plain image files); the built-in photo stays while they are empty.
+      image: or(r.image(n, "field_program_usp_desktop_image"), base.uspBand.image),
+      imageMobile: r.image(n, "field_program_usp_mobile_image") || undefined,
       heading: r.text(n, "field_program_usp_title"),
       cards: r.refs(n, "field_program_usps").map((p) => r.text(p, "field_main_title")).filter(Boolean),
     },
