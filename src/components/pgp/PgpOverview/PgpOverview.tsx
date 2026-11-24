@@ -2,6 +2,7 @@ import { VideoPopup } from "@/components/campus/VideoPopup/VideoPopup";
 import { PgdmReadMore } from "@/components/pgdm/common/PgdmReadMore";
 import { sanitizeCmsHtml } from "@/lib/security/sanitize-html";
 import type { PgpOverview as PgpOverviewData } from "@/lib/pgp/pgp-entrepreneurship-data";
+import { PgpInlineVideo } from "./PgpInlineVideo";
 import styles from "./PgpOverview.module.scss";
 
 const PLAY = "/programmes/pgp-entrepreneurship/play-button.svg";
@@ -38,17 +39,7 @@ export function PgpOverview({ data }: { data: PgpOverviewData }) {
           )}
         </div>
         {data.videoFile ? (
-          // Drupal MP4 (vertical), cropped to the card. No poster: "#t=0.1" makes every browser
-          // show the video's first frame (the speaker) as the thumbnail.
-          <div className={styles.media}>
-            <video
-              className={`${styles.photo} ${styles.video}`}
-              src={`${data.videoFile}#t=0.1`}
-              controls
-              playsInline
-              preload="metadata"
-            />
-          </div>
+          <PgpInlineVideo src={data.videoFile} title={data.heading} />
         ) : data.videoHref ? (
           <VideoPopup videoUrl={data.videoHref} title={data.heading} className={styles.media}>
             {media}
