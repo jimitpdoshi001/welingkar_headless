@@ -58,8 +58,6 @@ export type PgdmCurriculumSubject = string | { label: string; children: PgdmCurr
 export type PgdmCurriculum = {
   heading: string;
   description: string;
-  /** Optional side photo (Drupal field_programme_structure_image). */
-  image?: string;
   // year: Drupal academic year ("year_i", "year_ii"); without it, three trimesters per year.
   trimesters: { id: string; label: string; subjects: PgdmCurriculumSubject[]; objectives: string[]; year?: string }[];
 };

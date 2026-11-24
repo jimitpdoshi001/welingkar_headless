@@ -310,7 +310,7 @@
   text-wrap: pretty;
 }
 
-// Section + optional Drupal photo on the right (Curriculum, Career). Stacks on tablet/mobile.
+// Section + optional Drupal photo on the right (Career Opportunities). Stacks on tablet/mobile.
 .sideImageRow {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 38rem;
@@ -319,5 +319,3 @@
   @include respond-to(tab) { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
 }
 .sideImage { display: block; width: 100%; height: auto; border-radius: 2rem; @include respond-to(tab) { max-height: 40rem; object-fit: cover; } }
-// Portrait photo: cap its height on stacked layouts so it doesn't dominate.
-.sideImageTall { @include respond-to(tab) { aspect-ratio: 16 / 9; } }

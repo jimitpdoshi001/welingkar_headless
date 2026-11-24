@@ -209,15 +209,7 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
               className={`${styles.band} ${styles.anchor}`}
             >
               <div className={`container ${styles.block}`}>
-                {/* Optional Drupal photo beside the trimester cards. */}
-                {data.curriculum.image ? (
-                  <div className={styles.sideImageRow}>
-                    <PgdmCurriculum data={data.curriculum} />
-                    <img src={data.curriculum.image} alt="" className={`${styles.sideImage} ${styles.sideImageTall}`} loading="lazy" />
-                  </div>
-                ) : (
-                  <PgdmCurriculum data={data.curriculum} />
-                )}
+                <PgdmCurriculum data={data.curriculum} />
               </div>
             </section>
           ) : null}

@@ -336,8 +336,7 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
   }
 
   // Section photos (plain image files on the node); shown only when filled.
-  const structureImage = fileUrl(entities(node, "field_programme_structure_image")[0]);
-  if (structureImage) data.curriculum.image = structureImage;
+  // field_programme_structure_image is not shown: the trimester cards keep the full width (requested).
   const careerImage = fileUrl(entities(node, "field_career_opportunities_image")[0]);
   if (careerImage) data.career.image = careerImage;
 
