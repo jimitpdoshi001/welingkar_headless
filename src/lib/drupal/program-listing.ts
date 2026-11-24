@@ -308,12 +308,6 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
     if (desktop) data.hero.image = desktop;
     const mobile = mediaUrl(banner, "field_mobile");
     if (mobile) data.hero.imageMobile = mobile;
-    // Media & Entertainment: banner photo supplied directly (overrides the Drupal banner image).
-    // Remove this once the photo is uploaded to node 5767's field_banner in Drupal.
-    if (node.id === String(PROGRAM_LISTING_NIDS.pgpMedia)) {
-      data.hero.image = "/programmes/pgp-media/hero.webp";
-      data.hero.imageMobile = undefined;
-    }
   }
 
   // Stats strip under the hero.
