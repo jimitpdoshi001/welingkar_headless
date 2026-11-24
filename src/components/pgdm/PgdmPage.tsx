@@ -108,11 +108,15 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                     title={data.whyProgram.heading}
                     className={styles.whyVideoLink}
                   >
-                    <img
-                      src={data.whyProgram.videoThumb}
-                      alt=""
-                      className={styles.whyPhoto}
-                    />
+                    <picture className={styles.whyPicture}>
+                      {/* Phone-size photo from Drupal when present. */}
+                      {data.whyProgram.videoThumbMobile ? <source media="(max-width: 767px)" srcSet={data.whyProgram.videoThumbMobile} /> : null}
+                      <img
+                        src={data.whyProgram.videoThumb}
+                        alt=""
+                        className={`${styles.whyPhoto} ${data.whyProgram.videoThumbMobile ? styles.whyPhotoMobileNatural : ""}`}
+                      />
+                    </picture>
                     {/* Play button: marks the photo as a video. */}
                     <span className={styles.whyPlay} aria-hidden="true">
                       <svg width="72" height="72" viewBox="0 0 64 64" fill="none">
@@ -122,11 +126,14 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
                     </span>
                   </VideoPopup>
                 ) : (
-                  <img
-                    src={data.whyProgram.videoThumb}
-                    alt=""
-                    className={styles.whyPhoto}
-                  />
+                  <picture className={styles.whyPicture}>
+                    {data.whyProgram.videoThumbMobile ? <source media="(max-width: 767px)" srcSet={data.whyProgram.videoThumbMobile} /> : null}
+                    <img
+                      src={data.whyProgram.videoThumb}
+                      alt=""
+                      className={`${styles.whyPhoto} ${data.whyProgram.videoThumbMobile ? styles.whyPhotoMobileNatural : ""}`}
+                    />
+                  </picture>
                 )}
               </div>
             </section>
@@ -202,7 +209,15 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
               className={`${styles.band} ${styles.anchor}`}
             >
               <div className={`container ${styles.block}`}>
-                <PgdmCurriculum data={data.curriculum} />
+                {/* Optional Drupal photo beside the trimester cards. */}
+                {data.curriculum.image ? (
+                  <div className={styles.sideImageRow}>
+                    <PgdmCurriculum data={data.curriculum} />
+                    <img src={data.curriculum.image} alt="" className={`${styles.sideImage} ${styles.sideImageTall}`} loading="lazy" />
+                  </div>
+                ) : (
+                  <PgdmCurriculum data={data.curriculum} />
+                )}
               </div>
             </section>
           ) : null}
@@ -219,7 +234,15 @@ export function PgdmPage({ data, accent }: PgdmPageProps) {
           {/* 14. Career Opportunities */}
           {data.career.description || data.career.tabs.length > 0 ? (
             <section className={`container ${styles.block}`}>
-              <PgdmCareer data={data.career} />
+              {/* Optional Drupal photo beside the description and role tabs. */}
+              {data.career.image ? (
+                <div className={styles.sideImageRow}>
+                  <PgdmCareer data={data.career} />
+                  <img src={data.career.image} alt="" className={styles.sideImage} loading="lazy" />
+                </div>
+              ) : (
+                <PgdmCareer data={data.career} />
+              )}
             </section>
           ) : null}
 

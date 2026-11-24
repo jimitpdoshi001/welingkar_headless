@@ -203,6 +203,10 @@
 
   @include respond-to(mobile) { order: -1; border-radius: 2rem; }
 }
+// <picture> wrapper is layout-transparent so the photo keeps its grid/order rules.
+.whyPicture { display: contents; }
+// Drupal mobile photo: show it at its own (portrait) shape on phones instead of the desktop crop.
+.whyPhotoMobileNatural { @include respond-to(mobile) { aspect-ratio: auto; height: auto; } }
 
 // Photo fades into the purple band (#4a3460) at the bottom (baked into the image).
 .band { background-color: var(--pgdm-band, var(--color-secondary)); }
@@ -305,3 +309,15 @@
   // Balanced line breaks: avoids a long stretched line before a short last word.
   text-wrap: pretty;
 }
+
+// Section + optional Drupal photo on the right (Curriculum, Career). Stacks on tablet/mobile.
+.sideImageRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38rem;
+  gap: 4rem;
+  align-items: start;
+  @include respond-to(tab) { grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+}
+.sideImage { display: block; width: 100%; height: auto; border-radius: 2rem; @include respond-to(tab) { max-height: 40rem; object-fit: cover; } }
+// Portrait photo: cap its height on stacked layouts so it doesn't dominate.
+.sideImageTall { @include respond-to(tab) { aspect-ratio: 16 / 9; } }

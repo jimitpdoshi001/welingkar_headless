@@ -327,10 +327,19 @@ export function applyProgramListing(base: PgdmData, node: RestEntity | null): Pg
     const bodyHtml = listHtml(value(overview, "field_desc"));
     if (bodyHtml) data.whyProgram.html = bodyHtml;
     if (image) data.whyProgram.videoThumb = image;
+    // Phone-size photo (field_mobile media); desktop keeps field_desktop.
+    const mobileImage = mediaUrl(overview, "field_mobile");
+    if (mobileImage) data.whyProgram.videoThumbMobile = mobileImage;
     // field_type "video": the photo links to the YouTube video.
     const video = value(overview, "field_type") === "video" ? toHref(value(overview, "field_youtube_id")) : null;
     if (video) data.whyProgram.videoHref = video;
   }
+
+  // Section photos (plain image files on the node); shown only when filled.
+  const structureImage = fileUrl(entities(node, "field_programme_structure_image")[0]);
+  if (structureImage) data.curriculum.image = structureImage;
+  const careerImage = fileUrl(entities(node, "field_career_opportunities_image")[0]);
+  if (careerImage) data.career.image = careerImage;
 
   // Vision / Mission.
   const visionTitle = value(node, "field_our_vision_title");

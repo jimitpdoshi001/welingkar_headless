@@ -21,7 +21,8 @@ export type PgdmHeroData = {
 export type PgdmFeature = { id: string; title: string; description?: string; icon?: string };
 
 // html: sanitized Drupal markup, set only when the text has bullet lists.
-export type PgdmWhyProgram = { heading: string; body: string; html?: string; videoThumb: string; videoHref?: string };
+/** videoThumbMobile: optional phone-size photo (Drupal field_mobile); videoThumb is used on desktop. */
+export type PgdmWhyProgram = { heading: string; body: string; html?: string; videoThumb: string; videoThumbMobile?: string; videoHref?: string };
 
 export type PgdmGlance = {
   heading: string;
@@ -57,6 +58,8 @@ export type PgdmCurriculumSubject = string | { label: string; children: PgdmCurr
 export type PgdmCurriculum = {
   heading: string;
   description: string;
+  /** Optional side photo (Drupal field_programme_structure_image). */
+  image?: string;
   // year: Drupal academic year ("year_i", "year_ii"); without it, three trimesters per year.
   trimesters: { id: string; label: string; subjects: PgdmCurriculumSubject[]; objectives: string[]; year?: string }[];
 };
@@ -78,6 +81,8 @@ export type PgdmClassProfile = { heading: string; description: string; items: Pg
 export type PgdmCareer = {
   heading: string;
   description: string;
+  /** Optional side photo (Drupal field_career_opportunities_image). */
+  image?: string;
   /** Sanitized HTML when the description has bullet points. */
   html?: string;
   /** Extra bullet content shown under the description (Drupal field_career_opportunities_extra). */
