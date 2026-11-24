@@ -19,9 +19,9 @@
 /* Filters */
 .filterBar { display: flex; align-items: center; justify-content: space-between; gap: 1.6rem; margin-bottom: 3.6rem; flex-wrap: wrap; }
 .years { display: flex; gap: 2.8rem; }
-.year { font-size: 1.6rem; color: var(--color-gray); cursor: pointer; padding-bottom: 0.4rem; }
+.year { font-size: 1.6rem; color: var(--color-gray); cursor: pointer; padding: 0 0 0.4rem; border: 0; border-bottom: 2px solid transparent; background: none; font-family: inherit; }
 .yearActive { color: var(--color-primary); font-weight: 700; border-bottom: 2px solid var(--color-primary); }
-.select { font-size: 1.4rem; color: var(--color-dark-gray); border: 1px solid var(--color-light-gray); border-radius: 3rem; padding: 1rem 2rem; white-space: nowrap; }
+.select { font: inherit; font-size: 1.4rem; background: transparent; cursor: pointer; color: var(--color-dark-gray); border: 1px solid var(--color-light-gray); border-radius: 3rem; padding: 1rem 2rem; white-space: nowrap; }
 
 /* Card grid */
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4rem; @include respond-to(tab) { grid-template-columns: repeat(2, 1fr); } @include respond-to(mobile) { grid-template-columns: 1fr; } }
@@ -49,3 +49,8 @@
 .text { font-size: 1.5rem; font-weight: 600; line-height: 1.4; color: var(--color-black); margin-bottom: 1.4rem; }
 
 .loadMore { text-align: center; margin-top: 4rem; }
+
+// Older years: plain text dropdown after the four year tabs (Figma caret).
+.yearSelect { font: inherit; font-size: 1.6rem; color: var(--color-gray); border: 0; border-bottom: 2px solid transparent; background: transparent; padding: 0 0 0.4rem; cursor: pointer; }
+.years { flex-wrap: wrap; row-gap: 1.2rem; @include respond-to(mobile) { gap: 2rem; } }
+.empty { text-align: center; font-size: 1.6rem; color: var(--color-gray); padding: 6rem 0; }

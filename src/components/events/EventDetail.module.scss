@@ -1,0 +1,35 @@
+@use "../../styles/base/mixins" as *;
+
+.detail { max-width: 104rem; padding-block: 6rem 8rem; @include respond-to(mobile) { padding-block: 4rem 6rem; } }
+
+.image { display: block; width: auto; max-width: 100%; height: auto; margin: 0 auto 4rem; border-radius: 2rem; }
+
+// 16:9 responsive YouTube embed.
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin-bottom: 4rem;
+  border-radius: 2rem;
+  overflow: hidden;
+  iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+}
+
+// CMS description: lists, tables and inline images from Drupal.
+.body {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--color-black);
+  overflow-wrap: anywhere;
+  p, ul, ol, table { margin-bottom: 1.6rem; }
+  ul { list-style: disc; padding-left: 2.4rem; }
+  ol { list-style: decimal; padding-left: 2.4rem; }
+  li + li { margin-top: 0.6rem; }
+  b, strong { font-weight: 700; }
+  a { color: var(--color-primary); text-decoration: underline; }
+  img { max-width: 100%; height: auto; border-radius: 1.2rem; }
+  // Wide tables scroll inside themselves instead of widening the page.
+  table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+  th, td { padding: 0.8rem 1.2rem; border: 1px solid var(--color-light-gray); vertical-align: top; }
+}
+
+.back { display: inline-flex; margin-top: 3rem; }
