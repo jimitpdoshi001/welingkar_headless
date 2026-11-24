@@ -203,8 +203,8 @@
 
   @include respond-to(mobile) { order: -1; border-radius: 2rem; }
 }
-// <picture> wrapper is layout-transparent so the photo keeps its grid/order rules.
-.whyPicture { display: contents; }
+// <picture> wrapper is the grid item (photo column); on mobile it moves above the text like the photo did.
+.whyPicture { display: block; min-width: 0; @include respond-to(mobile) { order: -1; } }
 // Drupal mobile photo: show it at its own (portrait) shape on phones instead of the desktop crop.
 .whyPhotoMobileNatural { @include respond-to(mobile) { aspect-ratio: auto; height: auto; } }
 
