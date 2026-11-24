@@ -617,7 +617,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
   "/enquire-now": {
     title: "Enquiry Form",
     subtitle: "Send us your query — our team will get back to you shortly.",
-    image: HERO.office,
+    image: "/enquire/hero.webp",
     accent: "orange",
     breadcrumbs: crumbs(["Home", "/"], ["Enquiry Form"]),
     sections: [
