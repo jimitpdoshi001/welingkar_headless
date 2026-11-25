@@ -32,7 +32,7 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
         {d.profileHref ? (
           <Link
             href={d.profileHref}
-            className={`btn primary-outline ${styles.smallBtn} ${styles.profileBtn}`}>
+            className={`btn primary ${styles.smallBtn} ${styles.profileBtn}`}>
             About Faculty
           </Link>
         ) : null}
@@ -68,7 +68,7 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
               {d.profileHref ? (
                 <Link
                   href={d.profileHref}
-                  className={`btn primary-outline ${styles.smallBtn} ${styles.profileBtn}`}>
+                  className={`btn primary ${styles.smallBtn} ${styles.profileBtn}`}>
                   About Faculty
                 </Link>
               ) : null}

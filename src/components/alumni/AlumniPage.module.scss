@@ -636,4 +636,4 @@ $orange: #f77100;
 .dialogImg { width: 26rem; height: auto; border-radius: 2rem; flex: none; @include respond-to(mobile) { width: 100%; max-width: 32rem; } }
 .dialogBody p { font-size: 1.6rem; line-height: 1.6; white-space: pre-line; & + p { margin-top: 1.6rem; } }
 // "About Faculty": outline button beside Read More (card) / under the role (pop-up).
-.profileBtn { margin-left: 1rem; background: var(--color-white); .dialogHead & { margin: 1.4rem 0 0; } }
+.profileBtn { margin-left: 1rem; .dialogHead & { margin: 1.4rem 0 0; } }
