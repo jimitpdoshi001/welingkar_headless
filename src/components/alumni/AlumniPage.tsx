@@ -6,11 +6,11 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcrumb";
-import { ALUMNI_APP, ALUMNI_DIRECTORS, ALUMNI_GALLERY, ALUMNI_NEWS, type AlumniData } from "@/lib/alumni/alumni-data";
+import { ALUMNI_APP, ALUMNI_DIRECTORS, ALUMNI_GALLERY, ALUMNI_NEWS, type AlumniData, type AlumniDirector } from "@/lib/alumni/alumni-data";
 import { DirectorCard } from "./DirectorCard";
 import styles from "./AlumniPage.module.scss";
 
-export function AlumniPage({ data }: { data: AlumniData }) {
+export function AlumniPage({ data, directors = ALUMNI_DIRECTORS }: { data: AlumniData; directors?: AlumniDirector[] }) {
   const { hero, experience, programs, quote, reconnect } = data;
   return (
     <SearchProvider>
@@ -34,7 +34,7 @@ export function AlumniPage({ data }: { data: AlumniData }) {
           <section className={`container ${styles.campuses}`}>
             <h2 className={styles.heading}>Message from Our Directors</h2>
             <ul className={styles.campusGrid}>
-              {ALUMNI_DIRECTORS.map((d) => (
+              {directors.map((d) => (
                 <DirectorCard
                   key={d.name}
                   director={d}

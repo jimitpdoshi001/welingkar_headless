@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 import type { AlumniDirector } from "@/lib/alumni/alumni-data";
@@ -28,6 +29,13 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
           onClick={() => ref.current?.showModal()}>
           Read More
         </button>
+        {d.profileHref ? (
+          <Link
+            href={d.profileHref}
+            className={styles.profileLink}>
+            View Faculty Profile
+          </Link>
+        ) : null}
       </div>
 
       <dialog
@@ -48,14 +56,22 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
             <Image
               src={d.image}
               alt=""
-              width={120}
-              height={116}
+              width={260}
+              height={252}
+              loading="eager" // inside a closed dialog: lazy loading would leave it blank on open
               className={styles.dialogImg}
             />
             <div>
               <h3 className={styles.directorName}>{d.name}</h3>
               <p className={styles.directorRole}>{d.role}</p>
               {d.org ? <p className={styles.directorRole}>{d.org}</p> : null}
+              {d.profileHref ? (
+                <Link
+                  href={d.profileHref}
+                  className={styles.profileLink}>
+                  View Faculty Profile
+                </Link>
+              ) : null}
             </div>
           </div>
           <div className={styles.dialogBody}>
