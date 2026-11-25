@@ -12,6 +12,7 @@ export type EventCard = { id: string; slug: string; title: string; date: string;
 const PAGE = 12;
 /** Years up to this one are grouped under the "Archives" button. */
 const ARCHIVE_UNTIL = 2020;
+const ARCHIVE = "archive";
 const noopSubscribe = () => () => {};
 const readUrlCampus = (): EventCity | "" => {
   const c = new URLSearchParams(window.location.search).get("campus");
@@ -23,7 +24,7 @@ const CAMPUSES: { value: EventCity; label: string }[] = [
   { value: "bengaluru", label: "Bengaluru" },
 ];
 
-/** Events listing: year list (vertical, older years under Archives), campus select, card grid and Load More. */
+/** Events listing: year list (vertical: Archives, then years ascending), campus select, card grid and Load More. */
 export function EventsGrid({ events }: { events: EventCard[] }) {
   // "?campus=mumbai|bengaluru" (old /events/<campus> URLs redirect here) picks the campus; default Mumbai.
   // Read from the URL on the client only (server snapshot ""), so the listing stays statically cached.
@@ -38,15 +39,15 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
     () => [...new Set(events.filter((e) => e.city === campus).map((e) => e.year).filter(Boolean))].sort((a, b) => Number(b) - Number(a)),
     [events, campus],
   );
-  // A picked year that this campus has no events for falls back to the campus's newest year.
-  const year = yearPick && years.includes(yearPick) ? yearPick : (years[0] ?? "");
-  const recentYears = years.filter((y) => Number(y) > ARCHIVE_UNTIL);
-  const archiveYears = years.filter((y) => Number(y) <= ARCHIVE_UNTIL);
-  const [archiveOpen, setArchiveOpen] = useState(false);
-  // Archive list stays open while an archived year is selected.
-  const showArchive = archiveOpen || archiveYears.includes(year);
+  // Years after ARCHIVE_UNTIL get their own button (oldest first); older events share one "Archives" button.
+  const recentYears = years.filter((y) => Number(y) > ARCHIVE_UNTIL).sort((x, z) => Number(x) - Number(z));
+  const hasArchive = years.some((y) => Number(y) <= ARCHIVE_UNTIL);
+  const options = [...(hasArchive ? [ARCHIVE] : []), ...recentYears];
+  // A pick this campus has no events for falls back to its newest year (or Archives when that is all it has).
+  const year = yearPick && options.includes(yearPick) ? yearPick : (recentYears.at(-1) ?? (hasArchive ? ARCHIVE : ""));
 
-  const filtered = events.filter((e) => e.year === year && e.city === campus);
+  // Archives: every event up to ARCHIVE_UNTIL, newest first (same order as the Drupal list).
+  const filtered = events.filter((e) => e.city === campus && (year === ARCHIVE ? Number(e.year) <= ARCHIVE_UNTIL : e.year === year));
   const shown = filtered.slice(0, count);
 
   // Any filter change starts the list again from the first page.
@@ -85,44 +86,20 @@ export function EventsGrid({ events }: { events: EventCard[] }) {
       </div>
 
       <div className={styles.eventsLayout}>
-        {/* Years stacked vertically: 2021+ as tabs, older years under "Archives". */}
+        {/* Years stacked vertically: Archives (2020 and older), then 2021, 2022… */}
         <nav
           className={styles.yearRail}
           aria-label="Year">
-          {recentYears.map((y) => (
+          {options.map((y) => (
             <button
               key={y}
               type="button"
               aria-pressed={y === year}
               className={`${styles.railYear} ${y === year ? styles.railYearActive : ""}`}
               onClick={() => pickYear(y)}>
-              {y}
+              {y === ARCHIVE ? "Archives" : y}
             </button>
           ))}
-          {archiveYears.length ? (
-            <>
-              <button
-                type="button"
-                aria-expanded={showArchive}
-                className={`${styles.railYear} ${styles.archiveBtn} ${archiveYears.includes(year) ? styles.railYearActive : ""}`}
-                onClick={() => setArchiveOpen((o) => !o)}>
-                Archives
-                <span className={`${styles.archiveCaret} ${showArchive ? styles.archiveCaretOpen : ""}`} aria-hidden="true" />
-              </button>
-              {showArchive
-                ? archiveYears.map((y) => (
-                    <button
-                      key={y}
-                      type="button"
-                      aria-pressed={y === year}
-                      className={`${styles.railYear} ${styles.archiveYear} ${y === year ? styles.railYearActive : ""}`}
-                      onClick={() => pickYear(y)}>
-                      {y}
-                    </button>
-                  ))
-                : null}
-            </>
-          ) : null}
         </nav>
         <div>
       {shown.length ? (

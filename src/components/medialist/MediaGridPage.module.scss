@@ -104,10 +104,6 @@
   &:hover { color: var(--color-primary); }
 }
 .railYearActive { color: var(--color-primary); font-weight: 700; border-left-color: var(--color-primary); }
-.archiveBtn { margin-top: 0.8rem; }
-.archiveYear { padding-left: 3.2rem; font-size: 1.5rem; }
-.archiveCaret { width: 0.8rem; height: 0.8rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.2s ease; }
-.archiveCaretOpen { transform: rotate(-135deg); }
 .eventsGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); @include respond-to(tab) { grid-template-columns: repeat(2, minmax(0, 1fr)); } @include respond-to(mobile) { grid-template-columns: minmax(0, 1fr); } }
-// Same title height on every card (3 lines); longer titles scroll inside.
-.eventTitle { height: calc(1.5rem * 1.4 * 3); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding-right: 0.4rem; }
+// Same title height on every card; longer titles scroll inside.
+.eventTitle { height: 4.3rem; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding-right: 0.4rem; }
