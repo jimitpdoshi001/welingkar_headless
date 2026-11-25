@@ -6,7 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { WeResearchBreadcrumb } from "@/components/weresearch/WeResearchBreadcrumb";
-import { ALUMNI_APP, ALUMNI_DIRECTORS, ALUMNI_GALLERY, ALUMNI_NEWS, type AlumniData, type AlumniDirector } from "@/lib/alumni/alumni-data";
+import { ALUMNI_APP, ALUMNI_CAMPUSES, ALUMNI_DIRECTORS, ALUMNI_GALLERY, ALUMNI_NEWS, type AlumniData, type AlumniDirector } from "@/lib/alumni/alumni-data";
 import { DirectorCard } from "./DirectorCard";
 import styles from "./AlumniPage.module.scss";
 
@@ -30,7 +30,24 @@ export function AlumniPage({ data, directors = ALUMNI_DIRECTORS }: { data: Alumn
             </div>
           </section>
 
-          {/* Directors (replaces the campus cards): photo cards, Read More opens the full message. */}
+          <section className={`container ${styles.campuses}`}>
+            <h2 className={styles.heading}>Our Campuses</h2>
+            <ul className={styles.campusGrid}>
+              {ALUMNI_CAMPUSES.map((c) => (
+                <li key={c.title} className={styles.campusCard}>
+                  <Image src={c.image} alt={c.title} fill sizes="(max-width: 767px) 100vw, 400px" className={styles.cover} />
+                  <div className={styles.campusPanel}>
+                    <h3 className={styles.campusTitle}>{c.title}</h3>
+                    <Link href={c.href} className={`btn primary ${styles.smallBtn}`}>
+                      Know More
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Directors: photo cards, Read More opens the full message. */}
           <section className={`container ${styles.campuses}`}>
             <h2 className={styles.heading}>Message from Our Directors</h2>
             <ul className={styles.campusGrid}>
