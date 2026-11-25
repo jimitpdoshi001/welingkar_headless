@@ -1,4 +1,7 @@
+"use client";
+
 import clsx from "clsx";
+import { useState } from "react";
 
 import styles from "./SiteForm.module.scss";
 
@@ -10,6 +13,8 @@ export type FormField = {
   required?: boolean;
   full?: boolean;
   note?: string;
+  /** Show (and require/submit) this field only when another field has one of these values. */
+  showWhen?: { field: string; values: string[] };
 };
 
 export type FormConfig = {
@@ -29,6 +34,10 @@ export function SiteForm({ config }: { config: FormConfig }) {
   const hasFile = config.fields.some((f) => f.type === "file");
   const bgClass = config.tint === "cream" ? "bg-light-yellow" : config.tint === "purple" ? "bg-secondary" : "";
   const onDark = config.tint === "purple";
+  // Current select/radio values, used only for showWhen fields.
+  const [values, setValues] = useState<Record<string, string>>({});
+  const track = (name: string, value: string) => setValues((v) => ({ ...v, [name]: value }));
+  const visible = (f: FormField) => !f.showWhen || f.showWhen.values.includes(values[f.showWhen.field] ?? "");
 
   return (
     <section className={bgClass}>
@@ -58,7 +67,7 @@ export function SiteForm({ config }: { config: FormConfig }) {
           </p>
 
           <div className={styles.grid}>
-            {config.fields.map((field) => (
+            {config.fields.filter(visible).map((field) => (
               <div
                 key={field.name}
                 className={clsx(styles.field, (field.full || field.type === "textarea") && styles.fieldFull)}>
@@ -83,7 +92,8 @@ export function SiteForm({ config }: { config: FormConfig }) {
                     name={field.name}
                     required={field.required}
                     className={styles.input}
-                    defaultValue="">
+                    defaultValue=""
+                    onChange={(e) => track(field.name, e.target.value)}>
                     <option
                       value=""
                       disabled>
@@ -108,6 +118,7 @@ export function SiteForm({ config }: { config: FormConfig }) {
                           name={field.name}
                           value={opt}
                           required={field.required && i === 0}
+                          onChange={(e) => track(field.name, e.target.value)}
                         />
                         {opt}
                       </label>
