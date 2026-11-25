@@ -202,6 +202,8 @@ export async function getCampusFacultyGrid(
     if (options.roleTabs) {
       // Role tabs come from the designation; the generic "faculty" tag is dropped.
       const roles = ROLE_TABS.filter((t) => t.match.test(r.designation)).map((t) => t.slug);
+      // Library also takes anyone Drupal tags "librarian" (e.g. "Head - Learning Resource Centre").
+      if (slugs.includes("librarian") && !roles.includes("role-librarian")) roles.push("role-librarian");
       slugs = [...slugs.filter((slug) => slug !== "faculty" && slug !== "librarian"), ...roles];
     }
     return {
