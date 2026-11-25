@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRef } from "react";
 
 import type { AlumniDirector } from "@/lib/alumni/alumni-data";
 import styles from "./AlumniPage.module.scss";
 
-/** Director photo card; Read More opens their full message in a modal (native <dialog>: Esc, focus trap, backdrop). */
+/** Director photo card; View Message opens their full message in a modal (native <dialog>: Esc, focus trap, backdrop). */
 export function DirectorCard({ director: d }: { director: AlumniDirector }) {
   const ref = useRef<HTMLDialogElement>(null);
 
@@ -27,15 +26,8 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
           type="button"
           className={`btn primary ${styles.smallBtn}`}
           onClick={() => ref.current?.showModal()}>
-          Read More
+          View Message
         </button>
-        {d.profileHref ? (
-          <Link
-            href={d.profileHref}
-            className={`btn primary ${styles.smallBtn} ${styles.profileBtn}`}>
-            About Faculty
-          </Link>
-        ) : null}
       </div>
 
       <dialog
@@ -65,13 +57,6 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
               <h3 className={styles.directorName}>{d.name}</h3>
               <p className={styles.directorRole}>{d.role}</p>
               {d.org ? <p className={styles.directorRole}>{d.org}</p> : null}
-              {d.profileHref ? (
-                <Link
-                  href={d.profileHref}
-                  className={`btn primary ${styles.smallBtn} ${styles.profileBtn}`}>
-                  About Faculty
-                </Link>
-              ) : null}
             </div>
           </div>
           <div className={styles.dialogBody}>

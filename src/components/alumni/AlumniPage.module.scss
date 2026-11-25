@@ -635,5 +635,3 @@ $orange: #f77100;
 .dialogHead { display: flex; align-items: center; gap: 2.8rem; margin-bottom: 2.8rem; padding-right: 4rem; @include respond-to(mobile) { flex-direction: column; align-items: flex-start; gap: 1.6rem; padding-right: 0; } }
 .dialogImg { width: 26rem; height: auto; border-radius: 2rem; flex: none; @include respond-to(mobile) { width: 100%; max-width: 32rem; } }
 .dialogBody p { font-size: 1.6rem; line-height: 1.6; white-space: pre-line; & + p { margin-top: 1.6rem; } }
-// "About Faculty": outline button beside Read More (card) / under the role (pop-up).
-.profileBtn { margin-left: 1rem; .dialogHead & { margin: 1.4rem 0 0; } }
