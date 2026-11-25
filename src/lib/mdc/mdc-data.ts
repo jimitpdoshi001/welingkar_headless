@@ -63,6 +63,8 @@ const MUMBAI_CLIENTS: { name: string; image: string }[] = [
 ].map(([name, file]) => ({ name, image: `/mdc/mumbai/clients/${file}.png` }));
 
 export const MDC: MdcData = {
+  // Gallery: same as Bengaluru (5 photos, uncaptioned first; captioned ones via Load More).
+  galleryRules: { captionedInLoadMore: true },
   hero: {
     title: "Build Future-Ready Leaders for the Age of AI",
     subtitle: "Executive education and custom training programs by WeSchool Management Development Centre.",

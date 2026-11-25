@@ -32,14 +32,14 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); // minmax: long select options can't widen the page
   gap: 2rem 2.4rem;
   margin-bottom: 2.8rem;
 
-  @include respond-to(mobile) { grid-template-columns: 1fr; }
+  @include respond-to(mobile) { grid-template-columns: minmax(0, 1fr); }
 }
 
-.field { display: flex; flex-direction: column; }
+.field { display: flex; flex-direction: column; min-width: 0; }
 .fieldFull { grid-column: 1 / -1; }
 
 .label {
@@ -52,6 +52,9 @@
 .req { color: var(--faculty-accent, var(--color-primary)); }
 
 .input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   font-family: inherit;
   font-size: 1.5rem;
   padding: 1.2rem 1.4rem;
