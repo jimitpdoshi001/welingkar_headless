@@ -63,7 +63,8 @@ export const ALUMNI: AlumniData = {
 const V2 = (name: string) => `/alumni/v2/${name}.webp`;
 
 export type AlumniCampus = { title: string; image: string; href: string };
-export type AlumniDirector = { image: string; paragraphs: string[]; name: string; role: string; org?: string };
+/** profileHref: their faculty profile page (resolved from the Faculty API at request time). */
+export type AlumniDirector = { image: string; paragraphs: string[]; name: string; role: string; org?: string; profileHref?: string };
 export type AlumniNews = { title: string; text?: string; date: string; image?: string; href: string };
 
 export const ALUMNI_CAMPUSES: AlumniCampus[] = [
