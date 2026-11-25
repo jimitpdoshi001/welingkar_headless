@@ -69,3 +69,45 @@
   // No extra focus ring on click (the green border already marks the selection).
   &:focus, &:focus-visible { outline: none; }
 }
+
+// ---- Events: vertical year rail + 3-column grid (scoped; /media keeps the shared grid) ----
+.eventsLayout {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 4rem;
+  align-items: start;
+  @include respond-to(mobile) { grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+}
+.yearRail {
+  position: sticky;
+  top: 14rem;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-light-gray);
+  @include respond-to(mobile) { position: static; }
+}
+.railYear {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-left: -1px;
+  padding: 1rem 0 1rem 1.6rem;
+  border: 0;
+  border-left: 3px solid transparent;
+  background: none;
+  font: inherit;
+  font-size: 1.6rem;
+  color: var(--color-gray);
+  text-align: left;
+  cursor: pointer;
+  &:hover { color: var(--color-primary); }
+}
+.railYearActive { color: var(--color-primary); font-weight: 700; border-left-color: var(--color-primary); }
+.archiveBtn { margin-top: 0.8rem; }
+.archiveYear { padding-left: 3.2rem; font-size: 1.5rem; }
+.archiveCaret { width: 0.8rem; height: 0.8rem; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); transition: transform 0.2s ease; }
+.archiveCaretOpen { transform: rotate(-135deg); }
+.eventsGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); @include respond-to(tab) { grid-template-columns: repeat(2, minmax(0, 1fr)); } @include respond-to(mobile) { grid-template-columns: minmax(0, 1fr); } }
+// Same title height on every card (3 lines); longer titles scroll inside.
+.eventTitle { height: calc(1.5rem * 1.4 * 3); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; padding-right: 0.4rem; }
