@@ -212,7 +212,7 @@
 .directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
 .directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
 // Justified like the other long copy on the site; no hyphen breaks.
-.directorRich { text-align: justify; hyphens: none; p + p { margin-top: 1.2rem; } strong, b { font-weight: 700; } }
+.directorRich { text-align: justify; hyphens: none; @include respond-to(mobile) { text-align: left; } p + p { margin-top: 1.2rem; } strong, b { font-weight: 700; } }
 
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
@@ -347,3 +347,6 @@
 
 // Tab anchors: land below the fixed header + docked section bar.
 .page section[id] { scroll-margin-top: 17rem; }
+
+// Director message Show more / Show less button (same size as the Read More button below it).
+.toggle { display: inline-flex; margin-top: 1.6rem; }
