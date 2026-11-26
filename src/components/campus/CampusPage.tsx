@@ -141,20 +141,28 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
                   <h3 className={styles.directorName}>{data.director.name}</h3>
                   <p className={styles.directorRole}>{data.director.title}</p>
                   {data.director.bodyHtml ? (
-                    <div className={styles.directorBody}>
-                      <DirectorMessage
-                        html={data.director.bodyHtml}
-                        className={styles.directorRich}
-                      />
-                    </div>
+                    // Read More sits beside the Show more / Show less link.
+                    <DirectorMessage
+                      html={data.director.bodyHtml}
+                      className={`${styles.directorBody} ${styles.directorRich}`}
+                      action={
+                        <Link
+                          href={data.director.cta.href}
+                          className={`btn accent ${styles.smallBtn}`}>
+                          {data.director.cta.label}
+                        </Link>
+                      }
+                    />
                   ) : (
-                    <p className={styles.directorBody}>{data.director.body}</p>
+                    <>
+                      <p className={styles.directorBody}>{data.director.body}</p>
+                      <Link
+                        href={data.director.cta.href}
+                        className={`btn accent ${styles.smallBtn}`}>
+                        {data.director.cta.label}
+                      </Link>
+                    </>
                   )}
-                  <Link
-                    href={data.director.cta.href}
-                    className={`btn accent ${styles.smallBtn}`}>
-                    {data.director.cta.label}
-                  </Link>
                 </div>
               </div>
             </div>
