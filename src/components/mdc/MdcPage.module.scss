@@ -85,8 +85,10 @@
 
 /* Contact team */
 .contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; @include respond-to(mobile) { grid-template-columns: 1fr; } }
+// Sub-heading between the leaders and the rest of the team.
+.teamSubheading { font-size: 2.2rem; font-weight: 700; margin: 4rem 0 2rem; color: var(--color-black); @include respond-to(mobile) { font-size: 1.9rem; margin-top: 3.2rem; } }
 // Figma 610 x 340.
-.contactCard { border: 1px solid var(--color-light-gray); border-radius: 1.6rem; padding: 3.2rem; min-height: 34rem; h3 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.4rem; } }
+.contactCard { border: 1px solid var(--color-light-gray); border-radius: 1.6rem; padding: 2.4rem 3.2rem; h3 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.4rem; } }
 .contactTitle { font-size: 1.5rem; color: var(--color-dark-gray); margin-bottom: 1.6rem; }
 .contactDept { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.6rem; }
 .contactLine { font-size: 1.5rem; margin-bottom: 1rem; a { color: var(--mdc-accent, var(--color-secondary)); } span { color: var(--color-gray); margin-left: 1rem; font-size: 1.3rem; } }

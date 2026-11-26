@@ -313,33 +313,40 @@ export function MdcPage({ data }: { data: MdcData }) {
             id="team"
             className={`container ${styles.block}`}>
             <h2 className={styles.heading}>{data.team.heading}</h2>
-            {data.team.subtitle ? <p className={styles.sub}>{data.team.subtitle}</p> : null}
-            <div className={styles.contactGrid}>
-              {data.team.contacts.map((c) => (
-                <div
-                  key={c.id}
-                  className={styles.contactCard}>
-                  <h3>{c.name}</h3>
-                  <p className={styles.contactTitle}>{c.title}</p>
-                  <p className={styles.contactDept}>{c.dept}</p>
-                  {c.office ? (
-                    <p className={styles.contactLine}>
-                      {c.office} <span>Office</span>
-                    </p>
-                  ) : null}
-                  {c.mobile ? (
-                    <p className={styles.contactLine}>
-                      {c.mobile} <span>Mobile</span>
-                    </p>
-                  ) : null}
-                  {c.email ? (
-                    <p className={styles.contactLine}>
-                      <a href={`mailto:${c.email}`}>{c.email}</a>
-                    </p>
-                  ) : null}
+            {/* Leaders first; the Drupal subtitle (e.g. "Execution Team") is a sub-heading above the rest. */}
+            {[data.team.contacts.slice(0, data.team.subtitle ? 2 : undefined), data.team.subtitle ? data.team.contacts.slice(2) : []].map((group, gi) =>
+              group.length ? (
+                <div key={gi}>
+                  {gi === 1 ? <h3 className={styles.teamSubheading}>{data.team.subtitle}</h3> : null}
+                  <div className={styles.contactGrid}>
+                    {group.map((c) => (
+                    <div
+                      key={c.id}
+                      className={styles.contactCard}>
+                      <h3>{c.name}</h3>
+                      <p className={styles.contactTitle}>{c.title}</p>
+                      <p className={styles.contactDept}>{c.dept}</p>
+                      {c.office ? (
+                        <p className={styles.contactLine}>
+                          {c.office} <span>Office</span>
+                        </p>
+                      ) : null}
+                      {c.mobile ? (
+                        <p className={styles.contactLine}>
+                          {c.mobile} <span>Mobile</span>
+                        </p>
+                      ) : null}
+                      {c.email ? (
+                        <p className={styles.contactLine}>
+                          <a href={`mailto:${c.email}`}>{c.email}</a>
+                        </p>
+                      ) : null}
+                    </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              ) : null,
+            )}
           </section>
           ) : null}
         </main>
