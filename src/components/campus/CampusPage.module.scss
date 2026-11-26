@@ -348,5 +348,6 @@
 // Tab anchors: land below the fixed header + docked section bar.
 .page section[id] { scroll-margin-top: 17rem; }
 
-// Director message Show more / Show less button (same size as the Read More button below it).
-.toggle { display: inline-flex; margin-top: 1.6rem; }
+// Director message: underlined Show more / Show less link (body text colour) with Read More beside it.
+.directorActions { display: flex; align-items: center; flex-wrap: wrap; gap: 2.4rem; }
+.toggle { padding: 0; border: 0; background: none; font: inherit; font-size: 1.6rem; color: var(--color-black); text-decoration: underline; text-underline-offset: 0.3rem; cursor: pointer; }

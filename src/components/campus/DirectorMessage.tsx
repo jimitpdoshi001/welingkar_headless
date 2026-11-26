@@ -1,14 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 import styles from "./CampusPage.module.scss";
 
 /**
  * Director's message (already-sanitized HTML): collapsed = first paragraph, plus the next one
- * when the first is only a bold heading. A "Show more" / "Show less" button toggles the rest.
+ * when the first is only a bold heading. An underlined "Show more" / "Show less" link toggles the rest.
  */
-export function DirectorMessage({ html, className }: { html: string; className?: string }) {
+/** action: shown on the same row as the Show more / Show less link (e.g. the Read More button). */
+export function DirectorMessage({ html, className, action }: { html: string; className?: string; action?: ReactNode }) {
   const [open, setOpen] = useState(false);
   const paras = html.match(/<p[\s\S]*?<\/p>/gi) ?? [html];
   // "<p><strong>Heading</strong></p>": keep the paragraph after it visible too.
@@ -22,15 +23,18 @@ export function DirectorMessage({ html, className }: { html: string; className?:
         className={className}
         dangerouslySetInnerHTML={{ __html: (open || !long ? paras : paras.slice(0, collapsed)).join("") }}
       />
-      {long ? (
-        <button
-          type="button"
-          className={`btn accent-outline ${styles.smallBtn} ${styles.toggle}`}
-          aria-expanded={open}
-          onClick={() => setOpen((o) => !o)}>
-          {open ? "Show less" : "Show more"}
-        </button>
-      ) : null}
+      <div className={styles.directorActions}>
+        {long ? (
+          <button
+            type="button"
+            className={styles.toggle}
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}>
+            {open ? "Show less" : "Show more"}
+          </button>
+        ) : null}
+        {action}
+      </div>
     </>
   );
 }
