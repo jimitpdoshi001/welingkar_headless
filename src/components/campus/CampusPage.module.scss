@@ -211,8 +211,8 @@
 .directorName { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
 .directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
 .directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
-// Justified like the other long copy on the site; no hyphen breaks.
-.directorRich { text-align: justify; hyphens: none; @include respond-to(mobile) { text-align: left; } p + p { margin-top: 1.2rem; } strong, b { font-weight: 700; } }
+// Left-aligned: justified text left wide gaps between words.
+.directorRich { p + p { margin-top: 1.2rem; } strong, b { font-weight: 700; } }
 
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
@@ -349,5 +349,6 @@
 .page section[id] { scroll-margin-top: 17rem; }
 
 // Director message: underlined Show more / Show less link (body text colour) with Read More beside it.
-.directorActions { display: flex; align-items: center; flex-wrap: wrap; gap: 2.4rem; }
-.toggle { padding: 0; border: 0; background: none; font: inherit; font-size: 1.6rem; color: var(--color-black); text-decoration: underline; text-underline-offset: 0.3rem; cursor: pointer; }
+.directorActions { display: flex; align-items: center; flex-wrap: wrap; gap: 2.4rem; margin-top: 2.4rem; }
+.toggle { padding: 0; border: 0; background: none; font: inherit; color: var(--faculty-accent, var(--color-primary)); // campus accent: orange Mumbai, green Bengaluru
+  text-decoration: underline; text-underline-offset: 0.3rem; cursor: pointer; }

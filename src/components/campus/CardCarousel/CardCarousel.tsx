@@ -84,6 +84,7 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
                   src={card.image}
                   alt={card.title}
                   className={styles.image}
+                  style={card.imagePosition ? { objectPosition: card.imagePosition } : undefined}
                 />
               </div>
               <div className={styles.body}>

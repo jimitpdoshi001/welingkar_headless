@@ -12,6 +12,12 @@ import { MdcTestimonials } from "./MdcTestimonials/MdcTestimonials";
 import { MdcGallery } from "./MdcGallery";
 import styles from "./MdcPage.module.scss";
 
+/** "91-22-24198300 (extn: 8144)" -> "tel:+912224198300" (extension and spacing dropped). */
+const telHref = (phone: string) => {
+  const digits = phone.replace(/\(.*?\)/g, "").replace(/[^\d+]/g, "");
+  return `tel:${digits.startsWith("+") ? digits : digits.length > 10 ? `+${digits}` : digits}`;
+};
+
 export function MdcPage({ data }: { data: MdcData }) {
   return (
     <SearchProvider>
@@ -325,15 +331,15 @@ export function MdcPage({ data }: { data: MdcData }) {
                       className={styles.contactCard}>
                       <h3>{c.name}</h3>
                       <p className={styles.contactTitle}>{c.title}</p>
-                      <p className={styles.contactDept}>{c.dept}</p>
+                      {c.dept ? <p className={styles.contactDept}>{c.dept}</p> : null}
                       {c.office ? (
                         <p className={styles.contactLine}>
-                          {c.office} <span>Office</span>
+                          <a href={telHref(c.office)}>{c.office}</a> <span>Office</span>
                         </p>
                       ) : null}
                       {c.mobile ? (
                         <p className={styles.contactLine}>
-                          {c.mobile} <span>Mobile</span>
+                          <a href={telHref(c.mobile)}>{c.mobile}</a> <span>Mobile</span>
                         </p>
                       ) : null}
                       {c.email ? (
