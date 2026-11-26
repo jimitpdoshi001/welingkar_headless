@@ -350,4 +350,5 @@
 
 // Director message: underlined Show more / Show less link (body text colour) with Read More beside it.
 .directorActions { display: flex; align-items: center; flex-wrap: wrap; gap: 2.4rem; margin-top: 2.4rem; }
-.toggle { padding: 0; border: 0; background: none; font: inherit; color: var(--color-black); text-decoration: underline; text-underline-offset: 0.3rem; cursor: pointer; }
+.toggle { padding: 0; border: 0; background: none; font: inherit; color: var(--faculty-accent, var(--color-primary)); // campus accent: orange Mumbai, green Bengaluru
+  text-decoration: underline; text-underline-offset: 0.3rem; cursor: pointer; }
