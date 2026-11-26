@@ -211,8 +211,8 @@
 .directorName { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
 .directorRole { font-size: 1.8rem; color: var(--color-black); margin-bottom: 2.4rem; }
 .directorBody { font-size: 1.6rem; line-height: 1.3; color: var(--color-black); margin-bottom: 2.4rem; }
-// Justified like the other long copy on the site; no hyphen breaks.
-.directorRich { text-align: justify; hyphens: none; @include respond-to(mobile) { text-align: left; } p + p { margin-top: 1.2rem; } strong, b { font-weight: 700; } }
+// Left-aligned: justified text left wide gaps between words.
+.directorRich { p + p { margin-top: 1.2rem; } strong, b { font-weight: 700; } }
 
 
 /* WeResearch + World of WeSchool (Figma 1064:184): shared background photo. */
