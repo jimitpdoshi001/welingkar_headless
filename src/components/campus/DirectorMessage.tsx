@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 
-import toggleStyles from "@/components/pgdm/common/PgdmReadMore.module.scss";
+import styles from "./CampusPage.module.scss";
 
 /**
  * Director's message (already-sanitized HTML): collapsed = first paragraph, plus the next one
- * when the first is only a bold heading. Show more / Show less toggles the rest.
+ * when the first is only a bold heading. A "Show more" / "Show less" button toggles the rest.
  */
 export function DirectorMessage({ html, className }: { html: string; className?: string }) {
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ export function DirectorMessage({ html, className }: { html: string; className?:
       {long ? (
         <button
           type="button"
-          className={toggleStyles.toggle}
+          className={`btn accent-outline ${styles.smallBtn} ${styles.toggle}`}
           aria-expanded={open}
           onClick={() => setOpen((o) => !o)}>
           {open ? "Show less" : "Show more"}
