@@ -25,9 +25,6 @@ const INCLUDE = [
   "field_mdc_gallery",
 ];
 
-/** Drop a trailing label ("Office", "Mobile") from a contact line. */
-const strip = (s: string, label: string) => s.replace(new RegExp(`\\s*${label}\\s*$`, "i"), "").trim();
-
 /**
  * MDP pages from Drupal (mdc_listing 5777 Mumbai, 5778 Bengaluru). Content is
  * Drupal-only: an empty field leaves that part empty (the page hides it). The
@@ -63,18 +60,22 @@ async function getMdc(nid: number, base: MdcData): Promise<MdcData> {
     name: r.text(p, "field_main_title"),
     role: r.text(p, "field_designation"),
   }));
-  // Team description lines: department, "<number> Office", "<number> Mobile", email.
+  // Team description lines, in any order: a phone ("91-22-… (extn: 8144)" or "… Office"),
+  // "Cell : …" / "… Mobile", "Email : x@y", and optionally a department line (no digits, no @).
   const contacts = r.refs(n, "field_mdp_team_data").map((p) => {
-    const lines = r.paras(p, "field_description");
-    const find = (re: RegExp) => lines.find((l) => re.test(l)) ?? "";
+    const lines = r.paras(p, "field_description").map((l) => l.replace(/\u00a0/g, " ").trim()).filter(Boolean);
+    const email = lines.join(" ").match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/)?.[0] ?? "";
+    const isMobile = (l: string) => /^(cell|mobile)\b|mobile\s*$/i.test(l);
+    const phones = lines.filter((l) => !l.includes("@") && /\d{6}/.test(l.replace(/[\s-]/g, "")));
+    const clean = (l: string) => l.replace(/^(cell|mobile|office|tel|phone)\s*:?\s*/i, "").replace(/\s*(office|mobile)\s*$/i, "").trim();
     return {
       id: p.id,
       name: r.text(p, "field_main_title"),
       title: r.text(p, "field_designation"),
-      dept: lines[0] ?? "",
-      office: strip(find(/office\s*$/i), "Office"),
-      mobile: strip(find(/mobile\s*$/i), "Mobile"),
-      email: find(/@/),
+      dept: lines.find((l) => !l.includes("@") && !/\d/.test(l)) ?? "",
+      office: clean(phones.find((l) => !isMobile(l)) ?? ""),
+      mobile: clean(phones.find(isMobile) ?? ""),
+      email,
     };
   });
   // Vision images: a multi-value file field (the image reader only returns the first).
