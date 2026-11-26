@@ -60,6 +60,7 @@ export function DirectorCard({ director: d }: { director: AlumniDirector }) {
             </div>
           </div>
           <div className={styles.dialogBody}>
+            {d.heading ? <p className={styles.dialogHeading}>{d.heading}</p> : null}
             {d.paragraphs.map((p) => (
               <p key={p.slice(0, 40)}>{p}</p>
             ))}

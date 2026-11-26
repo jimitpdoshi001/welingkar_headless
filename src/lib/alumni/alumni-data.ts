@@ -64,7 +64,7 @@ const V2 = (name: string) => `/alumni/v2/${name}.webp`;
 
 export type AlumniCampus = { title: string; image: string; href: string };
 /** profileHref: their faculty profile page (resolved from the Faculty API at request time). */
-export type AlumniDirector = { image: string; paragraphs: string[]; name: string; role: string; org?: string; profileHref?: string };
+export type AlumniDirector = { image: string; /** Optional bold heading above the message. */ heading?: string; paragraphs: string[]; name: string; role: string; org?: string; profileHref?: string };
 export type AlumniNews = { title: string; text?: string; date: string; image?: string; href: string };
 
 export const ALUMNI_CAMPUSES: AlumniCampus[] = [
@@ -76,12 +76,14 @@ export const ALUMNI_CAMPUSES: AlumniCampus[] = [
 export const ALUMNI_DIRECTORS: AlumniDirector[] = [
   {
     image: V2("director-mumbai"),
+    heading: "From Knowledge Transfer to Capability Creation",
     paragraphs: [
-      "Dear Alumni,\nWelcome to the WeSchool Alumni Portal — a space that celebrates the enduring bond between WeSchool and its vibrant community of achievers across the globe.",
-      "At S. P. Mandali’s Prin. L. N. Welingkar Institute of Management Development and Research (WeSchool), we have always believed that education extends far beyond classrooms. It’s about nurturing innovators, leaders, and change-makers who create meaningful impact in business and society.",
-      "Over the years, WeSchool alumni have made us proud by excelling across industries, launching startups, leading organizations, and driving purpose-led change. This platform is designed to bring you all together — to connect, collaborate, and contribute — as we continue to shape the future of management and innovation.",
-      "We invite you to stay engaged, share your journey, mentor young minds, and be an integral part of the growing WeSchool legacy. Together, let’s continue to reimagine, redefine, and reinvent the way the world learns and leads.",
-      "\"The illiterate of this century will not be those who cannot read and write, but those who cannot learn, unlearn, and relearn.\"\n- Alvin Toffler",
+      "In a world where knowledge is increasingly democratised, the true differentiator of management education is no longer what students know, but what they can do with what they know.",
+      "At WeSchool, our endeavour is to move beyond conventional management education towards creating capabilities to address real-world challenges. We aspire to build a campus that functions as a vibrant problem-solving ecosystem — a place where industry seeks solutions, faculty challenge conventional wisdom, and students experiment, innovate and create tangible value.",
+      "We recognise that every student enters WeSchool with a unique combination of strengths, aspirations, interests and developmental needs. Our endeavour is to leverage AI-enabled assessments, continuous feedback and personalised mentoring to understand these individual differences and curate learning pathways, experiential opportunities and career preparedness initiatives accordingly. Rather than expecting every student to conform to a standardised educational journey, we aspire to help each student discover and realise their distinctive potential.",
+      "Equally important is developing empathy, intellectual curiosity, ethical judgement, interdisciplinary thinking and an entrepreneurial mindset.",
+      "Our responsibility is not merely to prepare students for their first jobs, but to equip them to navigate multiple careers, create opportunities and lead transformations in an increasingly unpredictable world.",
+      "We aspire to develop not just competent managers, but insightful problem-solvers, responsible leaders and architects of a better future.",
     ],
     name: "Prof. Dr. Kaustubh Dhargalkar",
     role: "In-Charge Director",

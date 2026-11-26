@@ -192,7 +192,7 @@ export async function getCampusFacultyGrid(
   // Tabs: Deans, Associate Deans & Heads, Faculty + the 8 programs (dropdown), in
   // this order and with these names; other subject categories are left out.
   const tabs = options.roleTabs
-    ? MUMBAI_TABS.flatMap((tab) => (tab.slug === "faculty" ? ROLE_TABS.map(({ slug, name }) => ({ slug, name })) : [tab]))
+    ? MUMBAI_TABS.flatMap((tab) => (tab.slug === "faculty" ? ROLE_TABS.filter((t) => t.slug !== "associate-deans").map(({ slug, name }) => ({ slug, name })) : [tab]))
     : MUMBAI_TABS;
   const members: FacultyMember[] = records.map((r) => {
     // An "Associate Dean" belongs under Associate Deans & Heads only, even if
@@ -226,9 +226,13 @@ export async function getCampusFacultyGrid(
 // Campus Mumbai faculty section: these replace the "Faculty" tab, matched on
 // the designation (e.g. "Assistant Professor - Operations", "Deputy Librarian").
 const ROLE_TABS: { slug: string; name: string; match: RegExp }[] = [
-  { slug: "assistant-professor", name: "Assistant Professor", match: /assistant\s+professor/i },
+  // Site-wide order: Associate Professor before Assistant Professor.
   { slug: "associate-professor", name: "Associate Professor", match: /associate\s+professor/i },
+  { slug: "assistant-professor", name: "Assistant Professor", match: /assistant\s+professor/i },
   { slug: "registrar", name: "Registrar", match: /registrar/i },
+  // Full Professors (e.g. "Professor - Finance", "Professor & Program Head - Retail") join
+  // "Professor and Senior Professor" (associate-deans), placed before the role tabs.
+  { slug: "associate-deans", name: "Professor and Senior Professor", match: /(?<!(assistant|associate)\s+)\bprofessor\b/i },
   { slug: "role-librarian", name: "Library", match: /librarian/i },
 ];
 
@@ -241,8 +245,8 @@ function roleTab(designation: string): "deans" | "associate-deans" | "faculty" {
 
 // Mumbai faculty page tabs: Drupal category slug -> label, in display order.
 const MUMBAI_TABS: { slug: string; name: string }[] = [
-  { slug: "deans", name: "Deans" },
-  { slug: "associate-deans", name: "Associate Deans & Heads" },
+  { slug: "deans", name: "Dean" },
+  { slug: "associate-deans", name: "Professor and Senior Professor" },
   { slug: "faculty", name: "Faculty" },
   { slug: "pgdm", name: "PGDM" },
   { slug: "business-design", name: "Business Design" },
@@ -314,6 +318,8 @@ function bengaluruGrid(all: FacultyRecord[], roleTabs = false): { categories: Fa
     // Professor, Registrar, Library); the librarian moves to the Library tab.
     for (const m of members) {
       const roles = ROLE_TABS.filter((t) => t.match.test(m.designation)).map((t) => t.slug);
+      // Librarian entries stay in Library even when the designation doesn't say "librarian".
+      if (m.categorySlugs?.includes("librarian") && !roles.includes("role-librarian")) roles.push("role-librarian");
       const slugs = [...(m.categorySlugs ?? []).filter((slug) => slug !== "faculty" && slug !== "librarian"), ...roles];
       m.categorySlugs = slugs;
       m.categorySlug = slugs[0] ?? "";
@@ -321,10 +327,10 @@ function bengaluruGrid(all: FacultyRecord[], roleTabs = false): { categories: Fa
   }
   const used = new Set(members.flatMap((m) => m.categorySlugs ?? []));
   const categories: FacultyCategory[] = [
-    { id: "deans", name: "Deans", slug: "deans" },
-    { id: "associate-deans", name: "Associate Deans", slug: "associate-deans" },
+    { id: "deans", name: "Dean", slug: "deans" },
+    { id: "associate-deans", name: "Professor and Senior Professor", slug: "associate-deans" },
     ...(roleTabs
-      ? ROLE_TABS.map(({ slug, name }) => ({ id: slug, name, slug }))
+      ? ROLE_TABS.filter((t) => t.slug !== "associate-deans").map(({ slug, name }) => ({ id: slug, name, slug }))
       : [{ id: "faculty", name: "Faculty", slug: "faculty" }]),
     ...BENGALURU_PROGRAMS.map((p) => ({ id: p.slug, name: p.name, slug: p.slug })),
   ].filter((c) => used.has(c.slug)); // no empty tabs

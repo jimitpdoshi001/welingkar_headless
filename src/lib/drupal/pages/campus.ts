@@ -1,4 +1,5 @@
 import type { CampusData } from "@/lib/campus/campus-data";
+import { sanitizeCmsHtml } from "@/lib/security/sanitize-html";
 import { absoluteDrupalUrl } from "../jsonapi";
 import { getWhatWeOfferTerms } from "../what-we-offer";
 import { getNodeReader, or, type NodeReader } from "../node-page";
@@ -61,6 +62,9 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
   const cta = r.link(banner, "field_apply_now");
   const desk = r.refs(n, "field_director_desk")[0];
   const deskLink = r.link(desk, "field_link");
+  // Director's message as sanitized HTML (paragraphs + bold heading kept).
+  const directorRaw = (desk?.attributes as Record<string, unknown> | undefined)?.field_description as { value?: string } | string | undefined;
+  const directorHtml = sanitizeCmsHtml(typeof directorRaw === "string" ? directorRaw : (directorRaw?.value ?? "")).trim();
 
   const stats = r.refs(n, "field_banner_bottom_description").map((p) => ({ value: r.text(p, "field_main_title"), label: r.text(p, "field_sub_title") })).filter((s) => s.value);
   const networkLinks = r
@@ -132,6 +136,7 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
       name: or(r.text(desk, "field_subtitle"), base.director.name),
       title: or(r.text(desk, "field_director_designation"), base.director.title),
       body: or(r.paras(desk, "field_description").join(" "), base.director.body),
+      bodyHtml: directorHtml || undefined,
       cta: deskLink.href ? { label: or(deskLink.title, base.director.cta.label), href: deskLink.href } : base.director.cta,
     },
     mentors: { ...base.mentors, heading: or(r.text(n, "field_mentors_heading"), base.mentors.heading) },

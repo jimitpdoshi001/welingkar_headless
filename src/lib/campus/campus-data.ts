@@ -24,7 +24,8 @@ export type CampusData = {
   nav: { label: string; href: string }[];
   about: { heading: string; paragraphs: string[]; image: string; stats: { value: string; label: string }[] };
   accreditations: { heading: string; logos: { name: string; image: string }[]; points: string[] };
-  director: { heading: string; name: string; title: string; body: string; image: string; cta: CampusCta };
+  /** bodyHtml: sanitized Drupal message (shown with Show more / Show less); body is the plain fallback. */
+  director: { heading: string; name: string; title: string; body: string; bodyHtml?: string; image: string; cta: CampusCta };
   mentors: { heading: string; tabs: string[]; people: CampusPerson[]; cta: CampusCta };
   faculty: { heading: string; description: string; categories: CampusCta[]; image: string; cta: CampusCta };
   programmes: { heading: string; description: string; cards: CampusCard[]; cta: CampusCta };

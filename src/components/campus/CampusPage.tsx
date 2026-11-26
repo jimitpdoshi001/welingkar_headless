@@ -9,6 +9,7 @@ import { SearchOverlay } from "@/components/SearchOverlay/SearchOverlay";
 import { SearchProvider } from "@/components/SearchOverlay/search-context";
 import { CardCarousel } from "./CardCarousel/CardCarousel";
 import { CampusTabs } from "./CampusTabs";
+import { DirectorMessage } from "./DirectorMessage";
 import { StickyInPageNav } from "./StickyInPageNav/StickyInPageNav";
 import { RecruiterLogos } from "./RecruiterLogos/RecruiterLogos";
 import { FacultyGrid } from "@/components/paragraphs/FacultyGrid/FacultyGrid";
@@ -139,7 +140,16 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
                 <div className={styles.directorText}>
                   <h3 className={styles.directorName}>{data.director.name}</h3>
                   <p className={styles.directorRole}>{data.director.title}</p>
-                  <p className={styles.directorBody}>{data.director.body}</p>
+                  {data.director.bodyHtml ? (
+                    <div className={styles.directorBody}>
+                      <DirectorMessage
+                        html={data.director.bodyHtml}
+                        className={styles.directorRich}
+                      />
+                    </div>
+                  ) : (
+                    <p className={styles.directorBody}>{data.director.body}</p>
+                  )}
                   <Link
                     href={data.director.cta.href}
                     className={`btn accent ${styles.smallBtn}`}>

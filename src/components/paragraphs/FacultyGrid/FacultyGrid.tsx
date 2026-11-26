@@ -18,10 +18,10 @@ type FacultyGridProps = {
 };
 
 // Main tabs, in this order; the role tabs (Campus Mumbai) replace "faculty".
-const PRIMARY_TAB_SLUGS = ["deans", "associate-deans", "faculty", "assistant-professor", "associate-professor", "registrar", "role-librarian"];
+const PRIMARY_TAB_SLUGS = ["deans", "associate-deans", "faculty", "associate-professor", "assistant-professor", "registrar", "role-librarian"];
 const TAB_LABELS: Record<string, string> = {
-  deans: "Deans",
-  "associate-deans": "Associate Deans & Heads",
+  deans: "Dean",
+  "associate-deans": "Professor and Senior Professor",
   faculty: "Faculty",
 };
 
@@ -148,7 +148,7 @@ export function FacultyGrid({
               aria-expanded={menuOpen}
               onClick={(event) => toggleMenu(event.currentTarget)}
               className={clsx(styles.tabBtn, specialisationActive && styles.activeTab)}>
-              {specialisationActive ? activeSpecialisation?.name : "Specialization / Programs"}
+              {specialisationActive ? activeSpecialisation?.name : "Specialization"}
               <svg
                 className={clsx(styles.caret, menuOpen && styles.caretOpen)}
                 width="14"
