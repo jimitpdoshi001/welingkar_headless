@@ -11,6 +11,8 @@ export type CampusCard = {
   title: string;
   meta?: string;
   cta?: CampusCta;
+  /** Optional crop focus for the photo (CSS object-position). */
+  imagePosition?: string;
 };
 
 export type CampusPerson = { id: string; name: string; title: string; image: string };

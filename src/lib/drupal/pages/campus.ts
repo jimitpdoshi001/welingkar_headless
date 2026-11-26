@@ -89,7 +89,9 @@ export async function withCampusContent(nid: number, base: CampusData): Promise<
     .filter((t) => t.location === location && t.name && t.image)
     .map((t) => {
       const match = base.programmes.cards.find((c) => c.title.toLowerCase() === t.name.toLowerCase());
-      return { id: t.id, title: t.name, image: t.image ?? "", meta: match?.meta, cta: { label: "Know More", href: t.url } };
+      // Executive photo: the presenter is near the right edge, so crop toward the right.
+      const imagePosition = /^executive$/i.test(t.name.trim()) ? "95% center" : undefined;
+      return { id: t.id, title: t.name, image: t.image ?? "", meta: match?.meta, cta: { label: "Know More", href: t.url }, imagePosition };
     });
   const moments = r
     .refs(n, "field_campus_moments_data")
