@@ -22,9 +22,11 @@ type CardCarouselProps = {
   overlayCaption?: boolean;
   /** Wrap the description to the heading's width (Figma Programs block). */
   fitDescriptionToHeading?: boolean;
+  /** Photos only: no title/caption panel on the cards. */
+  hideCaptions?: boolean;
 };
 
-export function CardCarousel({ heading, description, cards, cta, theme = "light", overlayCaption = false, fitDescriptionToHeading = false }: CardCarouselProps) {
+export function CardCarousel({ heading, description, cards, cta, theme = "light", overlayCaption = false, fitDescriptionToHeading = false, hideCaptions = false }: CardCarouselProps) {
   // Direct Swiper handle: arrows call slidePrev/slideNext. Deterministic per
   // instance, so every carousel on the page controls its own slides reliably.
   const swiperRef = useRef<SwiperClass | null>(null);
@@ -87,17 +89,19 @@ export function CardCarousel({ heading, description, cards, cta, theme = "light"
                   style={card.imagePosition ? { objectPosition: card.imagePosition } : undefined}
                 />
               </div>
-              <div className={styles.body}>
-                <h3 className={styles.title}>{card.title}</h3>
-                {card.meta ? <p className={styles.meta}>{card.meta}</p> : null}
-                {card.cta ? (
-                  <Link
-                    href={card.cta.href}
-                    className="btn accent">
-                    {card.cta.label}
-                  </Link>
-                ) : null}
-              </div>
+              {hideCaptions ? null : (
+                <div className={styles.body}>
+                  <h3 className={styles.title}>{card.title}</h3>
+                  {card.meta ? <p className={styles.meta}>{card.meta}</p> : null}
+                  {card.cta ? (
+                    <Link
+                      href={card.cta.href}
+                      className="btn accent">
+                      {card.cta.label}
+                    </Link>
+                  ) : null}
+                </div>
+              )}
             </article>
           </SwiperSlide>
         ))}

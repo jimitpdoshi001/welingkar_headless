@@ -338,6 +338,7 @@ export function CampusPage({ data, mentors }: { data: CampusData; mentors: { cat
               cards={data.accommodation.cards}
               theme="light"
               overlayCaption
+              hideCaptions
             />
           </section>
 
