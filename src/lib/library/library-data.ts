@@ -159,7 +159,7 @@ export const LIBRARY_MUMBAI: LibraryData = {
         items: [
           { label: "Placement services", icon: ic("placement") },
           { label: "Online Public Access Catalog with Instant Chat", icon: ic("opac") },
-          { label: "National Programme on Technology Enhanced Learning", icon: ic("nptel") },
+          { label: "National Program on Technology Enhanced Learning", icon: ic("nptel") },
           { label: "Harvard Cases", icon: ic("harvard-cases") },
         ],
       },
@@ -250,8 +250,8 @@ export const LIBRARY_BENGALURU: LibraryData = {
         items: [
           { label: "Content Competition for Students", icon: ic("content-competition") },
           { label: "Publisher Book Exhibition", icon: ic("publisher-exhibition") },
-          { label: "User Orientation Programme", icon: ic("orientation") },
-          { label: "Information Literacy Programmes", icon: ic("info-literacy") },
+          { label: "User Orientation Program", icon: ic("orientation") },
+          { label: "Information Literacy Programs", icon: ic("info-literacy") },
         ],
       },
       {
@@ -298,7 +298,7 @@ export const LIBRARY_BENGALURU: LibraryData = {
       {
         title: "User Support Facilities",
         items: [
-          "User Orientation Programme",
+          "User Orientation Program",
           "OPAC (Online Public Access Catalogue)",
           "Reference & Information Assistance",
           "Circulation & Membership Services",
@@ -308,7 +308,7 @@ export const LIBRARY_BENGALURU: LibraryData = {
   },
   bestPractices: {
     heading: "LRC Best Practices",
-    text: "The Learning Resource Centre (LRC) adopts a user-centric and technology-driven approach by providing seamless access to quality print and digital resources, remote access facilities, research support services, plagiarism checking, and current awareness services. Through continuous collection development, information literacy programmes, and collaborative learning spaces, the LRC enhances teaching, learning, research, and innovation while fostering a culture of lifelong learning among students and faculty.",
+    text: "The Learning Resource Centre (LRC) adopts a user-centric and technology-driven approach by providing seamless access to quality print and digital resources, remote access facilities, research support services, plagiarism checking, and current awareness services. Through continuous collection development, information literacy programs, and collaborative learning spaces, the LRC enhances teaching, learning, research, and innovation while fostering a culture of lifelong learning among students and faculty.",
     image: "/library/best-practices-bengaluru.webp",
     imageAlt: "Students in discussion at the library",
   },

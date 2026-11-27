@@ -77,7 +77,7 @@ export const WERESEARCH: WeResearchData = {
       "Our Research findings are disseminated directly through white papers, publications, case studies, research projects, conferences, and seminars. It is also applied in course development for PGDM, MMS, Ph.D., and Executive Education Programs.",
       "Research is the bedrock for enhancing teaching and learning initiatives at WeSchool. The core activities include inter-alia publication of refereed research journal “aWEshkar”, research papers & case studies presented and published by Faculty and Students, Faculty authored books, encouragement and support to young faculty members for Ph.D. enrollment, planning and execution of live corporate research projects as also social research in partnership with Government and its agencies & other initiatives such as research collaborations and partnerships of different nature with Research bodies/Institutes. We School provides financial assistance for publications and seed funding for various projects.",
       "WeSchool Centre for Research aims to initiate inter-departmental collaboration, to inter-institutional partnerships at national and international level for funded projects and interdisciplinary research. The centre will facilitate interaction with external agencies at a national and international level through seminars, colloquiums, conferences, roundtables, and doctoral consortium on regular basis.",
-      "At WeSchool, through the University of Mumbai's Ph.D. Programme, we endeavor to create a rich talent pool that will be the driving force of the future. This gives an opportunity to pursue research, and thereby drive 'innovation'.",
+      "At WeSchool, through the University of Mumbai's Ph.D. Program, we endeavor to create a rich talent pool that will be the driving force of the future. This gives an opportunity to pursue research, and thereby drive 'innovation'.",
     ],
     image: `${IMG}/about-bg.webp`,
   },
@@ -152,7 +152,7 @@ export const WERESEARCH: WeResearchData = {
     paragraphs: [
       "Established in the Year 2004-05, the raison d’etre of the Centre is to contribute to the development of Future Management Faculty, Scholars and Researchers by way of providing all the necessary infrastructure, support and intellectual expertise to the students enrolled for the Doctoral Program.",
       "The Ph.D. is affiliated to the University of Mumbai, conducted at the Institute.",
-      "The Programme is designed to serve multifarious purposes of equipping doctoral students with all the newest, up-to-date advanced tools and techniques deployed as a part of Management Research Methodology, as also providing cutting-edge knowledge in the various disciplines/ specializations of Management.",
+      "The Program is designed to serve multifarious purposes of equipping doctoral students with all the newest, up-to-date advanced tools and techniques deployed as a part of Management Research Methodology, as also providing cutting-edge knowledge in the various disciplines/ specializations of Management.",
     ],
     image: `${IMG}/doctoral.webp`,
     pdf: { label: "Download PDF", href: "#" },

@@ -96,6 +96,6 @@ export const WEGLOBAL: WeGlobalData = {
   },
   buddy: {
     heading: "Become a Student Buddy",
-    body: "Engage in peer-to-peer knowledge sharing and assist international scholars as they navigate academic projects and integrate into our unique socio-cultural fabric by enrolling as a Student Buddy. By submitting this registration, you express your interest in joining the Student Buddy Programme dedicated to supporting our global cohort. Once your application is reviewed, our team will facilitate a connection with a compatible partner, who will reach out to you through electronic mail within the following weeks.",
+    body: "Engage in peer-to-peer knowledge sharing and assist international scholars as they navigate academic projects and integrate into our unique socio-cultural fabric by enrolling as a Student Buddy. By submitting this registration, you express your interest in joining the Student Buddy Program dedicated to supporting our global cohort. Once your application is reviewed, our team will facilitate a connection with a compatible partner, who will reach out to you through electronic mail within the following weeks.",
   },
 };

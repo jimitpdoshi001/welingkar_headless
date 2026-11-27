@@ -315,7 +315,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       breadcrumb: ["Home", "Programs", "PGDM"],
       title: "Post Graduate Diploma in Management (PGDM)",
       subtitle:
-        "With a strong emphasis on Acquisition, Application, and Assimilation of knowledge; this programme focuses on creating the confident managers of tomorrow.",
+        "With a strong emphasis on Acquisition, Application, and Assimilation of knowledge; this program focuses on creating the confident managers of tomorrow.",
       stats: ["Present Intake: 180", "Intake 180 Seats", "Duration 2 Years", "Specialisations 4 Tracks"],
       primaryCta: { label: "Apply Now", href: "/apply" },
       secondaryCta: { label: "View Brochure", href: "/brochure" },
@@ -323,7 +323,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
       imageAlt: `PGDM students at WeSchool ${campus}`,
     },
     bandStats: [
-      { value: "2 years", label: "Full-time programme" },
+      { value: "2 years", label: "Full-time program" },
       { value: "180", label: "Present intake" },
       { value: "115.5", label: "Total credits" },
       { value: "Since 1994", label: "Flagship PGDM" },
@@ -421,7 +421,7 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     },
     whoApply: {
       heading: "Who Should Apply?",
-      subtitle: "Two paths, one programme.",
+      subtitle: "Two paths, one program.",
       cards: [
         {
           heading: "Who Should Apply?",
