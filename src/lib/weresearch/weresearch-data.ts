@@ -55,7 +55,7 @@ export type WeResearchData = {
   };
 };
 
-const IMG = "/we-research-mumbai";
+const IMG = "/weresearch"; // files live in public/weresearch
 const ICON = `${IMG}/areas`;
 
 // Journal issue PDFs are not supplied yet; every month links to the journal page.
@@ -166,3 +166,6 @@ export const WERESEARCH: WeResearchData = {
     image: `${IMG}/journal.webp`,
   },
 };
+
+/** WeResearch Bengaluru: same content as Mumbai (no Bengaluru content supplied yet); campus colours set on the page. */
+export const WERESEARCH_BENGALURU: WeResearchData = WERESEARCH;
