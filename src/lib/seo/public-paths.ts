@@ -25,6 +25,7 @@ export const PUBLIC_PATHS: [live: string, internal: string][] = [
   ["/we-factor/we-entrepreneurship", "/wefactor/weentrepreneur"],
   ["/we-factor/we-lead", "/wefactor/welead"],
   ["/we-research-mumbai", "/weresearch"],
+  ["/we-research-bengaluru", "/weresearch/bengaluru"],
   // Full-time programmes, Mumbai
   ["/programmes/full-time-programme-in-mumbai", "/programmes/mumbai"],
   ["/programmes/full-time-programme-in-mumbai/pgdm", "/programmes/pgdm"],

@@ -214,28 +214,12 @@ export const MAIN_NAV: MainNavItem[] = [
     label: "WeResearch",
     href: "/we-research-mumbai",
     panel: {
-      columns: [
-        {
-          heading: "Research",
-          headingHref: "/we-research-mumbai",
-          links: [
-            { label: "Introduction", href: "/we-research-mumbai" },
-            { label: "All Research Papers", href: "/weresearch/papers" },
-            { label: "Awarded & Recognised Papers", href: "/weresearch/recognised" },
-            { label: "Research Areas", href: "/weresearch/areas" },
-          ],
-        },
-        {
-          heading: "Publications",
-          links: [
-            { label: "Authored Cases", href: "/weresearch/cases" },
-            { label: "Aweshkar Journal", href: "/weresearch/aweshkar" },
-            { label: "Magazine Articles", href: "/weresearch/articles" },
-            { label: "Conference Presentations", href: "/weresearch/conferences" },
-            { label: "We Conference", href: "/we-conference" },
-          ],
-        },
+      // Same as the live site: one entry per campus.
+      intro: [
+        { title: "Mumbai", href: "/we-research-mumbai" },
+        { title: "Bengaluru", href: "/we-research-bengaluru" },
       ],
+      columns: [],
     },
   },
   {
