@@ -72,7 +72,7 @@ export const PGP_ENTREPRENEURSHIP: PgpData = {
     title: "PGP in Entrepreneurship and Family Managed Business (EFMB)",
     tagline: "11 month program - Sessions for 1 week/ month",
     description:
-      "Mentoring business owners to ideate, innovate, execute & prosper; this programme is designed for those, looking to add a professional edge to their existing businesses in order to reach new heights in the near future.",
+      "Mentoring business owners to ideate, innovate, execute & prosper; this program is designed for those, looking to add a professional edge to their existing businesses in order to reach new heights in the near future.",
     image: `${IMG}/hero-banner.webp`,
     cta: { label: "Know More", href: "#overview" },
   },

@@ -21,7 +21,7 @@ export const CORPORATE = {
     heading: "Overview",
     paragraphs: [
       "Industry-Academia linkage is an integral aspect of retaining and building the dynamic culture at WeSchool. Corporate professionals are important stakeholders and engage with us regularly.",
-      "Leaders from organizations are on the Advisory and Academic Board of the various programmes that WeSchool offers. We collaborate with corporates for academic development, live projects, internships, research work, executive training programs. Corporates from across sectors also recruit from WeSchool regularly.",
+      "Leaders from organizations are on the Advisory and Academic Board of the various programs that WeSchool offers. We collaborate with corporates for academic development, live projects, internships, research work, executive training programs. Corporates from across sectors also recruit from WeSchool regularly.",
       "We invite you to engage with us on our journey.",
     ],
     image: "/corporate/overview.webp",
@@ -36,7 +36,7 @@ export const CORPORATE = {
         id: "projects",
         title: "Projects and internships",
         paragraphs: [
-          "WeSchool promotes immersive and experiential learning in a big way at both its campuses. Live projects, internships, short studies are integral to the learning experience at WeSchool. Hence, we welcome corporates to connect with us for projects and internships where they may want to engage our students. Summer 8 week internships are also a part of this experience. The Career Management Centre, being the first point of contact, will connect you to the concerned academic programme head.",
+          "WeSchool promotes immersive and experiential learning in a big way at both its campuses. Live projects, internships, short studies are integral to the learning experience at WeSchool. Hence, we welcome corporates to connect with us for projects and internships where they may want to engage our students. Summer 8 week internships are also a part of this experience. The Career Management Centre, being the first point of contact, will connect you to the concerned academic program head.",
         ],
         contact: {
           name: "Ms. Chandana Pai",
@@ -45,7 +45,7 @@ export const CORPORATE = {
           email: "chandana.pai@welingkar.org",
         },
       },
-      { id: "mdc", title: "Management development centre & executive education programmes" },
+      { id: "mdc", title: "Management development centre & executive education programs" },
       { id: "research", title: "Research" },
     ] as CorporatePanel[],
   },

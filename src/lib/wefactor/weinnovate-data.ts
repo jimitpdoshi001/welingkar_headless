@@ -43,7 +43,7 @@ export const WEINNOVATE: WeFactorDetailData = {
       title: "Design & Innovation on Campus",
       images: [IMG("design-1"), IMG("design-2"), IMG("design-3"), IMG("design-4")],
       paragraphs: [
-        "WeSchool’s efforts at creating an ecosystem for convergence of design thinking, technology and empathy has created a platform for young talent from across diverse programmes to design solutions of social impact. The collaboration between MIT Media lab and WeSchool in 2014, is a milestone in our journey towards creating the future.",
+        "WeSchool’s efforts at creating an ecosystem for convergence of design thinking, technology and empathy has created a platform for young talent from across diverse programs to design solutions of social impact. The collaboration between MIT Media lab and WeSchool in 2014, is a milestone in our journey towards creating the future.",
         "The biggest ‘Design Innovation Workshop’ by WeSchool and MIT Media Lab, USA presented the ‘Open House’ on February 01, 2014 on WeSchool campus, Mumbai. The exhibition to showcase the outcome of a weeklong workshop where 380 innovators from across India, have been collaborating and sharing ideas across boundaries of disciplines, institutions, and cultures to design and implement prototypes with renowned MIT Media Lab experts and local mentors. The participants brainstormed with a large pool of mentors to address simple but vital issues that we face in our day to day lives with a designer’s holistic approach.",
       ],
     },

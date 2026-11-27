@@ -82,11 +82,12 @@ export function overridePlacementDescription(html: string | null | undefined): s
 const LINK_KEYS = new Set(["uri", "url", "href", "path", "alias", "src", "link", "langcode"]);
 const isUrlLike = (value: string) => /^(https?:)?\/\/|^\//.test(value.trim());
 const spellPrograms = (text: string) =>
-  text.replace(/\bProgrammes\b/g, "Programs").replace(/\bprogrammes\b/g, "programs").replace(/\bPROGRAMMES\b/g, "PROGRAMS");
+  // Plural and singular, all cases (Programme -> Program).
+  text.replace(/\b(P|p)rogramme(s?)\b/g, "$1rogram$2").replace(/\bPROGRAMME(S?)\b/g, "PROGRAM$1");
 
 export function fixProgramsSpelling<T>(value: T, key = ""): T {
   if (typeof value === "string") {
-    if (LINK_KEYS.has(key) || isUrlLike(value) || !/programmes/i.test(value)) return value;
+    if (LINK_KEYS.has(key) || isUrlLike(value) || !/programme/i.test(value)) return value;
     // HTML: replace only text outside tags (attribute values stay untouched).
     const out = value.includes("<")
       ? value.replace(/>([^<]+)</g, (_, text: string) => `>${spellPrograms(text)}<`).replace(/^[^<]+/, spellPrograms).replace(/[^>]+$/, spellPrograms)

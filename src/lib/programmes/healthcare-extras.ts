@@ -22,12 +22,12 @@ export function withHealthcareExtras(data: PgdmData): PgdmData {
     studentInitiatives: data.studentInitiatives ?? {
       heading: "Student Initiatives",
       description:
-        "The PGDM Healthcare programme emphasizes experiential learning, peer support, and industry exposure through structured initiatives that enhance students’ academic, professional, and personal development.",
+        "The PGDM Healthcare program emphasizes experiential learning, peer support, and industry exposure through structured initiatives that enhance students’ academic, professional, and personal development.",
       items: [
         {
           id: "buddy-program",
           title: "Buddy program",
-          body: "Under the Buddy Program, every incoming junior student is paired with a senior student for the initial few months of the academic year. The senior buddy helps the junior adapt to campus life, understand academic processes, participate in student activities, and become familiar with institutional resources. This initiative creates a supportive environment, encourages meaningful peer interactions, and ensures a smoother transition into the programme.",
+          body: "Under the Buddy Program, every incoming junior student is paired with a senior student for the initial few months of the academic year. The senior buddy helps the junior adapt to campus life, understand academic processes, participate in student activities, and become familiar with institutional resources. This initiative creates a supportive environment, encourages meaningful peer interactions, and ensures a smoother transition into the program.",
           image: "/programmes/healthcare/initiative-buddy-program.webp",
         },
       ],
