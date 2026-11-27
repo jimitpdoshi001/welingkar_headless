@@ -126,6 +126,15 @@ const nextConfig: NextConfig = {
       // Old-site campus event lists -> Events listing with that campus pre-selected.
       { source: "/events/mumbai", destination: "/events?campus=mumbai", permanent: true },
       { source: "/events/bengaluru", destination: "/events?campus=bengaluru", permanent: true },
+      // Old live-site URLs -> the matching page here (keeps old links and search results working).
+      { source: "/programmes/full-time-programme/mumbai", destination: "/programmes/full-time-programme-in-mumbai", permanent: true },
+      { source: "/programmes/executive-programme/mumbai", destination: "/programmes/executive-programme-in-mumbai", permanent: true },
+      { source: "/programmes/executive-programme/bengaluru", destination: "/programmes/mdp/bengaluru", permanent: true },
+      { source: "/programmes/phd-programme", destination: "/programmes/phd-programme-in-mumbai", permanent: true },
+      { source: "/foreign-trade-management", destination: "/programmes/foreign-trade-management", permanent: true },
+      { source: "/mediaandentertainment", destination: "/programmes/executive-programme-in-mumbai/media-and-entertainment-management", permanent: true },
+      { source: "/fmb/post-graduate-program-in-entrepreneurship-management", destination: "/programmes/executive-programme-in-mumbai/entrepreneurship-management", permanent: true },
+      { source: "/sitemap.html", destination: "/site-map", permanent: true },
     ];
   },
   async headers() {
