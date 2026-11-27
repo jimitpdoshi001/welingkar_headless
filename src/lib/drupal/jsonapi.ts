@@ -23,24 +23,44 @@ type FetchOptions = RequestInit & {
   };
 };
 
-async function requestJsonApi(url: string, init?: FetchOptions, retry = true): Promise<Response> {
+// Stage Drupal sometimes answers 5xx (or drops the connection) under build load; retry those
+// a few times with a short backoff so one flaky response can't fail the whole build.
+const SERVER_RETRIES = 3;
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function requestJsonApi(url: string, init?: FetchOptions, retry = true, attempt = 0): Promise<Response> {
   const authHeaders = await getAuthHeaders();
-  const response = await fetch(url, {
-    ...init,
-    headers: {
-      Accept: "application/vnd.api+json",
-      ...authHeaders,
-      ...init?.headers,
-    },
-    next: {
-      revalidate: 300,
-      ...init?.next,
-    },
-  });
+  let response: Response;
+  try {
+    response = await fetch(url, {
+      ...init,
+      headers: {
+        Accept: "application/vnd.api+json",
+        ...authHeaders,
+        ...init?.headers,
+      },
+      next: {
+        revalidate: 300,
+        ...init?.next,
+      },
+    });
+  } catch (error) {
+    // Network error: retry, then give up with the original error.
+    if (attempt < SERVER_RETRIES) {
+      await wait(500 * 2 ** attempt);
+      return requestJsonApi(url, init, retry, attempt + 1);
+    }
+    throw error;
+  }
+
+  if (response.status >= 500 && attempt < SERVER_RETRIES) {
+    await wait(500 * 2 ** attempt);
+    return requestJsonApi(url, init, retry, attempt + 1);
+  }
 
   if (retry && (response.status === 401 || response.status === 403)) {
     clearDrupalSession();
-    return requestJsonApi(url, init, false);
+    return requestJsonApi(url, init, false, attempt);
   }
 
   return response;
