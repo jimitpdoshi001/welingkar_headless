@@ -26,13 +26,16 @@ function FeatureText({ block, className = "" }: { block: FeatureBlock; className
   );
 }
 
-export function WeResearchPage({ data }: { data: WeResearchData }) {
+/** campus "bengaluru": Bengaluru campus colours (terracotta bands, as on the Bengaluru campus page). */
+export function WeResearchPage({ data, campus = "mumbai" }: { data: WeResearchData; campus?: "mumbai" | "bengaluru" }) {
   return (
     <SearchProvider>
       <div className="GlobalLayout">
         <Header transparentHero />
 
-        <main data-auto-reveal="reveal">
+        <main
+          data-auto-reveal="reveal"
+          style={campus === "bengaluru" ? ({ "--wr-band": "#b04535" } as React.CSSProperties) : undefined}>
           {/* Hero (Figma 2533:396): photo with left, bottom and top dark fades. */}
           <section className={styles.hero}>
             <img src={data.hero.image} alt="" className={styles.heroImage} />

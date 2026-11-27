@@ -1,7 +1,8 @@
 @use "../../styles/base/mixins" as *;
 
 // Figma 2533:391 palette.
-$purple: #493460;
+// Band colour: purple (Mumbai) by default; the Bengaluru page sets --wr-band to terracotta.
+$purple: var(--wr-band, #493460);
 $cream: #fdf8f0;
 
 /* ---------- Shared type ---------- */
