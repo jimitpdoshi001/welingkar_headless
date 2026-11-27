@@ -58,6 +58,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Pages that load a lot of Drupal content (e.g. home, /node/2) can take over the default 60s
+  // when stage Drupal is slow; give each page up to 3 minutes before the build gives up.
+  staticPageGenerationTimeout: 180,
   agentRules: false,
   poweredByHeader: false,
   experimental: {
