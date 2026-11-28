@@ -152,6 +152,9 @@ export const DISCLOSURE_GROUPS: DisclosureGroup[] = [
   }
 ];
 
+// Local copies of the Autonomy exhibit PDFs (public/autonomy/docs), in label order.
+const AUTONOMY_FILES = ["pea-volume-exhibit-7-to-12", "pea-volume-1-exhibit-13-to-15", "pea-volume-1-exhibit-16", "pea-volume-1-exhibit-17", "pea-volume-1-exhibit-18", "pea-volume-2-exhibit-19", "pea-volume-2-exhibit-20", "pea-volume-2-exhibit-21", "pea-volume-2-exhibit-22", "pea-volume-2-exhibit-23", "pea-volume-2-exhibit-24", "pea-volume-2-exhibit-25"];
+
 export const AUTONOMY_DOCS: DocLink[] = [
   "Reports of External Self-Evaluation Committee for AYs 2015-16 (Exhibit 7), 2016-17 (Exhibit 8) & 2017-18 (Exhibit 9) and Reports of External Peer Team for AYs 2018-19 (Exhibit 10), 2019-20 (Exhibit 11) & 2020-21 (Exhibit 12)",
   "Mandatory Disclosure of Information re: Courses, Fees, Faculty, Admission Procedure, Infrastructure, Research, Committees/Cells & Undertaking for AYs 2018-19 (Exhibit 13) , 2019-20 (Exhibit 14) & 2020-21 (Exhibit 15)",
@@ -165,7 +168,7 @@ export const AUTONOMY_DOCS: DocLink[] = [
   "Reports of Gender Audit Committee (Exhibit 23)",
   "IQAC (Exhibit 24)",
   "Annual Progress Reports AYs 2015-16 to 2020-21 (Exhibit 25)",
-].map((label) => ({ label, href: "#" }));
+].map((label, i) => ({ label, href: `/autonomy/docs/${AUTONOMY_FILES[i]}.pdf` }));
 
 export const GRIEVANCE_INTRO =
   "To meet the expectations of students, parents, alumni, faculties, non-teaching staff and other stakeholders for better, faster and more effective Grievance Redressal Mechanism, the Institute has decided to provide an on-line mechanism to all stakeholders for redressal of their grievances. You can register your grievance below -";
