@@ -1,4 +1,5 @@
 import type { JournalYear, WeResearchData } from "@/lib/weresearch/weresearch-data";
+import { absoluteDrupalUrl } from "../jsonapi";
 import { getNodeReader, or, type NodeReader } from "../node-page";
 
 /** Drupal node--weresearch: 5804 Mumbai, 5960 Bengaluru. */
@@ -18,6 +19,7 @@ const INCLUDE = [
   "field_seminars_image",
   "field_aweshkar_journal_data",
   "field_aweshkar_journal_data.field_pdf",
+  "field_aweshkar_journal_data.field_pdf.field_media_document",
   "field_aweshkar_journal_image",
 ];
 
@@ -66,7 +68,9 @@ export async function withWeResearchContent(nid: number, base: WeResearchData): 
   for (const p of r.refs(n, "field_aweshkar_journal_data")) {
     const year = r.text(p, "field_journal_year");
     const label = r.text(p, "field_main_title");
-    const href = r.image(p, "field_pdf"); // file field: same URL reader as images
+    // field_pdf is a Document media item; its file sits in field_media_document.
+    const file = r.refs(r.refs(p, "field_pdf")[0], "field_media_document")[0];
+    const href = absoluteDrupalUrl((file?.attributes.uri as { url?: string } | undefined)?.url) ?? "";
     if (!year || !label || !href) continue;
     byYear.set(year, [...(byYear.get(year) ?? []), { label, href }]);
   }
