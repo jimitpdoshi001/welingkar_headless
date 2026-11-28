@@ -24,7 +24,7 @@ export const CAMPUS_ROWS: CampusRow[] = [
     eyebrow: "(Autonomous Institute affiliated to University of Mumbai)",
     body: "MMS (Master of Management Studies) is a 2-year full-time Master's Degree program introduced in 1984. It offers specializations in Marketing, Finance, Human Resource Management, and Operations.",
     image: "/campus/listing-mms.webp",
-    href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies",
+    href: "/programs/full-time-program-in-mumbai/masters-in-management-studies",
     reverse: true,
   },
   {

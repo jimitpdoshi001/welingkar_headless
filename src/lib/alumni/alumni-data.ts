@@ -70,7 +70,7 @@ export type AlumniNews = { title: string; text?: string; date: string; image?: s
 export const ALUMNI_CAMPUSES: AlumniCampus[] = [
   { title: "Mumbai Campus", image: V2("campus-mumbai"), href: "/campus-mumbai" },
   { title: "Bengaluru Campus", image: V2("campus-bengaluru"), href: "/campus-bengaluru" },
-  { title: "MMS", image: V2("campus-mms"), href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" },
+  { title: "MMS", image: V2("campus-mms"), href: "/programs/full-time-program-in-mumbai/masters-in-management-studies" },
 ];
 
 export const ALUMNI_DIRECTORS: AlumniDirector[] = [

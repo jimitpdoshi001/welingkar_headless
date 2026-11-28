@@ -40,21 +40,21 @@ export type MainNavItem = {
 
 /** Full-time PGDM programmes, reused across Campus and Programmes panels. */
 const FULL_TIME_PGDM: MegaLink[] = [
-  { label: "PGDM", href: "/programs/full-time-programme-in-mumbai/pgdm" },
-  { label: "PGDM E-Business", href: "/programs/full-time-programme-in-mumbai/pgdm-e-business" },
-  { label: "PGDM Business Design", href: "/programs/full-time-programme-in-mumbai/pgdm-business-design" },
-  { label: "PGDM Healthcare", href: "/programs/full-time-programme-in-mumbai/pgdm-health-care-management" },
-  { label: "PGDM Retail Management", href: "/programs/full-time-programme-in-mumbai/pgdm-retail-management" },
-  { label: "PGDM Rural Management", href: "/programs/full-time-programme-in-mumbai/pgdm-rural-management" },
-  { label: "PGDM Media & Entertainment", href: "/programs/full-time-programme-in-mumbai/pgdm-media-and-entertainment" },
-  { label: "PGDM Research & Business Analytics", href: "/programs/full-time-programme-in-mumbai/pgdm-research-and-business-analytics" },
+  { label: "PGDM", href: "/programs/full-time-program-in-mumbai/pgdm" },
+  { label: "PGDM E-Business", href: "/programs/full-time-program-in-mumbai/pgdm-e-business" },
+  { label: "PGDM Business Design", href: "/programs/full-time-program-in-mumbai/pgdm-business-design" },
+  { label: "PGDM Healthcare", href: "/programs/full-time-program-in-mumbai/pgdm-health-care-management" },
+  { label: "PGDM Retail Management", href: "/programs/full-time-program-in-mumbai/pgdm-retail-management" },
+  { label: "PGDM Rural Management", href: "/programs/full-time-program-in-mumbai/pgdm-rural-management" },
+  { label: "PGDM Media & Entertainment", href: "/programs/full-time-program-in-mumbai/pgdm-media-and-entertainment" },
+  { label: "PGDM Research & Business Analytics", href: "/programs/full-time-program-in-mumbai/pgdm-research-and-business-analytics" },
 ];
 
 const FULL_TIME_PGDM_BLR: MegaLink[] = [
-  { label: "PGDM", href: "/programs/full-time-programme-in-bengaluru/pgdm" },
-  { label: "PGDM E-Business", href: "/programs/full-time-programme-in-bengaluru/pgdm-e-business" },
-  { label: "PGDM Business Design & Innovation", href: "/programs/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation" },
-  { label: "PGDM Research & Business Analytics", href: "/programs/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics" },
+  { label: "PGDM", href: "/programs/full-time-program-in-bengaluru/pgdm" },
+  { label: "PGDM E-Business", href: "/programs/full-time-program-in-bengaluru/pgdm-e-business" },
+  { label: "PGDM Business Design & Innovation", href: "/programs/full-time-program-in-bengaluru/pgdm-business-design-and-innovation" },
+  { label: "PGDM Research & Business Analytics", href: "/programs/full-time-program-in-bengaluru/pgdm-research-and-business-analytics" },
 ];
 
 export const MAIN_NAV: MainNavItem[] = [
@@ -122,7 +122,7 @@ export const MAIN_NAV: MainNavItem[] = [
         {
           heading: "Fees & Support",
           links: [
-            { label: "Fees & EMI", href: "/programs/full-time-programme-in-mumbai/pgdm" },
+            { label: "Fees & EMI", href: "/programs/full-time-program-in-mumbai/pgdm" },
             { label: "TFW Scheme", href: "/admissions#tfw-scheme" },
             { label: "Scholarships", href: "/admissions#scholarships" },
             { label: "Financial Assistance", href: "/admissions#education-loan" },
@@ -143,17 +143,17 @@ export const MAIN_NAV: MainNavItem[] = [
           title: "PGDM Mumbai",
           subtitle: "AICTE approved standalone institute",
           columns: [
-            { heading: "Full-Time Programs", headingHref: "/programs/full-time-programme-in-mumbai", links: FULL_TIME_PGDM },
+            { heading: "Full-Time Programs", headingHref: "/programs/full-time-program-in-mumbai", links: FULL_TIME_PGDM },
             {
               heading: "Executive",
-              headingHref: "/programs/executive-programme-in-mumbai",
+              headingHref: "/programs/executive-program-in-mumbai",
               links: [{ label: "MDP", href: "/programs/mdp" }],
               sections: [
                 {
                   heading: "11 Months Post Graduate Program (Autonomous)",
                   links: [
-                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programs/executive-programme-in-mumbai/entrepreneurship-management" },
-                    { label: "PGP in Media & Entertainment", href: "/programs/executive-programme-in-mumbai/media-and-entertainment-management" },
+                    { label: "PGP in Entrepreneurship and Family Managed Business (EFMB)", href: "/programs/executive-program-in-mumbai/entrepreneurship-management" },
+                    { label: "PGP in Media & Entertainment", href: "/programs/executive-program-in-mumbai/media-and-entertainment-management" },
                   ],
                 },
               ],
@@ -163,7 +163,7 @@ export const MAIN_NAV: MainNavItem[] = [
               headingHref: "/programs/pgdm-hybrid",
               links: [],
               sections: [
-                { heading: "11 Months PGP & 6 Months Certificate Programs", headingHref: "/programs/11-month-pg-6-month-certificate-programmes", links: [] },
+                { heading: "11 Months PGP & 6 Months Certificate Programs", headingHref: "/programs/11-month-pg-6-month-certificate-programs", links: [] },
                 { heading: "Post Graduate Program in Temple Management (PGPTM)", headingHref: "/programs/pgptm", links: [] },
               ],
             },
@@ -175,8 +175,8 @@ export const MAIN_NAV: MainNavItem[] = [
           columns: [
             {
               heading: "Full-Time Programs",
-              links: [{ label: "MMS", href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" }],
-              sections: [{ heading: "PhD Programs", headingHref: "/programs/phd-programme-in-mumbai", links: [{ label: "Management Studies", href: "/programs/phd-programme-in-mumbai" }] }],
+              links: [{ label: "MMS", href: "/programs/full-time-program-in-mumbai/masters-in-management-studies" }],
+              sections: [{ heading: "PhD Programs", headingHref: "/programs/phd-program-in-mumbai", links: [{ label: "Management Studies", href: "/programs/phd-program-in-mumbai" }] }],
             },
           ],
         },
@@ -186,7 +186,7 @@ export const MAIN_NAV: MainNavItem[] = [
           columns: [
             {
               heading: "Full-Time Programs",
-              headingHref: "/programs/full-time-programme-in-bengaluru",
+              headingHref: "/programs/full-time-program-in-bengaluru",
               links: FULL_TIME_PGDM_BLR,
               sections: [{ heading: "Executive", headingHref: "/programs/mdp/bengaluru", links: [{ label: "MDP", href: "/programs/mdp/bengaluru" }] }],
             },

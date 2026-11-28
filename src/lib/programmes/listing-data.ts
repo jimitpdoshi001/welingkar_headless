@@ -50,11 +50,11 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { label: "MDP", href: "/programs/mdp" },
   ],
   pills: [
-    { label: "Full-Time Programs", href: "/programs/full-time-programme-in-bengaluru" },
-    { label: "Executive", href: "/programs/executive-programme-in-mumbai" },
-    { label: "11months Post Graduate Program", href: "/programs/executive-programme-in-mumbai" },
+    { label: "Full-Time Programs", href: "/programs/full-time-program-in-bengaluru" },
+    { label: "Executive", href: "/programs/executive-program-in-mumbai" },
+    { label: "11months Post Graduate Program", href: "/programs/executive-program-in-mumbai" },
     { label: "PGDM Hybrid Program", href: "/programs/pgdm-hybrid" },
-    { label: "11 months PGP & 6 months Certificate Programs", href: "/programs/11-month-pg-6-month-certificate-programmes" },
+    { label: "11 months PGP & 6 months Certificate Programs", href: "/programs/11-month-pg-6-month-certificate-programs" },
     { label: "Post Graduate Program in Temple Management (PGPTM)", href: "/programs/pgptm" },
   ],
   intro: {
@@ -77,7 +77,7 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
 
 /** Bengaluru version of a program page, or null when the program runs in Mumbai only. */
 export function bengaluruProgramHref(slug: string): string | null {
-  if (slug === "pgdm") return "/programs/full-time-programme-in-bengaluru/pgdm";
+  if (slug === "pgdm") return "/programs/full-time-program-in-bengaluru/pgdm";
   return ["pgdm-e-business", "pgdm-business-design", "pgdm-research-analytics"].includes(slug)
     ? toPublicPath(`/programs/${slug}?campus=bengaluru`)
     : null;

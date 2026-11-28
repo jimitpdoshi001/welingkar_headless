@@ -1,5 +1,5 @@
 import { absoluteDrupalUrl, fetchJsonApi } from "./jsonapi";
-import { toPublicPath } from "@/lib/seo/public-paths";
+import { modernProgramPath, toPublicPath } from "@/lib/seo/public-paths";
 import {
   PROGRAM_LISTING_NIDS,
   PROGRAM_SLUG_NIDS_BENGALURU,
@@ -19,23 +19,24 @@ export type WhatWeOfferItem = {
 
 // Drupal program paths -> the Next.js routes that render those programs.
 const ROUTES: Record<string, string> = {
-  "/programs/full-time-programme-in-mumbai/pgdm": "/programs/full-time-programme-in-mumbai/pgdm",
-  "/programs/full-time-programme-in-mumbai/pgdm-business-design": "/programs/full-time-programme-in-mumbai/pgdm-business-design",
-  "/programs/full-time-programme-in-mumbai/pgdm-e-business": "/programs/full-time-programme-in-mumbai/pgdm-e-business",
-  "/programs/full-time-programme-in-mumbai/pgdm-healthcare-management": "/programs/full-time-programme-in-mumbai/pgdm-health-care-management",
-  "/programs/full-time-programme-in-mumbai/pgdm-media-and-entertainment": "/programs/full-time-programme-in-mumbai/pgdm-media-and-entertainment",
-  "/programs/full-time-programme-in-mumbai/pgdm-research-and-business-analytics": "/programs/full-time-programme-in-mumbai/pgdm-research-and-business-analytics",
-  "/programs/full-time-programme-in-mumbai/pgdm-retail-management": "/programs/full-time-programme-in-mumbai/pgdm-retail-management",
-  "/programs/full-time-programme-in-mumbai/pgdm-rural-management": "/programs/full-time-programme-in-mumbai/pgdm-rural-management",
-  "/programs/full-time-programme-in-bengaluru": "/programs/full-time-programme-in-bengaluru",
+  "/programs/full-time-program-in-mumbai/pgdm": "/programs/full-time-program-in-mumbai/pgdm",
+  "/programs/full-time-program-in-mumbai/pgdm-business-design": "/programs/full-time-program-in-mumbai/pgdm-business-design",
+  "/programs/full-time-program-in-mumbai/pgdm-e-business": "/programs/full-time-program-in-mumbai/pgdm-e-business",
+  "/programs/full-time-program-in-mumbai/pgdm-healthcare-management": "/programs/full-time-program-in-mumbai/pgdm-health-care-management",
+  "/programs/full-time-program-in-mumbai/pgdm-media-and-entertainment": "/programs/full-time-program-in-mumbai/pgdm-media-and-entertainment",
+  "/programs/full-time-program-in-mumbai/pgdm-research-and-business-analytics": "/programs/full-time-program-in-mumbai/pgdm-research-and-business-analytics",
+  "/programs/full-time-program-in-mumbai/pgdm-retail-management": "/programs/full-time-program-in-mumbai/pgdm-retail-management",
+  "/programs/full-time-program-in-mumbai/pgdm-rural-management": "/programs/full-time-program-in-mumbai/pgdm-rural-management",
+  "/programs/full-time-program-in-bengaluru": "/programs/full-time-program-in-bengaluru",
 };
 
 /** Map a Drupal path (absolute or relative, trailing slash ignored) to its site route. */
 function siteRoute(url: string): string {
   // Links typed with this site's own domain become relative (in-app navigation).
   const local = url.replace(/^https?:\/\/welingkar-headless\.vercel\.app(?=\/)/i, "");
-  const path = local.replace(/^https?:\/\/[^/]+/i, "").replace(/\/+$/, "").replace(/^\/programmes(?=\/|$)/, "/programs"); // Drupal still uses /programmes
-  return ROUTES[path] ?? local;
+  const path = modernProgramPath(local.replace(/^https?:\/\/[^/]+/i, "").replace(/\/+$/, ""));
+  // Drupal still uses the old "programme" spellings; unmapped links get the new spelling too.
+  return ROUTES[path] ?? modernProgramPath(local);
 }
 
 /** Bengaluru card route -> its program page's Drupal node (for the banner image). */

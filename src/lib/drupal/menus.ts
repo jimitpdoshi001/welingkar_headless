@@ -48,7 +48,7 @@ function sanitizeMenuItems<T extends { url: string; children?: T[] }>(items: T[]
 const FOOTER_ROUTES: Record<string, string> = {
   "full-time": "/programs/all",
   executive: "/programs/mdp",
-  phd: "/programs/phd-programme-in-mumbai",
+  phd: "/programs/phd-program-in-mumbai",
   "who we are": "/who-we-are",
   "mumbai campus": "/campus-mumbai",
   "bengaluru campus": "/campus-bengaluru",
@@ -58,7 +58,7 @@ const FOOTER_ROUTES: Record<string, string> = {
   "contact us": "/contact-us",
   "national academic depository (nad)": "/nad",
   blog: "/blogs",
-  "mms 2025-26": "/programs/full-time-programme-in-mumbai/masters-in-management-studies",
+  "mms 2025-26": "/programs/full-time-program-in-mumbai/masters-in-management-studies",
   "we research @ mumbai": "/we-research-mumbai",
   "mandatory disclosure": "/mandatory-disclosures",
   autonomy: "/autonomy",

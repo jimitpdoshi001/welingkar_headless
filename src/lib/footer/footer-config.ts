@@ -11,12 +11,12 @@ const COLUMNS: { title: string; items: Item[] }[] = [
   {
     title: "Programs",
     items: [
-      ["Full Time", "/programs/full-time-programme-in-mumbai"],
+      ["Full Time", "/programs/full-time-program-in-mumbai"],
       ["Executive", "/programs/mdp"],
-      ["MMS", "/programs/full-time-programme-in-mumbai/masters-in-management-studies"],
-      ["PGP in Entrepreneurship & Family Managed Business (EFMB)", "/programs/executive-programme-in-mumbai/entrepreneurship-management"],
-      ["PGP in Media & Entertainment", "/programs/executive-programme-in-mumbai/media-and-entertainment-management"],
-      ["11 months PGP & 6 Months Certificate", "/programs/11-month-pg-6-month-certificate-programmes"],
+      ["MMS", "/programs/full-time-program-in-mumbai/masters-in-management-studies"],
+      ["PGP in Entrepreneurship & Family Managed Business (EFMB)", "/programs/executive-program-in-mumbai/entrepreneurship-management"],
+      ["PGP in Media & Entertainment", "/programs/executive-program-in-mumbai/media-and-entertainment-management"],
+      ["11 months PGP & 6 Months Certificate", "/programs/11-month-pg-6-month-certificate-programs"],
       ["PGDM Hybrid Program", "/programs/pgdm-hybrid"],
       ["PGP Foreign Trade Management", "/programs/foreign-trade-management"],
     ],
