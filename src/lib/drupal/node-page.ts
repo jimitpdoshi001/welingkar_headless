@@ -50,6 +50,8 @@ export function htmlParas(html: string): string[] {
 type LinkValue = { uri?: string; title?: string };
 
 function toHref(uri: string): string {
+  // Drupal "no link" / "none" placeholders are not real links.
+  if (/^route:<(nolink|none|button)>$/.test(uri)) return "";
   const href = uri.replace(/^internal:/, "").replace(/^entity:node\//, "/node/");
   // Links typed with this site's own domain stay in-app.
   return toPublicPath(href.replace(/^https?:\/\/welingkar-headless\.vercel\.app(?=\/)/i, ""));
