@@ -4,7 +4,7 @@ import { getProgramListing, programOverviewListing } from "../program-listing";
 const NID = 5798;
 
 /**
- * Executive Programmes in Mumbai (/programmes/executive-programme-in-mumbai):
+ * Executive Programmes in Mumbai (/programs/executive-programme-in-mumbai):
  * the Full-Time listing design with the "Executive" pill active, content from
  * Drupal node 5798. The built-in hero photo is used only while Drupal has none.
  */

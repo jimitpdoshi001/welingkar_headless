@@ -5,7 +5,7 @@
  */
 import type { PgdmCta, PgdmUspBand } from "@/lib/pgdm/pgdm-data";
 
-const IMG = "/programmes/pgp-entrepreneurship"; // files live in public/programmes/pgp-entrepreneurship
+const IMG = "/programs/pgp-entrepreneurship"; // files live in public/programs/pgp-entrepreneurship
 
 export type PgpHero = {
   breadcrumb: string;

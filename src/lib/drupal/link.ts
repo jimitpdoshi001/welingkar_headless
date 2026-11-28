@@ -22,7 +22,8 @@ export function isSafeHref(value: string): boolean {
 
 function safe(href: string | null): string | null {
   if (!href || !isSafeHref(href)) return null;
-  return href;
+  // Drupal content still links to the old /programmes prefix (also typed with this site's domain).
+  return href.replace(/^(https?:\/\/welingkar-headless\.vercel\.app)?\/programmes(?=[/?#]|$)/i, "$1/programs");
 }
 
 /**

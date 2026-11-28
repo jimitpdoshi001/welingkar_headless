@@ -124,7 +124,7 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
       { label: "Programs", href: "#programs" },
       { label: "Faculty", href: "#mentors" },
       { label: "We Research", href: "#weresearch" },
-      { label: "MDP", href: isMumbai ? "/programmes/mdp" : "/programmes/mdp/bengaluru" },
+      { label: "MDP", href: isMumbai ? "/programs/mdp" : "/programs/mdp/bengaluru" },
       { label: "Life @ WeSchool", href: "#life" },
     ],
     about: {
@@ -185,12 +185,12 @@ function makeCampus(campus: "Mumbai" | "Bengaluru"): CampusData {
     programmes: {
       heading: "Programs Built for Every Ambition",
       description: "Design thinking sits at the heart of everything we teach. Our wide range of curated programs are built to challenge, engage, and shape students into the business leaders of tomorrow.",
-      cta: { label: "View All", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm" : "/programmes/full-time-programme-in-bengaluru" },
+      cta: { label: "View All", href: isMumbai ? "/programs/full-time-programme-in-mumbai/pgdm" : "/programs/full-time-programme-in-bengaluru" },
       cards: [
-        { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm" : "/programmes/full-time-programme-in-bengaluru/pgdm" } },
-        { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm-e-business" : "/programmes/full-time-programme-in-bengaluru/pgdm-e-business" } },
-        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm-business-design" : "/programmes/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation" } },
-        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics" : "/programmes/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics" } },
+        { id: "pc-1", image: CIMG.p1, title: "PGDM (Specialisation in Marketing, Finance, HR, & Operations)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programs/full-time-programme-in-mumbai/pgdm" : "/programs/full-time-programme-in-bengaluru/pgdm" } },
+        { id: "pc-2", image: CIMG.p2, title: "PGDM (E-business)", meta: "Course intake: 60 students", cta: { label: "Know More", href: isMumbai ? "/programs/full-time-programme-in-mumbai/pgdm-e-business" : "/programs/full-time-programme-in-bengaluru/pgdm-e-business" } },
+        { id: "pc-3", image: CIMG.p3, title: "PGDM (Business Design & Innovation)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programs/full-time-programme-in-mumbai/pgdm-business-design" : "/programs/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation" } },
+        { id: "pc-4", image: CIMG.p4, title: "PGDM (Research & Business Analytics)", meta: "Course intake: 30 students", cta: { label: "Know More", href: isMumbai ? "/programs/full-time-programme-in-mumbai/pgdm-research-and-business-analytics" : "/programs/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics" } },
       ],
     },
     recruiters: {

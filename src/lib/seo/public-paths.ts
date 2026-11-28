@@ -14,8 +14,8 @@ export const PUBLIC_PATHS: [live: string, internal: string][] = [
   ["/career-management-centre-bengaluru", "/corporate-interface/bengaluru"],
   ["/mandatory-disclosures", "/mandatory-disclosure"],
   // MDP (Management Development Programs) pages use the MDC design.
-  ["/programmes/mdp", "/mdc"],
-  ["/programmes/mdp/bengaluru", "/mdc/bengaluru"],
+  ["/programs/mdp", "/mdc"],
+  ["/programs/mdp/bengaluru", "/mdc/bengaluru"],
   ["/testimonial", "/testimonials"],
   ["/grievance", "/grievance-redressal"],
   // WeFactor
@@ -27,28 +27,28 @@ export const PUBLIC_PATHS: [live: string, internal: string][] = [
   ["/we-research-mumbai", "/weresearch"],
   ["/we-research-bengaluru", "/weresearch/bengaluru"],
   // Full-time programmes, Mumbai
-  ["/programmes/full-time-programme-in-mumbai", "/programmes/mumbai"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm", "/programmes/pgdm"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-business-design", "/programmes/pgdm-business-design"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-e-business", "/programmes/pgdm-e-business"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-health-care-management", "/programmes/pgdm-healthcare"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-media-and-entertainment", "/programmes/pgdm-media"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-research-and-business-analytics", "/programmes/pgdm-research-analytics"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-retail-management", "/programmes/pgdm-retail"],
-  ["/programmes/full-time-programme-in-mumbai/pgdm-rural-management", "/programmes/pgdm-rural"],
-  ["/programmes/full-time-programme-in-mumbai/masters-in-management-studies", "/programmes/mms"],
+  ["/programs/full-time-programme-in-mumbai", "/programs/mumbai"],
+  ["/programs/full-time-programme-in-mumbai/pgdm", "/programs/pgdm"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-business-design", "/programs/pgdm-business-design"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-e-business", "/programs/pgdm-e-business"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-health-care-management", "/programs/pgdm-healthcare"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-media-and-entertainment", "/programs/pgdm-media"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-research-and-business-analytics", "/programs/pgdm-research-analytics"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-retail-management", "/programs/pgdm-retail"],
+  ["/programs/full-time-programme-in-mumbai/pgdm-rural-management", "/programs/pgdm-rural"],
+  ["/programs/full-time-programme-in-mumbai/masters-in-management-studies", "/programs/mms"],
   // Full-time programmes, Bengaluru
-  ["/programmes/full-time-programme-in-bengaluru", "/programmes/bengaluru"],
-  ["/programmes/full-time-programme-in-bengaluru/pgdm", "/programmes/pgdm/bengaluru"],
-  ["/programmes/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation", "/programmes/pgdm-business-design?campus=bengaluru"],
-  ["/programmes/full-time-programme-in-bengaluru/pgdm-e-business", "/programmes/pgdm-e-business?campus=bengaluru"],
-  ["/programmes/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics", "/programmes/pgdm-research-analytics?campus=bengaluru"],
+  ["/programs/full-time-programme-in-bengaluru", "/programs/bengaluru"],
+  ["/programs/full-time-programme-in-bengaluru/pgdm", "/programs/pgdm/bengaluru"],
+  ["/programs/full-time-programme-in-bengaluru/pgdm-business-design-and-innovation", "/programs/pgdm-business-design?campus=bengaluru"],
+  ["/programs/full-time-programme-in-bengaluru/pgdm-e-business", "/programs/pgdm-e-business?campus=bengaluru"],
+  ["/programs/full-time-programme-in-bengaluru/pgdm-research-and-business-analytics", "/programs/pgdm-research-analytics?campus=bengaluru"],
   // Executive, certificate and PhD
-  ["/programmes/executive-programme-in-mumbai/entrepreneurship-management", "/programmes/pgp-entrepreneurship"],
-  ["/programmes/executive-programme-in-mumbai/media-and-entertainment-management", "/programmes/pgp-media"],
-  ["/programmes/11-month-pg-6-month-certificate-programmes", "/programmes/certificate"],
-  ["/programmes/phd-programme-in-mumbai", "/programmes/phd"],
-  ["/programmes/phd-programme-in-mumbai/management-studies", "/programmes/phd"],
+  ["/programs/executive-programme-in-mumbai/entrepreneurship-management", "/programs/pgp-entrepreneurship"],
+  ["/programs/executive-programme-in-mumbai/media-and-entertainment-management", "/programs/pgp-media"],
+  ["/programs/11-month-pg-6-month-certificate-programmes", "/programs/certificate"],
+  ["/programs/phd-programme-in-mumbai", "/programs/phd"],
+  ["/programs/phd-programme-in-mumbai/management-studies", "/programs/phd"],
 ];
 
 const TO_PUBLIC = new Map<string, string>();
@@ -56,6 +56,8 @@ for (const [live, internal] of PUBLIC_PATHS) if (!TO_PUBLIC.has(internal)) TO_PU
 
 /** Public (live) address for an internal route; other paths are returned unchanged. */
 export function toPublicPath(href: string): string {
+  // Drupal content still links to the old /programmes prefix; the site now uses /programs.
+  href = href.replace(/^\/programmes(?=[/?#]|$)/, "/programs");
   const m = href.match(/^([^#]*)(#.*)?$/);
   const path = (m?.[1] ?? href).replace(/\/+$/, "") || "/";
   const live = TO_PUBLIC.get(path);

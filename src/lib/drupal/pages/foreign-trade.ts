@@ -95,7 +95,7 @@ export async function getForeignTrade(): Promise<ForeignTradeData> {
     hero: {
       title: r.text(banner, "field_main_title"),
       subtitle: r.text(banner, "field_sub_title"),
-      cta: apply.href ? { label: apply.title, href: apply.href.replace(/^\/programmes\/foreign-trade-management(?=#)/, "") } : { label: "", href: "" },
+      cta: apply.href ? { label: apply.title, href: apply.href.replace(/^\/programs\/foreign-trade-management(?=#)/, "") } : { label: "", href: "" },
       image: r.image(banner, "field_desktop"),
     },
     about: { heading: r.text(n, "field_intro_title"), text: joined("field_intro_description") },

@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 
 import styles from "./PgpOverview.module.scss";
 
-const PLAY = "/programmes/pgp-entrepreneurship/play-button.svg";
+const PLAY = "/programs/pgp-entrepreneurship/play-button.svg";
 
 /** Inline Drupal MP4 with a centre play button (hidden while playing); native controls stay. */
 export function PgpInlineVideo({ src, title }: { src: string; title: string }) {

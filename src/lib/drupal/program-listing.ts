@@ -796,7 +796,7 @@ export const PROGRAM_LISTING_NIDS = {
   pgpMedia: 5767,
 } as const;
 
-/** Program slugs (/programmes/[slug]) whose content comes from Drupal. */
+/** Program slugs (/programs/[slug]) whose content comes from Drupal. */
 export const PROGRAM_SLUG_NIDS: Record<string, number> = {
   "pgdm-research-analytics": PROGRAM_LISTING_NIDS.pgdmResearchAnalytics,
   "pgdm-business-design": PROGRAM_LISTING_NIDS.pgdmBusinessDesignMumbai,
@@ -808,7 +808,7 @@ export const PROGRAM_SLUG_NIDS: Record<string, number> = {
   "pgp-media": PROGRAM_LISTING_NIDS.pgpMedia,
 };
 
-/** Bengaluru versions (/programmes/[slug]?campus=bengaluru): Drupal node per slug. */
+/** Bengaluru versions (/programs/[slug]?campus=bengaluru): Drupal node per slug. */
 export const PROGRAM_SLUG_NIDS_BENGALURU: Record<string, number> = {
   "pgdm-business-design": PROGRAM_LISTING_NIDS.pgdmBusinessDesignBengaluru,
   "pgdm-e-business": PROGRAM_LISTING_NIDS.pgdmEBusinessBengaluru,

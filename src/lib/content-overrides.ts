@@ -77,7 +77,7 @@ export function overridePlacementDescription(html: string | null | undefined): s
  * Site copy uses "Programs"; Drupal content still says "Programmes". Rewrites
  * display text only: keys that hold links and any URL or path value are left
  * alone, and inside HTML only the text between tags changes, so hrefs such as
- * /programmes/... keep working.
+ * /programs/... keep working.
  */
 const LINK_KEYS = new Set(["uri", "url", "href", "path", "alias", "src", "link", "langcode"]);
 const isUrlLike = (value: string) => /^(https?:)?\/\/|^\//.test(value.trim());

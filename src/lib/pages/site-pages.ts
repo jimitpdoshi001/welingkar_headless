@@ -167,8 +167,8 @@ export const SITE_PAGES: Record<string, SitePage> = {
         heading: "Explore",
         tint: "cream",
         cards: [
-          { title: "Programs", text: "Browse our full-time, executive and certificate programs.", href: "/programmes/all" },
-          { title: "Fees & Scholarships", text: "Tuition, hostel fees, EMI options and the TFW scheme.", href: "/programmes/full-time-programme-in-mumbai/pgdm" },
+          { title: "Programs", text: "Browse our full-time, executive and certificate programs.", href: "/programs/all" },
+          { title: "Fees & Scholarships", text: "Tuition, hostel fees, EMI options and the TFW scheme.", href: "/programs/full-time-programme-in-mumbai/pgdm" },
           { title: "Apply Now", text: "Start your application today.", href: "/apply" },
         ],
       },
@@ -574,7 +574,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cards: [
           { title: "Mumbai", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campus-mumbai" },
           { title: "Bengaluru", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/campus-bengaluru" },
-          { title: "MMS", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
+          { title: "MMS", text: "Student cells, logins, examination, gallery, current events, articles & blogs.", href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" },
         ],
       },
       {
@@ -612,7 +612,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
   },
 
   // ---- Forms / CTAs ----
-  "/apply": simple("Apply to WeSchool", "Start your application to a WeSchool program.", ["Home", "/"], [{ heading: "Ready to Apply?", tint: "cream", cards: [{ title: "Browse Programs", text: "Find the right program for you.", href: "/programmes/all" }, { title: "Check Eligibility", text: "Admissions criteria and process.", href: "/admissions" }] }], HERO.people, "orange"),
+  "/apply": simple("Apply to WeSchool", "Start your application to a WeSchool program.", ["Home", "/"], [{ heading: "Ready to Apply?", tint: "cream", cards: [{ title: "Browse Programs", text: "Find the right program for you.", href: "/programs/all" }, { title: "Check Eligibility", text: "Admissions criteria and process.", href: "/admissions" }] }], HERO.people, "orange"),
   "/brochure": simple("Download Brochure", "Get the latest WeSchool program brochure.", ["Home", "/"], undefined, HERO.office, "orange"),
   "/enquire-now": {
     title: "Enquiry Form",
@@ -683,9 +683,9 @@ export const SITE_PAGES: Record<string, SitePage> = {
         cardColumns: 4,
         cards: [
           { title: "358", text: "Companies on campus", href: "/corporate-interface/top-recruiters" },
-          { title: "₹11.99 LPA", text: "Domestic average (2024–26)", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
-          { title: "₹23 LPA", text: "Domestic high", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
-          { title: "₹22.92 LPA", text: "International average", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" },
+          { title: "₹11.99 LPA", text: "Domestic average (2024–26)", href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" },
+          { title: "₹23 LPA", text: "Domestic high", href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" },
+          { title: "₹22.92 LPA", text: "International average", href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" },
         ],
       },
       { heading: "Contact", paragraphs: ["Lakhamsi Napoo Road, Near Matunga (Central Rly.), Mumbai 400 019 · mms.director@welingkar.org."] },
@@ -727,7 +727,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     image: HERO.office,
     accent: "orange",
     breadcrumbs: crumbs(["Home", "/"], ["Thank You"]),
-    sections: [{ heading: "What happens next?", align: "center", paragraphs: ["We've received your details and a member of our team will be in touch soon. In the meantime, feel free to explore our programs and campuses."], cards: [{ title: "Explore Programs", text: "Browse our full range of programs.", href: "/programmes/all" }, { title: "Visit a Campus", text: "Mumbai & Bengaluru campuses.", href: "/campuses" }] }],
+    sections: [{ heading: "What happens next?", align: "center", paragraphs: ["We've received your details and a member of our team will be in touch soon. In the meantime, feel free to explore our programs and campuses."], cards: [{ title: "Explore Programs", text: "Browse our full range of programs.", href: "/programs/all" }, { title: "Visit a Campus", text: "Mumbai & Bengaluru campuses.", href: "/campuses" }] }],
   },
   "/site-map": {
     title: "Site Map",
@@ -737,7 +737,7 @@ export const SITE_PAGES: Record<string, SitePage> = {
     sections: [
       { heading: "Who We Are", cardColumns: 3, cards: [{ title: "About Us", text: "", href: "/who-we-are" }, { title: "Vision & Mission", text: "", href: "/about-us/vision-mission" }, { title: "Managing Council", text: "", href: "/about-us/managing-council" }, { title: "Chairman's Message", text: "", href: "/about-us/chairman-message" }, { title: "Director's Message", text: "", href: "/about-us/directors-message" }, { title: "Faculty", text: "", href: "/about-us/faculty" }, { title: "Accreditation", text: "", href: "/accreditation" }, { title: "Awards & Accolades", text: "", href: "/about-us/awards" }] },
       { heading: "Campuses", tint: "cream", cardColumns: 3, cards: [{ title: "Campuses", text: "", href: "/campuses" }, { title: "Mumbai Campus", text: "", href: "/campus-mumbai" }, { title: "Bengaluru Campus", text: "", href: "/campus-bengaluru" }, { title: "Life @ WeSchool", text: "", href: "/life-at-weschool" }, { title: "Life — Bengaluru", text: "", href: "/life-at-weschool/bengaluru" }, { title: "Life — MMS", text: "", href: "/life-at-weschool/mms" }] },
-      { heading: "Programs", cardColumns: 3, cards: [{ title: "All Programs", text: "", href: "/programmes/all" }, { title: "PGDM (Mumbai)", text: "", href: "/programmes/full-time-programme-in-mumbai/pgdm" }, { title: "PGDM (Bengaluru)", text: "", href: "/programmes/full-time-programme-in-bengaluru/pgdm" }, { title: "MMS", text: "", href: "/programmes/full-time-programme-in-mumbai/masters-in-management-studies" }, { title: "Admissions", text: "", href: "/admissions" }, { title: "MDC — Executive Education", text: "", href: "/mdc" }] },
+      { heading: "Programs", cardColumns: 3, cards: [{ title: "All Programs", text: "", href: "/programs/all" }, { title: "PGDM (Mumbai)", text: "", href: "/programs/full-time-programme-in-mumbai/pgdm" }, { title: "PGDM (Bengaluru)", text: "", href: "/programs/full-time-programme-in-bengaluru/pgdm" }, { title: "MMS", text: "", href: "/programs/full-time-programme-in-mumbai/masters-in-management-studies" }, { title: "Admissions", text: "", href: "/admissions" }, { title: "MDC — Executive Education", text: "", href: "/mdc" }] },
       { heading: "Research, Corporate & Global", tint: "cream", cardColumns: 3, cards: [{ title: "WeResearch", text: "", href: "/we-research-mumbai" }, { title: "aWEshkar Journal", text: "", href: "/weresearch/aweshkar" }, { title: "We Conference", text: "", href: "/we-conference" }, { title: "Corporate Interface", text: "", href: "/corporate-interface" }, { title: "WeFactor", text: "", href: "/we-factor" }, { title: "WeGlobal", text: "", href: "/weglobal" }] },
       { heading: "Engage & Statutory", cardColumns: 3, cards: [{ title: "Blogs", text: "", href: "/blogs" }, { title: "Events", text: "", href: "/events" }, { title: "News & Media", text: "", href: "/media" }, { title: "Careers", text: "", href: "/careers" }, { title: "Alumni", text: "", href: "/alumni" }, { title: "Contact Us", text: "", href: "/contact-us" }, { title: "Library (LRC)", text: "", href: "/library" }, { title: "Mandatory Disclosures", text: "", href: "/mandatory-disclosures" }, { title: "Autonomy", text: "", href: "/autonomy" }, { title: "Grievance Redressal", text: "", href: "/grievance" }, { title: "Privacy Policy", text: "", href: "/privacy-policy" }, { title: "NAD", text: "", href: "/nad" }] },
     ],

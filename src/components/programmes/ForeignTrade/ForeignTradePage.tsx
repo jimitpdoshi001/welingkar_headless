@@ -27,7 +27,7 @@ export function ForeignTradePage({ data: D }: { data: ForeignTradeData }) {
       title={D.hero.title}
       subtitle={D.hero.subtitle}
       image={D.hero.image}
-      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Programs", href: "/programmes/all" }, { label: "Foreign Trade Management" }]}
+      breadcrumbs={[{ label: "Home", href: "/" }, { label: "Programs", href: "/programs/all" }, { label: "Foreign Trade Management" }]}
       heroAction={
         D.hero.cta.href && D.hero.cta.label ? (
           <a
@@ -41,7 +41,7 @@ export function ForeignTradePage({ data: D }: { data: ForeignTradeData }) {
       {D.about.heading || D.about.text ? (
       <section className={styles.aboutBand}>
         <img
-          src="/programmes/foreign-trade/decor-triangle.svg"
+          src="/programs/foreign-trade/decor-triangle.svg"
           alt=""
           width={153}
           height={175}

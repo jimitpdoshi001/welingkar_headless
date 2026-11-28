@@ -61,7 +61,7 @@ export const ADMISSIONS: AdmissionsData = {
     cards: [
       {
         title: "Apply Now!",
-        html: "<p>Admissions for WeSchool’s 2-Year Full-Time PGDM Program (2027–29 batch) are now open. Visit <a href=\"/programmes/full-time-programme-in-mumbai/pgdm\">PGDM admissions</a> to apply early and avoid last-minute delays</p>",
+        html: "<p>Admissions for WeSchool’s 2-Year Full-Time PGDM Program (2027–29 batch) are now open. Visit <a href=\"/programs/full-time-programme-in-mumbai/pgdm\">PGDM admissions</a> to apply early and avoid last-minute delays</p>",
         href: "/apply",
       },
       {

@@ -7,7 +7,7 @@ import { withProgramFaculty } from "@/lib/programmes/program-faculty";
 import { PROGRAM_LISTING_NIDS, applyProgramListing, getProgramListing } from "@/lib/drupal/program-listing";
 
 export const metadata: Metadata = {
-  ...canonical("/programmes/pgdm"),
+  ...canonical("/programs/pgdm"),
   title: "PGDM — Welingkar Mumbai",
   description: "Post Graduate Diploma in Management — Welingkar Mumbai",
 };

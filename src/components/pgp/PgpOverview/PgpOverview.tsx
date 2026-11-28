@@ -5,7 +5,7 @@ import type { PgpOverview as PgpOverviewData } from "@/lib/pgp/pgp-entrepreneurs
 import { PgpInlineVideo } from "./PgpInlineVideo";
 import styles from "./PgpOverview.module.scss";
 
-const PLAY = "/programmes/pgp-entrepreneurship/play-button.svg";
+const PLAY = "/programs/pgp-entrepreneurship/play-button.svg";
 
 // Figma 3045:501 + 3045:500: text left, 610x591 photo right with play button,
 // faint green arrow watermark on the left edge.
@@ -23,7 +23,7 @@ export function PgpOverview({ data }: { data: PgpOverviewData }) {
 
   return (
     <section id="overview" className={styles.section}>
-      <img src="/programmes/pgp-entrepreneurship/arrow-decor.svg" alt="" className={styles.decor} aria-hidden="true" />
+      <img src="/programs/pgp-entrepreneurship/arrow-decor.svg" alt="" className={styles.decor} aria-hidden="true" />
       <div className={`container ${styles.grid}`}>
         <div className={styles.text}>
           {data.heading ? <h2 className={styles.heading}>{data.heading}</h2> : null}
