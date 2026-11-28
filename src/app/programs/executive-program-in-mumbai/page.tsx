@@ -3,7 +3,7 @@ import { ProgrammeListing } from "@/components/programmes/ProgrammeListing";
 import { getExecutiveListing } from "@/lib/drupal/pages/executive-listing";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "/programmes/executive-programme-in-mumbai" },
+  alternates: { canonical: "/programs/executive-program-in-mumbai" },
   title: "Executive Programs in Mumbai — Welingkar",
   description: "Explore WeSchool Mumbai's executive programs for working professionals.",
 };

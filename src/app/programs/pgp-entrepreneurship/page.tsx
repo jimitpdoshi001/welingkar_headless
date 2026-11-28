@@ -9,7 +9,7 @@ import { withPgpEntrepreneurshipContent } from "@/lib/drupal/pages/pgp-entrepren
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  ...canonical("/programmes/pgp-entrepreneurship"),
+  ...canonical("/programs/pgp-entrepreneurship"),
   title: "PGP in Entrepreneurship and Family Managed Business (EFMB) — Welingkar Mumbai",
   description:
     "Mentoring business owners to ideate, innovate, execute & prosper — WeSchool Mumbai's 11-month PGP in Entrepreneurship and Family Managed Business.",

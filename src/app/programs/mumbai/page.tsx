@@ -5,7 +5,7 @@ import { ProgrammeListing } from "@/components/programmes/ProgrammeListing";
 import { getProgrammeListing } from "@/lib/drupal/pages/programme-listing";
 
 export const metadata: Metadata = {
-  ...canonical("/programmes/mumbai"),
+  ...canonical("/programs/mumbai"),
   title: "Full-Time Programs in Mumbai — Welingkar",
   description: "Explore WeSchool Mumbai's full-time PGDM and MMS programs.",
 };

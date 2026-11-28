@@ -2,7 +2,7 @@ import { toPublicPath } from "@/lib/seo/public-paths";
 /**
  * Programme listing pages (Figma 627:1158 Mumbai). Copy, order and intakes come
  * from Figma; images are local placeholders until real photos are uploaded to
- * /public/programmes/<campus>/<slug>.webp.
+ * /public/programs/<campus>/<slug>.webp.
  */
 
 export type ListingProgramme = {
@@ -29,7 +29,7 @@ export type ProgrammeListingData = {
   applyHref: string;
 };
 
-const img = (campus: string, name: string) => `/programmes/${campus}/${name}.webp`;
+const img = (campus: string, name: string) => `/programs/${campus}/${name}.webp`;
 
 export const LISTING_MUMBAI: ProgrammeListingData = {
   campus: "mumbai",
@@ -47,15 +47,15 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { label: "We Research", href: "/we-research-mumbai" },
     { label: "We Excel", href: "/weexcel" },
     { label: "Life @ WeSchool", href: "/life-at-weschool" },
-    { label: "MDP", href: "/programmes/mdp" },
+    { label: "MDP", href: "/programs/mdp" },
   ],
   pills: [
-    { label: "Full-Time Programs", href: "/programmes/full-time-programme-in-bengaluru" },
-    { label: "Executive", href: "/programmes/executive-programme-in-mumbai" },
-    { label: "11months Post Graduate Program", href: "/programmes/executive-programme-in-mumbai" },
-    { label: "PGDM Hybrid Program", href: "/programmes/pgdm-hybrid" },
-    { label: "11 months PGP & 6 months Certificate Programs", href: "/programmes/11-month-pg-6-month-certificate-programmes" },
-    { label: "Post Graduate Program in Temple Management (PGPTM)", href: "/programmes/pgptm" },
+    { label: "Full-Time Programs", href: "/programs/full-time-program-in-bengaluru" },
+    { label: "Executive", href: "/programs/executive-program-in-mumbai" },
+    { label: "11months Post Graduate Program", href: "/programs/executive-program-in-mumbai" },
+    { label: "PGDM Hybrid Program", href: "/programs/pgdm-hybrid" },
+    { label: "11 months PGP & 6 months Certificate Programs", href: "/programs/11-month-pg-6-month-certificate-programs" },
+    { label: "Post Graduate Program in Temple Management (PGPTM)", href: "/programs/pgptm" },
   ],
   intro: {
     heading: "Full-time Programs",
@@ -72,14 +72,14 @@ export const LISTING_MUMBAI: ProgrammeListingData = {
     { slug: "pgdm-media", title: "PGDM - Media & Entertainment", description: "This course trains students to become well-rounded media professionals, grounded in the best practices of the field." },
     { slug: "pgdm-research-analytics", title: "PGDM - Research and Business Analytics", description: "This course sharpens analytical minds in every keen student, shaping future business thinkers who lead with versatility." },
     { slug: "mms", title: "MMS", description: "This interdisciplinary program equips students with integrated management knowledge and analytical skills, offering a competitive advantage on par with postgraduate programs." },
-  ].map((p) => ({ ...p, intake: "Present Intake: 180", href: toPublicPath(p.slug === "pgdm" ? "/programmes/pgdm" : `/programmes/${p.slug}`) })),
+  ].map((p) => ({ ...p, intake: "Present Intake: 180", href: toPublicPath(p.slug === "pgdm" ? "/programs/pgdm" : `/programs/${p.slug}`) })),
 };
 
 /** Bengaluru version of a program page, or null when the program runs in Mumbai only. */
 export function bengaluruProgramHref(slug: string): string | null {
-  if (slug === "pgdm") return "/programmes/full-time-programme-in-bengaluru/pgdm";
+  if (slug === "pgdm") return "/programs/full-time-program-in-bengaluru/pgdm";
   return ["pgdm-e-business", "pgdm-business-design", "pgdm-research-analytics"].includes(slug)
-    ? toPublicPath(`/programmes/${slug}?campus=bengaluru`)
+    ? toPublicPath(`/programs/${slug}?campus=bengaluru`)
     : null;
 }
 

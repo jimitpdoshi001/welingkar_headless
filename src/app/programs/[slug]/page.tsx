@@ -24,7 +24,7 @@ export async function generateMetadata({
   // Canonical: the live-site address for this programme (campus version included).
   const campus = (await searchParams).campus === "bengaluru" ? "?campus=bengaluru" : "";
   return meta
-    ? { title: `${meta.title} — Welingkar`, description: meta.summary, ...canonical(`/programmes/${slug}${campus}`) }
+    ? { title: `${meta.title} — Welingkar`, description: meta.summary, ...canonical(`/programs/${slug}${campus}`) }
     : { title: "Program not found" };
 }
 

@@ -30,7 +30,7 @@ export default function ProgrammesPage() {
         const cards: LinkCard[] = PROGRAMMES.filter((p) => p.category === category).map((p, i) => ({
           title: p.title,
           text: p.summary,
-          href: `/programmes/${p.slug}`,
+          href: `/programs/${p.slug}`,
           image: IMAGES[(ci + i) % IMAGES.length],
           meta: `${p.duration} · ${p.intake}`,
         }));

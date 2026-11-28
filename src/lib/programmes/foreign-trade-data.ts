@@ -5,7 +5,7 @@
  * cannot be reached, and the source of the built-in feature icons and form options.
  */
 
-const IMG = (name: string) => `/programmes/foreign-trade/${name}`;
+const IMG = (name: string) => `/programs/foreign-trade/${name}`;
 
 export type FtmPerson = { name: string; role: string; message: string; image: string };
 export type FtmFeeGroup = { title: string; lines: string[]; subheading?: string; bullets?: string[] };

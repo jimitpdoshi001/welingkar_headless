@@ -78,7 +78,7 @@ export const MDC: MdcData = {
     { label: "Corporate interface", href: "/corporate-interface" },
     { label: "We Research", href: "/we-research-mumbai" },
     { label: "We Excel", href: "#why" },
-    { label: "MDP", href: "/programmes/mdp" },
+    { label: "MDP", href: "/programs/mdp" },
     { label: "Life @ WeSchool", href: "/life-at-weschool" },
   ],
   stats: [
@@ -188,7 +188,7 @@ export const MDC_BENGALURU: MdcData = {
   galleryRules: { captionedInLoadMore: true },
 
   // MDP tab opens the Bengaluru MDP page.
-  nav: MDC.nav.map((n) => (n.label === "MDP" ? { ...n, href: "/programmes/mdp/bengaluru" } : n)),
+  nav: MDC.nav.map((n) => (n.label === "MDP" ? { ...n, href: "/programs/mdp/bengaluru" } : n)),
   hero: { ...MDC.hero, image: BIMG("hero") },
   learning: { ...MDC.learning, images: [BIMG("learn1"), BIMG("learn2")] },
   about: { ...MDC.about, image: BIMG("about") },

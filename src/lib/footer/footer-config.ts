@@ -11,14 +11,14 @@ const COLUMNS: { title: string; items: Item[] }[] = [
   {
     title: "Programs",
     items: [
-      ["Full Time", "/programmes/full-time-programme-in-mumbai"],
-      ["Executive", "/programmes/mdp"],
-      ["MMS", "/programmes/full-time-programme-in-mumbai/masters-in-management-studies"],
-      ["PGP in Entrepreneurship & Family Managed Business (EFMB)", "/programmes/executive-programme-in-mumbai/entrepreneurship-management"],
-      ["PGP in Media & Entertainment", "/programmes/executive-programme-in-mumbai/media-and-entertainment-management"],
-      ["11 months PGP & 6 Months Certificate", "/programmes/11-month-pg-6-month-certificate-programmes"],
-      ["PGDM Hybrid Program", "/programmes/pgdm-hybrid"],
-      ["PGP Foreign Trade Management", "/programmes/foreign-trade-management"],
+      ["Full Time", "/programs/full-time-program-in-mumbai"],
+      ["Executive", "/programs/mdp"],
+      ["MMS", "/programs/full-time-program-in-mumbai/masters-in-management-studies"],
+      ["PGP in Entrepreneurship & Family Managed Business (EFMB)", "/programs/executive-program-in-mumbai/entrepreneurship-management"],
+      ["PGP in Media & Entertainment", "/programs/executive-program-in-mumbai/media-and-entertainment-management"],
+      ["11 months PGP & 6 Months Certificate", "/programs/11-month-pg-6-month-certificate-programs"],
+      ["PGDM Hybrid Program", "/programs/pgdm-hybrid"],
+      ["PGP Foreign Trade Management", "/programs/foreign-trade-management"],
     ],
   },
   {

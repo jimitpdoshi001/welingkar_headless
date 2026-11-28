@@ -203,10 +203,10 @@ export type PgdmData = {
   studentInitiatives?: PgdmStudentInitiatives;
 };
 
-// Local image slots: /public/programmes/pgdm/<mumbai|bengaluru>/<name>.webp.
+// Local image slots: /public/programs/pgdm/<mumbai|bengaluru>/<name>.webp.
 // Each ships with a labelled placeholder; upload a file with the same name to replace it.
 const pgdmImages = (slug: "mumbai" | "bengaluru") => {
-  const img = (name: string) => `/programmes/pgdm/${slug}/${name}.webp`;
+  const img = (name: string) => `/programs/pgdm/${slug}/${name}.webp`;
   return {
     hero: img("hero"),
     why: img("why-this-program"),
@@ -236,25 +236,25 @@ const pgdmImages = (slug: "mumbai" | "bengaluru") => {
 };
 
 const SHARED_QUICK_REASONS: PgdmFeature[] = [
-  { id: "qr-1", icon: "/programmes/pgdm/icons/leadership.png", title: "Leadership", description: "Developing capable, visionary leaders ready to guide organizations." },
-  { id: "qr-2", icon: "/programmes/pgdm/icons/innovation.png", title: "Innovation", description: "Fostering creative problem-solving and an innovative mindset." },
-  { id: "qr-3", icon: "/programmes/pgdm/icons/critical-thinking.png", title: "Critical Thinking", description: "Analytical abilities to navigate complex business scenarios." },
-  { id: "qr-4", icon: "/programmes/pgdm/icons/communication.png", title: "Communication Skills", description: "Effective and persuasive professional communication." },
-  { id: "qr-5", icon: "/programmes/pgdm/icons/global-perspective.png", title: "Global Perspective", description: "Understanding international markets and diverse cultures." },
-  { id: "qr-6", icon: "/programmes/pgdm/icons/role-of-self.png", title: "Role of Self", description: "Awareness of individual impact on the organization and broader society." },
+  { id: "qr-1", icon: "/programs/pgdm/icons/leadership.png", title: "Leadership", description: "Developing capable, visionary leaders ready to guide organizations." },
+  { id: "qr-2", icon: "/programs/pgdm/icons/innovation.png", title: "Innovation", description: "Fostering creative problem-solving and an innovative mindset." },
+  { id: "qr-3", icon: "/programs/pgdm/icons/critical-thinking.png", title: "Critical Thinking", description: "Analytical abilities to navigate complex business scenarios." },
+  { id: "qr-4", icon: "/programs/pgdm/icons/communication.png", title: "Communication Skills", description: "Effective and persuasive professional communication." },
+  { id: "qr-5", icon: "/programs/pgdm/icons/global-perspective.png", title: "Global Perspective", description: "Understanding international markets and diverse cultures." },
+  { id: "qr-6", icon: "/programs/pgdm/icons/role-of-self.png", title: "Role of Self", description: "Awareness of individual impact on the organization and broader society." },
 ];
 
 const SHARED_USPS: PgdmFeature[] = [
-  { id: "usp-1", icon: "/programmes/pgdm/icons/benchmarking.png", title: "Benchmarking", description: "of syllabus as against top International and Indian business schools." },
-  { id: "usp-2", icon: "/programmes/pgdm/icons/assessment-centre.png", title: "Assessment centre", description: "for student development supported with structured domain and grooming sessions." },
-  { id: "usp-3", icon: "/programmes/pgdm/icons/development-centre.png", title: "Development centre", description: "through excel training, guest sessions, domain tests, aptitude tests, mock GD/PI." },
-  { id: "usp-4", icon: "/programmes/pgdm/icons/finance-gym.png", title: "Finance GYM", description: "– online interactive game on equity, conducted by ‘The Learning Curve Academy’." },
-  { id: "usp-5", icon: "/programmes/pgdm/icons/fit-for-finance.png", title: "Fit for Finance", description: "– workshops on strengthening finance concepts." },
-  { id: "usp-6", icon: "/programmes/pgdm/icons/roundtable.png", title: "Roundtable conferences", description: "– panellists from the industry and alumni." },
-  { id: "usp-7", icon: "/programmes/pgdm/icons/focused-mentoring.png", title: "Focused mentoring" },
-  { id: "usp-8", icon: "/programmes/pgdm/icons/continuous-assessment.png", title: "Continuous assessment", description: "evaluation of students." },
-  { id: "usp-9", icon: "/programmes/pgdm/icons/hr-lab.png", title: "HR Lab", description: "– learning by doing experience on real-life business challenges." },
-  { id: "usp-10", icon: "/programmes/pgdm/icons/markquest.png", title: "MarkQuest", description: "– student-driven marketing club of WeSchool, aimed to engage and enrich marketing students with domain knowledge and practical insights." },
+  { id: "usp-1", icon: "/programs/pgdm/icons/benchmarking.png", title: "Benchmarking", description: "of syllabus as against top International and Indian business schools." },
+  { id: "usp-2", icon: "/programs/pgdm/icons/assessment-centre.png", title: "Assessment centre", description: "for student development supported with structured domain and grooming sessions." },
+  { id: "usp-3", icon: "/programs/pgdm/icons/development-centre.png", title: "Development centre", description: "through excel training, guest sessions, domain tests, aptitude tests, mock GD/PI." },
+  { id: "usp-4", icon: "/programs/pgdm/icons/finance-gym.png", title: "Finance GYM", description: "– online interactive game on equity, conducted by ‘The Learning Curve Academy’." },
+  { id: "usp-5", icon: "/programs/pgdm/icons/fit-for-finance.png", title: "Fit for Finance", description: "– workshops on strengthening finance concepts." },
+  { id: "usp-6", icon: "/programs/pgdm/icons/roundtable.png", title: "Roundtable conferences", description: "– panellists from the industry and alumni." },
+  { id: "usp-7", icon: "/programs/pgdm/icons/focused-mentoring.png", title: "Focused mentoring" },
+  { id: "usp-8", icon: "/programs/pgdm/icons/continuous-assessment.png", title: "Continuous assessment", description: "evaluation of students." },
+  { id: "usp-9", icon: "/programs/pgdm/icons/hr-lab.png", title: "HR Lab", description: "– learning by doing experience on real-life business challenges." },
+  { id: "usp-10", icon: "/programs/pgdm/icons/markquest.png", title: "MarkQuest", description: "– student-driven marketing club of WeSchool, aimed to engage and enrich marketing students with domain knowledge and practical insights." },
 ];
 
 const CAREER_TABS = [
@@ -351,11 +351,11 @@ function makeData(campus: "Mumbai" | "Bengaluru"): PgdmData {
     educationalObjectives: {
       heading: "Program Educational Objectives",
       items: [
-        { id: "peo-1", icon: "/programmes/pgdm/icons/leadership.png", text: "Management graduates will be able to demonstrate professionalism in their performance of tasks, exhibit value-based and socially responsible behavior in their pursuits and career." },
-        { id: "peo-2", icon: "/programmes/pgdm/icons/global-perspective.png", text: "Management graduates will espouse the culture and spirit of entrepreneurship in organizations they choose to serve as well as in society." },
-        { id: "peo-3", icon: "/programmes/pgdm/icons/innovation.png", text: "Management graduates will be equipped with relevant knowledge in the business domain." },
-        { id: "peo-4", icon: "/programmes/pgdm/icons/communication.png", text: "Management graduates will champion social values and ethical behavior in pursuit of sustainable development." },
-        { id: "peo-5", icon: "/programmes/pgdm/icons/critical-thinking.png", text: "Management graduates will demonstrate critical thinking, creativity and innovation to emerge as business leaders and entrepreneurs." },
+        { id: "peo-1", icon: "/programs/pgdm/icons/leadership.png", text: "Management graduates will be able to demonstrate professionalism in their performance of tasks, exhibit value-based and socially responsible behavior in their pursuits and career." },
+        { id: "peo-2", icon: "/programs/pgdm/icons/global-perspective.png", text: "Management graduates will espouse the culture and spirit of entrepreneurship in organizations they choose to serve as well as in society." },
+        { id: "peo-3", icon: "/programs/pgdm/icons/innovation.png", text: "Management graduates will be equipped with relevant knowledge in the business domain." },
+        { id: "peo-4", icon: "/programs/pgdm/icons/communication.png", text: "Management graduates will champion social values and ethical behavior in pursuit of sustainable development." },
+        { id: "peo-5", icon: "/programs/pgdm/icons/critical-thinking.png", text: "Management graduates will demonstrate critical thinking, creativity and innovation to emerge as business leaders and entrepreneurs." },
       ],
     },
     outcomes: {

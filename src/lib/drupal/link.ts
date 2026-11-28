@@ -1,4 +1,4 @@
-import { toPublicPath } from "@/lib/seo/public-paths";
+import { modernProgramPath, toPublicPath } from "@/lib/seo/public-paths";
 const SAFE_PROTOCOLS = new Set(["http:", "https:", "mailto:", "tel:"]);
 
 /** Reject javascript:, data:, protocol-relative, and other non-navigation URLs. */
@@ -22,7 +22,8 @@ export function isSafeHref(value: string): boolean {
 
 function safe(href: string | null): string | null {
   if (!href || !isSafeHref(href)) return null;
-  return href;
+  // Drupal content still uses the old "programme" spellings in program URLs.
+  return /^https?:\/\/welingkar-headless\.vercel\.app\//i.test(href) || href.startsWith("/") ? modernProgramPath(href) : href;
 }
 
 /**
